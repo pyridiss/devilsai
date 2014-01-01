@@ -57,6 +57,70 @@ function testEnoughEnergy()
 	return true
 end
 
+function getForce()
+	return 0
+end
+
+function getPuissance()
+	return 0
+end
+
+function getAgilite()
+	return 0
+end
+
+function getIntelligence()
+	return 0
+end
+
+function getConstitution()
+	return 0
+end
+
+function getCharisme()
+	return 0
+end
+
+function getEsquive()
+	return 0
+end
+
+function getRecuperation()
+	return 0
+end
+
+function getMultForce()
+	return 0
+end
+
+function getMultPuissance()
+	return 0
+end
+
+function getMultAgilite()
+	return 0
+end
+
+function getMultIntelligence()
+	return 0
+end
+
+function getMultConstitution()
+	return 0
+end
+
+function getMultCharisme()
+	return 0
+end
+
+function getMultEsquive()
+	return 0
+end
+
+function getMultRecuperation()
+	return 0
+end
+
 function dispImage(x, y)
 	dispImageSkill(getInternalNumber(), x, y)
 	dispText(getQuantityOf(owner, object), x + 30, y + 30)
