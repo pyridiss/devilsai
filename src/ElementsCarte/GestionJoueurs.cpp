@@ -312,20 +312,15 @@ int Joueur::Gestion()
 		else Partie.CoffreOuvert = NULL;
 
 		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-// 			if (CompetencesRapides[c] != NULL) CompetencesRapides[c]->Utilisation(this);
 			if (skillLinks[c] != NULL)
 			{
-					lua_getglobal(skillLinks[c], "use");
-					lua_call(skillLinks[c], 0, 0);
+				lua_getglobal(skillLinks[c], "use");
+				lua_call(skillLinks[c], 0, 0);
 			}
 
-		//Remise à zéro des compétences si l'activité en cours est finie
-		if (Get_Num() == 0)
-		{
-			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-				if (skillLinks[c] != NULL) setBoolToLUA(skillLinks[c], "setActivated", false);
-			if (ChoixCompetence == COMPETENCE_AUCUNE) Competence = COMPETENCE_AUCUNE;
-		}
+		//Stop using skills if the current one is finished
+		if (Competence != COMPETENCE_AUCUNE && getBoolFromLUA(skillLinks[Competence], "getActivated") == false)
+			Competence = COMPETENCE_AUCUNE;
 	}
 
 	Disp(PosX, PosY);

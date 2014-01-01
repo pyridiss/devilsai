@@ -30,6 +30,10 @@ function setActivated(value)
 	activated = value
 end
 
+function getActivated()
+	return activated
+end
+
 function setActiviteFinished(value)
 	activiteFinished = value
 end
@@ -37,6 +41,7 @@ end
 function use()
 	if activated == true and activiteFinished == true then
 		useObject(owner, object)
+		activated = false
 	end
 	activiteFinished = false
 end

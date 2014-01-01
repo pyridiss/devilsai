@@ -58,6 +58,10 @@ function setActivated(value)
 	activated = value
 end
 
+function getActivated()
+	return activated
+end
+
 function setActiviteFinished(value)
 	activiteFinished = value
 end
@@ -95,7 +99,8 @@ function use()
 		set(projectile, "PosX", get(owner, "PosX") + dirToCoeff("X", get(owner, "Dir")) * 20)
 		set(projectile, "PosY", get(owner, "PosY") + dirToCoeff("Y", get(owner, "Dir")) * 20)
 
-		set(owner, "energy", get(owner, "energy") - getNeededEnergy());
+		set(owner, "energy", get(owner, "energy") - getNeededEnergy())
+		activated = false
 	end
 	activiteFinished = false
 end

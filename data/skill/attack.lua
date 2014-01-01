@@ -31,6 +31,10 @@ function setActivated(value)
 	activated = value
 end
 
+function getActivated()
+	return activated
+end
+
 function setActiviteFinished(value)
 	activiteFinished = value
 end
@@ -40,10 +44,11 @@ function use()
 		enemy = getElementInteraction(owner)
 		if enemy ~= 0 and testEnoughEnergy() == true then
 			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
-				combat(owner, enemy);
+				combat(owner, enemy)
 			end
 		end
-		set(owner, "energy", get(owner, "energy") - getNeededEnergy());
+		set(owner, "energy", get(owner, "energy") - getNeededEnergy())
+		activated = false
 	end
 	activiteFinished = false
 end
