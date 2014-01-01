@@ -10,7 +10,7 @@
        \/______/      \/____/ \/____/      \/_/\/_____//____/  \/__/ \/__/ \/_/
 
 
-	Version 0.3 - SVN révision 67
+	Version master
 
 ==========
 = README =
@@ -25,7 +25,7 @@ Devilsai is a Action-Role Playing Game written using the SFML library.
 ==========
 
     Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2010-2011-2012  Quentin Henriet
+    Copyright (C) 2009-2014  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,44 +41,16 @@ Devilsai is a Action-Role Playing Game written using the SFML library.
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Ce logiciel utilise les bibliothèques SFML et PhysicsFS toutes deux sous licence zlib/png :
-
-SFML - Copyright (c) 2007-2012 Laurent Gomila
-PhysicsFS - Copyright (c) 2001-2011 Ryan C. Gordon and others.
-
-	This software is provided 'as-is', without any express or
-	implied warranty. In no event will the authors be held
-	liable for any damages arising from the use of this software.
-
-	Permission is granted to anyone to use this software for any purpose,
-	including commercial applications, and to alter it and redistribute
-	it freely, subject to the following restrictions:
-
-	1. The origin of this software must not be misrepresented;
-	   you must not claim that you wrote the original software.
-	   If you use this software in a product, an acknowledgment
-	   in the product documentation would be appreciated but
-	   is not required.
-
-	2. Altered source versions must be plainly marked as such,
-	   and must not be misrepresented as being the original software.
-
-	3. This notice may not be removed or altered from any
-	   source distribution.
-
-
+Ce logiciel utilise les bibliothèques SFML 2.0, PhysicsFS et Lua5.2
 
 1. QUICK MANUAL
 ===============
 
 For Windows, a zip file containing a compiled version of the game is available.
 
-How to install from sources under Linux or other UNIX system:
-./configure
-make
-sudo make install
+Under Linux or other UNIX system, you will need to use CMake to compile and install Devilsai.
 
-The game needs PhysicsFS and SFML (version 2.0+git20120313, available on the Sourceforge page of the game).
+The game needs PhysicsFS, SFML 2.0 and Lua5.2.
 
 Both English and French are available, but English is very incomplete (and not maintained anymore…).
 
@@ -98,23 +70,13 @@ Use the key 'S' to save the game, and the key 'P' to pause the game.
 2. INSTALLATION
 ===============
 
-2.1. COMPILATION (DÉPÔT SVN OU ARCHIVE TARBALL)
------------------------------------------------
+2.1. COMPILATION
+----------------
 
-Devilsai nécessite la version de développement de la bibliothèque SFML (version 2), qui peut être récupérée sur GitHub,
-ainsi que la bibliothèque PhysicsFS.
+Devilsai a besoin des bibliothèques PhysicsFS, Lua5.2 et SFML 2.0 
 
-Le programme a été écrit et testé avec la révision git du 13.03.2012 de la SFML. Celle-ci peut être récupérée sur la page
-du projet Devilsai sur SourceForge.
-
-Pour compiler : taper dans la console :
-	> cd devilsai/trunk/		(si récupéré depuis le dépôt)
-	> cd devilsai-0.2.svnXX/	(si archive tarball), où XX correspond à la version téléchargée
-	> ./configure
-	> make
-	> make install
-
-Le jeu est installé sur l'ordinateur et peut être lancé depuis le menu.
+Vous devez utiliser le logiciel CMake pour compiler et installer Devilsai.
+Plus d'informations sur http://www.cmake.org
 
 
 2.2. INSTALLATION SUR MICROSOFT WINDOWS
@@ -178,7 +140,7 @@ Utiliser la touche 'P' pour mettre le jeu en pause.
 4. DEBOGAGE
 ===========
 
-Si une erreur se produit en cours de jeu, celle-ci sera peut être enregistrée dans le fichier Devilsai_Errors.
+Si une erreur se produit en cours de jeu, celle-ci sera peut-être enregistrée dans le fichier Devilsai_Errors.
 Un message apparaît à l'écran pour signaler qu'une erreur s'est produite (si le jeu ne plante pas).
 Le fichier Devilsai_Errors se trouve dans le répertoire à partir duquel le programme est exécuté.
 
@@ -216,6 +178,8 @@ Toujours disponible :
   -> sur GitHub :       https://github.com/LaurentGomila/SFML/
 
 - Projet PhysicsFS :    http://icculus.org/physfs/
+
+- Projet LUA :          http://www.lua.org
 
 - Certaines images du jeu sont tirées du site http://www.reinerstilesets.de/
 - La police Cardinal est tirée du site http://www.steffmann.de
