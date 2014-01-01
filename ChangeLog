@@ -1,3 +1,8 @@
+* 2014-01-01 Quentin Henriet <quentin.henriet@free.fr> 0.4.0
+- Quests, skills and objects ported to LUA.
+- French texts updated.
+- Minor changes and a few bugs fixed.
+
 * 2012-12-02 Quentin Henriet <quentin.henriet@free.fr> 0.3.svn67
 - Version 0.3.
 - New potions.
