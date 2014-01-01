@@ -100,6 +100,9 @@ class Caracteristiques
 		void saveSkills(ofstream& stream);
 		void loadSkillFromSavedGame(string skill, string data);
 		void deleteSkills();
+
+	public:
+		pair<int, int> getFromObjectsAndSkills(string characteristic);
 };
 
 class Activite

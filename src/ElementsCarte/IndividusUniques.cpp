@@ -157,113 +157,81 @@ void Individu_Unique::Lag_Recuperation(float lag)
 unsigned int Individu_Unique::Get_Force()
 {
 	int Total = 1./2. * Get_Caracs()->Force * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getForce");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultForce");
-	}
+	pair<int, int> addedForce = Get_Caracs()->getFromObjectsAndSkills("Force");
+	Total += addedForce.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedForce.second*Total/100.;
 }
 
 unsigned int Individu_Unique::Get_Puissance()
 {
 	int Total = 1./2. * Get_Caracs()->Puissance * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getPuissance");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultPuissance");
-	}
+	pair<int, int> addedPuissance = Get_Caracs()->getFromObjectsAndSkills("Puissance");
+	Total += addedPuissance.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedPuissance.second*Total/100.;
 }
 
 unsigned short Individu_Unique::Get_Agilite()
 {
 	int Total = 1./2. * Get_Caracs()->Agilite * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getAgilite");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultAgilite");
-	}
+	pair<int, int> addedAgilite = Get_Caracs()->getFromObjectsAndSkills("Agilite");
+	Total += addedAgilite.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedAgilite.second*Total/100.;
 }
 
 unsigned short Individu_Unique::Get_Intelligence()
 {
 	int Total = 1./2. * Get_Caracs()->Intelligence * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getIntelligence");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultIntelligence");
-	}
+	pair<int, int> addedIntelligence = Get_Caracs()->getFromObjectsAndSkills("Intelligence");
+	Total += addedIntelligence.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedIntelligence.second*Total/100.;
 }
 
 unsigned short Individu_Unique::Get_Constitution()
 {
 	int Total = 1./2. * Get_Caracs()->Constitution * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getConstitution");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultConstitution");
-	}
+	pair<int, int> addedConstitution = Get_Caracs()->getFromObjectsAndSkills("Constitution");
+	Total += addedConstitution.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedConstitution.second*Total/100.;
 }
 
 unsigned short Individu_Unique::Get_Esquive()
 {
 	int Total = 1./2. * Get_Caracs()->Esquive * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getEsquive");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultEsquive");
-	}
+	pair<int, int> addedEsquive = Get_Caracs()->getFromObjectsAndSkills("Esquive");
+	Total += addedEsquive.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedEsquive.second*Total/100.;
 }
 
 unsigned short Individu_Unique::Get_Charisme()
 {
 	int Total = 1./2. * Get_Caracs()->Charisme * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getCharisme");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultCharisme");
-	}
+	pair<int, int> addedCharisme = Get_Caracs()->getFromObjectsAndSkills("Charisme");
+	Total += addedCharisme.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedCharisme.second*Total/100.;
 }
 
 int Individu_Unique::Get_RecuperationMoyenne()
 {
 	int Total = Get_Caracs()->RecuperationMoyenne;
-	float coeffMultiplicatif = 0;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getRecuperation");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultRecuperation");
-	}
+	pair<int, int> addedRecuperation = Get_Caracs()->getFromObjectsAndSkills("Recuperation");
+	Total += addedRecuperation.first;
 
-	return Total + coeffMultiplicatif*Total/100.;
+	return Total + addedRecuperation.second*Total/100.;
 }
 
 int Individu_Unique::Get_Vitesse(short act)

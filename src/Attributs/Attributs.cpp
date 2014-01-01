@@ -172,6 +172,23 @@ void Caracteristiques::deleteSkills()
 }
 
 
+pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
+{
+	pair<int, int> addedCharacteristic;
+
+	for (auto& i : objects.objects)
+	{
+		addedCharacteristic.first += getIntFromLUA(i.second, "get" + characteristic);
+		addedCharacteristic.second += getIntFromLUA(i.second, "getMult" + characteristic);
+	}
+	for (auto& i : skills)
+	{
+		addedCharacteristic.first += getIntFromLUA(i.second, "get" + characteristic);
+		addedCharacteristic.second += getIntFromLUA(i.second, "getMult" + characteristic);
+	}
+	return addedCharacteristic;
+}
+
 /** FONCTIONS DE LA CLASSE Activite **/
 
 int Activite::NombreDirections()
