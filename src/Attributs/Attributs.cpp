@@ -43,7 +43,7 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
 
 	lua_atpanic(L, LUA_panic);
 
-	//lua_register(L, "fct", LUA_fct);
+	lua_register(L, "cout", LUA_cout);
 
 	if (qualityRandomObject > 0) setIntToLUA(L, "generateRandomObject", qualityRandomObject);
 
@@ -110,6 +110,8 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 
 	luaL_dofile(L, (Partie.DATA + "skill/" + newSkill + ".lua").c_str());
 
+	lua_atpanic(L, LUA_panic);
+
 	lua_register(L, "addImageProjectile", [](lua_State* L) {
 		AjouterImageProjectile(lua_tostring(L, 1), lua_tonumber(L, 2)); return 0;
 	});
@@ -132,6 +134,7 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_register(L, "dispText", LUA_dispText);
 	lua_register(L, "getQuantityOf", LUA_getQuantityOf);
 	lua_register(L, "I", LUA_I);
+	lua_register(L, "cout", LUA_cout);
 
 	lua_getglobal(L, "skillBegin");
 	lua_pushnumber(L, owner);
