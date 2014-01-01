@@ -28,7 +28,7 @@ using namespace std;
 #define VERSION "master"
 
 //Constantes de débogage
-//#define DEBOGAGE 1
+#define DEBOGAGE 1
 
 #define FICHIER	1
 #define IMAGE	2

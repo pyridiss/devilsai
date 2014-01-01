@@ -108,6 +108,7 @@ set(img
     BoutonSuivant.png
     BoutonSuivantAppuye.png
     C101.png
+    C102.png
     C301.png
     C401.png
     Curtis.img

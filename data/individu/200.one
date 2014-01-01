@@ -22,9 +22,11 @@ FIN_INVENTAIRE
 SKILL attack
 SKILL fireball
 SKILL healpotion
+SKILL achieve
 DEFAUT_CTRL attack
 DEFAUT_SHIFT fireball
 DEFAUT_TAB healpotion
+DEFAUT_SPACE achieve
 ACT 6 blo 4
 VIT 6
 MAJ 0
@@ -77,6 +79,18 @@ DIR 4 img 12
 DIR 5 img 12
 DIR 6 img 12
 DIR 7 img 12
+FIN_ACT
+ACT 102 blo 1
+VIT 30
+MAJ 26
+DIR 0 img 10
+DIR 1 img 10
+DIR 2 img 10
+DIR 3 img 10
+DIR 4 img 10
+DIR 5 img 10
+DIR 6 img 10
+DIR 7 img 10
 FIN_ACT
 ACT 301 blo 1
 VIT 14
