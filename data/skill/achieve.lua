@@ -55,16 +55,16 @@ function use()
 
 		if enemy ~= 0 or numberOfSteps >= maxSteps then
 			partOfSkill = "attack"
+		end
 
-			if activiteFinished == true then --We wait for the end of attack animation
-				if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
-					combat(owner, enemy)
-				end
-				set(owner, "energy", get(owner, "energy") - getNeededEnergy())
-				activated = false
-				partOfSkill = "run"
-				numberOfSteps = 0
+		if partOfSkill == "attack" and activiteFinished == true then --We wait for the end of attack animation
+			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
+				combat(owner, enemy)
 			end
+			set(owner, "energy", get(owner, "energy") - getNeededEnergy())
+			activated = false
+			partOfSkill = "run"
+			numberOfSteps = 0
 		end
 	end
 	activiteFinished = false
@@ -176,6 +176,24 @@ function getMultEsquive()
 end
 
 function getMultRecuperation()
+	return 0
+end
+
+function getVitesseCourse()
+	if activated == true then
+		return 100
+	end
+	return 0
+end
+
+function getVitesseAttaque()
+	if activated == true then
+		return 100
+	end
+	return 0
+end
+
+function getVitesseBlesse()
 	return 0
 end
 

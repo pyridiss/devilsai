@@ -126,6 +126,18 @@ function getMultRecuperation()
 	return 0
 end
 
+function getVitesseCourse()
+	return 0
+end
+
+function getVitesseAttaque()
+	return 0
+end
+
+function getVitesseBlesse()
+	return 0
+end
+
 function dispImage(x, y)
 	dispImageSkill(getInternalNumber(), x, y)
 	dispText(getQuantityOf(owner, object), x + 30, y + 30)

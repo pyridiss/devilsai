@@ -251,10 +251,13 @@ int Individu_Unique::Get_Vitesse(short act)
 	}
 
 	if (speedType != "")
-		for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-		{
-			Total += getIntFromLUA(i->second, speedType);
-		}
+	{
+		for (auto& i : Get_Caracs()->objects.objects)
+			Total += getIntFromLUA(i.second, speedType);
+
+		for (auto& i : Get_Caracs()->skills)
+			Total += getIntFromLUA(i.second, speedType);
+	}
 
 	return Total;
 }
