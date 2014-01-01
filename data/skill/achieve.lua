@@ -19,6 +19,8 @@ activiteFinished   = false
 degats    = 250
 amplitude = 5
 
+-- Owner loses energy during the whole activity
+runEnergy = 3
 
 -- functions
 -- ---------
@@ -36,6 +38,10 @@ function setActiviteFinished(value)
 end
 
 function use()
+	if activated == true then
+		set(owner, "energy", get(owner, "energy") - I(runEnergy))
+	end
+
 	if activated == true and activiteFinished == true then
 		enemy = getElementInteraction(owner)
 		if enemy ~= 0 and testEnoughEnergy() == true then
@@ -65,7 +71,7 @@ function getAmplitude()
 end
 
 function getNeededEnergy()
-	return 5 * get(owner, "power") / get(owner, "constitution");
+	return 2 * get(owner, "power") / get(owner, "constitution");
 end
 
 function testEnoughEnergy()
@@ -121,6 +127,9 @@ function getMultPuissance()
 end
 
 function getMultAgilite()
+	if activated == true then
+		return 10000
+	end
 	return 0
 end
 
@@ -129,6 +138,9 @@ function getMultIntelligence()
 end
 
 function getMultConstitution()
+	if activated == true then
+		return -50
+	end
 	return 0
 end
 
@@ -137,6 +149,9 @@ function getMultCharisme()
 end
 
 function getMultEsquive()
+	if activated == true then
+		return -100
+	end
 	return 0
 end
 
