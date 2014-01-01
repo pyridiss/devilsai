@@ -1,0 +1,13 @@
+ARCHIVE_IMG Fontaine.img
+RECT_COL 30 16
+EXCENTR 6 -6
+ACT 1 blo 0
+VIT 3
+MAJ 0
+DIR 0 img 4
+FIN_ACT
+ACT 0 blo 0
+VIT 1
+MAJ 0
+DIR 0 img 1
+FIN_ACT

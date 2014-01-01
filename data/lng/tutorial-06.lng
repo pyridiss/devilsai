@@ -1,0 +1,16 @@
+# ############################### #
+# Fichier mis_didact_05_intro.lng #
+# ############################### #
+# 
+# TYPE DE FICHIER	:	DIALOGUE
+# 
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Notez que vous pouvez également vous déplacer, attaquer et lancer des boules de feu en diagonale, en maintenant plusieurs touches fléchées appuyées en même temps.
+en= Note that you can also move, attack and throw fireballs diagonally, maintaining several arrow keys pressed simultaneously.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Malheureusement, les ennemis ne sont pas toujours aussi simples à combattre ; essayez de détruire, selon la manière que vous préférez, ce dernier mannequin.
+en= Unfortunately, the enemies are not always easy to fight; try to destroy the last model, depending on how you prefer.
+xx= ...

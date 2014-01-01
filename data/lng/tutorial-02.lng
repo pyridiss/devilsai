@@ -1,0 +1,11 @@
+# ############################### #
+# Fichier mis_didact_03_intro.lng #
+# ############################### #
+# 
+# TYPE DE FICHIER	:	DIALOGUE
+# 
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Essayez d'abord d'attaquer le mannequin qui se trouve à côté de vous avec votre épée. Approchez-vous suffisamment près de lui, en utilisant les touches fléchées de votre clavier, jusqu'à voir son état de santé apparaître à l'écran. Dès que vous êtes suffisamment proche, attaquez-le avec la touche Ctrl Gauche.
+en= First try to attack the mannequin that is next to you with your sword. Approach close enough to him, using the arrow keys on your keyboard to see his health appear on the screen. Once you are close enough, attack with Left Ctrl.
+xx= ...

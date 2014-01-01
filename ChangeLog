@@ -1,0 +1,129 @@
+* 2012-12-02 Quentin Henriet <quentin.henriet@free.fr> 0.3.svn67
+- Version 0.3.
+- New potions.
+- Fully translated into English.
+- Minor changes and few bugs fixed.
+
+* 2012-11-20 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn66
+- Added a tutorial.
+- Skills classes rewritten.
+- Texts classes improved.
+- New characters.
+- Few bugs fixed.
+
+* 2012-10-28 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn65
+- Several resolutions available.
+- 2 new sets of images.
+- Equipment & Inventory managers rewritten.
+- Several additions and corrections.
+- Few bugs fixed.
+
+* 2012-08-30 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn64
+- Skills added.
+- New management of projectiles.
+- Improvement of missions.
+- New area with new optional quests.
+- Several additions and corrections.
+- Few bugs fixed.
+
+* 2012-06-02 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn63
+- Few bugs fixed.
+
+* 2012-06-02 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn62
+- Menus rewritten.
+- Few bugs fixed.
+
+* 2012-05-17 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn61
+- Game renamed "devilsai".
+- Images manager rewritten.
+- New management of energy and characteristics modifications.
+- Rest added.
+- All enemies can have and inventory dropped when they die.
+
+* 2012-04-20 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn60
+- Inventory added to common individuals.
+- New characteristics for objects.
+
+* 2012-03-13 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn59
+- New object : heal potion
+- Updated the SFML to version 0.2.git20120313.
+
+* 2012-02-25 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn58
+- New screen to load games.
+- New grass tiles.
+- Management of inventory and equipment rewritten.
+
+* 2011-12-28 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn57
+- New area with a new quest.
+- New monsters.
+- Some new things and bug corrections.
+
+* 2011-10-26 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn56
+- Added a new city (Forres) and new characters (Owen & Banquo).
+- Ability to name the main character.
+- Ability to save and load several games.
+
+* 2011-10-02 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn55
+- Added inventory and equipment to unique individuals.
+- Added a new map and functions to change the map.
+- New functions to save the game.
+- Few changes in maps and quests.
+
+* 2011-09-03 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn54
+- New architecture of files.
+- configure.ac rewritten.
+
+* 2011-08-29 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn53
+- New missions for the next quest.
+- Several additions and corrections.
+
+* 2011-08-24 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn52
+- Inventory added.
+- New AI and new behaviours: defence and regeneration research.
+
+* 2011-08-18 Quentin Henriet <quentin.henriet@free.fr> 0.2.svn51
+- Consoles removed.
+- Version 0.2.
+
+* 2011-08-17 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn50
+- Added a new map and a new quest.
+- Several additions and corrections.
+
+* 2011-08-14 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn49
+- Several additions and corrections.
+- New trees & bushes.
+- Added a new little quest.
+
+* 2011-08-07 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn48
+- Several additions and corrections.
+
+* 2011-08-05 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn47
+- Added names for places.
+- Quests texts rewritten.
+- Various bugs fixed.
+
+* 2011-08-01 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn46
+- Added functions that save the game.
+- New data files for equipment.
+
+* 2011-07-28 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn45
+- Added functions that create random equipment.
+- New calculation method of damage.
+- Various bugs fixed.
+
+* 2011-07-26 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn44
+- Added coffers that can be used for keeping equipment.
+
+* 2011-07-23 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn43
+- Added functions that show the stats of the character & his equipment.
+
+* 2011-07-16 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn42
+- Added classes and functions for character's equipment.
+- Added new data files for equipment definition.
+- Several small changes.
+
+* 2011-07-04 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn41
+- configure.am modified in order to make 'install' works.
+
+* 2011-06-30 Quentin Henriet <quentin.henriet@free.fr> 0.1.svn40
+- First release with Autoconf.

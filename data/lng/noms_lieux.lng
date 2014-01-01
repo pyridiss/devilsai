@@ -1,0 +1,54 @@
+# ###################################### #
+# Fichier noms_lieux.lng : Nom des lieux #
+# ###################################### #
+# 
+# TYPE DE FICHIER	:	NOMS
+# 
+*	1001
+fr= Campement
+en= Camp
+xx= ...
+*	1002
+fr= Refuge
+en= Refuge
+xx= ...
+*	1003
+fr= Académie militaire
+en= Military Academy
+xx= ...
+*	1010
+fr= Camp de Gower
+en= Gower's Camp
+xx= ...
+*	1020
+fr= Camp de Fluellen
+en= Fluellen's Camp
+xx= ...
+*	1030
+fr= Forres
+en= Forres
+xx= ...
+*	1101
+fr= La Clairière des Saints
+en= The Glade of the Saints
+xx= ...
+*	1102
+fr= La Route des Glaces
+en= The Ice Road
+xx= ...
+*	1103
+fr= Les Terres Anciennes
+en= The Ancient Lands
+xx= ...
+*	1104
+fr= La Forêt de Birnam
+en= The Birnam Forest
+xx= ...
+*	1105
+fr= Les Plaines de Forres
+en= Forres Lands
+xx= ...
+*	1106
+fr= Les collines de Noirefontaine
+en= The hills of Noirefontaine
+xx= ...

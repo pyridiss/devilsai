@@ -1,0 +1,111 @@
+ARCHIVE_IMG Joueur.img
+DIPLOM 1
+CMP_VIS 0
+RAY_COL 20
+RAY_INTER 45
+EMPLACEMENT_EQUIP 10 240 75 100 regulier arme epee
+EMPLACEMENT_EQUIP 170 240 75 100 regulier bouclier bouclier
+EMPLACEMENT_EQUIP 90 160 75 75 regulier casque casque
+EMPLACEMENT_EQUIP 90 240 75 100 regulier armure armure
+EMPLACEMENT_EQUIP 90 345 75 100 regulier bottes bottes
+EMPLACEMENT_EQUIP 182 345 50 50 regulier bague bague
+EQUIPEMENT regulier-arme gladius0
+EQUIPEMENT regulier-bouclier shield0
+EQUIPEMENT regulier-armure cuirass0
+INVENTAIRE
+OBJET
+TYPE healpotion 1
+FIN_OBJET
+FIN_INVENTAIRE
+SKILL attack
+SKILL fireball
+SKILL healpotion
+DEFAUT_CTRL attack
+DEFAUT_SHIFT fireball
+DEFAUT_TAB healpotion
+ACT 6 blo 4
+VIT 6
+MAJ 0
+DIR 1 img 9
+FIN_ACT
+ACT 5 blo 2
+VIT 15
+MAJ 0
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+DIR 4 img 8
+DIR 5 img 8
+DIR 6 img 8
+DIR 7 img 8
+FIN_ACT
+ACT 3 blo 0
+VIT 13
+MAJ 13
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+DIR 4 img 8
+DIR 5 img 8
+DIR 6 img 8
+DIR 7 img 8
+FIN_ACT
+ACT 2 blo 0
+VIT 3
+MAJ 0
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+DIR 4 img 8
+DIR 5 img 8
+DIR 6 img 8
+DIR 7 img 8
+FIN_ACT
+ACT 101 blo 1
+VIT 14
+MAJ 0
+DIR 0 img 12
+DIR 1 img 12
+DIR 2 img 12
+DIR 3 img 12
+DIR 4 img 12
+DIR 5 img 12
+DIR 6 img 12
+DIR 7 img 12
+FIN_ACT
+ACT 301 blo 1
+VIT 14
+MAJ 0
+DIR 0 img 9
+DIR 1 img 9
+DIR 2 img 9
+DIR 3 img 9
+DIR 4 img 9
+DIR 5 img 9
+DIR 6 img 9
+DIR 7 img 9
+FIN_ACT
+ACT 401 blo 3
+VIT 1
+MAJ 0
+DIR 0 img 1
+DIR 1 img 1
+DIR 2 img 1
+DIR 3 img 1
+DIR 4 img 1
+DIR 5 img 1
+DIR 6 img 1
+DIR 7 img 1
+FIN_ACT
+ACT_DEFAUT 2
+FORCE 300
+PUISS 90
+AGILITE 58
+INTELLI 15
+CONSTIT 5
+ESQUIVE 2
+CHARISM 15
+RECUP 15

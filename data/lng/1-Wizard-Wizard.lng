@@ -1,0 +1,11 @@
+# file 1-Wizard-Wizard
+* POSITION 180 150
+NOM TOUTES_LANGUES Magicien
+fr= Vous devriez vous en aller d'ici tant qu'il est encore temps. Vous êtes bien trop jeune pour comprendre le pouvoir qui protège ce lieu, mais celui-ci s'amenuise de plus en plus et ne pourra plus retenir les monstres bien longtemps.
+en= You should get out of here while there is still time. You are too young to understand the power that protects this place, but it is shrinking more and more, and can not retain the monsters longer.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Magicien
+fr= Je vais mourir, les énergies qui retiennent prisonniers tous les démons qui se sont aventurés ici vont se disperser, et les monstres vont pouvoir réapparaître. Je n'ai plus la force de les retenir, alors partez maintenant, ou affrontez les démons et libérez ce lieu du mal.
+en= I am going to die, the energies that retain prisoners all the demons who have ventured here will disperse, and monsters will be able to return. I no longer have the strength to retain them, so get out now or face the demons and liberate this place from evil.
+xx= ...

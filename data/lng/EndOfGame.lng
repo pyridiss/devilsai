@@ -1,0 +1,17 @@
+# file EndOfGame
+# 
+* POSITION 180 150
+NOM TOUTES_LANGUES Devilsai
+fr= Le jeu Devilsai est terminé. D'autres quêtes et d'autres monstres suivront bientôt, au fur et à mesure du développement du jeu.
+en= Devilsai is finished. Other quests and other monsters will come with the game development.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Devilsai
+fr= Vous pouvez sauvegarder votre partie maintenant, et la reprendre plus tard lorsque de nouvelles aventures seront disponibles !
+en= You can save your game now, and load it later when new adventures are available!
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Devilsai
+fr= Merci d'avoir joué :-)
+en= Thank you for playing :-)
+xx= ...

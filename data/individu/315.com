@@ -1,0 +1,56 @@
+ARCHIVE_IMG Ogre.img
+DIPLOM 2
+CMP_VIS 450
+RAY_COL 17
+RAY_INTER 35
+STUFF healpotion 1 5
+STUFF attackpotion 1 5
+STUFF defensepotion 1 5
+STUFF speedpotion 1 5
+ACT 6 blo 3
+VIT 8
+MAJ 0
+DIR 1 img 11
+FIN_ACT
+ACT 5 blo 2
+VIT 11
+MAJ 0
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+FIN_ACT
+ACT 4 blo 1
+VIT 9
+MAJ 0
+DIR 0 img 10
+DIR 1 img 10
+DIR 2 img 10
+DIR 3 img 10
+FIN_ACT
+ACT 3 blo 0
+VIT 13
+MAJ 7
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+FIN_ACT
+ACT 2 blo 1
+VIT 5
+MAJ 0
+DIR 0 img 6
+DIR 1 img 6
+DIR 2 img 6
+DIR 3 img 6
+FIN_ACT
+ACT_DEFAUT 3
+FORCE 165
+PUISS 60
+AGILITE 55
+INTELLI 10
+CONSTIT 40
+ESQUIVE 5
+CHARISM 40
+RECUP 20
+EXP 85

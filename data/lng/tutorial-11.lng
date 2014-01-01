@@ -1,0 +1,11 @@
+# ############################### #
+# Fichier mis_didact_09_intro.lng #
+# ############################### #
+# 
+# TYPE DE FICHIER	:	DIALOGUE
+# 
+* POSITION 180 150
+NOM TOUTES_LANGUES Bael
+fr= Mais ? Comment as-tu pu survivre à ma résurrection ?\\Cela n'aura été qu'un bref répit, pauvre créature. Tu seras la première victime que j'écraserais par ma magie.
+en= But? How could you survive my resurrection?\\This will have been a brief respite, poor creature. You will be the first victim I crush with my magic.
+xx= ...

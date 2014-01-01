@@ -1,0 +1,150 @@
+# ######################################## #
+# Fichier noms_objets.lng : Nom des objets #
+# ######################################## #
+# 
+# TYPE DE FICHIER	:	NOMS
+# 
+*	0
+fr= Glaive
+en= Gladius
+xx= ...
+*	1
+fr= Glaive
+en= Gladius
+xx= ...
+*	2
+fr= Spatha
+en= Spatha
+xx= ...
+*	3
+fr= Épée d'Acier
+en= Steel Sword
+xx= ...
+*	100
+fr= Écu
+en= Shield
+xx= ...
+*	101
+fr= Écu
+en= Shield
+xx= ...
+*	102
+fr= Pavois
+en= Pavis
+xx= ...
+*	103
+fr= Bouclier d'Acier
+en= Steel Shield
+xx= ...
+*	200
+fr=	Heaume
+en= Great Helm
+xx= ...
+*	201
+fr=	Heaume
+en= Great Helm
+xx= ...
+*	202
+fr=	Bassinet
+en= Bascinet
+xx= ...
+*	203
+fr=	Casque d'Acier
+en= Steel Helmet
+xx= ...
+*	300
+fr= Cuirasse
+en= Cuirass
+xx= ...
+*	301
+fr= Cuirasse
+en= Cuirass
+xx= ...
+*	302
+fr= Armure de Plaques
+en= Plate Armor
+xx= ...
+*	303
+fr= Armure de Plaques d'Acier
+en= Steel Plate Armor
+xx= ...
+*	400
+fr= Solerets
+en= Sabaton
+xx= ...
+*	401
+fr= Solerets
+en= Sabaton
+xx= ...
+*	402
+fr= Bottes de Tissu
+en= Fabric Boots
+xx= ...
+*	403
+fr= Bottes d'Acier
+en= Steel Boots
+xx= ...
+*	500
+fr= Bague de Diamants
+en= Diamond Ring
+xx= ...
+*	501
+fr= Bague de Diamants
+en= Diamond Ring
+xx= ...
+*	502
+fr= Bague de Saphirs
+en= Sapphire Ring
+xx= ...
+*	503
+fr= Pierre des Hautes-Terres
+en= Stone of Highlands
+xx= ...
+*	600
+fr= Potion de soin
+en= Heal potion
+xx= ...
+*	601
+fr= Potion d'attaque
+en= Attack potion
+xx= ...
+*	602
+fr= Potion de défense
+en= Defense potion
+xx= ...
+*	603
+fr= Potion de vitesse
+en= Speed potion
+xx= ...
+*	700
+fr= Pierre non identifiée
+en= Unidentified stone
+xx= ...
+*	800
+fr= Venin d'araignée
+en= Spider venom
+xx= ...
+*	regulier-arme
+fr= Arme
+en= Weapon
+xx= ...
+*	regulier-bouclier
+fr= Bouclier
+en= Shield
+xx= ...
+*	regulier-casque
+fr= Casque
+en= Helmet
+xx= ...
+*	regulier-armure
+fr= Armure
+en= Armor
+xx= ...
+*	regulier-bottes
+fr= Bottes
+en= Boots
+xx= ...
+*	regulier-bague
+fr= Bague
+en= Bague
+xx= ...

@@ -1,0 +1,56 @@
+# ############################### #
+# Fichier mis_didact_06_intro.lng #
+# ############################### #
+# 
+# TYPE DE FICHIER	:	DIALOGUE
+# 
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Pour vous reposer quelques instants, étudions maintenant les informations dont vous disposez : en haut à gauche de votre écran est indiqué votre vitalité, c'est-à-dire votre état de santé général (barre rouge), votre énergie (barre bleue), ainsi que votre récupération actuelle, c'est-à-dire la vitesse à laquelle vous récupérez votre vitalité.
+en= To rest a few moments now study the information you have: at the top left of your screen is shown your vitality, that is to say, your general health (red bar), energy (blue bar) and your current recovery level, that is to say the speed at which you recover your vitality.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Si votre vitalité est basse, vos aptitudes de combat et de défenses seront amoindries. Tâchez de rester en forme le plus longtemps possible, ou vos combats n'en seront que plus difficiles. Faites attention également à votre énergie, une trop grande fatigue vous empêcherait de lancer des sorts et de vous régénerer naturellement.
+en= If your vitality is low, your combat and defense abilities are weakened. Try to stay in shape as long as possible, or your battles will be even more difficult. Also, be careful of your energy, because excessive fatigue may prevent you from casting spells and regenerate naturally.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= En ayant une vitalité et une énergie élevées, vous serez de plus apte à améliorer vos aptitudes, ce qui vous sera très certainement utile si vous voulez continuer l'aventure. Faites bien attention à ne pas laisser votre vitalité descendre à 0 ; ce serait la mort assurée.
+en= With having a high vitality and energy, you will be able to improve your skills, which will certainly be useful if you want to continue the adventure. Be careful not to let your vitality down to 0, it would be certain death.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Lorsque vous êtes blessé, vous pouvez récupérer votre vitalité en buvant une potion de soin ou en buvant l'eau d'une fontaine. Si vous êtes fatigué, c'est-à-dire si votre énergie est faible, vous devrez vous reposer (à l'aide du bouton 'Repos') dans un camp, en sécurité.
+en= When you are injured, you can recover your vitality by drinking a potion or drinking water from a fountain. If you are tired, that is to say, if your energy is low, you should rest (with the button 'Rest') in a camp in safety.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Voyons maintenant vos caractéristiques. Appuyez sur la touche 'A', ou cliquez sur le bouton 'Personnage'.
+en= See now your characteristics. Press 'A', or click 'Character' button.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Votre vitalité, votre énergie et votre taux de récupération y sont à nouveau indiqués. L'expérience est acquise lorsque vous combattez et tuez des ennemis, et vous permettra par la suite d'utiliser des objets difficiles à manier. Vous avez enfin une estimation des dégâts que vous pouvez causer. Attention : les dégâts que vous causez dépendent énormément de votre cible ; ces valeurs vous permettent seulement d'avoir une idée de vos capacités d'attaque actuelles.
+en= Your vitality, your energy and recovery rates are again indicated. Experience is gained when you fight and kill enemies, and will later let you use objects that are difficult to handle. You finally have an estimate of the damage you can cause. Warning: the damage you cause highly dependent on your target, these values only allow you to have an idea of your current attack capabilities.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Dans la colonne de droite, sont détaillées vos caractéristiques.
+en= Your characteristics are detailed in the right column.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Votre force permet d'augmenter les dégâts infligés. Ces dégâts peuvent être attenués par les défenses de l'ennemi.\\Plus votre puissance est importante, moins les défenses physiques de l'ennemis seront efficaces face à votre attaque.\\Plus votre agilité est élevée face à l'agilité de l'ennemi, plus vous aurez de chances de le frapper lorsque vous lancez une attaque.\\Une grande intelligence vous permettra de porter des coups très efficaces à l'ennemi. Cela vous permettra de plus d'améliorer plus rapidement vos autres caractéristiques.
+en= Your strength will increase the damage. This damage can be mitigated through the defenses of the enemy.\\ The more your power is important, the less physical defenses of the enemies will be effective against your attack.\\The more your agility is high against the agility of enemy, the more likely you are to hit when you launch an attack.\\A high intelligence will allow you to deliver very effective hurts to the enemy. This will allow you to implove more quickly your other characteristics.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Votre constitution est votre premier rempart face à une attaque ennemie.\\Votre esquive vous permettra d'esquiver certains coups de l'ennemi.\\Un bon charisme empêchera votre ennemi de vous porter des coups extrêmement puissants.\\Enfin la récupération moyenne est la "valeur de base" pour votre récupération, celle-ci dépendant fortement de votre vitalité et de votre énergie.
+en= Your constitution is your first line of defense against an enemy attack.\\Your dodge will allow you to dodge some blows of the enemy.\\A good charisma will prevent your enemy to attack you extremely powerfully.\\Finally, the average recovery is the "base value" for your recovery rate, which depends heavily on your vitality and energy.
+xx= ...
+* POSITION 180 150
+NOM TOUTES_LANGUES Curtis
+fr= Vous remarquerez que les valeurs de vos caractéristiques sont en deux parties : la première est la valeur de base, la seconde est un bonus ou un malus qui dépend de votre équipement, de votre état de santé et de votre énergie.
+en= You will notice that the values of your attributes are in two parts: the first is the base value, the second is a bonus or a penalty depending on your equipment, your health and your energy.
+xx= ...

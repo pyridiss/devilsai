@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+ Name=Devilsai
+ Exec=devilsai
+ Icon=devilsai
+ Terminal=false
+ Type=Application
+ Categories=Game;RolePlaying;
+ Comment=An action-role playing game
+ X-Desktop-File-Install-Version=0.16
+

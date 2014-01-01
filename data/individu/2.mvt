@@ -1,0 +1,14 @@
+ARCHIVE_IMG didact_attaque_bael.img
+CLASSEMENT_NUAGE
+RAY_COL 0
+EXCENTR 0 0
+ACT 1 blo 0
+VIT 2
+MAJ 0
+DIR 0 img 7
+FIN_ACT
+ACT 0 blo 0
+VIT 1
+MAJ 0
+DIR 0 img 1
+FIN_ACT

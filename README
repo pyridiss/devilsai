@@ -1,0 +1,223 @@
+
+  _____________
+ /\    _____   \
+ \ \   \____ \  \  _______ ___     ___  __  __         ____    ______   __
+  \ \   \   \ \  \/\   ___\\  \   /\  \/\ \/\ \       / ___\ / ____  \ /\ \
+   \ \   \   \ \  \ \  \__/ \  \  \ \  \ \ \ \ \     /\ \__//\  \_L\  \\ \ \
+    \ \   \   \/  /\ \  _\ \ \  \  \/  /\ \ \ \ \    \ \___ \ \   ___  \\ \ \
+     \ \   \__/  /  \ \ \/__\ \  \_/  /  \ \ \ \ \____\/___\ \ \  \\ \  \\ \ \
+      \ \_______/    \ \____\\ \_____/    \ \_\ \_____\\_____/\ \__\\ \__\\ \_\
+       \/______/      \/____/ \/____/      \/_/\/_____//____/  \/__/ \/__/ \/_/
+
+
+	Version 0.3 - SVN révision 67
+
+==========
+= README =
+==========
+
+Devilsai est un jeu en développement écrit en C++ et utilisant la SFML de type «jeu de rôle orienté action».
+Devilsai is a Action-Role Playing Game written using the SFML library.
+
+
+
+0. LICENCE
+==========
+
+    Devilsai - A game written using the SFML library
+    Copyright (C) 2009-2010-2011-2012  Quentin Henriet
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+Ce logiciel utilise les bibliothèques SFML et PhysicsFS toutes deux sous licence zlib/png :
+
+SFML - Copyright (c) 2007-2012 Laurent Gomila
+PhysicsFS - Copyright (c) 2001-2011 Ryan C. Gordon and others.
+
+	This software is provided 'as-is', without any express or
+	implied warranty. In no event will the authors be held
+	liable for any damages arising from the use of this software.
+
+	Permission is granted to anyone to use this software for any purpose,
+	including commercial applications, and to alter it and redistribute
+	it freely, subject to the following restrictions:
+
+	1. The origin of this software must not be misrepresented;
+	   you must not claim that you wrote the original software.
+	   If you use this software in a product, an acknowledgment
+	   in the product documentation would be appreciated but
+	   is not required.
+
+	2. Altered source versions must be plainly marked as such,
+	   and must not be misrepresented as being the original software.
+
+	3. This notice may not be removed or altered from any
+	   source distribution.
+
+
+
+1. QUICK MANUAL
+===============
+
+For Windows, a zip file containing a compiled version of the game is available.
+
+How to install from sources under Linux or other UNIX system:
+./configure
+make
+sudo make install
+
+The game needs PhysicsFS and SFML (version 2.0+git20120313, available on the Sourceforge page of the game).
+
+Both English and French are available, but English is very incomplete (and not maintained anymore…).
+
+During the game, you can see information about the character (vitality, energy, recovery level) and your enemy's vitality.
+You can see actions (attack, injury, ...) if this option is activated.
+Energy is used to attack, to use skills and to recover.
+If your recovery level is positive (green), you will gain vitality. Recovering costs energy. Serious injuries require more energy.
+You can recover your energy by resting in camps.
+Killing enemies and achieving quests will increase your experience and improve your fighting skills.
+
+Use the arrow keys to move around the map, Left Ctrl key to attack an enemy, Left Shift to launch a fire bold, Tab to brink a heal potion.
+See your characteristic with the key 'A', and your equipment & your inventory with the key 'E'.
+Use the key 'S' to save the game, and the key 'P' to pause the game.
+
+
+
+2. INSTALLATION
+===============
+
+2.1. COMPILATION (DÉPÔT SVN OU ARCHIVE TARBALL)
+-----------------------------------------------
+
+Devilsai nécessite la version de développement de la bibliothèque SFML (version 2), qui peut être récupérée sur GitHub,
+ainsi que la bibliothèque PhysicsFS.
+
+Le programme a été écrit et testé avec la révision git du 13.03.2012 de la SFML. Celle-ci peut être récupérée sur la page
+du projet Devilsai sur SourceForge.
+
+Pour compiler : taper dans la console :
+	> cd devilsai/trunk/		(si récupéré depuis le dépôt)
+	> cd devilsai-0.2.svnXX/	(si archive tarball), où XX correspond à la version téléchargée
+	> ./configure
+	> make
+	> make install
+
+Le jeu est installé sur l'ordinateur et peut être lancé depuis le menu.
+
+
+2.2. INSTALLATION SUR MICROSOFT WINDOWS
+---------------------------------------
+
+Une archive contenant l'application compilée et les bibliothèques nécessaires est disponible sur SourceForge.
+
+
+2.3. UTILISATION DE WINE
+------------------------
+
+Le jeu peut être installé à partir de l'archive pour Windows sur toute autre plate-forme à l'aide du logiciel Wine.
+Voir http://www.winehq.org
+
+
+
+3. MANUEL D'UTILISATION DU JEU
+==============================
+
+3.1. Menu principal
+-------------------
+
+Le menu principal permet de lancer un nouveau jeu, de charger un jeu sauvegardé, de modifier les options, et de quitter le programme.
+Les langues Français et Anglais (partiel) sont disponibles.
+Les options sont enregistrées, mais leur modification nécessite un redémarrage du jeu.
+Au lancement d'un nouveau jeu, il vous sera demandé de choisir un nom pour votre personnage. Il sera utile pour retrouver votre sauvegarde.
+
+
+3.2. Écran de jeu
+-----------------
+
+Le jeu démarre par un didacticiel introduisant le fonctionnement du jeu ainsi que le scénario.
+
+Menu Supérieur : Il contient les boutons permettant d'accéder aux pages "Personnage" et "Équipement",
+et permet de sauvegarder le jeu, de mettre le jeu en pause ou de revenir au menu principal (Quitter le jeu).
+
+L'écran présente les informations sur le personnage (vitalité, énergie, niveau de récupération) ainsi que la vitalité de votre ennemi.
+Seront notifiées toutes les actions du personnage (attaque, blessure, ...) si cette option a été activée.
+
+Un certain niveau d'énergie est nécessaire pour pouvoir attaquer les ennemis.
+Si le niveau de récupération est positif (vert), la vitalité va augmenter. Cependant, la récupération coûte de l'énergie.
+L'énergie peut être récupérée en se reposant dans les camps et les refuges.
+Les fontaines et les potions de soin permettent également de récupérer sa vitalité.
+
+Tuer les ennemis et accomplir les quêtes permet d'augmenter l'expérience et d'améliorer les caractéristiques du personnage.
+La façon dont sont menés les combats permet d'améliorer ses caractéristiques. En revanche, des blessures importantes
+peuvent les diminuer.
+
+Utiliser les touches fléchées pour se déplacer sur la carte (lignes droites et diagonales).
+Utiliser les touches Ctrl Gauche, Maj Gauche, Espace et Tab pour utiliser les capacités du personnage :
+→ Ctrl permet d'attaquer l'ennemi,
+→ Maj permet de lancer un sort (boule de feu)
+→ Tab permet d'utiliser une potion de soin.
+Les touches 'A' et 'E' permettent respectivement d'accéder aux pages "Personnage" et "Équipement".
+L'inventaire permet de stocker des objets. Un clic droit permet de les utiliser.
+La touche 'S' permet de sauvegarder le jeu.
+Utiliser la touche 'P' pour mettre le jeu en pause.
+
+
+
+4. DEBOGAGE
+===========
+
+Si une erreur se produit en cours de jeu, celle-ci sera peut être enregistrée dans le fichier Devilsai_Errors.
+Un message apparaît à l'écran pour signaler qu'une erreur s'est produite (si le jeu ne plante pas).
+Le fichier Devilsai_Errors se trouve dans le répertoire à partir duquel le programme est exécuté.
+
+
+4.1. Mode DEBOGAGE (compilation à partir des sources uniquement)
+----------------------------------------------------------------
+
+Pour activer les modes Verbose ou Masks, décommenter la ligne :
+//#define DEBOGAGE	1
+du fichier src/Bibliotheque/Constantes.h avant la compilation.
+
+
+4.2. Arguments en ligne de commande
+-----------------------------------
+
+Disponibles en mode DEBOGAGE uniquement :
+-v, --verbose [fichiers] [images] [listes] : Mode Verbose ; affiche dans la console les messages précisés
+-m, --masks :                                Mode Masks ; affiche sur l'écran les cercles de collision, d'interaction et de vision
+--no-save :                                  Désactive la sauvegarde automatique lors du lancement d'un nouveau jeu
+
+Toujours disponible :
+--no-limit-fps :                             Mode No-Limit-To-FPS ; désactive la limitation du FPS et calcule le FPS moyen, affiché dans la console lors de la fermeture
+--data-dir :                                 Permet de préciser le répertoire dans lequel se trouve le dossier data à utiliser
+
+
+
+5. LIENS
+========
+
+- Site Internet :       http://devilsai.sourceforge.net/
+- Projet SourceForge :  http://sourceforge.net/projects/devilsai/
+
+- Projet SFML :
+  -> site internet :    http://www.sfml-dev.org/
+  -> sur GitHub :       https://github.com/LaurentGomila/SFML/
+
+- Projet PhysicsFS :    http://icculus.org/physfs/
+
+- Certaines images du jeu sont tirées du site http://www.reinerstilesets.de/
+- La police Cardinal est tirée du site http://www.steffmann.de
+- La police Day Roman est publiée gratuitement par Apostrophic Labs.
+

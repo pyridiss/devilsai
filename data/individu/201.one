@@ -1,0 +1,60 @@
+ARCHIVE_IMG Gower.img
+DIPLOM 1
+CMP_VIS 500
+RAY_COL 20
+RAY_INTER 50
+EMPLACEMENT_EQUIP 10 240 75 100 regulier arme epee
+EMPLACEMENT_EQUIP 170 240 75 100 regulier bouclier bouclier
+EMPLACEMENT_EQUIP 90 160 75 75 regulier casque casque
+EMPLACEMENT_EQUIP 90 240 75 100 regulier armure armure
+EMPLACEMENT_EQUIP 90 345 75 100 regulier bottes bottes
+EMPLACEMENT_EQUIP 182 345 50 50 regulier bague bague
+EQUIPEMENT regulier-arme spatha
+EQUIPEMENT regulier-bouclier pavis
+EQUIPEMENT regulier-armure cuirass
+INVENTAIRE
+OBJET
+TYPE sapphirering 10
+FIN_OBJET
+OBJET
+TYPE healpotion 5
+FIN_OBJET
+FIN_INVENTAIRE
+ACT 6 blo 3
+VIT 6
+MAJ 0
+DIR 1 img 9
+FIN_ACT
+ACT 4 blo 1
+VIT 22
+MAJ 0
+DIR 0 img 12
+DIR 1 img 12
+DIR 2 img 12
+DIR 3 img 12
+FIN_ACT
+ACT 3 blo 0
+VIT 15
+MAJ 10
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+FIN_ACT
+ACT 2 blo 0
+VIT 3
+MAJ 0
+DIR 0 img 8
+DIR 1 img 8
+DIR 2 img 8
+DIR 3 img 8
+FIN_ACT
+ACT_DEFAUT 2
+FORCE 400
+PUISS 500
+AGILITE 65
+INTELLI 8
+CONSTIT 30
+ESQUIVE 5
+CHARISM 10
+RECUP 40
