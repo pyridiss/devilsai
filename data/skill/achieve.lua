@@ -22,6 +22,12 @@ amplitude = 5
 -- Owner loses energy during the whole activity
 runEnergy = 3
 
+partOfSkill = "run" -- 1 - "run" ; 2 - "attack"
+
+-- We will not wait forever
+numberOfSteps = 0
+maxSteps = 10
+
 -- functions
 -- ---------
 
@@ -44,23 +50,32 @@ end
 function use()
 	if activated == true then
 		set(owner, "energy", get(owner, "energy") - I(runEnergy))
-	end
 
-	if activated == true and activiteFinished == true then
 		enemy = getElementInteraction(owner)
-		if enemy ~= 0 and testEnoughEnergy() == true then
-			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
-				combat(owner, enemy)
+
+		if enemy ~= 0 or numberOfSteps >= maxSteps then
+			partOfSkill = "attack"
+
+			if activiteFinished == true then --We wait for the end of attack animation
+				if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
+					combat(owner, enemy)
+				end
+				set(owner, "energy", get(owner, "energy") - getNeededEnergy())
+				activated = false
+				partOfSkill = "run"
+				numberOfSteps = 0
 			end
 		end
-		set(owner, "energy", get(owner, "energy") - getNeededEnergy())
-		activated = false
 	end
 	activiteFinished = false
+	numberOfSteps = numberOfSteps + I(1)
 end
 
 function getActivite()
-	return animation
+	if partOfSkill == "run" then
+		return 3
+	end
+	return 101 -- 101 is normal attack
 end
 
 function getInternalNumber()
