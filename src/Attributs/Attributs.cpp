@@ -172,6 +172,29 @@ void Caracteristiques::deleteSkills()
 }
 
 
+unsigned Caracteristiques::operator[](string characteristic)
+{
+	if (characteristic == "Force" || characteristic == "Strength")
+		return Force;
+	if (characteristic == "Puissance" || characteristic == "Power")
+		return Puissance;
+	if (characteristic == "Agilite" || characteristic == "Agility")
+		return Agilite;
+	if (characteristic == "Intelligence" || characteristic == "Intellect")
+		return Intelligence;
+
+	if (characteristic == "Constitution")
+		return Constitution;
+	if (characteristic == "Charisme" || characteristic == "Charism")
+		return Charisme;
+	if (characteristic == "Esquive" || characteristic == "Dodge")
+		return Esquive;
+	if (characteristic == "Recuperation")
+		return RecuperationMoyenne;
+
+	return -1;
+}
+
 /** FONCTIONS DE LA CLASSE Activite **/
 
 int Activite::NombreDirections()

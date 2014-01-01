@@ -95,6 +95,9 @@ class Caracteristiques
 		~Caracteristiques();
 
 	public:
+		unsigned operator[](string characteristic);
+
+	public:
 		void addSkill(string newSkill, int owner);
 		void manageSkills();
 		void saveSkills(ofstream& stream);
