@@ -329,50 +329,30 @@ void Disp_Personnage()
 	if (weapon != NULL)
 	{
 		Disp_Texte(_PERSO_DEGATS, 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->get("Force")/2)
-						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->get("Force")/2);
+		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)Partie.perso->get("Force")/2)
+						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)Partie.perso->get("Force")/2);
 		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 	}
 
-	for (int Carac = 0 ; Carac < 8 ; ++Carac)
+	int numberChar = 0;
+	enumPhrases phrase = _PERSO_FORCE;
+	for (string characteristic : {	"Force", "Puissance", "Agilite", "Intelligence", "Constitution", "Esquive", "Charisme",
+									"RecuperationMoyenne"})
 	{
-		enumPhrases Numero; int Nombre = 0; int Diff = 0;
-		switch(Carac)
-		{
-			case 0 :	Numero = _PERSO_FORCE;	//Nombre = Partie.perso->Caracs.Force;
-						//Diff = Partie.perso->Get_Force() - Partie.perso->Caracs.Force;
-						break;
-			case 1 :	Numero = _PERSO_PUISS;	//Nombre = Partie.perso->Caracs.Puissance;
-						//Diff = Partie.perso->Get_Puissance() - Partie.perso->Caracs.Puissance;
-						break;
-			case 2 :	Numero = _PERSO_AGILITE;	//Nombre = Partie.perso->Caracs.Agilite;
-						//Diff = Partie.perso->Get_Agilite() - Partie.perso->Caracs.Agilite;
-						break;
-			case 3 :	Numero = _PERSO_INTELLI;	//Nombre = Partie.perso->Caracs.Intelligence;
-						//Diff = Partie.perso->Get_Intelligence() - Partie.perso->Caracs.Intelligence;
-						break;
-			case 4 :	Numero = _PERSO_CONSTIT;	//Nombre = Partie.perso->Caracs.Constitution;
-						//Diff = Partie.perso->Get_Constitution() - Partie.perso->Caracs.Constitution;
-						break;
-			case 5 :	Numero = _PERSO_ESQUIVE;	//Nombre = Partie.perso->Caracs.Esquive;
-						//Diff = Partie.perso->Get_Esquive() - Partie.perso->Caracs.Esquive;
-						break;
-			case 6 :	Numero = _PERSO_CHARISM;	//Nombre = Partie.perso->Caracs.Charisme;
-						//Diff = Partie.perso->Get_Charisme() - Partie.perso->Caracs.Charisme;
-						break;
-			case 7 :	Numero = _PERSO_RECUPMOY;	//Nombre = Partie.perso->Caracs.RecuperationMoyenne;
-						//Diff = Partie.perso->Get_RecuperationMoyenne() - Partie.perso->Caracs.RecuperationMoyenne;
-						break;
-		}
+		int absoluteQty = Partie.perso->Caracs[characteristic];
+		int diffQty = Partie.perso->get(characteristic) - absoluteQty;
 
-		Disp_Texte(Numero, 280, Options.ScreenH - 180 + 15*Carac, Color(255, 255, 255, 255), 12.);
+		Disp_Texte(phrase, 280, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 
-		Disp_Texte(intToString(Nombre), 430, Options.ScreenH - 180 + 15*Carac, Color(255, 255, 255, 255), 12.);
+		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 
-		if (Diff > 0)
-			Disp_Texte("+" + intToString(Diff), 460, Options.ScreenH - 180 + 15*Carac, Color(64, 255, 64, 255), 12.);
-		if (Diff < 0)
-			Disp_Texte(intToString(Diff), 460, Options.ScreenH - 180 + 15*Carac, Color(255, 64, 255, 255), 12.);
+		if (diffQty > 0)
+			Disp_Texte("+" + intToString(diffQty), 460, Options.ScreenH - 180 + 15*numberChar, Color(64, 255, 64, 255), 12.);
+		if (diffQty < 0)
+			Disp_Texte(intToString(diffQty), 460, Options.ScreenH - 180 + 15*numberChar, Color(255, 64, 255, 255), 12.);
+
+		++numberChar;
+		phrase = (enumPhrases)(phrase + 1);
 	}
 }
 
