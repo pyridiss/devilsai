@@ -42,14 +42,14 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 	// On empêche (pour le moment) d'attaquer les alliés
 	if (Attaquant->Diplomatie == Blesse->Diplomatie) return;
 
-	float Att_Agilite = (float)(Attaquant->Get_Agilite());
-	float Att_Intelli = (float)(Attaquant->Get_Intelligence());
-	float Att_Puissance = (float)(Attaquant->Get_Puissance());
+	float Att_Agilite = (float)(Attaquant->get("Agilite"));
+	float Att_Intelli = (float)(Attaquant->get("Intelligence"));
+	float Att_Puissance = (float)(Attaquant->get("Puissance"));
 	if (Att_Agilite == 0) Att_Agilite = 1;
 	if (Att_Intelli == 0) Att_Intelli = 1;
 	if (Att_Puissance == 0) Att_Puissance = 1;
 
-	float TauxReussite = (1 + (Att_Agilite - (float)Blesse->Get_Agilite())/Att_Agilite) * 50;
+	float TauxReussite = (1 + (Att_Agilite - (float)Blesse->get("Agilite"))/Att_Agilite) * 50;
 	if (TauxReussite > 95) TauxReussite = 95;
 	if (TauxReussite < 5) TauxReussite = 5;
 
@@ -57,10 +57,10 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
 	if (Succes)
 	{
-		float Degats = Attaquant->Get_Force();
+		float Degats = Attaquant->get("Force");
 		if (L != NULL) Degats += getDoubleFromLUA(L, "getDegats") - getDoubleFromLUA(L, "getAmplitude") + rand()%(2*getIntFromLUA(L, "getAmplitude"));
 
-		float TauxEsquive = (1 + ((float)Blesse->Get_Esquive() - Att_Agilite)/Att_Agilite)*50;
+		float TauxEsquive = (1 + ((float)Blesse->get("Esquive") - Att_Agilite)/Att_Agilite)*50;
 		bool Esquive = (rand()%100 < TauxEsquive) ? true : false;
 
 		if (Esquive)
@@ -74,7 +74,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		}
 		else
 		{
-			float TauxCritique = (1 + (Att_Intelli - (float)Blesse->Get_Charisme())/Att_Intelli)*10;
+			float TauxCritique = (1 + (Att_Intelli - (float)Blesse->get("Charisme"))/Att_Intelli)*10;
 			bool Critique = (rand()%100 < TauxCritique) ? true : false;
 			if (Critique)
 			{
@@ -92,7 +92,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				}
 			}
 
-			Degats *= (1 + (Att_Puissance - (float)Blesse->Get_Constitution())/Att_Puissance)/2;
+			Degats *= (1 + (Att_Puissance - (float)Blesse->get("Constitution"))/Att_Puissance)/2;
 			if (Degats < 5) Degats = 5;
 		}
 

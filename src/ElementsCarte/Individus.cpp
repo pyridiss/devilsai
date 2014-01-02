@@ -64,20 +64,20 @@ void Individu::Set_Dir(int nv)
 
 void Individu::Gestion_Recuperation()
 {
-	if (Get_Recuperation() > 0)
+	if (get("Recuperation") > 0)
 	{
-		if (100*buf_rec <= 2*Get_Recuperation())
+		if (100*buf_rec <= 2*get("Recuperation"))
 		{
 			Lag_Vitalite(1);
-			if (Get_Recuperation() > 80) Lag_Vitalite(3);
-			if (Get_Recuperation() > 90) Lag_Vitalite(6);
-			if (Get_Recuperation() > 95) Lag_Vitalite(6);
+			if (get("Recuperation") > 80) Lag_Vitalite(3);
+			if (get("Recuperation") > 90) Lag_Vitalite(6);
+			if (get("Recuperation") > 95) Lag_Vitalite(6);
 			Lag_Energie(1);
 		}
 	}
-	if (Get_Recuperation() < 0)
+	if (get("Recuperation") < 0)
 	{
-		if (100*buf_rec <= -2*Get_Recuperation())
+		if (100*buf_rec <= -2*get("Recuperation"))
 		{
 			Lag_Vitalite(-1);
 			Lag_Energie(-1);
@@ -87,128 +87,98 @@ void Individu::Gestion_Recuperation()
 	//Évolution de la récupération :
 
 	//Test de récupération forcée (potion, …)
-	if (Get_RecuperationMoyenne() >= 95 || Get_RecuperationMoyenne() <= -95) Set_Recuperation(Get_RecuperationMoyenne());
+	if (get("RecuperationMoyenne") >= 95 || get("RecuperationMoyenne") <= -95) Set_Recuperation(get("RecuperationMoyenne"));
 
 	//Évolution spontanée
 	if (buf_rec >= 10)
 	{
 		//Récuperation trop faible par rapport à la vitalité :
-		if (Get_Recuperation() < Get_RecuperationMoyenne() + (Get_Vitalite()-800)/20) Lag_Recuperation(1);
+		if (get("Recuperation") < get("RecuperationMoyenne") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
 		//Récupération trop importante par rapport à la vitalité :
-		if (Get_Recuperation() > Get_RecuperationMoyenne() + (Get_Vitalite()-800)/20) Lag_Recuperation(-1);
+		if (get("Recuperation") > get("RecuperationMoyenne") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
 
 		//Augmentation de la Récupération automatique en fonction du niveau d'énergie
-		if (Get_Energie() > 200) if (!rand()%20) Lag_Recuperation(1);
-		if (Get_Energie() > 900) if (!rand()%15) Lag_Recuperation(1);
+		if (get("Energie") > 200) if (!rand()%20) Lag_Recuperation(1);
+		if (get("Energie") > 900) if (!rand()%15) Lag_Recuperation(1);
 		buf_rec = 0;
 	}
 	else buf_rec += I(1);
 }
 
-/* GETTERS STATS ET CARACS */
+/* GETTER STATS AND CHARACTERISTICS */
 
-float Individu::Get_Vitalite()
+float Individu::get(string field)
 {
-	return Get_Stats()->Vitalite;
-}
+	float& valueFloat = (*Get_Stats())[field];
 
-float Individu::Get_Energie()
-{
-	return Get_Stats()->Energie;
-}
+	if (valueFloat == Jeu.floatNotFound)
+	{
+		int valueInt = (*Get_Caracs())[field];
+		if (valueInt != Jeu.intNotFound && field != "RecuperationMoyenne")
+			valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
+		if (valueInt != Jeu.intNotFound)
+			return (float)valueInt;
+		else
+			return Jeu.floatNotFound;
+	}
 
-float Individu::Get_Recuperation()
-{
-	return Get_Stats()->Recuperation;
-}
-
-unsigned int Individu::Get_Force()
-{
-	return 1./2. * Get_Caracs()->Force * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned int Individu::Get_Puissance()
-{
-	return 1./2. * Get_Caracs()->Puissance * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned short Individu::Get_Agilite()
-{
-	return 1./2. * Get_Caracs()->Agilite * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned short Individu::Get_Intelligence()
-{
-	return 1./2. * Get_Caracs()->Intelligence * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned short Individu::Get_Constitution()
-{
-	return 1./2. * Get_Caracs()->Constitution * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned short Individu::Get_Esquive()
-{
-	return 1./2. * Get_Caracs()->Esquive * (1. + 1.2*Get_Vitalite()/1000.);
-}
-unsigned short Individu::Get_Charisme()
-{
-	return 1./2. * Get_Caracs()->Charisme * (1. + 1.2*Get_Vitalite()/1000.);
-}
-int Individu::Get_RecuperationMoyenne()
-{
-	return Get_Caracs()->RecuperationMoyenne;
+	return valueFloat;
 }
 
 /* SETTERS DE VITALITÉ, ÉNERGIE ET RÉCUPÉRATION */
 
 void Individu::Set_Vitalite(float vit)
 {
-	if (vit >= 0 && vit <= 1000) Get_Stats()->Vitalite = vit;
-	if (vit > 1000) Get_Stats()->Vitalite = 1000;
-	if (vit < 0) Get_Stats()->Vitalite = 0;
+	if (vit >= 0 && vit <= 1000) Stats["Vitalite"] = vit;
+	if (vit > 1000) Stats["Vitalite"] = 1000;
+	if (vit < 0) Stats["Vitalite"] = 0;
 }
 
 void Individu::Lag_Vitalite(float lag)
 {
 	if (lag < 0)
 	{
-		if (Get_Vitalite() >= -lag) Get_Stats()->Vitalite += lag;
+		if (get("Vitalite") >= -lag) Stats["Vitalite"] += lag;
 		else
 		{
 			Set_Vitalite(0);
 			Set_Activite(MORT);
 		}
 	}
-	if (lag > 0) Get_Stats()->Vitalite += lag;
+	if (lag > 0) Stats["Vitalite"] += lag;
 
-	if (Get_Vitalite() > 1000) Set_Vitalite(1000);
+	if (get("Vitalite") > 1000) Set_Vitalite(1000);
 }
 
 void Individu::Set_Energie(float ene)
 {
-	if (ene >= 0 && ene <= 1000) Get_Stats()->Energie = ene;
+	if (ene >= 0 && ene <= 1000) Stats["Energie"] = ene;
 }
 
 void Individu::Lag_Energie(float lag)
 {
 	if (lag < 0)
 	{
-		if (Get_Energie() >= (unsigned)(-lag)) Get_Stats()->Energie += lag;
+		if (get("Energie") >= (unsigned)(-lag)) Stats["Energie"] += lag;
 		else Set_Energie(0);
 	}
-	if (lag > 0) Get_Stats()->Energie += lag;
+	if (lag > 0) Stats["Energie"] += lag;
 
-	if (Get_Energie() > 1000) Set_Energie(1000);
+	if (get("Energie") > 1000) Set_Energie(1000);
 }
 
 void Individu::Set_Recuperation(float rec)
 {
-	if (rec <= -100) Get_Stats()->Recuperation = -100;
-	else if (rec >= 100) Get_Stats()->Recuperation = 100;
-	else Get_Stats()->Recuperation = rec;
+	if (rec <= -100) Stats["Recuperation"] = -100;
+	else if (rec >= 100) Stats["Recuperation"] = 100;
+	else Stats["Recuperation"] = rec;
 }
 
 void Individu::Lag_Recuperation(float lag)
 {
-	Get_Stats()->Recuperation += lag;
-	if (Get_Recuperation() < -100) Set_Recuperation(-100);
-	if (Get_Recuperation() > 100) Set_Recuperation(100);
+	Stats["Recuperation"] += lag;
+	if (get("Recuperation") < -100) Set_Recuperation(-100);
+	if (get("Recuperation") > 100) Set_Recuperation(100);
 }
 
 void Individu::Disp(float RefX, float RefY)

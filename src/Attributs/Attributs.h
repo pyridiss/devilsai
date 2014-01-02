@@ -48,10 +48,14 @@ typedef list <EmplacementEquipement> ListEmplacementsEquipements;
 
 class Statistiques
 {
-	public:
+	private:
 		float Vitalite		= 1000;
 		float Energie		= 1000;
 		float Recuperation	= 0;
+
+	public:
+		float& operator[](string stat);
+		const float& operator[](string stat) const;
 };
 
 class Objects
@@ -72,17 +76,16 @@ class Objects
 
 class Caracteristiques
 {
-	public:
-		unsigned int Force				= 0;
-		unsigned int Puissance			= 0;
-		unsigned short Agilite			= 0;
-		unsigned short Intelligence		= 0;
+	private:
+		int Force				= 0;
+		int Puissance			= 0;
+		int Agilite				= 0;
+		int Intelligence		= 0;
 
-	public:
-		unsigned short Constitution		= 0;
-		unsigned short Charisme			= 0;
-		unsigned short Esquive			= 0;
-		short int RecuperationMoyenne	= 0;
+		int Constitution		= 0;
+		int Charisme			= 0;
+		int Esquive				= 0;
+		int RecuperationMoyenne	= 0;
 
 	public:
 		MapVitesses Vitesses;
@@ -93,6 +96,10 @@ class Caracteristiques
 
 	public:
 		~Caracteristiques();
+
+	public:
+		int& operator[](string characteristic);
+		const int& operator[](string characteristic) const;
 
 	public:
 		void addSkill(string newSkill, int owner);

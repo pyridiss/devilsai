@@ -336,8 +336,8 @@ void Disp_Menu()
 
 void Disp_JaugesVie()
 {
-	static int PersoViePrec = Partie.perso->Get_Vitalite() - 10;
-	static int PersoEnePrec = Partie.perso->Get_Energie();
+	static int PersoViePrec = Partie.perso->get("Vitalite") - 10;
+	static int PersoEnePrec = Partie.perso->get("Energie");
 	static unsigned short ClignVie = 0;
 	static unsigned short ClignEne = 0;
 	static int AncienInteraction = 0;
@@ -355,12 +355,12 @@ void Disp_JaugesVie()
 	MasquePerso.setPosition(42, 79);
 	Jeu.App.draw(MasquePerso);
 	
-	if ((signed)(Partie.perso->Get_Vitalite()) != PersoViePrec) PersoViePrec += ((int)Partie.perso->Get_Vitalite() - PersoViePrec)/10;
+	if ((signed)Partie.perso->get("Vitalite") != PersoViePrec) PersoViePrec += ((int)Partie.perso->get("Vitalite") - PersoViePrec)/10;
 
 	Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0, 0, PersoViePrec/10 + 1, 7));
-	Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, Partie.perso->Get_Energie()/10, 7));
+	Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, Partie.perso->get("Energie")/10, 7));
 
-	int Recup = Partie.perso->Get_Recuperation();
+	int Recup = Partie.perso->get("Recuperation");
 
 	if (Recup > 0)
 	{
@@ -385,30 +385,30 @@ void Disp_JaugesVie()
 		else ClignVie += 16;
 		if (ClignVie > 510) ClignVie = 0;
 	}
-	if (Partie.perso->Get_Energie() < 75)
+	if (Partie.perso->get("Energie") < 75)
 	{
 		Set_ImageDecoration("BarreEnergie", Color(255,255,255,(ClignEne > 255) ? 510-ClignEne : ClignEne), IntRect(0, 0, 102, 7));
 		Disp_ImageDecoration("BarreEnergie", 42, 79);
 		Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, 100, 7));
-		if (Partie.perso->Get_Energie() <= 35) ClignEne += 24;
+		if (Partie.perso->get("Energie") <= 35) ClignEne += 24;
 		else ClignEne += 16;
 		if (ClignEne > 510) ClignEne = 0;
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
-	if		(Partie.perso->Get_Vitalite() == 0)					Disp_TexteCentre(_MORT, 92, 105, Color(168, 168, 168, 255), 11.f);
-	else if	(Partie.perso->Get_Vitalite() + Recup * 10 >= 900)	Disp_TexteCentre(_SANTE1, 92, 105, Color(128, 255, 128, 255), 11.f);
-	else if (Partie.perso->Get_Vitalite() + Recup * 10 >= 650)	Disp_TexteCentre(_SANTE2, 92, 105, Color(255, 220, 30, 255), 11.f);
-	else if (Partie.perso->Get_Vitalite() + Recup * 10 >= 300)	Disp_TexteCentre(_SANTE3, 92, 105, Color(255, 190, 10, 255), 11.f);
-	else if (Partie.perso->Get_Vitalite() + Recup * 10 >= 100)	Disp_TexteCentre(_SANTE4, 92, 105, Color(255, 80, 10, 255), 11.f);
+	if		(Partie.perso->get("Vitalite") == 0)				Disp_TexteCentre(_MORT, 92, 105, Color(168, 168, 168, 255), 11.f);
+	else if	(Partie.perso->get("Vitalite") + Recup * 10 >= 900)	Disp_TexteCentre(_SANTE1, 92, 105, Color(128, 255, 128, 255), 11.f);
+	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 650)	Disp_TexteCentre(_SANTE2, 92, 105, Color(255, 220, 30, 255), 11.f);
+	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 300)	Disp_TexteCentre(_SANTE3, 92, 105, Color(255, 190, 10, 255), 11.f);
+	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 100)	Disp_TexteCentre(_SANTE4, 92, 105, Color(255, 80, 10, 255), 11.f);
 	else 														Disp_TexteCentre(_SANTE5, 92, 105, Color(255, 0, 0, 255), 11.f);
 
-	if (Partie.perso->Get_Energie() < 140)
+	if (Partie.perso->get("Energie") < 140)
 	{
 		if (PersoEnePrec >= 140) Disp_Information(_FATIGUE, true);
 		Disp_TexteCentre(_SANTE_FATIGUE, 92, 120, Color(255, 255, 128, 255), 11.f);
 	}
-	PersoEnePrec = Partie.perso->Get_Energie();
+	PersoEnePrec = Partie.perso->get("Energie");
 
 	//Effets dûs aux objets temporaires
 	int y = 70;
@@ -481,8 +481,8 @@ void Disp_JaugesVie()
 	}
 	if (Ind != NULL && Partie.perso->ElementInteraction != -1)
 	{
-		sIVit = Ind->Get_Vitalite();
-		sIRec = Ind->Get_Recuperation();
+		sIVit = Ind->get("Vitalite");
+		sIRec = Ind->get("Recuperation");
 	}
 
 	if ((Ind == NULL || Partie.perso->ElementInteraction == -1) && TransInd > 0)

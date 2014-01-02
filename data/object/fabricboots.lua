@@ -148,11 +148,11 @@ function getAbsoluteEsquive()
 	return esquive
 end
 
-function getRecuperation()
+function getRecuperationMoyenne()
 	return 0
 end
 
-function getAbsoluteRecuperation()
+function getAbsoluteRecuperationMoyenne()
 	return 0
 end
 
@@ -212,11 +212,11 @@ function getAbsoluteMultEsquive()
 	return 0
 end
 
-function getMultRecuperation()
+function getMultRecuperationMoyenne()
 	return 0
 end
 
-function getAbsoluteMultRecuperation()
+function getAbsoluteMultRecuperationMoyenne()
 	return 0
 end
 

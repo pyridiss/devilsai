@@ -122,7 +122,7 @@ function getAmplitude()
 end
 
 function getNeededEnergy()
-	return projectile_puissance / get(owner, "constitution") + projectile_cout_fixe
+	return projectile_puissance / get(owner, "Constitution") + projectile_cout_fixe
 end
 
 function testEnoughEnergy()

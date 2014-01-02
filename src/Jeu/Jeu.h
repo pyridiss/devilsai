@@ -20,6 +20,8 @@
 #ifndef header_jeu
 #define header_jeu
 
+#define MAX_VALUE 2147483647
+
 #include <string>
 #include <list>
 
@@ -98,6 +100,9 @@ struct Classe_Jeu
 	Font DayRoman;
 	Dictionnaire Dico;
 	Time FrameTime;
+
+	int intNotFound = MAX_VALUE;
+	float floatNotFound = MAX_VALUE;
 
 	struct Classe_Arguments
 	{

@@ -93,9 +93,9 @@ basic_ostream<charT, Traits> &operator<< (basic_ostream<charT, Traits> &flux, co
 	typename basic_ostream<charT, Traits>::sentry init(flux);
 	if (init)
 	{
-		flux	<< stats.Vitalite << " "
-				<< stats.Energie << " "
-				<< stats.Recuperation;
+		flux	<< stats["Vitalite"] << " "
+				<< stats["Energie"] << " "
+				<< stats["Recuperation"];
 	}
 	return flux;
 }
@@ -106,7 +106,7 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, St
 	typename basic_istream<charT, Traits>::sentry init(flux);
 	if (init)
 	{
-		flux >> stats.Vitalite >> stats.Energie >> stats.Recuperation;
+		flux >> stats["Vitalite"] >> stats["Energie"] >> stats["Recuperation"];
 	}
 	return flux;
 }
@@ -119,10 +119,10 @@ basic_ostream<charT, Traits> &operator<< (basic_ostream<charT, Traits> &flux, co
 	typename basic_ostream<charT, Traits>::sentry init(flux);
 	if (init)
 	{
-		flux	<< caracs.Force << " "			<< caracs.Puissance << " "
-				<< caracs.Agilite << " "		<< caracs.Intelligence << " "
-				<< caracs.Constitution << " "	<< caracs.Esquive << " "
-				<< caracs.Charisme << " "		<< caracs.RecuperationMoyenne << " "
+		flux	<< caracs["Force"] << " "			<< caracs["Puissance"] << " "
+				<< caracs["Agilite"] << " "		<< caracs["Intelligence"] << " "
+				<< caracs["Constitution"] << " "	<< caracs["Esquive"] << " "
+				<< caracs["Charisme"] << " "		<< caracs["RecuperationMoyenne"] << " "
 				<< caracs.Vitesses.size();
 		for (MapVitesses::const_iterator i = caracs.Vitesses.begin() ; i != caracs.Vitesses.end() ; ++i)
 		{
@@ -138,10 +138,10 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, Ca
 	typename basic_istream<charT, Traits>::sentry init(flux);
 	if (init)
 	{
-		flux 	>> caracs.Force			>> caracs.Puissance
-				>> caracs.Agilite		>> caracs.Intelligence
-				>> caracs.Constitution	>> caracs.Esquive
-				>> caracs.Charisme		>> caracs.RecuperationMoyenne;
+		flux 	>> caracs["Force"]			>> caracs["Puissance"]
+				>> caracs["Agilite"]		>> caracs["Intelligence"]
+				>> caracs["Constitution"]	>> caracs["Esquive"]
+				>> caracs["Charisme"]		>> caracs["RecuperationMoyenne"];
 		int size = 0; flux >> size;
 		for (int i = 0 ; i < size ; ++i)
 		{

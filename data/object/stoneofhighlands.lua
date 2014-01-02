@@ -155,14 +155,14 @@ function getAbsoluteEsquive()
 	return 0
 end
 
-function getRecuperation()
+function getRecuperationMoyenne()
 	if key == getIdEmplacement() then
 		return recuperation
 	end
 	return 0
 end
 
-function getAbsoluteRecuperation()
+function getAbsoluteRecuperationMoyenne()
 	return recuperation
 end
 
@@ -228,11 +228,11 @@ function getAbsoluteMultEsquive()
 	return 0
 end
 
-function getMultRecuperation()
+function getMultRecuperationMoyenne()
 	return 0
 end
 
-function getAbsoluteMultRecuperation()
+function getAbsoluteMultRecuperationMoyenne()
 	return 0
 end
 
