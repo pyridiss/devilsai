@@ -42,6 +42,9 @@ using namespace std;
   #define MESSAGE(a, b) ;
 #endif
 
+//Value used to say "not found"
+#define MAX_VALUE 2147483647
+
 //Constantes pour le choix du menu principal
 #define NOUVEAU 1
 #define CHARGER 2
