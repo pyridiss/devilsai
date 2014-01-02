@@ -135,6 +135,9 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_register(L, "getQuantityOf", LUA_getQuantityOf);
 	lua_register(L, "I", LUA_I);
 	lua_register(L, "cout", LUA_cout);
+	lua_register(L, "createActivite", LUA_createActivite);
+	lua_register(L, "activiteSet", LUA_activiteSet);
+	lua_register(L, "activiteAddImage", LUA_activiteAddImage);
 
 	lua_getglobal(L, "skillBegin");
 	lua_pushnumber(L, owner);
@@ -276,6 +279,8 @@ int Activite::NombreDirections()
 void Activite::addImage(int act, int num)
 {
 	Animation.insert(map<int,ImageReference>::value_type(Animation.size(), ImageReference(act, num)));
+	for (int i = 0 ; i < 8 ; ++i)
+		if (Num_Max[i] != -1) Num_Max[i] = Animation.size();
 }
 
 int Activite::actToShow(int currentNum)

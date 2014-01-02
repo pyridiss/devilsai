@@ -513,3 +513,44 @@ int LUA_loadElement(lua_State* L)
 	lua_pushnumber(L, (int)elem);
 	return 1;
 }
+
+int LUA_createActivite(lua_State* L)
+{
+	Individu_Unique* ind = (Individu_Unique*)(int)lua_tonumber(L, 1);
+	int id = lua_tonumber(L, 2);
+
+	ind->Ajouter_Activite(id);
+	Activite* act = ind->Get_Activite(id);
+
+	lua_pushnumber(L, (int)act);
+	return 1;
+}
+
+int LUA_activiteSet(lua_State* L)
+{
+	Activite* act = (Activite*)(int)lua_tonumber(L, 1);
+	string field = lua_tostring(L, 2);
+	int value = lua_tonumber(L, 3);
+
+	if (field == "speed")		if (act != NULL)	act->speed = value;
+	if (field == "step")		if (act != NULL)	act->step = value;
+	if (field == "priority")	if (act != NULL)	act->priority = value;
+	if (field == "numberOfDir")	if (act != NULL)
+	{
+		for (int i = 0 ; i < value ; ++i)
+			act->Num_Max[i] = 0;
+	}
+
+	return 0;
+}
+
+int LUA_activiteAddImage(lua_State* L)
+{
+	Activite* act = (Activite*)(int)lua_tonumber(L, 1);
+	int Act = lua_tonumber(L, 2);
+	int Num = lua_tonumber(L, 3);
+
+	if (act != NULL) act->addImage(Act, Num);
+
+	return 0;
+}
