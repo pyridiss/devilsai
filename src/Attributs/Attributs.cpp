@@ -273,6 +273,20 @@ int Activite::NombreDirections()
 	return nb;
 }
 
+void Activite::addImage(int act, int num)
+{
+	Animation.insert(map<int,ImageReference>::value_type(Animation.size(), ImageReference(act, num)));
+}
+
+int Activite::actToShow(int currentNum)
+{
+	return Animation[currentNum].sentAct;
+}
+
+int Activite::numToShow(int currentNum)
+{
+	return Animation[currentNum].sentNum;
+}
 
 /** FONCTIONS DE LA CLASSE Caracteristiques **/
 

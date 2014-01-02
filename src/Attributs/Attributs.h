@@ -115,15 +115,37 @@ class Caracteristiques
 class Activite
 {
 	public:
-		int Id				= -1;
-		short Num_Max[8]	= {-1, -1, -1, -1, -1, -1, -1, -1};
-		short Vitesse		= 0;
-		short MaJ			= 0;
+		int Id			= -1;
+		int Num_Max[8]	= {-1, -1, -1, -1, -1, -1, -1, -1};
+		short speed		= 0;
+		short step		= 0;
 
-		short Blocage		= 0;
+		short priority	= 0;
+
+		struct ImageReference
+		{
+			int sentAct = 0;
+			int sentNum = 0;
+			
+			ImageReference(int _act, int _num)
+			{
+				sentAct = _act;
+				sentNum = _num;
+			}
+			ImageReference()
+			{
+				sentAct = 0;
+				sentNum = 0;
+			}
+		};
+
+		map<int, ImageReference> Animation;
 
 	public:
 		int NombreDirections();
+		void addImage(int act, int num);
+		int actToShow(int currentNum);
+		int numToShow(int currentNum);
 };
 
 class EmplacementEquipement
