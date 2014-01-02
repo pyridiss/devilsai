@@ -40,7 +40,7 @@ int Joueur::Gestion()
 
 		// 2. Vérifie que le personnage est toujours en vie !
 
-	if (Get_Vitalite() <= 0)
+	if (get("Vitalite") <= 0)
 	{
 		Set_Activite(MORT);
 		for (int a = 0 ; a < 4 ; ++a)
@@ -60,7 +60,7 @@ int Joueur::Gestion()
 
 		// 4. Gestion des événements
 
-	if (Get_Vitalite() > 0) while (Jeu.App.pollEvent(event))
+	if (get("Vitalite") > 0) while (Jeu.App.pollEvent(event))
 	{
 		Retour = Gestion_Menu(event);
 		if (GestionCoffresActivee) Gestion_Coffre(event);

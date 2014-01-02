@@ -200,17 +200,17 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			act = NULL;
 		}
 
-		if (TypeDonnee == "FORCE")		Fichier >> ind->Caracs.Force;
-		if (TypeDonnee == "PUISS")		Fichier >> ind->Caracs.Puissance;
-		if (TypeDonnee == "AGILITE")	Fichier >> ind->Caracs.Agilite;
-		if (TypeDonnee == "INTELLI")	Fichier >> ind->Caracs.Intelligence;
-		if (TypeDonnee == "CONSTIT")	Fichier >> ind->Caracs.Constitution;
-		if (TypeDonnee == "ESQUIVE")	Fichier >> ind->Caracs.Esquive;
-		if (TypeDonnee == "CHARISM")	Fichier >> ind->Caracs.Charisme;
+		if (TypeDonnee == "FORCE")		Fichier >> ind->Caracs["Force"];
+		if (TypeDonnee == "PUISS")		Fichier >> ind->Caracs["Puissance"];
+		if (TypeDonnee == "AGILITE")	Fichier >> ind->Caracs["Agilite"];
+		if (TypeDonnee == "INTELLI")	Fichier >> ind->Caracs["Intelligence"];
+		if (TypeDonnee == "CONSTIT")	Fichier >> ind->Caracs["Constitution"];
+		if (TypeDonnee == "ESQUIVE")	Fichier >> ind->Caracs["Esquive"];
+		if (TypeDonnee == "CHARISM")	Fichier >> ind->Caracs["Charisme"];
 		if (TypeDonnee == "RECUP")
 		{
-			Fichier >> ind->Caracs.RecuperationMoyenne;
-			ind->Set_Recuperation(ind->Caracs.RecuperationMoyenne);
+			Fichier >> ind->Caracs["RecuperationMoyenne"];
+			ind->Set_Recuperation(ind->Caracs["RecuperationMoyenne"]);
 		}
 		if (TypeDonnee == "EXP")		Fichier >> ind->Experience;
 		if (TypeDonnee == "CADAVRE")	Fichier >> ind->DureeCadavre;
@@ -347,14 +347,14 @@ void Load_ClasseCommune(string Type)
 			act = NULL;
 		}
 
-		if (TypeDonnee == "FORCE")		Fichier >> cl_com->Caracs.Force;
-		if (TypeDonnee == "PUISS")		Fichier >> cl_com->Caracs.Puissance;
-		if (TypeDonnee == "AGILITE")	Fichier >> cl_com->Caracs.Agilite;
-		if (TypeDonnee == "INTELLI")	Fichier >> cl_com->Caracs.Intelligence;
-		if (TypeDonnee == "CONSTIT")	Fichier >> cl_com->Caracs.Constitution;
-		if (TypeDonnee == "ESQUIVE")	Fichier >> cl_com->Caracs.Esquive;
-		if (TypeDonnee == "CHARISM")	Fichier >> cl_com->Caracs.Charisme;
-		if (TypeDonnee == "RECUP")		Fichier >> cl_com->Caracs.RecuperationMoyenne;
+		if (TypeDonnee == "FORCE")		Fichier >> cl_com->Caracs["Force"];
+		if (TypeDonnee == "PUISS")		Fichier >> cl_com->Caracs["Puissance"];
+		if (TypeDonnee == "AGILITE")	Fichier >> cl_com->Caracs["Agilite"];
+		if (TypeDonnee == "INTELLI")	Fichier >> cl_com->Caracs["Intelligence"];
+		if (TypeDonnee == "CONSTIT")	Fichier >> cl_com->Caracs["Constitution"];
+		if (TypeDonnee == "ESQUIVE")	Fichier >> cl_com->Caracs["Esquive"];
+		if (TypeDonnee == "CHARISM")	Fichier >> cl_com->Caracs["Charisme"];
+		if (TypeDonnee == "RECUP")		Fichier >> cl_com->Caracs["RecuperationMoyenne"];
 		if (TypeDonnee == "EXP")		Fichier >> cl_com->Experience;
 
 		TypeDonnee = "";
@@ -542,10 +542,10 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 		if (TypeDonnee == "PRJ_DIR")		Fichier >> dir;
 		if (TypeDonnee == "PRJ_CHP_ATT")	Fichier >> ind->ProjectileLance.ChampAttaque;
 
-		if (TypeDonnee == "PRJ_FORCE")		Fichier >> ind->ProjectileLance.Caracs.Force;
-		if (TypeDonnee == "PRJ_PUISS")		Fichier >> ind->ProjectileLance.Caracs.Puissance;
-		if (TypeDonnee == "PRJ_AGILITE")	Fichier >> ind->ProjectileLance.Caracs.Agilite;
-		if (TypeDonnee == "PRJ_INTELLI")	Fichier >> ind->ProjectileLance.Caracs.Intelligence;
+		if (TypeDonnee == "PRJ_FORCE")		Fichier >> ind->ProjectileLance.Caracs["Force"];
+		if (TypeDonnee == "PRJ_PUISS")		Fichier >> ind->ProjectileLance.Caracs["Puissance"];
+		if (TypeDonnee == "PRJ_AGILITE")	Fichier >> ind->ProjectileLance.Caracs["Agilite"];
+		if (TypeDonnee == "PRJ_INTELLI")	Fichier >> ind->ProjectileLance.Caracs["Intelligence"];
 
 		TypeDonnee = "";
 	}

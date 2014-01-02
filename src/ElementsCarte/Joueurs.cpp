@@ -87,49 +87,49 @@ void Joueur::Gestion_Equipement()
 void Joueur::Gestion_Statistiques()
 {
 	//1. Régénération de la vitalité
-	if (Get_Vitalite() < 1000)
+	if (get("Vitalite") < 1000)
 	{
-		Lag_Vitalite(I(1/4.f*tan(Get_Recuperation()/70.f)));
-		if (Abs(Get_Recuperation()) <= 95) Lag_Energie(-Abs(I(Get_Recuperation()/25.f*(1000-Get_Vitalite())/1000.f)));
+		Lag_Vitalite(I(1/4.f*tan(get("Recuperation")/70.f)));
+		if (Abs(get("Recuperation")) <= 95) Lag_Energie(-Abs(I(get("Recuperation")/25.f*(1000-get("Vitalite"))/1000.f)));
 	}
 
 	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
-	if (Abs(Get_Recuperation()) > 95 && Get_Energie() < ToSegment(Get_Constitution(), 0, 100))
+	if (Abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("Constitution"), 0, 100))
 	{
-		if (Get_Recuperation() > 0) Lag_Energie(I(0.5));
+		if (get("Recuperation") > 0) Lag_Energie(I(0.5));
 		else Lag_Energie(-I(0.25));
 	}
 
 	//3. Perte d'énergie selon durée depuis repos
-	if (DureeEveil > Get_Constitution()) Lag_Energie(-I(DureeEveil-Get_Constitution())/10000);
+	if (DureeEveil > get("Constitution")) Lag_Energie(-I(DureeEveil-get("Constitution"))/10000);
 
 	//4. Gain & Perte d'énergie par activité
 	if (Get_Act() == PAUSE)
-		Lag_Energie(I(Get_Vitalite()/25000) + LieuVillage*I(Get_Vitalite()/10000));
+		Lag_Energie(I(get("Vitalite")/25000) + LieuVillage*I(get("Vitalite")/10000));
 	if (Get_Act() == COURSE)
-		Lag_Energie(-I(0.05/Get_Constitution()));
+		Lag_Energie(-I(0.05/get("Constitution")));
 
 	//5. Évolution du taux de récupération
-	float RecupCible = Get_RecuperationMoyenne() * ((Get_Vitalite()-200)/740.f);
-	if (RecupCible > 0) RecupCible *= Maximum(0, (Get_Energie()-70.f)/1000.f);
+	float RecupCible = get("RecuperationMoyenne") * ((get("Vitalite")-200)/740.f);
+	if (RecupCible > 0) RecupCible *= Maximum(0, (get("Energie")-70.f)/1000.f);
 
-	if (1.05*Get_Recuperation() < RecupCible) Lag_Recuperation(I(0.1));
-	if (0.95*Get_Recuperation() > RecupCible) Lag_Recuperation(-I(0.1));
+	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(I(0.1));
+	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-I(0.1));
 
-	if (Abs(Get_RecuperationMoyenne()) >= 95) Set_Recuperation(Get_RecuperationMoyenne());
+	if (Abs(get("RecuperationMoyenne")) >= 95) Set_Recuperation(get("RecuperationMoyenne"));
 
 	//6. Durée d'éveil
 	DureeEveil += I(0.0005);
 
 	//7. Fatigue extrême
-	if (Get_Energie() < 70 && Get_Energie() > 10)
+	if (get("Energie") < 70 && get("Energie") > 10)
 	{
 		//Agilite-
-		if (Caracs.Agilite > 1 && !(rand()%(int)(Get_Energie()*100)+1))
+		if (Caracs["Agilite"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
 			--BufAgilite;
 
 		//Intelligence-
-		if (Caracs.Intelligence > 1 && !(rand()%(int)(Get_Energie()*100)+1))
+		if (Caracs["Intelligence"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
 			--BufIntelligence;
 
 		//Application
@@ -141,12 +141,12 @@ void Joueur::Gestion_Statistiques()
 void Joueur::CoupCritique(Individu* ennemi)
 {
 	//Agilité+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Agilite() - ennemi->Get_Agilite(), 0, 10) + 1)))
-		BufAgilite += ToSegment(1.1*ennemi->Get_Agilite()/Get_Agilite(), 0, 10);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Agilite") - ennemi->get("Agilite"), 0, 10) + 1)))
+		BufAgilite += ToSegment(1.1*ennemi->get("Agilite")/get("Agilite"), 0, 10);
 
 	//Charisme+, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Charisme() - ennemi->Get_Charisme(), 0, 10) + 1)))
-		BufCharisme += ToSegment(1.1*ennemi->Get_Charisme()/Get_Charisme(), 0, 10);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Charisme") - ennemi->get("Charisme"), 0, 10) + 1)))
+		BufCharisme += ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10);
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
@@ -156,12 +156,12 @@ void Joueur::CoupCritique(Individu* ennemi)
 void Joueur::BlessureGrave(Individu* ennemi)
 {
 	//Constitution-, selon Puissance de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Constitution() - ennemi->Get_Puissance(), 0, 10) + 1)))
-		BufConstitution -= Minimum(2, ToSegment(1.1*ennemi->Get_Puissance()/Get_Constitution(), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
+		BufConstitution -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Charisme-, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Charisme() - ennemi->Get_Charisme(), 0, 10) + 1)))
-		BufCharisme -= Minimum(2, ToSegment(1.1*ennemi->Get_Charisme()/Get_Charisme(), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Charisme") - ennemi->get("Charisme"), 0, 10) + 1)))
+		BufCharisme -= Minimum(2, ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -171,8 +171,8 @@ void Joueur::BlessureGrave(Individu* ennemi)
 void Joueur::CoupEsquive(Individu* ennemi)
 {
 	//Esquive+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Esquive() - ennemi->Get_Agilite(), 0, 10) + 1)))
-		BufEsquive += ToSegment(1.1*ennemi->Get_Agilite()/Get_Esquive(), 0, 3);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Esquive") - ennemi->get("Agilite"), 0, 10) + 1)))
+		BufEsquive += ToSegment(1.1*ennemi->get("Agilite")/get("Esquive"), 0, 3);
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
@@ -184,21 +184,21 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 	//Gain d'expérience
 	if (ennemi != NULL)
 	{
-		if (ennemi->Get_Vitalite() > 0) Exp += Degats/5000.*ennemi->Get_Experience();
+		if (ennemi->get("Vitalite") > 0) Exp += Degats/5000.*ennemi->Get_Experience();
 		else Exp += ennemi->Get_Experience();
 
 		//Intelligence+, Force+, Puissance+, et Constitution+, si peu fatigué
 		for (int i = 0 ; i < 1 + Exp/100 ; ++i)
 		{
-			if (!(rand()%(int)(50 + ToSegment(-Get_Energie()/100, 0, 30) + 1)))
+			if (!(rand()%(int)(50 + ToSegment(-get("Energie")/100, 0, 30) + 1)))
 			{
 				short carac = rand()%4;
 				switch(carac)
 				{
-					case 0 : BufIntelligence += ToSegment(2*Get_Intelligence(), 0, 100)/100; break;
-					case 1 : BufForce += ToSegment(10*Get_Intelligence(), 0, 100)/100; break;
-					case 2 : BufPuissance += ToSegment(10*Get_Intelligence(), 0, 100)/100; break;
-					case 3 : BufConstitution += ToSegment(5*Get_Intelligence(), 0, 100)/100; break;
+					case 0 : BufIntelligence += ToSegment(2*get("Intelligence"), 0, 100)/100; break;
+					case 1 : BufForce += ToSegment(10*get("Intelligence"), 0, 100)/100; break;
+					case 2 : BufPuissance += ToSegment(10*get("Intelligence"), 0, 100)/100; break;
+					case 3 : BufConstitution += ToSegment(5*get("Intelligence"), 0, 100)/100; break;
 				}
 			}
 		}
@@ -213,16 +213,16 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 void Joueur::BlessuresMultiples(Individu* ennemi)
 {
 	//Force-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Constitution() - ennemi->Get_Puissance(), 0, 10) + 1)))
-		BufForce -= Minimum(2, ToSegment(1.1*ennemi->Get_Puissance()/Get_Constitution(), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
+		BufForce -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Puissance-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Constitution() - ennemi->Get_Puissance(), 0, 10) + 1)))
-		BufPuissance -= Minimum(2, ToSegment(1.1*ennemi->Get_Puissance()/Get_Constitution(), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
+		BufPuissance -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Esquive-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(Get_Constitution() - ennemi->Get_Puissance(), 0, 10) + 1)))
-		BufEsquive -= Minimum(2, ToSegment(1.1*ennemi->Get_Puissance()/Get_Constitution(), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
+		BufEsquive -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -241,43 +241,43 @@ bool Joueur::ApplicationAmeliorations()
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_FORCE, (int)BufForce);
 		(BufForce > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Force += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
+		Caracs["Force"] += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
 	}
 	if ((int)BufPuissance != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_PUISS, (int)BufPuissance);
 		(BufPuissance > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Puissance += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
+		Caracs["Puissance"] += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
 	}
 	if ((int)BufAgilite != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_AGILITE, (int)BufAgilite);
 		(BufAgilite > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Agilite += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
+		Caracs["Agilite"] += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
 	}
 	if ((int)BufIntelligence != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_INTELLI, (int)BufIntelligence);
 		(BufIntelligence > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Intelligence += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
+		Caracs["Intelligence"] += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
 	}
 	if ((int)BufConstitution != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_CONSTIT, (int)BufConstitution);
 		(BufConstitution > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Constitution += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
+		Caracs["Constitution"] += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
 	}
 	if ((int)BufEsquive != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_ESQUIVE, (int)BufEsquive);
 		(BufEsquive > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Esquive += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
+		Caracs["Esquive"] += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
 	}
 	if ((int)BufCharisme != 0)
 	{
 		Final = Get_PhraseFormatee(_AMELIORATION_CHARISM, (int)BufCharisme);
 		(BufCharisme > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs.Charisme += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
+		Caracs["Charisme"] += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
 	}
 
 	return Retour;
@@ -304,16 +304,16 @@ void Disp_Personnage()
 	Disp_Texte(Partie.perso->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
 
 	Disp_Texte(_PERSO_VITALITE, 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)Partie.perso->Get_Vitalite()), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
+	Disp_Texte(intToString((int)Partie.perso->get("Vitalite")), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
 
 	Disp_Texte(_PERSO_ENERGIE, 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)Partie.perso->Get_Energie()), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
+	Disp_Texte(intToString((int)Partie.perso->get("Energie")), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
 	Disp_Texte(_PERSO_RECUP, 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
-	if (Partie.perso->Get_Recuperation() >= 0)
-		Disp_Texte(intToString((int)Partie.perso->Get_Recuperation()), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
-	if (Partie.perso->Get_Recuperation() < 0)
-		Disp_Texte(intToString((int)Partie.perso->Get_Recuperation()), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
+	if (Partie.perso->get("Recuperation") >= 0)
+		Disp_Texte(intToString((int)Partie.perso->get("Recuperation")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
+	if (Partie.perso->get("Recuperation") < 0)
+		Disp_Texte(intToString((int)Partie.perso->get("Recuperation")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
 	Disp_Texte(_PERSO_EXP, 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)Partie.perso->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
@@ -329,8 +329,8 @@ void Disp_Personnage()
 	if (weapon != NULL)
 	{
 		Disp_Texte(_PERSO_DEGATS, 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->Get_Force()/2)
-						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->Get_Force()/2);
+		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->get("Force")/2)
+						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + Partie.perso->get("Force")/2);
 		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 	}
 
@@ -339,29 +339,29 @@ void Disp_Personnage()
 		enumPhrases Numero; int Nombre = 0; int Diff = 0;
 		switch(Carac)
 		{
-			case 0 :	Numero = _PERSO_FORCE;	Nombre = Partie.perso->Caracs.Force;
-						Diff = Partie.perso->Get_Force() - Partie.perso->Caracs.Force;
+			case 0 :	Numero = _PERSO_FORCE;	//Nombre = Partie.perso->Caracs.Force;
+						//Diff = Partie.perso->Get_Force() - Partie.perso->Caracs.Force;
 						break;
-			case 1 :	Numero = _PERSO_PUISS;	Nombre = Partie.perso->Caracs.Puissance;
-						Diff = Partie.perso->Get_Puissance() - Partie.perso->Caracs.Puissance;
+			case 1 :	Numero = _PERSO_PUISS;	//Nombre = Partie.perso->Caracs.Puissance;
+						//Diff = Partie.perso->Get_Puissance() - Partie.perso->Caracs.Puissance;
 						break;
-			case 2 :	Numero = _PERSO_AGILITE;	Nombre = Partie.perso->Caracs.Agilite;
-						Diff = Partie.perso->Get_Agilite() - Partie.perso->Caracs.Agilite;
+			case 2 :	Numero = _PERSO_AGILITE;	//Nombre = Partie.perso->Caracs.Agilite;
+						//Diff = Partie.perso->Get_Agilite() - Partie.perso->Caracs.Agilite;
 						break;
-			case 3 :	Numero = _PERSO_INTELLI;	Nombre = Partie.perso->Caracs.Intelligence;
-						Diff = Partie.perso->Get_Intelligence() - Partie.perso->Caracs.Intelligence;
+			case 3 :	Numero = _PERSO_INTELLI;	//Nombre = Partie.perso->Caracs.Intelligence;
+						//Diff = Partie.perso->Get_Intelligence() - Partie.perso->Caracs.Intelligence;
 						break;
-			case 4 :	Numero = _PERSO_CONSTIT;	Nombre = Partie.perso->Caracs.Constitution;
-						Diff = Partie.perso->Get_Constitution() - Partie.perso->Caracs.Constitution;
+			case 4 :	Numero = _PERSO_CONSTIT;	//Nombre = Partie.perso->Caracs.Constitution;
+						//Diff = Partie.perso->Get_Constitution() - Partie.perso->Caracs.Constitution;
 						break;
-			case 5 :	Numero = _PERSO_ESQUIVE;	Nombre = Partie.perso->Caracs.Esquive;
-						Diff = Partie.perso->Get_Esquive() - Partie.perso->Caracs.Esquive;
+			case 5 :	Numero = _PERSO_ESQUIVE;	//Nombre = Partie.perso->Caracs.Esquive;
+						//Diff = Partie.perso->Get_Esquive() - Partie.perso->Caracs.Esquive;
 						break;
-			case 6 :	Numero = _PERSO_CHARISM;	Nombre = Partie.perso->Caracs.Charisme;
-						Diff = Partie.perso->Get_Charisme() - Partie.perso->Caracs.Charisme;
+			case 6 :	Numero = _PERSO_CHARISM;	//Nombre = Partie.perso->Caracs.Charisme;
+						//Diff = Partie.perso->Get_Charisme() - Partie.perso->Caracs.Charisme;
 						break;
-			case 7 :	Numero = _PERSO_RECUPMOY;	Nombre = Partie.perso->Caracs.RecuperationMoyenne;
-						Diff = Partie.perso->Get_RecuperationMoyenne() - Partie.perso->Caracs.RecuperationMoyenne;
+			case 7 :	Numero = _PERSO_RECUPMOY;	//Nombre = Partie.perso->Caracs.RecuperationMoyenne;
+						//Diff = Partie.perso->Get_RecuperationMoyenne() - Partie.perso->Caracs.RecuperationMoyenne;
 						break;
 		}
 

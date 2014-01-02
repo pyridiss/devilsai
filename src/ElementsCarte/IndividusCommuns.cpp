@@ -180,6 +180,6 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
 	elem->Set_Activite(ActDefaut);
 	elem->RayonCollision = RayonCollision;
 	elem->Diplomatie = Diplomatie;
-	elem->Get_Stats()->Recuperation = Caracs.RecuperationMoyenne;
+	(*(elem->Get_Stats()))["Recuperation"] = Caracs["RecuperationMoyenne"];
 }
 

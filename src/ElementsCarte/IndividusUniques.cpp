@@ -106,20 +106,20 @@ void Individu_Unique::Gestion_Recuperation()
 	if (!RecuperationFixe) Individu::Gestion_Recuperation();
 	else
 	{
-		if (Get_Recuperation() > 0)
+		if (get("Recuperation") > 0)
 		{
-			if (100*buf_rec <= 3*Get_Recuperation())
+			if (100*buf_rec <= 3*get("Recuperation"))
 			{
 				Lag_Vitalite(1);
-				if (Get_Recuperation() > 80) Lag_Vitalite(3);
-				if (Get_Recuperation() > 90) Lag_Vitalite(6);
-				if (Get_Recuperation() > 95) Lag_Vitalite(6);
+				if (get("Recuperation") > 80) Lag_Vitalite(3);
+				if (get("Recuperation") > 90) Lag_Vitalite(6);
+				if (get("Recuperation") > 95) Lag_Vitalite(6);
 				Lag_Energie(1);
 			}
 		}
-		if (Get_Recuperation() < 0)
+		if (get("Recuperation") < 0)
 		{
-			if (100*buf_rec <= -3*Get_Recuperation())
+			if (100*buf_rec <= -3*get("Recuperation"))
 			{
 				Lag_Vitalite(-1);
 				Lag_Energie(-1);
@@ -127,7 +127,7 @@ void Individu_Unique::Gestion_Recuperation()
 		}
 	}
 
-	if (EnergieMax) Stats.Energie = 1000;
+	if (EnergieMax) Stats["Energie"] = 1000;
 
 	//Diminue la durée de vie des objets utilisés -- Should maybe be placed in LUA scripts
 	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
@@ -154,116 +154,29 @@ void Individu_Unique::Lag_Recuperation(float lag)
 	if (!RecuperationFixe) Individu::Lag_Recuperation(lag);
 }
 
-unsigned int Individu_Unique::Get_Force()
+float Individu_Unique::get(string field)
 {
-	int Total = 1./2. * Get_Caracs()->Force * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
+	float& valueFloat = (*Get_Stats())[field];
+	if (valueFloat != Jeu.floatNotFound)
+		return valueFloat;
 
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
+	int valueInt = (*Get_Caracs())[field];
+	if (valueInt != Jeu.intNotFound)
 	{
-		Total += getIntFromLUA(i->second, "getForce");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultForce");
+		if (field != "RecuperationMoyenne") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
+
+		float coeffMultiplicatif = 0;
+
+		for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
+		{
+			valueInt += getIntFromLUA(i->second, "get" + field);
+			coeffMultiplicatif += getIntFromLUA(i->second, "getMult" + field);
+		}
+
+		return valueInt + coeffMultiplicatif*valueInt/100.;
 	}
 
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned int Individu_Unique::Get_Puissance()
-{
-	int Total = 1./2. * Get_Caracs()->Puissance * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getPuissance");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultPuissance");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned short Individu_Unique::Get_Agilite()
-{
-	int Total = 1./2. * Get_Caracs()->Agilite * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getAgilite");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultAgilite");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned short Individu_Unique::Get_Intelligence()
-{
-	int Total = 1./2. * Get_Caracs()->Intelligence * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getIntelligence");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultIntelligence");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned short Individu_Unique::Get_Constitution()
-{
-	int Total = 1./2. * Get_Caracs()->Constitution * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getConstitution");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultConstitution");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned short Individu_Unique::Get_Esquive()
-{
-	int Total = 1./2. * Get_Caracs()->Esquive * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getEsquive");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultEsquive");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-unsigned short Individu_Unique::Get_Charisme()
-{
-	int Total = 1./2. * Get_Caracs()->Charisme * (1. + 1.2*Get_Vitalite()/1000.);
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getCharisme");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultCharisme");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
-}
-
-int Individu_Unique::Get_RecuperationMoyenne()
-{
-	int Total = Get_Caracs()->RecuperationMoyenne;
-	float coeffMultiplicatif = 0;
-
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
-	{
-		Total += getIntFromLUA(i->second, "getRecuperation");
-		coeffMultiplicatif += getIntFromLUA(i->second, "getMultRecuperation");
-	}
-
-	return Total + coeffMultiplicatif*Total/100.;
+	return Jeu.floatNotFound;
 }
 
 int Individu_Unique::Get_Vitesse(short act)

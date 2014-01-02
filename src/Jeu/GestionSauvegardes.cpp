@@ -49,7 +49,7 @@ void AjouterSauvegarde()
 	Save.Nom = Partie.perso->Nom;
 	Save.Version = VERSION;
 	Save.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
-	Save.Vitalite = Partie.perso->Get_Vitalite();
+	Save.Vitalite = Partie.perso->get("Vitalite");
 	Save.CaptureDisponible = Options.SauvegardeDisponible;
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
@@ -356,7 +356,7 @@ void MaJ_Sauvegarde()
 	i->second.Version = VERSION;
 	i->second.Lieu.clear();
 	i->second.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
-	i->second.Vitalite = Partie.perso->Get_Vitalite();
+	i->second.Vitalite = Partie.perso->get("Vitalite");
 	i->second.CaptureDisponible = Options.SauvegardeDisponible;
 }
 

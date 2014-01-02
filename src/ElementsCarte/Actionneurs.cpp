@@ -49,7 +49,7 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 										elem->Set_Recuperation(100);
 									if (TypeCollision == COLL_VIS)
 									{
-										if (elem->Comportement <= COMPORTEMENT_REGEN && elem->Get_Vitalite() < 140)
+										if (elem->Comportement <= COMPORTEMENT_REGEN && elem->get("Vitalite") < 140)
 											return COMPORTEMENT_REGEN;
 									}
 									break;

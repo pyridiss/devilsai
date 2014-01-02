@@ -327,20 +327,9 @@ class Individu : public Element_Mouvant
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
 
-	//Getters stats et caracs
+	//Getter stats and characteristics
 	public:
-		float Get_Vitalite();
-		float Get_Energie();
-		float Get_Recuperation();
-
-		virtual unsigned int Get_Force();
-		virtual unsigned int Get_Puissance();
-		virtual unsigned short Get_Agilite();
-		virtual unsigned short Get_Intelligence();
-		virtual unsigned short Get_Constitution();
-		virtual unsigned short Get_Esquive();
-		virtual unsigned short Get_Charisme();
-		virtual int Get_RecuperationMoyenne();
+		virtual float get(string field);
 
 	//Setters de vitalité, énergie et récupération
 	public:
@@ -399,14 +388,7 @@ class Individu_Unique : public Individu
 		Statistiques* Get_Stats();
 		virtual Activite* Get_Activite(short act);
 
-		unsigned int Get_Force();
-		unsigned int Get_Puissance();
-		unsigned short Get_Agilite();
-		unsigned short Get_Intelligence();
-		unsigned short Get_Constitution();
-		unsigned short Get_Esquive();
-		unsigned short Get_Charisme();
-		int Get_RecuperationMoyenne();
+		float get(string field);
 
 		int Get_Vitesse(short act);
 

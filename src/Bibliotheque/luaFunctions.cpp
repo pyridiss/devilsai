@@ -164,10 +164,10 @@ int LUA_set(lua_State* L)
 	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.Vitesse = value;
 	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.MaJ = value;
 	if (field == "ChampAttaque")	if (prj != NULL) prj->ChampAttaque = value;
-	if (field == "Force")			if (ind != NULL) ind->Get_Caracs()->Force = value;
-	if (field == "Puissance")		if (ind != NULL) ind->Get_Caracs()->Puissance = value;
-	if (field == "Agilite")			if (ind != NULL) ind->Get_Caracs()->Agilite = value;
-	if (field == "Intelligence")	if (ind != NULL) ind->Get_Caracs()->Intelligence = value;
+	if (field == "Force")			if (ind != NULL) (*ind->Get_Caracs())["Force"] = value;
+	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;
+	if (field == "Agilite")			if (ind != NULL) (*ind->Get_Caracs())["Agilite"] = value;
+	if (field == "Intelligence")	if (ind != NULL) (*ind->Get_Caracs())["Intelligence"] = value;
 	if (field == "Dir")				if (ind != NULL) ind->Set_Dir(value);
 	if (field == "OrigineX")		if (prj != NULL) prj->OrigineX = value;
 	if (field == "OrigineY")		if (prj != NULL) prj->OrigineY = value;
@@ -179,22 +179,25 @@ int LUA_set(lua_State* L)
 
 int LUA_get(lua_State* L)
 {
-	double result = 0;
+	float result = 0;
 
 	int a = lua_tonumber(L, 1);
 	string field = lua_tostring(L, 2);
 
 	Element_Carte* elem = (Element_Carte*)a;
 	Individu* ind = dynamic_cast<Individu*>(elem);
+	Individu_Unique* ind_unique = dynamic_cast<Individu_Unique*>(elem);
 
-	if (field == "vitality")		if (ind != NULL) result = ind->Get_Vitalite();
-	if (field == "energy")			if (ind != NULL) result = ind->Get_Energie();
-	if (field == "recuperation")	if (ind != NULL) result = ind->Get_Recuperation();
-	if (field == "PosX")			if (ind != NULL) result = ind->PosX;
-	if (field == "PosY")			if (ind != NULL) result = ind->PosY;
-	if (field == "Dir")				if (ind != NULL) result = ind->Get_Dir();
-	if (field == "constitution")	if (ind != NULL) result = ind->Get_Constitution();
-	if (field == "power")			if (ind != NULL) result = ind->Get_Puissance();
+	//First, we get statistics and characteristics
+	if (ind_unique != NULL)	result = ind_unique->get(field);
+	else if (ind != NULL)	result = ind->get(field);
+
+	if (result != Jeu.floatNotFound)
+	{
+		if (field == "PosX")	if (ind != NULL) result = ind->PosX;
+		if (field == "PosY")	if (ind != NULL) result = ind->PosY;
+		if (field == "Dir")		if (ind != NULL) result = ind->Get_Dir();
+	}
 
 	lua_pushnumber(L, result);
 	return 1;
