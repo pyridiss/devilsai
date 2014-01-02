@@ -113,7 +113,7 @@ function getEsquive()
 	return 0
 end
 
-function getRecuperation()
+function getRecuperationMoyenne()
 	return 0
 end
 
@@ -145,7 +145,7 @@ function getMultEsquive()
 	return 0
 end
 
-function getMultRecuperation()
+function getMultRecuperationMoyenne()
 	return 0
 end
 

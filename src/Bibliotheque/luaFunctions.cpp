@@ -192,7 +192,7 @@ int LUA_get(lua_State* L)
 	if (ind_unique != NULL)	result = ind_unique->get(field);
 	else if (ind != NULL)	result = ind->get(field);
 
-	if (result != Jeu.floatNotFound)
+	if (result == Jeu.floatNotFound)
 	{
 		if (field == "PosX")	if (ind != NULL) result = ind->PosX;
 		if (field == "PosY")	if (ind != NULL) result = ind->PosY;

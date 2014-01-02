@@ -91,7 +91,7 @@ function getAmplitude()
 end
 
 function getNeededEnergy()
-	return 2 * get(owner, "power") / get(owner, "constitution");
+	return 2 * get(owner, "Puissance") / get(owner, "Constitution")
 end
 
 function testEnoughEnergy()
@@ -134,7 +134,7 @@ function getEsquive()
 	return 0
 end
 
-function getRecuperation()
+function getRecuperationMoyenne()
 	return 0
 end
 
@@ -175,7 +175,7 @@ function getMultEsquive()
 	return 0
 end
 
-function getMultRecuperation()
+function getMultRecuperationMoyenne()
 	return 0
 end
 
