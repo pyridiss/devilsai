@@ -20,23 +20,63 @@ degats    = 250
 amplitude = 5
 
 -- Owner loses energy during the whole activity
-runEnergy = 3
+runEnergy = 10
 
 partOfSkill = "run" -- 1 - "run" ; 2 - "attack"
 
 -- We will not wait forever
 numberOfSteps = 0
-maxSteps = 10
+maxSteps = 3
+
+activityRun = 0
+activityAttack = 0
+activityRest = 0
 
 -- functions
 -- ---------
 
 function skillBegin(_owner)
 	owner = _owner
+
+	activityRun = createActivite(owner, 1020)
+	activiteSet(activityRun, "speed", 30)
+	activiteSet(activityRun, "step", 26)
+	activiteSet(activityRun, "priority", 1)
+	activiteSet(activityRun, "numberOfDir", 8)
+	activiteAddImage(activityRun, 3, 0)
+	activiteAddImage(activityRun, 3, 2)
+	activiteAddImage(activityRun, 3, 4)
+	activiteAddImage(activityRun, 3, 6)
+
+	activityAttack = createActivite(owner, 1021)
+	activiteSet(activityAttack, "speed", 30)
+	activiteSet(activityAttack, "step", 26)
+	activiteSet(activityAttack, "priority", 1)
+	activiteSet(activityAttack, "numberOfDir", 8)
+	activiteAddImage(activityAttack, 101, 2)
+	activiteAddImage(activityAttack, 101, 4)
+	activiteAddImage(activityAttack, 101, 6)
+	activiteAddImage(activityAttack, 101, 8)
+	activiteAddImage(activityAttack, 101, 10)
+
+	activityRest = createActivite(owner, 1022)
+	activiteSet(activityRest, "speed", 4)
+	activiteSet(activityRest, "step", 0)
+	activiteSet(activityRest, "priority", 2)
+	activiteSet(activityRest, "numberOfDir", 8)
+	activiteAddImage(activityRest, 2, 0)
+	activiteAddImage(activityRest, 2, 2)
+	activiteAddImage(activityRest, 2, 4)
+	activiteAddImage(activityRest, 2, 6)
+
 end
 
 function setActivated(value)
 	activated = value
+	if activated == false then
+		partOfSkill = "run"
+		numberOfSteps = 0
+	end
 end
 
 function getActivated()
@@ -54,7 +94,10 @@ function use()
 		enemy = getElementInteraction(owner)
 
 		if enemy ~= 0 or numberOfSteps >= maxSteps then
-			partOfSkill = "attack"
+			if partOfSkill == "run" then
+				activiteFinished = false
+				partOfSkill = "attack"
+			end
 		end
 
 		if partOfSkill == "attack" and activiteFinished == true then --We wait for the end of attack animation
@@ -62,6 +105,11 @@ function use()
 				combat(owner, enemy)
 			end
 			set(owner, "energy", get(owner, "energy") - getNeededEnergy())
+			partOfSkill = "rest"
+			activiteFinished = false
+		end
+
+		if partOfSkill == "rest" and activiteFinished == true then
 			activated = false
 			partOfSkill = "run"
 			numberOfSteps = 0
@@ -73,9 +121,11 @@ end
 
 function getActivite()
 	if partOfSkill == "run" then
-		return 3
+		return 1020
+	elseif partOfSkill == "attack" then
+		return 1021
 	end
-	return 101 -- 101 is normal attack
+	return 1022
 end
 
 function getInternalNumber()
