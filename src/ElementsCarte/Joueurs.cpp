@@ -283,22 +283,6 @@ bool Joueur::ApplicationAmeliorations()
 	return Retour;
 }
 
-void Joueur::Disp(float RefX, float RefY)
-{
-	if (Controle == AI_IMG_HORSCHAMP) return;
-
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-
-	Disp_ImageIndividu(Type, Act, Dir, Num, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
-/*
-	for (int i = 0 ; i < NOMBRE_EQUIPEMENTS ; ++i)
-		Equips[i].Disp_Port(400 - (RefX - PosX), 310 - (RefY - PosY), Act, Dir, Num);*/
-}
-
 void Disp_Personnage()
 {
 	Disp_Texte(Partie.perso->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);

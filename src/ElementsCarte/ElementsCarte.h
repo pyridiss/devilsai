@@ -461,10 +461,6 @@ class Joueur : public Individu_Unique
 		void BlessuresMultiples(Individu* ennemi);
 
 		bool ApplicationAmeliorations();
-
-	//Affichage :
-	public:
-		void Disp(float RefX, float RefY);
 };
 
 class Paysage : public Element_Carte
