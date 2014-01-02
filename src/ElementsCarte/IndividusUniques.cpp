@@ -176,7 +176,7 @@ float Individu_Unique::get(string field)
 
 int Individu_Unique::Get_Vitesse(short act)
 {
-	int Total = Get_Activite(act)->Vitesse;
+	int Total = Get_Activite(act)->speed;
 
 	//Workaround to make 'speedpotion' work. To be changed!
 

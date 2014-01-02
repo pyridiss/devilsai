@@ -231,7 +231,7 @@ int Joueur::Gestion()
 		}
 
 		//Nouveau mouvement
-		maj = Get_Activite(Get_Act())->MaJ * modif_maj;
+		maj = Get_Activite(Get_Act())->step * modif_maj;
 
 		Lag_PosFondCartes(-DirToCoeff_X(Dir)*maj, -DirToCoeff_Y(Dir)*maj);
 

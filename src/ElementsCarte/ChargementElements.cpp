@@ -178,10 +178,10 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			ind->Ajouter_Activite(Act);
 			act = ind->Get_Activite(Act);
 		}
-		if (TypeDonnee == "blo")	Fichier >> act->Blocage;
+		if (TypeDonnee == "blo")	Fichier >> act->priority;
 
-		if (TypeDonnee == "VIT")	Fichier >> act->Vitesse;
-		if (TypeDonnee == "MAJ")	Fichier >> act->MaJ;
+		if (TypeDonnee == "VIT")	Fichier >> act->speed;
+		if (TypeDonnee == "MAJ")	Fichier >> act->step;
 		if (TypeDonnee == "DIR")
 		{
 			Fichier >> Dir;
@@ -324,10 +324,10 @@ void Load_ClasseCommune(string Type)
 			cl_com->Ajouter_Activite(Act);
 			act = cl_com->Get_Activite(Act);
 		}
-		if (TypeDonnee == "blo")	Fichier >> act->Blocage;
+		if (TypeDonnee == "blo")	Fichier >> act->priority;
 
-		if (TypeDonnee == "VIT")	Fichier >> act->Vitesse;
-		if (TypeDonnee == "MAJ")	Fichier >> act->MaJ;
+		if (TypeDonnee == "VIT")	Fichier >> act->speed;
+		if (TypeDonnee == "MAJ")	Fichier >> act->step;
 		if (TypeDonnee == "DIR")
 		{
 			Fichier >> Dir;
@@ -488,10 +488,10 @@ void Load_ClassePaysageMouvant(string Type)
 			cl_paymvt->Ajouter_Activite(Act);
 			act = cl_paymvt->Get_Activite(Act);
 		}
-		if (TypeDonnee == "blo")	Fichier >> act->Blocage;
+		if (TypeDonnee == "blo")	Fichier >> act->priority;
 
-		if (TypeDonnee == "VIT")	Fichier >> act->Vitesse;
-		if (TypeDonnee == "MAJ")	Fichier >> act->MaJ;
+		if (TypeDonnee == "VIT")	Fichier >> act->speed;
+		if (TypeDonnee == "MAJ")	Fichier >> act->step;
 		if (TypeDonnee == "DIR")	Fichier >> Dir;
 
 		if (TypeDonnee == "img")
@@ -537,8 +537,8 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 		if (TypeDonnee == "PRJ_Y")			Fichier >> ind->ProjectileLance.OrigineY;
 		if (TypeDonnee == "PRJ_DIPLOM")		Fichier >> ind->ProjectileLance.Diplomatie;
 		if (TypeDonnee == "PRJ_RECT_COL")	Fichier >> ind->ProjectileLance.RayX >> ind->ProjectileLance.RayY;
-		if (TypeDonnee == "PRJ_VIT")		Fichier >> ind->ProjectileLance.Deplacement.Vitesse;
-		if (TypeDonnee == "PRJ_MAJ")		Fichier >> ind->ProjectileLance.Deplacement.MaJ;
+		if (TypeDonnee == "PRJ_VIT")		Fichier >> ind->ProjectileLance.Deplacement.speed;
+		if (TypeDonnee == "PRJ_MAJ")		Fichier >> ind->ProjectileLance.Deplacement.step;
 		if (TypeDonnee == "PRJ_DIR")		Fichier >> dir;
 		if (TypeDonnee == "PRJ_CHP_ATT")	Fichier >> ind->ProjectileLance.ChampAttaque;
 

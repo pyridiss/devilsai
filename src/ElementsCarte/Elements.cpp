@@ -114,7 +114,7 @@ bool Element_Mouvant::Set_Activite(int nv)
 
 	if (Get_Activite(nv) == NULL) return false;
 
-	if (Get_Activite(Act)->Blocage > Get_Activite(nv)->Blocage && (!ActEffectue || Num != 0)) return false;
+	if (Get_Activite(Act)->priority > Get_Activite(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
 	//La direction en cours est-elle compatible avec la nouvelle activité ?
 	if (Get_Activite(nv)->Num_Max[Dir] == -1)
@@ -133,7 +133,7 @@ bool Element_Mouvant::Set_Activite(int nv)
 
 	if (Act == MORT) RayonCollision = 0;
 
-	if (Get_Activite(nv)->Blocage > 0) IncrementNum(true);
+	if (Get_Activite(nv)->priority > 0) IncrementNum(true);
 	return true;
 }
 
@@ -186,5 +186,5 @@ int Element_Mouvant::Gestion()
 
 int Element_Mouvant::Get_Vitesse(short act)
 {
-	return Get_Activite(act)->Vitesse;
+	return Get_Activite(act)->speed;
 }

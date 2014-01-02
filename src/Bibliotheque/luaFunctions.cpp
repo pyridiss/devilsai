@@ -161,8 +161,8 @@ int LUA_set(lua_State* L)
 	if (field == "Num_Max_5")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[5] = (int)value;
 	if (field == "Num_Max_6")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[6] = (int)value;
 	if (field == "Num_Max_7")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[7] = (int)value;
-	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.Vitesse = value;
-	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.MaJ = value;
+	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.speed = value;
+	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.step = value;
 	if (field == "ChampAttaque")	if (prj != NULL) prj->ChampAttaque = value;
 	if (field == "Force")			if (ind != NULL) (*ind->Get_Caracs())["Force"] = value;
 	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;

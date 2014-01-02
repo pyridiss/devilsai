@@ -143,7 +143,7 @@ int Projectile::Gestion()
 
 	//Déplacement et vérification de collision
 
-	Lag_Pos(DirToCoeff_X(Dir)*Deplacement.MaJ, DirToCoeff_Y(Dir)*Deplacement.MaJ);
+	Lag_Pos(DirToCoeff_X(Dir)*Deplacement.step, DirToCoeff_Y(Dir)*Deplacement.step);
 
 	//On n'autorise pas à blesser un ennemi trop près de la position d'origine
 	if (Abs(PosX - OrigineX) < RayX && Abs(PosY - OrigineY) < RayY) return ETAT_NORMAL;

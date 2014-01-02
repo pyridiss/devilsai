@@ -194,7 +194,7 @@ int Individu::Gestion()
 		if (Resultat == COLL_PRIM)
 		{
 			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, -DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ);
+			Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->step, -DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
 
 			if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
 			{
@@ -256,13 +256,13 @@ void Individu::MouvementAleatoire(int Iteration)
 
 	switch (Iteration)
 	{
-		case 0 :	Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ); break;
+		case 0 :	Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
 		case 1 :	Set_Dir((Dir + 2)%4); if (Dir % 2 == 0) Set_Dir(Dir+1); else Set_Dir(Dir-1);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ); break;
+					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
 		case 2 :	if (Dir % 2 == 0) Set_Dir(Dir+1); else Set_Dir(Dir-1);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ); break;
+					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
 		case 3 :	if (Dir%2) Set_Dir((Dir + 1)%4); else Set_Dir((Dir + 3)%4);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ); break;
+					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
 	}
 }
 
@@ -283,7 +283,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 	for(int dir=0 ; dir < Get_NombreDir() ; ++dir)
 	{
 		Set_Dir(dir);
-		Lag_Pos(5*DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, 5*DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ);
+		Lag_Pos(5*DirToCoeff_X(Dir)*Get_Activite(Act)->step, 5*DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
 
 		Dist[dir] = (PosX-elem->PosX)*(PosX-elem->PosX) + (PosY-elem->PosY)*(PosY-elem->PosY);
 		//Afin d'éviter des changements de directions incessants, la direction actuelle a un bonus :
@@ -318,7 +318,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 			}
 			--i;
 		}
-		Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->MaJ, -DirToCoeff_Y(Dir)*Get_Activite(Act)->MaJ);
+		Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->step, -DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
 	}
 
 	int IndActuel = 0;
@@ -333,8 +333,8 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		Set_Dir(Pref[Iteration]);
 
 		//Deuxième partie : Vérification que la route n'est pas trop rapidement bloquée
-		float Deplacement = (DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ)*(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ) +
-							(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ)*(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ);
+		float Deplacement = (DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step)*(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step) +
+							(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step)*(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step);
 		float DistanceRestante = Dist[Iteration];
 		coeff = 1;
 		int FractionDist = 4;
@@ -343,7 +343,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		//CETTE BOUCLE PEUT NE PAS AVOIR DE FIN
 		while(DistanceRestante > Dist[Iteration]/FractionDist && DistanceRestante > 2*coeff*coeff*Deplacement)
 		{
-			Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ);
+			Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
 
 			//Tests de collision :
 			int Resultat = COLL_OK;
@@ -364,12 +364,12 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 			}
 			if (Resultat == COLL_PRIM)
 			{
-				Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ);
+				Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
 				Set_Dir(DirActuelle);
 				break;
 			}
 
-			Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->MaJ);
+			Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
 			DistanceRestante -= coeff*Deplacement;
 			coeff *= 2;
 
@@ -430,7 +430,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		Pietinement = false;
 	}
 
-	Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ, DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->MaJ);
+	Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step, DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step);
 
 	return true;
 }
