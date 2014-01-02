@@ -172,28 +172,76 @@ void Caracteristiques::deleteSkills()
 }
 
 
-unsigned Caracteristiques::operator[](string characteristic)
+int& Caracteristiques::operator[](string characteristic)
 {
-	if (characteristic == "Force" || characteristic == "Strength")
+	if (characteristic == "Force")
 		return Force;
-	if (characteristic == "Puissance" || characteristic == "Power")
+	if (characteristic == "Puissance")
 		return Puissance;
-	if (characteristic == "Agilite" || characteristic == "Agility")
+	if (characteristic == "Agilite")
 		return Agilite;
-	if (characteristic == "Intelligence" || characteristic == "Intellect")
+	if (characteristic == "Intelligence")
 		return Intelligence;
 
 	if (characteristic == "Constitution")
 		return Constitution;
-	if (characteristic == "Charisme" || characteristic == "Charism")
+	if (characteristic == "Charisme")
 		return Charisme;
-	if (characteristic == "Esquive" || characteristic == "Dodge")
+	if (characteristic == "Esquive")
 		return Esquive;
-	if (characteristic == "Recuperation")
+	if (characteristic == "RecuperationMoyenne")
 		return RecuperationMoyenne;
 
-	return -1;
+	return Jeu.intNotFound;
 }
+
+const int& Caracteristiques::operator[](string characteristic) const
+{
+	if (characteristic == "Force")
+		return Force;
+	if (characteristic == "Puissance")
+		return Puissance;
+	if (characteristic == "Agilite")
+		return Agilite;
+	if (characteristic == "Intelligence")
+		return Intelligence;
+
+	if (characteristic == "Constitution")
+		return Constitution;
+	if (characteristic == "Charisme")
+		return Charisme;
+	if (characteristic == "Esquive")
+		return Esquive;
+	if (characteristic == "RecuperationMoyenne")
+		return RecuperationMoyenne;
+
+	return Jeu.intNotFound;
+}
+
+float& Statistiques::operator[](string stat)
+{
+	if (stat == "Vitalite" || stat == "vitality")
+		return Vitalite;
+	if (stat == "Energie" || stat == "energy")
+		return Energie;
+	if (stat == "Recuperation" || stat == "recuperation")
+		return Recuperation;
+
+	return Jeu.floatNotFound;
+}
+
+const float& Statistiques::operator[](string stat) const
+{
+	if (stat == "Vitalite" || stat == "vitality")
+		return Vitalite;
+	if (stat == "Energie" || stat == "energy")
+		return Energie;
+	if (stat == "Recuperation" || stat == "recuperation")
+		return Recuperation;
+
+	return Jeu.floatNotFound;
+}
+
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
