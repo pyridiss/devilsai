@@ -196,6 +196,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 		if (TypeDonnee == "FIN_ACT")
 		{
+			for (int i = 0 ; i < Num ; ++i)
+				act->addImage(Act, i);
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}
@@ -343,6 +345,8 @@ void Load_ClasseCommune(string Type)
 
 		if (TypeDonnee == "FIN_ACT")
 		{
+			for (int i = 0 ; i < Num ; ++i)
+				act->addImage(Act, i);
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}

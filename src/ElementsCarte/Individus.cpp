@@ -191,5 +191,6 @@ void Individu::Disp(float RefX, float RefY)
 			Disp_Masks(RefX, RefY);
 	#endif
 
-	Disp_ImageIndividu(Type, Act, Dir, Num, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+	Activite* act = Get_Activite(Act);
+	Disp_ImageIndividu(Type, act->actToShow(Num), Dir, act->numToShow(Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 }
