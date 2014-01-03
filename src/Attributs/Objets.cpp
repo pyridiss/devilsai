@@ -64,6 +64,22 @@ void Supprimer_Decorations_Objets()
 
 void Gestion_Competences()
 {
+	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
+	Disp_TexteCentre(_PERSONNAGE, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
+
+	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
+
+	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
+	{
+		BoutonsInventaire[cmpt]->Disp();
+		if (skill != Partie.perso->Get_Caracs()->skills.end())
+		{
+			string internalNumber = getStringFromLUA(skill->second, "getInternalNumber");
+			Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->GetX(), BoutonsInventaire[cmpt]->GetY());
+			++skill;
+		}
+	}
+
 }
 
 void Disp_EmplacementVide(string TypeObjet)

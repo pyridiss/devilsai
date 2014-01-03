@@ -123,6 +123,7 @@ int Joueur::Gestion()
 				case Keyboard::P :			Retour = ACTION_PAUSE; break;
 				case Keyboard::A :			Retour = ACTION_PERSO; break;
 				case Keyboard::E :			Retour = ACTION_EQUIP; break;
+				case Keyboard::K :			Retour = ACTION_SKILL; break;
 				case Keyboard::S :			if (!Arguments.SaveDisabled) Retour = ACTION_SAUVEG; break;
 				case Keyboard::R :			if (LieuVillage) Retour = ACTION_REPOS; break;
 

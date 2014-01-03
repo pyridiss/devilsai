@@ -236,6 +236,14 @@ void EcranJeu(bool SauvegardePrealable)
 			AffichageCompetences = false;
 			Action = ACTION_JEU;
 		}
+		if (Action == ACTION_SKILL)
+		{
+			AffichageCompetences = !AffichageCompetences;
+			Partie.perso->GestionCoffresActivee = false;
+			AffichagePersonnage = false;
+			AffichageEquipement = false;
+			Action = ACTION_JEU;
+		}
 		if (Action == ACTION_SAUVEG)
 		{
 			AffichageEquipement = false;
