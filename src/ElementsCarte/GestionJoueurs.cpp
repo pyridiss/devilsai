@@ -225,10 +225,13 @@ int Joueur::Gestion()
 			Set_Activite(TabToAct(TabAppui));
 			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
 			{
-				if (Competence == c && skillLinks[c] != NULL)
-					setBoolToLUA(skillLinks[c], "setActivated", true);
-				else
-					setBoolToLUA(skillLinks[c], "setActivated", false);
+				if (skillLinks[c] != NULL)
+				{
+					if (Competence == c)
+						setBoolToLUA(skillLinks[c], "setActivated", true);
+					else
+						setBoolToLUA(skillLinks[c], "setActivated", false);
+				}
 			}
 		}
 
