@@ -182,6 +182,10 @@ String32 Get_NomObjet(string Indice)
 {
 	return Get_Nom(Partie.DATA + "lng/noms_objets.lng", Indice);
 }
+String32 Get_NomCompetence(string Indice)
+{
+	return Get_Nom(Partie.DATA + "lng/noms_competences.lng", Indice);
+}
 String32 Get_DescObjet(int Indice)
 {
 	return Get_Nom(Partie.DATA + "lng/desc_objets.lng", Indice);

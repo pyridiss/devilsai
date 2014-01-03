@@ -288,6 +288,7 @@ String32 Get_NomElement(string);
 String32 Get_NomLieu(int);
 String32 Get_NomObjet(int);
 String32 Get_NomObjet(string);
+String32 Get_NomCompetence(string);
 String32 Get_DescObjet(int);
 String32& Get_Phrase(enumPhrases);
 String32 Get_PhraseFormatee(enumPhrases, String32);

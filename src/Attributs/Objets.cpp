@@ -62,6 +62,16 @@ void Supprimer_Decorations_Objets()
 		delete BoutonsCoffre[a];
 }
 
+void Disp_Skill(lua_State* skill)
+{
+	static int LigneCourante = PosDescY;
+
+	string internalNumber = getStringFromLUA(skill, "getInternalNumber");
+
+	String32 nom = Get_NomCompetence(internalNumber);
+	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+}
+
 void Gestion_Competences()
 {
 	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
@@ -76,10 +86,15 @@ void Gestion_Competences()
 		{
 			string internalNumber = getStringFromLUA(skill->second, "getInternalNumber");
 			Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->GetX(), BoutonsInventaire[cmpt]->GetY());
+
+			if (BoutonsInventaire[cmpt]->TestSurvol())
+			{
+				Disp_Skill(skill->second);
+			}
+
 			++skill;
 		}
 	}
-
 }
 
 void Disp_EmplacementVide(string TypeObjet)

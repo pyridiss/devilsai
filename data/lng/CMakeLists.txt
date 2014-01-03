@@ -29,6 +29,7 @@ set(lng
     devilsai.lng
     EndOfGame.lng
     langues
+    noms_competences.lng
     noms_elements.lng
     noms_lieux.lng
     noms_objets.lng

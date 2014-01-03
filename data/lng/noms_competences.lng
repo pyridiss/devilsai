@@ -1,0 +1,22 @@
+# ################################################## #
+# Fichier noms_competences.lng : Nom des compétences #
+# ################################################## #
+# 
+# TYPE DE FICHIER	:	NOMS
+# 
+*	102
+fr= Achever
+en= Achever
+xx= ...
+*	101
+fr= Attaquer à l'épée
+en= Attaquer à l'épée
+xx= ...
+*	301
+fr= Boule de feu
+en= Boule de feu
+xx= ...
+*	401
+fr= Boire une potion de soin
+en= Boire une potion de soin
+xx= ...
