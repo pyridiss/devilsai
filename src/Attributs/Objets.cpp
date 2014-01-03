@@ -23,6 +23,7 @@
 
 Bouton *BoutonsInventaire[24];
 Bouton *BoutonsCoffre[8];
+Bouton *BoutonsCompetences[4]; //Never displayed, but useful to test activation
 
 int PosDescX = 0, PosDescY = 0;
 int PosCoffreX = 0, PosCoffreY = 0;
@@ -51,6 +52,13 @@ void Load_Decorations_Objets()
 		BoutonsCoffre[a] = new Bouton;
 		BoutonsCoffre[a]->Creer(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4), 50, 50, "FondObjet_50_50", "FondObjet_50_50");
 	}
+
+	unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
+	for (int a = 0 ; a < 4 ; ++a)
+	{
+		BoutonsCompetences[a] = new Bouton;
+		BoutonsCompetences[a]->Creer(5 + 66*(a/3), yCompetences[a], 50, 50, "FondObjet_50_50", "FondObjet_50_50");
+	}
 }
 
 void Supprimer_Decorations_Objets()
@@ -60,6 +68,9 @@ void Supprimer_Decorations_Objets()
 
 	for (int a = 0 ; a < 8 ; ++a)
 		delete BoutonsCoffre[a];
+
+	for (int a = 0 ; a < 4 ; ++a)
+		delete BoutonsCompetences[a];
 }
 
 void Disp_Skill(lua_State* skill)
@@ -110,6 +121,22 @@ void Gestion_Competences(Event &event)
 				Partie.selectedSkill = skill->second;
 
 			++skill;
+		}
+	}
+
+	if (Partie.selectedSkill != nullptr)
+	{
+		for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
+		if (BoutonsCompetences[i]->TestActivation(event.type))
+		{
+			Partie.perso->skillLinks[i] = Partie.selectedSkill;
+			//We must remove duplicates of this skill
+			for (int j : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
+			{
+				if (i != j && Partie.perso->skillLinks[j] == Partie.selectedSkill)
+					Partie.perso->skillLinks[j] = NULL;
+			}
+			Partie.selectedSkill = nullptr;
 		}
 	}
 }
