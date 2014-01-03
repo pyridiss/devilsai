@@ -1,6 +1,6 @@
 --[[
 
-Skill "Attack"
+Skill "Heal Potion"
 
 ]]
 
