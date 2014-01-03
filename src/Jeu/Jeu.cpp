@@ -295,8 +295,8 @@ void EcranJeu(bool SauvegardePrealable)
 			else
 			{
 				if (AffichageEquipement) Disp_Equipement();
-				if (Partie.perso->GestionCompetencesActivee) Disp_Competences();
 				if (!Partie.ModeCinematiques) Disp_MiniaturesCompetences();
+				if (Partie.perso->GestionCompetencesActivee) Disp_Competences();
 			}
 
 			Disp_FonduNoir(0);
