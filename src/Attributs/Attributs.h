@@ -166,7 +166,8 @@ class EmplacementEquipement
 		string Get_IdEmplacement();
 };
 
-void Gestion_Competences();
+void Disp_Competences();
+void Gestion_Competences(Event&);
 void Disp_EmplacementVide(string);
 void Disp_Equipement();
 void Load_Decorations_Objets();

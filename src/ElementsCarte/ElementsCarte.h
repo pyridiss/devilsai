@@ -434,10 +434,11 @@ class Individu_Commun : public Individu
 class Joueur : public Individu_Unique
 {
 	public:
-		float DureeEveil            = 0;
-		int ElementInteraction      = -1;
-		int SauvegardeIndiceLieu    = 0;
-		bool GestionCoffresActivee  = false;
+		float DureeEveil               = 0;
+		int ElementInteraction         = -1;
+		int SauvegardeIndiceLieu       = 0;
+		bool GestionCoffresActivee     = false;
+		bool GestionCompetencesActivee = false;
 
 	public:
 		float BufForce = 0, BufPuissance = 0, BufAgilite = 0, BufIntelligence = 0;

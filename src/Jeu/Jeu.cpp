@@ -200,7 +200,7 @@ void EcranJeu(bool SauvegardePrealable)
 	bool AffichagePersonnage = false;
 	bool AffichageEquipement = false;
 	bool AffichageCoffre = false;
-	bool AffichageCompetences = false;
+//	bool AffichageCompetences = false;
 
 	String32 NomLieu;
 
@@ -224,7 +224,7 @@ void EcranJeu(bool SauvegardePrealable)
 		{
 			AffichagePersonnage = !AffichagePersonnage;
 			AffichageEquipement = false;
-			AffichageCompetences = false;
+			Partie.perso->GestionCompetencesActivee = false;
 			Partie.perso->GestionCoffresActivee = false;
 			Action = ACTION_JEU;
 		}
@@ -233,12 +233,12 @@ void EcranJeu(bool SauvegardePrealable)
 			AffichageEquipement = !AffichageEquipement;
 			Partie.perso->GestionCoffresActivee = !Partie.perso->GestionCoffresActivee;
 			AffichagePersonnage = false;
-			AffichageCompetences = false;
+			Partie.perso->GestionCompetencesActivee = false;
 			Action = ACTION_JEU;
 		}
 		if (Action == ACTION_SKILL)
 		{
-			AffichageCompetences = !AffichageCompetences;
+			Partie.perso->GestionCompetencesActivee = !Partie.perso->GestionCompetencesActivee;
 			Partie.perso->GestionCoffresActivee = false;
 			AffichagePersonnage = false;
 			AffichageEquipement = false;
@@ -250,7 +250,7 @@ void EcranJeu(bool SauvegardePrealable)
 			Partie.perso->GestionCoffresActivee = false;
 			AffichagePersonnage = false;
 			AffichageCoffre = false;
-			AffichageCompetences = false;
+			Partie.perso->GestionCompetencesActivee = false;
 			Disp_Menu();
 			Disp_JaugesVie();
 			Disp_Consoles();
@@ -273,7 +273,7 @@ void EcranJeu(bool SauvegardePrealable)
 				AffichageEquipement = false;
 				AffichageCoffre = false;
 				AffichagePersonnage = false;
-				AffichageCompetences = false;
+				Partie.perso->GestionCompetencesActivee= false;
 			}
 
 			if (AffichageCoffre)
@@ -288,14 +288,14 @@ void EcranJeu(bool SauvegardePrealable)
 				AffichageEquipement = true;
 				Partie.perso->GestionCoffresActivee = true;
 				AffichagePersonnage = false;
-				AffichageCompetences = false;
+				Partie.perso->GestionCompetencesActivee = false;
 			}
 
 			if (AffichagePersonnage) Disp_Personnage();
 			else
 			{
 				if (AffichageEquipement) Disp_Equipement();
-				if (AffichageCompetences) Gestion_Competences();
+				if (Partie.perso->GestionCompetencesActivee) Disp_Competences();
 				if (!Partie.ModeCinematiques) Disp_MiniaturesCompetences();
 			}
 
@@ -494,6 +494,7 @@ void Clean_Partie()
 	Partie.CarteCourante = NULL;
 	Partie.CoffreOuvert = NULL;
 	Partie.selectedObject = nullptr;
+	Partie.selectedSkill = nullptr;
 	Partie.listDialogs.clear();
 
 	Set_PosCarte(0, 0, false);

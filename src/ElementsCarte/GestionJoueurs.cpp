@@ -64,6 +64,7 @@ int Joueur::Gestion()
 	{
 		Retour = Gestion_Menu(event);
 		if (GestionCoffresActivee) Gestion_Coffre(event);
+		if (GestionCompetencesActivee) Gestion_Competences(event);
 
 		if (event.type == Event::KeyPressed)
 		{

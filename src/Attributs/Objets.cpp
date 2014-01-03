@@ -72,7 +72,7 @@ void Disp_Skill(lua_State* skill)
 	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
-void Gestion_Competences()
+void Disp_Competences()
 {
 	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
 	Disp_TexteCentre(_PERSONNAGE, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
@@ -88,9 +88,26 @@ void Gestion_Competences()
 			Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->GetX(), BoutonsInventaire[cmpt]->GetY());
 
 			if (BoutonsInventaire[cmpt]->TestSurvol())
-			{
 				Disp_Skill(skill->second);
-			}
+
+			++skill;
+		}
+	}
+
+	if (Partie.selectedSkill != nullptr)
+		Disp_ImageCompetence(getStringFromLUA(Partie.selectedSkill, "getInternalNumber"), Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
+}
+
+void Gestion_Competences(Event &event)
+{
+	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
+
+	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
+	{
+		if (skill != Partie.perso->Get_Caracs()->skills.end())
+		{
+			if (BoutonsInventaire[cmpt]->TestActivation(event.type))
+				Partie.selectedSkill = skill->second;
 
 			++skill;
 		}
