@@ -407,6 +407,8 @@ bool Dialogue::Afficher()
 
 JournalEntry::JournalEntry()
 {
+	Rectangle.left = 10;
+	Rectangle.top = Options.ScreenH - 200;
 	Rectangle.width = Options.ScreenW / 2;
 }
 
@@ -469,20 +471,36 @@ void Journal::disp()
 	if (journal.empty()) return;
 
 	int numberOfLine = 0;
+	int opacity = 255;
 
-	for (auto& entry : journal)
+	for (auto entry = journal.rbegin() ; entry != journal.rend() ; ++entry)
 	{
-		Disp_Texte(entry.Nom, entry.Rectangle.left, entry.Rectangle.top + numberOfLine, Color(255,220,220,255), 20, Jeu.DayRoman);
-		numberOfLine += 26;
-
 		Text Texte("", Font::getDefaultFont(), 11);
 
-		for (auto& i : entry.Lignes)
+		for (auto i = entry->Lignes.rbegin() ; i != entry->Lignes.rend() ; ++i)
 		{
-			Texte.setString(i);
-			Texte.setPosition(entry.Rectangle.left, entry.Rectangle.top + numberOfLine);
 			numberOfLine += 16;
+			Texte.setString(*i);
+			Texte.setPosition(entry->Rectangle.left, entry->Rectangle.top - numberOfLine);
+
+			if (numberOfLine > 160) opacity = 255 - 4*(numberOfLine-160);
+			if (numberOfLine >= 224) return;
+
+			if (entry->done) Texte.setColor(Color(180, 180, 180, opacity));
+			else Texte.setColor(Color(255, 255, 255, opacity));
 			Jeu.App.draw(Texte);
+
+			if (entry->done)
+			{
+				RectangleShape strikeLine;
+				strikeLine.setSize(Vector2f(Texte.getLocalBounds().width, 1));
+				strikeLine.setFillColor(Color(180, 180, 180, opacity));
+				strikeLine.setPosition(Texte.getGlobalBounds().left, Texte.getGlobalBounds().top + 6);
+				Jeu.App.draw(strikeLine);
+			}
 		}
+
+		numberOfLine += 22;
+		Disp_Texte(entry->Nom, entry->Rectangle.left, entry->Rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, Jeu.DayRoman);
 	}
 }
