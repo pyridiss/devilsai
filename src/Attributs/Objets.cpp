@@ -86,7 +86,7 @@ void Disp_Skill(lua_State* skill)
 void Disp_Competences()
 {
 	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
-	Disp_TexteCentre(_PERSONNAGE, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
+	Disp_TexteCentre(_COMPETENCES, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
 	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
 
@@ -104,6 +104,8 @@ void Disp_Competences()
 			++skill;
 		}
 	}
+
+	Disp_MiniaturesCompetences();
 
 	if (Partie.selectedSkill != nullptr)
 		Disp_ImageCompetence(getStringFromLUA(Partie.selectedSkill, "getInternalNumber"), Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
@@ -286,16 +288,22 @@ void Disp_Equipement()
 		}
 	}
 
+	//Coffre :
+	Disp_Coffre();
+
 	//Affichage de l'équipement sélectionné :
 	if (Partie.selectedObject != nullptr)
 		Disp_ImageObjet(getIntFromLUA(Partie.selectedObject, "getInternalNumber"), OBJET_IMG, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y, true);
+
+	//Skills:
+	Disp_MiniaturesCompetences();
 }
 
-bool Disp_Coffre()
+void Disp_Coffre()
 {
 	if (Get_Element(Partie.perso->ElementInteraction) == NULL) Partie.CoffreOuvert = NULL;
 
-	if (Partie.CoffreOuvert == NULL) return false;
+	if (Partie.CoffreOuvert == NULL) return;
 
 	Disp_ImageDecoration("FondCoffre", PosCoffreX, PosCoffreY);
 	Disp_TexteCentre(Partie.CoffreOuvert->Nom, PosCoffreX + 105, PosCoffreY + 10, Color(255, 255, 255, 255), 13.);
@@ -325,8 +333,6 @@ bool Disp_Coffre()
 			if (i != Partie.CoffreOuvert->objects.objects.end()) Disp_Caracs_Objet(i->second, true);
 		}
 	}
-
-	return true;
 }
 
 void Gestion_Coffre(Event &event)

@@ -174,9 +174,9 @@ using namespace std;
 #define ACTION_JEU		0
 #define ACTION_QUITTER	1
 #define ACTION_PAUSE	2
-#define ACTION_PERSO	3
-#define ACTION_EQUIP	4
-#define ACTION_SKILL	5
+// #define ACTION_PERSO	3
+// #define ACTION_EQUIP	4
+// #define ACTION_SKILL	5
 #define ACTION_SAUVEG	6
 #define ACTION_REPOS	7
 #define ACTION_MORT		8

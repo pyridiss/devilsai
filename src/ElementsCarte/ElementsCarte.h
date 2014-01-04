@@ -437,8 +437,8 @@ class Joueur : public Individu_Unique
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
 		int SauvegardeIndiceLieu       = 0;
-		bool GestionCoffresActivee     = false;
-		bool GestionCompetencesActivee = false;
+// 		bool GestionCoffresActivee     = false;
+// 		bool GestionCompetencesActivee = false;
 
 	public:
 		float BufForce = 0, BufPuissance = 0, BufAgilite = 0, BufIntelligence = 0;
@@ -573,7 +573,7 @@ class Actionneur : public Element_Carte
 		void Disp_Masks(float RefX, float RefY);
 };
 
-bool Disp_Coffre();
+void Disp_Coffre();
 void Gestion_Coffre(Event&);
 
 void Load_IndividuUnique(string, Individu_Unique*);

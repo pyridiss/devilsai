@@ -65,6 +65,8 @@ enum enumPhrases{
 	_MENUPRINCIPAL_QUITTER,
 	_MENUJEU_PERSONNAGE,
 	_MENUJEU_EQUIPEMENT,
+	_MENUJEU_COMPETENCES,
+	_MENUJEU_JOURNAL,
 	_MENUJEU_PAUSE,
 	_MENUJEU_SAUVEG,
 	_MENUJEU_QUITTER,
@@ -151,7 +153,8 @@ enum enumPhrases{
 	_EQUIP_MULT_ESQUIVE,
 	_EQUIP_MULT_CHARISM,
 	_EQUIP_MULT_RECUP,
-	_EQUIP_DUREE
+	_EQUIP_DUREE,
+	_COMPETENCES = 900
 };
 
 
@@ -203,7 +206,6 @@ class Journal
 	public:
 		void addEntry(string _ref);
 		void setDone(string _ref);
-		void disp();
 };
 
 class Dialogue
@@ -254,6 +256,20 @@ class Bouton
 		bool Get_Etat();
 
 		void Disp();
+};
+
+class userScreen
+{
+	public:
+		Bouton button;
+		Keyboard::Key key;
+
+	public:
+		void (*dispFunction)(void);
+		void (*manageFunction)(Event&);
+
+	public:
+		userScreen();
 };
 
 
@@ -316,6 +332,7 @@ String32 Get_PhraseFormatee(enumPhrases, String32);
 void ChangerLangue();
 String32 Get_NomLangue();
 void DecoupageReplique(Replique*);
+void Disp_Journal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 

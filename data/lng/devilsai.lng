@@ -100,23 +100,31 @@ xx= ...
 fr= Équipement (E)
 en= Equipment (E)
 xx= ...
-* MENUJEU_PAUSE	206
+* MENUJEU_COMPETENCES	206
+fr= Compétences (K)
+en= Skills (K)
+xx= ...
+* MENUJEU_JOURNAL	207
+fr= Journal (J)
+en= Journal (J)
+xx= ...
+* MENUJEU_PAUSE	208
 fr= Pause (P)
 en= Pause (P)
 xx= ...
-* MENUJEU_SAUVEG	207
+* MENUJEU_SAUVEG	209
 fr= Sauvegarder (S)
 en= Save (S)
 xx= ...
-* MENUJEU_QUITTER	208
+* MENUJEU_QUITTER	210
 fr= Quitter le jeu
 en= Exit game
 xx= ...
-* MENUJEU_REPOS	209
+* MENUJEU_REPOS	211
 fr= Repos
 en= Rest
 xx= ...
-* PAS_DE_SAUVEG	210
+* PAS_DE_SAUVEG	212
 fr= Pas de sauvegarde disponible
 en= No saved game available
 xx= ...
@@ -462,3 +470,10 @@ xx= ..
 * EQUIP_DUREE	827
 fr= Durée : %%s
 en= Duration: %%s
+# 
+# Catégorie : Écran "Compétences"
+# ##############################
+* COMPETENCES	900
+fr= Compétences
+en= Skills
+xx= ...

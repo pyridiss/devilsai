@@ -68,6 +68,12 @@ struct Classe_Partie
 
 	Journal journal;
 
+	userScreen screenCharacter;
+	userScreen screenEquipment;
+	userScreen screenSkills;
+	userScreen screenJournal;
+	userScreen *currentUserScreen = nullptr;
+
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;

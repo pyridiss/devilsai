@@ -29,8 +29,6 @@
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-Bouton *MenuSup_Personnage;
-Bouton *MenuSup_Equipement;
 Bouton *MenuSup_Pause;
 Bouton *MenuSup_Sauvegarder;
 Bouton *MenuSup_Quitter;
@@ -65,13 +63,29 @@ void Load_Decorations()
 	AjouterImageDecoration("BoutonSuivant");
 	AjouterImageDecoration("BoutonSuivantAppuye");
 
-	MenuSup_Personnage = new Bouton;
-	MenuSup_Personnage->Creer(5, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Personnage->AjouterTexte(_MENUJEU_PERSONNAGE);
+	Partie.screenCharacter.button.Creer(5, 200, 125, 18, "Bouton", "BoutonAppuye");
+	Partie.screenCharacter.button.AjouterTexte(_MENUJEU_PERSONNAGE);
+	Partie.screenCharacter.key = Keyboard::Key::A;
+	Partie.screenCharacter.dispFunction = Disp_Personnage;
+	Partie.screenCharacter.manageFunction = nullptr;
 
-	MenuSup_Equipement = new Bouton;
-	MenuSup_Equipement->Creer(140, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Equipement->AjouterTexte(Get_Phrase(_MENUJEU_EQUIPEMENT));
+	Partie.screenEquipment.button.Creer(5, 220, 125, 18, "Bouton", "BoutonAppuye");
+	Partie.screenEquipment.button.AjouterTexte(_MENUJEU_EQUIPEMENT);
+	Partie.screenEquipment.key = Keyboard::Key::E;
+	Partie.screenEquipment.dispFunction = Disp_Equipement;
+	Partie.screenEquipment.manageFunction = Gestion_Coffre;
+
+	Partie.screenSkills.button.Creer(5, 240, 125, 18, "Bouton", "BoutonAppuye");
+	Partie.screenSkills.button.AjouterTexte(_MENUJEU_COMPETENCES);
+	Partie.screenSkills.key = Keyboard::Key::K;
+	Partie.screenSkills.dispFunction = Disp_Competences;
+	Partie.screenSkills.manageFunction = Gestion_Competences;
+
+	Partie.screenJournal.button.Creer(5, 260, 125, 18, "Bouton", "BoutonAppuye");
+	Partie.screenJournal.button.AjouterTexte(_MENUJEU_JOURNAL);
+	Partie.screenJournal.key = Keyboard::Key::J;
+	Partie.screenJournal.dispFunction = Disp_Journal;
+	Partie.screenJournal.manageFunction = nullptr;
 
 	MenuSup_Pause = new Bouton;
 	MenuSup_Pause->Creer(275, 2, 125, 18, "Bouton", "BoutonAppuye");
@@ -94,8 +108,6 @@ void Load_Decorations()
 
 void Supprimer_Decorations()
 {
-	delete MenuSup_Personnage;
-	delete MenuSup_Equipement;
 	delete MenuSup_Pause;
 	delete MenuSup_Sauvegarder;
 	delete MenuSup_Quitter;
@@ -290,14 +302,37 @@ int Gestion_Menu(Event &event)
 {
 	if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
 	{
-		if (MenuSup_Personnage->TestActivation(event.type)) return ACTION_PERSO;
-		if (MenuSup_Equipement->TestActivation(event.type)) return ACTION_EQUIP;
-		if (MenuSup_Pause->TestActivation(event.type)) return ACTION_PAUSE;
+ 		if (MenuSup_Pause->TestActivation(event.type)) return ACTION_PAUSE;
 		if (!Arguments.SaveDisabled)
 			if (MenuSup_Sauvegarder->TestActivation(event.type)) return ACTION_SAUVEG;
 		if (MenuSup_Quitter->TestActivation(event.type)) return ACTION_QUITTER;
 		if (Partie.perso->LieuVillage)
 			if (MenuSup_Repos->TestActivation(event.type)) return ACTION_REPOS;
+
+		if (Partie.screenCharacter.button.TestActivation(event.type))
+		{
+			if (Partie.currentUserScreen != &(Partie.screenCharacter))
+				Partie.currentUserScreen = &(Partie.screenCharacter);
+			else Partie.currentUserScreen = nullptr;
+		}
+		if (Partie.screenEquipment.button.TestActivation(event.type))
+		{
+			if (Partie.currentUserScreen != &(Partie.screenEquipment))
+				Partie.currentUserScreen = &(Partie.screenEquipment);
+			else Partie.currentUserScreen = nullptr;
+		}
+		if (Partie.screenSkills.button.TestActivation(event.type))
+		{
+			if (Partie.currentUserScreen != &(Partie.screenSkills))
+				Partie.currentUserScreen = &(Partie.screenSkills);
+			else Partie.currentUserScreen = nullptr;
+		}
+		if (Partie.screenJournal.button.TestActivation(event.type))
+		{
+			if (Partie.currentUserScreen != &(Partie.screenJournal))
+				Partie.currentUserScreen = &(Partie.screenJournal);
+			else Partie.currentUserScreen = nullptr;
+		}
 	}
 
 	return ACTION_JEU;
@@ -307,8 +342,6 @@ void Disp_Menu()
 {
 	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
 		Disp_ImageDecoration("Frange", 100*a, 0);
-	MenuSup_Personnage->Disp();
-	MenuSup_Equipement->Disp();
 	MenuSup_Pause->Disp();
 	if (!Arguments.SaveDisabled) MenuSup_Sauvegarder->Disp();
 	MenuSup_Quitter->Disp();
@@ -329,6 +362,11 @@ void Disp_Menu()
 			Clign = !Clign;
 		}
 	}
+
+	Partie.screenCharacter.button.Disp();
+	Partie.screenEquipment.button.Disp();
+	Partie.screenSkills.button.Disp();
+	Partie.screenJournal.button.Disp();
 }
 
 
@@ -734,4 +772,8 @@ bool Disp_Repos()
 	Disp_ImageDecoration("Repos", Options.ScreenW/2, Options.ScreenH/2, true);
  	Jeu.App.draw(Degrade, 4, sf::Quads);
 	return false;
+}
+
+userScreen::userScreen()
+{
 }

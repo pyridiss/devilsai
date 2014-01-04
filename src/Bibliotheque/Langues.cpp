@@ -29,7 +29,7 @@
 
 /** VARIABLES GLOBALES **/
 
-const int NombrePhrases = 110;
+const int NombrePhrases = 113;
 
 Langage *Langues;
 
@@ -466,14 +466,14 @@ void Journal::setDone(string _ref)
 		}
 }
 
-void Journal::disp()
+void Disp_Journal()
 {
-	if (journal.empty()) return;
+	if (Partie.journal.journal.empty()) return;
 
 	int numberOfLine = 0;
 	int opacity = 255;
 
-	for (auto entry = journal.rbegin() ; entry != journal.rend() ; ++entry)
+	for (auto entry = Partie.journal.journal.rbegin() ; entry != Partie.journal.journal.rend() ; ++entry)
 	{
 		Text Texte("", Font::getDefaultFont(), 11);
 

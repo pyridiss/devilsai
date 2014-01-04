@@ -63,8 +63,9 @@ int Joueur::Gestion()
 	if (get("Vitalite") > 0) while (Jeu.App.pollEvent(event))
 	{
 		Retour = Gestion_Menu(event);
-		if (GestionCoffresActivee) Gestion_Coffre(event);
-		if (GestionCompetencesActivee) Gestion_Competences(event);
+
+		if (Partie.currentUserScreen != nullptr && Partie.currentUserScreen->manageFunction != nullptr)
+			Partie.currentUserScreen->manageFunction(event);
 
 		if (event.type == Event::KeyPressed)
 		{
@@ -96,10 +97,6 @@ int Joueur::Gestion()
 											break;
 				case Keyboard::C :			Partie.ModeCinematiques = !Partie.ModeCinematiques;
 											break;
-				case Keyboard::H :			Disp_FonduNoir(-1);
-											break;
-				case Keyboard::J :			Disp_FonduNoir(1);
-											break;
 #endif
 				default :					break;
 			}
@@ -121,14 +118,34 @@ int Joueur::Gestion()
 				case Keyboard::Space :		ChoixCompetence = COMPETENCE_AUCUNE; break;
 
 				//Actions spécifiques :
-				case Keyboard::P :			Retour = ACTION_PAUSE; break;
-				case Keyboard::A :			Retour = ACTION_PERSO; break;
-				case Keyboard::E :			Retour = ACTION_EQUIP; break;
-				case Keyboard::K :			Retour = ACTION_SKILL; break;
 				case Keyboard::S :			if (!Arguments.SaveDisabled) Retour = ACTION_SAUVEG; break;
 				case Keyboard::R :			if (LieuVillage) Retour = ACTION_REPOS; break;
 
 				default :					break;
+			}
+			if (event.key.code == Partie.screenCharacter.key)
+			{
+				if (Partie.currentUserScreen != &(Partie.screenCharacter))
+					Partie.currentUserScreen = &(Partie.screenCharacter);
+				else Partie.currentUserScreen = nullptr;
+			}
+			if (event.key.code == Partie.screenEquipment.key)
+			{
+				if (Partie.currentUserScreen != &(Partie.screenEquipment))
+					Partie.currentUserScreen = &(Partie.screenEquipment);
+				else Partie.currentUserScreen = nullptr;
+			}
+			if (event.key.code == Partie.screenSkills.key)
+			{
+				if (Partie.currentUserScreen != &(Partie.screenSkills))
+					Partie.currentUserScreen = &(Partie.screenSkills);
+				else Partie.currentUserScreen = nullptr;
+			}
+			if (event.key.code == Partie.screenJournal.key)
+			{
+				if (Partie.currentUserScreen != &(Partie.screenJournal))
+					Partie.currentUserScreen = &(Partie.screenJournal);
+				else Partie.currentUserScreen = nullptr;
 			}
 		}
 
@@ -317,9 +334,14 @@ int Joueur::Gestion()
 			{
 				if (Partie.CoffreOuvert == NULL) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
 				else if (Partie.CoffreOuvert->Id != tmp1->Id) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
+				if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = &(Partie.screenEquipment);
 			}
 		}
-		else Partie.CoffreOuvert = NULL;
+		else
+		{
+			if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = nullptr;
+			Partie.CoffreOuvert = NULL;
+		}
 
 		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
 			if (skillLinks[c] != NULL)
