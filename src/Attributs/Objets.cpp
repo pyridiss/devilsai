@@ -199,8 +199,8 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 			case 11 :	functionLUA = "getAbsoluteMultEsquive";			phrase = _EQUIP_MULT_ESQUIVE;	break;
 			case 12 :	functionLUA = "getAbsoluteCharisme";			phrase = _EQUIP_CHARISM;		break;
 			case 13 :	functionLUA = "getAbsoluteMultCharisme";		phrase = _EQUIP_MULT_CHARISM;	break;
-			case 14 :	functionLUA = "getAbsoluteRecuperation";		phrase = _EQUIP_RECUP;			break;
-			case 15 :	functionLUA = "getAbsoluteMultRecuperation";	phrase = _EQUIP_MULT_RECUP;		break;
+			case 14 :	functionLUA = "getAbsoluteRecuperationMoyenne";		phrase = _EQUIP_RECUP;			break;
+			case 15 :	functionLUA = "getAbsoluteMultRecuperationMoyenne";	phrase = _EQUIP_MULT_RECUP;		break;
 			case 16 :	functionLUA = "getAbsoluteVitesseCourse";		phrase = _EQUIP_VIT_COURSE;		break;
 			case 17 :	functionLUA = "getAbsoluteVitesseAttaque";		phrase = _EQUIP_VIT_ATTAQUE;	break;
 			case 18 :	functionLUA = "getAbsoluteVitesseBlesse";		phrase = _EQUIP_VIT_BLESSE;		break;
