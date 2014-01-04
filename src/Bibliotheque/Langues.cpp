@@ -404,3 +404,85 @@ bool Dialogue::Afficher()
 
 	return false;
 }
+
+JournalEntry::JournalEntry()
+{
+	Rectangle.width = Options.ScreenW / 2;
+}
+
+void Journal::addEntry(string _ref)
+{
+	string fileName = Partie.DATA + "lng/journal.lng";
+
+	ifstream fileStream(fileName, ios_base::in);
+
+	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
+
+	JournalEntry newEntry;
+	journal.push_back(newEntry);
+	JournalEntry& entry = journal.back();
+	entry.reference = _ref;
+
+	string TypeDonnee = "", TypeDonnee2 = "";
+	string Buffer;
+	string readRef = "";
+
+	while (fileStream.rdstate() == 0)
+	{
+		fileStream >> TypeDonnee;
+
+		if (TypeDonnee == "#") getline(fileStream, Buffer); //Comments
+
+		else if (TypeDonnee == "*")
+		{
+			fileStream >> readRef;
+			fileStream.get();
+			fileStream >> entry.Nom;
+		}
+		else if (TypeDonnee == Options.Langue && readRef == _ref)
+		{
+			fileStream.get();
+			fileStream >> entry.Chaine;
+		}
+		else getline(fileStream, Buffer);
+		TypeDonnee = ""; Buffer = "";
+	}
+
+	DecoupageReplique(&entry);
+
+	fileStream.close();
+}
+
+void Journal::setDone(string _ref)
+{
+	for (auto& i : journal)
+		if (i.reference == _ref)
+		{
+			i.done = true;
+			break;
+		}
+}
+
+void Journal::disp()
+{
+	if (journal.empty()) return;
+
+	int numberOfLine = 0;
+
+	for (auto& entry : journal)
+	{
+		Disp_Texte(entry.Nom, entry.Rectangle.left, entry.Rectangle.top + numberOfLine, Color(255,220,220,255), 20, Jeu.DayRoman);
+		numberOfLine += 26;
+
+		Text Texte("", Font::getDefaultFont(), 11);
+
+		for (auto& i : entry.Lignes)
+		{
+			Texte.setString(i);
+			Texte.setPosition(entry.Rectangle.left, entry.Rectangle.top + numberOfLine);
+			numberOfLine += 16;
+			Jeu.App.draw(Texte);
+		}
+	}
+}

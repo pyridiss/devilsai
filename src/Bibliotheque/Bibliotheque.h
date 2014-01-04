@@ -185,6 +185,27 @@ struct Replique
 		Replique();
 };
 
+class JournalEntry : public Replique
+{
+	public:
+		string reference = "";
+		bool done = false;
+
+	public:
+		JournalEntry();
+};
+
+class Journal
+{
+	public:
+		list<JournalEntry> journal;
+
+	public:
+		void addEntry(string _ref);
+		void setDone(string _ref);
+		void disp();
+};
+
 class Dialogue
 {
 	private:
