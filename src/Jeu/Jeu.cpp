@@ -267,6 +267,7 @@ void EcranJeu(bool SauvegardePrealable)
 				Disp_Menu();
 				Disp_JaugesVie();
 				Disp_Consoles();
+				Partie.journal.disp();
 			}
 			else
 			{

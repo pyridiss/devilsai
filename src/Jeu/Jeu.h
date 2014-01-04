@@ -66,6 +66,8 @@ struct Classe_Partie
 
 	Joueur *perso   = NULL;
 
+	Journal journal;
+
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;

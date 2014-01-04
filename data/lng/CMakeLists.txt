@@ -28,6 +28,7 @@ set(lng
     desc_objets.lng
     devilsai.lng
     EndOfGame.lng
+    journal.lng
     langues
     noms_competences.lng
     noms_elements.lng
