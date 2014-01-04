@@ -174,16 +174,13 @@ using namespace std;
 #define ACTION_JEU		0
 #define ACTION_QUITTER	1
 #define ACTION_PAUSE	2
-// #define ACTION_PERSO	3
-// #define ACTION_EQUIP	4
-// #define ACTION_SKILL	5
-#define ACTION_SAUVEG	6
-#define ACTION_REPOS	7
-#define ACTION_MORT		8
-#define ETAT_NORMAL		9
-#define ETAT_DESACTIVE	10
-#define ETAT_MORT		11
-#define ETAT_CONTINUER	12
+#define ACTION_SAUVEG	3
+#define ACTION_REPOS	4
+#define ACTION_MORT		5
+#define ETAT_NORMAL		6
+#define ETAT_DESACTIVE	7
+#define ETAT_MORT		8
+#define ETAT_CONTINUER	9
 
 //Compétences
 #define NOMBRE_COMPETENCES	4

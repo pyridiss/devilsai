@@ -653,9 +653,6 @@ int Carte::GestionElements()
 			case ACTION_JEU		: break;
 			case ACTION_QUITTER	: Retour = ACTION_QUITTER; break;
 			case ACTION_PAUSE	: Retour = ACTION_PAUSE; break;
-// 			case ACTION_PERSO	: Retour = ACTION_PERSO; break;
-// 			case ACTION_EQUIP	: Retour = ACTION_EQUIP; break;
-// 			case ACTION_SKILL	: Retour = ACTION_SKILL; break;
 			case ACTION_SAUVEG	: Retour = ACTION_SAUVEG; break;
 			case ACTION_REPOS	: Retour = ACTION_REPOS; break;
 			case ACTION_MORT	: Retour = ACTION_MORT; break;

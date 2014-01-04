@@ -123,30 +123,10 @@ int Joueur::Gestion()
 
 				default :					break;
 			}
-			if (event.key.code == Partie.screenCharacter.key)
-			{
-				if (Partie.currentUserScreen != &(Partie.screenCharacter))
-					Partie.currentUserScreen = &(Partie.screenCharacter);
-				else Partie.currentUserScreen = nullptr;
-			}
-			if (event.key.code == Partie.screenEquipment.key)
-			{
-				if (Partie.currentUserScreen != &(Partie.screenEquipment))
-					Partie.currentUserScreen = &(Partie.screenEquipment);
-				else Partie.currentUserScreen = nullptr;
-			}
-			if (event.key.code == Partie.screenSkills.key)
-			{
-				if (Partie.currentUserScreen != &(Partie.screenSkills))
-					Partie.currentUserScreen = &(Partie.screenSkills);
-				else Partie.currentUserScreen = nullptr;
-			}
-			if (event.key.code == Partie.screenJournal.key)
-			{
-				if (Partie.currentUserScreen != &(Partie.screenJournal))
-					Partie.currentUserScreen = &(Partie.screenJournal);
-				else Partie.currentUserScreen = nullptr;
-			}
+			if (event.key.code == Partie.screenCharacter.key)	Partie.changeCurrentUseScreen(&Partie.screenCharacter);
+			if (event.key.code == Partie.screenEquipment.key)	Partie.changeCurrentUseScreen(&Partie.screenEquipment);
+			if (event.key.code == Partie.screenSkills.key)		Partie.changeCurrentUseScreen(&Partie.screenSkills);
+			if (event.key.code == Partie.screenJournal.key)		Partie.changeCurrentUseScreen(&Partie.screenJournal);
 		}
 
 		if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))

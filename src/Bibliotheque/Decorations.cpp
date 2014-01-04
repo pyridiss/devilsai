@@ -309,30 +309,10 @@ int Gestion_Menu(Event &event)
 		if (Partie.perso->LieuVillage)
 			if (MenuSup_Repos->TestActivation(event.type)) return ACTION_REPOS;
 
-		if (Partie.screenCharacter.button.TestActivation(event.type))
-		{
-			if (Partie.currentUserScreen != &(Partie.screenCharacter))
-				Partie.currentUserScreen = &(Partie.screenCharacter);
-			else Partie.currentUserScreen = nullptr;
-		}
-		if (Partie.screenEquipment.button.TestActivation(event.type))
-		{
-			if (Partie.currentUserScreen != &(Partie.screenEquipment))
-				Partie.currentUserScreen = &(Partie.screenEquipment);
-			else Partie.currentUserScreen = nullptr;
-		}
-		if (Partie.screenSkills.button.TestActivation(event.type))
-		{
-			if (Partie.currentUserScreen != &(Partie.screenSkills))
-				Partie.currentUserScreen = &(Partie.screenSkills);
-			else Partie.currentUserScreen = nullptr;
-		}
-		if (Partie.screenJournal.button.TestActivation(event.type))
-		{
-			if (Partie.currentUserScreen != &(Partie.screenJournal))
-				Partie.currentUserScreen = &(Partie.screenJournal);
-			else Partie.currentUserScreen = nullptr;
-		}
+		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUseScreen(&Partie.screenCharacter);
+		if (Partie.screenEquipment.button.TestActivation(event.type))	Partie.changeCurrentUseScreen(&Partie.screenEquipment);
+		if (Partie.screenSkills.button.TestActivation(event.type))		Partie.changeCurrentUseScreen(&Partie.screenSkills);
+		if (Partie.screenJournal.button.TestActivation(event.type))		Partie.changeCurrentUseScreen(&Partie.screenJournal);
 	}
 
 	return ACTION_JEU;
@@ -772,8 +752,4 @@ bool Disp_Repos()
 	Disp_ImageDecoration("Repos", Options.ScreenW/2, Options.ScreenH/2, true);
  	Jeu.App.draw(Degrade, 4, sf::Quads);
 	return false;
-}
-
-userScreen::userScreen()
-{
 }

@@ -267,9 +267,6 @@ class userScreen
 	public:
 		void (*dispFunction)(void);
 		void (*manageFunction)(Event&);
-
-	public:
-		userScreen();
 };
 
 

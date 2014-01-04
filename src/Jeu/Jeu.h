@@ -97,6 +97,9 @@ struct Classe_Partie
 
 	list<Dialogue> listDialogs;
 	map<string, lua_State*> quests;
+
+	public:
+		void changeCurrentUseScreen(userScreen* _new);
 };
 
 /**
