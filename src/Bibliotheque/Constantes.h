@@ -25,7 +25,7 @@ using namespace std;
 /** CONSTANTES RELATIVES AU JEU **/
 
 //Version du jeu
-#define VERSION "0.4.0"
+#define VERSION "0.4.1"
 
 //Constantes de débogage
 //#define DEBOGAGE 1

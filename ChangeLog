@@ -1,3 +1,6 @@
+* 2014-02-08 Quentin Henriet <quentin.henriet@free.fr> 0.4.1
+- New cmake modules added to correctly find libraries.
+
 * 2014-01-01 Quentin Henriet <quentin.henriet@free.fr> 0.4.0
 - Quests, skills and objects ported to LUA.
 - French texts updated.
