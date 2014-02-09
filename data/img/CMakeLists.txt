@@ -103,6 +103,10 @@ set(img
     BarreVie.png
     Bouton.png
     BoutonAppuye.png
+    BoutonCompetences.png
+    BoutonEquipement.png
+    BoutonJournal.png
+    BoutonPersonnage.png
     BoutonPrecedent.png
     BoutonPrecedentAppuye.png
     BoutonSuivant.png

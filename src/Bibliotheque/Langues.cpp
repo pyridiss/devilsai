@@ -29,7 +29,7 @@
 
 /** VARIABLES GLOBALES **/
 
-const int NombrePhrases = 113;
+const int NombrePhrases = 109;
 
 Langage *Langues;
 

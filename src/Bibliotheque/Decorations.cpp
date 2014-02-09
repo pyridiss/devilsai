@@ -62,27 +62,27 @@ void Load_Decorations()
 	AjouterImageDecoration("BoutonPrecedentAppuye");
 	AjouterImageDecoration("BoutonSuivant");
 	AjouterImageDecoration("BoutonSuivantAppuye");
+	AjouterImageDecoration("BoutonPersonnage");
+	AjouterImageDecoration("BoutonEquipement");
+	AjouterImageDecoration("BoutonCompetences");
+	AjouterImageDecoration("BoutonJournal");
 
-	Partie.screenCharacter.button.Creer(5, 200, 125, 18, "Bouton", "BoutonAppuye");
-	Partie.screenCharacter.button.AjouterTexte(_MENUJEU_PERSONNAGE);
+	Partie.screenCharacter.button.Creer(Options.ScreenW/2 - 2*32 - 4 - 2, 28, 32, 32, "BoutonPersonnage", "BoutonPersonnage");
 	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
 
-	Partie.screenEquipment.button.Creer(5, 220, 125, 18, "Bouton", "BoutonAppuye");
-	Partie.screenEquipment.button.AjouterTexte(_MENUJEU_EQUIPEMENT);
+	Partie.screenEquipment.button.Creer(Options.ScreenW/2 - 1*32 - 2, 28, 32, 32, "BoutonEquipement", "BoutonEquipement");
 	Partie.screenEquipment.key = Keyboard::Key::E;
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
 
-	Partie.screenSkills.button.Creer(5, 240, 125, 18, "Bouton", "BoutonAppuye");
-	Partie.screenSkills.button.AjouterTexte(_MENUJEU_COMPETENCES);
+	Partie.screenSkills.button.Creer(Options.ScreenW/2 + 2, 28, 32, 32, "BoutonCompetences", "BoutonCompetences");
 	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
 
-	Partie.screenJournal.button.Creer(5, 260, 125, 18, "Bouton", "BoutonAppuye");
-	Partie.screenJournal.button.AjouterTexte(_MENUJEU_JOURNAL);
+	Partie.screenJournal.button.Creer(Options.ScreenW/2 + 32 + 4 + 2, 28, 32, 32, "BoutonJournal", "BoutonJournal");
 	Partie.screenJournal.key = Keyboard::Key::J;
 	Partie.screenJournal.dispFunction = Disp_Journal;
 	Partie.screenJournal.manageFunction = nullptr;

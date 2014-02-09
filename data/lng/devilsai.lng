@@ -92,39 +92,23 @@ xx= ...
 fr= Quitter
 en= Exit
 xx= ...
-* MENUJEU_PERSONNAGE	204
-fr= Personnage (A)
-en= Character (A)
-xx= ...
-* MENUJEU_EQUIPEMENT	205
-fr= Équipement (E)
-en= Equipment (E)
-xx= ...
-* MENUJEU_COMPETENCES	206
-fr= Compétences (K)
-en= Skills (K)
-xx= ...
-* MENUJEU_JOURNAL	207
-fr= Journal (J)
-en= Journal (J)
-xx= ...
-* MENUJEU_PAUSE	208
+* MENUJEU_PAUSE	204
 fr= Pause (P)
 en= Pause (P)
 xx= ...
-* MENUJEU_SAUVEG	209
+* MENUJEU_SAUVEG	205
 fr= Sauvegarder (S)
 en= Save (S)
 xx= ...
-* MENUJEU_QUITTER	210
+* MENUJEU_QUITTER	206
 fr= Quitter le jeu
 en= Exit game
 xx= ...
-* MENUJEU_REPOS	211
+* MENUJEU_REPOS	207
 fr= Repos
 en= Rest
 xx= ...
-* PAS_DE_SAUVEG	212
+* PAS_DE_SAUVEG	208
 fr= Pas de sauvegarde disponible
 en= No saved game available
 xx= ...
