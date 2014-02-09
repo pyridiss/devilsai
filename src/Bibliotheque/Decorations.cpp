@@ -215,6 +215,13 @@ void Bouton::Disp()
 	else
 	{
 		if (strAppuye != "") Disp_ImageDecoration(strAppuye, PosX, PosY);
+		if (strAppuye != "" && strAppuye == strRelache) //Manually highlight button
+		{
+			RectangleShape highlight(Vector2f(Width, Height));
+			highlight.setPosition(PosX, PosY);
+			highlight.setFillColor(Color(255, 255, 255, 100));
+			Jeu.App.draw(highlight);
+		}
 		Texte.setColor(Color(200,100,0,255));
 		Texte.setPosition(Texte.getPosition().x + 1, Texte.getPosition().y + 1);
 		Jeu.App.draw(Texte);
