@@ -373,6 +373,8 @@ bool Dialogue::Afficher()
 {
 	if (Repliques.empty()) return true;
 
+	bindBlurShader(Repliques.begin()->Rectangle.left - 20, Repliques.begin()->Rectangle.top, Options.ScreenW / 2, 26 + NumeroReplique->Lignes.size() * 16);
+
 	Disp_Texte(NumeroReplique->Nom, NumeroReplique->Rectangle.left, NumeroReplique->Rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
 	Text Texte("", Font::getDefaultFont(), 11);
@@ -469,6 +471,8 @@ void Journal::setDone(string _ref)
 void Disp_Journal()
 {
 	if (Partie.journal.journal.empty()) return;
+
+	bindBlurShader(10, Options.ScreenH - 424, Options.ScreenW / 2 - 20, 224);
 
 	int numberOfLine = 0;
 	int opacity = 255;

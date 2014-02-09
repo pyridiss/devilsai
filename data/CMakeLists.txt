@@ -13,6 +13,7 @@ set(data
     DayRoman.ttf
     defaut.opt
     devilsai.png
+    blurShader.frag
 )
 
 install(FILES ${data} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai)

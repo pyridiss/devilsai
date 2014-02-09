@@ -37,6 +37,8 @@ Bouton *MenuSup_Repos;
 unsigned int NombreMesures = 0;
 float SommeFPS = 0;
 
+Shader *blurShader;
+
 
 /** GESTION DES DÉCORATIONS **/
 
@@ -103,6 +105,9 @@ void Load_Decorations()
 	MenuSup_Repos->Creer(31, 130, 125, 18, "Bouton", "BoutonAppuye");
 	MenuSup_Repos->AjouterTexte(Get_Phrase(_MENUJEU_REPOS));
 
+	blurShader = new Shader;
+	blurShader->loadFromFile(Partie.DATA + "blurShader.frag", Shader::Type::Fragment);
+
 	Load_Decorations_Objets();
 }
 
@@ -112,6 +117,8 @@ void Supprimer_Decorations()
 	delete MenuSup_Sauvegarder;
 	delete MenuSup_Quitter;
 	delete MenuSup_Repos;
+
+	delete blurShader;
 
 	Supprimer_Decorations_Objets();
 }
@@ -759,4 +766,21 @@ bool Disp_Repos()
 	Disp_ImageDecoration("Repos", Options.ScreenW/2, Options.ScreenH/2, true);
  	Jeu.App.draw(Degrade, 4, sf::Quads);
 	return false;
+}
+
+void bindBlurShader(int x, int y, int w, int h)
+{
+	Texture tex;
+	tex.create(Options.ScreenW, Options.ScreenH);
+	tex.update(Jeu.App);
+	RectangleShape rect;
+	rect.setSize(Vector2f(w, h));
+	rect.setTexture(&tex, true);
+	rect.setTextureRect(IntRect(x, y, w, h));
+	rect.setPosition(x, y);
+	RenderStates states;
+	states.shader = blurShader;
+	blurShader->setParameter("texture", tex);
+	blurShader->setParameter("textureSize", tex.getSize().x, tex.getSize().y);
+	Jeu.App.draw(rect, states);
 }
