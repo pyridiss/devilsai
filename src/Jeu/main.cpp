@@ -58,7 +58,7 @@ Classe_Jeu::Classe_Options::Classe_Options()
 	Utf8::toUtf32(space.begin(), space.end(), back_inserter(CharSpace));
 }
 
-void Classe_Partie::changeCurrentUseScreen(userScreen* _new)
+void Classe_Partie::changeCurrentUserScreen(UserScreen* _new)
 {
 	if (_new == nullptr) currentUserScreen = nullptr;
 	else

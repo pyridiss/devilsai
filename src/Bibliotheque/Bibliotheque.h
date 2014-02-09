@@ -254,7 +254,7 @@ class Bouton
 		void Disp();
 };
 
-class userScreen
+class UserScreen
 {
 	public:
 		Bouton button;

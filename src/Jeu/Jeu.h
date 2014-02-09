@@ -68,11 +68,11 @@ struct Classe_Partie
 
 	Journal journal;
 
-	userScreen screenCharacter;
-	userScreen screenEquipment;
-	userScreen screenSkills;
-	userScreen screenJournal;
-	userScreen *currentUserScreen = nullptr;
+	UserScreen screenCharacter;
+	UserScreen screenEquipment;
+	UserScreen screenSkills;
+	UserScreen screenJournal;
+	UserScreen *currentUserScreen = nullptr;
 
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
@@ -99,7 +99,7 @@ struct Classe_Partie
 	map<string, lua_State*> quests;
 
 	public:
-		void changeCurrentUseScreen(userScreen* _new);
+		void changeCurrentUserScreen(UserScreen* _new);
 };
 
 /**

@@ -316,10 +316,10 @@ int Gestion_Menu(Event &event)
 		if (Partie.perso->LieuVillage)
 			if (MenuSup_Repos->TestActivation(event.type)) return ACTION_REPOS;
 
-		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUseScreen(&Partie.screenCharacter);
-		if (Partie.screenEquipment.button.TestActivation(event.type))	Partie.changeCurrentUseScreen(&Partie.screenEquipment);
-		if (Partie.screenSkills.button.TestActivation(event.type))		Partie.changeCurrentUseScreen(&Partie.screenSkills);
-		if (Partie.screenJournal.button.TestActivation(event.type))		Partie.changeCurrentUseScreen(&Partie.screenJournal);
+		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+		if (Partie.screenEquipment.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+		if (Partie.screenSkills.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
+		if (Partie.screenJournal.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
 	}
 
 	return ACTION_JEU;
