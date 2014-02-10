@@ -22,11 +22,11 @@ FIN_INVENTAIRE
 SKILL attack
 SKILL fireball
 SKILL healpotion
-SKILL achieve
+SKILL finishoff
 DEFAUT_CTRL attack
 DEFAUT_SHIFT fireball
 DEFAUT_TAB healpotion
-DEFAUT_SPACE achieve
+DEFAUT_SPACE finishoff
 ACT 6 blo 4
 VIT 6
 MAJ 0
