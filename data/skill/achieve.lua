@@ -148,7 +148,7 @@ function testEnoughEnergy()
 
 	energy = get(owner, "energy")
 
-	if (energy < 2 * getNeededEnergy()) then
+	if energy < 2 * getNeededEnergy() then
 		return false
 	else
 		return true
@@ -198,7 +198,11 @@ end
 
 function getMultAgilite()
 	if activated == true then
-		return 10000
+		if partOfSkill == "rest" then
+			return -100
+		else
+			return 10000
+		end
 	end
 	return 0
 end
