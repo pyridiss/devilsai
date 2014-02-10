@@ -2,11 +2,27 @@
 # Fichier journal.lng : Entrées du journal des quêtes #
 # ################################################### #
 # 
-*	1-InvasionGlade-Intro1 Invasion de la Clairière des Saints
-fr= Première entrée du journal
-en= Première entrée du journal
+*	1-InvasionGlade-Intro1
+NOM fr= Arrivée au Camp de Gower
+NOM en= Arrivée au Camp de Gower
+fr= Je viens d'arriver au camp de Gower, assailli par des hordes de démons. Je devrait aller consulter Gower pour en savoir un peu plus.
+en= Je viens d'arriver au camp de Gower, assailli par des hordes de démons. Je devrait aller consulter Gower pour en savoir un peu plus.
 xx= ...
-*	1-InvasionGlade-Intro2 Invasion de la Clairière des Saints
-fr= Deuxième entrée du journal
-en= Deuxième entrée du journal
+*	1-InvasionGlade-Intro2
+NOM fr= Invasion de la Clairière des Saints
+NOM en= Invasion de la Clairière des Saints
+fr= De nombreux démons rôdent dans la Clairière des Saints, à la sortie du campement, et menacent celui-ci. Gower m'a demandé d'aller aider les soldats qui tentent de mettre fin à cette menace.
+en= De nombreux démons rôdent dans la Clairière des Saints, à la sortie du campement, et menacent celui-ci. Gower m'a demandé d'aller aider les soldats qui tentent de mettre fin à cette menace.
+xx= ...
+*	1-InvasionGlade-1
+NOM fr= Invasion de la Clairière des Saints
+NOM en= Invasion de la Clairière des Saints
+fr= Tous les démons qui envahissaient la Clairière des Saints ont été vaincus. Il est temps de rentrer au camp de Gower.
+en= Tous les démons qui envahissaient la Clairière des Saints ont été vaincus. Il est temps de rentrer au camp de Gower.
+xx= ...
+*	1-InvasionGlade-2
+NOM fr= Invasion de la Clairière des Saints
+NOM en= Invasion de la Clairière des Saints
+fr= La Clairière des Saints est désormais libérée des démons. Le camp est à nouveau en sécurité.
+en= La Clairière des Saints est désormais libérée des démons. Le camp est à nouveau en sécurité.
 xx= ...

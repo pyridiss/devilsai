@@ -442,7 +442,12 @@ void Journal::addEntry(string _ref)
 		{
 			fileStream >> readRef;
 			fileStream.get();
-			fileStream >> entry.Nom;
+		}
+		else if (TypeDonnee == "NOM")
+		{
+			fileStream >> TypeDonnee;
+			if (TypeDonnee == Options.Langue && readRef == _ref)
+				fileStream >> entry.Nom;
 		}
 		else if (TypeDonnee == Options.Langue && readRef == _ref)
 		{
