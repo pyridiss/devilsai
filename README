@@ -163,7 +163,6 @@ Disponibles en mode DEBOGAGE uniquement :
 
 Toujours disponible :
 --no-limit-fps :                             Mode No-Limit-To-FPS ; désactive la limitation du FPS et calcule le FPS moyen, affiché dans la console lors de la fermeture
---data-dir :                                 Permet de préciser le répertoire dans lequel se trouve le dossier data à utiliser
 
 
 

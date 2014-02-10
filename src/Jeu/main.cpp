@@ -65,10 +65,6 @@ void GestionArguments(int n, char *params[])
 {
 	for (int i = 0 ; i < n ; ++i)
 	{
-		if (strcmp(params[i], "--data-dir") == 0)
-		{
-			Partie.DATA = params[i+1] + Partie.DATA;
-		}
 		#ifdef DEBOGAGE
 		if (strcmp(params[i], "-v") == 0 || strcmp(params[i], "--verbose") == 0)
 		{
