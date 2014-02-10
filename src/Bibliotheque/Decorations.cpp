@@ -334,8 +334,18 @@ int Gestion_Menu(Event &event)
 
 void Disp_Menu()
 {
+	static bool Clign = false;
+	static float Cmpt = 0;
+	Cmpt += I(1);
+	if (Cmpt >= 30)
+	{
+		Cmpt = 0;
+		Clign = !Clign;
+	}
+
 	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
 		Disp_ImageDecoration("Frange", 100*a, 0);
+
 	MenuSup_Pause->Disp();
 	if (!Arguments.SaveDisabled) MenuSup_Sauvegarder->Disp();
 	MenuSup_Quitter->Disp();
@@ -344,23 +354,24 @@ void Disp_Menu()
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)
 	{
-		static bool Clign = false; static float Cmpt = 0;
 		if (Clign)
 			Disp_TexteCentre(_ERREUR, Options.ScreenW/2, 32, Color(255,255,255,255), 10.);
 		else
 			Disp_TexteCentre(_ERREUR, Options.ScreenW/2, 32, Color(255,0,0,255), 10.);
-		Cmpt += I(1);
-		if (Cmpt >= 30)
-		{
-			Cmpt = 0;
-			Clign = !Clign;
-		}
 	}
 
 	Partie.screenCharacter.button.Disp();
 	Partie.screenEquipment.button.Disp();
 	Partie.screenSkills.button.Disp();
 	Partie.screenJournal.button.Disp();
+
+	if (Partie.journal.newEntryAdded && Clign)
+	{
+		RectangleShape mask(Vector2f(32, 32));
+		mask.setPosition(Partie.screenJournal.button.GetX(), Partie.screenJournal.button.GetY());
+		mask.setFillColor(Color(255, 0, 0, 64));
+		Jeu.App.draw(mask);
+	}
 }
 
 

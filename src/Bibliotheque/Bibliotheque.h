@@ -198,6 +198,7 @@ class Journal
 {
 	public:
 		list<JournalEntry> journal;
+		bool newEntryAdded = false;
 
 	public:
 		void addEntry(string _ref);

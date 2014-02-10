@@ -460,6 +460,8 @@ void Journal::addEntry(string _ref)
 
 	DecoupageReplique(&entry);
 
+	newEntryAdded = true;
+
 	fileStream.close();
 }
 
@@ -476,6 +478,8 @@ void Journal::setDone(string _ref)
 void Disp_Journal()
 {
 	if (Partie.journal.journal.empty()) return;
+
+	Partie.journal.newEntryAdded = false;
 
 	bindBlurShader(10, Options.ScreenH - 424, Options.ScreenW / 2 - 20, 224);
 
