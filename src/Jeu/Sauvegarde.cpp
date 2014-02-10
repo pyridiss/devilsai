@@ -52,6 +52,10 @@ void Save_Partie()
 	//Missions :
 	saveQuests(mainFileStream);
 
+	//Journal entries:
+	for (auto i : Partie.journal.journal)
+		mainFileStream << "JOURNAL " << i.reference << " " << i.done << endl;
+
 	mainFileStream.close();
 
 
@@ -233,6 +237,12 @@ bool Load_Partie(string path)
 		{
 			mainFileStream >> DonneeInt;
 			if (NouveauId() < DonneeInt) while (NouveauId() != DonneeInt) {}
+		}
+		if (TypeDonnee == "JOURNAL")
+		{
+			mainFileStream >> DonneeString1 >> DonneeInt;
+			Partie.journal.addEntry(DonneeString1);
+			if (DonneeInt) Partie.journal.setDone(DonneeString1);
 		}
 
 		//Quests cannot be loaded here because we need to load maps first

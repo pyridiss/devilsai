@@ -45,10 +45,10 @@ function questBegin(addNewElements)
 			loadElement("CARTE_MERE 1 IND_COMMUN 210 580 -33", "Warriors-GladeSaints")
 			loadElement("CARTE_MERE 1 IND_COMMUN 210 486  62", "Warriors-GladeSaints")
 			loadElement("CARTE_MERE 1 IND_COMMUN 210 580  62", "Warriors-GladeSaints")
+			pushDialog("1-InvasionGlade-Intro1")
+			addJournalEntry("1-InvasionGlade-Intro1")
 		end
 
-		pushDialog("1-InvasionGlade-Intro1")
-		addJournalEntry("1-InvasionGlade-Intro1")
 		questStep = "1"
 	end
 
@@ -119,14 +119,6 @@ function questRecoverState(data)
 		hasTalkedToGower = true
 	else
 		hasTalkedToGower = false
-	end
-
-	popDialog("1-InvasionGlade-Intro1")
-
-	if questStep == "2" then
-		pushDialog("1-InvasionGlade-1")
-	elseif questStep == "3" then
-		pushDialog("1-InvasionGlade-2")
 	end
 end
 
