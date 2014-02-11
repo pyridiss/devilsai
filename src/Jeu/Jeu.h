@@ -55,8 +55,6 @@ struct Classe_Partie
 	string DATA = INSTALL_DIR;
 	string SAVE = "";
 
-	bool CaptureDisponible  = false;
-
 	bool ModeCinematiques   = false;
 
 	Carte *CarteCourante    = NULL;

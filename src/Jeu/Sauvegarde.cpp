@@ -171,14 +171,13 @@ void Save_Partie()
 
 	/* 3. CAPTURE D'ÉCRAN */
 
-	Partie.CaptureDisponible = false;
 	Texture Capture;
 	Capture.create(Options.ScreenW, Options.ScreenH);
 	Capture.setSmooth(true);
 	Capture.update(Jeu.App);
 
 	Image CaptureImg = Capture.copyToImage();
-	if (CaptureImg.saveToFile(PATH + "capture.png")) Partie.CaptureDisponible = true;
+	CaptureImg.saveToFile(PATH + "capture.png");
 
 	MaJ_Sauvegarde();
 

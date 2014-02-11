@@ -33,7 +33,6 @@ struct Sauvegarde
 	string Version = "";
 	String32 Lieu;
 	int Vitalite = 1000;
-	bool CaptureDisponible = false;
 };
 
 
@@ -50,7 +49,6 @@ void AjouterSauvegarde()
 	Save.Version = VERSION;
 	Save.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
 	Save.Vitalite = Partie.perso->Get_Vitalite();
-	Save.CaptureDisponible = Options.SauvegardeDisponible;
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
 	Options.SauvegardeDisponible = true;
@@ -84,7 +82,7 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 		TypeDonnee = "";
 	}
 
-	if (save->second.CaptureDisponible) SupprimerFichier(path + "capture.png");
+	SupprimerFichier(path + "capture.png");
 
 	//Fermeture du fichier principal pour suppression
 	FichierPrincipal.close();
@@ -142,7 +140,6 @@ void LectureSauvegardes()
 			if (TypeDonnee == "VERSION")	Fichier >> i->second.Version;
 			if (TypeDonnee == "LIEU")		Fichier >> i->second.Lieu;
 			if (TypeDonnee == "VITALITE")	Fichier >> i->second.Vitalite;
-			if (TypeDonnee == "CAPTURE")	Fichier >> i->second.CaptureDisponible;
 			if (TypeDonnee == "FIN_SAUVEGARDE");
 
 			TypeDonnee = "";
@@ -307,13 +304,11 @@ string ChoixSauvegarde()
 			//Anciennes versions de sauvegarde toujours compatibles :
 			//if (save->second.Version == "0.2.svn66") SauvegardeCompatible = true;
 
-			if (save->second.CaptureDisponible)
-			{
-				TexCapture.loadFromFile(PATH + save->second.Dossier + "/capture.png");
-				Capture.setTexture(TexCapture);
-				Capture.setPosition(Options.ScreenW/2 - 50, 240);
-				Capture.setScale(0.5, 0.5);
-			}
+			TexCapture.loadFromFile(PATH + save->second.Dossier + "/capture.png");
+			Capture.setTexture(TexCapture);
+			Capture.setPosition(Options.ScreenW/2 - 50, 240);
+			Capture.setScale(0.5, 0.5);
+
 			ChangementSauvegarde = false;
 		}
 
@@ -332,7 +327,7 @@ string ChoixSauvegarde()
 			BoutonSuivant.Disp();
 		}
 
-		if (save->second.CaptureDisponible) Jeu.App.draw(Capture);
+		Jeu.App.draw(Capture);
 
 		if (!SauvegardeCompatible) Disp_TexteCentre(_VERSION_INCOMPATIBLE, Options.ScreenW/2, 210, Color(255, 70, 70, 255), 10.);
 
@@ -360,7 +355,6 @@ void MaJ_Sauvegarde()
 	i->second.Lieu.clear();
 	i->second.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
 	i->second.Vitalite = Partie.perso->Get_Vitalite();
-	i->second.CaptureDisponible = Options.SauvegardeDisponible;
 }
 
 void Save_Sauvegardes()
@@ -386,7 +380,6 @@ void Save_Sauvegardes()
 		sf::Utf32::toUtf8(savedGame.second.Lieu.begin(), savedGame.second.Lieu.end(), back_inserter(bufferString));
 		fileStream << "LIEU " << bufferString << endl;
 		fileStream << "VITALITE " << savedGame.second.Vitalite << endl;
-		fileStream << "CAPTURE " << savedGame.second.CaptureDisponible << endl;
 		fileStream << "FIN_SAUVEGARDE" << endl;
 		bufferString = "";
 	}
