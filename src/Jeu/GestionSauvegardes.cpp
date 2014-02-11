@@ -54,6 +54,9 @@ void AjouterSauvegarde()
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
 	Options.SauvegardeDisponible = true;
+
+	Save_Sauvegardes();
+	Save_Options();
 }
 
 void SupprimerSauvegarde(DicoSauvegardes::iterator save)
