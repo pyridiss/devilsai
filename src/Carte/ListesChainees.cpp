@@ -218,8 +218,6 @@ void Supprimer_ElementCollision(int id)
 		delete tmp;
 
 		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
-
-		return;
 	}
 
 	//Il ne s'agit pas du premier élément
@@ -237,6 +235,12 @@ void Supprimer_ElementCollision(int id)
 		delete tmp2;
 
 		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
+	}
+
+	//We make sure that there is no other Element_Collision with the same elem
+	for (Element_Collision *tmp3 = Partie.Collision_head ; tmp3 != NULL ; tmp3 = tmp3->next)
+	{
+		if (tmp3->elem->Id == id) Supprimer_ElementCollision(id);
 	}
 }
 
