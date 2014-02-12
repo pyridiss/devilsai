@@ -83,8 +83,6 @@ class Classe_Commune
 class Classe_Paysage
 {
 	public:
-		Classe_Paysage *next;
-
 		string Type             = "";
 
 		bool ModeCollision      = MODE_COLLISION_CERCLE;
@@ -93,9 +91,6 @@ class Classe_Paysage
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
 	public:
-		Classe_Paysage();
-		~Classe_Paysage();
-
 		void Copie_Element(Paysage *elem);
 };
 

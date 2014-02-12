@@ -86,17 +86,6 @@ void Paysage::Disp_Masks(float RefX, float RefY)
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage **/
 
-Classe_Paysage::Classe_Paysage()
-{
-	next = NULL;
-}
-
-Classe_Paysage::~Classe_Paysage()
-{
-	if (next != NULL) delete next;
-	next = NULL;
-}
-
 void Classe_Paysage::Copie_Element(Paysage *elem)
 {
 	elem->ModeCollision = ModeCollision;

@@ -95,37 +95,29 @@ Classe_Commune* Get_ClasseCom(string Type)
 
 void Ajouter_ClassePay(string Type)
 {
-	if (Partie.ClassePay_head == NULL)
-	{
-		Partie.ClassePay_head = new Classe_Paysage;
-		Partie.ClassePay_last = Partie.ClassePay_head;
-	}
-	else
-	{
-		Partie.ClassePay_last->next = new Classe_Paysage;
-		Partie.ClassePay_last = Partie.ClassePay_last->next;
-	}
-	Partie.ClassePay_last->Type = Type;
+	Classe_Paysage* _new = new Classe_Paysage;
+	Partie.landsClasses.insert(map<string, Classe_Paysage*>::value_type(Type, _new));
 
 	MESSAGE("Classe Paysage " + Type + " ajoutée", LISTE)
 }
 
 void SupprimerListe_ClassePay()
 {
-	if (Partie.ClassePay_head != NULL) delete Partie.ClassePay_head;
-	Partie.ClassePay_head = NULL; Partie.ClassePay_last = NULL;
+	for (auto i : Partie.landsClasses)
+		delete i.second;
+
+	Partie.landsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages supprimée", LISTE)
 }
 
 Classe_Paysage* Get_ClassePay(string Type)
 {
-	Classe_Paysage *tmp = Partie.ClassePay_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	map<string, Classe_Paysage*>::iterator i = Partie.landsClasses.find(Type);
+
+	if (i != Partie.landsClasses.end()) return i->second;
+
+	return NULL;
 }
 
 
