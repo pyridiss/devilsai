@@ -70,9 +70,7 @@ struct Classe_Partie
 
 	map <string, Classe_Commune*> commonClasses;
 	map <string, Classe_Paysage*> landsClasses;
-
-	Classe_Paysage_Mouvant *ClassePayMvt_head   = NULL;
-	Classe_Paysage_Mouvant *ClassePayMvt_last   = NULL;
+	map <string, Classe_Paysage_Mouvant*> movingLandsClasses;
 
 	Element_Collision *Collision_head   = NULL;
 	Element_Collision *Collision_last   = NULL;

@@ -125,37 +125,29 @@ Classe_Paysage* Get_ClassePay(string Type)
 
 void Ajouter_ClassePayMvt(string Type)
 {
-	if (Partie.ClassePayMvt_head == NULL)
-	{
-		Partie.ClassePayMvt_head = new Classe_Paysage_Mouvant;
-		Partie.ClassePayMvt_last = Partie.ClassePayMvt_head;
-	}
-	else
-	{
-		Partie.ClassePayMvt_last->next = new Classe_Paysage_Mouvant;
-		Partie.ClassePayMvt_last = Partie.ClassePayMvt_last->next;
-	}
-	Partie.ClassePayMvt_last->Type = Type;
+	Classe_Paysage_Mouvant* _new = new Classe_Paysage_Mouvant;
+	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant*>::value_type(Type, _new));
 
 	MESSAGE("Classe Paysage Mouvant " + Type + " ajoutée", LISTE)
 }
 
 void SupprimerListe_ClassePayMvt()
 {
-	if (Partie.ClassePayMvt_head != NULL) delete Partie.ClassePayMvt_head;
-	Partie.ClassePayMvt_head = NULL; Partie.ClassePayMvt_last = NULL;
+	for (auto i : Partie.movingLandsClasses)
+		delete i.second;
+
+	Partie.movingLandsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages Mouvants supprimée", LISTE)
 }
 
 Classe_Paysage_Mouvant* Get_ClassePayMvt(string Type)
 {
-	Classe_Paysage_Mouvant *tmp = Partie.ClassePayMvt_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	map<string, Classe_Paysage_Mouvant*>::iterator i = Partie.movingLandsClasses.find(Type);
+
+	if (i != Partie.movingLandsClasses.end()) return i->second;
+
+	return NULL;
 }
 
 

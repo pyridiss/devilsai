@@ -110,14 +110,6 @@ class Classe_Paysage_Mouvant
 		bool ActivationNecessaire	= false;
 //		bool ActivationUnique;
 
-	public:
-		Classe_Paysage_Mouvant *next;
-
-	//Constructeurs / Destructeurs :
-	public:
-		Classe_Paysage_Mouvant();
-		~Classe_Paysage_Mouvant();
-
 	//Gestion :
 	public:
 		void Ajouter_Activite(int Id);

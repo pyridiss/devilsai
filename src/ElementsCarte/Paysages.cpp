@@ -191,16 +191,6 @@ void Paysage_Mouvant::Disp_Masks(float RefX, float RefY)
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage_Mouvant **/
 
-Classe_Paysage_Mouvant::Classe_Paysage_Mouvant()
-{
-	next = NULL;
-}
-Classe_Paysage_Mouvant::~Classe_Paysage_Mouvant()
-{
-	if (next != NULL) delete next;
-	next = NULL;
-}
-
 void Classe_Paysage_Mouvant::Copie_Element(Element_Carte *elem)
 {
 	elem->ModeCollision = ModeCollision;
