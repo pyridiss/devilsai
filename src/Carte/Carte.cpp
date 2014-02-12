@@ -241,7 +241,7 @@ Element_Carte* Get_Element(int id)
 {
 	for (auto& map : Partie.maps)
 	{
-		Element_Carte *tmp = map.second->head;
+		Element_Carte *tmp = map.second.head;
 		while (tmp != NULL)
 		{
 			if (tmp->Id == id) return tmp;
@@ -255,7 +255,7 @@ Individu_Unique* Get_IndividuUnique(string type)
 {
 	for (auto& map : Partie.maps)
 	{
-		Element_Carte *tmp = map.second->head;
+		Element_Carte *tmp = map.second.head;
 		while (tmp != NULL)
 		{
 			if (tmp->Type == type) return dynamic_cast<Individu_Unique*>(tmp);
@@ -738,8 +738,8 @@ void Lag_PosFondCartes(float lagX, float lagY)
 {
 	for (auto& map : Partie.maps)
 	{
-		map.second->PosFondX += lagX;
-		map.second->PosFondY += lagY;
+		map.second.PosFondX += lagX;
+		map.second.PosFondY += lagY;
 	}
 }
 

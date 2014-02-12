@@ -64,11 +64,11 @@ struct Classe_Partie
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 
-	map <string, Carte*> maps;
+	map<string, Carte> maps;
 
-	map <string, Classe_Commune*> commonClasses;
-	map <string, Classe_Paysage*> landsClasses;
-	map <string, Classe_Paysage_Mouvant*> movingLandsClasses;
+	map<string, Classe_Commune> commonClasses;
+	map<string, Classe_Paysage> landsClasses;
+	map<string, Classe_Paysage_Mouvant> movingLandsClasses;
 
 	list<Element_Carte*> colliders;
 

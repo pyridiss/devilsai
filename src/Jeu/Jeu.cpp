@@ -65,13 +65,13 @@ bool RechercheJoueur()
 	while (carte != Partie.maps.end() && !PersonnageTrouve)
 	{
 		//Recherche du personnage qui contrôlera le jeu
-		tmpj = carte->second->head;
+		tmpj = carte->second.head;
 		while(tmpj != NULL && !PersonnageTrouve)
 		{
 			if (tmpj->Get_Controle() == HUMAIN)
 			{
 				PersonnageTrouve = true;
-				Partie.CarteCourante = carte->second; //CarteCourante est initialisée à la carte contenant le personnage
+				Partie.CarteCourante = &(carte->second); //CarteCourante est initialisée à la carte contenant le personnage
 			}
 			else tmpj = tmpj->next;
 		}

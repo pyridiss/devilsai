@@ -27,19 +27,16 @@
 
 void Ajouter_Carte(string Id)
 {
-	Carte* _new = new Carte;
-	Partie.maps.insert(map<string, Carte*>::value_type(Id, _new));
+	Carte _new;
+	Partie.maps.insert(map<string, Carte>::value_type(Id, _new));
 
-	Partie.maps[Id]->Id = Id;
+	Partie.maps[Id].Id = Id;
 
 	MESSAGE("Carte " + Id + " ajoutée", LISTE)
 }
 
 void SupprimerListe_Carte()
 {
-	for (auto i : Partie.maps)
-		delete i.second;
-
 	Partie.maps.clear();
 
 	MESSAGE("Liste des Cartes supprimée", LISTE)
@@ -47,9 +44,9 @@ void SupprimerListe_Carte()
 
 Carte* Get_Carte(string Id)
 {
-	map<string, Carte*>::iterator i = Partie.maps.find(Id);
+	auto i = Partie.maps.find(Id);
 
-	if (i != Partie.maps.end()) return i->second;
+	if (i != Partie.maps.end()) return &(i->second);
 
 	return NULL;
 }
@@ -57,17 +54,14 @@ Carte* Get_Carte(string Id)
 
 void addCommonClass(string type)
 {
-	Classe_Commune* _new = new Classe_Commune;
-	Partie.commonClasses.insert(map<string, Classe_Commune*>::value_type(type, _new));
+	Classe_Commune _new;
+	Partie.commonClasses.insert(map<string, Classe_Commune>::value_type(type, _new));
 
 	MESSAGE("Classe Commune " + type + " ajoutée", LISTE)
 }
 
 void deleteCommonClasses()
 {
-	for (auto i : Partie.commonClasses)
-		delete i.second;
-
 	Partie.commonClasses.clear();
 
 	MESSAGE("Liste des Classes Communes supprimée", LISTE)
@@ -75,9 +69,9 @@ void deleteCommonClasses()
 
 Classe_Commune* getCommonClass(string type)
 {
-	map<string, Classe_Commune*>::iterator i = Partie.commonClasses.find(type);
+	auto i = Partie.commonClasses.find(type);
 
-	if (i != Partie.commonClasses.end()) return i->second;
+	if (i != Partie.commonClasses.end()) return &(i->second);
 
 	return NULL;
 }
@@ -85,17 +79,14 @@ Classe_Commune* getCommonClass(string type)
 
 void addLandsClass(string type)
 {
-	Classe_Paysage* _new = new Classe_Paysage;
-	Partie.landsClasses.insert(map<string, Classe_Paysage*>::value_type(type, _new));
+	Classe_Paysage _new;
+	Partie.landsClasses.insert(map<string, Classe_Paysage>::value_type(type, _new));
 
 	MESSAGE("Classe Paysage " + type + " ajoutée", LISTE)
 }
 
 void deleteLandsClasses()
 {
-	for (auto i : Partie.landsClasses)
-		delete i.second;
-
 	Partie.landsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages supprimée", LISTE)
@@ -103,9 +94,9 @@ void deleteLandsClasses()
 
 Classe_Paysage* getLandsClass(string type)
 {
-	map<string, Classe_Paysage*>::iterator i = Partie.landsClasses.find(type);
+	auto i = Partie.landsClasses.find(type);
 
-	if (i != Partie.landsClasses.end()) return i->second;
+	if (i != Partie.landsClasses.end()) return &(i->second);
 
 	return NULL;
 }
@@ -115,17 +106,14 @@ Classe_Paysage* getLandsClass(string type)
 
 void addMovingLandsClass(string type)
 {
-	Classe_Paysage_Mouvant* _new = new Classe_Paysage_Mouvant;
-	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant*>::value_type(type, _new));
+	Classe_Paysage_Mouvant _new;
+	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant>::value_type(type, _new));
 
 	MESSAGE("Classe Paysage Mouvant " + type + " ajoutée", LISTE)
 }
 
 void deleteMovingLandsClasses()
 {
-	for (auto i : Partie.movingLandsClasses)
-		delete i.second;
-
 	Partie.movingLandsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages Mouvants supprimée", LISTE)
@@ -133,9 +121,9 @@ void deleteMovingLandsClasses()
 
 Classe_Paysage_Mouvant* getMovingLandsClass(string type)
 {
-	map<string, Classe_Paysage_Mouvant*>::iterator i = Partie.movingLandsClasses.find(type);
+	auto i = Partie.movingLandsClasses.find(type);
 
-	if (i != Partie.movingLandsClasses.end()) return i->second;
+	if (i != Partie.movingLandsClasses.end()) return &(i->second);
 
 	return NULL;
 }
