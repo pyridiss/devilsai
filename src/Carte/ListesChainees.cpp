@@ -147,79 +147,23 @@ Classe_Paysage_Mouvant* getMovingLandsClass(string type)
 }
 
 
-/** LISTE CHAINEE EN Element_Collision **/
-
 void Ajouter_ElementCollision(Element_Carte *elem)
 {
-	if (elem == NULL) return;
-
-	if (Partie.Collision_head == NULL)
-	{
-		Partie.Collision_head = new Element_Collision;
-		Partie.Collision_head->elem = elem;
-		Partie.Collision_last = Partie.Collision_head;
-	}
-	else
-	{
-		Element_Collision *tmp = Partie.Collision_head;
-		while (tmp != NULL && tmp->elem->PosY < elem->PosY) tmp = tmp->next;
-		if (tmp == NULL) tmp = Partie.Collision_last;
-		Element_Collision *next = tmp->next;
-		tmp->next = NULL;
-
-		tmp->next = new Element_Collision;
-		tmp->next->elem = elem;
-		tmp->next->next = next;
-
-		if (tmp == Partie.Collision_last) Partie.Collision_last = Partie.Collision_last->next;
-	}
+	Partie.colliders.push_back(elem);
 
 	MESSAGE("Element collision " + intToString(elem->Id) + " ajouté", LISTE)
 }
 
 void Supprimer_ElementCollision(int id)
 {
-	Element_Collision *tmp = Partie.Collision_head;
-	if (tmp == NULL) return;
+	Partie.colliders.remove(Get_Element(id));
 
-	//Le premier élément a une gestion particulière
-	if (tmp->elem->Id == id)
-	{
-		Partie.Collision_head = tmp->next;
-		tmp->next = NULL;
-		delete tmp;
-
-		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
-	}
-
-	//Il ne s'agit pas du premier élément
-	while (tmp->next->elem->Id != id)
-	{
-		tmp = tmp->next;
-		if (tmp->next == NULL) break;
-	}
-	if (tmp != NULL) if (tmp->next != NULL) //Suppression de tmp->next
-	{
-		Element_Collision *tmp2 = tmp->next;
-		if (tmp->next == Partie.Collision_last) Partie.Collision_last = tmp;
-		tmp->next = tmp->next->next;
-		tmp2->next = NULL;
-		delete tmp2;
-
-		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
-	}
-
-	//We make sure that there is no other Element_Collision with the same elem
-	for (Element_Collision *tmp3 = Partie.Collision_head ; tmp3 != NULL ; tmp3 = tmp3->next)
-	{
-		if (tmp3->elem->Id == id) Supprimer_ElementCollision(id);
-	}
+	MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
 }
 
 void SupprimerListe_Collision()
 {
-	if (Partie.Collision_head != NULL) delete Partie.Collision_head;
-	Partie.Collision_head = NULL; Partie.Collision_last = NULL;
+	Partie.colliders.clear();
 
 	MESSAGE("Liste des Elements Collisions suppprimée", LISTE)
 }

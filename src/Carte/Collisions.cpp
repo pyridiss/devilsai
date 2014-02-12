@@ -25,25 +25,10 @@
 
 /** VARIABLES GLOBALES POUR LA GESTION DES COLLISIONS **/
 
-Element_Collision *Coll_tmp = Partie.Collision_head;
-Element_Collision *Coll_last = Coll_tmp;
+list<Element_Carte*>::iterator currentCollider = Partie.colliders.end();
+list<Element_Carte*>::iterator lastCollider = Partie.colliders.end();
 
 int MaximumRayonCollision = 0;
-
-
-/** FONCTIONS DE LA CLASSE Element_Collision **/
-
-Element_Collision::Element_Collision()
-{
-	elem = NULL;
-	next = NULL;
-}
-
-Element_Collision::~Element_Collision()
-{
-	if (next != NULL) delete next;
-	next = NULL; elem = NULL;
-}
 
 
 /** OPTIMISATIONS DE LA LISTE DE COLLISION **/
@@ -53,51 +38,17 @@ void CalculerRayonMax(int i)
 	if (i*1.1 > MaximumRayonCollision) MaximumRayonCollision = i*1.1;
 }
 
+bool comparisonBetweenColliders(Element_Carte* a, Element_Carte* b)
+{
+	if (a == NULL || b == NULL) return false;
+	if (a->PosY < b->PosY) return true;
+
+	return false;
+}
+
 void TriCollision()
 {
-	Element_Collision *Tri_tmp = Partie.Collision_head;
-
-	if (Tri_tmp == NULL || Tri_tmp->next == NULL) return;
-
-	if (Tri_tmp->elem->PosY > Tri_tmp->next->elem->PosY)
-	{
-		Element_Collision *tmp2 = Tri_tmp->next;
-		Tri_tmp->next = tmp2->next;
-		tmp2->next = Tri_tmp;
-		Partie.Collision_head = tmp2;
-	}
-
-	while (Tri_tmp != NULL)
-	{
-		//Tests pour tenter de garder la liste dans l'ordre des y décroissants
-
-			//Échange de Tri_tmp->next->next et de Tri_tmp->next->next->next
-
-		if (Tri_tmp->next != NULL && Tri_tmp->next->next != NULL && Tri_tmp->next->next->next != NULL 
-			&& Tri_tmp->next->next->elem->PosY > Tri_tmp->next->next->next->elem->PosY)
-		{
-			Element_Collision *tmp2 = Tri_tmp->next->next;
-			Tri_tmp->next->next = tmp2->next;
-			tmp2->next = tmp2->next->next;
-			Tri_tmp->next->next->next = tmp2;
-		}
-
-			 //Échange de Tri_tmp->next et de Tri_tmp->next->next
-
-		if (Tri_tmp->next != NULL && Tri_tmp->next->next != NULL && Tri_tmp->next->elem->PosY > Tri_tmp->next->next->elem->PosY)
-		{
-			Element_Collision *tmp2 = Tri_tmp->next;
-			Tri_tmp->next = tmp2->next;
-			tmp2->next = tmp2->next->next;
-			Tri_tmp->next->next = tmp2;
-		}
-
-			//Remise en fin de chaîne de last
-
-		while (Partie.Collision_last->next != NULL) Partie.Collision_last = Partie.Collision_last->next;
-
-		Tri_tmp = Tri_tmp->next;
-	}
+	Partie.colliders.sort(comparisonBetweenColliders);
 }
 
 
@@ -105,14 +56,14 @@ void TriCollision()
 
 Element_Carte* Get_Current_Coll()
 {
-	if (Coll_last != NULL) return Coll_last->elem;
+	if (lastCollider != Partie.colliders.end()) return *lastCollider;
 	return NULL;
 }
 
 void RaZ_Coll()
 {
-	Coll_tmp = Partie.Collision_head;
-	Coll_last = Partie.Collision_head;
+	currentCollider = Partie.colliders.begin();
+	lastCollider = Partie.colliders.begin();
 }
 
 bool Collision_cercle_cercle(int Ax, int Ay, int Ar, int Bx, int By, int Br)
@@ -146,9 +97,9 @@ int ParcoursCollisions(Individu *elem)
 
 	int Retour = COLL_OK;
 
-	if (Coll_tmp == NULL)
+	if (currentCollider == Partie.colliders.end())
 	{
-		Coll_tmp = Partie.Collision_head;
+		currentCollider = Partie.colliders.begin();
 		return COLL_END;
 	}
 
@@ -156,45 +107,45 @@ int ParcoursCollisions(Individu *elem)
 	elemPosY = elem->PosY;
 
 	//On avance dans la liste jusqu'à trouver un élément dont la différence des PosY est inférieure à MaximumRayonCollision
-	while (Coll_tmp->next != NULL && elemPosY - Coll_tmp->elem->PosY > MaximumRayonCollision)
+	while (*currentCollider != Partie.colliders.back() && elemPosY - (*currentCollider)->PosY > MaximumRayonCollision)
 	{
-		Coll_tmp = Coll_tmp->next;
+		++currentCollider;
 	}
 
 	//On vérifie que l'on ne dépasse plus MaximumRayonCollision, sinon le parcours est terminé
-	if (Coll_tmp->next != NULL && Coll_tmp->elem->PosY - elemPosY > MaximumRayonCollision)
+	if (*currentCollider != Partie.colliders.back() && (*currentCollider)->PosY - elemPosY > MaximumRayonCollision)
 	{
-		Coll_tmp = Partie.Collision_head;
+		currentCollider = Partie.colliders.begin();
 		return COLL_END;
 	}
 
-	if (Coll_tmp->elem == elem)
+	if ((*currentCollider) == elem)
 	{
-		Coll_last = Coll_tmp;
-		Coll_tmp = Coll_tmp->next;
+		lastCollider = currentCollider;
+		++currentCollider;
 		return COLL_OK;
 	}
 
 	bool ResultColl = false;
 
-	if (elem->ModeCollision == MODE_COLLISION_CERCLE && Coll_tmp->elem->ModeCollision == MODE_COLLISION_CERCLE)
+	if (elem->ModeCollision == MODE_COLLISION_CERCLE && (*currentCollider)->ModeCollision == MODE_COLLISION_CERCLE)
 		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->RayonCollision,
-											 Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayonCollision);
-	if (elem->ModeCollision == MODE_COLLISION_CERCLE && Coll_tmp->elem->ModeCollision == MODE_COLLISION_RECT)
+											 (*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayonCollision);
+	if (elem->ModeCollision == MODE_COLLISION_CERCLE && (*currentCollider)->ModeCollision == MODE_COLLISION_RECT)
 		ResultColl = Collision_cercle_rectangle(elem->PosX, elemPosY, elem->RayonCollision,
-												Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayX, Coll_tmp->elem->RayY);
-	if (elem->ModeCollision == MODE_COLLISION_RECT && Coll_tmp->elem->ModeCollision == MODE_COLLISION_CERCLE)
-		ResultColl = Collision_cercle_rectangle(Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayonCollision,
+												(*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayX, (*currentCollider)->RayY);
+	if (elem->ModeCollision == MODE_COLLISION_RECT && (*currentCollider)->ModeCollision == MODE_COLLISION_CERCLE)
+		ResultColl = Collision_cercle_rectangle((*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayonCollision,
 												elem->PosX, elemPosY, elem->RayX, elem->RayY);
-	if (elem->ModeCollision == MODE_COLLISION_RECT && Coll_tmp->elem->ModeCollision == MODE_COLLISION_RECT)
+	if (elem->ModeCollision == MODE_COLLISION_RECT && (*currentCollider)->ModeCollision == MODE_COLLISION_RECT)
 		ResultColl = Collision_rectangle_rectangle(elem->PosX, elem->PosY, elem->RayX, elem->RayY,
-												   Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayX, Coll_tmp->elem->RayY);
+												   (*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayX, (*currentCollider)->RayY);
 
 	if (ResultColl)
 	{
 		//On a une collision entre les deux rayons primaires des éléments
 
-		int Coll = Coll_tmp->elem->Collision(elem, COLL_PRIM);
+		int Coll = (*currentCollider)->Collision(elem, COLL_PRIM);
 		switch(Coll)
 		{
 			case COLL_OK		: break;
@@ -207,8 +158,8 @@ int ParcoursCollisions(Individu *elem)
 	//On a une collision primaire (ou interaction d'actionneur) ; Retour à la Gestion
 	if (Retour == COLL_PRIM || Retour == COLL_PRIM_MVT || Retour == COLL_INTER)
 	{
-		Coll_last = Coll_tmp;
-		Coll_tmp = Coll_tmp->next;
+		lastCollider = currentCollider;
+		++currentCollider;
 		return Retour;
 	}
 
@@ -216,44 +167,44 @@ int ParcoursCollisions(Individu *elem)
 	//Attention : seuls les paysages en RECT_COL sont bloqués ici ; un moyen pour les bloquer tous ?
 	if (elem->Get_RayonInteraction() == 0 || elem->ModeCollision == MODE_COLLISION_RECT)
 	{
-		Coll_last = Coll_tmp;
-		Coll_tmp = Coll_tmp->next;
+		lastCollider = currentCollider;
+		++currentCollider;
 		return COLL_OK;
 	}
 
 	//Pas de collision primaire ; on teste une collision en interaction
 	ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->Get_RayonInteraction(),
-										 Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayonCollision);
+										 (*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayonCollision);
 	if (ResultColl)
 	{
-		if (TestAngle(elem->PosX, elemPosY, elem->Get_Dir(), Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, elem->Get_NombreDir()))
+		if (TestAngle(elem->PosX, elemPosY, elem->Get_Dir(), (*currentCollider)->PosX, (*currentCollider)->PosY, elem->Get_NombreDir()))
 			Retour = COLL_INTER;
 		else Retour = COLL_INTER_ARR;
 	}
 
 	//Dans le cas de diplomatie identique, on s'arrête là
-	if (elem->Diplomatie == Coll_tmp->elem->Diplomatie)
+	if (elem->Diplomatie == (*currentCollider)->Diplomatie)
 	{
-		Coll_last = Coll_tmp;
-		Coll_tmp = Coll_tmp->next;
+		lastCollider = currentCollider;
+		++currentCollider;
 		return Retour;
 	}
 
 	//Dans le cas de la diplomatie adverse, on transforme l'interaction en attaque
-	if (Coll_tmp->elem->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER) Retour = COLL_ATT;
-	if (Coll_tmp->elem->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER_ARR) Retour = COLL_ATT_ARR;
+	if ((*currentCollider)->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER) Retour = COLL_ATT;
+	if ((*currentCollider)->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER_ARR) Retour = COLL_ATT_ARR;
 
 	//Pas de collision primaire, pas de collision en interaction ; on teste une collision en vision
 	if (Retour != COLL_INTER && Retour != COLL_INTER_ARR && Retour != COLL_ATT && Retour != COLL_ATT_ARR &&
 		elem->Get_ChampVision() != 0)
 	{ /** DONC, POUR LE MOMENT, Retour == COLL_OK **/
 		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->Get_ChampVision(),
-											 Coll_tmp->elem->PosX, Coll_tmp->elem->PosY, Coll_tmp->elem->RayonCollision);
+											 (*currentCollider)->PosX, (*currentCollider)->PosY, (*currentCollider)->RayonCollision);
 		if (ResultColl) Retour = COLL_VIS;
 	}
 
-	Coll_last = Coll_tmp;
-	Coll_tmp = Coll_tmp->next;
+	lastCollider = currentCollider;
+	++currentCollider;
 
 	return Retour;
 }

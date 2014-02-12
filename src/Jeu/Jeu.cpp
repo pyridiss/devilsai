@@ -400,16 +400,7 @@ void EcranJeu(bool SauvegardePrealable)
 		manageQuests();
 
 		//3. OPTIMISATION DE LA LISTE DE COLLISION
-
-		Element_Collision *tmp = Partie.Collision_head;
-		int prec = -100000;
-
-		while (tmp != NULL)
-		{
-			if (prec > tmp->elem->PosY) TriCollision();
-			prec = tmp->elem->PosY;
-			tmp = tmp->next;
-		}
+		TriCollision();
 
 		//4. CHANGEMENTS DE LIEU
 

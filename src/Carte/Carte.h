@@ -99,19 +99,6 @@ class Carte
 		void Disp_FondCarte();
 };
 
-/** COLLISIONS **/
-
-class Element_Collision
-{
-	public:
-		Element_Carte *elem;
-		Element_Collision *next;
-
-	public:
-		Element_Collision();
-		~Element_Collision();
-};
-
 
 void Load_Carte(string, bool);
 Element_Carte* loadElementsFromStream(istream&, Carte*, string);
