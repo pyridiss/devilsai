@@ -239,36 +239,28 @@ void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 
 Element_Carte* Get_Element(int id)
 {
-	Carte *carte_tmp = Partie.Carte_head;
-	Element_Carte *tmp = NULL;
-
-	while (carte_tmp != NULL)
+	for (auto& map : Partie.maps)
 	{
-		tmp = carte_tmp->head;
+		Element_Carte *tmp = map.second->head;
 		while (tmp != NULL)
 		{
 			if (tmp->Id == id) return tmp;
 			tmp = tmp->next;
 		}
-		carte_tmp = carte_tmp->next;
 	}
-	return tmp;
+	return NULL;
 }
 
 Individu_Unique* Get_IndividuUnique(string type)
 {
-	Carte *carte_tmp = Partie.Carte_head;
-	Element_Carte *tmp = NULL;
-
-	while (carte_tmp != NULL)
+	for (auto& map : Partie.maps)
 	{
-		tmp = carte_tmp->head;
+		Element_Carte *tmp = map.second->head;
 		while (tmp != NULL)
 		{
 			if (tmp->Type == type) return dynamic_cast<Individu_Unique*>(tmp);
 			tmp = tmp->next;
 		}
-		carte_tmp = carte_tmp->next;
 	}
 	return NULL;
 }
@@ -278,7 +270,6 @@ Individu_Unique* Get_IndividuUnique(string type)
 Carte::Carte()
 {
 	head = NULL; last = NULL;
-	next = NULL;
 }
 
 Carte::~Carte()
@@ -286,9 +277,6 @@ Carte::~Carte()
 	//Suppression de la liste chaînée en Element_Carte
 	if (head != NULL) delete head;
 	head = NULL;
-	//Fin de la suppression de la liste chaînée en Carte
-	if (next != NULL) delete next;
-	next = NULL;
 }
 
 void Carte::AjouterElementEnListe(Element_Carte *elem)
@@ -748,11 +736,10 @@ void Carte::Disp_FondCarte()
 
 void Lag_PosFondCartes(float lagX, float lagY)
 {
-	Carte *tmp = Partie.Carte_head;
-	while (tmp != NULL)
+	for (auto& map : Partie.maps)
 	{
-		tmp->PosFondX += lagX; tmp->PosFondY += lagY;
-		tmp = tmp->next;
+		map.second->PosFondX += lagX;
+		map.second->PosFondY += lagY;
 	}
 }
 

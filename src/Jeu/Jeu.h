@@ -64,8 +64,7 @@ struct Classe_Partie
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 
-	Carte *Carte_head   = NULL;
-	Carte *Carte_last   = NULL;
+	map <string, Carte*> maps;
 
 	map <string, Classe_Commune*> commonClasses;
 	map <string, Classe_Paysage*> landsClasses;

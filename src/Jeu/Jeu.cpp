@@ -58,25 +58,25 @@ void Load_Chapitre(int Id)
 
 bool RechercheJoueur()
 {
-	Carte *carte = Partie.Carte_head;
+	auto carte = Partie.maps.begin();
 	bool PersonnageTrouve = false;
 	Element_Carte *tmpj = NULL;
 
-	while (carte != NULL && !PersonnageTrouve)
+	while (carte != Partie.maps.end() && !PersonnageTrouve)
 	{
 		//Recherche du personnage qui contrôlera le jeu
-		tmpj = carte->head;
+		tmpj = carte->second->head;
 		while(tmpj != NULL && !PersonnageTrouve)
 		{
 			if (tmpj->Get_Controle() == HUMAIN)
 			{
 				PersonnageTrouve = true;
-				Partie.CarteCourante = carte; //CarteCourante est initialisée à la carte contenant le personnage
+				Partie.CarteCourante = carte->second; //CarteCourante est initialisée à la carte contenant le personnage
 			}
 			else tmpj = tmpj->next;
 		}
 
-		carte = carte->next;
+		++carte;
 	}
 
 	if (!PersonnageTrouve)

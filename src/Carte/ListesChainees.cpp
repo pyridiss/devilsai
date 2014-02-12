@@ -27,37 +27,31 @@
 
 void Ajouter_Carte(string Id)
 {
-	if (Partie.Carte_head == NULL)
-	{
-		Partie.Carte_head = new Carte;
-		Partie.Carte_last = Partie.Carte_head;
-	}
-	else
-	{
-		Partie.Carte_last->next = new Carte;
-		Partie.Carte_last = Partie.Carte_last->next;
-	}
-	Partie.Carte_last->Id = Id;
+	Carte* _new = new Carte;
+	Partie.maps.insert(map<string, Carte*>::value_type(Id, _new));
+
+	Partie.maps[Id]->Id = Id;
 
 	MESSAGE("Carte " + Id + " ajoutée", LISTE)
 }
 
 void SupprimerListe_Carte()
 {
-	if (Partie.Carte_head != NULL)	delete Partie.Carte_head;
-	Partie.Carte_head = NULL; Partie.Carte_last = NULL;
+	for (auto i : Partie.maps)
+		delete i.second;
+
+	Partie.maps.clear();
 
 	MESSAGE("Liste des Cartes supprimée", LISTE)
 }
 
 Carte* Get_Carte(string Id)
 {
-	Carte *tmp = Partie.Carte_head;
-	while (tmp != NULL && tmp->Id != Id)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	map<string, Carte*>::iterator i = Partie.maps.find(Id);
+
+	if (i != Partie.maps.end()) return i->second;
+
+	return NULL;
 }
 
 

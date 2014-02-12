@@ -51,7 +51,6 @@ class Carte
 	//Eléments de la liste chainée :
 	public:
 		Element_Carte *head, *last; // La tête de liste *head est l'élément qui contrôle de jeu
-		Carte *next;
 
 	//Objet :
 	public:
