@@ -61,17 +61,15 @@ Carte* Get_Carte(string Id)
 }
 
 
-/** LISTE CHAINEE EN Classe_Commune **/
-
-void Ajouter_ClasseCom(string Type)
+void addCommonClass(string type)
 {
 	Classe_Commune* _new = new Classe_Commune;
-	Partie.commonClasses.insert(map<string, Classe_Commune*>::value_type(Type, _new));
+	Partie.commonClasses.insert(map<string, Classe_Commune*>::value_type(type, _new));
 
-	MESSAGE("Classe Commune " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Commune " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClasseCom()
+void deleteCommonClasses()
 {
 	for (auto i : Partie.commonClasses)
 		delete i.second;
@@ -81,9 +79,9 @@ void SupprimerListe_ClasseCom()
 	MESSAGE("Liste des Classes Communes supprimée", LISTE)
 }
 
-Classe_Commune* Get_ClasseCom(string Type)
+Classe_Commune* getCommonClass(string type)
 {
-	map<string, Classe_Commune*>::iterator i = Partie.commonClasses.find(Type);
+	map<string, Classe_Commune*>::iterator i = Partie.commonClasses.find(type);
 
 	if (i != Partie.commonClasses.end()) return i->second;
 
@@ -91,17 +89,15 @@ Classe_Commune* Get_ClasseCom(string Type)
 }
 
 
-/** LISTE CHAINEE EN Classe_Paysage **/
-
-void Ajouter_ClassePay(string Type)
+void addLandsClass(string type)
 {
 	Classe_Paysage* _new = new Classe_Paysage;
-	Partie.landsClasses.insert(map<string, Classe_Paysage*>::value_type(Type, _new));
+	Partie.landsClasses.insert(map<string, Classe_Paysage*>::value_type(type, _new));
 
-	MESSAGE("Classe Paysage " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Paysage " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClassePay()
+void deleteLandsClasses()
 {
 	for (auto i : Partie.landsClasses)
 		delete i.second;
@@ -111,9 +107,9 @@ void SupprimerListe_ClassePay()
 	MESSAGE("Liste des Classes Paysages supprimée", LISTE)
 }
 
-Classe_Paysage* Get_ClassePay(string Type)
+Classe_Paysage* getLandsClass(string type)
 {
-	map<string, Classe_Paysage*>::iterator i = Partie.landsClasses.find(Type);
+	map<string, Classe_Paysage*>::iterator i = Partie.landsClasses.find(type);
 
 	if (i != Partie.landsClasses.end()) return i->second;
 
@@ -123,15 +119,15 @@ Classe_Paysage* Get_ClassePay(string Type)
 
 /** LISTE CHAINEE EN Classe_Paysage_Mouvant **/
 
-void Ajouter_ClassePayMvt(string Type)
+void addMovingLandsClass(string type)
 {
 	Classe_Paysage_Mouvant* _new = new Classe_Paysage_Mouvant;
-	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant*>::value_type(Type, _new));
+	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant*>::value_type(type, _new));
 
-	MESSAGE("Classe Paysage Mouvant " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Paysage Mouvant " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClassePayMvt()
+void deleteMovingLandsClasses()
 {
 	for (auto i : Partie.movingLandsClasses)
 		delete i.second;
@@ -141,9 +137,9 @@ void SupprimerListe_ClassePayMvt()
 	MESSAGE("Liste des Classes Paysages Mouvants supprimée", LISTE)
 }
 
-Classe_Paysage_Mouvant* Get_ClassePayMvt(string Type)
+Classe_Paysage_Mouvant* getMovingLandsClass(string type)
 {
-	map<string, Classe_Paysage_Mouvant*>::iterator i = Partie.movingLandsClasses.find(Type);
+	map<string, Classe_Paysage_Mouvant*>::iterator i = Partie.movingLandsClasses.find(type);
 
 	if (i != Partie.movingLandsClasses.end()) return i->second;
 

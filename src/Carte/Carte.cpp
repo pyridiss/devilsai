@@ -359,7 +359,7 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Type = Type;
 
 	Load_ClasseCommune(Type);
-	ind->Classe = Get_ClasseCom(Type);
+	ind->Classe = getCommonClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -410,7 +410,7 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Type = Type;
 
 	Load_ClassePaysage(Type);
-	ind->Classe = Get_ClassePay(Type);
+	ind->Classe = getLandsClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -440,7 +440,7 @@ Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, 
 	ind->Type = Type;
 
 	Load_ClassePaysageMouvant(Type);
-	ind->Classe = Get_ClassePayMvt(Type);
+	ind->Classe = getMovingLandsClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -475,7 +475,7 @@ Paysage_Lanceur* Carte::AjouterPaysageLanceur(string Type, string liste, int x, 
 	ind->AjouterDansListeCollision = true;
 
 	Load_ClassePaysageMouvant(Type);
-	ind->Classe = Get_ClassePayMvt(Type);	//Données du paysage
+	ind->Classe = getMovingLandsClass(Type);	//Données du paysage
 
 	if (ind->Classe == NULL)
 	{

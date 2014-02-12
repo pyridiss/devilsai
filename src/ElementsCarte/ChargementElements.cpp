@@ -227,10 +227,10 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 void Load_ClasseCommune(string Type)
 {
-	if (Get_ClasseCom(Type) == NULL)
+	if (getCommonClass(Type) == NULL)
 	{
-		Ajouter_ClasseCom(Type);
-		Get_ClasseCom(Type)->Nom = Get_NomElement(Type);
+		addCommonClass(Type);
+		getCommonClass(Type)->Nom = Get_NomElement(Type);
 	}
 	else return;
 
@@ -241,7 +241,7 @@ void Load_ClasseCommune(string Type)
 	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	Classe_Commune *cl_com = Get_ClasseCom(Type);
+	Classe_Commune *cl_com = getCommonClass(Type);
 
 	Activite *act = NULL;
 	short Act, Dir, Num;
@@ -367,7 +367,7 @@ void Load_ClasseCommune(string Type)
 
 void Load_ClassePaysage(string Type)
 {
-	if (Get_ClassePay(Type) == NULL) Ajouter_ClassePay(Type);
+	if (getLandsClass(Type) == NULL) addLandsClass(Type);
 	else return;
 
 	string fichier = Partie.DATA + "individu/" + Type + ".pay";
@@ -377,7 +377,7 @@ void Load_ClassePaysage(string Type)
 	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	Classe_Paysage *cl_pay = Get_ClassePay(Type);
+	Classe_Paysage *cl_pay = getLandsClass(Type);
 
 	string TypeDonnee;
 	int ExX = 0, ExY = 0;
@@ -418,7 +418,7 @@ void Load_ClassePaysage(string Type)
 
 void Load_ClassePaysageMouvant(string Type)
 {
-	if (Get_ClassePayMvt(Type) == NULL) Ajouter_ClassePayMvt(Type);
+	if (getMovingLandsClass(Type) == NULL) addMovingLandsClass(Type);
 	else return;
 
 	string fichier = Partie.DATA + "individu/" + Type + ".mvt";
@@ -437,7 +437,7 @@ void Load_ClassePaysageMouvant(string Type)
 
 	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	Classe_Paysage_Mouvant *cl_paymvt = Get_ClassePayMvt(Type);
+	Classe_Paysage_Mouvant *cl_paymvt = getMovingLandsClass(Type);
 
 	string TypeDonnee;
 	Activite *act = NULL;

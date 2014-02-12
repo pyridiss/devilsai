@@ -498,9 +498,9 @@ void Clean_Partie()
 
 	SupprimerListe_Carte();
 
-	SupprimerListe_ClasseCom();
-	SupprimerListe_ClassePay();
-	SupprimerListe_ClassePayMvt();
+	deleteCommonClasses();
+	deleteLandsClasses();
+	deleteMovingLandsClasses();
 }
 
 /** GESTION DU MENU PRINCIPAL : ÉVÉNEMENTS ET ANIMATION  **/

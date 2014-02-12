@@ -138,17 +138,17 @@ void Ajouter_Carte(string);
 void SupprimerListe_Carte();
 Carte* Get_Carte(string);
 
-void Ajouter_ClasseCom(string);
-void SupprimerListe_ClasseCom();
-Classe_Commune* Get_ClasseCom(string);
+void addCommonClass(string);
+void deleteCommonClasses();
+Classe_Commune* getCommonClass(string);
 
-void Ajouter_ClassePay(string);
-void SupprimerListe_ClassePay();
-Classe_Paysage* Get_ClassePay(string);
+void addLandsClass(string);
+void deleteLandsClasses();
+Classe_Paysage* getLandsClass(string);
 
-void Ajouter_ClassePayMvt(string);
-void SupprimerListe_ClassePayMvt();
-Classe_Paysage_Mouvant* Get_ClassePayMvt(string);
+void addMovingLandsClass(string);
+void deleteMovingLandsClasses();
+Classe_Paysage_Mouvant* getMovingLandsClass(string);
 
 void Ajouter_ElementCollision(Element_Carte*);
 void Supprimer_ElementCollision(int);
