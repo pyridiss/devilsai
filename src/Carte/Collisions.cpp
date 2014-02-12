@@ -97,12 +97,6 @@ int ParcoursCollisions(Individu *elem)
 
 	int Retour = COLL_OK;
 
-	if (currentCollider == Partie.colliders.end())
-	{
-		currentCollider = Partie.colliders.begin();
-		return COLL_END;
-	}
-
 	static float elemPosY = 0;
 	elemPosY = elem->PosY;
 
@@ -114,6 +108,12 @@ int ParcoursCollisions(Individu *elem)
 
 	//On vérifie que l'on ne dépasse plus MaximumRayonCollision, sinon le parcours est terminé
 	if (currentCollider != Partie.colliders.end() && (*currentCollider)->PosY - elemPosY > MaximumRayonCollision)
+	{
+		currentCollider = Partie.colliders.begin();
+		return COLL_END;
+	}
+
+	if (currentCollider == Partie.colliders.end())
 	{
 		currentCollider = Partie.colliders.begin();
 		return COLL_END;
