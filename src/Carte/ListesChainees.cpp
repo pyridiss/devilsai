@@ -65,37 +65,29 @@ Carte* Get_Carte(string Id)
 
 void Ajouter_ClasseCom(string Type)
 {
-	if (Partie.ClasseCom_head == NULL)
-	{
-		Partie.ClasseCom_head = new Classe_Commune;
-		Partie.ClasseCom_last = Partie.ClasseCom_head;
-	}
-	else
-	{
-		Partie.ClasseCom_last->next = new Classe_Commune;
-		Partie.ClasseCom_last = Partie.ClasseCom_last->next;
-	}
-	Partie.ClasseCom_last->Type = Type;
+	Classe_Commune* _new = new Classe_Commune;
+	Partie.commonClasses.insert(map<string, Classe_Commune*>::value_type(Type, _new));
 
 	MESSAGE("Classe Commune " + Type + " ajoutée", LISTE)
 }
 
 void SupprimerListe_ClasseCom()
 {
-	if (Partie.ClasseCom_head != NULL) delete Partie.ClasseCom_head;
-	Partie.ClasseCom_head = NULL; Partie.ClasseCom_last = NULL;
+	for (auto i : Partie.commonClasses)
+		delete i.second;
+
+	Partie.commonClasses.clear();
 
 	MESSAGE("Liste des Classes Communes supprimée", LISTE)
 }
 
 Classe_Commune* Get_ClasseCom(string Type)
 {
-	Classe_Commune *tmp = Partie.ClasseCom_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	map<string, Classe_Commune*>::iterator i = Partie.commonClasses.find(Type);
+
+	if (i != Partie.commonClasses.end()) return i->second;
+
+	return NULL;
 }
 
 

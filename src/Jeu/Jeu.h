@@ -68,8 +68,7 @@ struct Classe_Partie
 	Carte *Carte_head   = NULL;
 	Carte *Carte_last   = NULL;
 
-	Classe_Commune *ClasseCom_head	= NULL;
-	Classe_Commune *ClasseCom_last  = NULL;
+	map <string, Classe_Commune*> commonClasses;
 
 	Classe_Paysage *ClassePay_head  = NULL;
 	Classe_Paysage *ClassePay_last  = NULL;

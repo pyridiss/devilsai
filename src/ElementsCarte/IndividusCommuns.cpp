@@ -146,17 +146,11 @@ void Individu_Commun::Disp_Masks(float RefX, float RefY)
 
 Classe_Commune::Classe_Commune()
 {
-	next = NULL;
 }
 
 Classe_Commune::~Classe_Commune()
 {
-	if (next != NULL) delete next;
-	next = NULL;
-// 	Inventaire.clear();
 	Activites.clear();
-// 	for (MapPointeursCompetences::iterator i = Competences.begin() ; i != Competences.end() ; ++i)
-// 		delete i->second;
 }
 
 void Classe_Commune::Ajouter_Activite(int Id)

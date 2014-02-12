@@ -66,13 +66,7 @@ class Classe_Commune
 		list<TemplateObject> inventory;	//These objects are always put on corpses, whatever probability
 		list<TemplateObject> stuff;
 
-//		mapObjects Inventaire;
-
 		MapActivites Activites;
-// 		MapPointeursCompetences Competences;
-
-	public:
-		Classe_Commune *next;
 
 	public:
 		Classe_Commune();
