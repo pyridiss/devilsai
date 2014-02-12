@@ -84,7 +84,7 @@ class Carte
 
 		void AjouterListeEnCollision(string num);
 
-		void SupprimerElement(int id);
+		void SupprimerElement(Element_Carte* elem);
 
 		void SupprimerListe(string num);
 
@@ -136,8 +136,8 @@ void addMovingLandsClass(string);
 void deleteMovingLandsClasses();
 Classe_Paysage_Mouvant* getMovingLandsClass(string);
 
-void Ajouter_ElementCollision(Element_Carte*);
-void Supprimer_ElementCollision(int);
-void SupprimerListe_Collision();
+void addCollider(Element_Carte*);
+void removeCollider(Element_Carte*);
+void removeColliders();
 
 #endif

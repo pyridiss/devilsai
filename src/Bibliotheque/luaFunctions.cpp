@@ -389,7 +389,7 @@ int LUA_deleteElement(lua_State* L)
 {
 	int a = lua_tonumber(L, 1);
 	Element_Carte* elem = (Element_Carte*)a;
-	Partie.CarteCourante->SupprimerElement(elem->Id); //Not really optimal, but simpler
+	Partie.CarteCourante->SupprimerElement(elem);
 	return 0;
 }
 
@@ -505,7 +505,7 @@ int LUA_loadElement(lua_State* L)
 
 	Element_Carte* elem = loadElementsFromStream(stream, Partie.CarteCourante, list);
 
-	Ajouter_ElementCollision(elem);
+	addCollider(elem);
 
 	lua_pushnumber(L, (int)elem);
 	return 1;

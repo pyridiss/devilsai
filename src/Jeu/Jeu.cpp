@@ -101,7 +101,7 @@ bool RechercheJoueur()
 
 	while (tmp != NULL)
 	{
-		if ((tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision) Ajouter_ElementCollision(tmp);
+		if ((tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision) addCollider(tmp);
 		if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
 
 		tmp = tmp->next;
@@ -484,7 +484,7 @@ void Clean_Partie()
 
 	deleteQuests();
 
-	SupprimerListe_Collision();
+	removeColliders();
 	SupprimerLignesConsoles();
 
 	SupprimerListe_Carte();

@@ -106,7 +106,7 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 
 		//1. Suppression des collisions
 		RaZ_Coll();
-		SupprimerListe_Collision();
+		removeColliders();
 
 		//2. Changement de carte du personnage
 		ChangerCarte(Partie.perso, Partie.CarteCourante->Id, DonneeString);

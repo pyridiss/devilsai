@@ -565,33 +565,33 @@ void Carte::AjouterListeEnCollision(string num)
 	{
 		if ((tmp->Liste == num || num == "ALL") && (tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision)
 		{
-			Ajouter_ElementCollision(tmp);
+			addCollider(tmp);
 			if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
 		}
 		tmp = tmp->next;
 	}
 }
 
-void Carte::SupprimerElement(int id)
+void Carte::SupprimerElement(Element_Carte* elem)
 {
-	Supprimer_ElementCollision(id);
+	removeCollider(elem);
 
 	Element_Carte *tmp = head;
 
 	//Le premier élément a une gestion particulière :
-	if (tmp->Id == id)
+	if (tmp->Id == elem->Id)
 	{
 		head = tmp->next;
 		tmp->next = NULL;
 		delete tmp;
 
-		MESSAGE("Element_Carte " + intToString(id) + " supprimé", FICHIER)
+		MESSAGE("Element_Carte " + intToString(elem->Id) + " supprimé", FICHIER)
 
 		return;
 	}
 
 	//Il ne s'agit pas du premier élément :
-	while (tmp->next->Id != id)
+	while (tmp->next->Id != elem->Id)
 	{
 		tmp = tmp->next;
 		if (tmp->next == NULL) break;
@@ -604,7 +604,7 @@ void Carte::SupprimerElement(int id)
 		tmp2->next = NULL;
 		delete tmp2;
 
-		MESSAGE("Element_Carte " + intToString(id) + " supprimé", FICHIER)
+		MESSAGE("Element_Carte " + intToString(elem->Id) + " supprimé", FICHIER)
 	}
 }
 
@@ -617,7 +617,7 @@ void Carte::SupprimerListe(string num)
 		if (tmp->Liste == num)
 		{
 			Element_Carte *tmp2 = tmp->next;
-			SupprimerElement(tmp->Id);
+			SupprimerElement(tmp);
 			tmp = tmp2;
 		}
 		else tmp = tmp->next;
@@ -629,7 +629,7 @@ int Carte::GestionElements()
 	int Retour = ACTION_JEU;
 
 	int RetourElement = 0;
-	int ASupprimer = -1;
+	Element_Carte* ASupprimer = NULL;
 
 	Element_Carte *tmp = head;
 	while (tmp != NULL)
@@ -648,7 +648,7 @@ int Carte::GestionElements()
 			case ACTION_MORT	: Retour = ACTION_MORT; break;
 			case ETAT_NORMAL	: tmp->Disp(Partie.PosCarteX, Partie.PosCarteY); break;
 			case ETAT_DESACTIVE	: break;
-			case ETAT_MORT		: ASupprimer = tmp->Id; break;
+			case ETAT_MORT		: ASupprimer = tmp; break;
 		}
 
 		//Tests pour tenter de garder la liste dans l'ordre des y décroissants
@@ -693,7 +693,7 @@ int Carte::GestionElements()
 		tmp = tmp->next;
 	}
 
-	if (ASupprimer != -1) SupprimerElement(ASupprimer);
+	if (ASupprimer != NULL) SupprimerElement(ASupprimer);
 
 	return Retour;
 }
