@@ -81,7 +81,7 @@ class Carte
 		Projectile* AjouterProjectile(Projectile &prj);
 		Actionneur* AjouterActionneur(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);
-		Cadavre* AjouterCadavre(string liste, int x, int y);
+		Cadavre* AjouterCadavre(string liste, float x, float y);
 
 		void AjouterListeEnCollision(string num);
 

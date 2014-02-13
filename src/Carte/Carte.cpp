@@ -477,7 +477,7 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 	return ind;
 }
 
-Cadavre* Carte::AjouterCadavre(string liste, int x, int y)
+Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 {
 	Cadavre *ind = new Cadavre;
 
