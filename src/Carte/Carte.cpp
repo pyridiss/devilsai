@@ -515,22 +515,22 @@ void Carte::AjouterListeEnCollision(string num)
 
 void Carte::SupprimerElement(Element_Carte* elem)
 {
+	MESSAGE("Element_Carte " + intToString(elem->Id) + " va être supprimé", FICHIER)
+
 	removeCollider(elem);
-
 	delete elem;
-
 	elements.remove(elem);
-
-
-	MESSAGE("Element_Carte " + intToString(elem->Id) + " supprimé", FICHIER)
 }
 
 void Carte::SupprimerListe(string num)
 {
-	for (auto& tmp : elements)
+	for (auto tmp = elements.begin() ; tmp != elements.end() ; ++tmp)
 	{
-		if (tmp->Liste == num)
-			SupprimerElement(tmp);
+		if ((*tmp)->Liste == num)
+		{
+			SupprimerElement(*tmp);
+			tmp = elements.begin();
+		}
 	}
 }
 
