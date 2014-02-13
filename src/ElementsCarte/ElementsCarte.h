@@ -121,10 +121,6 @@ class Classe_Paysage_Mouvant
 
 class Element_Carte
 {
-	//Eléments de la liste chainée :
-	public:
-		Element_Carte *next;
-
 	//Objet :
 	public:
 		int Id              = -1;

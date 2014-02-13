@@ -281,7 +281,7 @@ int LUA_getNumberEnemiesInList(lua_State* L)
 {
 	string list = lua_tostring(L, 1);
 	int qty = 0;
-	for (Element_Carte *tmp = Partie.CarteCourante->head ; tmp != NULL ; tmp = tmp->next)
+	for (auto& tmp : Partie.CarteCourante->elements)
 		if (tmp->Liste == list && tmp->Type != "TYPE_CADAVRE") ++qty;
 
 	lua_pushnumber(L, qty);

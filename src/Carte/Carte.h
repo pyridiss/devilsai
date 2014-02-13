@@ -21,6 +21,7 @@
 #define header_carte
 
 #include <string>
+#include <list>
 
 #include <SFML/System.hpp>
 
@@ -50,7 +51,7 @@ class Carte
 {
 	//Eléments de la liste chainée :
 	public:
-		Element_Carte *head, *last; // La tête de liste *head est l'élément qui contrôle de jeu
+		list <Element_Carte*> elements;
 
 	//Objet :
 	public:

@@ -80,7 +80,7 @@ void Save_Partie()
 		if (carte.second.FondCarte != "") fileStream << "FOND_CARTE " << carte.second.FondCarte << endl;
 
 		//Parcours de la liste des Elements :
-		for (Element_Carte *tmp = carte.second.head ; tmp != NULL ; tmp = tmp->next)
+		for (auto& tmp : carte.second.elements)
 		{
 			if (tmp->Liste == "NO_SAVE") continue;
 

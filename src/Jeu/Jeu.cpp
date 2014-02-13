@@ -60,20 +60,20 @@ bool RechercheJoueur()
 {
 	auto carte = Partie.maps.begin();
 	bool PersonnageTrouve = false;
-	Element_Carte *tmpj = NULL;
+	list<Element_Carte*>::iterator tmpj;
 
 	while (carte != Partie.maps.end() && !PersonnageTrouve)
 	{
 		//Recherche du personnage qui contrôlera le jeu
-		tmpj = carte->second.head;
-		while(tmpj != NULL && !PersonnageTrouve)
+		tmpj = carte->second.elements.begin();
+		while(tmpj != carte->second.elements.end() && !PersonnageTrouve)
 		{
-			if (tmpj->Get_Controle() == HUMAIN)
+			if ((*tmpj)->Get_Controle() == HUMAIN)
 			{
 				PersonnageTrouve = true;
 				Partie.CarteCourante = &(carte->second); //CarteCourante est initialisée à la carte contenant le personnage
 			}
-			else tmpj = tmpj->next;
+			else ++tmpj;
 		}
 
 		++carte;
@@ -85,7 +85,7 @@ bool RechercheJoueur()
 		return false;
 	}
 
-	Partie.perso = dynamic_cast<Joueur*>(tmpj);
+	Partie.perso = dynamic_cast<Joueur*>((*tmpj));
 
 	if (Partie.perso == NULL)
 	{
@@ -97,14 +97,10 @@ bool RechercheJoueur()
 	Set_PosCarte(0, 0, true);
 
 	//Mise en place des éléments dans la liste de collisions :
-	Element_Carte *tmp = Partie.CarteCourante->head;
-
-	while (tmp != NULL)
+	for (auto& tmp : Partie.CarteCourante->elements)
 	{
 		if ((tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision) addCollider(tmp);
 		if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
-
-		tmp = tmp->next;
 	}
 
 	return true;
@@ -303,12 +299,8 @@ void EcranJeu(bool SauvegardePrealable)
 			//Réaffichage de la carte telle quelle
 			Jeu.App.clear();
 			Partie.CarteCourante->Disp_FondCarte();
-			Element_Carte *tmp = Partie.CarteCourante->head;
-			while (tmp != NULL)
-			{
+			for (auto& tmp : Partie.CarteCourante->elements)
 				tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
-				tmp = tmp->next;
-			}
 
 			while (Jeu.App.pollEvent(event))
 			{

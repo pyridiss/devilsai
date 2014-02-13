@@ -27,14 +27,11 @@
 
 Paysage::Paysage() : Element_Carte()
 {
-	next = NULL;
 	TypeClassement = CLASSEMENT_NORMAL;
 }
 
 Paysage::~Paysage()
 {
-	if (next != NULL) delete next;
-	next = NULL;
 }
 
 int Paysage::Gestion()
