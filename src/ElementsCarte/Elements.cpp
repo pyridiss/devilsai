@@ -26,13 +26,10 @@
 
 Element_Carte::Element_Carte()
 {
-	next = NULL;
 }
 
 Element_Carte::~Element_Carte()
 {
-	if (next != NULL) delete next;
-	next = NULL;
 }
 
 short Element_Carte::Get_Controle()

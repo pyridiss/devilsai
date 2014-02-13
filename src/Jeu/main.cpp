@@ -23,6 +23,7 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
+#include "../Carte/Carte.h"
 
 #include "Jeu.h"
 

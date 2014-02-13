@@ -27,14 +27,11 @@
 
 Paysage::Paysage() : Element_Carte()
 {
-	next = NULL;
 	TypeClassement = CLASSEMENT_NORMAL;
 }
 
 Paysage::~Paysage()
 {
-	if (next != NULL) delete next;
-	next = NULL;
 }
 
 int Paysage::Gestion()
@@ -85,17 +82,6 @@ void Paysage::Disp_Masks(float RefX, float RefY)
 
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage **/
-
-Classe_Paysage::Classe_Paysage()
-{
-	next = NULL;
-}
-
-Classe_Paysage::~Classe_Paysage()
-{
-	if (next != NULL) delete next;
-	next = NULL;
-}
 
 void Classe_Paysage::Copie_Element(Paysage *elem)
 {
@@ -201,16 +187,6 @@ void Paysage_Mouvant::Disp_Masks(float RefX, float RefY)
 }
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage_Mouvant **/
-
-Classe_Paysage_Mouvant::Classe_Paysage_Mouvant()
-{
-	next = NULL;
-}
-Classe_Paysage_Mouvant::~Classe_Paysage_Mouvant()
-{
-	if (next != NULL) delete next;
-	next = NULL;
-}
 
 void Classe_Paysage_Mouvant::Copie_Element(Element_Carte *elem)
 {

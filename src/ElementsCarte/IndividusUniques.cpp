@@ -220,7 +220,7 @@ bool Individu_Unique::Set_Activite(int nv)
 
 		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, PosX, PosY);
 		corpse->Set_Individu(Type, Dir, Get_Activite(MORT)->Num_Max[Dir], true);
-		Ajouter_ElementCollision(corpse);
+		addCollider(corpse);
 
 		TypeClassement = CLASSEMENT_CADAVRE;
 		Diplomatie = DIPLOM_NEUTRE;

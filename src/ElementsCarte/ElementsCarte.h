@@ -66,13 +66,7 @@ class Classe_Commune
 		list<TemplateObject> inventory;	//These objects are always put on corpses, whatever probability
 		list<TemplateObject> stuff;
 
-//		mapObjects Inventaire;
-
 		MapActivites Activites;
-// 		MapPointeursCompetences Competences;
-
-	public:
-		Classe_Commune *next;
 
 	public:
 		Classe_Commune();
@@ -89,8 +83,6 @@ class Classe_Commune
 class Classe_Paysage
 {
 	public:
-		Classe_Paysage *next;
-
 		string Type             = "";
 
 		bool ModeCollision      = MODE_COLLISION_CERCLE;
@@ -99,9 +91,6 @@ class Classe_Paysage
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
 	public:
-		Classe_Paysage();
-		~Classe_Paysage();
-
 		void Copie_Element(Paysage *elem);
 };
 
@@ -121,14 +110,6 @@ class Classe_Paysage_Mouvant
 		bool ActivationNecessaire	= false;
 //		bool ActivationUnique;
 
-	public:
-		Classe_Paysage_Mouvant *next;
-
-	//Constructeurs / Destructeurs :
-	public:
-		Classe_Paysage_Mouvant();
-		~Classe_Paysage_Mouvant();
-
 	//Gestion :
 	public:
 		void Ajouter_Activite(int Id);
@@ -140,10 +121,6 @@ class Classe_Paysage_Mouvant
 
 class Element_Carte
 {
-	//Eléments de la liste chainée :
-	public:
-		Element_Carte *next;
-
 	//Objet :
 	public:
 		int Id              = -1;

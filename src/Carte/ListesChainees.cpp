@@ -27,223 +27,125 @@
 
 void Ajouter_Carte(string Id)
 {
-	if (Partie.Carte_head == NULL)
-	{
-		Partie.Carte_head = new Carte;
-		Partie.Carte_last = Partie.Carte_head;
-	}
-	else
-	{
-		Partie.Carte_last->next = new Carte;
-		Partie.Carte_last = Partie.Carte_last->next;
-	}
-	Partie.Carte_last->Id = Id;
+	Carte _new;
+	Partie.maps.insert(map<string, Carte>::value_type(Id, _new));
+
+	Partie.maps[Id].Id = Id;
 
 	MESSAGE("Carte " + Id + " ajoutée", LISTE)
 }
 
 void SupprimerListe_Carte()
 {
-	if (Partie.Carte_head != NULL)	delete Partie.Carte_head;
-	Partie.Carte_head = NULL; Partie.Carte_last = NULL;
+	Partie.maps.clear();
 
 	MESSAGE("Liste des Cartes supprimée", LISTE)
 }
 
 Carte* Get_Carte(string Id)
 {
-	Carte *tmp = Partie.Carte_head;
-	while (tmp != NULL && tmp->Id != Id)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	auto i = Partie.maps.find(Id);
+
+	if (i != Partie.maps.end()) return &(i->second);
+
+	return NULL;
 }
 
 
-/** LISTE CHAINEE EN Classe_Commune **/
-
-void Ajouter_ClasseCom(string Type)
+void addCommonClass(string type)
 {
-	if (Partie.ClasseCom_head == NULL)
-	{
-		Partie.ClasseCom_head = new Classe_Commune;
-		Partie.ClasseCom_last = Partie.ClasseCom_head;
-	}
-	else
-	{
-		Partie.ClasseCom_last->next = new Classe_Commune;
-		Partie.ClasseCom_last = Partie.ClasseCom_last->next;
-	}
-	Partie.ClasseCom_last->Type = Type;
+	Classe_Commune _new;
+	Partie.commonClasses.insert(map<string, Classe_Commune>::value_type(type, _new));
 
-	MESSAGE("Classe Commune " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Commune " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClasseCom()
+void deleteCommonClasses()
 {
-	if (Partie.ClasseCom_head != NULL) delete Partie.ClasseCom_head;
-	Partie.ClasseCom_head = NULL; Partie.ClasseCom_last = NULL;
+	Partie.commonClasses.clear();
 
 	MESSAGE("Liste des Classes Communes supprimée", LISTE)
 }
 
-Classe_Commune* Get_ClasseCom(string Type)
+Classe_Commune* getCommonClass(string type)
 {
-	Classe_Commune *tmp = Partie.ClasseCom_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	auto i = Partie.commonClasses.find(type);
+
+	if (i != Partie.commonClasses.end()) return &(i->second);
+
+	return NULL;
 }
 
 
-/** LISTE CHAINEE EN Classe_Paysage **/
-
-void Ajouter_ClassePay(string Type)
+void addLandsClass(string type)
 {
-	if (Partie.ClassePay_head == NULL)
-	{
-		Partie.ClassePay_head = new Classe_Paysage;
-		Partie.ClassePay_last = Partie.ClassePay_head;
-	}
-	else
-	{
-		Partie.ClassePay_last->next = new Classe_Paysage;
-		Partie.ClassePay_last = Partie.ClassePay_last->next;
-	}
-	Partie.ClassePay_last->Type = Type;
+	Classe_Paysage _new;
+	Partie.landsClasses.insert(map<string, Classe_Paysage>::value_type(type, _new));
 
-	MESSAGE("Classe Paysage " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Paysage " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClassePay()
+void deleteLandsClasses()
 {
-	if (Partie.ClassePay_head != NULL) delete Partie.ClassePay_head;
-	Partie.ClassePay_head = NULL; Partie.ClassePay_last = NULL;
+	Partie.landsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages supprimée", LISTE)
 }
 
-Classe_Paysage* Get_ClassePay(string Type)
+Classe_Paysage* getLandsClass(string type)
 {
-	Classe_Paysage *tmp = Partie.ClassePay_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	auto i = Partie.landsClasses.find(type);
+
+	if (i != Partie.landsClasses.end()) return &(i->second);
+
+	return NULL;
 }
 
 
 /** LISTE CHAINEE EN Classe_Paysage_Mouvant **/
 
-void Ajouter_ClassePayMvt(string Type)
+void addMovingLandsClass(string type)
 {
-	if (Partie.ClassePayMvt_head == NULL)
-	{
-		Partie.ClassePayMvt_head = new Classe_Paysage_Mouvant;
-		Partie.ClassePayMvt_last = Partie.ClassePayMvt_head;
-	}
-	else
-	{
-		Partie.ClassePayMvt_last->next = new Classe_Paysage_Mouvant;
-		Partie.ClassePayMvt_last = Partie.ClassePayMvt_last->next;
-	}
-	Partie.ClassePayMvt_last->Type = Type;
+	Classe_Paysage_Mouvant _new;
+	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant>::value_type(type, _new));
 
-	MESSAGE("Classe Paysage Mouvant " + Type + " ajoutée", LISTE)
+	MESSAGE("Classe Paysage Mouvant " + type + " ajoutée", LISTE)
 }
 
-void SupprimerListe_ClassePayMvt()
+void deleteMovingLandsClasses()
 {
-	if (Partie.ClassePayMvt_head != NULL) delete Partie.ClassePayMvt_head;
-	Partie.ClassePayMvt_head = NULL; Partie.ClassePayMvt_last = NULL;
+	Partie.movingLandsClasses.clear();
 
 	MESSAGE("Liste des Classes Paysages Mouvants supprimée", LISTE)
 }
 
-Classe_Paysage_Mouvant* Get_ClassePayMvt(string Type)
+Classe_Paysage_Mouvant* getMovingLandsClass(string type)
 {
-	Classe_Paysage_Mouvant *tmp = Partie.ClassePayMvt_head;
-	while (tmp != NULL && tmp->Type != Type)
-	{
-		tmp = tmp->next;
-	}
-	return tmp;
+	auto i = Partie.movingLandsClasses.find(type);
+
+	if (i != Partie.movingLandsClasses.end()) return &(i->second);
+
+	return NULL;
 }
 
 
-/** LISTE CHAINEE EN Element_Collision **/
-
-void Ajouter_ElementCollision(Element_Carte *elem)
+void addCollider(Element_Carte *elem)
 {
-	if (elem == NULL) return;
-
-	if (Partie.Collision_head == NULL)
-	{
-		Partie.Collision_head = new Element_Collision;
-		Partie.Collision_head->elem = elem;
-		Partie.Collision_last = Partie.Collision_head;
-	}
-	else
-	{
-		Element_Collision *tmp = Partie.Collision_head;
-		while (tmp != NULL && tmp->elem->PosY < elem->PosY) tmp = tmp->next;
-		if (tmp == NULL) tmp = Partie.Collision_last;
-		Element_Collision *next = tmp->next;
-		tmp->next = NULL;
-
-		tmp->next = new Element_Collision;
-		tmp->next->elem = elem;
-		tmp->next->next = next;
-
-		if (tmp == Partie.Collision_last) Partie.Collision_last = Partie.Collision_last->next;
-	}
+	Partie.colliders.push_back(elem);
 
 	MESSAGE("Element collision " + intToString(elem->Id) + " ajouté", LISTE)
 }
 
-void Supprimer_ElementCollision(int id)
+void removeCollider(Element_Carte *elem)
 {
-	Element_Collision *tmp = Partie.Collision_head;
-	if (tmp == NULL) return;
+	Partie.colliders.remove(elem);
 
-	//Le premier élément a une gestion particulière
-	if (tmp->elem->Id == id)
-	{
-		Partie.Collision_head = tmp->next;
-		tmp->next = NULL;
-		delete tmp;
-
-		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
-
-		return;
-	}
-
-	//Il ne s'agit pas du premier élément
-	while (tmp->next->elem->Id != id)
-	{
-		tmp = tmp->next;
-		if (tmp->next == NULL) break;
-	}
-	if (tmp != NULL) if (tmp->next != NULL) //Suppression de tmp->next
-	{
-		Element_Collision *tmp2 = tmp->next;
-		if (tmp->next == Partie.Collision_last) Partie.Collision_last = tmp;
-		tmp->next = tmp->next->next;
-		tmp2->next = NULL;
-		delete tmp2;
-
-		MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
-	}
+	MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
 }
 
-void SupprimerListe_Collision()
+void removeColliders()
 {
-	if (Partie.Collision_head != NULL) delete Partie.Collision_head;
-	Partie.Collision_head = NULL; Partie.Collision_last = NULL;
+	Partie.colliders.clear();
 
 	MESSAGE("Liste des Elements Collisions suppprimée", LISTE)
 }

@@ -83,7 +83,7 @@ bool Individu_Commun::Set_Activite(int nv)
 
 		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, PosX, PosY);
 		corpse->Set_Individu(Type, Dir, Get_Activite(MORT)->Num_Max[Dir], false);
-		Ajouter_ElementCollision(corpse);
+		addCollider(corpse);
 
 		TypeClassement = CLASSEMENT_CADAVRE;
 		Diplomatie = DIPLOM_NEUTRE;
@@ -146,17 +146,11 @@ void Individu_Commun::Disp_Masks(float RefX, float RefY)
 
 Classe_Commune::Classe_Commune()
 {
-	next = NULL;
 }
 
 Classe_Commune::~Classe_Commune()
 {
-	if (next != NULL) delete next;
-	next = NULL;
-// 	Inventaire.clear();
 	Activites.clear();
-// 	for (MapPointeursCompetences::iterator i = Competences.begin() ; i != Competences.end() ; ++i)
-// 		delete i->second;
 }
 
 void Classe_Commune::Ajouter_Activite(int Id)

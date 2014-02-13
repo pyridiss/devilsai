@@ -284,7 +284,7 @@ int LUA_getNumberEnemiesInList(lua_State* L)
 {
 	string list = lua_tostring(L, 1);
 	int qty = 0;
-	for (Element_Carte *tmp = Partie.CarteCourante->head ; tmp != NULL ; tmp = tmp->next)
+	for (auto& tmp : Partie.CarteCourante->elements)
 		if (tmp->Liste == list && tmp->Type != "TYPE_CADAVRE") ++qty;
 
 	lua_pushnumber(L, qty);
@@ -392,7 +392,7 @@ int LUA_deleteElement(lua_State* L)
 {
 	int a = lua_tonumber(L, 1);
 	Element_Carte* elem = (Element_Carte*)a;
-	Partie.CarteCourante->SupprimerElement(elem->Id); //Not really optimal, but simpler
+	Partie.CarteCourante->SupprimerElement(elem);
 	return 0;
 }
 
@@ -508,7 +508,7 @@ int LUA_loadElement(lua_State* L)
 
 	Element_Carte* elem = loadElementsFromStream(stream, Partie.CarteCourante, list);
 
-	Ajouter_ElementCollision(elem);
+	addCollider(elem);
 
 	lua_pushnumber(L, (int)elem);
 	return 1;

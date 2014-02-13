@@ -40,7 +40,6 @@ class Individu_Unique;
 class Classe_Commune;
 class Classe_Paysage;
 class Classe_Paysage_Mouvant;
-class Element_Collision;
 
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 typedef map < int, int > MapDonneesInt;
@@ -56,8 +55,6 @@ struct Classe_Partie
 {
 	string DATA = INSTALL_DIR;
 	string SAVE = "";
-
-	bool CaptureDisponible  = false;
 
 	bool ModeCinematiques   = false;
 
@@ -78,20 +75,13 @@ struct Classe_Partie
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;
 
-	Carte *Carte_head   = NULL;
-	Carte *Carte_last   = NULL;
+	map<string, Carte> maps;
 
-	Classe_Commune *ClasseCom_head	= NULL;
-	Classe_Commune *ClasseCom_last  = NULL;
+	map<string, Classe_Commune> commonClasses;
+	map<string, Classe_Paysage> landsClasses;
+	map<string, Classe_Paysage_Mouvant> movingLandsClasses;
 
-	Classe_Paysage *ClassePay_head  = NULL;
-	Classe_Paysage *ClassePay_last  = NULL;
-
-	Classe_Paysage_Mouvant *ClassePayMvt_head   = NULL;
-	Classe_Paysage_Mouvant *ClassePayMvt_last   = NULL;
-
-	Element_Collision *Collision_head   = NULL;
-	Element_Collision *Collision_last   = NULL;
+	list<Element_Carte*> colliders;
 
 	bool loadFirstChapter   = false;
 

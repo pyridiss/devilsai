@@ -41,8 +41,8 @@ void Save_Partie()
 	if (mainFileStream != NULL) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert ; Sauvegarde en cours", FICHIER)
 
 	//Liste des cartes et carte courante :
-	for (Carte *tmp = Partie.Carte_head ; tmp != NULL ; tmp = tmp->next)
-		mainFileStream << "CARTE " << tmp->Id << endl;
+	for (auto& tmp : Partie.maps)
+		mainFileStream << "CARTE " << tmp.second.Id << endl;
 
 	mainFileStream << "CARTE_COURANTE " << Partie.CarteCourante->Id << endl;
 
@@ -73,18 +73,18 @@ void Save_Partie()
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
 	Cadavre			ExempleCadavre;			const type_info &TypeCadavre = typeid(ExempleCadavre);
 
-	for (Carte*carte = Partie.Carte_head ; carte != NULL ; carte = carte->next)
+	for (auto& carte : Partie.maps)
 	{
-		string fileName = PATH + carte->Id + ".map";
+		string fileName = PATH + carte.second.Id + ".map";
 
 		ofstream fileStream(fileName, ios_base::in|ios_base::trunc);
 
 		if (fileStream == NULL) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
 
-		if (carte->FondCarte != "") fileStream << "FOND_CARTE " << carte->FondCarte << endl;
+		if (carte.second.FondCarte != "") fileStream << "FOND_CARTE " << carte.second.FondCarte << endl;
 
 		//Parcours de la liste des Elements :
-		for (Element_Carte *tmp = carte->head ; tmp != NULL ; tmp = tmp->next)
+		for (auto& tmp : carte.second.elements)
 		{
 			if (tmp->Liste == "NO_SAVE") continue;
 
@@ -175,14 +175,13 @@ void Save_Partie()
 
 	/* 3. CAPTURE D'ÉCRAN */
 
-	Partie.CaptureDisponible = false;
 	Texture Capture;
 	Capture.create(Options.ScreenW, Options.ScreenH);
 	Capture.setSmooth(true);
 	Capture.update(Jeu.App);
 
 	Image CaptureImg = Capture.copyToImage();
-	if (CaptureImg.saveToFile(PATH + "capture.png")) Partie.CaptureDisponible = true;
+	CaptureImg.saveToFile(PATH + "capture.png");
 
 	MaJ_Sauvegarde();
 
@@ -216,17 +215,15 @@ bool Load_Partie(string path)
 		if (TypeDonnee == "CARTE_COURANTE")
 		{
 			mainFileStream >> DonneeString1;
-			Carte *tmp = Partie.Carte_head;
-			while (tmp != NULL)
+			for (auto& tmp : Partie.maps)
 			{
-				if (tmp->Id == DonneeString1)
+				if (tmp.second.Id == DonneeString1)
 				{
-					Partie.CarteCourante = tmp;
+					Partie.CarteCourante = &(tmp.second);
 					break;
 				}
-				else tmp = tmp->next;
 			}
-			if (tmp == NULL)
+			if (Partie.CarteCourante == NULL)
 			{
 				Erreur("La sauvegarde ne fournit pas de CarteCourante valide", "");
 				mainFileStream.close();
@@ -259,11 +256,11 @@ bool Load_Partie(string path)
 	string StrType, StrListe;
 	float FloatX, FloatY;
 
-	for (Carte *carte = Partie.Carte_head ; carte != NULL ; carte = carte->next)
+	for (auto& carte : Partie.maps)
 	{
-		MESSAGE("=== Chargement de la carte " + carte->Id + " ===", FICHIER)
+		MESSAGE("=== Chargement de la carte " + carte.second.Id + " ===", FICHIER)
 
-		string fileName = PATH + carte->Id + ".map";
+		string fileName = PATH + carte.second.Id + ".map";
 
 		ifstream fileStream(fileName, ios_base::in);
 
@@ -275,13 +272,13 @@ bool Load_Partie(string path)
 
 			if (TypeDonnee == "FOND_CARTE")
 			{
-				fileStream >> StrType; carte->Set_FondCarte(StrType);
+				fileStream >> StrType; carte.second.Set_FondCarte(StrType);
 			}
 
 			if (TypeDonnee == "IND_UNIQUE")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Individu_Unique* ind = carte->AjouterElement_Unique(StrType, StrListe, FloatX, FloatY);
+				Individu_Unique* ind = carte.second.AjouterElement_Unique(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats()) >> *(ind->Get_Caracs());
 
@@ -294,7 +291,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClasseCommune(StrType);
-				Individu_Commun* ind = carte->AjouterElement_Commun(StrType, StrListe, FloatX, FloatY);
+				Individu_Commun* ind = carte.second.AjouterElement_Commun(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats());
 			}
@@ -302,7 +299,7 @@ bool Load_Partie(string path)
 			if (TypeDonnee == "JOUEUR")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Joueur* ind = carte->AjouterJoueur(StrType, StrListe, FloatX, FloatY);
+				Joueur* ind = carte.second.AjouterJoueur(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats()) >> *(ind->Get_Caracs())
 						   >> ind->Experience >> ind->IndiceLieu >> ind->LieuVillage
@@ -329,7 +326,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysage(StrType);
-				Paysage* ind = carte->AjouterPaysage(StrType, StrListe, FloatX, FloatY);
+				Paysage* ind = carte.second.AjouterPaysage(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 			}
 
@@ -337,7 +334,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysageMouvant(StrType);
-				Paysage_Mouvant* ind = carte->AjouterPaysageMouvant(StrType, StrListe, FloatX, FloatY);
+				Paysage_Mouvant* ind = carte.second.AjouterPaysageMouvant(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 			}
 
@@ -345,14 +342,14 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysageMouvant(StrType);
-				Paysage_Lanceur* ind = carte->AjouterPaysageLanceur(StrType, StrListe, FloatX, FloatY);
+				Paysage_Lanceur* ind = carte.second.AjouterPaysageLanceur(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "ACTIONNEUR")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Actionneur* ind = carte->AjouterActionneur(StrListe, FloatX, FloatY);
+				Actionneur* ind = carte.second.AjouterActionneur(StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> ind->ModeCollision >> ind->RayonCollision >> ind->RayX >> ind->RayY;
 				fileStream >> ind->Type;
@@ -363,7 +360,7 @@ bool Load_Partie(string path)
 			if (TypeDonnee == "COFFRE")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Coffre* ind = carte->AjouterCoffre(StrListe, FloatX, FloatY);
+				Coffre* ind = carte.second.AjouterCoffre(StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> ind->ModeCollision >> ind->RayonCollision >> ind->RayX >> ind->RayY >> ind->NumeroNom;
 				ind->Nom = Get_NomElement(ind->NumeroNom);
@@ -374,7 +371,7 @@ bool Load_Partie(string path)
 			if (TypeDonnee == "CADAVRE")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Cadavre* ind = carte->AjouterCadavre(StrListe, FloatX, FloatY);
+				Cadavre* ind = carte.second.AjouterCadavre(StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> ind->Ind_Id >> ind->Ind_Dir >> ind->Ind_Num >> ind->Duree >> ind->FichierIndividu;
 				ind->Set_Individu();

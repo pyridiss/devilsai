@@ -214,62 +214,25 @@ void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 
 	if (elem == NULL || Orig == NULL || Cible == NULL) return;
 
-	Element_Carte *tmp = Orig->head;
-
-	if (tmp == elem)
-	{
-		Orig->head = tmp->next;
-		tmp = NULL; //Pas besoin du while
-	}
-	while (tmp != NULL && tmp->next != NULL)
-	{
-		if (tmp->next == elem)
-		{
-			tmp->next = tmp->next->next;
-			if (tmp->next == Orig->last) Orig->last = tmp;
-			break;
-		}
-		tmp = tmp->next;
-	}
-
-	elem->next = NULL;
-	Cible->last->next = elem;
-	Cible->last = Cible->last->next;
+	Orig->elements.remove(elem);
+	Orig->elements.push_back(elem);
 }
 
 Element_Carte* Get_Element(int id)
 {
-	Carte *carte_tmp = Partie.Carte_head;
-	Element_Carte *tmp = NULL;
+	for (auto& map : Partie.maps)
+		for (auto& element : map.second.elements)
+			if (element->Id == id) return element;
 
-	while (carte_tmp != NULL)
-	{
-		tmp = carte_tmp->head;
-		while (tmp != NULL)
-		{
-			if (tmp->Id == id) return tmp;
-			tmp = tmp->next;
-		}
-		carte_tmp = carte_tmp->next;
-	}
-	return tmp;
+	return NULL;
 }
 
 Individu_Unique* Get_IndividuUnique(string type)
 {
-	Carte *carte_tmp = Partie.Carte_head;
-	Element_Carte *tmp = NULL;
+	for (auto& map : Partie.maps)
+		for (auto& element : map.second.elements)
+			if (element->Type == type) return dynamic_cast<Individu_Unique*>(element);
 
-	while (carte_tmp != NULL)
-	{
-		tmp = carte_tmp->head;
-		while (tmp != NULL)
-		{
-			if (tmp->Type == type) return dynamic_cast<Individu_Unique*>(tmp);
-			tmp = tmp->next;
-		}
-		carte_tmp = carte_tmp->next;
-	}
 	return NULL;
 }
 
@@ -277,18 +240,14 @@ Individu_Unique* Get_IndividuUnique(string type)
 
 Carte::Carte()
 {
-	head = NULL; last = NULL;
-	next = NULL;
 }
 
 Carte::~Carte()
 {
-	//Suppression de la liste chaînée en Element_Carte
-	if (head != NULL) delete head;
-	head = NULL;
-	//Fin de la suppression de la liste chaînée en Carte
-	if (next != NULL) delete next;
-	next = NULL;
+	for (auto& element : elements)
+		delete element;
+
+	elements.clear();
 }
 
 void Carte::AjouterElementEnListe(Element_Carte *elem)
@@ -299,35 +258,7 @@ void Carte::AjouterElementEnListe(Element_Carte *elem)
 		return;
 	}
 
-	if (head == NULL)
-	{
-		head = elem;
-		last = head;
-	}
-	else
-	{
-		if (elem->TypeClassement < CLASSEMENT_NORMAL && elem->PosY >= last->PosY)
-		{
-			last->next = elem;
-			last = last->next;
-		}
-		else
-		{
-			Element_Carte *tmp = head;
-			if (elem->TypeClassement < CLASSEMENT_NORMAL)
-				while(tmp != NULL && tmp->TypeClassement >= CLASSEMENT_NORMAL) tmp = tmp->next;
-			while(tmp != NULL && tmp->PosY < elem->PosY) tmp = tmp->next;
-
-			if (tmp == NULL) tmp = last;
-			Element_Carte *elem_next = tmp->next;
-			tmp->next = NULL;
-
-			tmp->next = elem;
-			tmp->next->next = elem_next;
-
-			if (tmp == last) last = tmp->next;
-		}
-	}
+	elements.push_back(elem);
 }
 
 Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, int y)
@@ -359,7 +290,7 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Type = Type;
 
 	Load_ClasseCommune(Type);
-	ind->Classe = Get_ClasseCom(Type);
+	ind->Classe = getCommonClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -410,7 +341,7 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Type = Type;
 
 	Load_ClassePaysage(Type);
-	ind->Classe = Get_ClassePay(Type);
+	ind->Classe = getLandsClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -440,7 +371,7 @@ Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, 
 	ind->Type = Type;
 
 	Load_ClassePaysageMouvant(Type);
-	ind->Classe = Get_ClassePayMvt(Type);
+	ind->Classe = getMovingLandsClass(Type);
 
 	if (ind->Classe == NULL)
 	{
@@ -475,7 +406,7 @@ Paysage_Lanceur* Carte::AjouterPaysageLanceur(string Type, string liste, int x, 
 	ind->AjouterDansListeCollision = true;
 
 	Load_ClassePaysageMouvant(Type);
-	ind->Classe = Get_ClassePayMvt(Type);	//Données du paysage
+	ind->Classe = getMovingLandsClass(Type);	//Données du paysage
 
 	if (ind->Classe == NULL)
 	{
@@ -571,69 +502,55 @@ Cadavre* Carte::AjouterCadavre(string liste, int x, int y)
 void Carte::AjouterListeEnCollision(string num)
 {
 	//Si num == "ALL", on considère qu'il faut ajouter tous les éléments de la carte
-	Element_Carte *tmp = head;
 
-	while (tmp != NULL)
+	for (auto& tmp : elements)
 	{
 		if ((tmp->Liste == num || num == "ALL") && (tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision)
 		{
-			Ajouter_ElementCollision(tmp);
+			addCollider(tmp);
 			if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
 		}
-		tmp = tmp->next;
 	}
 }
 
-void Carte::SupprimerElement(int id)
+void Carte::SupprimerElement(Element_Carte* elem)
 {
-	Supprimer_ElementCollision(id);
+	removeCollider(elem);
 
-	Element_Carte *tmp = head;
+	delete elem;
 
-	//Le premier élément a une gestion particulière :
-	if (tmp->Id == id)
-	{
-		head = tmp->next;
-		tmp->next = NULL;
-		delete tmp;
+	elements.remove(elem);
 
-		MESSAGE("Element_Carte " + intToString(id) + " supprimé", FICHIER)
 
-		return;
-	}
-
-	//Il ne s'agit pas du premier élément :
-	while (tmp->next->Id != id)
-	{
-		tmp = tmp->next;
-		if (tmp->next == NULL) break;
-	}
-	if (tmp != NULL) if (tmp->next != NULL) //Suppression de tmp->next
-	{
-		Element_Carte *tmp2 = tmp->next;
-		if (tmp->next == last) last = tmp;
-		tmp->next = tmp->next->next;
-		tmp2->next = NULL;
-		delete tmp2;
-
-		MESSAGE("Element_Carte " + intToString(id) + " supprimé", FICHIER)
-	}
+	MESSAGE("Element_Carte " + intToString(elem->Id) + " supprimé", FICHIER)
 }
 
 void Carte::SupprimerListe(string num)
 {
-	Element_Carte *tmp = head;
-
-	while (tmp != NULL)
+	for (auto& tmp : elements)
 	{
 		if (tmp->Liste == num)
-		{
-			Element_Carte *tmp2 = tmp->next;
-			SupprimerElement(tmp->Id);
-			tmp = tmp2;
-		}
-		else tmp = tmp->next;
+			SupprimerElement(tmp);
 	}
+}
+
+bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
+{
+	/* Classement des Élements selon leur TypeClassement
+	 * - CLASSEMENT_SOL
+	 * - CLASSEMENT_CADAVRE
+	 * - CLASSEMENT_NORMAL & CLASSEMENT_HAUT
+	 * - CLASSEMENT_NUAGE
+	*/
+
+	if (a->TypeClassement >= CLASSEMENT_NORMAL && b->TypeClassement < CLASSEMENT_NORMAL) return false;
+	if (a->TypeClassement == CLASSEMENT_NUAGE && b->TypeClassement < CLASSEMENT_NUAGE) return false;
+	if (a->TypeClassement == CLASSEMENT_CADAVRE && b->TypeClassement == CLASSEMENT_SOL) return false;
+	if ((a->TypeClassement == CLASSEMENT_NORMAL || a->TypeClassement == CLASSEMENT_HAUT) &&
+		(b->TypeClassement == CLASSEMENT_NORMAL || b->TypeClassement == CLASSEMENT_HAUT) &&
+		a->PosY > b->PosY) return false;
+
+	return true;
 }
 
 int Carte::GestionElements()
@@ -641,10 +558,9 @@ int Carte::GestionElements()
 	int Retour = ACTION_JEU;
 
 	int RetourElement = 0;
-	int ASupprimer = -1;
+	Element_Carte* ASupprimer = NULL;
 
-	Element_Carte *tmp = head;
-	while (tmp != NULL)
+	for (auto& tmp : elements)
 	{
 		RetourElement = tmp->Gestion();
 
@@ -658,52 +574,13 @@ int Carte::GestionElements()
 			case ACTION_MORT	: Retour = ACTION_MORT; break;
 			case ETAT_NORMAL	: tmp->Disp(Partie.PosCarteX, Partie.PosCarteY); break;
 			case ETAT_DESACTIVE	: break;
-			case ETAT_MORT		: ASupprimer = tmp->Id; break;
+			case ETAT_MORT		: ASupprimer = tmp; break;
 		}
-
-		//Tests pour tenter de garder la liste dans l'ordre des y décroissants
-		
-			/* Classement des Élements selon leur TypeClassement
-			 * - CLASSEMENT_SOL
-			 * - CLASSEMENT_CADAVRE
-			 * - CLASSEMENT_NORMAL & CLASSEMENT_HAUT
-			 * - CLASSEMENT_NUAGE
-			*/
-
-		if (tmp->next != NULL && tmp->next->next != NULL) for (int i = 2 ; i >= 0 ; --i)
-		{
-			bool EchangeNext = false;
-			Element_Carte *echg = tmp;
-			for (int j = 0 ; j < i ; ++j)
-			{
-				if (echg->next->next != NULL && echg->next->next->next != NULL) echg = echg->next;
-				else break;
-			}
-
-			if (echg->next->TypeClassement >= CLASSEMENT_NORMAL && echg->next->next->TypeClassement < CLASSEMENT_NORMAL) EchangeNext = true;
-			else if (echg->next->TypeClassement == CLASSEMENT_NUAGE && echg->next->next->TypeClassement < CLASSEMENT_NUAGE) EchangeNext = true;
-			else if (echg->next->TypeClassement == CLASSEMENT_CADAVRE && echg->next->next->TypeClassement == CLASSEMENT_SOL) EchangeNext = true;
-			else if ((echg->next->TypeClassement == CLASSEMENT_NORMAL || echg->next->TypeClassement == CLASSEMENT_HAUT) && 
-					 (echg->next->next->TypeClassement == CLASSEMENT_NORMAL || echg->next->next->TypeClassement == CLASSEMENT_HAUT) &&
-					 echg->next->PosY > echg->next->next->PosY) EchangeNext = true;
-
-			if (EchangeNext)
-			{
-				Element_Carte *echg2 = echg->next;
-				echg->next = echg2->next;
-				echg2->next = echg2->next->next;
-				echg->next->next = echg2;
-			}
-		}
-
-			//Remise en fin de chaîne de last
-
-		while (last->next != NULL) last = last->next;
-
-		tmp = tmp->next;
 	}
 
-	if (ASupprimer != -1) SupprimerElement(ASupprimer);
+	elements.sort(comparisonBetweenElements);
+
+	if (ASupprimer != NULL) SupprimerElement(ASupprimer);
 
 	return Retour;
 }
@@ -746,11 +623,10 @@ void Carte::Disp_FondCarte()
 
 void Lag_PosFondCartes(float lagX, float lagY)
 {
-	Carte *tmp = Partie.Carte_head;
-	while (tmp != NULL)
+	for (auto& map : Partie.maps)
 	{
-		tmp->PosFondX += lagX; tmp->PosFondY += lagY;
-		tmp = tmp->next;
+		map.second.PosFondX += lagX;
+		map.second.PosFondY += lagY;
 	}
 }
 

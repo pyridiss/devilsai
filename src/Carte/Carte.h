@@ -21,6 +21,7 @@
 #define header_carte
 
 #include <string>
+#include <list>
 
 #include <SFML/System.hpp>
 
@@ -50,8 +51,7 @@ class Carte
 {
 	//Eléments de la liste chainée :
 	public:
-		Element_Carte *head, *last; // La tête de liste *head est l'élément qui contrôle de jeu
-		Carte *next;
+		list <Element_Carte*> elements;
 
 	//Objet :
 	public:
@@ -85,7 +85,7 @@ class Carte
 
 		void AjouterListeEnCollision(string num);
 
-		void SupprimerElement(int id);
+		void SupprimerElement(Element_Carte* elem);
 
 		void SupprimerListe(string num);
 
@@ -97,19 +97,6 @@ class Carte
 	public:
 		void Set_FondCarte(string NumFond);
 		void Disp_FondCarte();
-};
-
-/** COLLISIONS **/
-
-class Element_Collision
-{
-	public:
-		Element_Carte *elem;
-		Element_Collision *next;
-
-	public:
-		Element_Collision();
-		~Element_Collision();
 };
 
 
@@ -138,20 +125,20 @@ void Ajouter_Carte(string);
 void SupprimerListe_Carte();
 Carte* Get_Carte(string);
 
-void Ajouter_ClasseCom(string);
-void SupprimerListe_ClasseCom();
-Classe_Commune* Get_ClasseCom(string);
+void addCommonClass(string);
+void deleteCommonClasses();
+Classe_Commune* getCommonClass(string);
 
-void Ajouter_ClassePay(string);
-void SupprimerListe_ClassePay();
-Classe_Paysage* Get_ClassePay(string);
+void addLandsClass(string);
+void deleteLandsClasses();
+Classe_Paysage* getLandsClass(string);
 
-void Ajouter_ClassePayMvt(string);
-void SupprimerListe_ClassePayMvt();
-Classe_Paysage_Mouvant* Get_ClassePayMvt(string);
+void addMovingLandsClass(string);
+void deleteMovingLandsClasses();
+Classe_Paysage_Mouvant* getMovingLandsClass(string);
 
-void Ajouter_ElementCollision(Element_Carte*);
-void Supprimer_ElementCollision(int);
-void SupprimerListe_Collision();
+void addCollider(Element_Carte*);
+void removeCollider(Element_Carte*);
+void removeColliders();
 
 #endif
