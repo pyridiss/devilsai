@@ -140,7 +140,7 @@ void removeCollider(Element_Carte *elem)
 {
 	Partie.colliders.remove(elem);
 
-	MESSAGE("Element collision " + intToString(id) + " supprimé", LISTE)
+	MESSAGE("Element collision " + intToString(elem->Id) + " supprimé", LISTE)
 }
 
 void removeColliders()
