@@ -409,8 +409,8 @@ bool Dialogue::Afficher()
 
 JournalEntry::JournalEntry()
 {
-	Rectangle.left = 10;
-	Rectangle.top = Options.ScreenH - 200;
+	Rectangle.left = 20;
+	Rectangle.top = Options.ScreenH - 10;
 	Rectangle.width = Options.ScreenW / 2;
 }
 
@@ -481,7 +481,7 @@ void Disp_Journal()
 
 	Partie.journal.newEntryAdded = false;
 
-	bindBlurShader(10, Options.ScreenH - 424, Options.ScreenW / 2 - 20, 224);
+	bindBlurShader(10, 170, Options.ScreenW / 2 - 20, Options.ScreenH - 170 - 10);
 
 	int numberOfLine = 0;
 	int opacity = 255;
@@ -496,8 +496,8 @@ void Disp_Journal()
 			Texte.setString(*i);
 			Texte.setPosition(entry->Rectangle.left, entry->Rectangle.top - numberOfLine);
 
-			if (numberOfLine > 160) opacity = 255 - 4*(numberOfLine-160);
-			if (numberOfLine >= 224) return;
+			if (numberOfLine >= (int)Options.ScreenH - 170 - 20 - 64) opacity = 255 - 4*(numberOfLine - (Options.ScreenH - 170 - 20 - 64));
+			if (numberOfLine >= (int)Options.ScreenH - 170 - 20) return;
 
 			if (entry->done) Texte.setColor(Color(180, 180, 180, opacity));
 			else Texte.setColor(Color(255, 255, 255, opacity));
@@ -515,5 +515,6 @@ void Disp_Journal()
 
 		numberOfLine += 22;
 		Disp_Texte(entry->Nom, entry->Rectangle.left, entry->Rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, Jeu.DayRoman);
+		numberOfLine += 10;
 	}
 }
