@@ -97,23 +97,25 @@ int ParcoursCollisions(Individu *elem)
 
 	int Retour = COLL_OK;
 
-	static float elemPosY = 0;
-	elemPosY = elem->PosY;
+	static float elemPosX = 0, elemPosY = 0;
+	elemPosX = elem->PosX; elemPosY = elem->PosY;
+
+	const auto& end = Partie.colliders.end();
 
 	//On avance dans la liste jusqu'à trouver un élément dont la différence des PosY est inférieure à MaximumRayonCollision
-	while (currentCollider != Partie.colliders.end() && elemPosY - (*currentCollider)->PosY > MaximumRayonCollision)
-	{
+	while (currentCollider != end && elemPosY - (*currentCollider)->PosY > MaximumRayonCollision)
 		++currentCollider;
-	}
+	while (currentCollider != end && abs(elemPosX - (*currentCollider)->PosX) > MaximumRayonCollision)
+		++currentCollider;
 
 	//On vérifie que l'on ne dépasse plus MaximumRayonCollision, sinon le parcours est terminé
-	if (currentCollider != Partie.colliders.end() && (*currentCollider)->PosY - elemPosY > MaximumRayonCollision)
+	if (currentCollider != end && (*currentCollider)->PosY - elemPosY > MaximumRayonCollision)
 	{
 		currentCollider = Partie.colliders.begin();
 		return COLL_END;
 	}
 
-	if (currentCollider == Partie.colliders.end())
+	if (currentCollider == end)
 	{
 		currentCollider = Partie.colliders.begin();
 		return COLL_END;
@@ -132,18 +134,25 @@ int ParcoursCollisions(Individu *elem)
 
 	bool ResultColl = false;
 
-	if (elem->ModeCollision == MODE_COLLISION_CERCLE && collider->ModeCollision == MODE_COLLISION_CERCLE)
-		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->RayonCollision,
-											 collider->PosX, collider->PosY, collider->RayonCollision);
-	if (elem->ModeCollision == MODE_COLLISION_CERCLE && collider->ModeCollision == MODE_COLLISION_RECT)
-		ResultColl = Collision_cercle_rectangle(elem->PosX, elemPosY, elem->RayonCollision,
-												collider->PosX, collider->PosY, collider->RayX, collider->RayY);
-	if (elem->ModeCollision == MODE_COLLISION_RECT && collider->ModeCollision == MODE_COLLISION_CERCLE)
-		ResultColl = Collision_cercle_rectangle(collider->PosX, collider->PosY, collider->RayonCollision,
-												elem->PosX, elemPosY, elem->RayX, elem->RayY);
-	if (elem->ModeCollision == MODE_COLLISION_RECT && collider->ModeCollision == MODE_COLLISION_RECT)
-		ResultColl = Collision_rectangle_rectangle(elem->PosX, elem->PosY, elem->RayX, elem->RayY,
-												   collider->PosX, collider->PosY, collider->RayX, collider->RayY);
+	switch (10 * elem->ModeCollision + collider->ModeCollision)
+	{
+		case 10 * MODE_COLLISION_CERCLE + MODE_COLLISION_CERCLE :
+			ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->RayonCollision,
+												 collider->PosX, collider->PosY, collider->RayonCollision);
+			break;
+		case 10 * MODE_COLLISION_CERCLE + MODE_COLLISION_RECT :
+			ResultColl = Collision_cercle_rectangle(elem->PosX, elemPosY, elem->RayonCollision,
+													collider->PosX, collider->PosY, collider->RayX, collider->RayY);
+			break;
+		case 10 * MODE_COLLISION_RECT + MODE_COLLISION_CERCLE :
+			ResultColl = Collision_cercle_rectangle(collider->PosX, collider->PosY, collider->RayonCollision,
+													elem->PosX, elemPosY, elem->RayX, elem->RayY);
+			break;
+		case 10 * MODE_COLLISION_RECT + MODE_COLLISION_RECT :
+			ResultColl = Collision_rectangle_rectangle(elem->PosX, elem->PosY, elem->RayX, elem->RayY,
+													   collider->PosX, collider->PosY, collider->RayX, collider->RayY);
+			break;
+	}
 
 	if (ResultColl)
 	{
@@ -199,9 +208,8 @@ int ParcoursCollisions(Individu *elem)
 	if (collider->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER_ARR) Retour = COLL_ATT_ARR;
 
 	//Pas de collision primaire, pas de collision en interaction ; on teste une collision en vision
-	if (Retour != COLL_INTER && Retour != COLL_INTER_ARR && Retour != COLL_ATT && Retour != COLL_ATT_ARR &&
-		elem->Get_ChampVision() != 0)
-	{ /** DONC, POUR LE MOMENT, Retour == COLL_OK **/
+	if (Retour == COLL_OK && elem->Get_ChampVision() != 0)
+	{
 		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->Get_ChampVision(),
 											 collider->PosX, collider->PosY, collider->RayonCollision);
 		if (ResultColl) Retour = COLL_VIS;
