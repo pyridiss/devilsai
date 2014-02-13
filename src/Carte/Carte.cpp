@@ -542,13 +542,13 @@ bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 	 * - CLASSEMENT_NORMAL & CLASSEMENT_HAUT
 	 * - CLASSEMENT_NUAGE
 	*/
+	int aClass = a->TypeClassement;	if (aClass == CLASSEMENT_HAUT) aClass = CLASSEMENT_NORMAL;
+	int bClass = b->TypeClassement;	if (bClass == CLASSEMENT_HAUT) bClass = CLASSEMENT_NORMAL;
 
-	if (a->TypeClassement >= CLASSEMENT_NORMAL && b->TypeClassement < CLASSEMENT_NORMAL) return false;
-	if (a->TypeClassement == CLASSEMENT_NUAGE && b->TypeClassement < CLASSEMENT_NUAGE) return false;
-	if (a->TypeClassement == CLASSEMENT_CADAVRE && b->TypeClassement == CLASSEMENT_SOL) return false;
-	if ((a->TypeClassement == CLASSEMENT_NORMAL || a->TypeClassement == CLASSEMENT_HAUT) &&
-		(b->TypeClassement == CLASSEMENT_NORMAL || b->TypeClassement == CLASSEMENT_HAUT) &&
-		a->PosY > b->PosY) return false;
+	if (aClass < bClass) return true;
+	if (aClass > bClass) return false;
+
+	if (a->PosY >= b->PosY) return false;
 
 	return true;
 }
