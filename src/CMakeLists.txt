@@ -46,7 +46,6 @@ set(devilsai_SRCS
 )
 
 set(devilsaiTargetLibs
-    Xrandr
     sfml-system
     sfml-window
     sfml-graphics

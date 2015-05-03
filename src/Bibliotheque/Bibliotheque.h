@@ -359,11 +359,12 @@ void Erreur(const string&, const float&);
 float DirToCoeff_X(short, float Devn=0);
 float DirToCoeff_Y(short, float Devn=0);
 bool TestAngle(float&, float&, short, float&, float&, const short&);
-void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=Font::getDefaultFont());
-void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=Font::getDefaultFont());
-void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=Font::getDefaultFont());
-void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=Font::getDefaultFont());
-void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=Font::getDefaultFont());
+const Font& getDefaultFont();
+void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=getDefaultFont());
+void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=getDefaultFont());
+void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=getDefaultFont());
+void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=getDefaultFont());
+void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=getDefaultFont());
 void Disp_TitrePage(enumPhrases);
 string intToString(double);
 

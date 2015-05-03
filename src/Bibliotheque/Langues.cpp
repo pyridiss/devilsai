@@ -241,7 +241,7 @@ String32 Get_NomLangue()
 
 void DecoupageReplique(Replique* Replique)
 {
-	Text Texte("", Font::getDefaultFont(), 12);
+	Text Texte("", getDefaultFont(), 12);
 
 	//Avant le découpage, on va détecter la présence de caractères de formatage
 	size_t Formatage = Replique->Chaine.find(Options.CharForm);
@@ -377,7 +377,7 @@ bool Dialogue::Afficher()
 
 	Disp_Texte(NumeroReplique->Nom, NumeroReplique->Rectangle.left, NumeroReplique->Rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
-	Text Texte("", Font::getDefaultFont(), 11);
+	Text Texte("", getDefaultFont(), 11);
 
 	int Numero = 0;
 	for (auto& i : NumeroReplique->Lignes)
@@ -488,7 +488,7 @@ void Disp_Journal()
 
 	for (auto entry = Partie.journal.journal.rbegin() ; entry != Partie.journal.journal.rend() ; ++entry)
 	{
-		Text Texte("", Font::getDefaultFont(), 11);
+		Text Texte("", getDefaultFont(), 11);
 
 		for (auto i = entry->Lignes.rbegin() ; i != entry->Lignes.rend() ; ++i)
 		{

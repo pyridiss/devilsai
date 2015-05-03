@@ -152,6 +152,7 @@ int main(int n, char *params[])
 	Load_LangueDevilsai();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
+	Jeu.defaultFont.loadFromFile(Partie.DATA + "LiberationSans-Regular.ttf");
 	Jeu.Cardinal.loadFromFile(Partie.DATA + "Cardinal.ttf");
 	Jeu.DayRoman.loadFromFile(Partie.DATA + "DayRoman.ttf");
 	Load_Decorations();

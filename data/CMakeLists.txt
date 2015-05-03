@@ -9,6 +9,7 @@ add_subdirectory(skill)
 
 
 set(data
+    LiberationSans-Regular.ttf
     Cardinal.ttf
     DayRoman.ttf
     defaut.opt

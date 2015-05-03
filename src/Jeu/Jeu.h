@@ -98,6 +98,7 @@ struct Classe_Partie
 struct Classe_Jeu
 {
 	RenderWindow App;
+	Font defaultFont;
 	Font Cardinal;
 	Font DayRoman;
 	Dictionnaire Dico;

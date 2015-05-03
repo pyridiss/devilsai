@@ -140,7 +140,7 @@ void Bouton::AjouterTexte(const String32 str)
 {
 	Texte.setString(str);
 	Texte.setCharacterSize(10.);
-	Texte.setFont(Font::getDefaultFont());
+	Texte.setFont(getDefaultFont());
 	FloatRect rect = Texte.getGlobalBounds();
 	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 1));
 }
@@ -149,7 +149,7 @@ void Bouton::AjouterTexte(enumPhrases str)
 {
 	Texte.setString(Get_Phrase(str));
 	Texte.setCharacterSize(10.);
-	Texte.setFont(Font::getDefaultFont());
+	Texte.setFont(getDefaultFont());
 	FloatRect rect = Texte.getGlobalBounds();
 	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 1));
 }
@@ -266,7 +266,7 @@ void Disp_FPS()
 	static string Texte("");
 	static short Compteur = 15;
 	static float Framerate;
-	static Text FPS("", Font::getDefaultFont(), 10);
+	static Text FPS("", getDefaultFont(), 10);
 	FPS.setPosition(Options.ScreenW - 100, 7);
 
 	if (Arguments.LimitToFpsDisabled) Compteur = 15;
