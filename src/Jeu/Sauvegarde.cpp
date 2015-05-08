@@ -53,7 +53,7 @@ void Save_Partie()
 	saveQuests(mainFileStream);
 
 	//Journal entries:
-	for (auto i : Partie.journal.journal)
+	for (auto i : Partie.journal.entries)
 		mainFileStream << "JOURNAL " << i.reference << " " << i.done << endl;
 
 	mainFileStream.close();

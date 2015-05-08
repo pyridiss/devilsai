@@ -424,8 +424,8 @@ void Journal::addEntry(string _ref)
 	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
 
 	JournalEntry newEntry;
-	journal.push_back(newEntry);
-	JournalEntry& entry = journal.back();
+	entries.push_back(newEntry);
+	JournalEntry& entry = entries.back();
 	entry.reference = _ref;
 
 	string TypeDonnee = "", TypeDonnee2 = "";
@@ -467,7 +467,7 @@ void Journal::addEntry(string _ref)
 
 void Journal::setDone(string _ref)
 {
-	for (auto& i : journal)
+	for (auto& i : entries)
 		if (i.reference == _ref)
 		{
 			i.done = true;
@@ -477,7 +477,7 @@ void Journal::setDone(string _ref)
 
 void Disp_Journal()
 {
-	if (Partie.journal.journal.empty()) return;
+	if (Partie.journal.entries.empty()) return;
 
 	Partie.journal.newEntryAdded = false;
 
@@ -486,7 +486,7 @@ void Disp_Journal()
 	int numberOfLine = 0;
 	int opacity = 255;
 
-	for (auto entry = Partie.journal.journal.rbegin() ; entry != Partie.journal.journal.rend() ; ++entry)
+	for (auto entry = Partie.journal.entries.rbegin() ; entry != Partie.journal.entries.rend() ; ++entry)
 	{
 		Text Texte("", getDefaultFont(), 11);
 

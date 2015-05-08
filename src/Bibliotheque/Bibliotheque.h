@@ -197,7 +197,7 @@ class JournalEntry : public Replique
 class Journal
 {
 	public:
-		list<JournalEntry> journal;
+		list<JournalEntry> entries;
 		bool newEntryAdded = false;
 
 	public:

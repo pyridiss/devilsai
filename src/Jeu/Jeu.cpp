@@ -421,7 +421,7 @@ void Clean_Partie()
 	Partie.selectedSkill = nullptr;
 	Partie.listDialogs.clear();
 	Partie.currentUserScreen = nullptr;
-	Partie.journal.journal.clear();
+	Partie.journal.entries.clear();
 
 	Set_PosCarte(0, 0, false);
 	Set_PosCarte(0, 0, true);
