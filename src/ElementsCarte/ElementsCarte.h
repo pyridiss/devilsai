@@ -35,7 +35,7 @@ class Element_Carte;
 class Individu;
 class Individu_Commun;
 class Paysage;
-class Dialogue;
+class Dialog;
 
 
 /** INDIVIDUS **/
@@ -532,7 +532,7 @@ class Actionneur : public Element_Carte
 		int Type            = 0;
 		int DonneeInt       = 0;
 		string DonneeString = "";
-		Dialogue *dialogue  = NULL;
+		Dialog *dialogue    = NULL;
 
 	public:
 		Actionneur();

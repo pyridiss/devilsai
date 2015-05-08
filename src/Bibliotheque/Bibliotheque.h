@@ -34,12 +34,12 @@ using namespace sf;
 
 class lua_State;
 class Element_Carte;
-struct Replique;
+struct Paragraph;
 
 //Type de base pour les string contenant des textes à afficher
 typedef basic_string<Uint32> String32;
 typedef list<String32> ListString32;
-typedef list<Replique> ListRepliques;
+typedef list<Paragraph> ListParagraph;
 
 enum enumPhrases{
 	_TITRE = 100,
@@ -165,26 +165,26 @@ struct LigneConsole
 	bool Affichage	= false;
 };
 
-struct Langage
+struct Language
 {
-	string Indice;
-	String32 Nom;
+	string shortName;
+	String32 name;
 };
 
-struct Replique
+struct Paragraph
 {
 	public:
-		String32 Nom;
-		String32 Chaine;
-		ListString32 Lignes;
-		IntRect Rectangle;
-		bool Centre = false;
+		String32 name;
+		String32 characters;
+		ListString32 lines;
+		IntRect rectangle;
+		bool centered = false;
 
 	public:
-		Replique();
+		Paragraph();
 };
 
-class JournalEntry : public Replique
+class JournalEntry : public Paragraph
 {
 	public:
 		string reference = "";
@@ -205,23 +205,23 @@ class Journal
 		void setDone(string _ref);
 };
 
-class Dialogue
+class Dialog
 {
 	private:
-		ListRepliques::iterator NumeroReplique;
-		float Duree = 0;
-		ListRepliques Repliques;
+		ListParagraph::iterator paragraphNumber;
+		float duration = 0;
+		ListParagraph paragraphs;
 
 	public:
 		string id = "";
 
 	public:
-		void Load(string str);
-		bool Afficher();
-		void Set_Position(int x, int y, bool c);
+		void load(string str);
+		bool display();
+		void setPosition(int x, int y, bool c);
 
 	private:
-		void Unload();
+		void unload();
 };
 
 class Bouton
@@ -326,7 +326,7 @@ String32& Get_Phrase(enumPhrases);
 String32 Get_PhraseFormatee(enumPhrases, String32);
 void ChangerLangue();
 String32 Get_NomLangue();
-void DecoupageReplique(Replique*);
+void DecoupageReplique(Paragraph*);
 void Disp_Journal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */

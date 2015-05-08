@@ -239,9 +239,9 @@ void Actionneur::Load(istream &Fichier)
 
 void Actionneur::Load_Dialogue()
 {
-	dialogue = new Dialogue;
+	dialogue = new Dialog;
 	string chemin = "actionneur_" + Partie.CarteCourante->Id + "_" + intToString(DonneeInt) + ".lng";
-	dialogue->Load(chemin);
+	dialogue->load(chemin);
 }
 
 void Actionneur::Disp(float RefX, float RefY)
@@ -255,9 +255,9 @@ void Actionneur::Disp(float RefX, float RefY)
 	if (dialogue != NULL)
 	{
 		if (Type == ACTION_TEXTE_PERSO || Type == ACTION_TEXTE_P_N || Type == ACTION_TEXTE_P_S || Type == ACTION_TEXTE_P_E || Type == ACTION_TEXTE_P_O)
-			dialogue->Set_Position(Options.ScreenW/2, Options.ScreenH/2 - 80, true);
-		else dialogue->Set_Position(Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 - (RefY - PosY) - 20, true);
-		if (dialogue->Afficher())
+			dialogue->setPosition(Options.ScreenW/2, Options.ScreenH/2 - 80, true);
+		else dialogue->setPosition(Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 - (RefY - PosY) - 20, true);
+		if (dialogue->display())
 		{
 			delete dialogue;
 			dialogue = NULL;

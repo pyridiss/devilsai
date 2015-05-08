@@ -107,7 +107,7 @@ void manageQuests()
 
 	if (!Partie.listDialogs.empty())
 	{
-		bool done = Partie.listDialogs.begin()->Afficher();
+		bool done = Partie.listDialogs.begin()->display();
 		if (done) Partie.listDialogs.pop_front();
 	}
 }

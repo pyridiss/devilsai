@@ -31,7 +31,7 @@
 
 const int NombrePhrases = 109;
 
-Langage *Langues;
+Language *Langues;
 
 short NombreLangues;
 
@@ -58,12 +58,12 @@ void Load_LanguesDisponibles()
 		if (TypeDonnee == "NOMBRE_LANGUES")
 		{
 			fileStream >> NombreLangues;
-			Langues = new Langage[NombreLangues];
+			Langues = new Language[NombreLangues];
 		}
 		else if (TypeDonnee != "")
 		{
-			fileStream >> Langues[NbLangue].Nom;
-			Langues[NbLangue].Indice = TypeDonnee;
+			fileStream >> Langues[NbLangue].name;
+			Langues[NbLangue].shortName = TypeDonnee;
 			++NbLangue;
 		}
 		TypeDonnee = "";
@@ -220,12 +220,12 @@ void ChangerLangue()
 {
 	int i = 0;
 	for ( ; i < NombreLangues ; ++i)
-		if (Langues[i].Indice == Options.Langue) break;
+		if (Langues[i].shortName == Options.Langue) break;
 
 	if (i == NombreLangues -1) i = 0;
 	else ++i;
 
-	Options.Langue = Langues[i].Indice;
+	Options.Langue = Langues[i].shortName;
 
 	Load_LangueDevilsai();
 }
@@ -234,38 +234,38 @@ String32 Get_NomLangue()
 {
 	int i = 0;
 	for ( ; i < NombreLangues ; ++i)
-		if (Langues[i].Indice == Options.Langue) break;
+		if (Langues[i].shortName == Options.Langue) break;
 
-	return Langues[i].Nom;
+	return Langues[i].name;
 }
 
-void DecoupageReplique(Replique* Replique)
+void DecoupageReplique(Paragraph* Replique)
 {
 	Text Texte("", getDefaultFont(), 12);
 
 	//Avant le découpage, on va détecter la présence de caractères de formatage
-	size_t Formatage = Replique->Chaine.find(Options.CharForm);
+	size_t Formatage = Replique->characters.find(Options.CharForm);
 
-	while (Partie.perso != NULL && Formatage != Replique->Chaine.npos)
+	while (Partie.perso != NULL && Formatage != Replique->characters.npos)
 	{
-		Replique->Chaine.replace(Formatage, Options.CharForm.size(), Partie.perso->Nom);
-		Formatage = Replique->Chaine.find(Options.CharForm);
+		Replique->characters.replace(Formatage, Options.CharForm.size(), Partie.perso->Nom);
+		Formatage = Replique->characters.find(Options.CharForm);
 	}
 
-	String32 buf = Replique->Chaine;
+	String32 buf = Replique->characters;
 	size_t CoupureInitiale = 0, CoupureBuf = 0;
-	while (CoupureInitiale < Replique->Chaine.size())
+	while (CoupureInitiale < Replique->characters.size())
 	{
 		Texte.setString(buf);
 		CoupureBuf = buf.size() - 1;
 
-		while (Texte.getLocalBounds().width > Replique->Rectangle.width)
+		while (Texte.getLocalBounds().width > Replique->rectangle.width)
 		{
 			CoupureBuf = buf.find_last_of(Options.CharSpace);
 			if (CoupureBuf == buf.npos)
 			{
 				//Le mot est trop long pour être affiché dans le cadre ; on le fait dépasser plutôt que de le couper
-				CoupureBuf = Replique->Chaine.substr(CoupureInitiale).find_first_of(Options.CharSpace);
+				CoupureBuf = Replique->characters.substr(CoupureInitiale).find_first_of(Options.CharSpace);
 				break;
 			}
 			buf = buf.substr(0, CoupureBuf);
@@ -279,22 +279,22 @@ void DecoupageReplique(Replique* Replique)
 			++CoupureBuf;
 		}
 
-		Replique->Lignes.push_back(buf);
+		Replique->lines.push_back(buf);
 
 		CoupureInitiale += CoupureBuf + 1;
-		buf = Replique->Chaine.substr(CoupureInitiale);
+		buf = Replique->characters.substr(CoupureInitiale);
 	}
 }
 
 
 /** FONCTIONS DE LA CLASSE Dialogue **/
 
-Replique::Replique()
+Paragraph::Paragraph()
 {
-	Rectangle.width = Options.ScreenW / 2;
+	rectangle.width = Options.ScreenW / 2;
 }
 
-void Dialogue::Load(string str)
+void Dialog::load(string str)
 {
 	id = str;
 
@@ -305,7 +305,7 @@ void Dialogue::Load(string str)
 	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
 	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
 
-	Repliques.clear();
+	paragraphs.clear();
 
 	string TypeDonnee = "", TypeDonnee2 = "";
 	string Buffer;
@@ -318,11 +318,11 @@ void Dialogue::Load(string str)
 
 		else if (TypeDonnee == "*")
 		{
-			Replique r;
-			Repliques.push_back(r);
-			for (ListRepliques::iterator i = Repliques.begin() ; i != Repliques.end() ; ++i) NumeroReplique = i;
+			Paragraph r;
+			paragraphs.push_back(r);
+			for (ListParagraph::iterator i = paragraphs.begin() ; i != paragraphs.end() ; ++i) paragraphNumber = i;
 			fileStream >> TypeDonnee2;
-			if (TypeDonnee2 == "POSITION") fileStream >> NumeroReplique->Rectangle.left >> NumeroReplique->Rectangle.top;
+			if (TypeDonnee2 == "POSITION") fileStream >> paragraphNumber->rectangle.left >> paragraphNumber->rectangle.top;
 			else
 			{
 				Erreur ("Le fichier de langue suivant est corrompu :", fileName);
@@ -331,77 +331,77 @@ void Dialogue::Load(string str)
 		}
 		else if (TypeDonnee == "LARGEUR")
 		{
-			fileStream >> NumeroReplique->Rectangle.width;
+			fileStream >> paragraphNumber->rectangle.width;
 		}
 		else if (TypeDonnee == "NOM")
 		{
 			fileStream >> TypeDonnee2;
 			if (TypeDonnee2 == Options.Langue || TypeDonnee2 == "TOUTES_LANGUES")
-				fileStream >> NumeroReplique->Nom;
+				fileStream >> paragraphNumber->name;
 		}
 		else if (TypeDonnee == Options.Langue)
 		{
-			fileStream >> NumeroReplique->Chaine;
+			fileStream >> paragraphNumber->characters;
 		}
 		else getline(fileStream, Buffer);
 
 		TypeDonnee = ""; TypeDonnee2 = ""; Buffer = "";
 	}
 
-	NumeroReplique = Repliques.begin();
-	if (NumeroReplique != Repliques.end()) DecoupageReplique(&*NumeroReplique);
+	paragraphNumber = paragraphs.begin();
+	if (paragraphNumber != paragraphs.end()) DecoupageReplique(&*paragraphNumber);
 
 	fileStream.close();
 }
 
-void Dialogue::Unload()
+void Dialog::unload()
 {
-	Repliques.clear();
+	paragraphs.clear();
 }
 
-void Dialogue::Set_Position(int x, int y, bool c)
+void Dialog::setPosition(int x, int y, bool c)
 {
-	for (auto& i : Repliques)
+	for (auto& i : paragraphs)
 	{
-		i.Rectangle.left = x;
-		i.Rectangle.top = y;
-		i.Centre = c;
+		i.rectangle.left = x;
+		i.rectangle.top = y;
+		i.centered = c;
 	}
 }
 
-bool Dialogue::Afficher()
+bool Dialog::display()
 {
-	if (Repliques.empty()) return true;
+	if (paragraphs.empty()) return true;
 
-	bindBlurShader(Repliques.begin()->Rectangle.left - 20, Repliques.begin()->Rectangle.top, Options.ScreenW / 2, 26 + NumeroReplique->Lignes.size() * 16);
+	bindBlurShader(paragraphs.begin()->rectangle.left - 20, paragraphs.begin()->rectangle.top, Options.ScreenW / 2, 26 + paragraphNumber->lines.size() * 16);
 
-	Disp_Texte(NumeroReplique->Nom, NumeroReplique->Rectangle.left, NumeroReplique->Rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
+	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
 	Text Texte("", getDefaultFont(), 11);
 
 	int Numero = 0;
-	for (auto& i : NumeroReplique->Lignes)
+	for (auto& i : paragraphNumber->lines)
 	{
 		Texte.setString(i);
-		if (NumeroReplique->Centre) Texte.setPosition(Vector2f(NumeroReplique->Rectangle.left - (int)(Texte.getLocalBounds().width/2), 26 + NumeroReplique->Rectangle.top + 16*Numero));
-		else Texte.setPosition(NumeroReplique->Rectangle.left, 26 + NumeroReplique->Rectangle.top + 16*Numero);
+		if (paragraphNumber->centered) Texte.setPosition(Vector2f(paragraphNumber->rectangle.left - (int)(Texte.getLocalBounds().width/2), 26 + paragraphNumber->rectangle.top + 16*Numero));
+		else Texte.setPosition(paragraphNumber->rectangle.left, 26 + paragraphNumber->rectangle.top + 16*Numero);
 		++Numero;
 		Jeu.App.draw(Texte);
 	}
 
-	Duree += I(1);
+	duration += I(1);
 
-	if (Duree > 200 + 2.5*NumeroReplique->Chaine.size())
+	if (duration > 200 + 2.5*paragraphNumber->characters.size())
 	{
-		++NumeroReplique;
-		Duree = 0;
+		++paragraphNumber;
+		duration = 0;
 
-		if (NumeroReplique == Repliques.end())
+		if (paragraphNumber == paragraphs.end())
 		{
-			Unload();
+			unload();
 			return true;
 		}
-		else DecoupageReplique(&*NumeroReplique);
+		else DecoupageReplique(&*paragraphNumber);
 	}
 
 	return false;
@@ -409,9 +409,9 @@ bool Dialogue::Afficher()
 
 JournalEntry::JournalEntry()
 {
-	Rectangle.left = 20;
-	Rectangle.top = Options.ScreenH - 10;
-	Rectangle.width = Options.ScreenW / 2;
+	rectangle.left = 20;
+	rectangle.top = Options.ScreenH - 10;
+	rectangle.width = Options.ScreenW / 2;
 }
 
 void Journal::addEntry(string _ref)
@@ -447,12 +447,12 @@ void Journal::addEntry(string _ref)
 		{
 			fileStream >> TypeDonnee;
 			if (TypeDonnee == Options.Langue && readRef == _ref)
-				fileStream >> entry.Nom;
+				fileStream >> entry.name;
 		}
 		else if (TypeDonnee == Options.Langue && readRef == _ref)
 		{
 			fileStream.get();
-			fileStream >> entry.Chaine;
+			fileStream >> entry.characters;
 		}
 		else getline(fileStream, Buffer);
 		TypeDonnee = ""; Buffer = "";
@@ -490,11 +490,11 @@ void Disp_Journal()
 	{
 		Text Texte("", getDefaultFont(), 11);
 
-		for (auto i = entry->Lignes.rbegin() ; i != entry->Lignes.rend() ; ++i)
+		for (auto i = entry->lines.rbegin() ; i != entry->lines.rend() ; ++i)
 		{
 			numberOfLine += 16;
 			Texte.setString(*i);
-			Texte.setPosition(entry->Rectangle.left, entry->Rectangle.top - numberOfLine);
+			Texte.setPosition(entry->rectangle.left, entry->rectangle.top - numberOfLine);
 
 			if (numberOfLine >= (int)Options.ScreenH - 170 - 20 - 64) opacity = 255 - 4*(numberOfLine - (Options.ScreenH - 170 - 20 - 64));
 			if (numberOfLine >= (int)Options.ScreenH - 170 - 20) return;
@@ -514,7 +514,7 @@ void Disp_Journal()
 		}
 
 		numberOfLine += 22;
-		Disp_Texte(entry->Nom, entry->Rectangle.left, entry->Rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, Jeu.DayRoman);
+		Disp_Texte(entry->name, entry->rectangle.left, entry->rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, Jeu.DayRoman);
 		numberOfLine += 10;
 	}
 }

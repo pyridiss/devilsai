@@ -163,11 +163,11 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	if (getBoolFromLUA(obj, "getDescriptionManuelle") && MaJ)
 	{
 		//Pour ne pas surcharger, on désactive les descriptions manuelles des objets supplémentaires
-		Replique replique;
-		replique.Chaine = Get_DescObjet(internalNumber);
-		replique.Rectangle = IntRect(0, 0, 2*(Options.ScreenW - PosDescX) - 20, 0);
+		Paragraph replique;
+		replique.characters = Get_DescObjet(internalNumber);
+		replique.rectangle = IntRect(0, 0, 2*(Options.ScreenW - PosDescX) - 20, 0);
 		DecoupageReplique(&replique);
-		for (ListString32::iterator i = replique.Lignes.begin() ; i != replique.Lignes.end() ; ++i)
+		for (ListString32::iterator i = replique.lines.begin() ; i != replique.lines.end() ; ++i)
 		{
 			Disp_TexteCentre(*i, PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
 			LigneCourante += 14;

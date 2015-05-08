@@ -262,8 +262,8 @@ void setStringToLUA(lua_State* L, string fct, string value)
 
 void DialogueEtGestionEvenements(string fichier)
 {
-	Dialogue Intro;
-	Intro.Load(fichier.c_str());
+	Dialog Intro;
+	Intro.load(fichier.c_str());
 
 	bool FinDialogue = false;
 
@@ -273,7 +273,7 @@ void DialogueEtGestionEvenements(string fichier)
 
 		Disp_FondMenus();
 
-		FinDialogue = Intro.Afficher();
+		FinDialogue = Intro.display();
 
 		Jeu.App.display();
 

@@ -85,7 +85,7 @@ struct Classe_Partie
 
 	bool loadFirstChapter   = false;
 
-	list<Dialogue> listDialogs;
+	list<Dialog> listDialogs;
 	map<string, lua_State*> quests;
 
 	public:

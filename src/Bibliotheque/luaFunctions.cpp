@@ -304,9 +304,9 @@ int LUA_getElement(lua_State* L)
 int LUA_pushDialog(lua_State* L)
 {
 	string newDialog = lua_tostring(L, 1);
-	Dialogue dialog;
+	Dialog dialog;
 	Partie.listDialogs.push_back(dialog);
-	Partie.listDialogs.back().Load(newDialog + ".lng");
+	Partie.listDialogs.back().load(newDialog + ".lng");
 	return 0;
 }
 
