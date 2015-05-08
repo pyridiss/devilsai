@@ -409,6 +409,7 @@ void EcranJeu(bool SauvegardePrealable)
 		}
 
 		Jeu.App.display();
+		manageRunningMusics();
 	}
 }
 
@@ -514,6 +515,7 @@ int MenuPrincipal()
 		Disp_Texte(version, Options.ScreenW - 250, Options.ScreenH - 60, Color(175,255,255,255), 10.);
 
 		Jeu.App.display();
+		manageRunningMusics();
 		/* Fin animation */
 	}
 

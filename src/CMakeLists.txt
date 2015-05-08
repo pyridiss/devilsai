@@ -18,6 +18,7 @@ set(devilsai_SRCS
 	Bibliotheque/Templates.h
 	Bibliotheque/Utilitaires.cpp
 	Bibliotheque/luaFunctions.cpp
+	Bibliotheque/music.cpp
 	Carte/Carte.cpp
 	Carte/Carte.h
 	Carte/Collisions.cpp
@@ -49,6 +50,7 @@ set(devilsaiTargetLibs
     sfml-system
     sfml-window
     sfml-graphics
+    sfml-audio
     physfs
     lua5.2
     ${sfml-all_LIBS}

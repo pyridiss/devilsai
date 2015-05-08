@@ -423,6 +423,9 @@ void Verbose(const string &Message, const short &Type)
 		case LUA :			if (!Arguments.TabVerbose[LUA]) return;
 							cout << "VERB.LUA  : " << Message << endl;
 							break;
+		case MUSIC :		if (!Arguments.TabVerbose[MUSIC]) return;
+							cout << "VERB.MUSIC  : " << Message << endl;
+							break;
 	}
 }
 #endif

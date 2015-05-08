@@ -34,6 +34,7 @@ using namespace std;
 #define IMAGE	2
 #define LISTE	3
 #define LUA		4
+#define MUSIC	5
 
 //Macro for Verbose mode
 #ifdef DEBOGAGE

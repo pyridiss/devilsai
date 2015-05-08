@@ -101,6 +101,11 @@ void GestionArguments(int n, char *params[])
 			cout << "Mode VERBOSE : LUA activé" << endl;
 			Arguments.TabVerbose[LUA] = true;
 		}
+		if (strcmp(params[i], "music") == 0 && Arguments.TabVerbose[0])
+		{
+			cout << "Mode VERBOSE : MUSIC activé" << endl;
+			Arguments.TabVerbose[MUSIC] = true;
+		}
 		if (strcmp(params[i], "-m") == 0 || strcmp(params[i], "--masks") == 0)
 		{
 			cout << "Mode MASKS activé" << endl;
@@ -175,14 +180,18 @@ int main(int n, char *params[])
 		{
 			case NOUVEAU :	if (NouvellePartie())
 							{
+								stopMusic("Gates_Of_Heaven");
 								EcranJeu(true);
 								Clean_Partie();
+								playMusic("Gates_Of_Heaven");
 							}
 							break;
 			case CHARGER :	if (PartieSauvegardee())
 							{
+								stopMusic("Gates_Of_Heaven");
 								EcranJeu(false);
 								Clean_Partie();
+								playMusic("Gates_Of_Heaven");
 							}
 							break;
 			case OPTIONS :	EcranOptions();

@@ -109,6 +109,9 @@ void Load_Decorations()
 	blurShader->loadFromFile(Partie.DATA + "blurShader.frag", Shader::Type::Fragment);
 
 	Load_Decorations_Objets();
+
+	addMusic("Gates_Of_Heaven");
+	playMusic("Gates_Of_Heaven");
 }
 
 void Supprimer_Decorations()
@@ -121,6 +124,7 @@ void Supprimer_Decorations()
 	delete blurShader;
 
 	Supprimer_Decorations_Objets();
+	deleteMusics();
 }
 
 /** FONCTIONS DE LA CLASSE BOUTON **/

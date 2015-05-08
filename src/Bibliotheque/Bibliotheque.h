@@ -311,6 +311,16 @@ void Disp_ImageDecoration(string, float, float, bool = false);
 void Disp_ImageCompetence(string, float, float);
 void Supprimer_Images();
 
+/* Fonctions définies dans le fichier music.cpp */
+
+void addSound(string);
+void addMusic(string);
+void playSound(string);
+void playMusic(string);
+void stopMusic(string);
+void manageRunningMusics();
+void deleteMusics();
+
 /* Fonctions définies dans le fichier Langues.cpp */
 
 void loadAvailableLanguages();

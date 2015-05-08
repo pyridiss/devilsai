@@ -109,7 +109,7 @@ struct Classe_Jeu
 
 	struct Classe_Arguments
 	{
-		bool TabVerbose[5]      = {false};
+		bool TabVerbose[6]      = {false};
 		bool Masks              = false;
 		bool LimitToFpsDisabled = false;
 		bool SaveDisabled       = false;
