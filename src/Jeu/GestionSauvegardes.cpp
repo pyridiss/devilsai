@@ -47,7 +47,7 @@ void AjouterSauvegarde()
 	Save.Dossier = Partie.SAVE;
 	Save.Nom = Partie.perso->Nom;
 	Save.Version = VERSION;
-	Save.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
+	Save.Lieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
 	Save.Vitalite = Partie.perso->get("Vitalite");
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
@@ -152,7 +152,7 @@ void LectureSauvegardes()
 void PasDeSauvegarde()
 {
 	Bouton BoutonMenu;
-	BoutonMenu.Creer(100, Options.ScreenH - 170, Get_Phrase(_RETOUR_MENU), 14., Jeu.DayRoman);
+	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
 
 	Event event;
 
@@ -226,14 +226,14 @@ string ChoixSauvegarde()
 
 	Bouton BoutonLancer, BoutonPrecedent, BoutonSuivant, BoutonMenu, BoutonSupprimer;
 
-	BoutonLancer.Creer(Options.ScreenW/2, 188, Get_Phrase(_LANCER_PARTIE), 24., Jeu.DayRoman);
+	BoutonLancer.Creer(Options.ScreenW/2, 188, getTranslatedMessage(_LANCER_PARTIE), 24., Jeu.DayRoman);
 
-	BoutonPrecedent.Creer(Options.ScreenW/2 - 180, 190, Get_Phrase(_PRECEDENT), 14., Jeu.DayRoman);
-	BoutonSuivant.Creer(Options.ScreenW/2 + 180, 190, Get_Phrase(_SUIVANT), 14., Jeu.DayRoman);
+	BoutonPrecedent.Creer(Options.ScreenW/2 - 180, 190, getTranslatedMessage(_PRECEDENT), 14., Jeu.DayRoman);
+	BoutonSuivant.Creer(Options.ScreenW/2 + 180, 190, getTranslatedMessage(_SUIVANT), 14., Jeu.DayRoman);
 
-	BoutonMenu.Creer(100, Options.ScreenH - 170, Get_Phrase(_RETOUR_MENU), 14., Jeu.DayRoman);
+	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
 
-	BoutonSupprimer.Creer(Options.ScreenW/2 - 220, 370, Get_Phrase(_SUPPRIMER_SAUVEGARDE), 16., Jeu.DayRoman);
+	BoutonSupprimer.Creer(Options.ScreenW/2 - 220, 370, getTranslatedMessage(_SUPPRIMER_SAUVEGARDE), 16., Jeu.DayRoman);
 
 	string path = "";
 
@@ -332,7 +332,7 @@ string ChoixSauvegarde()
 		if (!SauvegardeCompatible) Disp_TexteCentre(_VERSION_INCOMPATIBLE, Options.ScreenW/2, 210, Color(255, 70, 70, 255), 10.);
 
 		Disp_Texte(save->second.Nom, Options.ScreenW/2 - 300, 240, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
-		Disp_Texte(Get_Phrase(_SAUVEGARDE_VERSION) + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
+		Disp_Texte(getTranslatedMessage(_SAUVEGARDE_VERSION) + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
 		Disp_Texte(save->second.Lieu, Options.ScreenW/2 - 280, 300, Color(255, 220, 220, 255), 14.);
 		Disp_Texte(_PERSO_VITALITE, Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
 		Disp_Texte(Vitalite, Options.ScreenW/2 - 220, 320, Color(255, 64, 64, 255), 14.);
@@ -353,7 +353,7 @@ void MaJ_Sauvegarde()
 	}
 	i->second.Version = VERSION;
 	i->second.Lieu.clear();
-	i->second.Lieu = Get_NomLieu(Partie.perso->IndiceLieu);
+	i->second.Lieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
 	i->second.Vitalite = Partie.perso->get("Vitalite");
 }
 

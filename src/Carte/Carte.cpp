@@ -146,7 +146,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 				if (TypeDonnee2 == "NOM")
 				{
 					Fichier >> coffre->NumeroNom;
-					coffre->Nom = Get_NomElement(coffre->NumeroNom);
+					coffre->Nom = getTranslatedNameOfElement(coffre->NumeroNom);
 				}
 				if (TypeDonnee2 == "NOMBRE_OBJETS") Fichier >> NombreObjets;
 				if (TypeDonnee2 == "NOMBRE_OBJETS_ALEATOIRE")

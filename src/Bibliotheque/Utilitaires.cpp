@@ -298,9 +298,9 @@ void DialogueEtGestionEvenements(string fichier)
 int SaisieNom(String32 &Texte)
 {
 	Bouton BoutonMenu, BoutonDidacticiel, BoutonChapitre1;
-	BoutonMenu.Creer(100, Options.ScreenH - 170, Get_Phrase(_RETOUR_MENU), 14., Jeu.DayRoman);
-	BoutonDidacticiel.Creer(Options.ScreenW - 200, Options.ScreenH - 200, Get_Phrase(_LANCER_DIDACTICIEL), 14., Jeu.DayRoman);
-	BoutonChapitre1.Creer(Options.ScreenW - 200, Options.ScreenH - 170, Get_Phrase(_LANCER_CHAP1), 14., Jeu.DayRoman);
+	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
+	BoutonDidacticiel.Creer(Options.ScreenW - 200, Options.ScreenH - 200, getTranslatedMessage(_LANCER_DIDACTICIEL), 14., Jeu.DayRoman);
+	BoutonChapitre1.Creer(Options.ScreenW - 200, Options.ScreenH - 170, getTranslatedMessage(_LANCER_CHAP1), 14., Jeu.DayRoman);
 
 	int Resultat = false;
 
@@ -539,7 +539,7 @@ void Disp_Texte(const string &str, int x, int y, Color couleur, float Size, cons
 
 void Disp_Texte(enumPhrases NumPhrase, int x, int y, Color couleur, float Size, const Font &CharFont)
 {
-	Text Texte(Get_Phrase(NumPhrase), CharFont, Size);
+	Text Texte(getTranslatedMessage(NumPhrase), CharFont, Size);
 	Texte.setPosition(x, y);
 	Texte.setColor(couleur);
 
@@ -548,7 +548,7 @@ void Disp_Texte(enumPhrases NumPhrase, int x, int y, Color couleur, float Size, 
 
 void Disp_TexteCentre(enumPhrases NumPhrase, int x, int y, Color couleur, float Size, const Font &CharFont)
 {
-	Text Texte(Get_Phrase(NumPhrase), CharFont, Size);
+	Text Texte(getTranslatedMessage(NumPhrase), CharFont, Size);
 	Texte.setPosition((int)(x - Texte.getGlobalBounds().width/2), (int)(y - Texte.getGlobalBounds().height/2));
 	Texte.setColor(couleur);
 

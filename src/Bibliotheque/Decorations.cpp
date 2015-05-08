@@ -86,24 +86,24 @@ void Load_Decorations()
 
 	Partie.screenJournal.button.Creer(Options.ScreenW/2 + 32 + 4 + 2, 28, 32, 32, "BoutonJournal", "BoutonJournal");
 	Partie.screenJournal.key = Keyboard::Key::J;
-	Partie.screenJournal.dispFunction = Disp_Journal;
+	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
 
 	MenuSup_Pause = new Bouton;
 	MenuSup_Pause->Creer(275, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Pause->AjouterTexte(Get_Phrase(_MENUJEU_PAUSE));
+	MenuSup_Pause->AjouterTexte(getTranslatedMessage(_MENUJEU_PAUSE));
 
 	MenuSup_Sauvegarder = new Bouton;
 	MenuSup_Sauvegarder->Creer(410, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Sauvegarder->AjouterTexte(Get_Phrase(_MENUJEU_SAUVEG));
+	MenuSup_Sauvegarder->AjouterTexte(getTranslatedMessage(_MENUJEU_SAUVEG));
 
 	MenuSup_Quitter = new Bouton;
 	MenuSup_Quitter->Creer(Options.ScreenW - 255, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Quitter->AjouterTexte(Get_Phrase(_MENUJEU_QUITTER));
+	MenuSup_Quitter->AjouterTexte(getTranslatedMessage(_MENUJEU_QUITTER));
 
 	MenuSup_Repos = new Bouton;
 	MenuSup_Repos->Creer(31, 130, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Repos->AjouterTexte(Get_Phrase(_MENUJEU_REPOS));
+	MenuSup_Repos->AjouterTexte(getTranslatedMessage(_MENUJEU_REPOS));
 
 	blurShader = new Shader;
 	blurShader->loadFromFile(Partie.DATA + "blurShader.frag", Shader::Type::Fragment);
@@ -147,7 +147,7 @@ void Bouton::AjouterTexte(const String32 str)
 
 void Bouton::AjouterTexte(enumPhrases str)
 {
-	Texte.setString(Get_Phrase(str));
+	Texte.setString(getTranslatedMessage(str));
 	Texte.setCharacterSize(10.);
 	Texte.setFont(getDefaultFont());
 	FloatRect rect = Texte.getGlobalBounds();
@@ -461,8 +461,8 @@ void Disp_JaugesVie()
 		{
 			if (getStringFromLUA(i->second, "getCategorieObjet") == "temporaire")
 			{
-				String32 name = Get_NomObjet(getIntFromLUA(i->second, "getInternalNumber"));
-				Disp_Texte(Get_PhraseFormatee(_SOUS_EFFET, name), 160, y, Color(255, 255, 128, 255), 11.f);
+				String32 name = getTranslatedNameOfObject(getIntFromLUA(i->second, "getInternalNumber"));
+				Disp_Texte(getFormatedTranslatedMessage(_SOUS_EFFET, name), 160, y, Color(255, 255, 128, 255), 11.f);
 				y += 12;
 			}
 		}

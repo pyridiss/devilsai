@@ -29,16 +29,16 @@
 
 /** VARIABLES GLOBALES **/
 
-const int NombrePhrases = 109;
+const int numberOfMessages = 109;
 
-Language *Langues;
+Language *languages;
 
-short NombreLangues;
+short numberOfLanguages;
 
 
 /** GESTION DES FICHIERS DE TYPE PHRASES **/
 
-void Load_LanguesDisponibles()
+void loadAvailableLanguages()
 {
 	string fileName = Partie.DATA + "lng/langues";
 
@@ -47,28 +47,27 @@ void Load_LanguesDisponibles()
 	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
 	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
-	string TypeDonnee;
-	string Buffer;
-	int NbLangue = 0;
+	string dataType;
+	int counter = 0;
 
 	while (fileStream.rdstate() == 0)
 	{
-		fileStream >> TypeDonnee;
+		fileStream >> dataType;
 
-		if (TypeDonnee == "NOMBRE_LANGUES")
+		if (dataType == "NOMBRE_LANGUES")
 		{
-			fileStream >> NombreLangues;
-			Langues = new Language[NombreLangues];
+			fileStream >> numberOfLanguages;
+			languages = new Language[numberOfLanguages];
 		}
-		else if (TypeDonnee != "")
+		else if (dataType != "")
 		{
-			fileStream >> Langues[NbLangue].name;
-			Langues[NbLangue].shortName = TypeDonnee;
-			++NbLangue;
+			fileStream >> languages[counter].name;
+			languages[counter].shortName = dataType;
+			++counter;
 		}
-		TypeDonnee = "";
+		      dataType = "";
 
-		if (NbLangue > NombreLangues)
+		if (counter > numberOfLanguages)
 		{
 			Erreur("Il n'y a pas autant de langues que le précise le fichier", fileName);
 			break;
@@ -78,15 +77,15 @@ void Load_LanguesDisponibles()
 	fileStream.close();
 }
 
-void SupprimerListe_Langues()
+void deleteLanguagesList()
 {
-	if (Langues != NULL) delete[] Langues;
-	Langues = NULL;
+	if (languages != NULL) delete[] languages;
+	languages = NULL;
 
 	MESSAGE("Liste des Langues supprimée", LISTE)
 }
 
-void Load_LangueDevilsai()
+void loadDevilsaiMessages()
 {
 	string fileName = Partie.DATA + "lng/devilsai.lng";
 
@@ -95,44 +94,45 @@ void Load_LangueDevilsai()
 	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
 	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
-	string TypeDonnee;
-	string Buffer;
-	int NbPhrase = 0;
-	String32 phrase;
+	string dataType;
+	string buffer;
+	int counter = 0;
+	String32 message;
 
-	int Numero;
+	int messageNumber;
 
 	Jeu.Dico.clear();
 
 	while (fileStream.rdstate() == 0)
 	{
-		fileStream >> TypeDonnee;
+		fileStream >> dataType;
 
-		if (TypeDonnee == "#") getline(fileStream, Buffer); //Comments
+		if (dataType == "#") getline(fileStream, buffer); //Comments
 
-		else if (TypeDonnee == "*") fileStream >> Buffer >> Numero;
-		else if (TypeDonnee == Options.Langue)
+		else if (dataType == "*") fileStream >> buffer >> messageNumber;
+		else if (dataType == Options.Langue)
 		{
-			if (NbPhrase >= NombrePhrases)
+			if (counter >= numberOfMessages)
 			{
 				Erreur("Le fichier de langue contient plus de phrases que le programme n'en a", "");
 				break;
 			}
 			fileStream.get();
-			fileStream >> phrase;
-			Jeu.Dico.insert(Dictionnaire::value_type((enumPhrases)Numero, phrase));
-			++NbPhrase;
+			fileStream >> message;
+			Jeu.Dico.insert(Dictionnaire::value_type((enumPhrases)messageNumber, message));
+			++counter;
 		}
-		else getline(fileStream, Buffer);
-		TypeDonnee = ""; Buffer = "";
-		phrase.clear();
+		else getline(fileStream, buffer);
+		dataType = ""; 
+        buffer = "";
+		message.clear();
 	}
 
 	fileStream.close();
 }
 
 template <class T>
-String32 Get_Nom(string fichier, T Indice)
+String32 getTranslatedName(string fichier, T Indice)
 {
 	//Cette fonction peut gérer les indices numériques ou alphanumériques
 	ifstream fileStream(fichier, ios_base::in);
@@ -166,45 +166,45 @@ String32 Get_Nom(string fichier, T Indice)
 	return Nom;
 }
 
-String32 Get_NomElement(string Indice)
+String32 getTranslatedNameOfElement(string Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/noms_elements.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/noms_elements.lng", Indice);
 }
-String32 Get_NomLieu(int Indice)
+String32 getTranslatedNameOfPlace(int Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/noms_lieux.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/noms_lieux.lng", Indice);
 }
-String32 Get_NomObjet(int Indice)
+String32 getTranslatedNameOfObject(int Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/noms_objets.lng", Indice);
 }
-String32 Get_NomObjet(string Indice)
+String32 getTranslatedNameOfObject(string Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/noms_objets.lng", Indice);
 }
-String32 Get_NomCompetence(string Indice)
+String32 getTranslatedNameOfSkill(string Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/noms_competences.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/noms_competences.lng", Indice);
 }
-String32 Get_DescObjet(int Indice)
+String32 getTranslatedDescriptionOfObject(int Indice)
 {
-	return Get_Nom(Partie.DATA + "lng/desc_objets.lng", Indice);
+	return getTranslatedName(Partie.DATA + "lng/desc_objets.lng", Indice);
 }
 
-String32& Get_Phrase(enumPhrases phr)
+String32& getTranslatedMessage(enumPhrases msg)
 {
-	Dictionnaire::iterator i = Jeu.Dico.find(phr);
+	Dictionnaire::iterator i = Jeu.Dico.find(msg);
 	if (i != Jeu.Dico.end()) return i->second;
 
-	Erreur("La phrase suivante a été demandée sans avoir été chargée :", phr);
+	Erreur("La phrase suivante a été demandée sans avoir été chargée :", msg);
 	return Jeu.Dico.find(_ERREUR)->second;
 }
 
 //Cette fonction est définie de manière template dans Templates.h
 //Redéfinition dans le cas où arg est une String32 : on peut alors éviter les multiples conversions
-String32 Get_PhraseFormatee(enumPhrases phr, String32 arg)
+String32 getFormatedTranslatedMessage(enumPhrases msg, String32 arg)
 {
-	String32 str32 = Get_Phrase(phr);
+	String32 str32 = getTranslatedMessage(msg);
 
 	String32::size_type posForm = str32.find(Options.CharForm);
 
@@ -216,78 +216,78 @@ String32 Get_PhraseFormatee(enumPhrases phr, String32 arg)
 	return str32;
 }
 
-void ChangerLangue()
+void changeLanguage()
 {
 	int i = 0;
-	for ( ; i < NombreLangues ; ++i)
-		if (Langues[i].shortName == Options.Langue) break;
+	for ( ; i < numberOfLanguages ; ++i)
+		if (languages[i].shortName == Options.Langue) break;
 
-	if (i == NombreLangues -1) i = 0;
+	if (i == numberOfLanguages -1) i = 0;
 	else ++i;
 
-	Options.Langue = Langues[i].shortName;
+	Options.Langue = languages[i].shortName;
 
-	Load_LangueDevilsai();
+	loadDevilsaiMessages();
 }
 
-String32 Get_NomLangue()
+String32 getNameOfLanguage()
 {
 	int i = 0;
-	for ( ; i < NombreLangues ; ++i)
-		if (Langues[i].shortName == Options.Langue) break;
+	for ( ; i < numberOfLanguages ; ++i)
+		if (languages[i].shortName == Options.Langue) break;
 
-	return Langues[i].name;
+	return languages[i].name;
 }
 
-void DecoupageReplique(Paragraph* Replique)
+void cutParagraph(Paragraph* paragraph)
 {
-	Text Texte("", getDefaultFont(), 12);
+	Text text("", getDefaultFont(), 12);
 
-	//Avant le découpage, on va détecter la présence de caractères de formatage
-	size_t Formatage = Replique->characters.find(Options.CharForm);
+	//Before cutting, detect the presence of formatting characters
+	size_t formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
 
-	while (Partie.perso != NULL && Formatage != Replique->characters.npos)
+	while (Partie.perso != NULL && formattingCharacterPosition != paragraph->characters.npos)
 	{
-		Replique->characters.replace(Formatage, Options.CharForm.size(), Partie.perso->Nom);
-		Formatage = Replique->characters.find(Options.CharForm);
+		paragraph->characters.replace(formattingCharacterPosition, Options.CharForm.size(), Partie.perso->Nom);
+		formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
 	}
 
-	String32 buf = Replique->characters;
-	size_t CoupureInitiale = 0, CoupureBuf = 0;
-	while (CoupureInitiale < Replique->characters.size())
+	String32 buffer = paragraph->characters;
+	size_t firstCut = 0, lastCut = 0;
+	while (firstCut < paragraph->characters.size())
 	{
-		Texte.setString(buf);
-		CoupureBuf = buf.size() - 1;
+		text.setString(buffer);
+		lastCut = buffer.size() - 1;
 
-		while (Texte.getLocalBounds().width > Replique->rectangle.width)
+		while (text.getLocalBounds().width > paragraph->rectangle.width)
 		{
-			CoupureBuf = buf.find_last_of(Options.CharSpace);
-			if (CoupureBuf == buf.npos)
+			lastCut = buffer.find_last_of(Options.CharSpace);
+			if (lastCut == buffer.npos)
 			{
-				//Le mot est trop long pour être affiché dans le cadre ; on le fait dépasser plutôt que de le couper
-				CoupureBuf = Replique->characters.substr(CoupureInitiale).find_first_of(Options.CharSpace);
+				//Word too long to be displayed; exceed the frame rather than cutting the word
+				lastCut = paragraph->characters.substr(firstCut).find_first_of(Options.CharSpace);
 				break;
 			}
-			buf = buf.substr(0, CoupureBuf);
-			Texte.setString(buf);
+			buffer = buffer.substr(0, lastCut);
+			text.setString(buffer);
 		}
-		if (buf.find(Options.CharEOL) != buf.npos)
+		if (buffer.find(Options.CharEOL) != buffer.npos)
 		{
-			CoupureBuf = buf.find(Options.CharEOL);
-			buf = buf.substr(0, CoupureBuf);
-			Texte.setString(buf);
-			++CoupureBuf;
+			lastCut = buffer.find(Options.CharEOL);
+			buffer = buffer.substr(0, lastCut);
+			text.setString(buffer);
+			++lastCut;
 		}
 
-		Replique->lines.push_back(buf);
+		paragraph->lines.push_back(buffer);
 
-		CoupureInitiale += CoupureBuf + 1;
-		buf = Replique->characters.substr(CoupureInitiale);
+		firstCut += lastCut + 1;
+		buffer = paragraph->characters.substr(firstCut);
 	}
 }
 
 
-/** FONCTIONS DE LA CLASSE Dialogue **/
+/** Class 'Dialog' functions **/
 
 Paragraph::Paragraph()
 {
@@ -307,49 +307,51 @@ void Dialog::load(string str)
 
 	paragraphs.clear();
 
-	string TypeDonnee = "", TypeDonnee2 = "";
-	string Buffer;
+	string dataType = "", dataType2 = "";
+	string buffer;
 
 	while (fileStream.rdstate() == 0)
 	{
-		fileStream >> TypeDonnee;
+		fileStream >> dataType;
 
-		if (TypeDonnee == "#") getline(fileStream, Buffer);
+		if (dataType == "#") getline(fileStream, buffer);
 
-		else if (TypeDonnee == "*")
+		else if (dataType == "*")
 		{
 			Paragraph r;
 			paragraphs.push_back(r);
 			for (ListParagraph::iterator i = paragraphs.begin() ; i != paragraphs.end() ; ++i) paragraphNumber = i;
-			fileStream >> TypeDonnee2;
-			if (TypeDonnee2 == "POSITION") fileStream >> paragraphNumber->rectangle.left >> paragraphNumber->rectangle.top;
+			fileStream >> dataType2;
+			if (dataType2 == "POSITION") fileStream >> paragraphNumber->rectangle.left >> paragraphNumber->rectangle.top;
 			else
 			{
 				Erreur ("Le fichier de langue suivant est corrompu :", fileName);
 				break;
 			}
 		}
-		else if (TypeDonnee == "LARGEUR")
+		else if (dataType == "LARGEUR")
 		{
 			fileStream >> paragraphNumber->rectangle.width;
 		}
-		else if (TypeDonnee == "NOM")
+		else if (dataType == "NOM")
 		{
-			fileStream >> TypeDonnee2;
-			if (TypeDonnee2 == Options.Langue || TypeDonnee2 == "TOUTES_LANGUES")
+			fileStream >> dataType2;
+			if (dataType2 == Options.Langue || dataType2 == "TOUTES_LANGUES")
 				fileStream >> paragraphNumber->name;
 		}
-		else if (TypeDonnee == Options.Langue)
+		else if (dataType == Options.Langue)
 		{
 			fileStream >> paragraphNumber->characters;
 		}
-		else getline(fileStream, Buffer);
+		else getline(fileStream, buffer);
 
-		TypeDonnee = ""; TypeDonnee2 = ""; Buffer = "";
+		dataType = ""; 
+		dataType2 = ""; 
+		buffer = "";
 	}
 
 	paragraphNumber = paragraphs.begin();
-	if (paragraphNumber != paragraphs.end()) DecoupageReplique(&*paragraphNumber);
+	if (paragraphNumber != paragraphs.end()) cutParagraph(&*paragraphNumber);
 
 	fileStream.close();
 }
@@ -377,16 +379,16 @@ bool Dialog::display()
 
 	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
-	Text Texte("", getDefaultFont(), 11);
+	Text text("", getDefaultFont(), 11);
 
-	int Numero = 0;
+	int counter = 0;
 	for (auto& i : paragraphNumber->lines)
 	{
-		Texte.setString(i);
-		if (paragraphNumber->centered) Texte.setPosition(Vector2f(paragraphNumber->rectangle.left - (int)(Texte.getLocalBounds().width/2), 26 + paragraphNumber->rectangle.top + 16*Numero));
-		else Texte.setPosition(paragraphNumber->rectangle.left, 26 + paragraphNumber->rectangle.top + 16*Numero);
-		++Numero;
-		Jeu.App.draw(Texte);
+		text.setString(i);
+		if (paragraphNumber->centered) text.setPosition(Vector2f(paragraphNumber->rectangle.left - (int)(text.getLocalBounds().width/2), 26 + paragraphNumber->rectangle.top + 16*counter));
+		else text.setPosition(paragraphNumber->rectangle.left, 26 + paragraphNumber->rectangle.top + 16*counter);
+		++counter;
+		Jeu.App.draw(text);
 	}
 
 	duration += I(1);
@@ -401,7 +403,7 @@ bool Dialog::display()
 			unload();
 			return true;
 		}
-		else DecoupageReplique(&*paragraphNumber);
+		else cutParagraph(&*paragraphNumber);
 	}
 
 	return false;
@@ -428,37 +430,38 @@ void Journal::addEntry(string _ref)
 	JournalEntry& entry = entries.back();
 	entry.reference = _ref;
 
-	string TypeDonnee = "", TypeDonnee2 = "";
-	string Buffer;
+	string dataType = "";
+	string buffer;
 	string readRef = "";
 
 	while (fileStream.rdstate() == 0)
 	{
-		fileStream >> TypeDonnee;
+		fileStream >> dataType;
 
-		if (TypeDonnee == "#") getline(fileStream, Buffer); //Comments
+		if (dataType == "#") getline(fileStream, buffer); //Comments
 
-		else if (TypeDonnee == "*")
+		else if (dataType == "*")
 		{
 			fileStream >> readRef;
 			fileStream.get();
 		}
-		else if (TypeDonnee == "NOM")
+		else if (dataType == "NOM")
 		{
-			fileStream >> TypeDonnee;
-			if (TypeDonnee == Options.Langue && readRef == _ref)
+			fileStream >> dataType;
+			if (dataType == Options.Langue && readRef == _ref)
 				fileStream >> entry.name;
 		}
-		else if (TypeDonnee == Options.Langue && readRef == _ref)
+		else if (dataType == Options.Langue && readRef == _ref)
 		{
 			fileStream.get();
 			fileStream >> entry.characters;
 		}
-		else getline(fileStream, Buffer);
-		TypeDonnee = ""; Buffer = "";
+		else getline(fileStream, buffer);
+		dataType = ""; 
+        buffer = "";
 	}
 
-	DecoupageReplique(&entry);
+	cutParagraph(&entry);
 
 	newEntryAdded = true;
 
@@ -475,7 +478,7 @@ void Journal::setDone(string _ref)
 		}
 }
 
-void Disp_Journal()
+void displayJournal()
 {
 	if (Partie.journal.entries.empty()) return;
 

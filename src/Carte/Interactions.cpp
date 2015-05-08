@@ -69,7 +69,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 			if (Blesse->Get_Controle() == HUMAIN)
 			{
 				Partie.perso->CoupEsquive(Attaquant);
-				Ajouter_LignePerso(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
+				Ajouter_LignePerso(getTranslatedMessage(_ESQUIVE), Color(128, 255, 128, 255));
 			}
 		}
 		else
@@ -84,7 +84,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				if (Attaquant->Id == Partie.perso->Id)
 				{
 					Partie.perso->CoupCritique(Blesse);
-					Ajouter_LignePerso(Get_Phrase(_CRITIQUE), Color(240, 40, 40, 255));
+					Ajouter_LignePerso(getTranslatedMessage(_CRITIQUE), Color(240, 40, 40, 255));
 				}
 				if (Blesse->Id == Partie.perso->Id)
 				{
@@ -115,5 +115,5 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
 		if (Degats) Blesse->Set_Activite(BLESSE);
 	}
-	else if (Attaquant->Id == Partie.perso->Id) Ajouter_LignePerso(Get_Phrase(_ECHEC), Color(200, 10, 20, 255));
+	else if (Attaquant->Id == Partie.perso->Id) Ajouter_LignePerso(getTranslatedMessage(_ECHEC), Color(200, 10, 20, 255));
 }

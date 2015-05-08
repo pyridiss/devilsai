@@ -148,8 +148,8 @@ int main(int n, char *params[])
 
 	srand(time(NULL));
 
-	Load_LanguesDisponibles();
-	Load_LangueDevilsai();
+	loadAvailableLanguages();
+	loadDevilsaiMessages();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
 	Jeu.defaultFont.loadFromFile(Partie.DATA + "LiberationSans-Regular.ttf");
@@ -192,7 +192,7 @@ int main(int n, char *params[])
 
 	Supprimer_Decorations();
 	Supprimer_Images();
-	SupprimerListe_Langues();
+	deleteLanguagesList();
 
 	if (Arguments.LimitToFpsDisabled) MoyenneFPS();
 

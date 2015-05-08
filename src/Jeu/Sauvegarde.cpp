@@ -363,7 +363,7 @@ bool Load_Partie(string path)
 				Coffre* ind = carte.second.AjouterCoffre(StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
 				fileStream >> ind->ModeCollision >> ind->RayonCollision >> ind->RayX >> ind->RayY >> ind->NumeroNom;
-				ind->Nom = Get_NomElement(ind->NumeroNom);
+				ind->Nom = getTranslatedNameOfElement(ind->NumeroNom);
 
 				fileStream >> ind->objects;
 			}

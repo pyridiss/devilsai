@@ -29,7 +29,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 {
 	string fichier = Partie.DATA + "individu/" + Type + ".one";
 
-	ind->Nom = Get_NomElement(Type);
+	ind->Nom = getTranslatedNameOfObject(Type);
 
 	Activite *act = NULL;
 
@@ -232,7 +232,7 @@ void Load_ClasseCommune(string Type)
 	if (getCommonClass(Type) == NULL)
 	{
 		addCommonClass(Type);
-		getCommonClass(Type)->Nom = Get_NomElement(Type);
+		getCommonClass(Type)->Nom = getTranslatedNameOfObject(Type);
 	}
 	else return;
 

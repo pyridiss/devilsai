@@ -46,7 +46,7 @@ basic_ostream<charT, Traits> &operator<< (basic_ostream<charT, Traits> &flux, St
 template <class T>
 String32 Get_PhraseFormatee(enumPhrases phr, T arg)
 {
-	String32 str32 = Get_Phrase(phr);
+	String32 str32 = getTranslatedMessage(phr);
 
 	String32::size_type posForm = str32.find(Options.CharForm);
 

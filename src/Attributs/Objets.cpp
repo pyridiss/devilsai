@@ -79,7 +79,7 @@ void Disp_Skill(lua_State* skill)
 
 	string internalNumber = getStringFromLUA(skill, "getInternalNumber");
 
-	String32 nom = Get_NomCompetence(internalNumber);
+	String32 nom = getTranslatedNameOfSkill(internalNumber);
 	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
@@ -145,7 +145,7 @@ void Gestion_Competences(Event &event)
 
 void Disp_EmplacementVide(string TypeObjet)
 {
-	Disp_TexteCentre(Get_PhraseFormatee(_EQUIP_VIDE, Get_NomObjet(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+	Disp_TexteCentre(Get_PhraseFormatee(_EQUIP_VIDE, getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
@@ -155,7 +155,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 
 	int internalNumber = getIntFromLUA(obj, "getInternalNumber");
 
-	String32 nom = Get_NomObjet(internalNumber);
+	String32 nom = getTranslatedNameOfObject(internalNumber);
 	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 
 	LigneCourante += 26;
@@ -164,9 +164,9 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	{
 		//Pour ne pas surcharger, on désactive les descriptions manuelles des objets supplémentaires
 		Paragraph replique;
-		replique.characters = Get_DescObjet(internalNumber);
+		replique.characters = getTranslatedDescriptionOfObject(internalNumber);
 		replique.rectangle = IntRect(0, 0, 2*(Options.ScreenW - PosDescX) - 20, 0);
-		DecoupageReplique(&replique);
+		cutParagraph(&replique);
 		for (ListString32::iterator i = replique.lines.begin() ; i != replique.lines.end() ; ++i)
 		{
 			Disp_TexteCentre(*i, PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);

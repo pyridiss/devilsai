@@ -313,21 +313,21 @@ void Supprimer_Images();
 
 /* Fonctions définies dans le fichier Langues.cpp */
 
-void Load_LanguesDisponibles();
-void SupprimerListe_Langues();
-void Load_LangueDevilsai();
-String32 Get_NomElement(string);
-String32 Get_NomLieu(int);
-String32 Get_NomObjet(int);
-String32 Get_NomObjet(string);
-String32 Get_NomCompetence(string);
-String32 Get_DescObjet(int);
-String32& Get_Phrase(enumPhrases);
-String32 Get_PhraseFormatee(enumPhrases, String32);
-void ChangerLangue();
-String32 Get_NomLangue();
-void DecoupageReplique(Paragraph*);
-void Disp_Journal();
+void loadAvailableLanguages();
+void deleteLanguagesList();
+void loadDevilsaiMessages();
+String32 getTranslatedNameOfElement(string);
+String32 getTranslatedNameOfPlace(int);
+String32 getTranslatedNameOfObject(int);
+String32 getTranslatedNameOfObject(string);
+String32 getTranslatedNameOfSkill(string);
+String32 getTranslatedDescriptionOfObject(int);
+String32& getTranslatedMessage(enumPhrases);
+String32 getFormatedTranslatedMessage(enumPhrases, String32);
+void changeLanguage();
+String32 getNameOfLanguage();
+void cutParagraph(Paragraph*);
+void displayJournal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 

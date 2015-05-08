@@ -348,7 +348,7 @@ void EcranJeu(bool SauvegardePrealable)
 		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu && Chargement <= 0)
 		{
 			ChangementLieu = 254;
-			NomLieu = Get_NomLieu(Partie.perso->IndiceLieu);
+			NomLieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
 			Partie.perso->SauvegardeIndiceLieu = Partie.perso->IndiceLieu;
 		}
 		if (ChangementLieu != 255)
@@ -443,10 +443,10 @@ void Clean_Partie()
 int MenuPrincipal()
 {
 	Bouton B_NouveauJeu, B_Charger, B_Options, B_Quitter;
-	B_NouveauJeu.Creer(Options.ScreenW/2, 238, Get_Phrase(_MENUPRINCIPAL_NOUVEAU), 28., Jeu.DayRoman);
-	B_Charger.Creer(Options.ScreenW/2, 298, Get_Phrase(_MENUPRINCIPAL_CHARGER), 28., Jeu.DayRoman);
-	B_Options.Creer(Options.ScreenW/2, 358, Get_Phrase(_MENUPRINCIPAL_OPTIONS), 28., Jeu.DayRoman);
-	B_Quitter.Creer(Options.ScreenW/2, 418, Get_Phrase(_MENUPRINCIPAL_QUITTER), 28., Jeu.DayRoman);
+	B_NouveauJeu.Creer(Options.ScreenW/2, 238, getTranslatedMessage(_MENUPRINCIPAL_NOUVEAU), 28., Jeu.DayRoman);
+	B_Charger.Creer(Options.ScreenW/2, 298, getTranslatedMessage(_MENUPRINCIPAL_CHARGER), 28., Jeu.DayRoman);
+	B_Options.Creer(Options.ScreenW/2, 358, getTranslatedMessage(_MENUPRINCIPAL_OPTIONS), 28., Jeu.DayRoman);
+	B_Quitter.Creer(Options.ScreenW/2, 418, getTranslatedMessage(_MENUPRINCIPAL_QUITTER), 28., Jeu.DayRoman);
 
 	while (true)
 	{

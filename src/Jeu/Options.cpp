@@ -131,14 +131,14 @@ void EcranOptions()
 
 	Bouton BoutonMenu, Langue, PleinEcran, Degats, Resolution;
 
-	BoutonMenu.Creer(100, Options.ScreenH - 170, Get_Phrase(_RETOUR_MENU), 14., Jeu.DayRoman);
+	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
 
 	bool RetourMenu = false;
 	while (!RetourMenu)
 	{
-		Langue.Creer(3.f/4.f * Options.ScreenW , 230, Get_NomLangue(), 16., Jeu.DayRoman);
-		PleinEcran.Creer(3.f/4.f * Options.ScreenW, 270, Get_Phrase((Options.PleinEcran_Save) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
-		Degats.Creer(3.f/4.f * Options.ScreenW, 310, Get_Phrase((Options.AffichageDegats) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
+		Langue.Creer(3.f/4.f * Options.ScreenW , 230, getNameOfLanguage(), 16., Jeu.DayRoman);
+		PleinEcran.Creer(3.f/4.f * Options.ScreenW, 270, getTranslatedMessage((Options.PleinEcran_Save) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
+		Degats.Creer(3.f/4.f * Options.ScreenW, 310, getTranslatedMessage((Options.AffichageDegats) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
 		string reso = intToString(Options.ScreenW_Save) + " x " + intToString(Options.ScreenH_Save);
 		String32 Reso;
 		Utf8::toUtf32(reso.begin(), reso.end(), back_inserter(Reso));
@@ -151,7 +151,7 @@ void EcranOptions()
 			{
 				if (Langue.TestActivation(event.type))
 				{
-					ChangerLangue();
+					changeLanguage();
 					AfficherDemandeRedemarrage = true;
 				}
 				if (PleinEcran.TestActivation(event.type))
