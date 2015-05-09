@@ -38,7 +38,7 @@ void addQuest(string newQuest, string args)
 	lua_atpanic(L, LUA_panic);
 
 	lua_register(L, "dispRemainingEnemies", [](lua_State* L) {
-		Ajouter_LigneAmelioration(Get_PhraseFormatee(_MONSTRES_RESTANTS, (unsigned)lua_tonumber(L,1)), Color(255, 255, 255, 255));
+		Ajouter_LigneAmelioration(getFormatedTranslatedMessage(_MONSTRES_RESTANTS, (unsigned)lua_tonumber(L,1)), Color(255, 255, 255, 255));
 		return 0;
 	});
 

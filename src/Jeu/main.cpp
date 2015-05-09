@@ -171,6 +171,8 @@ int main(int n, char *params[])
 	Jeu.Ind_AI->ModeCollision = MODE_COLLISION_RECT;
 	Jeu.Ind_AI->Id = -1;
 
+	playMusic("Gates_Of_Heaven");
+
 	short choice = 0;
 	while (choice != QUITTER)
 	{

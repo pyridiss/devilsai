@@ -77,7 +77,7 @@ int Cadavre::Gestion()
 
 void Cadavre::Set_Individu()
 {
-	Nom = Get_PhraseFormatee(_CADAVRE, getTranslatedNameOfElement(Ind_Id));
+	Nom = getFormatedTranslatedMessage(_CADAVRE, getTranslatedNameOfElement(Ind_Id));
 
 	ifstream Fichier(FichierIndividu, ios_base::in);
 	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", FichierIndividu);

@@ -145,7 +145,7 @@ void Gestion_Competences(Event &event)
 
 void Disp_EmplacementVide(string TypeObjet)
 {
-	Disp_TexteCentre(Get_PhraseFormatee(_EQUIP_VIDE, getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+	Disp_TexteCentre(getFormatedTranslatedMessage(_EQUIP_VIDE, getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
@@ -175,7 +175,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	}
 	if (getDoubleFromLUA(obj, "getDuree") > 0)
 	{
-		Disp_TexteCentre(Get_PhraseFormatee(_EQUIP_DUREE, (int)(getDoubleFromLUA(obj, "getDuree")/60.f)), PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
+		Disp_TexteCentre(getFormatedTranslatedMessage(_EQUIP_DUREE, (int)(getDoubleFromLUA(obj, "getDuree")/60.f)), PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
 		LigneCourante += 16;
 	}
 
@@ -209,7 +209,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 		int value = getIntFromLUA(obj, functionLUA);
 		if (value != 0)
 		{
-			Disp_TexteCentre(Get_PhraseFormatee(phrase, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
+			Disp_TexteCentre(getFormatedTranslatedMessage(phrase, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
 			LigneCourante += 14;
 		}
 	}

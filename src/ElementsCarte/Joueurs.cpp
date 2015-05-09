@@ -239,43 +239,43 @@ bool Joueur::ApplicationAmeliorations()
 
 	if ((int)BufForce != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_FORCE, (int)BufForce);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_FORCE, (int)BufForce);
 		(BufForce > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Force"] += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
 	}
 	if ((int)BufPuissance != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_PUISS, (int)BufPuissance);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_PUISS, (int)BufPuissance);
 		(BufPuissance > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Puissance"] += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
 	}
 	if ((int)BufAgilite != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_AGILITE, (int)BufAgilite);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_AGILITE, (int)BufAgilite);
 		(BufAgilite > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Agilite"] += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
 	}
 	if ((int)BufIntelligence != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_INTELLI, (int)BufIntelligence);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_INTELLI, (int)BufIntelligence);
 		(BufIntelligence > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Intelligence"] += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
 	}
 	if ((int)BufConstitution != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_CONSTIT, (int)BufConstitution);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_CONSTIT, (int)BufConstitution);
 		(BufConstitution > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Constitution"] += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
 	}
 	if ((int)BufEsquive != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_ESQUIVE, (int)BufEsquive);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_ESQUIVE, (int)BufEsquive);
 		(BufEsquive > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Esquive"] += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
 	}
 	if ((int)BufCharisme != 0)
 	{
-		Final = Get_PhraseFormatee(_AMELIORATION_CHARISM, (int)BufCharisme);
+		Final = getFormatedTranslatedMessage(_AMELIORATION_CHARISM, (int)BufCharisme);
 		(BufCharisme > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Charisme"] += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
 	}

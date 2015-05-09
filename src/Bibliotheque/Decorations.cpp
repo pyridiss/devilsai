@@ -113,7 +113,6 @@ void Load_Decorations()
 	addSound("Click");
 
 	addMusic("Gates_Of_Heaven");
-	playMusic("Gates_Of_Heaven");
 }
 
 void Supprimer_Decorations()

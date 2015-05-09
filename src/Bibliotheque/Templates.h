@@ -44,7 +44,7 @@ basic_ostream<charT, Traits> &operator<< (basic_ostream<charT, Traits> &flux, St
 
 //Gestion des phrases formatées
 template <class T>
-String32 Get_PhraseFormatee(enumPhrases phr, T arg)
+String32 getFormatedTranslatedMessage(enumPhrases phr, T arg)
 {
 	String32 str32 = getTranslatedMessage(phr);
 

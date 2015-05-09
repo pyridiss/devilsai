@@ -103,13 +103,13 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		{
 			Partie.perso->GainExperience(Blesse, Degats);
 
-			String32 Infliges = Get_PhraseFormatee(_DEGATS_INFLIGES, (unsigned)Degats);
+			String32 Infliges = getFormatedTranslatedMessage(_DEGATS_INFLIGES, (unsigned)Degats);
 			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}
 		if (Blesse->Id == Partie.perso->Id)
 		{
 			if (Partie.perso->Get_Act() == BLESSE) Partie.perso->BlessuresMultiples(Attaquant);
-			String32 Recus = Get_PhraseFormatee(_DEGATS_RECUS, (unsigned)Degats);
+			String32 Recus = getFormatedTranslatedMessage(_DEGATS_RECUS, (unsigned)Degats);
 			Ajouter_LignePerso(Recus, Color(0, 0, 0, 255));
 		}
 
