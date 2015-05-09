@@ -82,6 +82,7 @@ void Save_Partie()
 		if (fileStream == NULL) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
 
 		if (carte.second.FondCarte != "") fileStream << "FOND_CARTE " << carte.second.FondCarte << endl;
+		fileStream << "AMBIENCE " << carte.second.ambience << endl;
 
 		//Parcours de la liste des Elements :
 		for (auto& tmp : carte.second.elements)
@@ -273,6 +274,13 @@ bool Load_Partie(string path)
 			if (TypeDonnee == "FOND_CARTE")
 			{
 				fileStream >> StrType; carte.second.Set_FondCarte(StrType);
+			}
+
+			if (TypeDonnee == "AMBIENCE")
+			{
+				fileStream >> StrType;
+				addMusic(StrType);
+				carte.second.ambience = StrType;
 			}
 
 			if (TypeDonnee == "IND_UNIQUE")

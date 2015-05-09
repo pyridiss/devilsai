@@ -102,6 +102,7 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 
 	if (Type == ACTION_CGMT_CARTE && elem == Partie.perso && Get_Carte(DonneeString) != NULL && DonneeString != Partie.CarteCourante->Id)
 	{
+		stopMusic(Partie.CarteCourante->ambience);
 		Disp_Chargement(255);
 
 		//1. Suppression des collisions
@@ -115,6 +116,7 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 		Partie.CarteCourante = Get_Carte(DonneeString);
 		Partie.CarteCourante->AjouterListeEnCollision("ALL");
 		RaZ_Coll();
+		playMusic(Partie.CarteCourante->ambience);
 	}
 
 	if (Type == ACTION_CGMT_CARTE && Get_Carte(DonneeString) == NULL)

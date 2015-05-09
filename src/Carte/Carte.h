@@ -57,6 +57,7 @@ class Carte
 	public:
 		string Id = "";
 		float PosFondX = 0, PosFondY = 0;
+		string ambience = "";
 
 	public:
 		bool AffichageFond = false;

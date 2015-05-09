@@ -68,6 +68,12 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Fichier >> bufferString;
 			carte = Get_Carte(bufferString);
 		}
+		if (TypeDonnee == "AMBIENCE")
+		{
+			Fichier >> bufferString;
+			addMusic(bufferString);
+			if (carte != NULL) carte->ambience = bufferString;
+		}
 		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;
 		if (TypeDonnee == "SANS_COLLISION") SansCollision = true;
 
@@ -215,7 +221,7 @@ void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 	if (elem == NULL || Orig == NULL || Cible == NULL) return;
 
 	Orig->elements.remove(elem);
-	Orig->elements.push_back(elem);
+	Cible->elements.push_back(elem);
 }
 
 Element_Carte* Get_Element(int id)

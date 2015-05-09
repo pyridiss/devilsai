@@ -151,6 +151,7 @@ bool NouvellePartie()
 		CreerDossier(Get_DossierSauvegardes() + Partie.SAVE);
 	}
 
+	playMusic(Partie.CarteCourante->ambience);
 	MESSAGE(">> Mise en place du nouveau jeu terminée <<", FICHIER)
 
 	return true;
@@ -177,6 +178,8 @@ bool PartieSauvegardee()
 
 	bool joueur = RechercheJoueur();
 	if (!joueur) return false;
+
+	playMusic(Partie.CarteCourante->ambience);
 
 	MESSAGE(">> Mise en place du jeu sauvegardé terminée <<", FICHIER)
 
