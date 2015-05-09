@@ -25,6 +25,11 @@ amplitude = 20
 
 function skillBegin(_owner)
 	owner = _owner
+	math.randomseed(os.time())
+	addSound("Sword_1")
+	addSound("Sword_2")
+	addSound("Sword_3")
+	addSound("Sword_4")
 end
 
 function setActivated(value)
@@ -43,6 +48,8 @@ function use()
 	if activated == true and activiteFinished == true then
 		enemy = getElementInteraction(owner)
 		if enemy ~= 0 and testEnoughEnergy() == true then
+			randomNumber = math.random(1, 4)
+			playSound("Sword_" .. randomNumber)
 			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
 				combat(owner, enemy)
 			end

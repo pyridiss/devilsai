@@ -59,5 +59,7 @@ int LUA_loadElement(lua_State*);
 int LUA_createActivite(lua_State*);
 int LUA_activiteSet(lua_State*);
 int LUA_activiteAddImage(lua_State*);
+int LUA_addSound(lua_State*);
+int LUA_playSound(lua_State*);
 
 #endif

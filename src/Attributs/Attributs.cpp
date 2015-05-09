@@ -138,6 +138,8 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_register(L, "createActivite", LUA_createActivite);
 	lua_register(L, "activiteSet", LUA_activiteSet);
 	lua_register(L, "activiteAddImage", LUA_activiteAddImage);
+	lua_register(L, "addSound", LUA_addSound);
+	lua_register(L, "playSound", LUA_playSound);
 
 	lua_getglobal(L, "skillBegin");
 	lua_pushnumber(L, owner);

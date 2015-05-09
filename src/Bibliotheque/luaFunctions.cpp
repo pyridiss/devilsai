@@ -554,3 +554,17 @@ int LUA_activiteAddImage(lua_State* L)
 
 	return 0;
 }
+
+int LUA_addSound(lua_State* L)
+{
+	string sound = lua_tostring(L, 1);
+	addSound(sound);
+	return 0;
+}
+
+int LUA_playSound(lua_State* L)
+{
+	string sound = lua_tostring(L, 1);
+	playSound(sound);
+	return 0;
+}
