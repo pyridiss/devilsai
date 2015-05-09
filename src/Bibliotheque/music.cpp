@@ -156,7 +156,8 @@ bool Basic_Sound::loadFromFile(string file)
 
 void Basic_Sound::start()
 {
-	sound.play();
+	if (sound.getStatus() == Sound::Stopped)
+		sound.play();
 }
 
 
@@ -185,7 +186,7 @@ bool Basic_Music::openFromFile(string file)
 
 void Basic_Music::fadeIn()
 {
-	if (musicState == Stopped)
+	if (musicState == Stopped || musicState == FadingOut)
 	{
 		music->play();
 		musicState = FadingIn;
@@ -205,7 +206,7 @@ void Basic_Music::fadeIn()
 
 void Basic_Music::fadeOut()
 {
-	if (musicState == Running)
+	if (musicState == Running || musicState == FadingIn)
 	{
 		musicState = FadingOut;
 		currentVolume = 100;

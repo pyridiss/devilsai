@@ -7,6 +7,7 @@ add_subdirectory(music)
 add_subdirectory(object)
 add_subdirectory(quest)
 add_subdirectory(skill)
+add_subdirectory(sound)
 
 
 set(data

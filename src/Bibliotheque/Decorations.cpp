@@ -110,6 +110,8 @@ void Load_Decorations()
 
 	Load_Decorations_Objets();
 
+	addSound("Click");
+
 	addMusic("Gates_Of_Heaven");
 	playMusic("Gates_Of_Heaven");
 }
@@ -146,7 +148,7 @@ void Bouton::AjouterTexte(const String32 str)
 	Texte.setCharacterSize(10.);
 	Texte.setFont(getDefaultFont());
 	FloatRect rect = Texte.getGlobalBounds();
-	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 1));
+	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 3));
 }
 
 void Bouton::AjouterTexte(enumPhrases str)
@@ -155,7 +157,7 @@ void Bouton::AjouterTexte(enumPhrases str)
 	Texte.setCharacterSize(10.);
 	Texte.setFont(getDefaultFont());
 	FloatRect rect = Texte.getGlobalBounds();
-	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 1));
+	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 3));
 }
 
 void Bouton::Creer(int posX, int posY, const String32 &str, float size, Font &font)
@@ -167,7 +169,7 @@ void Bouton::Creer(int posX, int posY, const String32 &str, float size, Font &fo
 	Width = rect.width + 12;
 	Height = rect.height + 6;
 	PosX = posX - Width/2; PosY = posY - Height/2;
-	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 1));
+	Texte.setPosition((int)(PosX + Width/2 - rect.width/2 - 1), (int)(PosY + Height/2 - rect.height/2 - 3));
 }
 
 bool Bouton::TestActivation(Event::EventType event)
@@ -177,6 +179,7 @@ bool Bouton::TestActivation(Event::EventType event)
 		if (event == Event::MouseButtonPressed || event == Event::MouseMoved)
 		{
 			Etat = true;
+			if (event == Event::MouseButtonPressed) playSound("Click");
 			return false;
 		}
 		if (event == Event::MouseButtonReleased)
