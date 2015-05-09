@@ -232,7 +232,7 @@ void Load_ClasseCommune(string Type)
 	if (getCommonClass(Type) == NULL)
 	{
 		addCommonClass(Type);
-		getCommonClass(Type)->Nom = getTranslatedNameOfObject(Type);
+		getCommonClass(Type)->Nom = getTranslatedNameOfElement(Type);
 	}
 	else return;
 

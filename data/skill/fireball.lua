@@ -52,6 +52,7 @@ function skillBegin(_owner)
 	addImageProjectile(projectile_id, 5);
 	addImageProjectile(projectile_id, 6);
 	addImageProjectile(projectile_id, 7);
+	addSound("Fireball")
 end
 
 function setActivated(value)
@@ -101,6 +102,8 @@ function use()
 
 		set(owner, "energy", get(owner, "energy") - getNeededEnergy())
 		activated = false
+
+		playSound("Fireball")
 	end
 	activiteFinished = false
 end

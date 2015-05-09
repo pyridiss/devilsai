@@ -1,6 +1,7 @@
 
 set(sound
     Click.ogg
+    Fireball.ogg
     Sword_1.ogg
     Sword_2.ogg
     Sword_3.ogg
