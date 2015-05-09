@@ -614,7 +614,7 @@ void Carte::Disp_FondCarte()
 	{
 		for (unsigned short b = 0 ; b < Options.ScreenH/144 + 2 ; ++b)
 		{
-			Disp_ImagePaysage(FondCarte, (int)(PosFondX+135*a), (int)(PosFondY+144*b));
+			Disp_ImagePaysage(FondCarte, PosFondX+135*a, PosFondY+144*b);
 		}
 	}
 }
