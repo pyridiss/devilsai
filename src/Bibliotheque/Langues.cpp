@@ -40,7 +40,7 @@ short numberOfLanguages;
 
 void loadAvailableLanguages()
 {
-	string fileName = Partie.DATA + "lng/langues";
+	string fileName = INSTALL_DIR + "lng/langues";
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -87,7 +87,7 @@ void deleteLanguagesList()
 
 void loadDevilsaiMessages()
 {
-	string fileName = Partie.DATA + "lng/devilsai.lng";
+	string fileName = INSTALL_DIR + "lng/devilsai.lng";
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -168,27 +168,27 @@ String32 getTranslatedName(string fichier, T Indice)
 
 String32 getTranslatedNameOfElement(string Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/noms_elements.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/noms_elements.lng", Indice);
 }
 String32 getTranslatedNameOfPlace(int Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/noms_lieux.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/noms_lieux.lng", Indice);
 }
 String32 getTranslatedNameOfObject(int Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/noms_objets.lng", Indice);
 }
 String32 getTranslatedNameOfObject(string Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/noms_objets.lng", Indice);
 }
 String32 getTranslatedNameOfSkill(string Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/noms_competences.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/noms_competences.lng", Indice);
 }
 String32 getTranslatedDescriptionOfObject(int Indice)
 {
-	return getTranslatedName(Partie.DATA + "lng/desc_objets.lng", Indice);
+	return getTranslatedName(INSTALL_DIR + "lng/desc_objets.lng", Indice);
 }
 
 String32& getTranslatedMessage(enumPhrases msg)
@@ -298,7 +298,7 @@ void Dialog::load(string str)
 {
 	id = str;
 
-	string fileName = Partie.DATA + "lng/" + str;
+	string fileName = INSTALL_DIR + "lng/" + str;
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -418,7 +418,7 @@ JournalEntry::JournalEntry()
 
 void Journal::addEntry(string _ref)
 {
-	string fileName = Partie.DATA + "lng/journal.lng";
+	string fileName = INSTALL_DIR + "lng/journal.lng";
 
 	ifstream fileStream(fileName, ios_base::in);
 

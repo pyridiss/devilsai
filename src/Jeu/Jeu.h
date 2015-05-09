@@ -27,7 +27,6 @@
 
 #include <SFML/System.hpp>
 
-#include "config.h"
 #include "../Bibliotheque/Bibliotheque.h"
 
 using namespace std;
@@ -53,7 +52,6 @@ typedef map < int, string > MapDonneesString;
 */
 struct Classe_Partie
 {
-	string DATA = INSTALL_DIR;
 	string SAVE = "";
 
 	bool ModeCinematiques   = false;

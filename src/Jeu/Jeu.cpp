@@ -31,7 +31,7 @@ void Load_Chapitre(int Id)
 {
 	Disp_Chargement(255);
 
-	string fileName = Partie.DATA + "chapitre/" + intToString(Id) + ".chp";
+	string fileName = INSTALL_DIR + "chapitre/" + intToString(Id) + ".chp";
 
 	ifstream fileStream(fileName.c_str(), ios_base::in);
 

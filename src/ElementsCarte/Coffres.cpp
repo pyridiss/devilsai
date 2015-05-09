@@ -19,7 +19,6 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Templates.h"
-#include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
@@ -85,7 +84,7 @@ void Cadavre::Set_Individu()
 
 	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 	string TypeDonnee;
-	string Archive = Partie.DATA + "img/";
+	string Archive = INSTALL_DIR + "img/";
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -108,7 +107,7 @@ void Cadavre::Set_Individu()
 
 	AjouterImagesIndividu(Ind_Id, MORT, Ind_Dir, Ind_Num, Matrice);
 
-	if (Archive != Partie.DATA + "img/") PHYSFS_removeFromSearchPath(Archive.c_str());
+	if (Archive != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(Archive.c_str());
 	Fichier.close();
 }
 
@@ -118,7 +117,7 @@ void Cadavre::Set_Individu(string type, short dir, short num, bool Unique)
 	Ind_Dir = dir;
 	Ind_Num = num;
 
-	FichierIndividu = Partie.DATA + "individu/" + type;
+	FichierIndividu = INSTALL_DIR + "individu/" + type;
 	if (Unique) FichierIndividu += ".one";
 	else FichierIndividu += ".com";
 

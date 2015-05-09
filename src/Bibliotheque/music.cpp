@@ -17,11 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <sstream>
-
 #include <SFML/Audio.hpp>
 
-#include "../Jeu/Jeu.h"
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
@@ -72,7 +69,7 @@ void addSound(string soundID)
 	Basic_Sound sound;
 	const auto& result = sounds.insert(SoundClass::value_type(soundID, sound));
 
-	bool success = result.first->second.loadFromFile(Partie.DATA + "sound/" + soundID + ".ogg");
+	bool success = result.first->second.loadFromFile(INSTALL_DIR + "sound/" + soundID + ".ogg");
 
 	if (success) MESSAGE("Sound " + soundID + " loaded", MUSIC)
 	else Erreur("This sound does not exist:", soundID);
@@ -85,7 +82,7 @@ void addMusic(string musicID)
 	Basic_Music music;
 	const auto& result = musics.insert(MusicClass::value_type(musicID, music));
 
-	bool success = result.first->second.openFromFile(Partie.DATA + "music/" + musicID + ".ogg");
+	bool success = result.first->second.openFromFile(INSTALL_DIR + "music/" + musicID + ".ogg");
 
 	if (success) MESSAGE("Music " + musicID + " opened", MUSIC)
 	else Erreur("This music does not exist:", musicID);

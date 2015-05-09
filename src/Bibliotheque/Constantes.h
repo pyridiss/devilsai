@@ -24,6 +24,8 @@ using namespace std;
 
 /** CONSTANTES RELATIVES AU JEU **/
 
+#include "config.h"
+
 //Version du jeu
 #define VERSION "master"
 

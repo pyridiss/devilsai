@@ -17,4 +17,4 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/share/devilsai/"
+#define INSTALL_DIR string("@CMAKE_INSTALL_PREFIX@/share/devilsai/")

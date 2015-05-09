@@ -157,9 +157,9 @@ int main(int n, char *params[])
 	loadDevilsaiMessages();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
-	Jeu.defaultFont.loadFromFile(Partie.DATA + "LiberationSans-Regular.ttf");
-	Jeu.Cardinal.loadFromFile(Partie.DATA + "Cardinal.ttf");
-	Jeu.DayRoman.loadFromFile(Partie.DATA + "DayRoman.ttf");
+	Jeu.defaultFont.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
+	Jeu.Cardinal.loadFromFile(INSTALL_DIR + "Cardinal.ttf");
+	Jeu.DayRoman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
 	Load_Decorations();
 	MESSAGE("Décorations chargées", FICHIER)
 

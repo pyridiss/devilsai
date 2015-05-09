@@ -106,7 +106,7 @@ void Load_Decorations()
 	MenuSup_Repos->AjouterTexte(getTranslatedMessage(_MENUJEU_REPOS));
 
 	blurShader = new Shader;
-	blurShader->loadFromFile(Partie.DATA + "blurShader.frag", Shader::Type::Fragment);
+	blurShader->loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
 
 	Load_Decorations_Objets();
 

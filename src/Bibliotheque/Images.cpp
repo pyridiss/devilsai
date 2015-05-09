@@ -211,7 +211,7 @@ void AjouterImagePaysage(string Type, int ExX, int ExY)
 	Base_Image img;
 	const auto& result = ImgPaysages.insert(ClassePaysages::value_type(ClefPaysage(Type), img));
 
-	string path = Partie.DATA + "img/";
+	string path = INSTALL_DIR + "img/";
 	stringstream out;
 	out.width(5);
 	out.fill('0');
@@ -247,7 +247,7 @@ void AjouterImageProjectile(string Type, short Dir)
 	Base_Image img;
 	const auto& result = ImgProjectiles.insert(ClasseProjectiles::value_type(ClefProjectile(Type, Dir), img));
 
-	string path = Partie.DATA + "img/" + Type + "0" + intToString(Dir) + "00";
+	string path = INSTALL_DIR + "img/" + Type + "0" + intToString(Dir) + "00";
 
 	result.first->second.Set_Image(path, 0, 0);
 
@@ -265,7 +265,7 @@ void AjouterImagesObjet(unsigned Id)
 	Base_Image mini;
 	const auto& resultMini = ImgObjets.insert(ClasseObjets::value_type(ClefObjet(Id, OBJET_MINIATURE), mini));
 
-	string path = Partie.DATA + "img/O" + intToString(Id/100) + intToString((Id%100)/10) + intToString(Id%10);
+	string path = INSTALL_DIR + "img/O" + intToString(Id/100) + intToString((Id%100)/10) + intToString(Id%10);
 
 	resultImg.first->second.Set_Image(path + "+", 0, 0);
 	resultMini.first->second.Set_Image(path + "-", 0, 0);
@@ -280,7 +280,7 @@ void AjouterImageDecoration(string Id, int ExX, int ExY, float Scale)
 	Base_Image img;
 	const auto& result = ImgDecorations.insert(ClasseDecorations::value_type(ClefDecoration(Id), img));
 
-	result.first->second.Set_Image(Partie.DATA + "img/" + Id, ExX, ExY, Scale);
+	result.first->second.Set_Image(INSTALL_DIR + "img/" + Id, ExX, ExY, Scale);
 
 	MESSAGE("Image Decoration " + Id + " ajoutée", IMAGE)
 }
@@ -292,7 +292,7 @@ void AjouterImageCompetence(string Id)
 	Base_Image img;
 	const auto& result = ImgCompetences.insert(ClasseCompetences::value_type(ClefCompetence(Id), img));
 
-	result.first->second.Set_Image(Partie.DATA + "img/C" + Id, 0, 0);
+	result.first->second.Set_Image(INSTALL_DIR + "img/C" + Id, 0, 0);
 
 	MESSAGE("Image Compétence " + Id + " ajoutée", IMAGE)
 }

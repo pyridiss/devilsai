@@ -27,7 +27,7 @@
 
 void Load_IndividuUnique(string Type, Individu_Unique *ind)
 {
-	string fichier = Partie.DATA + "individu/" + Type + ".one";
+	string fichier = INSTALL_DIR + "individu/" + Type + ".one";
 
 	ind->Nom = getTranslatedNameOfObject(Type);
 
@@ -43,7 +43,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 	string TypeDonnee;
 
-	string ArchiveImg = Partie.DATA + "img/";
+	string ArchiveImg = INSTALL_DIR + "img/";
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -222,7 +222,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != Partie.DATA + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
 
 	Fichier.close();
 }
@@ -236,7 +236,7 @@ void Load_ClasseCommune(string Type)
 	}
 	else return;
 
-	string fichier = Partie.DATA + "individu/" + Type + ".com";
+	string fichier = INSTALL_DIR + "individu/" + Type + ".com";
 
 	ifstream Fichier(fichier, ios_base::in);
 
@@ -251,7 +251,7 @@ void Load_ClasseCommune(string Type)
 //	int ClefStuff = CLEF_STUFF;
 	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-	string ArchiveImg = Partie.DATA + "img/";
+	string ArchiveImg = INSTALL_DIR + "img/";
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -364,7 +364,7 @@ void Load_ClasseCommune(string Type)
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != Partie.DATA + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
 
 	Fichier.close();
 }
@@ -374,7 +374,7 @@ void Load_ClassePaysage(string Type)
 	if (getLandsClass(Type) == NULL) addLandsClass(Type);
 	else return;
 
-	string fichier = Partie.DATA + "individu/" + Type + ".pay";
+	string fichier = INSTALL_DIR + "individu/" + Type + ".pay";
 
 	ifstream Fichier(fichier, ios_base::in);
 
@@ -425,13 +425,13 @@ void Load_ClassePaysageMouvant(string Type)
 	if (getMovingLandsClass(Type) == NULL) addMovingLandsClass(Type);
 	else return;
 
-	string fichier = Partie.DATA + "individu/" + Type + ".mvt";
+	string fichier = INSTALL_DIR + "individu/" + Type + ".mvt";
 
 	ifstream Fichier(fichier, ios_base::in);
 
 	if (Fichier == NULL) //Il peut s'agir d'un lanceur
 	{
-		fichier = Partie.DATA + "individu/" + Type + ".lan";
+		fichier = INSTALL_DIR + "individu/" + Type + ".lan";
 
 		Fichier.open(fichier, ios_base::in);
 
@@ -448,7 +448,7 @@ void Load_ClassePaysageMouvant(string Type)
 	short Act, Dir, Num;
 	int ExX = 0, ExY = 0;
 
-	string ArchiveImg = Partie.DATA + "img/";
+	string ArchiveImg = INSTALL_DIR + "img/";
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -513,14 +513,14 @@ void Load_ClassePaysageMouvant(string Type)
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != Partie.DATA + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
 
 	Fichier.close();
 }
 
 void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 {
-	string fichier = Partie.DATA + "individu/" + Type;
+	string fichier = INSTALL_DIR + "individu/" + Type;
 	fichier += ".lan";
 
 	ifstream Fichier(fichier, ios_base::in);

@@ -33,7 +33,7 @@ void addQuest(string newQuest, string args)
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (Partie.DATA + "quest/" + newQuest + ".lua").c_str());
+	luaL_dofile(L, (INSTALL_DIR + "quest/" + newQuest + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 

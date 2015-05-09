@@ -78,7 +78,7 @@ void Load_Options()
 
 	if (ChargerDefaut)
 	{
-		string fichierDef = Partie.DATA + "defaut.opt";
+		string fichierDef = INSTALL_DIR + "defaut.opt";
 		Fichier.open(fichierDef, ios_base::in);
 
 		if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichierDef);

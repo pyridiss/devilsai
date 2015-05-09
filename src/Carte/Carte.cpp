@@ -24,7 +24,7 @@
 
 void Load_Carte(string Id, bool TypeCarte)
 {
-	string fileName = Partie.DATA + "carte/" + Id;
+	string fileName = INSTALL_DIR + "carte/" + Id;
 	if (TypeCarte == TYPE_CARTE) fileName += ".map";
 	if (TypeCarte == TYPE_LISTE) fileName += ".lst";
 

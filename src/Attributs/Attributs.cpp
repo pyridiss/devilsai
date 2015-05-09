@@ -39,7 +39,7 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (Partie.DATA + "object/" + newObject + ".lua").c_str());
+	luaL_dofile(L, (INSTALL_DIR + "object/" + newObject + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 
@@ -108,7 +108,7 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (Partie.DATA + "skill/" + newSkill + ".lua").c_str());
+	luaL_dofile(L, (INSTALL_DIR + "skill/" + newSkill + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 
