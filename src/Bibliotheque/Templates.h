@@ -83,6 +83,19 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, St
 	return flux;
 }
 
+template <class charT, class Traits, class T>
+basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, T& t)
+{
+	typename basic_istream<charT, Traits>::sentry init(flux);
+	if (init)
+	{
+		int i;
+		flux >> i;
+		t = (T)i;
+	}
+    return flux;
+}
+
 //Définition des opérateurs d'insertion et d'extraction sur flux fichier pour les classes les plus utilisées
 
 //1. Classe Statistiques

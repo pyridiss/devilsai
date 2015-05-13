@@ -389,12 +389,12 @@ void Load_ClassePaysage(string Type)
 		if (TypeDonnee == "RAY_COL")
 		{
 			Fichier >> cl_pay->RayonCollision;
-			cl_pay->ModeCollision = MODE_COLLISION_CERCLE;
+			cl_pay->collisionType = CircleCollision;
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
 			Fichier >> cl_pay->RayX >> cl_pay->RayY;
-			cl_pay->ModeCollision = MODE_COLLISION_RECT;
+			cl_pay->collisionType = RectangleCollision;
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_pay->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_pay->TypeClassement = CLASSEMENT_CADAVRE;
@@ -461,12 +461,12 @@ void Load_ClassePaysageMouvant(string Type)
 		if (TypeDonnee == "RAY_COL")
 		{
 			Fichier >> cl_paymvt->RayonCollision;
-			cl_paymvt->ModeCollision = MODE_COLLISION_CERCLE;
+			cl_paymvt->ModeCollision = CircleCollision;
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
 			Fichier >> cl_paymvt->RayX >> cl_paymvt->RayY;
-			cl_paymvt->ModeCollision = MODE_COLLISION_RECT;
+			cl_paymvt->ModeCollision = RectangleCollision;
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_paymvt->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_paymvt->TypeClassement = CLASSEMENT_CADAVRE;

@@ -62,10 +62,6 @@ using namespace std;
 
 /** CONSTANTES RELATIVES AUX ÉLÉMENTS **/
 
-//Mode de Collision
-#define MODE_COLLISION_CERCLE	0
-#define MODE_COLLISION_RECT		1
-
 //Controle de l'individu
 #define AUCUN		0
 #define HUMAIN		1

@@ -134,12 +134,12 @@ void Actionneur::Load(istream &Fichier)
 		Fichier >> TypeDonnee;
 		if (TypeDonnee == "RAY_COL")
 		{
-			ModeCollision = MODE_COLLISION_CERCLE;
+			collisionType = CircleCollision;
 			Fichier >> RayonCollision;
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
-			ModeCollision = MODE_COLLISION_RECT;
+			collisionType = RectangleCollision;
 			Fichier >> RayX >> RayY;
 		}
 		if (TypeDonnee == "INTERACTION")
@@ -268,7 +268,7 @@ void Actionneur::Disp(float RefX, float RefY)
 
 void Actionneur::Disp_Masks(float RefX, float RefY)
 {
-	if (ModeCollision == MODE_COLLISION_CERCLE)
+	if (collisionType == CircleCollision)
 	{
 		CircleShape MasqueCollision(RayonCollision);
 		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);

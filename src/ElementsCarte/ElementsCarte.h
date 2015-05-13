@@ -37,6 +37,7 @@ class Individu_Commun;
 class Paysage;
 class Dialog;
 
+enum enumCollisionType { NoCollision = 0, RectangleCollision = 1, CircleCollision = 2 };
 
 /** INDIVIDUS **/
 
@@ -85,7 +86,7 @@ class Classe_Paysage
 	public:
 		string Type             = "";
 
-		bool ModeCollision      = MODE_COLLISION_CERCLE;
+		enumCollisionType collisionType = CircleCollision;
 		short RayonCollision    = 0;
 		short RayX = 0, RayY = 0;
 		short TypeClassement    = CLASSEMENT_NORMAL;
@@ -101,7 +102,7 @@ class Classe_Paysage_Mouvant
 
 		string Type             = "";
 
-		bool ModeCollision      = MODE_COLLISION_CERCLE;
+		enumCollisionType ModeCollision = CircleCollision;
 		short RayonCollision    = 0;
 		short RayX = 0, RayY = 0;
 		short TypeClassement    = CLASSEMENT_NORMAL;
@@ -134,10 +135,9 @@ class Element_Carte
 	public:
 		float PosX = 0, PosY = 0;
 
-		bool ModeCollision      = MODE_COLLISION_CERCLE;
+		enumCollisionType collisionType = CircleCollision;
 		short RayonCollision    = 0;
 		short RayX = 0, RayY = 0;
-		bool AjouterDansListeCollision  = true;
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
 	//Constructeurs / Destructeurs :

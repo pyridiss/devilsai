@@ -64,7 +64,7 @@ void Paysage::Disp(float RefX, float RefY)
 
 void Paysage::Disp_Masks(float RefX, float RefY)
 {
-	if (ModeCollision == MODE_COLLISION_CERCLE)
+	if (collisionType == CircleCollision)
 	{
 		CircleShape MasqueCollision(RayonCollision);
 		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
@@ -85,7 +85,7 @@ void Paysage::Disp_Masks(float RefX, float RefY)
 
 void Classe_Paysage::Copie_Element(Paysage *elem)
 {
-	elem->ModeCollision = ModeCollision;
+	elem->collisionType = collisionType;
 	elem->RayonCollision = RayonCollision;
 	elem->RayX = RayX;
 	elem->RayY = RayY;
@@ -170,7 +170,7 @@ void Paysage_Mouvant::Disp(float RefX, float RefY)
 
 void Paysage_Mouvant::Disp_Masks(float RefX, float RefY)
 {
-	if (ModeCollision == MODE_COLLISION_CERCLE)
+	if (collisionType == CircleCollision)
 	{
 		CircleShape MasqueCollision(RayonCollision);
 		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
@@ -190,7 +190,7 @@ void Paysage_Mouvant::Disp_Masks(float RefX, float RefY)
 
 void Classe_Paysage_Mouvant::Copie_Element(Element_Carte *elem)
 {
-	elem->ModeCollision = ModeCollision;
+	elem->collisionType = ModeCollision;
 	elem->RayonCollision = RayonCollision;
 	elem->RayX = RayX;
 	elem->RayY = RayY;

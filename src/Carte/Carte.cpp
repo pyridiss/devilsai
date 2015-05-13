@@ -104,7 +104,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Fichier >> Ind >> X >> Y;
 			lastElementLoaded = carte->AjouterPaysage(Ind, list, X, Y);
 			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
-			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->AjouterDansListeCollision = false;
+			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->collisionType = NoCollision;
 		}
 		if (TypeDonnee == "PAYSAGE_MOUVANT" && carte != NULL)
 		{
@@ -137,7 +137,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 				Fichier >> TypeDonnee2;
 				if (TypeDonnee2 == "RAY_COL")
 				{
-					coffre->ModeCollision = MODE_COLLISION_CERCLE;
+					coffre->collisionType = CircleCollision;
 					Fichier >> coffre->RayonCollision;
 				}
 				if (TypeDonnee2 == "PAYSAGE")
@@ -147,7 +147,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 
 					lastElementLoaded = carte->AjouterPaysage(PaysageCoffre, list, X, Y);
 					if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
-					if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->AjouterDansListeCollision = false;
+					if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->collisionType = NoCollision;
 				}
 				if (TypeDonnee2 == "NOM")
 				{
@@ -335,7 +335,6 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 	ind->PosX = x;
 	ind->PosY = y;
 	ind->Set_Controle(HUMAIN); /** NE DISTINGUE PAS LE JOUEUR PRINCIPAL D'UN JOUEUR EN RÉSEAU **/
-	ind->AjouterDansListeCollision = true;
 
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
 
@@ -415,7 +414,6 @@ Paysage_Lanceur* Carte::AjouterPaysageLanceur(string Type, string liste, int x, 
 	ind->PosX = x;
 	ind->PosY = y;
 	ind->Set_Controle(AI);
-	ind->AjouterDansListeCollision = true;
 
 	Load_ClassePaysageMouvant(Type);
 	ind->Classe = getMovingLandsClass(Type);	//Données du paysage
@@ -442,8 +440,7 @@ Projectile* Carte::AjouterProjectile(Projectile &prj)
 	ind->Id = NouveauId();
 	ind->PosX = ind->OrigineX;
 	ind->PosY = ind->OrigineY;
-	ind->ModeCollision = MODE_COLLISION_RECT;
-	ind->AjouterDansListeCollision = false;
+	ind->collisionType = RectangleCollision;
 
 	MESSAGE("Un projectile a été crée - Classe = " + ind->Type, FICHIER)
 
@@ -462,7 +459,6 @@ Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 	ind->PosX = x;
 	ind->PosY = y;
 	ind->Set_Controle(AI);
-	ind->AjouterDansListeCollision = true;
 
 	MESSAGE("Un actionneur a été ajouté", FICHIER)
 
@@ -481,7 +477,6 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 	ind->PosX = x;
 	ind->PosY = y;
 	ind->Set_Controle(AI);
-	ind->AjouterDansListeCollision = true;
 
 	MESSAGE("Un coffre a été ajouté", FICHIER)
 
@@ -500,8 +495,7 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 	ind->PosX = x;
 	ind->PosY = y;
 	ind->Set_Controle(AI);
-	ind->AjouterDansListeCollision = true;
-	ind->ModeCollision = MODE_COLLISION_CERCLE;
+	ind->collisionType = CircleCollision;
 	ind->RayonCollision = 1;
 	ind->Duree = 500;
 

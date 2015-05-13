@@ -104,7 +104,7 @@ void Save_Partie()
 			fileStream << tmp->Type << " "
 					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
 					   << tmp->Id << " "
-					   << tmp->AjouterDansListeCollision << " " << tmp->TypeClassement << " ";
+					   << tmp->collisionType << " " << tmp->TypeClassement << " ";
 
 			if (TypeTmp == TypeCommun)
 			{
@@ -142,8 +142,7 @@ void Save_Partie()
 			if (TypeTmp == TypeActionneur)
 			{
 				Actionneur *act = dynamic_cast<Actionneur*>(tmp);
-				fileStream << act->ModeCollision << " " << act->RayonCollision << " "
-						   << act->RayX << " " << act->RayY << " ";
+				fileStream << act->RayonCollision << " " << act->RayX << " " << act->RayY << " ";
 				if (act->Type == ACTION_CGMT_CARTE) fileStream << act->Type << " " << act->DonneeString;
 				else fileStream << act->Type << " " << act->DonneeInt;
 				fileStream << endl;
@@ -151,8 +150,7 @@ void Save_Partie()
 
 			if (TypeTmp == TypeCoffre)
 			{
-				fileStream << tmp->ModeCollision << " " << tmp->RayonCollision << " "
-						   << tmp->RayX << " " << tmp->RayY << " ";
+				fileStream << tmp->RayonCollision << " " << tmp->RayX << " " << tmp->RayY << " ";
 
 				Coffre *cof = dynamic_cast<Coffre*>(tmp);
 				fileStream << cof->NumeroNom << " ";
@@ -287,7 +285,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Individu_Unique* ind = carte.second.AjouterElement_Unique(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats()) >> *(ind->Get_Caracs());
 
 				//Objects:
@@ -300,7 +298,7 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClasseCommune(StrType);
 				Individu_Commun* ind = carte.second.AjouterElement_Commun(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats());
 			}
 
@@ -308,7 +306,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Joueur* ind = carte.second.AjouterJoueur(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 				fileStream >> *(ind->Get_Stats()) >> *(ind->Get_Caracs())
 						   >> ind->Experience >> ind->IndiceLieu >> ind->LieuVillage
 						   >> ind->DureeEveil;
@@ -335,7 +333,7 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysage(StrType);
 				Paysage* ind = carte.second.AjouterPaysage(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "PAYSAGE_MOUVANT")
@@ -343,7 +341,7 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysageMouvant(StrType);
 				Paysage_Mouvant* ind = carte.second.AjouterPaysageMouvant(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "LANCEUR")
@@ -351,15 +349,15 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysageMouvant(StrType);
 				Paysage_Lanceur* ind = carte.second.AjouterPaysageLanceur(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "ACTIONNEUR")
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Actionneur* ind = carte.second.AjouterActionneur(StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
-				fileStream >> ind->ModeCollision >> ind->RayonCollision >> ind->RayX >> ind->RayY;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
+				fileStream >> ind->RayonCollision >> ind->RayX >> ind->RayY;
 				fileStream >> ind->Type;
 				if (ind->Type == ACTION_CGMT_CARTE) fileStream >> ind->DonneeString;
 				else fileStream >> ind->DonneeInt;
@@ -369,8 +367,8 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Coffre* ind = carte.second.AjouterCoffre(StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
-				fileStream >> ind->ModeCollision >> ind->RayonCollision >> ind->RayX >> ind->RayY >> ind->NumeroNom;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
+				fileStream >> ind->RayonCollision >> ind->RayX >> ind->RayY >> ind->NumeroNom;
 				ind->Nom = getTranslatedNameOfElement(ind->NumeroNom);
 
 				fileStream >> ind->objects;
@@ -380,7 +378,7 @@ bool Load_Partie(string path)
 			{
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Cadavre* ind = carte.second.AjouterCadavre(StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->AjouterDansListeCollision >> ind->TypeClassement;
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 				fileStream >> ind->Ind_Id >> ind->Ind_Dir >> ind->Ind_Num >> ind->Duree >> ind->FichierIndividu;
 				ind->Set_Individu();
 

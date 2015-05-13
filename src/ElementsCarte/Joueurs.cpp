@@ -32,7 +32,6 @@
 
 Joueur::Joueur() : Individu_Unique()
 {
-	AjouterDansListeCollision = false;
 }
 
 int Joueur::TabToAct(int TabAppui)
