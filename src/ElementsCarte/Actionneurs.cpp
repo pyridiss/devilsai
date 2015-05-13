@@ -106,16 +106,14 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 		Disp_Chargement(255);
 
 		//1. Suppression des collisions
-		RaZ_Coll();
-		removeColliders();
+		Partie.CarteCourante->resetCollisionManager();
 
 		//2. Changement de carte du personnage
 		ChangerCarte(Partie.perso, Partie.CarteCourante->Id, DonneeString);
 
 		//3. Mise à jour de CarteCourante et des collisions
 		Partie.CarteCourante = Get_Carte(DonneeString);
-		Partie.CarteCourante->AjouterListeEnCollision("ALL");
-		RaZ_Coll();
+		Partie.CarteCourante->resetCollisionManager();
 		playMusic(Partie.CarteCourante->ambience);
 	}
 

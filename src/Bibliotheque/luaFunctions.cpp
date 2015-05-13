@@ -358,7 +358,6 @@ int LUA_loadList(lua_State* L)
 {
 	string idList = lua_tostring(L, 1);
 	Load_Carte(idList, TYPE_LISTE);
-	Partie.CarteCourante->AjouterListeEnCollision(idList);
 	return 0;
 }
 
@@ -507,8 +506,6 @@ int LUA_loadElement(lua_State* L)
 	string list = lua_tostring(L, 2);
 
 	Element_Carte* elem = loadElementsFromStream(stream, Partie.CarteCourante, list);
-
-	addCollider(elem);
 
 	lua_pushnumber(L, (long int)elem);
 	return 1;

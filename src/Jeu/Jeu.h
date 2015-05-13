@@ -79,8 +79,6 @@ struct Classe_Partie
 	map<string, Classe_Paysage> landsClasses;
 	map<string, Classe_Paysage_Mouvant> movingLandsClasses;
 
-	list<Element_Carte*> colliders;
-
 	bool loadFirstChapter   = false;
 
 	list<Dialog> listDialogs;

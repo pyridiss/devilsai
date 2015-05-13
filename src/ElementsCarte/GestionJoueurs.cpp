@@ -242,12 +242,12 @@ int Joueur::Gestion()
 
 		//TESTS DE COLLISIONS
 		Resultat = COLL_OK;
-		RaZ_Coll();
+		Partie.CarteCourante->resetCollisionManager();
 		ElementInteraction = -1;
 
 		while(Resultat != COLL_END && Resultat != COLL_PRIM)
 		{
-			Resultat = ParcoursCollisions(this);
+			Resultat = Partie.CarteCourante->browseCollisionList(this);
 
 			if (Resultat == COLL_PRIM_MVT)
 			{
@@ -257,7 +257,7 @@ int Joueur::Gestion()
 			{
 				//On tente de détecter le cas où deux individus seraient bloqués l'un sur l'autre
 				//La solution n'est pas optimale, mais on s'en contente pour le moment…
-				Element_Carte* tmp2 = Get_Current_Coll();
+				Element_Carte* tmp2 = Partie.CarteCourante->getCurrentCollider();
 
 				while ((Abs(PosX - tmp2->PosX) < tmp2->RayonCollision && Abs(PosY - tmp2->PosY) < tmp2->RayonCollision) ||
 						(Abs(PosX - tmp2->PosX) < tmp2->RayX && Abs(PosY - tmp2->PosY) < tmp2->RayY))
@@ -266,7 +266,7 @@ int Joueur::Gestion()
 					PosY += 2*DirToCoeff_Y(Dir)*RayonCollision;
 					Set_PosCarte(PosX, PosY, false);
 					Set_PosCarte(PosX, PosY, true);
-					RaZ_Coll();
+					Partie.CarteCourante->resetCollisionManager();
 				}
 			}
 
@@ -274,7 +274,7 @@ int Joueur::Gestion()
 			{
 				if (EnAttente != COLL_ATT)
 				{
-					tmp1 = Get_Current_Coll();
+					tmp1 = Partie.CarteCourante->getCurrentCollider();
 					EnAttente = COLL_INTER;
 					if (tmp1 != NULL) ElementInteraction = tmp1->Id;
 				}
@@ -285,7 +285,7 @@ int Joueur::Gestion()
 
 			if (Resultat == COLL_ATT)
 			{
-				tmp1 = Get_Current_Coll();
+				tmp1 = Partie.CarteCourante->getCurrentCollider();
 				EnAttente = COLL_ATT;
 				if (tmp1 != NULL) ElementInteraction = tmp1->Id;
 			}

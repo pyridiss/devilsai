@@ -132,10 +132,10 @@ int Individu::Gestion()
 
 		//Test de collision dans la nouvelle position de l'individu
 		NouveauComportement = -1;
-		RaZ_Coll();
+		Partie.CarteCourante->resetCollisionManager();
 		while(Resultat != COLL_END && Resultat != COLL_PRIM)
 		{
-			Resultat = ParcoursCollisions(this);
+			Resultat = Partie.CarteCourante->browseCollisionList(this);
 
 			if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
 
@@ -145,7 +145,7 @@ int Individu::Gestion()
 			if (Resultat == COLL_ATT_ARR && tmp1 == NULL)
 			{
 				//On cherche la direction qui va donner le bon angle
-				tmp2 = Get_Current_Coll();
+				tmp2 = Partie.CarteCourante->getCurrentCollider();
 				Set_Dir(NORD);
 				while (tmp2 != NULL && !TestAngle(PosX, PosY, Dir, tmp2->PosX, tmp2->PosY, Get_NombreDir()))
 				{
@@ -161,14 +161,14 @@ int Individu::Gestion()
 			}
 			if (Resultat == COLL_ATT)
 			{
-				tmp2 = Get_Current_Coll();
+				tmp2 = Partie.CarteCourante->getCurrentCollider();
 				if (tmp1 == NULL || EnAttente == COLL_VIS) tmp1 = tmp2;
 				EnAttente = COLL_ATT;
 				NouveauComportement = COMPORTEMENT_ATTAQUE;
 			}
 			if (Resultat == COLL_VIS)
 			{
-				tmp2 = Get_Current_Coll();
+				tmp2 = Partie.CarteCourante->getCurrentCollider();
 				if (tmp2 == NULL) break;
 
 				Resultat = tmp2->Collision(this, COLL_VIS); //Permet de définir, si nécessaire, le nouveau comportement
@@ -347,13 +347,13 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 
 			//Tests de collision :
 			int Resultat = COLL_OK;
-			RaZ_Coll();
+			Partie.CarteCourante->resetCollisionManager();
 			while(Resultat != COLL_END && Resultat != COLL_PRIM)
 			{
-				Resultat = ParcoursCollisions(this);
+				Resultat = Partie.CarteCourante->browseCollisionList(this);
 
 				//Annihile COLL_PRIM_MVT si c'est l'élément chassé qui est détecté
-				if (Resultat == COLL_PRIM_MVT && Get_Current_Coll() == elem) Resultat = COLL_OK;
+				if (Resultat == COLL_PRIM_MVT && Partie.CarteCourante->getCurrentCollider() == elem) Resultat = COLL_OK;
 				
 				//Les Collisions INTER et INTER_ARR sont pour le moment inutiles ici
 				if (Resultat == COLL_INTER || Resultat == COLL_INTER_ARR) Resultat = COLL_OK;

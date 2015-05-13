@@ -265,6 +265,9 @@ void Carte::AjouterElementEnListe(Element_Carte *elem)
 	}
 
 	elements.push_back(elem);
+	setMaxRadius(elem->RayonCollision);
+	setMaxRadius(elem->RayX);
+	setMaxRadius(elem->RayY);
 }
 
 Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, int y)
@@ -284,6 +287,7 @@ Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, 
 	MESSAGE("Un individu unique a été ajouté - Type = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
+	setMaxRadius(ind->ChampVision);
 	return ind;
 }
 
@@ -314,6 +318,7 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
+	setMaxRadius(ind->Classe->ChampVision);
 	return ind;
 }
 
@@ -335,6 +340,7 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
+	setMaxRadius(ind->ChampVision);
 	return ind;
 }
 
@@ -505,25 +511,10 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 	return ind;
 }
 
-void Carte::AjouterListeEnCollision(string num)
-{
-	//Si num == "ALL", on considère qu'il faut ajouter tous les éléments de la carte
-
-	for (auto& tmp : elements)
-	{
-		if ((tmp->Liste == num || num == "ALL") && (tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision)
-		{
-			addCollider(tmp);
-			if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
-		}
-	}
-}
-
 void Carte::SupprimerElement(Element_Carte* elem)
 {
 	MESSAGE("Element_Carte " + intToString(elem->Id) + " va être supprimé", FICHIER)
 
-	removeCollider(elem);
 	delete elem;
 	elements.remove(elem);
 }

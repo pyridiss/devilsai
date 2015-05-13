@@ -99,7 +99,6 @@ bool RechercheJoueur()
 	//Mise en place des éléments dans la liste de collisions :
 	for (auto& tmp : Partie.CarteCourante->elements)
 	{
-		if ((tmp->RayonCollision || tmp->RayX || tmp->RayY) && tmp->AjouterDansListeCollision) addCollider(tmp);
 		if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
 	}
 
@@ -343,9 +342,6 @@ void EcranJeu(bool SauvegardePrealable)
 
 		manageQuests();
 
-		//3. OPTIMISATION DE LA LISTE DE COLLISION
-		TriCollision();
-
 		//4. CHANGEMENTS DE LIEU
 
 		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu && Chargement <= 0)
@@ -432,7 +428,6 @@ void Clean_Partie()
 
 	deleteQuests();
 
-	removeColliders();
 	SupprimerLignesConsoles();
 
 	SupprimerListe_Carte();

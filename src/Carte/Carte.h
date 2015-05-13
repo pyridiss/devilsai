@@ -49,17 +49,11 @@ class Actionneur;
 
 class Carte
 {
-	//Eléments de la liste chainée :
 	public:
 		list <Element_Carte*> elements;
-
-	//Objet :
-	public:
 		string Id = "";
 		float PosFondX = 0, PosFondY = 0;
 		string ambience = "";
-
-	public:
 		bool AffichageFond = false;
 		string FondCarte = "";
 
@@ -84,8 +78,6 @@ class Carte
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		Cadavre* AjouterCadavre(string liste, float x, float y);
 
-		void AjouterListeEnCollision(string num);
-
 		void SupprimerElement(Element_Carte* elem);
 
 		void SupprimerListe(string num);
@@ -98,6 +90,18 @@ class Carte
 	public:
 		void Set_FondCarte(string NumFond);
 		void Disp_FondCarte();
+
+	//Collisions manager
+	public:
+		list<Element_Carte*>::iterator currentCollider;
+		list<Element_Carte*>::iterator lastCollider;
+		int maxRadius = 0;
+
+	public:
+		void setMaxRadius(int i);
+		Element_Carte* getCurrentCollider();
+		void resetCollisionManager();
+		int browseCollisionList(Individu *elem);
 };
 
 
@@ -107,14 +111,9 @@ void ChangerCarte(Element_Carte*, string, string);
 Element_Carte* Get_Element(int);
 Individu_Unique* Get_IndividuUnique(string);
 
-void CalculerRayonMax(int);
-Element_Carte* Get_Current_Coll();
-void RaZ_Coll();
 bool Collision_cercle_cercle(int, int, int, int, int, int);
 bool Collision_cercle_rectangle(int, int, int, int, int, int, int);
 bool Collision_rectangle_rectangle(int, int, int, int, int, int, int, int);
-int ParcoursCollisions(Individu*);
-void TriCollision();
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 void Blessure_Projectile(Projectile *Attaquant, Individu *Blesse);
@@ -137,9 +136,5 @@ Classe_Paysage* getLandsClass(string);
 void addMovingLandsClass(string);
 void deleteMovingLandsClasses();
 Classe_Paysage_Mouvant* getMovingLandsClass(string);
-
-void addCollider(Element_Carte*);
-void removeCollider(Element_Carte*);
-void removeColliders();
 
 #endif

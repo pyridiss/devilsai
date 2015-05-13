@@ -22,48 +22,23 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Carte.h"
 
-
-/** VARIABLES GLOBALES POUR LA GESTION DES COLLISIONS **/
-
-list<Element_Carte*>::iterator currentCollider = Partie.colliders.end();
-list<Element_Carte*>::iterator lastCollider = Partie.colliders.end();
-
-int MaximumRayonCollision = 0;
-
-
-/** OPTIMISATIONS DE LA LISTE DE COLLISION **/
-
-void CalculerRayonMax(int i)
+void Carte::setMaxRadius(int i)
 {
-	if (i*1.1 > MaximumRayonCollision) MaximumRayonCollision = i*1.1;
+	if (i*1.1 > maxRadius) maxRadius = i*1.1;
 }
-
-bool comparisonBetweenColliders(Element_Carte* a, Element_Carte* b)
-{
-	if (a == NULL || b == NULL) return false;
-	if (a->PosY < b->PosY) return true;
-
-	return false;
-}
-
-void TriCollision()
-{
-	Partie.colliders.sort(comparisonBetweenColliders);
-}
-
 
 /** FONCTIONS DE DÉTECTION DES COLLISIONS **/
 
-Element_Carte* Get_Current_Coll()
+Element_Carte* Carte::getCurrentCollider()
 {
-	if (lastCollider != Partie.colliders.end()) return *lastCollider;
+	if (lastCollider != elements.end()) return *lastCollider;
 	return NULL;
 }
 
-void RaZ_Coll()
+void Carte::resetCollisionManager()
 {
-	currentCollider = Partie.colliders.begin();
-	lastCollider = Partie.colliders.begin();
+	currentCollider = elements.begin();
+	lastCollider = elements.begin();
 }
 
 bool Collision_cercle_cercle(int Ax, int Ay, int Ar, int Bx, int By, int Br)
@@ -91,7 +66,7 @@ bool Collision_rectangle_rectangle(int Ax, int Ay, int Arx, int Ary, int Bx, int
 	return true;
 }
 
-int ParcoursCollisions(Individu *elem)
+int Carte::browseCollisionList(Individu *elem)
 {
 	//On suppose que cette fonction n'est appelée que par des Individus, PAS DE PAYSAGES
 
@@ -100,24 +75,17 @@ int ParcoursCollisions(Individu *elem)
 	static float elemPosX = 0, elemPosY = 0;
 	elemPosX = elem->PosX; elemPosY = elem->PosY;
 
-	const auto& end = Partie.colliders.end();
+	const auto& end = elements.end();
 
 	//On avance dans la liste jusqu'à trouver un élément dont la différence des PosY est inférieure à MaximumRayonCollision
-	while (currentCollider != end && elemPosY - (*currentCollider)->PosY > MaximumRayonCollision)
+	while (currentCollider != end && elemPosY - (*currentCollider)->PosY > maxRadius)
 		++currentCollider;
-	while (currentCollider != end && abs(elemPosX - (*currentCollider)->PosX) > MaximumRayonCollision)
+	while (currentCollider != end && abs(elemPosX - (*currentCollider)->PosX) > maxRadius)
 		++currentCollider;
-
-	//On vérifie que l'on ne dépasse plus MaximumRayonCollision, sinon le parcours est terminé
-	if (currentCollider != end && (*currentCollider)->PosY - elemPosY > MaximumRayonCollision)
-	{
-		currentCollider = Partie.colliders.begin();
-		return COLL_END;
-	}
 
 	if (currentCollider == end)
 	{
-		currentCollider = Partie.colliders.begin();
+		currentCollider = elements.begin();
 		return COLL_END;
 	}
 

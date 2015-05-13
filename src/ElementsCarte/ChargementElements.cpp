@@ -160,11 +160,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_SPACE] = i->second;
 		}
 		if (TypeDonnee == "DIPLOM")		Fichier >> ind->Diplomatie;
-		if (TypeDonnee == "CMP_VIS")
-		{
-			Fichier >> ind->ChampVision;
-			CalculerRayonMax(ind->ChampVision);
-		}
+		if (TypeDonnee == "CMP_VIS")	Fichier >> ind->ChampVision;
 		if (TypeDonnee == "RAY_COL")	Fichier >> ind->RayonCollision;
 		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")	Fichier >> ind->RayonInteraction;
 		if (TypeDonnee == "ACT_DEFAUT")
@@ -273,11 +269,7 @@ void Load_ClasseCommune(string Type)
 					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
 		}
 		if (TypeDonnee == "DIPLOM")		Fichier >> cl_com->Diplomatie;
-		if (TypeDonnee == "CMP_VIS")
-		{
-			Fichier >> cl_com->ChampVision;
-			CalculerRayonMax(cl_com->ChampVision);
-		}
+		if (TypeDonnee == "CMP_VIS")	Fichier >> cl_com->ChampVision;
 		if (TypeDonnee == "RAY_COL")	Fichier >> cl_com->RayonCollision;
 		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")	Fichier >> cl_com->RayonInteraction;
 // 		if (TypeDonnee == "EQUIPEMENT")
@@ -398,13 +390,11 @@ void Load_ClassePaysage(string Type)
 		{
 			Fichier >> cl_pay->RayonCollision;
 			cl_pay->ModeCollision = MODE_COLLISION_CERCLE;
-			CalculerRayonMax(cl_pay->RayonCollision);
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
 			Fichier >> cl_pay->RayX >> cl_pay->RayY;
 			cl_pay->ModeCollision = MODE_COLLISION_RECT;
-			CalculerRayonMax(cl_pay->RayX); CalculerRayonMax(cl_pay->RayY);
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_pay->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_pay->TypeClassement = CLASSEMENT_CADAVRE;
@@ -472,13 +462,11 @@ void Load_ClassePaysageMouvant(string Type)
 		{
 			Fichier >> cl_paymvt->RayonCollision;
 			cl_paymvt->ModeCollision = MODE_COLLISION_CERCLE;
-			CalculerRayonMax(cl_paymvt->RayonCollision);
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
 			Fichier >> cl_paymvt->RayX >> cl_paymvt->RayY;
 			cl_paymvt->ModeCollision = MODE_COLLISION_RECT;
-			CalculerRayonMax(cl_paymvt->RayX); CalculerRayonMax(cl_paymvt->RayY);
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_paymvt->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_paymvt->TypeClassement = CLASSEMENT_CADAVRE;

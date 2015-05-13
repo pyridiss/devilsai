@@ -53,11 +53,11 @@ int Paysage_Lanceur::Gestion()
 	Jeu.Ind_AI->RayY = (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * ProjectileLance.ChampAttaque/2
 						+ (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * ProjectileLance.RayY;
 
-	RaZ_Coll();
+	Partie.CarteCourante->resetCollisionManager();
 
 	while(!ActivationEnCours && Resultat != COLL_PRIM_MVT)
 	{
-		Resultat = ParcoursCollisions(Jeu.Ind_AI);
+		Resultat = Partie.CarteCourante->browseCollisionList(Jeu.Ind_AI);
 
 		if (Resultat == COLL_END)
 		{
@@ -65,13 +65,13 @@ int Paysage_Lanceur::Gestion()
 		}
 		if (Resultat == COLL_PRIM_MVT) 
 		{
-			tmp = Get_Current_Coll();
+			tmp = Partie.CarteCourante->getCurrentCollider();
 			if (tmp != NULL && tmp->Diplomatie == ProjectileLance.Diplomatie)
 				Resultat = COLL_OK;
 		}
 		if (Resultat == COLL_PRIM)
 		{
-			tmp = Get_Current_Coll();
+			tmp = Partie.CarteCourante->getCurrentCollider();
 			//On vérifie que le lanceur n'est pas devant un paysage qui ne laisse pas passer les missiles
 			if (tmp != NULL && tmp->TypeClassement == CLASSEMENT_HAUT)
 				ProjectileLance.ChampAttaque -= 10;
@@ -151,11 +151,11 @@ int Projectile::Gestion()
 	Element_Carte *tmp = NULL;
 	int Resultat = COLL_OK;
 
-	RaZ_Coll();
+	Partie.CarteCourante->resetCollisionManager();
 
 	while(Resultat != COLL_PRIM_MVT)
 	{
-		Resultat = ParcoursCollisions(this);
+		Resultat = Partie.CarteCourante->browseCollisionList(this);
 
 		if (Resultat == COLL_END)
 		{
@@ -163,13 +163,13 @@ int Projectile::Gestion()
 		}
 		if (Resultat == COLL_PRIM_MVT) 
 		{
-			tmp = Get_Current_Coll();
+			tmp = Partie.CarteCourante->getCurrentCollider();
 			if (tmp != NULL && tmp->Diplomatie == Diplomatie)
 				Resultat = COLL_OK;
 		}
 		if (Resultat == COLL_PRIM)
 		{
-			tmp = Get_Current_Coll();
+			tmp = Partie.CarteCourante->getCurrentCollider();
 			//On vérifie qu'on n'entre pas en collision avec un paysage HAUT
 			if (tmp != NULL && tmp->TypeClassement == CLASSEMENT_HAUT)
 				return ETAT_MORT;

@@ -127,25 +127,3 @@ Classe_Paysage_Mouvant* getMovingLandsClass(string type)
 
 	return NULL;
 }
-
-
-void addCollider(Element_Carte *elem)
-{
-	Partie.colliders.push_back(elem);
-
-	MESSAGE("Element collision " + intToString(elem->Id) + " ajouté", LISTE)
-}
-
-void removeCollider(Element_Carte *elem)
-{
-	Partie.colliders.remove(elem);
-
-	MESSAGE("Element collision " + intToString(elem->Id) + " supprimé", LISTE)
-}
-
-void removeColliders()
-{
-	Partie.colliders.clear();
-
-	MESSAGE("Liste des Elements Collisions suppprimée", LISTE)
-}
