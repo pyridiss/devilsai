@@ -106,6 +106,18 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
 			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->collisionType = NoCollision;
 		}
+		if (TypeDonnee == "PAYSAGE-REPEAT" && carte != NULL)
+		{
+			Fichier >> Ind >> X >> Y;
+			lastElementLoaded = carte->AjouterPaysage(Ind, list, X, Y);
+			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
+			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->collisionType = NoCollision;
+			Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
+			Fichier >> paysage->repeatX >> paysage->repeatY;
+			paysage->calculateCollisionRadius();
+			carte->setMaxRadius(paysage->RayX);
+			carte->setMaxRadius(paysage->RayY);
+		}
 		if (TypeDonnee == "PAYSAGE_MOUVANT" && carte != NULL)
 		{
 			Fichier >> Ind >> X >> Y;

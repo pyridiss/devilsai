@@ -94,7 +94,12 @@ void Save_Partie()
 			if (TypeTmp == TypeUnique)		fileStream << "IND_UNIQUE ";
 			if (TypeTmp == TypeCommun)		fileStream << "IND_COMMUN ";
 			if (TypeTmp == TypeJoueur)		fileStream << "JOUEUR ";
-			if (TypeTmp == TypePaysage)		fileStream << "PAYSAGE ";
+			if (TypeTmp == TypePaysage)
+			{
+				Paysage* pay = dynamic_cast<Paysage*>(tmp);
+				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << "PAYSAGE-REPEAT ";
+				else fileStream << "PAYSAGE ";
+			}
 			if (TypeTmp == TypeMouvant)		fileStream << "PAYSAGE_MOUVANT ";
 			if (TypeTmp == TypeLanceur)		fileStream << "LANCEUR ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
@@ -137,7 +142,13 @@ void Save_Partie()
 				fileStream << endl;
 			}
 
-			if (TypeTmp == TypePaysage || TypeTmp == TypeMouvant || TypeTmp == TypeLanceur) fileStream << endl;
+			if (TypeTmp == TypePaysage)
+			{
+				Paysage *pay = dynamic_cast<Paysage*>(tmp);
+				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << pay->repeatX << " " << pay->repeatY;
+			}
+
+			if (TypeTmp == TypeMouvant || TypeTmp == TypeLanceur) fileStream << endl;
 
 			if (TypeTmp == TypeActionneur)
 			{
@@ -334,6 +345,17 @@ bool Load_Partie(string path)
 				Load_ClassePaysage(StrType);
 				Paysage* ind = carte.second.AjouterPaysage(StrType, StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
+			}
+
+			if (TypeDonnee == "PAYSAGE-REPEAT")
+			{
+				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
+				Load_ClassePaysage(StrType);
+				Paysage* ind = carte.second.AjouterPaysage(StrType, StrListe, FloatX, FloatY);
+				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement >> ind->repeatX >> ind->repeatY;
+				ind->calculateCollisionRadius();
+				carte.second.setMaxRadius(ind->RayX);
+				carte.second.setMaxRadius(ind->RayY);
 			}
 
 			if (TypeDonnee == "PAYSAGE_MOUVANT")

@@ -302,6 +302,7 @@ void AjouterImageDecoration(string, int = 0, int = 0, float = 1);
 void AjouterImageCompetence(string);
 void Disp_ImageIndividu(string, short, short, short, float, float, bool = false);
 void Disp_ImageCadavre(string, short, short, float, float, bool = false);
+Vector2u getImagePaysageDimension(string);
 void Disp_ImagePaysage(string, float, float, bool = false);
 void Disp_ImagePaysageMouvant(string, short, short, float, float, bool = false);
 void Disp_ImageProjectile(string, short, float, float, bool = false);

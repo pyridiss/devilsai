@@ -49,11 +49,59 @@ int Paysage::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM;
 }
 
+void Paysage::calculateCollisionRadius()
+{
+	if (repeatX == 1 && repeatY == 1) return;
+	if (collisionType == NoCollision) return;
+
+	Vector2u imageDimension = getImagePaysageDimension(Type);
+	int border = 0;
+
+	if (repeatX != 1)
+	{
+		if (collisionType == RectangleCollision) border = RayX - imageDimension.x/2;
+		if (collisionType == CircleCollision) border = RayonCollision - imageDimension.x/2;
+		RayX = repeatX * imageDimension.x / 2 + border;
+	}
+
+	if (repeatY != 1)
+	{
+		if (collisionType == RectangleCollision) border = RayY - imageDimension.y/2;
+		if (collisionType == CircleCollision) border = RayonCollision - imageDimension.y/2;
+		RayY = repeatY * imageDimension.y / 2 + border;
+	}
+}
+
 void Paysage::Disp(float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-	Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+	if (repeatX == 1 && repeatY == 1)
+	{
+		Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+	}
+	else
+	{
+		Vector2u imageDimension = getImagePaysageDimension(Type);
+		if (repeatX > 1)
+		{
+			if (repeatX % 2 == 0)
+				for (float i = -repeatX/2 ; i < repeatX/2 ; ++i)
+					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + (i+0.5)*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+			else
+				for (float i = -(repeatX-1)/2 ; i <= (repeatX-1)/2 ; ++i)
+					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + i*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+		}
+		else if (repeatY > 1)
+		{
+			if (repeatY % 2 == 0)
+				for (float i = -repeatY/2 ; i < repeatY/2 ; ++i)
+					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + (i+0.5)*imageDimension.y)), true);
+			else
+				for (float i = -(repeatY-1)/2 ; i <= (repeatY-1)/2 ; ++i)
+					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + i*imageDimension.y)), true);
+		}
+	}
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)

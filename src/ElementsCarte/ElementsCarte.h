@@ -445,6 +445,8 @@ class Paysage : public Element_Carte
 {
 	public:
 		Classe_Paysage *Classe;
+		int repeatX = 1;
+		int repeatY = 1;
 
 	public:
 		Paysage();
@@ -453,6 +455,7 @@ class Paysage : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
+		void calculateCollisionRadius();
 
 	public:
 		void Disp_Masks(float RefX, float RefY);

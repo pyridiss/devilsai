@@ -43,6 +43,7 @@ class Base_Image
 		void Set_Image(string Fichier, int ExX, int ExY, float Scale=1);
 		void Set_ImageParArchive(string Fichier, int ExX, int ExY);
 		void ModifierTeinte(float m[3][3]);
+		const Vector2u getImageDimension();
 		void Disp(float x, float y, bool Centre=false);
 };
 
@@ -335,6 +336,16 @@ void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool
 	}
 }
 
+Vector2u getImagePaysageDimension(string Type)
+{
+	ClassePaysages::iterator i = ImgPaysages.find(ClefPaysage(Type));
+
+	if (i != ImgPaysages.end())
+		return i->second.getImageDimension();
+
+	return Vector2u(0, 0);
+}
+
 void Disp_ImagePaysage(string Type, float x, float y, bool Centre)
 {
 	ClassePaysages::iterator i = ImgPaysages.find(ClefPaysage(Type));
@@ -533,6 +544,11 @@ void Base_Image::ModifierTeinte(float m[3][3])
 	img.update(tmp);
 
 	TeinteModifiee = true;
+}
+
+const Vector2u Base_Image::getImageDimension()
+{
+	return img.getSize();
 }
 
 void Base_Image::Disp(float x, float y, bool Centre)
