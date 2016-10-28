@@ -4,6 +4,7 @@ configure_file("${devilsai_SOURCE_DIR}/config.h.cmake" "${devilsai_BINARY_DIR}/c
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${devilsai_SOURCE_DIR}
 )
 
 set(devilsai_SRCS
@@ -56,10 +57,14 @@ set(devilsaiTargetLibs
     ${sfml-all_LIBS}
 )
 
+
+add_subdirectory(tools)
+
 add_executable(devilsai ${devilsai_SRCS})
 
 target_link_libraries(devilsai
     ${devilsaiTargetLibs}
+    tools
 )
 
 set_target_properties(devilsai PROPERTIES COMPILE_FLAGS "-std=c++11")
