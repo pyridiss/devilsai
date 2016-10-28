@@ -37,8 +37,8 @@ void Save_Partie()
 
 	ofstream mainFileStream(mainFileName, ios_base::in|ios_base::trunc);
 
-	if (mainFileStream == NULL) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", mainFileName);
-	if (mainFileStream != NULL) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert ; Sauvegarde en cours", FICHIER)
+	if (!mainFileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", mainFileName);
+	if (mainFileStream.good()) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert ; Sauvegarde en cours", FICHIER)
 
 	//Liste des cartes et carte courante :
 	for (auto& tmp : Partie.maps)
@@ -79,7 +79,7 @@ void Save_Partie()
 
 		ofstream fileStream(fileName, ios_base::in|ios_base::trunc);
 
-		if (fileStream == NULL) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
+		if (!fileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
 
 		if (carte.second.FondCarte != "") fileStream << "FOND_CARTE " << carte.second.FondCarte << endl;
 		fileStream << "AMBIENCE " << carte.second.ambience << endl;
@@ -208,8 +208,8 @@ bool Load_Partie(string path)
 
 	ifstream mainFileStream(mainFileName, ios_base::in);
 
-	if (mainFileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", mainFileName);
-	if (mainFileStream != NULL) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert", FICHIER)
+	if (!mainFileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", mainFileName);
+	if (mainFileStream.good()) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert", FICHIER)
 
 	string TypeDonnee;
 	int DonneeInt; string DonneeString1, DonneeString2;
@@ -274,7 +274,7 @@ bool Load_Partie(string path)
 
 		ifstream fileStream(fileName, ios_base::in);
 
-		if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+		if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
 
 		while (fileStream.rdstate() == 0)
 		{

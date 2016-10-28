@@ -44,8 +44,8 @@ void loadAvailableLanguages()
 
 	ifstream fileStream(fileName, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	string dataType;
 	int counter = 0;
@@ -91,8 +91,8 @@ void loadDevilsaiMessages()
 
 	ifstream fileStream(fileName, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	string dataType;
 	string buffer;
@@ -137,8 +137,8 @@ String32 getTranslatedName(string fichier, T Indice)
 	//Cette fonction peut gérer les indices numériques ou alphanumériques
 	ifstream fileStream(fichier, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	String32 Nom;
 	bool NomTrouve = false;
@@ -302,8 +302,8 @@ void Dialog::load(string str)
 
 	ifstream fileStream(fileName, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
 
 	paragraphs.clear();
 
@@ -422,8 +422,8 @@ void Journal::addEntry(string _ref)
 
 	ifstream fileStream(fileName, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName +"\" ouvert", FICHIER)
 
 	JournalEntry newEntry;
 	entries.push_back(newEntry);

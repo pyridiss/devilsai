@@ -35,8 +35,8 @@ void Load_Chapitre(int Id)
 
 	ifstream fileStream(fileName.c_str(), ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName.c_str());
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName.c_str());
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	string TypeDonnee = "", bufferString = "";
 

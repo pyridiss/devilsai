@@ -41,8 +41,8 @@ void Load_Carte(string Id, bool TypeCarte)
 
 	ifstream fileStream(fileName, ios_base::in);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	loadElementsFromStream(fileStream, carte, (TypeCarte == TYPE_LISTE) ? Id : "DEFAUT");
 

@@ -35,8 +35,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	short Act, Dir, Num;
 	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
@@ -236,8 +236,8 @@ void Load_ClasseCommune(string Type)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	Classe_Commune *cl_com = getCommonClass(Type);
 
@@ -370,8 +370,8 @@ void Load_ClassePaysage(string Type)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	Classe_Paysage *cl_pay = getLandsClass(Type);
 
@@ -419,17 +419,17 @@ void Load_ClassePaysageMouvant(string Type)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (Fichier == NULL) //Il peut s'agir d'un lanceur
+	if (!Fichier.good()) //Il peut s'agir d'un lanceur
 	{
 		fichier = INSTALL_DIR + "individu/" + Type + ".lan";
 
 		Fichier.open(fichier, ios_base::in);
 
 		//Introuvable en tant que PayMouvant ou en tant que Lanceur
-		if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+		if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	}
 
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	Classe_Paysage_Mouvant *cl_paymvt = getMovingLandsClass(Type);
 
@@ -513,8 +513,8 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	string TypeDonnee;
 	short dir = 0;

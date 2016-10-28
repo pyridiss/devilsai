@@ -57,13 +57,13 @@ void Load_Options()
 	string fichier = Get_DossierSauvegardes() + "options.opt";
 
 	ifstream Fichier(fichier, ios_base::in);
-	if (Fichier == NULL)
+	if (!Fichier.good())
 	{
 		ChargerDefaut = true;
 		CreerDossier(Get_DossierSauvegardes());
 	}
 
-	if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	string Test;
 	if (!ChargerDefaut)
@@ -81,8 +81,8 @@ void Load_Options()
 		string fichierDef = INSTALL_DIR + "defaut.opt";
 		Fichier.open(fichierDef, ios_base::in);
 
-		if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", fichierDef);
-		if (Fichier != NULL) MESSAGE(" Fichier \"" + fichierDef + "\" ouvert", FICHIER)
+		if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichierDef);
+		if (Fichier.good()) MESSAGE(" Fichier \"" + fichierDef + "\" ouvert", FICHIER)
 	}
 	string TypeDonnee = "";
 
@@ -112,8 +112,8 @@ void Save_Options()
 
 	ofstream fileStream(fileName, ios_base::out);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName);
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName);
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	fileStream << "FICHIER_OPTIONS" << endl
 			   << "LANGUE " << Options.Langue << endl

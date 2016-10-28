@@ -80,7 +80,7 @@ void Cadavre::Set_Individu()
 	Nom = getFormatedTranslatedMessage(_CADAVRE, getTranslatedNameOfElement(Ind_Id));
 
 	ifstream Fichier(FichierIndividu, ios_base::in);
-	if (Fichier == NULL) Erreur("Le fichier suivant n'a pu être chargé :", FichierIndividu);
+	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", FichierIndividu);
 
 	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 	string TypeDonnee;

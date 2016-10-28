@@ -64,9 +64,9 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 	string strFichierPrincipal = path + "save.sav";
 
 	ifstream FichierPrincipal(strFichierPrincipal.c_str(), ios_base::in);
-	if (FichierPrincipal == NULL) Erreur("Le fichier suivant n'a pu être chargé :", strFichierPrincipal.c_str());
+	if (!FichierPrincipal.good()) Erreur("Le fichier suivant n'a pu être chargé :", strFichierPrincipal.c_str());
 
-	if (FichierPrincipal != NULL) MESSAGE(" Fichier \"" + strFichierPrincipal + "\" ouvert", FICHIER)
+	if (FichierPrincipal.good()) MESSAGE(" Fichier \"" + strFichierPrincipal + "\" ouvert", FICHIER)
 
 	string TypeDonnee;
 	string DonneeStr;
@@ -110,9 +110,9 @@ void LectureSauvegardes()
 	DicoSauvegardes::iterator i;
 
 	//Ce fichier peut ne pas exister
-	if (Fichier != NULL)
+	if (Fichier.good())
 	{
-		if (Fichier != NULL) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+		if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 		Fichier >> TypeDonnee;
 		if (TypeDonnee == "NOMBRE_SAUVEGARDES") Fichier >> NombreSauvegardes;
@@ -365,8 +365,8 @@ void Save_Sauvegardes()
 
 	ofstream fileStream(fileName.c_str(), ios_base::out);
 
-	if (fileStream == NULL) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName.c_str());
-	if (fileStream != NULL) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName.c_str());
+	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
 
 	fileStream << "NOMBRE_SAUVEGARDES " << Sauvegardes.size() << endl;
 
