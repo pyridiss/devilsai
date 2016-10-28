@@ -119,7 +119,7 @@ int Joueur::Gestion()
 
 				//Actions spécifiques :
 				case Keyboard::S :			if (!Arguments.SaveDisabled) Retour = ACTION_SAUVEG; break;
-				case Keyboard::R :			if (LieuVillage) Retour = ACTION_REPOS; break;
+				case Keyboard::R :			if (LieuVillage == "village") Retour = ACTION_REPOS; break;
 
 				default :					break;
 			}

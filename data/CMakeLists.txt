@@ -6,6 +6,7 @@ add_subdirectory(lng)
 add_subdirectory(music)
 add_subdirectory(object)
 add_subdirectory(quest)
+add_subdirectory(shared_trigger)
 add_subdirectory(skill)
 add_subdirectory(sound)
 

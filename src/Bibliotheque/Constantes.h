@@ -117,27 +117,17 @@ using namespace std;
 #define TYPE_CADAVRE	1003
 
 //Types des Actionneurs
-#define ACTION_TERMINEE		0
-#define ACTION_INTERACTION	1
 #define ACTION_RECUP		2
-#define ACTION_COLL_DIPLOM	3
-#define ACTION_COLL_CLASSE	4
-#define ACTION_COLL_UNIQUE	5
-#define ACTION_LIEU			7
-#define ACTION_VILLAGE		8
+#define ACTION_LIEU			7	//	class Trigger
+#define ACTION_VILLAGE		8	//	class Trigger
 #define ACTION_DEFENSE		9
-#define ACTION_CGMT_CARTE	10
-#define ACTION_CHAPITRE		11
-#define ACTION_TEXTE		12
-#define ACTION_TEXTE_N		13
-#define ACTION_TEXTE_S		14
-#define ACTION_TEXTE_E		15
-#define ACTION_TEXTE_O		16
-#define ACTION_TEXTE_PERSO	17
-#define ACTION_TEXTE_P_N	18
-#define ACTION_TEXTE_P_S	19
-#define ACTION_TEXTE_P_E	20
-#define ACTION_TEXTE_P_O	21
+#define ACTION_CGMT_CARTE	10	//	class Trigger
+#define ACTION_CHAPITRE		11	//	class Trigger
+#define ACTION_TEXTE_PERSO	17	//	class Trigger
+#define ACTION_TEXTE_P_N	18	//	class Trigger
+#define ACTION_TEXTE_P_S	19	//	class Trigger
+#define ACTION_TEXTE_P_E	20	//	class Trigger
+#define ACTION_TEXTE_P_O	21	//	class Trigger
 
 
 /** CONSTANTES RELATIVES AUX OBJETS **/

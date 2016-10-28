@@ -565,3 +565,26 @@ int LUA_playSound(lua_State* L)
 	playSound(sound);
 	return 0;
 }
+
+int LUA_triggerActivated(lua_State* L)
+{
+	int id = lua_tonumber(L, 1);
+	for (Trigger* i : Partie.CarteCourante->triggers)
+	{
+		if (i->Id == id)
+		{
+			lua_pushboolean(L, i->activated());
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int LUA_changePlace(lua_State* L)
+{
+	int indice = lua_tonumber(L, 1);
+	string type = lua_tostring(L, 2);
+	Partie.perso->IndiceLieu = indice;
+	Partie.perso->LieuVillage = type;
+	return 0;
+}

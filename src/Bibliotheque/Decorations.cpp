@@ -326,7 +326,7 @@ int Gestion_Menu(Event &event)
 		if (!Arguments.SaveDisabled)
 			if (MenuSup_Sauvegarder->TestActivation(event.type)) return ACTION_SAUVEG;
 		if (MenuSup_Quitter->TestActivation(event.type)) return ACTION_QUITTER;
-		if (Partie.perso->LieuVillage)
+		if (Partie.perso->LieuVillage == "village")
 			if (MenuSup_Repos->TestActivation(event.type)) return ACTION_REPOS;
 
 		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
@@ -355,7 +355,7 @@ void Disp_Menu()
 	MenuSup_Pause->Disp();
 	if (!Arguments.SaveDisabled) MenuSup_Sauvegarder->Disp();
 	MenuSup_Quitter->Disp();
-	if (Partie.perso->LieuVillage) MenuSup_Repos->Disp();
+	if (Partie.perso->LieuVillage == "village") MenuSup_Repos->Disp();
 
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <lua5.2/lua.hpp>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "Carte.h"
@@ -118,6 +120,13 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			carte->setMaxRadius(paysage->RayX);
 			carte->setMaxRadius(paysage->RayY);
 		}
+		if (TypeDonnee == "DOOR" && carte != NULL)
+		{
+			Fichier >> X >> Y;
+			lastElementLoaded = carte->addDoor(list, X, Y);
+			Door* door = dynamic_cast<Door*>(lastElementLoaded);
+			Fichier >> door->RayX >> door->RayY >> door->deniedDiplomacy;
+		}
 		if (TypeDonnee == "PAYSAGE_MOUVANT" && carte != NULL)
 		{
 			Fichier >> Ind >> X >> Y;
@@ -134,6 +143,12 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Actionneur *actionneur = carte->AjouterActionneur(list, X, Y);
 			actionneur->Load(Fichier);
 			lastElementLoaded = actionneur;
+		}
+		if (TypeDonnee == "SHARED_TRIGGER" && carte != NULL)
+		{
+			Trigger *trigger = carte->addTrigger(list);
+			trigger->load(Fichier, carte);
+			lastElementLoaded = trigger;
 		}
 		if (TypeDonnee == "COFFRE" && carte != NULL)
 		{
@@ -385,6 +400,23 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	return ind;
 }
 
+Door* Carte::addDoor(string liste, int x, int y)
+{
+	Door *ind = new Door;
+
+	ind->Id = NouveauId();
+	ind->Liste = liste;
+
+	ind->PosX = x;
+	ind->PosY = y;
+	ind->Set_Controle(AI);
+
+	MESSAGE("A door has been added.", FICHIER)
+
+	AjouterElementEnListe(ind);
+	return ind;
+}
+
 Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, int y)
 {
 	Paysage_Mouvant *ind = new Paysage_Mouvant;
@@ -475,6 +507,20 @@ Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 	MESSAGE("Un actionneur a été ajouté", FICHIER)
 
 	AjouterElementEnListe(ind);
+	return ind;
+}
+
+Trigger* Carte::addTrigger(string liste)
+{
+	Trigger *ind = new Trigger;
+
+	ind->Id = NouveauId();
+	ind->Liste = liste;
+	ind->Set_Controle(AI);
+
+	MESSAGE("A trigger has been added", FICHIER)
+
+	triggers.push_back(ind);
 	return ind;
 }
 
@@ -584,6 +630,15 @@ int Carte::GestionElements()
 	elements.sort(comparisonBetweenElements);
 
 	if (ASupprimer != NULL) SupprimerElement(ASupprimer);
+
+	for (map<string, lua_State*>::reference L : luaTriggers)
+	{
+		lua_getglobal(L.second, "triggerManage");
+		lua_call(L.second, 0, 0);
+	}
+
+	for (auto& tmp : triggers)
+		tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
 
 	return Retour;
 }

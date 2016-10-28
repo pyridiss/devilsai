@@ -128,6 +128,53 @@ void Paysage::Disp_Masks(float RefX, float RefY)
 	}
 }
 
+/** Class Door **/
+
+Door::Door() : Element_Carte()
+{
+	TypeClassement = CLASSEMENT_NORMAL;
+	collisionType = RectangleCollision;
+}
+Door::~Door()
+{
+}
+
+int Door::Gestion()
+{
+	//Test de proximité au joueur
+	int Retour = Element_Carte::Gestion();
+	if (Retour != ETAT_CONTINUER) return Retour;
+
+	return ETAT_NORMAL;
+}
+
+int Door::Collision(Individu *elem, int TypeCollision)
+{
+	if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
+	if (deniedDiplomacy == elem->Diplomatie) return COLL_PRIM;
+
+	return COLL_OK;
+}
+
+void Door::Disp(float RefX, float RefY)
+{
+	#ifdef DEBOGAGE
+	if (Arguments.Masks)
+		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+			Disp_Masks(RefX, RefY);
+	#endif
+
+	return;
+}
+
+void Door::Disp_Masks(float RefX, float RefY)
+{
+	RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
+	MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
+	MasqueCollision.setFillColor(Color(0, 200, 200, 200));
+	Jeu.App.draw(MasqueCollision);
+}
+
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage **/
 

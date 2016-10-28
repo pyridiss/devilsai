@@ -31,6 +31,7 @@
 using namespace std;
 using namespace sf;
 
+class Carte;
 class Element_Carte;
 class Individu;
 class Individu_Commun;
@@ -275,7 +276,7 @@ class Individu : public Element_Mouvant
 
 	public:
 		int IndiceLieu      = 0;
-		bool LieuVillage    = false;
+		string LieuVillage  = "village";
 
 		float DureeCadavre  = 0.5;
 
@@ -463,6 +464,25 @@ class Paysage : public Element_Carte
 		void Disp(float RefX, float RefY);
 };
 
+class Door : public Element_Carte
+{
+	//Doors are open for some Individu's and closed for others
+	public:
+		int deniedDiplomacy;
+
+	public:
+		Door();
+		~Door();
+
+	public:
+		int Gestion();
+		int Collision(Individu *elem, int TypeCollision);
+
+	public:
+		void Disp_Masks(float RefX, float RefY);
+		void Disp(float RefX, float RefY);
+};
+
 class Paysage_Mouvant : public Element_Mouvant
 {
 	public:
@@ -551,6 +571,27 @@ class Actionneur : public Element_Carte
 	public:
 		void Disp(float RefX, float RefY);
 		void Disp_Masks(float RefX, float RefY);
+};
+
+class Trigger : public Element_Carte
+{
+	//Triggers can be activated by the player
+	public:
+		string triggerFunction = "";
+
+	public:
+		Trigger();
+		~Trigger();
+
+	public:
+		int Gestion();
+		int Collision(Individu *elem, int TypeCollision);
+		void load(istream& Fichier, Carte* carte);
+		bool activated();
+
+	public:
+		void Disp_Masks(float RefX, float RefY);
+		void Disp(float RefX, float RefY);
 };
 
 void Disp_Coffre();
