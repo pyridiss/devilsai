@@ -18,6 +18,7 @@
 */
 
 #include "tools/button.h"
+#include "tools/style.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 
@@ -100,10 +101,10 @@ void Button::applyDefaultFont()
     active.text.setCharacterSize(10.);
     hover.text.setCharacterSize(10.);
     disabled.text.setCharacterSize(10.);
-    normal.text.setFont(getDefaultFont()); //Depends on Bibliotheque
-    active.text.setFont(getDefaultFont()); //Depends on Bibliotheque
-    hover.text.setFont(getDefaultFont()); //Depends on Bibliotheque
-    disabled.text.setFont(getDefaultFont()); //Depends on Bibliotheque
+    normal.text.setFont(tools::getDefaultFont());
+    active.text.setFont(tools::getDefaultFont());
+    hover.text.setFont(tools::getDefaultFont());
+    disabled.text.setFont(tools::getDefaultFont());
 }
 
 bool Button::mouseHovering(RenderWindow& app)
