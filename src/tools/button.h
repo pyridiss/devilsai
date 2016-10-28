@@ -77,7 +77,7 @@ class Button
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event::EventType event);
 
-        void display(RenderWindow app);
+        void display(RenderWindow& app);
 };
 
 }

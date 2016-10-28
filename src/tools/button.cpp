@@ -139,7 +139,7 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
     return false;
 }
 
-void Button::display(RenderWindow app)
+void Button::display(RenderWindow& app)
 {
     switch (state)
     {
