@@ -51,6 +51,11 @@ void Button::setAutoRelease(bool a)
     autoRelease = a;
 }
 
+void Button::setState(States s)
+{
+    state = s;
+}
+
 int Button::getXTopLeft()
 {
     if (xTopLeft == 0)
@@ -226,16 +231,17 @@ void Button::setDisabledBackground(string b)
 bool Button::mouseHovering(RenderWindow& app)
 {
     if (state == Disabled) return false;
-    if (state == Active) return true;
 
     if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
         Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
     {
-        state = Hover;
+        if (state == Normal) state = Hover;
         return true;
     }
 
-    state = Normal;
+    if (autoRelease) state = Normal;
+    else if (state == Hover) state = Normal;
+
     return false;
 }
 
@@ -245,12 +251,19 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
     {
         if (event == Event::MouseButtonPressed)
         {
-            state = Active;
             playSound("Click");
+
             if (autoRelease)
+            {
+                state = Active;
                 return false; //We wait for MouseButtonReleased
+            }
             else
+            {
+                if (state == Active) state = Normal;
+                else state = Active;
                 return true;
+            }
         }
         if (event == Event::MouseButtonReleased)
         {
@@ -261,14 +274,27 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
                     state = Normal;
                     return true;
                 }
-                else
-                    return false; //MouseButtonReleased must not be used
+                else //MouseButtonReleased must not be used
+                {
+                    if (state == Active) return true;
+                    else return false;
+                }
             }
             else return false;
         }
+
+        if (!autoRelease && state == Active)
+            return true;
+
         return false;
     }
-    state = Normal;
+
+    if (autoRelease)
+        state = Normal;
+
+    if (!autoRelease && state == Active)
+        return true;
+
     return false;
 }
 
