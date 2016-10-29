@@ -151,8 +151,10 @@ void LectureSauvegardes()
 
 void PasDeSauvegarde()
 {
-	Bouton BoutonMenu;
-	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
+    tools::Button mainMenuButton;
+    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
+    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
+    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
 
 	Event event;
 
@@ -160,13 +162,11 @@ void PasDeSauvegarde()
 	{
 		while (Jeu.App.pollEvent(event))
 		{
-			if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-			{
-				if (BoutonMenu.TestActivation(event.type))
-				{
-					return;
-				}
-			}
+            if (mainMenuButton.activated(Jeu.App, event.type))
+            {
+                return;
+            }
+
 			if (event.type == Event::KeyPressed)
 			{
 				switch (event.key.code)
@@ -186,7 +186,7 @@ void PasDeSauvegarde()
 		Disp_TitrePage(_MENUPRINCIPAL_CHARGER);
 		Disp_TexteCentre(_PAS_DE_SAUVEG, Options.ScreenW/2, Options.ScreenH/2, Color(50,128,128,255), 28, Jeu.DayRoman);
 
-		BoutonMenu.Disp();
+        mainMenuButton.display(Jeu.App);
 
 		Jeu.App.display();
 	}
