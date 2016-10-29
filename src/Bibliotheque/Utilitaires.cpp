@@ -517,11 +517,6 @@ bool TestAngle(float &Ox, float &Oy, short dir, float &Ax, float &Ay, const shor
 	return Touche;
 }
 
-const Font& getDefaultFont()
-{
-	return Jeu.defaultFont;
-}
-
 void Disp_Texte(const String32 &str, int x, int y, Color couleur, float Size, const Font &CharFont)
 {
 	Text Texte(str, CharFont, Size);

@@ -21,6 +21,8 @@
 
 #include <string.h>
 
+#include "tools/style.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "../Carte/Carte.h"
@@ -157,7 +159,8 @@ int main(int n, char *params[])
 	loadDevilsaiMessages();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
-	Jeu.defaultFont.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
+    tools::style::initStyle();
+
 	Jeu.Cardinal.loadFromFile(INSTALL_DIR + "Cardinal.ttf");
 	Jeu.DayRoman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
 	Load_Decorations();
