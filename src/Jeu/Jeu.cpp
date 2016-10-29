@@ -441,11 +441,23 @@ void Clean_Partie()
 
 int MenuPrincipal()
 {
-	Bouton B_NouveauJeu, B_Charger, B_Options, B_Quitter;
-	B_NouveauJeu.Creer(Options.ScreenW/2, 238, getTranslatedMessage(_MENUPRINCIPAL_NOUVEAU), 28., Jeu.DayRoman);
-	B_Charger.Creer(Options.ScreenW/2, 298, getTranslatedMessage(_MENUPRINCIPAL_CHARGER), 28., Jeu.DayRoman);
-	B_Options.Creer(Options.ScreenW/2, 358, getTranslatedMessage(_MENUPRINCIPAL_OPTIONS), 28., Jeu.DayRoman);
-	B_Quitter.Creer(Options.ScreenW/2, 418, getTranslatedMessage(_MENUPRINCIPAL_QUITTER), 28., Jeu.DayRoman);
+    tools::Button newGameButton, loadGameButton, optionsButton, exitButton;
+
+    newGameButton.setCenterCoordinates(Options.ScreenW/2, 238);
+    newGameButton.setTextFont(Jeu.DayRoman, 28);
+    newGameButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_NOUVEAU));
+
+    loadGameButton.setCenterCoordinates(Options.ScreenW/2, 298);
+    loadGameButton.setTextFont(Jeu.DayRoman, 28);
+    loadGameButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_CHARGER));
+
+    optionsButton.setCenterCoordinates(Options.ScreenW/2, 358);
+    optionsButton.setTextFont(Jeu.DayRoman, 28);
+    optionsButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_OPTIONS));
+
+    exitButton.setCenterCoordinates(Options.ScreenW/2, 418);
+    exitButton.setTextFont(Jeu.DayRoman, 28);
+    exitButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_QUITTER));
 
 	while (true)
 	{
@@ -453,13 +465,11 @@ int MenuPrincipal()
 		Event event;
 		while (Jeu.App.pollEvent(event))
 		{
-			if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-			{
-				if (B_NouveauJeu.TestActivation(event.type)) return NOUVEAU;
-				if (B_Charger.TestActivation(event.type)) return CHARGER;
-				if (B_Options.TestActivation(event.type)) return OPTIONS;
-				if (B_Quitter.TestActivation(event.type)) return QUITTER;
-			}
+            if (newGameButton.activated(Jeu.App, event.type)) return NOUVEAU;
+            if (loadGameButton.activated(Jeu.App, event.type)) return CHARGER;
+            if (optionsButton.activated(Jeu.App, event.type)) return OPTIONS;
+            if (exitButton.activated(Jeu.App, event.type)) return QUITTER;
+
 			if (event.type == Event::KeyPressed)
 			{
 				switch (event.key.code)
@@ -503,10 +513,10 @@ int MenuPrincipal()
 			Disp_TexteCentre(_TITRE, X, Y, Color(50,192,192,128), Taille, Jeu.DayRoman);
 		}
 
-		B_NouveauJeu.Disp();
-		B_Charger.Disp();
-		B_Options.Disp();
-		B_Quitter.Disp();
+        newGameButton.display(Jeu.App);
+        loadGameButton.display(Jeu.App);
+        optionsButton.display(Jeu.App);
+        exitButton.display(Jeu.App);
 
 		//Numéro de version de Devilsai
 		string version = string("Devilsai : version ") + VERSION + "   (" +  __DATE__ + ")";
