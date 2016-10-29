@@ -23,16 +23,45 @@
 
 namespace tools{
 
-Font defaultFont;
+namespace style{
+
+Font liberation;
 
 void initStyle()
 {
-    defaultFont.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
+    liberation.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
 }
 
-const Font& getDefaultFont()
+const Font& defaultFont()
 {
-	return defaultFont;
+    return liberation;
 }
 
+Color normalButtonTextColor()
+{
+    return Color(200, 170, 0, 255);
 }
+
+Color activeButtonTextColor()
+{
+    return Color(200, 100, 0, 255);
+}
+
+Color hoverButtonTextColor()
+{
+    return Color(200, 135, 0, 255);
+}
+
+Color disabledButtonTextColor()
+{
+    return Color(200, 200, 200, 255);
+}
+
+int textSize()
+{
+    return 10;
+}
+
+} //namespace style
+
+} //namespace tools

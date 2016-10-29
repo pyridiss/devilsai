@@ -29,10 +29,20 @@ using namespace sf;
 
 namespace tools{
 
+namespace style{
+
 void initStyle();
 
-const Font& getDefaultFont();
+const Font& defaultFont();
+Color normalButtonTextColor();
+Color activeButtonTextColor();
+Color hoverButtonTextColor();
+Color disabledButtonTextColor();
+int textSize();
 
-}
+} //namespace style
+
+} //namespace tools
+
 #endif // STYLE_H
 
