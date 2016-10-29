@@ -272,7 +272,7 @@ void Disp_FPS()
 	static string Texte("");
 	static short Compteur = 15;
 	static float Framerate;
-	static Text FPS("", getDefaultFont(), 10);
+	static Text FPS("", tools::style::defaultFont(), 10);
 	FPS.setPosition(Options.ScreenW - 100, 7);
 
 	if (Arguments.LimitToFpsDisabled) Compteur = 15;
