@@ -129,48 +129,84 @@ void EcranOptions()
 {
 	bool AfficherDemandeRedemarrage = false;
 
-	Bouton BoutonMenu, Langue, PleinEcran, Degats, Resolution;
+    tools::Button mainMenuButton, languageButton, fullscreenButton, showDamageButton, changeResolutionButton;
 
-	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
+    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
+    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
+    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
 
-	bool RetourMenu = false;
-	while (!RetourMenu)
-	{
-		Langue.Creer(3.f/4.f * Options.ScreenW , 230, getNameOfLanguage(), 16., Jeu.DayRoman);
-		PleinEcran.Creer(3.f/4.f * Options.ScreenW, 270, getTranslatedMessage((Options.PleinEcran_Save) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
-		Degats.Creer(3.f/4.f * Options.ScreenW, 310, getTranslatedMessage((Options.AffichageDegats) ? _ACTIVE : _DESACTIVE), 16., Jeu.DayRoman);
-		string reso = intToString(Options.ScreenW_Save) + " x " + intToString(Options.ScreenH_Save);
-		String32 Reso;
-		Utf8::toUtf32(reso.begin(), reso.end(), back_inserter(Reso));
-		Resolution.Creer(3.f/4.f * Options.ScreenW, 350, Reso, 16., Jeu.DayRoman);
+    fullscreenButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 270);
+    fullscreenButton.setAutoRelease(false);
+    fullscreenButton.setTextFont(Jeu.DayRoman, 16);
+    fullscreenButton.setNormalText(getTranslatedMessage(_DESACTIVE));
+    fullscreenButton.setHoverText(getTranslatedMessage(_DESACTIVE));
+    fullscreenButton.setActiveText(getTranslatedMessage(_ACTIVE));
 
-		Event event;
-		while (Jeu.App.pollEvent(event))
-		{
-			if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-			{
-				if (Langue.TestActivation(event.type))
-				{
-					changeLanguage();
-					AfficherDemandeRedemarrage = true;
-				}
-				if (PleinEcran.TestActivation(event.type))
-				{
-					Options.PleinEcran_Save = !Options.PleinEcran_Save;
-					AfficherDemandeRedemarrage = true;
-				}
-				if (Degats.TestActivation(event.type)) Options.AffichageDegats = !Options.AffichageDegats;
-				if (BoutonMenu.TestActivation(event.type)) RetourMenu = true;
-				if (Resolution.TestActivation(event.type))
-				{
-					ChangerResolution();
-					AfficherDemandeRedemarrage = true;
-				}
-			}
+    if (Options.PleinEcran_Save)
+        fullscreenButton.setState(tools::Button::Active);
 
-			if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-				RetourMenu = true;
-		}
+    showDamageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 310);
+    showDamageButton.setAutoRelease(false);
+    showDamageButton.setTextFont(Jeu.DayRoman, 16);
+    showDamageButton.setNormalText(getTranslatedMessage(_DESACTIVE));
+    showDamageButton.setHoverText(getTranslatedMessage(_DESACTIVE));
+    showDamageButton.setActiveText(getTranslatedMessage(_ACTIVE));
+
+    if (Options.AffichageDegats)
+        showDamageButton.setState(tools::Button::Active);
+
+    languageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW , 230);
+    languageButton.setTextFont(Jeu.DayRoman, 16);
+
+    changeResolutionButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 350);
+    changeResolutionButton.setTextFont(Jeu.DayRoman, 16);
+
+    bool RetourMenu = false;
+    while (!RetourMenu)
+    {
+        languageButton.setAllText(getNameOfLanguage());
+
+        string reso = intToString(Options.ScreenW_Save) + " x " + intToString(Options.ScreenH_Save);
+        String32 Reso;
+        Utf8::toUtf32(reso.begin(), reso.end(), back_inserter(Reso));
+        changeResolutionButton.setAllText(Reso);
+
+        Event event;
+        while (Jeu.App.pollEvent(event))
+        {
+            if (mainMenuButton.activated(Jeu.App, event.type)) RetourMenu = true;
+            if (languageButton.activated(Jeu.App, event.type))
+            {
+                changeLanguage();
+                AfficherDemandeRedemarrage = true;
+            }
+            if (fullscreenButton.activated(Jeu.App, event.type))
+            {
+                Options.PleinEcran_Save = true;
+                if (!Options.PleinEcran) AfficherDemandeRedemarrage = true;
+            }
+            else
+            {
+                Options.PleinEcran_Save = false;
+                if (Options.PleinEcran) AfficherDemandeRedemarrage = true;
+            }
+            if (showDamageButton.activated(Jeu.App, event.type))
+            {
+                Options.AffichageDegats = true;
+            }
+            else
+            {
+                Options.AffichageDegats = false;
+            }
+            if (changeResolutionButton.activated(Jeu.App, event.type))
+            {
+                ChangerResolution();
+                AfficherDemandeRedemarrage = true;
+            }
+
+            if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
+                RetourMenu = true;
+        }
 
 		/* Affichage */
 
@@ -183,11 +219,11 @@ void EcranOptions()
 		Disp_Texte(_AFFICHAGE_DEGATS, 1.f/4.f * Options.ScreenW, 300, Color(200,255,255,255), 16., Jeu.DayRoman);
 		Disp_Texte(_RESOLUTION, 1.f/4.f * Options.ScreenW, 340, Color(200,255,255,255), 16., Jeu.DayRoman);
 
-		Langue.Disp();
-		PleinEcran.Disp();
-		Degats.Disp();
-		BoutonMenu.Disp();
-		Resolution.Disp();
+        mainMenuButton.display(Jeu.App);
+        languageButton.display(Jeu.App);
+        fullscreenButton.display(Jeu.App);
+        showDamageButton.display(Jeu.App);
+        changeResolutionButton.display(Jeu.App);
 
 		if (AfficherDemandeRedemarrage)
 			Disp_TexteCentre(_DEMANDE_REDEMARRAGE, Options.ScreenW/2, Options.ScreenH - 210, Color(255,196,196,255), 12.);
