@@ -247,6 +247,8 @@ bool Button::mouseHovering(RenderWindow& app)
 
 bool Button::activated(RenderWindow& app, Event::EventType event)
 {
+    if (state == Disabled) return false;
+
     if (mouseHovering(app))
     {
         if (event == Event::MouseButtonPressed)
