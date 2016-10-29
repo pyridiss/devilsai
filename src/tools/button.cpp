@@ -46,26 +46,162 @@ void Button::setSize(int w, int h)
     height = h;
 }
 
-void Button::setNormalText(Text t)
+void Button::setAutoRelease(bool a)
 {
-    normal.text = t;
+    autoRelease = a;
 }
 
-void Button::setActiveText(Text t)
+int Button::getXTopLeft()
 {
-    active.text = t;
+    if (xTopLeft == 0)
+        return xCenter - width/2;
+
+    return xTopLeft;
 }
 
-void Button::setHoverText(Text t)
+int Button::getYTopLeft()
 {
-    hover.text = t;
+    if (yTopLeft == 0)
+        return yCenter - height/2;
+
+    return yTopLeft;
 }
 
-void Button::setDisabledText(Text t)
+int Button::getXCenter()
 {
-    disabled.text = t;
+    if (xCenter == 0)
+        return xTopLeft + width/2;
+
+    return xCenter;
 }
 
+int Button::getYCenter()
+{
+    if (yCenter == 0)
+        return yTopLeft + height/2;
+
+    return yCenter;
+}
+
+void Button::setAllText(String32 & t)
+{
+    setNormalText(t);
+    setActiveText(t);
+    setHoverText(t);
+    setDisabledText(t);
+}
+
+void Button::setNormalText(String32& t)
+{
+    normal.text.setString(t);
+
+    //If no font properties set, use default (needed to compute position)
+    if (normal.text.getFont() == NULL)
+        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+
+    setNormalTextColor(tools::style::normalButtonTextColor());
+
+    FloatRect rect = normal.text.getGlobalBounds();
+    normal.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+
+    if (width == 0 || height == 0)
+    {
+        width = rect.width + 12;
+        height = rect.height + 6;
+    }
+}
+
+void Button::setActiveText(String32& t)
+{
+    active.text.setString(t);
+
+    //If no font properties set, use default (needed to compute position)
+    if (active.text.getFont() == NULL)
+        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+
+    setActiveTextColor(tools::style::activeButtonTextColor());
+
+    FloatRect rect = active.text.getGlobalBounds();
+    active.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+
+    if (width == 0 || height == 0)
+    {
+        width = rect.width + 12;
+        height = rect.height + 6;
+    }
+}
+
+void Button::setHoverText(String32& t)
+{
+    hover.text.setString(t);
+
+    //If no font properties set, use default (needed to compute position)
+    if (hover.text.getFont() == NULL)
+        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+
+    setHoverTextColor(tools::style::hoverButtonTextColor());
+
+    FloatRect rect = hover.text.getGlobalBounds();
+    hover.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+
+    if (width == 0 || height == 0)
+    {
+        width = rect.width + 12;
+        height = rect.height + 6;
+    }
+}
+
+void Button::setDisabledText(String32& t)
+{
+    disabled.text.setString(t);
+
+    //If no font properties set, use default (needed to compute position)
+    if (disabled.text.getFont() == NULL)
+        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+
+    setDisabledTextColor(tools::style::disabledButtonTextColor());
+
+    FloatRect rect = disabled.text.getGlobalBounds();
+    disabled.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+
+    if (width == 0 || height == 0)
+    {
+        width = rect.width + 12;
+        height = rect.height + 6;
+    }
+}
+
+void Button::setTextFont(const Font& f, float s)
+{
+    normal.text.setFont(f);
+    normal.text.setCharacterSize(s);
+    active.text.setFont(f);
+    active.text.setCharacterSize(s);
+    hover.text.setFont(f);
+    hover.text.setCharacterSize(s);
+    disabled.text.setFont(f);
+    disabled.text.setCharacterSize(s);
+}
+
+void Button::setNormalTextColor(Color c)
+{
+    normal.text.setColor(c);
+}
+
+void Button::setActiveTextColor(Color c)
+{
+    active.text.setColor(c);
+}
+
+void Button::setHoverTextColor(Color c)
+{
+    hover.text.setColor(c);
+}
+
+void Button::setDisabledTextColor(Color c)
+{
+    disabled.text.setColor(c);
+}
 
 void Button::setNormalBackground(string b)
 {
@@ -87,32 +223,19 @@ void Button::setDisabledBackground(string b)
     disabled.background = b;
 }
 
-void Button::applyDefaultColors()
-{
-    normal.text.setColor  (Color(200, 170,   0, 255));
-    active.text.setColor  (Color(200, 100,   0, 255));
-    hover.text.setColor   (Color(200, 170,   0, 255));
-    disabled.text.setColor(Color(200, 170,   0, 255));
-}
-
-void Button::applyDefaultFont()
-{
-    normal.text.setCharacterSize(10.);
-    active.text.setCharacterSize(10.);
-    hover.text.setCharacterSize(10.);
-    disabled.text.setCharacterSize(10.);
-    normal.text.setFont(tools::getDefaultFont());
-    active.text.setFont(tools::getDefaultFont());
-    hover.text.setFont(tools::getDefaultFont());
-    disabled.text.setFont(tools::getDefaultFont());
-}
-
 bool Button::mouseHovering(RenderWindow& app)
 {
-    //TODO: make it work when xCenter and yCenter are set
-    if (Mouse::getPosition(app).x >= xTopLeft && Mouse::getPosition(app).x <= xTopLeft + width &&
-        Mouse::getPosition(app).y >= xTopLeft && Mouse::getPosition(app).y <= yTopLeft + height)
+    if (state == Disabled) return false;
+    if (state == Active) return true;
+
+    if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
+        Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
+    {
+        state = Hover;
         return true;
+    }
+
+    state = Normal;
     return false;
 }
 
@@ -120,21 +243,30 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
 {
     if (mouseHovering(app))
     {
-        if (event == Event::MouseButtonPressed || event == Event::MouseMoved)
+        if (event == Event::MouseButtonPressed)
         {
             state = Active;
-            if (event == Event::MouseButtonPressed) playSound("Click");
-            return false;
+            playSound("Click");
+            if (autoRelease)
+                return false; //We wait for MouseButtonReleased
+            else
+                return true;
         }
         if (event == Event::MouseButtonReleased)
         {
             if (state == Active)
             {
-                state = Normal;
-                return true;
+                if (autoRelease)
+                {
+                    state = Normal;
+                    return true;
+                }
+                else
+                    return false; //MouseButtonReleased must not be used
             }
             else return false;
         }
+        return false;
     }
     state = Normal;
     return false;
@@ -146,22 +278,24 @@ void Button::display(RenderWindow& app)
     {
         case Normal:
             if (!normal.background.empty())
-                Disp_ImageDecoration(normal.background, xTopLeft, yTopLeft); //Depends on Bibliotheque
-                //TODO: correctly display when xCenter and yCenter are set
+                Disp_ImageDecoration(normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(normal.text);
             break;
         case Active:
             if (!active.background.empty())
-                Disp_ImageDecoration(active.background, xTopLeft, yTopLeft); //Depends on Bibliotheque
-                //TODO: correctly display when xCenter and yCenter are set
+                Disp_ImageDecoration(active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(active.text);
             //TODO: auto highlight background when the same as Normal background
             break;
         case Hover:
-            //TODO
+            if (!hover.background.empty())
+                Disp_ImageDecoration(hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+            app.draw(hover.text);
             break;
         case Disabled:
-            //TODO
+            if (!disabled.background.empty())
+                Disp_ImageDecoration(disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+            app.draw(disabled.text);
             break;
     }
 }

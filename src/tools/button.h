@@ -27,6 +27,8 @@
 using namespace std;
 using namespace sf;
 
+typedef basic_string<Uint32> String32;
+
 namespace tools{
 
 class Button
@@ -44,7 +46,7 @@ class Button
         Disabled
     };
 
-	private:
+    private:
         int xTopLeft = 0, yTopLeft = 0;
         int xCenter = 0, yCenter = 0;
         int width = 0, height = 0;
@@ -54,25 +56,37 @@ class Button
         minimalistButton hover;
         minimalistButton disabled;
 
-		States state = Normal;
+        States state = Normal;
+        bool autoRelease = true;
 
-	public:
+    public:
         void setTopLeftCoordinates(int x, int y);
         void setCenterCoordinates(int x, int y);
         void setSize(int w, int h);
+        void setAutoRelease(bool a);
 
-        void setNormalText(Text t);
-		void setActiveText(Text t);
-        void setHoverText(Text t);
-        void setDisabledText(Text t);
+        int getXTopLeft();
+        int getYTopLeft();
+        int getXCenter();
+        int getYCenter();
+
+        void setAllText(String32& t);
+        void setNormalText(String32& t);
+        void setActiveText(String32& t);
+        void setHoverText(String32& t);
+        void setDisabledText(String32& t);
+
+        void setTextFont(const Font& f, float s);
+
+        void setNormalTextColor(Color c);
+        void setActiveTextColor(Color c);
+        void setHoverTextColor(Color c);
+        void setDisabledTextColor(Color c);
 
         void setNormalBackground(string b);
         void setActiveBackground(string b);
         void setHoverBackground(string b);
         void setDisabledBackground(string b);
-
-        void applyDefaultColors();
-        void applyDefaultFont();
 
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event::EventType event);
