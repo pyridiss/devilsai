@@ -297,10 +297,19 @@ void DialogueEtGestionEvenements(string fichier)
 
 int SaisieNom(String32 &Texte)
 {
-	Bouton BoutonMenu, BoutonDidacticiel, BoutonChapitre1;
-	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
-	BoutonDidacticiel.Creer(Options.ScreenW - 200, Options.ScreenH - 200, getTranslatedMessage(_LANCER_DIDACTICIEL), 14., Jeu.DayRoman);
-	BoutonChapitre1.Creer(Options.ScreenW - 200, Options.ScreenH - 170, getTranslatedMessage(_LANCER_CHAP1), 14., Jeu.DayRoman);
+    tools::Button mainMenuButton, BoutonDidacticiel, BoutonChapitre1;
+
+    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
+    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
+    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
+
+    BoutonDidacticiel.setCenterCoordinates(Options.ScreenW - 200, Options.ScreenH - 200);
+    BoutonDidacticiel.setTextFont(Jeu.DayRoman, 14);
+    BoutonDidacticiel.setAllText(getTranslatedMessage(_LANCER_DIDACTICIEL));
+
+    BoutonChapitre1.setCenterCoordinates(Options.ScreenW - 200, Options.ScreenH - 170);
+    BoutonChapitre1.setTextFont(Jeu.DayRoman, 14);
+    BoutonChapitre1.setAllText(getTranslatedMessage(_LANCER_CHAP1));
 
 	int Resultat = false;
 
@@ -315,6 +324,17 @@ int SaisieNom(String32 &Texte)
 
 		while (Jeu.App.pollEvent(event))
 		{
+            if (Texte.size() == 0)
+            {
+                BoutonDidacticiel.setState(tools::Button::Disabled);
+                BoutonChapitre1.setState(tools::Button::Disabled);
+            }
+            else
+            {
+                BoutonDidacticiel.setState(tools::Button::Normal);
+                BoutonChapitre1.setState(tools::Button::Normal);
+            }
+
 			if (event.type == Event::TextEntered)
 			{
 				switch(event.text.unicode)
@@ -330,16 +350,15 @@ int SaisieNom(String32 &Texte)
 								break;
 				}
 			}
-			if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-			{
-				if (BoutonMenu.TestActivation(event.type))
-				{
-					Texte.clear();
-					Resultat = -1;
-				}
-				if (BoutonDidacticiel.TestActivation(event.type) && Texte.size() > 0) Resultat = 1;
-				if (BoutonChapitre1.TestActivation(event.type) && Texte.size() > 0) Resultat = 2;
-			}
+
+            if (mainMenuButton.activated(Jeu.App, event.type))
+            {
+                Texte.clear();
+                Resultat = -1;
+            }
+            if (BoutonDidacticiel.activated(Jeu.App, event.type)) Resultat = 1;
+            if (BoutonChapitre1.activated(Jeu.App, event.type)) Resultat = 2;
+
 			if (event.type == Event::KeyPressed)
 			{
 				switch (event.key.code)
@@ -355,9 +374,9 @@ int SaisieNom(String32 &Texte)
 			}
 		}
 		Disp_TexteCentre(Texte, Options.ScreenW/2, Options.ScreenH/2, Color(255,220,220,255), 28, Jeu.DayRoman);
-		BoutonMenu.Disp();
-		BoutonDidacticiel.Disp();
-		BoutonChapitre1.Disp();
+		mainMenuButton.display(Jeu.App);
+		BoutonDidacticiel.display(Jeu.App);
+		BoutonChapitre1.display(Jeu.App);
 		Jeu.App.display();
 	}
 	return Resultat;
