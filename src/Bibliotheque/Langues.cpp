@@ -230,7 +230,7 @@ void changeLanguage()
 	loadDevilsaiMessages();
 }
 
-String32 getNameOfLanguage()
+String32& getNameOfLanguage()
 {
 	int i = 0;
 	for ( ; i < numberOfLanguages ; ++i)

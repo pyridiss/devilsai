@@ -338,7 +338,7 @@ String32 getTranslatedDescriptionOfObject(int);
 String32& getTranslatedMessage(enumPhrases);
 String32 getFormatedTranslatedMessage(enumPhrases, String32);
 void changeLanguage();
-String32 getNameOfLanguage();
+String32& getNameOfLanguage();
 void cutParagraph(Paragraph*);
 void displayJournal();
 
