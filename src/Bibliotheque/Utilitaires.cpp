@@ -306,10 +306,12 @@ int SaisieNom(String32 &Texte)
     BoutonDidacticiel.setCenterCoordinates(Options.ScreenW - 200, Options.ScreenH - 200);
     BoutonDidacticiel.setTextFont(Jeu.DayRoman, 14);
     BoutonDidacticiel.setAllText(getTranslatedMessage(_LANCER_DIDACTICIEL));
+    BoutonDidacticiel.setDisabled(true);
 
     BoutonChapitre1.setCenterCoordinates(Options.ScreenW - 200, Options.ScreenH - 170);
     BoutonChapitre1.setTextFont(Jeu.DayRoman, 14);
     BoutonChapitre1.setAllText(getTranslatedMessage(_LANCER_CHAP1));
+    BoutonChapitre1.setDisabled(true);
 
 	int Resultat = false;
 
@@ -326,13 +328,13 @@ int SaisieNom(String32 &Texte)
 		{
             if (Texte.size() == 0)
             {
-                BoutonDidacticiel.setState(tools::Button::Disabled);
-                BoutonChapitre1.setState(tools::Button::Disabled);
+                BoutonDidacticiel.setDisabled(true);
+                BoutonChapitre1.setDisabled(true);
             }
             else
             {
-                BoutonDidacticiel.setState(tools::Button::Normal);
-                BoutonChapitre1.setState(tools::Button::Normal);
+                BoutonDidacticiel.setDisabled(false);
+                BoutonChapitre1.setDisabled(false);
             }
 
 			if (event.type == Event::TextEntered)

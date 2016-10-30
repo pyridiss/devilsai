@@ -143,7 +143,7 @@ void EcranOptions()
     fullscreenButton.setActiveText(getTranslatedMessage(_ACTIVE));
 
     if (Options.PleinEcran_Save)
-        fullscreenButton.setState(tools::Button::Active);
+        fullscreenButton.setActive(true);
 
     showDamageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 310);
     showDamageButton.setAutoRelease(false);
@@ -153,7 +153,7 @@ void EcranOptions()
     showDamageButton.setActiveText(getTranslatedMessage(_ACTIVE));
 
     if (Options.AffichageDegats)
-        showDamageButton.setState(tools::Button::Active);
+        showDamageButton.setActive(true);
 
     languageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW , 230);
     languageButton.setTextFont(Jeu.DayRoman, 16);

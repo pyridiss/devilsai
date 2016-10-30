@@ -39,14 +39,13 @@ class Button
         string background;
     };
 
-    public:
-        enum States
-        {
-            Normal,
-            Active,
-            Hover,
-            Disabled
-        };
+    enum States
+    {
+        Normal,
+        Active,
+        Hover,
+        Disabled
+    };
 
     private:
         int xTopLeft = 0, yTopLeft = 0;
@@ -67,7 +66,8 @@ class Button
         void setSize(int w, int h);
         void setAutoRelease(bool a);
 
-        void setState(States s);
+        void setDisabled(bool d);
+        void setActive(bool a);
 
         int getXTopLeft();
         int getYTopLeft();

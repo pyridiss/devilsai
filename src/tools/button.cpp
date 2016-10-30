@@ -51,9 +51,16 @@ void Button::setAutoRelease(bool a)
     autoRelease = a;
 }
 
-void Button::setState(States s)
+void Button::setDisabled(bool d)
 {
-    state = s;
+    if (d) state = Disabled;
+    else if (state == Disabled) state = Normal;
+}
+
+void Button::setActive(bool a)
+{
+    if (a) state = Active;
+    else if (state == Active) state = Normal;
 }
 
 int Button::getXTopLeft()
