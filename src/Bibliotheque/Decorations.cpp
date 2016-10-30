@@ -23,16 +23,17 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
+#include "tools/button.h"
 
 /** VARIABLES GLOBALES **/
 
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-Bouton *MenuSup_Pause;
-Bouton *MenuSup_Sauvegarder;
-Bouton *MenuSup_Quitter;
-Bouton *MenuSup_Repos;
+tools::Button *pauseGameTopButton;
+tools::Button *saveGameTopButton;
+tools::Button *exitGameTopButton;
+tools::Button *restingButton;
 
 unsigned int NombreMesures = 0;
 float SommeFPS = 0;
@@ -89,21 +90,37 @@ void Load_Decorations()
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
 
-	MenuSup_Pause = new Bouton;
-	MenuSup_Pause->Creer(275, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Pause->AjouterTexte(getTranslatedMessage(_MENUJEU_PAUSE));
+    pauseGameTopButton = new tools::Button;
+    pauseGameTopButton->setTopLeftCoordinates(275, 2);
+    pauseGameTopButton->setSize(125, 18);
+    pauseGameTopButton->setNormalBackground("Bouton");
+    pauseGameTopButton->setHoverBackground("Bouton");
+    pauseGameTopButton->setActiveBackground("BoutonAppuye");
+    pauseGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_PAUSE));
 
-	MenuSup_Sauvegarder = new Bouton;
-	MenuSup_Sauvegarder->Creer(410, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Sauvegarder->AjouterTexte(getTranslatedMessage(_MENUJEU_SAUVEG));
+    saveGameTopButton = new tools::Button;
+    saveGameTopButton->setTopLeftCoordinates(410, 2);
+    saveGameTopButton->setSize(125, 18);
+    saveGameTopButton->setNormalBackground("Bouton");
+    saveGameTopButton->setHoverBackground("Bouton");
+    saveGameTopButton->setActiveBackground("BoutonAppuye");
+    saveGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_SAUVEG));
 
-	MenuSup_Quitter = new Bouton;
-	MenuSup_Quitter->Creer(Options.ScreenW - 255, 2, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Quitter->AjouterTexte(getTranslatedMessage(_MENUJEU_QUITTER));
+    exitGameTopButton = new tools::Button;
+    exitGameTopButton->setTopLeftCoordinates(Options.ScreenW - 255, 2);
+    exitGameTopButton->setSize(125, 18);
+    exitGameTopButton->setNormalBackground("Bouton");
+    exitGameTopButton->setHoverBackground("Bouton");
+    exitGameTopButton->setActiveBackground("BoutonAppuye");
+    exitGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_QUITTER));
 
-	MenuSup_Repos = new Bouton;
-	MenuSup_Repos->Creer(31, 130, 125, 18, "Bouton", "BoutonAppuye");
-	MenuSup_Repos->AjouterTexte(getTranslatedMessage(_MENUJEU_REPOS));
+    restingButton = new tools::Button;
+    restingButton->setTopLeftCoordinates(31, 130);
+    restingButton->setSize(125, 18);
+    restingButton->setNormalBackground("Bouton");
+    restingButton->setHoverBackground("Bouton");
+    restingButton->setActiveBackground("BoutonAppuye");
+    restingButton->setAllText(getTranslatedMessage(_MENUJEU_REPOS));
 
 	blurShader = new Shader;
 	blurShader->loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
@@ -117,10 +134,10 @@ void Load_Decorations()
 
 void Supprimer_Decorations()
 {
-	delete MenuSup_Pause;
-	delete MenuSup_Sauvegarder;
-	delete MenuSup_Quitter;
-	delete MenuSup_Repos;
+	delete pauseGameTopButton;
+	delete saveGameTopButton;
+	delete exitGameTopButton;
+	delete restingButton;
 
 	delete blurShader;
 
@@ -320,22 +337,23 @@ void Disp_FondMenus()
 
 int Gestion_Menu(Event &event)
 {
-	if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-	{
- 		if (MenuSup_Pause->TestActivation(event.type)) return ACTION_PAUSE;
-		if (!Arguments.SaveDisabled)
-			if (MenuSup_Sauvegarder->TestActivation(event.type)) return ACTION_SAUVEG;
-		if (MenuSup_Quitter->TestActivation(event.type)) return ACTION_QUITTER;
-		if (Partie.perso->LieuVillage == "village")
-			if (MenuSup_Repos->TestActivation(event.type)) return ACTION_REPOS;
+    if (Arguments.SaveDisabled) saveGameTopButton->setDisabled(true);
+    else saveGameTopButton->setDisabled(false);
+
+    if (Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
+    else restingButton->setDisabled(false);
+
+    if (pauseGameTopButton->activated(Jeu.App, event.type)) return ACTION_PAUSE;
+    if (saveGameTopButton->activated(Jeu.App, event.type)) return ACTION_SAUVEG;
+    if (exitGameTopButton->activated(Jeu.App, event.type)) return ACTION_QUITTER;
+    if (restingButton->activated(Jeu.App, event.type)) return ACTION_REPOS;
 
 		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
 		if (Partie.screenEquipment.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
 		if (Partie.screenSkills.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
 		if (Partie.screenJournal.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
-	}
 
-	return ACTION_JEU;
+    return ACTION_JEU;
 }
 
 void Disp_Menu()
@@ -352,10 +370,10 @@ void Disp_Menu()
 	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
 		Disp_ImageDecoration("Frange", 100*a, 0);
 
-	MenuSup_Pause->Disp();
-	if (!Arguments.SaveDisabled) MenuSup_Sauvegarder->Disp();
-	MenuSup_Quitter->Disp();
-	if (Partie.perso->LieuVillage == "village") MenuSup_Repos->Disp();
+    pauseGameTopButton->display(Jeu.App);
+    saveGameTopButton->display(Jeu.App);
+    exitGameTopButton->display(Jeu.App);
+    restingButton->display(Jeu.App);
 
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)
