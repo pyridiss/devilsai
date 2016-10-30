@@ -70,22 +70,38 @@ void Load_Decorations()
 	AjouterImageDecoration("BoutonCompetences");
 	AjouterImageDecoration("BoutonJournal");
 
-	Partie.screenCharacter.button.Creer(Options.ScreenW/2 - 2*32 - 4 - 2, 28, 32, 32, "BoutonPersonnage", "BoutonPersonnage");
+    Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
+    Partie.screenCharacter.button.setSize(32, 32);
+    Partie.screenCharacter.button.setNormalBackground("BoutonPersonnage");
+    Partie.screenCharacter.button.setHoverBackground("BoutonPersonnage");
+    Partie.screenCharacter.button.setActiveBackground("BoutonPersonnage");
 	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
 
-	Partie.screenEquipment.button.Creer(Options.ScreenW/2 - 1*32 - 2, 28, 32, 32, "BoutonEquipement", "BoutonEquipement");
+    Partie.screenEquipment.button.setTopLeftCoordinates(Options.ScreenW/2 - 1*32 - 2, 28);
+    Partie.screenEquipment.button.setSize(32, 32);
+    Partie.screenEquipment.button.setNormalBackground("BoutonEquipement");
+    Partie.screenEquipment.button.setHoverBackground("BoutonEquipement");
+    Partie.screenEquipment.button.setActiveBackground("BoutonEquipement");
 	Partie.screenEquipment.key = Keyboard::Key::E;
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
 
-	Partie.screenSkills.button.Creer(Options.ScreenW/2 + 2, 28, 32, 32, "BoutonCompetences", "BoutonCompetences");
+    Partie.screenSkills.button.setTopLeftCoordinates(Options.ScreenW/2 + 2, 28);
+    Partie.screenSkills.button.setSize(32, 32);
+    Partie.screenSkills.button.setNormalBackground("BoutonCompetences");
+    Partie.screenSkills.button.setHoverBackground("BoutonCompetences");
+    Partie.screenSkills.button.setActiveBackground("BoutonCompetences");
 	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
 
-	Partie.screenJournal.button.Creer(Options.ScreenW/2 + 32 + 4 + 2, 28, 32, 32, "BoutonJournal", "BoutonJournal");
+    Partie.screenJournal.button.setTopLeftCoordinates(Options.ScreenW/2 + 32 + 4 + 2, 28);
+    Partie.screenJournal.button.setSize(32, 32);
+    Partie.screenJournal.button.setNormalBackground("BoutonJournal");
+    Partie.screenJournal.button.setHoverBackground("BoutonJournal");
+    Partie.screenJournal.button.setActiveBackground("BoutonJournal");
 	Partie.screenJournal.key = Keyboard::Key::J;
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
@@ -348,10 +364,10 @@ int Gestion_Menu(Event &event)
     if (exitGameTopButton->activated(Jeu.App, event.type)) return ACTION_QUITTER;
     if (restingButton->activated(Jeu.App, event.type)) return ACTION_REPOS;
 
-		if (Partie.screenCharacter.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
-		if (Partie.screenEquipment.button.TestActivation(event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
-		if (Partie.screenSkills.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
-		if (Partie.screenJournal.button.TestActivation(event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
+    if (Partie.screenCharacter.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+    if (Partie.screenEquipment.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+    if (Partie.screenSkills.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
+    if (Partie.screenJournal.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
 
     return ACTION_JEU;
 }
@@ -384,15 +400,15 @@ void Disp_Menu()
 			Disp_TexteCentre(_ERREUR, Options.ScreenW/2, 32, Color(255,0,0,255), 10.);
 	}
 
-	Partie.screenCharacter.button.Disp();
-	Partie.screenEquipment.button.Disp();
-	Partie.screenSkills.button.Disp();
-	Partie.screenJournal.button.Disp();
+	Partie.screenCharacter.button.display(Jeu.App);
+	Partie.screenEquipment.button.display(Jeu.App);
+	Partie.screenSkills.button.display(Jeu.App);
+	Partie.screenJournal.button.display(Jeu.App);
 
 	if (Partie.journal.newEntryAdded && Clign)
 	{
 		RectangleShape mask(Vector2f(32, 32));
-		mask.setPosition(Partie.screenJournal.button.GetX(), Partie.screenJournal.button.GetY());
+		mask.setPosition(Partie.screenJournal.button.getXTopLeft(), Partie.screenJournal.button.getYTopLeft());
 		mask.setFillColor(Color(255, 0, 0, 64));
 		Jeu.App.draw(mask);
 	}

@@ -31,6 +31,8 @@
 
 #include "tools/style.h"
 
+#include "tools/button.h"
+
 using namespace std;
 using namespace sf;
 
@@ -260,7 +262,7 @@ class Bouton
 class UserScreen
 {
 	public:
-		Bouton button;
+		tools::Button button;
 		Keyboard::Key key;
 
 	public:
