@@ -224,16 +224,33 @@ string ChoixSauvegarde()
 	Texture TexCapture;
 	Sprite Capture;
 
-	Bouton BoutonLancer, BoutonPrecedent, BoutonSuivant, BoutonMenu, BoutonSupprimer;
+	tools::Button startGameButton, previousButton, nextButton, mainMenuButton, deleteGameButton;
 
-	BoutonLancer.Creer(Options.ScreenW/2, 188, getTranslatedMessage(_LANCER_PARTIE), 24., Jeu.DayRoman);
+    startGameButton.setCenterCoordinates(Options.ScreenW/2, 188);
+    startGameButton.setTextFont(Jeu.DayRoman, 24);
+    startGameButton.setAllText(getTranslatedMessage(_LANCER_PARTIE));
 
-	BoutonPrecedent.Creer(Options.ScreenW/2 - 180, 190, getTranslatedMessage(_PRECEDENT), 14., Jeu.DayRoman);
-	BoutonSuivant.Creer(Options.ScreenW/2 + 180, 190, getTranslatedMessage(_SUIVANT), 14., Jeu.DayRoman);
+    previousButton.setCenterCoordinates(Options.ScreenW/2 - 180, 190);
+    previousButton.setTextFont(Jeu.DayRoman, 14);
+    previousButton.setAllText(getTranslatedMessage(_PRECEDENT));
 
-	BoutonMenu.Creer(100, Options.ScreenH - 170, getTranslatedMessage(_RETOUR_MENU), 14., Jeu.DayRoman);
+    nextButton.setCenterCoordinates(Options.ScreenW/2 + 180, 190);
+    nextButton.setTextFont(Jeu.DayRoman, 14);
+    nextButton.setAllText(getTranslatedMessage(_SUIVANT));
 
-	BoutonSupprimer.Creer(Options.ScreenW/2 - 220, 370, getTranslatedMessage(_SUPPRIMER_SAUVEGARDE), 16., Jeu.DayRoman);
+    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
+    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
+    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
+
+    deleteGameButton.setCenterCoordinates(Options.ScreenW/2 - 220, 370);
+    deleteGameButton.setTextFont(Jeu.DayRoman, 14);
+    deleteGameButton.setAllText(getTranslatedMessage(_SUPPRIMER_SAUVEGARDE));
+
+    if (NombreSauvegardesDisponibles() <= 1)
+    {
+        previousButton.setDisabled(true);
+        nextButton.setDisabled(true);
+    }
 
 	string path = "";
 
@@ -247,42 +264,45 @@ string ChoixSauvegarde()
 	{
 		while (Jeu.App.pollEvent(event))
 		{
-			if (event.type == Event::MouseButtonPressed || event.type == Event::MouseButtonReleased)
-			{
-				if (NombreSauvegardesDisponibles() > 1 && BoutonPrecedent.TestActivation(event.type))
-				{
-					SauvegardePrecedente(save);
-					ChangementSauvegarde = true;
-				}
-				if (NombreSauvegardesDisponibles() > 1 && BoutonSuivant.TestActivation(event.type))
-				{
-					SauvegardeSuivante(save);
-					ChangementSauvegarde = true;
-				}
-				if (SauvegardeCompatible && BoutonLancer.TestActivation(event.type))
-				{
-					path = save->second.Dossier;
-				}
-				if (BoutonSupprimer.TestActivation(event.type))
-				{
-					SupprimerSauvegarde(save);
-					if (NombreSauvegardesDisponibles())
-					{
-						save = Sauvegardes.begin();
-						ChangementSauvegarde = true;
-					}
-					else
-					{
-						Options.SauvegardeDisponible = false;
-						PasDeSauvegarde();
-						return "ANNULER";
-					}
-				}
-				if (BoutonMenu.TestActivation(event.type))
-				{
-					path = "ANNULER";
-				}
-			}
+            if (SauvegardeCompatible)
+                startGameButton.setDisabled(false);
+            else
+                startGameButton.setDisabled(true);
+
+            if (previousButton.activated(Jeu.App, event.type))
+            {
+                SauvegardePrecedente(save);
+                ChangementSauvegarde = true;
+            }
+            if (nextButton.activated(Jeu.App, event.type))
+            {
+                SauvegardeSuivante(save);
+                ChangementSauvegarde = true;
+            }
+            if (startGameButton.activated(Jeu.App, event.type))
+            {
+                path = save->second.Dossier;
+            }
+            if (deleteGameButton.activated(Jeu.App, event.type))
+            {
+                SupprimerSauvegarde(save);
+                if (NombreSauvegardesDisponibles())
+                {
+                    save = Sauvegardes.begin();
+                    ChangementSauvegarde = true;
+                }
+                else
+                {
+                    Options.SauvegardeDisponible = false;
+                    PasDeSauvegarde();
+                    return "ANNULER";
+                }
+            }
+            if (mainMenuButton.activated(Jeu.App, event.type))
+            {
+                path = "ANNULER";
+            }
+
 			if (event.type == Event::KeyPressed)
 			{
 				switch (event.key.code)
@@ -318,14 +338,11 @@ string ChoixSauvegarde()
 
 		Disp_TitrePage(_MENUPRINCIPAL_CHARGER);
 
-		if (SauvegardeCompatible) BoutonLancer.Disp();
-		BoutonSupprimer.Disp();
-		BoutonMenu.Disp();
-		if (NombreSauvegardesDisponibles() > 1)
-		{
-			BoutonPrecedent.Disp();
-			BoutonSuivant.Disp();
-		}
+        startGameButton.display(Jeu.App);
+        deleteGameButton.display(Jeu.App);
+        mainMenuButton.display(Jeu.App);
+        previousButton.display(Jeu.App);
+        nextButton.display(Jeu.App);
 
 		Jeu.App.draw(Capture);
 
