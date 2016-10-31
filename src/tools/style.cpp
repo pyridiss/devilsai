@@ -17,6 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+ * Most colours used here come from the 'Oxygen color palette'
+ * Copyright (C) The Oxygen Team
+ * Released under the Creative Commons Attribution-NonCommercial-NoDerivs 2.5 License.
+ * http://creativecommons.org/licenses/by-nc-nd/2.5/
+ */
+
 #include "config.h"
 
 #include "Bibliotheque/Bibliotheque.h"
@@ -28,6 +35,7 @@ namespace tools{
 namespace style{
 
 Font liberation;
+Font liberationBold;
 
 Shader blurShader;
 Shader contrastShader;
@@ -35,39 +43,54 @@ Shader contrastShader;
 void initStyle()
 {
     liberation.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
+    liberationBold.loadFromFile(INSTALL_DIR + "LiberationSans-Bold.ttf");
     blurShader.loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(INSTALL_DIR + "contrastShader.frag", Shader::Type::Fragment);
 }
 
-const Font& defaultFont()
+const Font& defaultTextFont()
 {
     return liberation;
 }
 
+int defaultTextSize()
+{
+    return 10;
+}
+
+const Font& buttonTextFont()
+{
+    return liberationBold;
+}
+
+int buttonTextSize()
+{
+    return 11;
+}
+
 Color normalButtonTextColor()
 {
-    return Color(200, 170, 0, 255);
+    //Color 'brick red4' from Oxygen color palette
+    return Color(226, 8, 0, 255);
 }
 
 Color activeButtonTextColor()
 {
-    return Color(200, 100, 0, 255);
+    //Color 'brick red3' from Oxygen color palette
+    return Color(232, 87, 82, 255);
 }
 
 Color hoverButtonTextColor()
 {
-    return Color(200, 135, 0, 255);
+    //Color 'brick red5' from Oxygen color palette
+    return Color(191, 3, 3, 255);
 }
 
 Color disabledButtonTextColor()
 {
-    return Color(200, 200, 200, 255);
+    return Color(100, 100, 100, 192);
 }
 
-int textSize()
-{
-    return 10;
-}
 
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
 {

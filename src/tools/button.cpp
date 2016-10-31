@@ -109,7 +109,7 @@ void Button::setNormalText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (normal.text.getFont() == NULL)
-        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
 
     setNormalTextColor(tools::style::normalButtonTextColor());
 
@@ -129,7 +129,7 @@ void Button::setActiveText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (active.text.getFont() == NULL)
-        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
 
     setActiveTextColor(tools::style::activeButtonTextColor());
 
@@ -149,7 +149,7 @@ void Button::setHoverText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (hover.text.getFont() == NULL)
-        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
 
     setHoverTextColor(tools::style::hoverButtonTextColor());
 
@@ -169,7 +169,7 @@ void Button::setDisabledText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (disabled.text.getFont() == NULL)
-        setTextFont(tools::style::defaultFont(), tools::style::textSize());
+        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
 
     setDisabledTextColor(tools::style::disabledButtonTextColor());
 

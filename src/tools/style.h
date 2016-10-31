@@ -33,12 +33,14 @@ namespace style{
 
 void initStyle();
 
-const Font& defaultFont();
+const Font& defaultTextFont();
+int defaultTextSize();
+const Font& buttonTextFont();
+int buttonTextSize();
 Color normalButtonTextColor();
 Color activeButtonTextColor();
 Color hoverButtonTextColor();
 Color disabledButtonTextColor();
-int textSize();
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
 void highlightShader(RenderWindow& app, int x, int y, int w, int h);
 void warnShader(RenderWindow& app, int x, int y, int w, int h);

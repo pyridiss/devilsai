@@ -241,7 +241,7 @@ String32& getNameOfLanguage()
 
 void cutParagraph(Paragraph* paragraph)
 {
-	Text text("", tools::style::defaultFont(), 12);
+	Text text("", tools::style::defaultTextFont(), 12);
 
 	//Before cutting, detect the presence of formatting characters
 	size_t formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
@@ -379,7 +379,7 @@ bool Dialog::display()
 
 	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
-	Text text("", tools::style::defaultFont(), 11);
+	Text text("", tools::style::defaultTextFont(), 11);
 
 	int counter = 0;
 	for (auto& i : paragraphNumber->lines)
@@ -491,7 +491,7 @@ void displayJournal()
 
 	for (auto entry = Partie.journal.entries.rbegin() ; entry != Partie.journal.entries.rend() ; ++entry)
 	{
-		Text Texte("", tools::style::defaultFont(), 11);
+		Text Texte("", tools::style::defaultTextFont(), 11);
 
 		for (auto i = entry->lines.rbegin() ; i != entry->lines.rend() ; ++i)
 		{
