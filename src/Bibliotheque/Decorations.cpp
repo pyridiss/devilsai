@@ -38,8 +38,6 @@ tools::Button *restingButton;
 unsigned int NombreMesures = 0;
 float SommeFPS = 0;
 
-Shader *blurShader;
-
 
 /** GESTION DES DÉCORATIONS **/
 
@@ -138,9 +136,6 @@ void Load_Decorations()
     restingButton->setAllText(getTranslatedMessage(_MENUJEU_REPOS));
     restingButton->addOffsetToActiveText(1, 1);
 
-	blurShader = new Shader;
-	blurShader->loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
-
 	Load_Decorations_Objets();
 
 	addSound("Click");
@@ -154,8 +149,6 @@ void Supprimer_Decorations()
 	delete saveGameTopButton;
 	delete exitGameTopButton;
 	delete restingButton;
-
-	delete blurShader;
 
 	Supprimer_Decorations_Objets();
 	deleteMusics();
