@@ -88,6 +88,11 @@ class Button
         void setHoverTextColor(Color c);
         void setDisabledTextColor(Color c);
 
+        void addOffsetToNormalText(int x, int y);
+        void addOffsetToActiveText(int x, int y);
+        void addOffsetToHoverText(int x, int y);
+        void addOffsetToDisabledText(int x, int y);
+
         void setAllBackground(string b);
         void setNormalBackground(string b);
         void setActiveBackground(string b);

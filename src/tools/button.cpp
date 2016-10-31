@@ -223,6 +223,26 @@ void Button::setAllBackground(string b)
     setDisabledBackground(b);
 }
 
+void Button::addOffsetToNormalText(int x, int y)
+{
+    normal.text.setPosition(normal.text.getPosition().x + x, normal.text.getPosition().y + y);
+}
+
+void Button::addOffsetToActiveText(int x, int y)
+{
+    active.text.setPosition(active.text.getPosition().x + x, active.text.getPosition().y + y);
+}
+
+void Button::addOffsetToHoverText(int x, int y)
+{
+    hover.text.setPosition(hover.text.getPosition().x + x, hover.text.getPosition().y + y);
+}
+
+void Button::addOffsetToDisabledText(int x, int y)
+{
+    disabled.text.setPosition(disabled.text.getPosition().x + x, disabled.text.getPosition().y + y);
+}
+
 void Button::setNormalBackground(string b)
 {
     normal.background = b;
