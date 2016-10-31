@@ -109,6 +109,7 @@ void Load_Decorations()
     pauseGameTopButton->setHoverBackground("Bouton");
     pauseGameTopButton->setActiveBackground("BoutonAppuye");
     pauseGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_PAUSE));
+    pauseGameTopButton->addOffsetToActiveText(1, 1);
 
     saveGameTopButton = new tools::Button;
     saveGameTopButton->setTopLeftCoordinates(410, 2);
@@ -117,6 +118,7 @@ void Load_Decorations()
     saveGameTopButton->setHoverBackground("Bouton");
     saveGameTopButton->setActiveBackground("BoutonAppuye");
     saveGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_SAUVEG));
+    saveGameTopButton->addOffsetToActiveText(1, 1);
 
     exitGameTopButton = new tools::Button;
     exitGameTopButton->setTopLeftCoordinates(Options.ScreenW - 255, 2);
@@ -125,6 +127,7 @@ void Load_Decorations()
     exitGameTopButton->setHoverBackground("Bouton");
     exitGameTopButton->setActiveBackground("BoutonAppuye");
     exitGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_QUITTER));
+    exitGameTopButton->addOffsetToActiveText(1, 1);
 
     restingButton = new tools::Button;
     restingButton->setTopLeftCoordinates(31, 130);
@@ -133,6 +136,7 @@ void Load_Decorations()
     restingButton->setHoverBackground("Bouton");
     restingButton->setActiveBackground("BoutonAppuye");
     restingButton->setAllText(getTranslatedMessage(_MENUJEU_REPOS));
+    restingButton->addOffsetToActiveText(1, 1);
 
 	blurShader = new Shader;
 	blurShader->loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
