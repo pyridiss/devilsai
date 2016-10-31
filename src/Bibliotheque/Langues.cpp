@@ -375,7 +375,7 @@ bool Dialog::display()
 {
 	if (paragraphs.empty()) return true;
 
-	bindBlurShader(paragraphs.begin()->rectangle.left - 20, paragraphs.begin()->rectangle.top, Options.ScreenW / 2, 26 + paragraphNumber->lines.size() * 16);
+    tools::style::textBackgroundShader(Jeu.App, paragraphs.begin()->rectangle.left - 20, paragraphs.begin()->rectangle.top, Options.ScreenW / 2, 26 + paragraphNumber->lines.size() * 16);
 
 	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
 
@@ -484,7 +484,7 @@ void displayJournal()
 
 	Partie.journal.newEntryAdded = false;
 
-	bindBlurShader(10, 170, Options.ScreenW / 2 - 20, Options.ScreenH - 170 - 10);
+    tools::style::textBackgroundShader(Jeu.App, 10, 170, Options.ScreenW / 2 - 20, Options.ScreenH - 170 - 10);
 
 	int numberOfLine = 0;
 	int opacity = 255;

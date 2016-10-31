@@ -293,7 +293,6 @@ void Disp_Mort();
 void Disp_FonduNoir(int);
 float Disp_Chargement(float);
 bool Disp_Repos();
-void bindBlurShader(int, int, int, int);
 
 /* Fonctions définies dans le fichier Images.cpp */
 

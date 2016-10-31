@@ -810,20 +810,3 @@ bool Disp_Repos()
  	Jeu.App.draw(Degrade, 4, sf::Quads);
 	return false;
 }
-
-void bindBlurShader(int x, int y, int w, int h)
-{
-	Texture tex;
-	tex.create(Options.ScreenW, Options.ScreenH);
-	tex.update(Jeu.App);
-	RectangleShape rect;
-	rect.setSize(Vector2f(w, h));
-	rect.setTexture(&tex, true);
-	rect.setTextureRect(IntRect(x, y, w, h));
-	rect.setPosition(x, y);
-	RenderStates states;
-	states.shader = blurShader;
-	blurShader->setParameter("texture", tex);
-	blurShader->setParameter("textureSize", tex.getSize().x, tex.getSize().y);
-	Jeu.App.draw(rect, states);
-}
