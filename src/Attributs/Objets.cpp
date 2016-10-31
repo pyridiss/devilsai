@@ -21,20 +21,25 @@
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
-Bouton *BoutonsInventaire[24];
-Bouton *BoutonsCoffre[8];
-Bouton *BoutonsCompetences[4]; //Never displayed, but useful to test activation
+#include "tools/button.h"
+
+tools::Button *BoutonsInventaire[24];
+tools::Button *BoutonsCoffre[8];
+tools::Button *BoutonsCompetences[4]; //Never displayed, but useful to test activation
 
 int PosDescX = 0, PosDescY = 0;
 int PosCoffreX = 0, PosCoffreY = 0;
 
 void Load_Decorations_Objets()
 {
-	for (int a = 0 ; a < 24 ; ++a)
-	{
-		BoutonsInventaire[a] = new Bouton;
-		BoutonsInventaire[a]->Creer(150 + 5 + 50*(a%12), Options.ScreenH - 110 + 50*(a/12), 50, 50, "FondObjet_50_50", "FondObjet_50_50");
-	}
+    for (int a = 0 ; a < 24 ; ++a)
+    {
+        BoutonsInventaire[a] = new tools::Button;
+        BoutonsInventaire[a]->setTopLeftCoordinates(150 + 5 + 50*(a%12), Options.ScreenH - 110 + 50*(a/12));
+        BoutonsInventaire[a]->setSize(50, 50);
+        BoutonsInventaire[a]->setAllBackground("FondObjet_50_50");
+        BoutonsInventaire[a]->setHoverShader(tools::style::highlightShader);
+    }
 
 	if (Options.ScreenW > 150 + 610 + 250) //Assez de place à droite de l'inventaire
 	{
@@ -47,18 +52,24 @@ void Load_Decorations_Objets()
 		PosDescX = Options.ScreenW - 145; PosDescY = 100;
 	}
 
-	for (int a = 0 ; a < 8 ; ++a)
-	{
-		BoutonsCoffre[a] = new Bouton;
-		BoutonsCoffre[a]->Creer(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4), 50, 50, "FondObjet_50_50", "FondObjet_50_50");
-	}
+    for (int a = 0 ; a < 8 ; ++a)
+    {
+        BoutonsCoffre[a] = new tools::Button;
+        BoutonsCoffre[a]->setTopLeftCoordinates(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4));
+        BoutonsCoffre[a]->setSize(50, 50);
+        BoutonsCoffre[a]->setAllBackground("FondObjet_50_50");
+        BoutonsCoffre[a]->setHoverShader(tools::style::highlightShader);
+    }
 
-	unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
-	for (int a = 0 ; a < 4 ; ++a)
-	{
-		BoutonsCompetences[a] = new Bouton;
-		BoutonsCompetences[a]->Creer(5 + 66*(a/3), yCompetences[a], 50, 50, "FondObjet_50_50", "FondObjet_50_50");
-	}
+    unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
+    for (int a = 0 ; a < 4 ; ++a)
+    {
+        BoutonsCompetences[a] = new tools::Button;
+        BoutonsCompetences[a]->setTopLeftCoordinates(5 + 66*(a/3), yCompetences[a]);
+        BoutonsCompetences[a]->setSize(50, 50);
+        BoutonsCompetences[a]->setAllBackground("FondObjet_50_50");
+        BoutonsCompetences[a]->setHoverShader(tools::style::highlightShader);
+    }
 }
 
 void Supprimer_Decorations_Objets()
@@ -92,14 +103,14 @@ void Disp_Competences()
 
 	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
 	{
-		BoutonsInventaire[cmpt]->Disp();
+        BoutonsInventaire[cmpt]->display(Jeu.App);
 		if (skill != Partie.perso->Get_Caracs()->skills.end())
 		{
 			string internalNumber = getStringFromLUA(skill->second, "getInternalNumber");
-			Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->GetX(), BoutonsInventaire[cmpt]->GetY());
+            Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
 
-			if (BoutonsInventaire[cmpt]->TestSurvol())
-				Disp_Skill(skill->second);
+            if (BoutonsInventaire[cmpt]->mouseHovering(Jeu.App))
+                Disp_Skill(skill->second);
 
 			++skill;
 		}
@@ -119,8 +130,8 @@ void Gestion_Competences(Event &event)
 	{
 		if (skill != Partie.perso->Get_Caracs()->skills.end())
 		{
-			if (BoutonsInventaire[cmpt]->TestActivation(event.type))
-				Partie.selectedSkill = skill->second;
+            if (BoutonsInventaire[cmpt]->activated(Jeu.App, event.type))
+                Partie.selectedSkill = skill->second;
 
 			++skill;
 		}
@@ -129,7 +140,7 @@ void Gestion_Competences(Event &event)
 	if (Partie.selectedSkill != nullptr)
 	{
 		for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
-		if (BoutonsCompetences[i]->TestActivation(event.type))
+		if (BoutonsCompetences[i]->activated(Jeu.App, event.type))
 		{
 			Partie.perso->skillLinks[i] = Partie.selectedSkill;
 			//We must remove duplicates of this skill
@@ -224,18 +235,18 @@ void Disp_Equipement()
 	//Affichage des emplacements et des objets s'y trouvant
 	for (auto& emp : Partie.perso->EmplacementsEquip)
 	{
-		emp.BoutonEquipement->Disp();
+		emp.BoutonEquipement->display(Jeu.App);
 		mapObjects::iterator obj = objects->find(emp.Get_IdEmplacement());
 
 		if (obj != objects->end())
 		{
 			int internalNumber = getIntFromLUA(obj->second, "getInternalNumber");
-			Disp_ImageObjet(internalNumber, OBJET_IMG, emp.BoutonEquipement->GetX(), emp.BoutonEquipement->GetY());
+			Disp_ImageObjet(internalNumber, OBJET_IMG, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
 			mapObjects::iterator equip2 = objects->find("amelioratif-" + emp.TypeObjet);
 			if (equip2 != objects->end())
 			{
 				int internalNumber2 = getIntFromLUA(equip2->second, "getInternalNumber");
-				Disp_ImageObjet(internalNumber2, OBJET_IMG, emp.BoutonEquipement->GetX(), emp.BoutonEquipement->GetY());
+				Disp_ImageObjet(internalNumber2, OBJET_IMG, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
 			}
 		}
 	}
@@ -243,7 +254,7 @@ void Disp_Equipement()
 	//Si un des objets est survolé par la souris, affichage de ses caractéristiques
 	for (auto& emp : Partie.perso->EmplacementsEquip)
 	{
-		if (emp.BoutonEquipement->TestSurvol())
+		if (emp.BoutonEquipement->mouseHovering(Jeu.App))
 		{
 			mapObjects::iterator equip = objects->find(emp.Get_IdEmplacement());
 			if (equip == objects->end()) Disp_EmplacementVide(emp.Get_IdEmplacement());
@@ -265,23 +276,23 @@ void Disp_Equipement()
 
 	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
 	{
-		BoutonsInventaire[cmpt]->Disp();
+		BoutonsInventaire[cmpt]->display(Jeu.App);
 		inv = objects->find(intToString(CLEF_INVENTAIRE + cmpt));
 		if (inv != objects->end())
 		{
 			int internalNumber = getIntFromLUA(inv->second, "getInternalNumber");
-			Disp_ImageObjet(internalNumber, OBJET_MINIATURE, BoutonsInventaire[cmpt]->GetX(), BoutonsInventaire[cmpt]->GetY());
+			Disp_ImageObjet(internalNumber, OBJET_MINIATURE, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
 			if (getBoolFromLUA(inv->second, "getCumul"))
 			{
 				string StrNombre = intToString(getIntFromLUA(inv->second, "getQuantite"));
-				Disp_Texte(StrNombre, BoutonsInventaire[cmpt]->GetX() + 30, BoutonsInventaire[cmpt]->GetY() + 30, Color(255,255,255), 12.);
+				Disp_Texte(StrNombre, BoutonsInventaire[cmpt]->getXTopLeft() + 30, BoutonsInventaire[cmpt]->getYTopLeft() + 30, Color(255,255,255), 12.);
 			}
 		}
 	}
 
 	for (int a = 0 ; a < 24 ; ++a)
 	{
-		if (BoutonsInventaire[a]->TestSurvol())
+		if (BoutonsInventaire[a]->mouseHovering(Jeu.App))
 		{
 			inv = objects->find(intToString(CLEF_INVENTAIRE + a));
 			if (inv != objects->end()) Disp_Caracs_Objet(inv->second, true);
@@ -312,22 +323,22 @@ void Disp_Coffre()
 
 	for (int cmpt = 0 ; cmpt < 8 ; ++cmpt)
 	{
-		BoutonsCoffre[cmpt]->Disp();
+		BoutonsCoffre[cmpt]->display(Jeu.App);
 		i = Partie.CoffreOuvert->objects.objects.find(intToString(CLEF_COFFRE + cmpt));
 		if (i != Partie.CoffreOuvert->objects.objects.end())
 		{
-			Disp_ImageObjet(getIntFromLUA(i->second, "getInternalNumber"), OBJET_MINIATURE, BoutonsCoffre[cmpt]->GetX(), BoutonsCoffre[cmpt]->GetY());
+			Disp_ImageObjet(getIntFromLUA(i->second, "getInternalNumber"), OBJET_MINIATURE, BoutonsCoffre[cmpt]->getXTopLeft(), BoutonsCoffre[cmpt]->getYTopLeft());
 			if (getBoolFromLUA(i->second, "getCumul"))
 			{
 				string StrNombre = intToString(getIntFromLUA(i->second, "getQuantite"));
-				Disp_Texte(StrNombre, BoutonsCoffre[cmpt]->GetX() + 30, BoutonsCoffre[cmpt]->GetY() + 30, Color(255,255,255), 12.);
+				Disp_Texte(StrNombre, BoutonsCoffre[cmpt]->getXTopLeft() + 30, BoutonsCoffre[cmpt]->getYTopLeft() + 30, Color(255,255,255), 12.);
 			}
 		}
 	}
 
 	for (int a = 0 ; a < 8 ; ++a)
 	{
-		if (BoutonsCoffre[a]->TestSurvol())
+		if (BoutonsCoffre[a]->mouseHovering(Jeu.App))
 		{
 			i = Partie.CoffreOuvert->objects.objects.find(intToString(CLEF_COFFRE + a));
 			if (i != Partie.CoffreOuvert->objects.objects.end()) Disp_Caracs_Objet(i->second, true);
@@ -350,7 +361,7 @@ void Gestion_Coffre(Event &event)
 
 	for (emp = Partie.perso->EmplacementsEquip.begin() ; emp != Partie.perso->EmplacementsEquip.end() ; ++emp)
 	{
-		if (emp->BoutonEquipement->TestActivation(event.type))
+		if (emp->BoutonEquipement->activated(Jeu.App, event.type))
 		{
 			currentObject = objects->find(emp->Get_IdEmplacement());
 			EquipClic = true;
@@ -402,7 +413,7 @@ void Gestion_Coffre(Event &event)
 
 	for (int Case = 0 ; Case < 24 ; ++Case)
 	{
-		if (!BoutonsInventaire[Case]->TestActivation(event.type)) continue;
+		if (!BoutonsInventaire[Case]->activated(Jeu.App, event.type)) continue;
 
 		sourceObject = objects->find(intToString(CLEF_INVENTAIRE + Case));
 
@@ -502,7 +513,7 @@ void Gestion_Coffre(Event &event)
 
 	for (int Case = 0 ; Case < 8 ; ++Case)
 	{
-		if (BoutonsCoffre[Case]->TestActivation(event.type) && ClicGauche)
+		if (BoutonsCoffre[Case]->activated(Jeu.App, event.type) && ClicGauche)
 		{
 			mapObjects::iterator i = Partie.CoffreOuvert->objects.objects.find(intToString(CLEF_COFFRE + Case));
 
