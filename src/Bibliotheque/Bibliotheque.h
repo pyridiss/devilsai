@@ -228,37 +228,6 @@ class Dialog
 		void unload();
 };
 
-class Bouton
-{
-	private:
-		int PosX = 0, PosY = 0;
-		int Width = 0, Height = 0;
-
-		string strAppuye;
-		string strRelache;
-
-		Text Texte;
-
-		bool Etat = false;
-
-	public:
-		void Creer(int posX, int posY, int width, int height, string imgRelache, string imgAppuye);
-		void Creer(int posX, int posY, const String32 &str, float size, Font &font);
-
-		void AjouterTexte(const String32);
-		void AjouterTexte(enumPhrases str);
-
-		bool TestActivation(Event::EventType event);
-		bool TestSurvol();
-
-		int GetX();
-		int GetY();
-
-		bool Get_Etat();
-
-		void Disp();
-};
-
 class UserScreen
 {
 	public:
