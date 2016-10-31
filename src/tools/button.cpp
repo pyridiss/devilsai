@@ -243,6 +243,26 @@ void Button::setDisabledBackground(string b)
     disabled.background = b;
 }
 
+void Button::setNormalShader(void (*s)(RenderWindow&, int, int, int, int))
+{
+    normal.shader = s;
+}
+
+void Button::setActiveShader(void (*s)(RenderWindow&, int, int, int, int))
+{
+    active.shader = s;
+}
+
+void Button::setHoverShader(void (*s)(RenderWindow&, int, int, int, int))
+{
+    hover.shader = s;
+}
+
+void Button::setDisabledShader(void (*s)(RenderWindow&, int, int, int, int))
+{
+    disabled.shader = s;
+}
+
 bool Button::mouseHovering(RenderWindow& app)
 {
     if (state == Disabled) return false;
@@ -323,22 +343,29 @@ void Button::display(RenderWindow& app)
             if (!normal.background.empty())
                 Disp_ImageDecoration(normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(normal.text);
+            if (normal.shader != NULL)
+                normal.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Active:
             if (!active.background.empty())
                 Disp_ImageDecoration(active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(active.text);
-            //TODO: auto highlight background when the same as Normal background
+            if (active.shader != NULL)
+                active.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Hover:
             if (!hover.background.empty())
                 Disp_ImageDecoration(hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(hover.text);
+            if (hover.shader != NULL)
+                hover.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Disabled:
             if (!disabled.background.empty())
                 Disp_ImageDecoration(disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(disabled.text);
+            if (disabled.shader != NULL)
+                disabled.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
     }
 }

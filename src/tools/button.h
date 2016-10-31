@@ -37,6 +37,7 @@ class Button
     {
         Text text;
         string background;
+        void (*shader)(RenderWindow&, int, int, int, int) = NULL;
     };
 
     enum States
@@ -92,6 +93,11 @@ class Button
         void setActiveBackground(string b);
         void setHoverBackground(string b);
         void setDisabledBackground(string b);
+
+        void setNormalShader(void (*s)(RenderWindow&, int, int, int, int));
+        void setActiveShader(void (*s)(RenderWindow&, int, int, int, int));
+        void setHoverShader(void (*s)(RenderWindow&, int, int, int, int));
+        void setDisabledShader(void (*s)(RenderWindow&, int, int, int, int));
 
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event::EventType event);
