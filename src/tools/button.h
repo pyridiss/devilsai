@@ -87,6 +87,7 @@ class Button
         void setHoverTextColor(Color c);
         void setDisabledTextColor(Color c);
 
+        void setAllBackground(string b);
         void setNormalBackground(string b);
         void setActiveBackground(string b);
         void setHoverBackground(string b);

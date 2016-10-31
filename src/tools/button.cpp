@@ -215,6 +215,14 @@ void Button::setDisabledTextColor(Color c)
     disabled.text.setColor(c);
 }
 
+void Button::setAllBackground(string b)
+{
+    setNormalBackground(b);
+    setActiveBackground(b);
+    setHoverBackground(b);
+    setDisabledBackground(b);
+}
+
 void Button::setNormalBackground(string b)
 {
     normal.background = b;
