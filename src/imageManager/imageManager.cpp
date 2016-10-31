@@ -21,9 +21,11 @@
 
 #include <physfs.h>
 
-#include "../Jeu/Jeu.h"
-#include "Bibliotheque.h"
-#include "Constantes.h"
+#include "Jeu/Jeu.h"
+#include "Bibliotheque/Bibliotheque.h"
+#include "Bibliotheque/Constantes.h"
+
+namespace imageManager{
 
 /** Ce fichier implémente le gestionnaire d'images du jeu **/
 
@@ -557,3 +559,5 @@ void Base_Image::Disp(float x, float y, bool Centre)
 	else spr.setPosition((int)(x - spr.getLocalBounds().width/2) + ExSpriteX, (int)(y - spr.getLocalBounds().height/2) + ExSpriteY);
 	Jeu.App.draw(spr);
 }
+
+} //namespace imageManager

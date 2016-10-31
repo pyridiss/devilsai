@@ -14,7 +14,6 @@ set(devilsai_SRCS
 	Bibliotheque/Bibliotheque.h
 	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
-	Bibliotheque/Images.cpp
 	Bibliotheque/Langues.cpp
 	Bibliotheque/Templates.h
 	Bibliotheque/Utilitaires.cpp
@@ -59,12 +58,14 @@ set(devilsaiTargetLibs
 
 
 add_subdirectory(tools)
+add_subdirectory(imageManager)
 
 add_executable(devilsai ${devilsai_SRCS})
 
 target_link_libraries(devilsai
     ${devilsaiTargetLibs}
     tools
+    imageManager
 )
 
 set_target_properties(devilsai PROPERTIES COMPILE_FLAGS "-std=c++11")
