@@ -19,6 +19,8 @@
 
 #include "config.h"
 
+#include "Bibliotheque/Bibliotheque.h"
+
 #include "tools/style.h"
 
 namespace tools{
@@ -27,9 +29,14 @@ namespace style{
 
 Font liberation;
 
+Shader blurShader;
+Shader contrastShader;
+
 void initStyle()
 {
     liberation.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
+    blurShader.loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
+    contrastShader.loadFromFile(INSTALL_DIR + "contrastShader.frag", Shader::Type::Fragment);
 }
 
 const Font& defaultFont()
@@ -60,6 +67,59 @@ Color disabledButtonTextColor()
 int textSize()
 {
     return 10;
+}
+
+void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
+{
+    Texture tex;
+    tex.create(app.getSize().x, app.getSize().y);
+    tex.update(app);
+    RectangleShape rect;
+    rect.setSize(Vector2f(w, h));
+    rect.setTexture(&tex, true);
+    rect.setTextureRect(IntRect(x, y, w, h));
+    rect.setPosition(x, y);
+    RenderStates states;
+    states.shader = &blurShader;
+    blurShader.setParameter("texture", tex);
+    blurShader.setParameter("textureSize", tex.getSize().x, tex.getSize().y);
+    app.draw(rect, states);
+}
+
+void highlightShader(RenderWindow& app, int x, int y, int w, int h)
+{
+    Texture tex;
+    tex.create(app.getSize().x, app.getSize().y);
+    tex.update(app);
+    RectangleShape rect;
+    rect.setSize(Vector2f(w, h));
+    rect.setTexture(&tex, true);
+    rect.setTextureRect(IntRect(x, y, w, h));
+    rect.setPosition(x, y);
+    RenderStates states;
+    states.shader = &contrastShader;
+    contrastShader.setParameter("texture", tex);
+    contrastShader.setParameter("luminosity", 1.f, 1.f, 1.f);
+    app.draw(rect, states);
+}
+
+void warnShader(RenderWindow& app, int x, int y, int w, int h)
+{
+    static double time;
+    time += I(1);
+    Texture tex;
+    tex.create(app.getSize().x, app.getSize().y);
+    tex.update(app);
+    RectangleShape rect;
+    rect.setSize(Vector2f(w, h));
+    rect.setTexture(&tex, true);
+    rect.setTextureRect(IntRect(x, y, w, h));
+    rect.setPosition(x, y);
+    RenderStates states;
+    states.shader = &contrastShader;
+    contrastShader.setParameter("texture", tex);
+    contrastShader.setParameter("luminosity", 1.f + 0.25f*sin(time), 0.75f, 0.75f);
+    app.draw(rect, states);
 }
 
 } //namespace style

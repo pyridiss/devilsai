@@ -39,6 +39,9 @@ Color activeButtonTextColor();
 Color hoverButtonTextColor();
 Color disabledButtonTextColor();
 int textSize();
+void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
+void highlightShader(RenderWindow& app, int x, int y, int w, int h);
+void warnShader(RenderWindow& app, int x, int y, int w, int h);
 
 } //namespace style
 

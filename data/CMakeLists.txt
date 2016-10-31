@@ -18,6 +18,7 @@ set(data
     defaut.opt
     devilsai.png
     blurShader.frag
+    contrastShader.frag
 )
 
 install(FILES ${data} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai)
