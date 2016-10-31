@@ -313,19 +313,24 @@ EmplacementEquipement::~EmplacementEquipement()
 
 void EmplacementEquipement::Set(int x, int y, int w, int h)
 {
-	if (BoutonEquipement == nullptr) BoutonEquipement = new Bouton;
+    if (BoutonEquipement == nullptr) BoutonEquipement = new tools::Button;
 
-	if (w == 75 && h == 100)
-		BoutonEquipement->Creer(x, y, 75, 100, "FondObjet_75_100", "FondObjet_75_100");
-	else if (w == 75 && h == 75)
-		BoutonEquipement->Creer(x, y, 75, 75, "FondObjet_75_75", "FondObjet_75_75");
-	else if (w == 50 && h == 50)
-		BoutonEquipement->Creer(x, y, 50, 50, "FondObjet_50_50", "FondObjet_50_50");
-	else
-	{
-		Erreur("Un emplacement d'équipement a des dimensions non prises en charge", "");
-		BoutonEquipement->Creer(x, y, 75, 100, "FondObjet_75_100", "FondObjet_75_100");
-	}
+    BoutonEquipement->setTopLeftCoordinates(x, y);
+    BoutonEquipement->setSize(w, h);
+
+    if (w == 75 && h == 100)
+        BoutonEquipement->setAllBackground("FondObjet_75_100");
+    else if (w == 75 && h == 75)
+        BoutonEquipement->setAllBackground("FondObjet_75_75");
+    else if (w == 50 && h == 50)
+        BoutonEquipement->setAllBackground("FondObjet_50_50");
+    else
+    {
+        Erreur("Un emplacement d'équipement a des dimensions non prises en charge", "");
+        BoutonEquipement->setAllBackground("FondObjet_75_100");
+    }
+
+    BoutonEquipement->setHoverShader(tools::style::highlightShader);
 }
 
 string EmplacementEquipement::Get_IdEmplacement()

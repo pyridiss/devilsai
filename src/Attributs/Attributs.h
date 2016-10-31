@@ -26,6 +26,8 @@
 
 #include <SFML/System.hpp>
 
+#include "tools/button.h"
+
 using namespace std;
 using namespace sf;
 
@@ -36,7 +38,6 @@ class Activite;
 class Joueur;
 class Individu_Unique;
 class Projectile;
-class Bouton;
 class EmplacementEquipement;
 
 typedef map < int, int > MapVitesses;
@@ -151,7 +152,7 @@ class Activite
 class EmplacementEquipement
 {
 	public:
-		Bouton* BoutonEquipement	= nullptr;
+        tools::Button* BoutonEquipement = nullptr;
 
 	public:
 		string CategorieObjet		= "";
