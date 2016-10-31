@@ -1,3 +1,3 @@
-add_library(imageManager imageManager.cpp)
+add_library(imageManager imageManager.cpp image.cpp)
 
-set_target_properties(tools PROPERTIES COMPILE_FLAGS "-std=c++11")
+set_target_properties(imageManager PROPERTIES COMPILE_FLAGS "-std=c++11")

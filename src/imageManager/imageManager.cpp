@@ -25,30 +25,10 @@
 #include "Bibliotheque/Bibliotheque.h"
 #include "Bibliotheque/Constantes.h"
 
+#include "imageManager/imageManager.h"
+#include "imageManager/image.h"
+
 namespace imageManager{
-
-/** Ce fichier implémente le gestionnaire d'images du jeu **/
-
-class Base_Image
-{
-	private:
-		Texture img;
-
-	public:
-		Sprite spr;
-
-	public:
-		short ExSpriteX = 0, ExSpriteY = 0;
-		bool TeinteModifiee = false;
-
-	public:
-		void Set_Image(string Fichier, int ExX, int ExY, float Scale=1);
-		void Set_ImageParArchive(string Fichier, int ExX, int ExY);
-		void ModifierTeinte(float m[3][3]);
-		const Vector2u getImageDimension();
-		void Disp(float x, float y, bool Centre=false);
-};
-
 
 /** CLASSES POUR LES CLEFS DES CONTENEURS **/
 
@@ -169,13 +149,13 @@ struct ClefCompetence
 
 /** DÉFINITION DES CONTENEURS **/
 
-typedef map < ClefIndividu, Base_Image >		ClasseIndividus;
-typedef map < ClefPaysage, Base_Image >			ClassePaysages;
-typedef map < ClefPaysageMouvant, Base_Image >	ClassePaysagesMouvants;
-typedef map < ClefProjectile, Base_Image >		ClasseProjectiles;
-typedef map < ClefObjet, Base_Image >			ClasseObjets;
-typedef map < ClefDecoration, Base_Image >		ClasseDecorations;
-typedef map < ClefCompetence, Base_Image >		ClasseCompetences;
+typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
+typedef map < ClefPaysage, imageManager::Image >			ClassePaysages;
+typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
+typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
+typedef map < ClefObjet, imageManager::Image >			ClasseObjets;
+typedef map < ClefDecoration, imageManager::Image >		ClasseDecorations;
+typedef map < ClefCompetence, imageManager::Image >		ClasseCompetences;
 
 ClasseIndividus			ImgIndividus;
 ClassePaysages			ImgPaysages;
@@ -194,13 +174,13 @@ void AjouterImagesIndividu(string Type, short Act, short Dir, short Num, float m
 	{
 		if (ImgIndividus.find(ClefIndividu(Type, Act, Dir, n)) != ImgIndividus.end()) continue;
 
-		Base_Image img;
+		imageManager::Image img;
 		const auto& result = ImgIndividus.insert(ClasseIndividus::value_type(ClefIndividu(Type, Act, Dir, n), img));
 
 		string path = intToString(Act) + "/" + intToString(Dir) + "/" + ((n < 10) ? "0" : "") + intToString(n);
 
-		result.first->second.Set_ImageParArchive(path, 0, 0);
-		result.first->second.ModifierTeinte(m);
+		result.first->second.setFromArchive(path, Vector2i(0, 0));
+//TODO		result.first->second.ModifierTeinte(m);
 
 		MESSAGE("Image Individu " + Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", "
 				+ intToString(n) + " ajoutée", IMAGE)
@@ -211,7 +191,7 @@ void AjouterImagePaysage(string Type, int ExX, int ExY)
 {
 	if (ImgPaysages.find(ClefPaysage(Type)) != ImgPaysages.end()) return;
 
-	Base_Image img;
+	imageManager::Image img;
 	const auto& result = ImgPaysages.insert(ClassePaysages::value_type(ClefPaysage(Type), img));
 
 	string path = INSTALL_DIR + "img/";
@@ -221,7 +201,7 @@ void AjouterImagePaysage(string Type, int ExX, int ExY)
 	out << Type;
 	path += out.str();
 
-	result.first->second.Set_Image(path, ExX, ExY);
+	result.first->second.set(path, Vector2i(ExX, ExY));
 
 	MESSAGE("Image Paysage " + Type + " ajoutée", IMAGE)
 }
@@ -232,12 +212,12 @@ void AjouterImagesPaysageMouvant(string Type, short Act, short Num, int ExX, int
 	{
 		if (ImgPaysagesMouvants.find(ClefPaysageMouvant(Type, Act, n)) != ImgPaysagesMouvants.end()) continue;
 
-		Base_Image img;
+		imageManager::Image img;
 		const auto& result = ImgPaysagesMouvants.insert(ClassePaysagesMouvants::value_type(ClefPaysageMouvant(Type, Act, n), img));
 
 		string path = intToString(Act) + "/" + ((n < 10) ? "0" : "") + intToString(n);
 
-		result.first->second.Set_ImageParArchive(path, 0, 0);
+		result.first->second.setFromArchive(path, Vector2i(0, 0));
 
 		MESSAGE("Image PayMouvant " + Type + ", " + intToString(n) + " ajoutée", IMAGE)
 	}
@@ -247,12 +227,12 @@ void AjouterImageProjectile(string Type, short Dir)
 {
 	if (ImgProjectiles.find(ClefProjectile(Type, Dir)) != ImgProjectiles.end()) return;
 
-	Base_Image img;
+	imageManager::Image img;
 	const auto& result = ImgProjectiles.insert(ClasseProjectiles::value_type(ClefProjectile(Type, Dir), img));
 
 	string path = INSTALL_DIR + "img/" + Type + "0" + intToString(Dir) + "00";
 
-	result.first->second.Set_Image(path, 0, 0);
+	result.first->second.set(path, Vector2i(0, 0));
 
 	MESSAGE("Image Projectile " + Type + ", " + intToString(Dir) + " ajoutée", IMAGE)
 }
@@ -262,16 +242,16 @@ void AjouterImagesObjet(unsigned Id)
 	if (ImgObjets.find(ClefObjet(Id, OBJET_IMG)) != ImgObjets.end()) return;
 	if (ImgObjets.find(ClefObjet(Id, OBJET_MINIATURE)) != ImgObjets.end()) return;
 
-	Base_Image img;
+	imageManager::Image img;
 	const auto& resultImg = ImgObjets.insert(ClasseObjets::value_type(ClefObjet(Id, OBJET_IMG), img));
 
-	Base_Image mini;
+	imageManager::Image mini;
 	const auto& resultMini = ImgObjets.insert(ClasseObjets::value_type(ClefObjet(Id, OBJET_MINIATURE), mini));
 
 	string path = INSTALL_DIR + "img/O" + intToString(Id/100) + intToString((Id%100)/10) + intToString(Id%10);
 
-	resultImg.first->second.Set_Image(path + "+", 0, 0);
-	resultMini.first->second.Set_Image(path + "-", 0, 0);
+	resultImg.first->second.set(path + "+", Vector2i(0, 0));
+	resultMini.first->second.set(path + "-", Vector2i(0, 0));
 
 	MESSAGE("Images Objet " + intToString(Id) + " ajoutées", IMAGE)
 }
@@ -280,10 +260,10 @@ void AjouterImageDecoration(string Id, int ExX, int ExY, float Scale)
 {
 	if (ImgDecorations.find(ClefDecoration(Id)) != ImgDecorations.end()) return;
 
-	Base_Image img;
+	imageManager::Image img;
 	const auto& result = ImgDecorations.insert(ClasseDecorations::value_type(ClefDecoration(Id), img));
 
-	result.first->second.Set_Image(INSTALL_DIR + "img/" + Id, ExX, ExY, Scale);
+	result.first->second.set(INSTALL_DIR + "img/" + Id, Vector2i(ExX, ExY), Scale);
 
 	MESSAGE("Image Decoration " + Id + " ajoutée", IMAGE)
 }
@@ -292,10 +272,10 @@ void AjouterImageCompetence(string Id)
 {
 	if (ImgCompetences.find(ClefCompetence(Id)) != ImgCompetences.end()) return;
 
-	Base_Image img;
+	imageManager::Image img;
 	const auto& result = ImgCompetences.insert(ClasseCompetences::value_type(ClefCompetence(Id), img));
 
-	result.first->second.Set_Image(INSTALL_DIR + "img/C" + Id, 0, 0);
+	result.first->second.set(INSTALL_DIR + "img/C" + Id, Vector2i(0, 0));
 
 	MESSAGE("Image Compétence " + Id + " ajoutée", IMAGE)
 }
@@ -308,7 +288,7 @@ void Disp_ImageIndividu(string Type, short Act, short Dir, short Num, float x, f
 
 	if (i != ImgIndividus.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Individu demandée : [" + Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", "
 				+ intToString(Num) + "] … OK", IMAGE)
@@ -327,7 +307,7 @@ void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool
 
 	if (i != ImgIndividus.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Cadavre demandée : [" + Type + "] … OK", IMAGE)
 	}
@@ -354,7 +334,7 @@ void Disp_ImagePaysage(string Type, float x, float y, bool Centre)
 
 	if (i != ImgPaysages.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Paysage demandée : " + Type + " … OK", IMAGE)
 	}
@@ -371,7 +351,7 @@ void Disp_ImagePaysageMouvant(string Type, short Act, short Num, float x, float 
 
 	if (i != ImgPaysagesMouvants.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image PayMouvant demandée : [" + Type + ", " + intToString(Act) + ", " + intToString(Num) + "] … OK", IMAGE)
 	}
@@ -389,7 +369,7 @@ void Disp_ImageProjectile(string Type, short Dir, float x, float y, bool Centre)
 
 	if (i != ImgProjectiles.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Projectile demandée : [" + Type + ", " + intToString(Dir) + "] … OK", IMAGE)
 	}
@@ -407,7 +387,7 @@ void Disp_ImageObjet(unsigned Id, short Taille, float x, float y, bool Centre)
 
 	if (i != ImgObjets.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Objet demandée : [" + intToString(Id) + ", " + intToString(Taille) + "] … OK", IMAGE)
 	}
@@ -423,9 +403,9 @@ void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, f
 {
 	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
 
-	i->second.spr.setColor(Couleur);
-	i->second.spr.setTextureRect(Clip);
-	i->second.spr.setScale(ScaleX, ScaleY);
+	i->second.sprite.setColor(Couleur);
+	i->second.sprite.setTextureRect(Clip);
+	i->second.sprite.setScale(ScaleX, ScaleY);
 }
 
 void Disp_ImageDecoration(string Id, float x, float y, bool Centre)
@@ -434,7 +414,7 @@ void Disp_ImageDecoration(string Id, float x, float y, bool Centre)
 
 	if (i != ImgDecorations.end())
 	{
-		i->second.Disp(x, y, Centre);
+		i->second.display(Jeu.App, x, y, Centre);
 
 		MESSAGE("Image Décoration demandée : " + Id + " … OK", IMAGE)
 	}
@@ -451,7 +431,7 @@ void Disp_ImageCompetence(string Id, float x, float y)
 
 	if (i != ImgCompetences.end())
 	{
-		i->second.Disp(x, y, false);
+		i->second.display(Jeu.App, x, y, false);
 
 		MESSAGE("Image Compétence demandée : " + Id + " … OK", IMAGE)
 	}
@@ -473,91 +453,6 @@ void Supprimer_Images()
 	ImgCompetences.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)
-}
-
-/** GESTION DES Base_Image **/
-
-void Base_Image::Set_Image(string Fichier, int ExX, int ExY, float Scale)
-{
-	Fichier += ".png";
-	ExSpriteX = ExX; ExSpriteY = ExY;
-
-	if (!img.loadFromFile(Fichier))
-		Erreur("Le fichier suivant n'a pu être chargé :", Fichier.c_str());
-
-	spr.setTexture(img);
-	img.setSmooth(false);
-
-	if (Scale != 1) spr.setScale(Scale, Scale);
-}
-
-void Base_Image::Set_ImageParArchive(string Fichier, int ExX, int ExY)
-{
-	Fichier += ".png";
-	ExSpriteX = ExX; ExSpriteY = ExY;
-
-	if (PHYSFS_exists(Fichier.c_str()) == 0)
-	{
-		const char* error = PHYSFS_getLastError();
-		if (error != NULL) Erreur("Erreur provenant de PhysicsFS :", error);
-	}
-	else
-	{
-		PHYSFS_file* fichier = PHYSFS_openRead(Fichier.c_str());
-		char *Buffer = new char[PHYSFS_fileLength(fichier)];
-		PHYSFS_read(fichier, Buffer, 1, PHYSFS_fileLength(fichier));
-
-		if (!img.loadFromMemory(Buffer, PHYSFS_fileLength(fichier)))
-		{
-			Erreur("Le fichier suivant n'a pu être chargé :", Fichier.c_str());
-		}
-		spr.setTexture(img);
-		img.setSmooth(false);
-
-		delete[] Buffer;
-		PHYSFS_close(fichier);
-	}
-}
-
-void Base_Image::ModifierTeinte(float m[3][3])
-{
-	if (TeinteModifiee) return;
-
-	Color color;
-	float tmpR = 0, tmpG = 0, tmpB = 0;
-	unsigned int Width = img.getSize().x; unsigned int Height = img.getSize().y;
-
-	Image tmp = img.copyToImage();
-
-	for (unsigned int x = 0 ; x < Width ; ++x)
-		for (unsigned int y = 0 ; y < Height ; ++y)
-		{
-			Color color = tmp.getPixel(x, y);
-			if (color.a != 0)
-			{
-				tmpR = color.r; tmpG = color.g; tmpB = color.b;
-				color.r = Minimum(m[0][0]*tmpR + m[0][1]*tmpG + m[0][2]*tmpB, 255);
-				color.g = Minimum(m[1][0]*tmpR + m[1][1]*tmpG + m[1][2]*tmpB, 255);
-				color.b = Minimum(m[2][0]*tmpR + m[2][1]*tmpG + m[2][2]*tmpB, 255); 
-				tmp.setPixel(x, y, color);
-			}
-		}
-
-	img.update(tmp);
-
-	TeinteModifiee = true;
-}
-
-const Vector2u Base_Image::getImageDimension()
-{
-	return img.getSize();
-}
-
-void Base_Image::Disp(float x, float y, bool Centre)
-{
-	if (!Centre) spr.setPosition(x + ExSpriteX, y + ExSpriteY);
-	else spr.setPosition((int)(x - spr.getLocalBounds().width/2) + ExSpriteX, (int)(y - spr.getLocalBounds().height/2) + ExSpriteY);
-	Jeu.App.draw(spr);
 }
 
 } //namespace imageManager
