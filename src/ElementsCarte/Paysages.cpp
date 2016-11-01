@@ -55,7 +55,7 @@ void Paysage::calculateCollisionRadius()
 	if (repeatX == 1 && repeatY == 1) return;
 	if (collisionType == NoCollision) return;
 
-	Vector2u imageDimension = getImagePaysageDimension(Type);
+	Vector2u imageDimension = imageManager::getImageSize("paysage", Type);
 	int border = 0;
 
 	if (repeatX != 1)
@@ -83,7 +83,7 @@ void Paysage::Disp(float RefX, float RefY)
 	}
 	else
 	{
-		Vector2u imageDimension = getImagePaysageDimension(Type);
+		Vector2u imageDimension = imageManager::getImageSize("paysage", Type);
 		if (repeatX > 1)
 		{
 			if (repeatX % 2 == 0)

@@ -186,6 +186,27 @@ void addImage(string container, string key, string file, Vector2i of, float scal
     }
 }
 
+Vector2u getImageSize(string container, string key)
+{
+    Database::iterator c = images.find(container);
+
+    if (c == images.end())
+    {
+        Erreur("Container not found:", container);
+        return Vector2u(0, 0);
+    }
+
+    Container::iterator i = (*c).second.find(key);
+
+    if (i == (*c).second.end())
+    {
+        Erreur("Image not found:", container + "::" + key);
+        return Vector2u(0, 0);
+    }
+
+    return i->second.getSize();
+}
+
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter)
 {
     Database::iterator c = images.find(container);
@@ -332,19 +353,6 @@ void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool
 		Erreur("Le cadavre de l'individu suivant n'a pu être affiché :", Type);
 		MESSAGE("Image Cadavre demandée : [" + Type + "] … INEXISTANTE", IMAGE)
 	}
-}
-
-Vector2u getImagePaysageDimension(string Type)
-{
-	ClassePaysages::iterator i = ImgPaysages.find(ClefPaysage(Type));
-
-	if (i != ImgPaysages.end())
-		return i->second.getImageDimension();
-
-	return Vector2u(0, 0);
-
-
-
 }
 
 void Disp_ImagePaysageMouvant(string Type, short Act, short Num, float x, float y, bool Centre)

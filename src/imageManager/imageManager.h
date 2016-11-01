@@ -31,6 +31,7 @@ namespace imageManager{
 
 void addContainer(string container);
 void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0), float scale = 1);
+Vector2u getImageSize(string container, string key);
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter = false);
 
 void AjouterImagesIndividu(string, short, short, short, float[3][3]);
@@ -41,7 +42,6 @@ void AjouterImageDecoration(string, int = 0, int = 0, float = 1);
 void AjouterImageCompetence(string);
 void Disp_ImageIndividu(string, short, short, short, float, float, bool = false);
 void Disp_ImageCadavre(string, short, short, float, float, bool = false);
-Vector2u getImagePaysageDimension(string);
 void Disp_ImagePaysageMouvant(string, short, short, float, float, bool = false);
 void Disp_ImageProjectile(string, short, float, float, bool = false);
 void Disp_ImageObjet(unsigned, short, float, float, bool = false);

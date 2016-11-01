@@ -43,7 +43,7 @@ class Image
         void set(string file, Vector2i of, float scale = 1);
         void setFromArchive(string file, Vector2i of);
         void applyShader(string file);
-        const Vector2u getImageDimension();
+        const Vector2u getSize();
         void display(RenderWindow& app, float x, float y, bool atCenter = false);
 };
 

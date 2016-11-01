@@ -81,7 +81,7 @@ void Image::applyShader(string file)
     texture = tex.getTexture();
 }
 
-const Vector2u Image::getImageDimension()
+const Vector2u Image::getSize()
 {
     return texture.getSize();
 }
