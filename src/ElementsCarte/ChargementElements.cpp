@@ -19,6 +19,8 @@
 
 #include <physfs.h>
 
+#include "imageManager/imageManager.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
@@ -401,6 +403,14 @@ void Load_ClassePaysage(string Type)
 		if (TypeDonnee == "CLASSEMENT_NORMAL")	cl_pay->TypeClassement = CLASSEMENT_NORMAL;
 		if (TypeDonnee == "CLASSEMENT_HAUT")	cl_pay->TypeClassement = CLASSEMENT_HAUT;
 		if (TypeDonnee == "CLASSEMENT_NUAGE")	cl_pay->TypeClassement = CLASSEMENT_NUAGE;
+        if (TypeDonnee == "imageFile")
+        {
+            string path;
+            Fichier >> path;
+            path = INSTALL_DIR + path;
+            imageManager::addContainer("paysage");
+            imageManager::addImage("paysage", Type, path, Vector2i(ExX, ExY));
+        }
 
 		TypeDonnee = "";
 	}
