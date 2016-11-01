@@ -22,6 +22,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Paysage **/
 
@@ -78,7 +79,7 @@ void Paysage::Disp(float RefX, float RefY)
 
 	if (repeatX == 1 && repeatY == 1)
 	{
-		Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+        imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
 	}
 	else
 	{
@@ -87,19 +88,19 @@ void Paysage::Disp(float RefX, float RefY)
 		{
 			if (repeatX % 2 == 0)
 				for (float i = -repeatX/2 ; i < repeatX/2 ; ++i)
-					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + (i+0.5)*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + (i+0.5)*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
 			else
 				for (float i = -(repeatX-1)/2 ; i <= (repeatX-1)/2 ; ++i)
-					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + i*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + i*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
 		}
 		else if (repeatY > 1)
 		{
 			if (repeatY % 2 == 0)
 				for (float i = -repeatY/2 ; i < repeatY/2 ; ++i)
-					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + (i+0.5)*imageDimension.y)), true);
+                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + (i+0.5)*imageDimension.y)), true);
 			else
 				for (float i = -(repeatY-1)/2 ; i <= (repeatY-1)/2 ; ++i)
-					Disp_ImagePaysage(Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + i*imageDimension.y)), true);
+					imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + i*imageDimension.y)), true);
 		}
 	}
 

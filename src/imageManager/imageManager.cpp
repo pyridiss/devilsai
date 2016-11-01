@@ -53,20 +53,6 @@ struct ClefIndividu
 	}
 };
 
-struct ClefPaysage
-{
-	string Type;
-
-	ClefPaysage(string t)
-	{
-		Type = t;
-	}
-	bool operator<(const ClefPaysage& right) const
-	{
-		return (Type < right.Type);
-	}
-};
-
 struct ClefPaysageMouvant
 {
 	string Type;
@@ -150,7 +136,6 @@ struct ClefCompetence
 /** DÉFINITION DES CONTENEURS **/
 
 typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
-typedef map < ClefPaysage, imageManager::Image >			ClassePaysages;
 typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
 typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
 typedef map < ClefObjet, imageManager::Image >			ClasseObjets;
@@ -158,7 +143,6 @@ typedef map < ClefDecoration, imageManager::Image >		ClasseDecorations;
 typedef map < ClefCompetence, imageManager::Image >		ClasseCompetences;
 
 ClasseIndividus			ImgIndividus;
-ClassePaysages			ImgPaysages;
 ClassePaysagesMouvants	ImgPaysagesMouvants;
 ClasseProjectiles		ImgProjectiles;
 ClasseObjets			ImgObjets;
@@ -236,25 +220,6 @@ void AjouterImagesIndividu(string Type, short Act, short Dir, short Num, float m
 		MESSAGE("Image Individu " + Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", "
 				+ intToString(n) + " ajoutée", IMAGE)
 	}
-}
-
-void AjouterImagePaysage(string Type, int ExX, int ExY)
-{
-	if (ImgPaysages.find(ClefPaysage(Type)) != ImgPaysages.end()) return;
-
-	imageManager::Image img;
-	const auto& result = ImgPaysages.insert(ClassePaysages::value_type(ClefPaysage(Type), img));
-
-	string path = INSTALL_DIR + "img/";
-	stringstream out;
-	out.width(5);
-	out.fill('0');
-	out << Type;
-	path += out.str();
-
-	result.first->second.set(path, Vector2i(ExX, ExY));
-
-	MESSAGE("Image Paysage " + Type + " ajoutée", IMAGE)
 }
 
 void AjouterImagesPaysageMouvant(string Type, short Act, short Num, int ExX, int ExY)
@@ -377,23 +342,9 @@ Vector2u getImagePaysageDimension(string Type)
 		return i->second.getImageDimension();
 
 	return Vector2u(0, 0);
-}
 
-void Disp_ImagePaysage(string Type, float x, float y, bool Centre)
-{
-	ClassePaysages::iterator i = ImgPaysages.find(ClefPaysage(Type));
 
-	if (i != ImgPaysages.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
 
-		MESSAGE("Image Paysage demandée : " + Type + " … OK", IMAGE)
-	}
-	else
-	{
-		Erreur("L'image Paysage suivante a été demandée sans avoir été chargée :", Type);
-		MESSAGE("Image Paysage demandée : " + Type + " … INEXISTANTE", IMAGE)
-	}
 }
 
 void Disp_ImagePaysageMouvant(string Type, short Act, short Num, float x, float y, bool Centre)

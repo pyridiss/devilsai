@@ -415,8 +415,6 @@ void Load_ClassePaysage(string Type)
 		TypeDonnee = "";
 	}
 
-	AjouterImagePaysage(Type, ExX, ExY);
-
 	Fichier.close();
 }
 

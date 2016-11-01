@@ -34,7 +34,6 @@ void addImage(string container, string key, string file, Vector2i of = Vector2i(
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter = false);
 
 void AjouterImagesIndividu(string, short, short, short, float[3][3]);
-void AjouterImagePaysage(string, int, int);
 void AjouterImagesPaysageMouvant(string, short, short, int, int);
 void AjouterImageProjectile(string, short);
 void AjouterImagesObjet(unsigned);
@@ -43,7 +42,6 @@ void AjouterImageCompetence(string);
 void Disp_ImageIndividu(string, short, short, short, float, float, bool = false);
 void Disp_ImageCadavre(string, short, short, float, float, bool = false);
 Vector2u getImagePaysageDimension(string);
-void Disp_ImagePaysage(string, float, float, bool = false);
 void Disp_ImagePaysageMouvant(string, short, short, float, float, bool = false);
 void Disp_ImageProjectile(string, short, float, float, bool = false);
 void Disp_ImageObjet(unsigned, short, float, float, bool = false);
