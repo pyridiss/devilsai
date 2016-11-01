@@ -30,8 +30,8 @@ using namespace sf;
 namespace imageManager{
 
 void addContainer(string container);
-void addImage(string container, string key, string file, Vector2i of, float scale);
-void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter);
+void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0), float scale = 1);
+void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter = false);
 
 void AjouterImagesIndividu(string, short, short, short, float[3][3]);
 void AjouterImagePaysage(string, int, int);
