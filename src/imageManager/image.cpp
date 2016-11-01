@@ -28,7 +28,6 @@ namespace imageManager{
 
 void Image::set(string file, Vector2i of, float scale)
 {
-    file += ".png";
     offset = of;
 
     if (!texture.loadFromFile(file))
@@ -42,7 +41,6 @@ void Image::set(string file, Vector2i of, float scale)
 
 void Image::setFromArchive(string file, Vector2i of)
 {
-    file += ".png";
     offset = of;
 
     if (PHYSFS_exists(file.c_str()) == 0)
