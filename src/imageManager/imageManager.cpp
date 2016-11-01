@@ -166,6 +166,57 @@ ClasseDecorations		ImgDecorations;
 ClasseCompetences		ImgCompetences;
 
 
+typedef map < string, imageManager::Image > Container;
+typedef map < string, Container > Database;
+
+Database images;
+
+void addContainer(string container)
+{
+    Database::iterator c = images.find(container);
+
+    if (c == images.end())
+    {
+        Container ctnr;
+        images.insert(Database::value_type(container, ctnr));
+    }
+}
+
+void addImage(string container, string key, string file, Vector2i of, float scale)
+{
+    Database::iterator c = images.find(container);
+
+    if (c == images.end())
+    {
+        Erreur("Contained has not been created yet:", container);
+        return;
+    }
+
+    Container::iterator i = (*c).second.find(key);
+
+    if (i == (*c).second.end())
+    {
+        imageManager::Image img;
+        const auto& result = (*c).second.insert(Container::value_type(key, img));
+        result.first->second.set(file, of, scale);
+    }
+}
+
+void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter)
+{
+    Database::iterator c = images.find(container);
+
+    if (c == images.end())
+    {
+        Erreur("Image container has not been added yet:", container);
+        return;
+    }
+
+    Container::iterator i = (*c).second.find(key);
+
+    (*i).second.display(app, x, y, atCenter);
+}
+
 /** FONCTIONS D'AJOUT **/
 
 void AjouterImagesIndividu(string Type, short Act, short Dir, short Num, float m[3][3])
