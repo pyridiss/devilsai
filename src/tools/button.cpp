@@ -19,6 +19,7 @@
 
 #include "tools/button.h"
 #include "tools/style.h"
+#include "imageManager/imageManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 
@@ -357,32 +358,33 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
 
 void Button::display(RenderWindow& app)
 {
+    //TODO: Button shoud add images by itself in its own container
     switch (state)
     {
         case Normal:
             if (!normal.background.empty())
-                Disp_ImageDecoration(normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(normal.text);
             if (normal.shader != NULL)
                 normal.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Active:
             if (!active.background.empty())
-                Disp_ImageDecoration(active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(active.text);
             if (active.shader != NULL)
                 active.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Hover:
             if (!hover.background.empty())
-                Disp_ImageDecoration(hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(hover.text);
             if (hover.shader != NULL)
                 hover.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Disabled:
             if (!disabled.background.empty())
-                Disp_ImageDecoration(disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
             app.draw(disabled.text);
             if (disabled.shader != NULL)
                 disabled.shader(app, getXTopLeft(), getYTopLeft(), width, height);

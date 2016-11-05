@@ -38,7 +38,6 @@ void AjouterImagesIndividu(string, short, short, short, float[3][3]);
 void AjouterImagesPaysageMouvant(string, short, short, int, int);
 void AjouterImageProjectile(string, short);
 void AjouterImagesObjet(unsigned);
-void AjouterImageDecoration(string, int = 0, int = 0, float = 1);
 void AjouterImageCompetence(string);
 void Disp_ImageIndividu(string, short, short, short, float, float, bool = false);
 void Disp_ImageCadavre(string, short, short, float, float, bool = false);
@@ -46,7 +45,6 @@ void Disp_ImagePaysageMouvant(string, short, short, float, float, bool = false);
 void Disp_ImageProjectile(string, short, float, float, bool = false);
 void Disp_ImageObjet(unsigned, short, float, float, bool = false);
 void Set_ImageDecoration(string, Color, IntRect, float = 1, float = 1);
-void Disp_ImageDecoration(string, float, float, bool = false);
 void Disp_ImageCompetence(string, float, float);
 void Supprimer_Images();
 

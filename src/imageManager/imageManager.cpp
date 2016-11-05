@@ -105,20 +105,6 @@ struct ClefObjet
 	}
 };
 
-struct ClefDecoration
-{
-	string Id;
-
-	ClefDecoration(string i)
-	{
-		Id = i;
-	}
-	bool operator<(const ClefDecoration& right) const
-	{
-		return (Id < right.Id);
-	}
-};
-
 struct ClefCompetence
 {
 	string Id;
@@ -139,14 +125,12 @@ typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
 typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
 typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
 typedef map < ClefObjet, imageManager::Image >			ClasseObjets;
-typedef map < ClefDecoration, imageManager::Image >		ClasseDecorations;
 typedef map < ClefCompetence, imageManager::Image >		ClasseCompetences;
 
 ClasseIndividus			ImgIndividus;
 ClassePaysagesMouvants	ImgPaysagesMouvants;
 ClasseProjectiles		ImgProjectiles;
 ClasseObjets			ImgObjets;
-ClasseDecorations		ImgDecorations;
 ClasseCompetences		ImgCompetences;
 
 
@@ -293,18 +277,6 @@ void AjouterImagesObjet(unsigned Id)
 	MESSAGE("Images Objet " + intToString(Id) + " ajoutées", IMAGE)
 }
 
-void AjouterImageDecoration(string Id, int ExX, int ExY, float Scale)
-{
-	if (ImgDecorations.find(ClefDecoration(Id)) != ImgDecorations.end()) return;
-
-	imageManager::Image img;
-	const auto& result = ImgDecorations.insert(ClasseDecorations::value_type(ClefDecoration(Id), img));
-
-	result.first->second.set(INSTALL_DIR + "img/" + Id, Vector2i(ExX, ExY), Scale);
-
-	MESSAGE("Image Decoration " + Id + " ajoutée", IMAGE)
-}
-
 void AjouterImageCompetence(string Id)
 {
 	if (ImgCompetences.find(ClefCompetence(Id)) != ImgCompetences.end()) return;
@@ -418,23 +390,6 @@ void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, f
 	i->second.sprite.setScale(ScaleX, ScaleY);
 }
 
-void Disp_ImageDecoration(string Id, float x, float y, bool Centre)
-{
-	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
-
-	if (i != ImgDecorations.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image Décoration demandée : " + Id + " … OK", IMAGE)
-	}
-	else
-	{
-		Erreur("L'image Décoration suivante a été demandée sans avoir été chargée :", Id);
-		MESSAGE("Image Décoration demandée : " + Id + " … INEXISTANTE", IMAGE)
-	}
-}
-
 void Disp_ImageCompetence(string Id, float x, float y)
 {
 	ClasseCompetences::iterator i = ImgCompetences.find(ClefCompetence(Id));
@@ -459,7 +414,6 @@ void Supprimer_Images()
 	ImgPaysagesMouvants.clear();
 	ImgProjectiles.clear();
 	ImgObjets.clear();
-	ImgDecorations.clear();
 	ImgCompetences.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)

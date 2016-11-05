@@ -21,6 +21,7 @@
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "imageManager/imageManager.h"
 #include "tools/button.h"
 
 tools::Button *BoutonsInventaire[24];
@@ -96,7 +97,7 @@ void Disp_Skill(lua_State* skill)
 
 void Disp_Competences()
 {
-	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
+	imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
 	Disp_TexteCentre(_COMPETENCES, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
 	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
@@ -269,7 +270,7 @@ void Disp_Equipement()
 	}
 
 	//Inventaire :
-	Disp_ImageDecoration("FondInventaire", 150, Options.ScreenH - 130);
+    imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
 	Disp_TexteCentre(_INVENTAIRE, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
 	mapObjects::iterator inv;
@@ -316,7 +317,7 @@ void Disp_Coffre()
 
 	if (Partie.CoffreOuvert == NULL) return;
 
-	Disp_ImageDecoration("FondCoffre", PosCoffreX, PosCoffreY);
+	imageManager::display(Jeu.App, "misc", "FondCoffre", PosCoffreX, PosCoffreY);
 	Disp_TexteCentre(Partie.CoffreOuvert->Nom, PosCoffreX + 105, PosCoffreY + 10, Color(255, 255, 255, 255), 13.);
 
 	mapObjects::iterator i;

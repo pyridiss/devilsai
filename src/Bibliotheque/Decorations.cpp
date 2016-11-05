@@ -23,6 +23,7 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
+#include "imageManager/imageManager.h"
 #include "tools/button.h"
 
 /** VARIABLES GLOBALES **/
@@ -43,30 +44,31 @@ float SommeFPS = 0;
 
 void Load_Decorations()
 {
-	AjouterImageDecoration("Fond");
 	Set_ImageDecoration("Fond", Color(255,255,255,255), IntRect(0, 0, 400, 300), (float)Options.ScreenW/400.f, (float)Options.ScreenH/300.f);
-	AjouterImageDecoration("Frange");
-	AjouterImageDecoration("BarreVie");
-	AjouterImageDecoration("BarreEnergie");
-	AjouterImageDecoration("BarreRecup");
-	AjouterImageDecoration("Art");
-	AjouterImageDecoration("FondObjet_75_100");
-	AjouterImageDecoration("FondObjet_75_75");
-	AjouterImageDecoration("FondObjet_50_50");
-	AjouterImageDecoration("FondCoffre");
-	AjouterImageDecoration("FondInventaire");
-	AjouterImageDecoration("FondMiniaturesCompetences");
-	AjouterImageDecoration("Repos");
-	AjouterImageDecoration("Bouton");
-	AjouterImageDecoration("BoutonAppuye");
-	AjouterImageDecoration("BoutonPrecedent");
-	AjouterImageDecoration("BoutonPrecedentAppuye");
-	AjouterImageDecoration("BoutonSuivant");
-	AjouterImageDecoration("BoutonSuivantAppuye");
-	AjouterImageDecoration("BoutonPersonnage");
-	AjouterImageDecoration("BoutonEquipement");
-	AjouterImageDecoration("BoutonCompetences");
-	AjouterImageDecoration("BoutonJournal");
+    imageManager::addContainer("misc");
+	imageManager::addImage("misc", "Fond", INSTALL_DIR + "img/Fond.png");
+	imageManager::addImage("misc", "Frange", INSTALL_DIR + "img/Frange.png");
+	imageManager::addImage("misc", "BarreVie", INSTALL_DIR + "img/BarreVie.png");
+	imageManager::addImage("misc", "BarreEnergie", INSTALL_DIR + "img/BarreEnergie.png");
+	imageManager::addImage("misc", "BarreRecup", INSTALL_DIR + "img/BarreRecup.png");
+	imageManager::addImage("misc", "Art", INSTALL_DIR + "img/Art.png");
+	imageManager::addImage("misc", "FondObjet_75_100", INSTALL_DIR + "img/FondObjet_75_100.png");
+	imageManager::addImage("misc", "FondObjet_75_75", INSTALL_DIR + "img/FondObjet_75_75.png");
+	imageManager::addImage("misc", "FondObjet_50_50", INSTALL_DIR + "img/FondObjet_50_50.png");
+	imageManager::addImage("misc", "FondCoffre", INSTALL_DIR + "img/FondCoffre.png");
+	imageManager::addImage("misc", "FondInventaire", INSTALL_DIR + "img/FondInventaire.png");
+	imageManager::addImage("misc", "FondMiniaturesCompetences", INSTALL_DIR + "img/FondMiniaturesCompetences.png");
+	imageManager::addImage("misc", "Repos", INSTALL_DIR + "img/Repos.png");
+	imageManager::addImage("misc", "Bouton", INSTALL_DIR + "img/Bouton.png");
+	imageManager::addImage("misc", "BoutonAppuye", INSTALL_DIR + "img/BoutonAppuye.png");
+	imageManager::addImage("misc", "BoutonPrecedent", INSTALL_DIR + "img/BoutonPrecedent.png");
+	imageManager::addImage("misc", "BoutonPrecedentAppuye", INSTALL_DIR + "img/BoutonPrecedentAppuye.png");
+	imageManager::addImage("misc", "BoutonSuivant", INSTALL_DIR + "img/BoutonSuivant.png");
+	imageManager::addImage("misc", "BoutonSuivantAppuye", INSTALL_DIR + "img/BoutonSuivantAppuye.png");
+	imageManager::addImage("misc", "BoutonPersonnage", INSTALL_DIR + "img/BoutonPersonnage.png");
+	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png");
+	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png");
+	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png");
 
     Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
     Partie.screenCharacter.button.setSize(32, 32);
@@ -214,7 +216,7 @@ void Disp_FondMenus()
 	static RectangleShape Masque(Vector2f(Options.ScreenW, Options.ScreenH));
 	Masque.setFillColor(Color(0,0,0,0));
 
-	Disp_ImageDecoration("Fond", 0, 0);
+	imageManager::display(Jeu.App, "misc", "Fond", 0, 0);
 
 	Animation += I(0.75);
 
@@ -264,7 +266,7 @@ void Disp_Menu()
 	}
 
 	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
-		Disp_ImageDecoration("Frange", 100*a, 0);
+		imageManager::display(Jeu.App, "misc", "Frange", 100*a, 0);
 
     pauseGameTopButton->display(Jeu.App);
     saveGameTopButton->display(Jeu.App);
@@ -325,22 +327,22 @@ void Disp_JaugesVie()
 	if (Recup > 0)
 	{
 		Set_ImageDecoration("BarreRecup", Color(255,255,255,255), IntRect(51, 0, (Recup-(Recup/98)*Recup%98)/2, 7));
-		Disp_ImageDecoration("BarreRecup", 93, 88);
+		imageManager::display(Jeu.App, "misc", "BarreRecup", 93, 88);
 	}
 	if (Recup < 0)
 	{
 		Set_ImageDecoration("BarreRecup", Color(255,255,255,255), IntRect(51+Recup/2, 0, - Recup/2, 7));
-		Disp_ImageDecoration("BarreRecup", 92+Recup/2, 88);
+		imageManager::display(Jeu.App, "misc", "BarreRecup", 92+Recup/2, 88);
 	}
 
-	Disp_ImageDecoration("BarreVie", 42, 70);
-	Disp_ImageDecoration("BarreEnergie", 42, 79);
+	imageManager::display(Jeu.App, "misc", "BarreVie", 42, 70);
+	imageManager::display(Jeu.App, "misc", "BarreEnergie", 42, 79);
 
 	if (PersoViePrec < 75)
 	{
 		Set_ImageDecoration("BarreVie", Color(255,255,255,(ClignVie > 255) ? 510-ClignVie : ClignVie), IntRect(0, 0, 102, 7));
-		Disp_ImageDecoration("BarreVie", 42, 70);
 		Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0, 0, 100, 7));
+		imageManager::display(Jeu.App, "misc", "BarreVie", 42, 70);
 		if (PersoViePrec <= 35) ClignVie += 24;
 		else ClignVie += 16;
 		if (ClignVie > 510) ClignVie = 0;
@@ -348,8 +350,8 @@ void Disp_JaugesVie()
 	if (Partie.perso->get("Energie") < 75)
 	{
 		Set_ImageDecoration("BarreEnergie", Color(255,255,255,(ClignEne > 255) ? 510-ClignEne : ClignEne), IntRect(0, 0, 102, 7));
-		Disp_ImageDecoration("BarreEnergie", 42, 79);
 		Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, 100, 7));
+		imageManager::display(Jeu.App, "misc", "BarreEnergie", 42, 79);
 		if (Partie.perso->get("Energie") <= 35) ClignEne += 24;
 		else ClignEne += 16;
 		if (ClignEne > 510) ClignEne = 0;
@@ -404,7 +406,7 @@ void Disp_JaugesVie()
 		Set_ImageDecoration("BarreVie", Color(255,255,255,TransInd), IntRect(0, 0, sIVit/10, 7));
 
 		Jeu.App.draw(MasqueInter);
-		Disp_ImageDecoration("BarreVie", Options.ScreenW - 114, Options.ScreenH/2 - 25);
+		imageManager::display(Jeu.App, "misc", "BarreVie", Options.ScreenW - 114, Options.ScreenH/2 - 25);
 
 		Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0,0,0,0));
 
@@ -639,7 +641,7 @@ float Disp_Chargement(float Transparence)
 
 	Disp_TexteCentre(_CHARGEMENT, Options.ScreenW - 150, Options.ScreenH - 100, Color(0,0,0,255), 45., Jeu.Cardinal);
 
-	Disp_ImageDecoration("Art", Options.ScreenW/2-390, Options.ScreenH/2 - 252);
+	imageManager::display(Jeu.App, "misc", "Art", Options.ScreenW/2-390, Options.ScreenH/2 - 252);
 	Jeu.App.display();
 
 	Transparence -= I((256-Transparence)/2);
@@ -691,7 +693,7 @@ bool Disp_Repos()
 		sf::Vertex(sf::Vector2f(Options.ScreenW, 0), Color(0, 0, 0, T4))
 	};
 
-	Disp_ImageDecoration("Repos", Options.ScreenW/2, Options.ScreenH/2, true);
+	imageManager::display(Jeu.App, "misc", "Repos", Options.ScreenW/2, Options.ScreenH/2, true);
  	Jeu.App.draw(Degrade, 4, sf::Quads);
 	return false;
 }

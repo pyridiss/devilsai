@@ -27,6 +27,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
@@ -341,7 +342,7 @@ void Disp_Personnage()
 
 void Disp_MiniaturesCompetences()
 {
-	Disp_ImageDecoration("FondMiniaturesCompetences", 5, Options.ScreenH - 171);
+	imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
 
 	unsigned y[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
 
