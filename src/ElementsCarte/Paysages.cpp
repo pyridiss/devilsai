@@ -23,6 +23,7 @@
 #include "ElementsCarte.h"
 
 #include "imageManager/imageManager.h"
+#include "imageManager/image.h"
 
 /** FONCTIONS DE LA CLASSE Paysage **/
 
@@ -55,7 +56,7 @@ void Paysage::calculateCollisionRadius()
 	if (repeatX == 1 && repeatY == 1) return;
 	if (collisionType == NoCollision) return;
 
-	Vector2u imageDimension = imageManager::getImageSize("paysage", Type);
+	Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
 	int border = 0;
 
 	if (repeatX != 1)
@@ -83,7 +84,7 @@ void Paysage::Disp(float RefX, float RefY)
 	}
 	else
 	{
-		Vector2u imageDimension = imageManager::getImageSize("paysage", Type);
+		Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
 		if (repeatX > 1)
 		{
 			if (repeatX % 2 == 0)

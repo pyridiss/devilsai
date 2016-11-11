@@ -173,14 +173,14 @@ void addImage(string container, string key, string file, Vector2i of, float scal
     }
 }
 
-Vector2u getImageSize(string container, string key)
+imageManager::Image* getImage(string container, string key)
 {
     Database::iterator c = images.find(container);
 
     if (c == images.end())
     {
         Erreur("Container not found:", container);
-        return Vector2u(0, 0);
+        return nullptr;
     }
 
     Container::iterator i = (*c).second.find(key);
@@ -188,10 +188,10 @@ Vector2u getImageSize(string container, string key)
     if (i == (*c).second.end())
     {
         Erreur("Image not found:", container + "::" + key);
-        return Vector2u(0, 0);
+        return nullptr;
     }
 
-    return i->second.getSize();
+    return &(i->second);
 }
 
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter)
