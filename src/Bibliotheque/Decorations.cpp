@@ -44,9 +44,8 @@ float SommeFPS = 0;
 
 void Load_Decorations()
 {
-	Set_ImageDecoration("Fond", Color(255,255,255,255), IntRect(0, 0, 400, 300), (float)Options.ScreenW/400.f, (float)Options.ScreenH/300.f);
     imageManager::addContainer("misc");
-	imageManager::addImage("misc", "Fond", INSTALL_DIR + "img/Fond.png");
+	imageManager::addImage("misc", "Fond", INSTALL_DIR + "img/Fond.png", Vector2i(0, 0), (float)Options.ScreenW/400.f);
 	imageManager::addImage("misc", "Frange", INSTALL_DIR + "img/Frange.png");
 	imageManager::addImage("misc", "BarreVie", INSTALL_DIR + "img/BarreVie.png");
 	imageManager::addImage("misc", "BarreEnergie", INSTALL_DIR + "img/BarreEnergie.png");
