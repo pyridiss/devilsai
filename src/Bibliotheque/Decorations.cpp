@@ -24,6 +24,7 @@
 #include "Constantes.h"
 
 #include "imageManager/imageManager.h"
+#include "imageManager/animation.h"
 #include "tools/button.h"
 
 /** VARIABLES GLOBALES **/
@@ -68,6 +69,11 @@ void Load_Decorations()
 	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png");
 	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png");
 	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png");
+
+    imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");
+    imageManager::addAnimation("playerLifeGaugeBackground", INSTALL_DIR + "img/BarreVie.png");
+    imageManager::addAnimation("playerEnergyGauge", INSTALL_DIR + "img/BarreEnergie.png");
+    imageManager::addAnimation("playerEnergyGaugeBackground", INSTALL_DIR + "img/BarreEnergie.png");
 
     Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
     Partie.screenCharacter.button.setSize(32, 32);
@@ -297,29 +303,43 @@ void Disp_Menu()
 
 void Disp_JaugesVie()
 {
-	static int PersoViePrec = Partie.perso->get("Vitalite") - 10;
 	static int PersoEnePrec = Partie.perso->get("Energie");
-	static unsigned short ClignVie = 0;
-	static unsigned short ClignEne = 0;
 	static int AncienInteraction = 0;
 
 	static Element_Carte *Elem; static Individu* Ind;
+
+    static imageManager::Animation* playerLifeGauge = imageManager::getAnimation("playerLifeGauge");
+    static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
+    static imageManager::Animation* playerEnergyGauge = imageManager::getAnimation("playerEnergyGauge");
+    static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
 
 	Disp_TexteCentre(Partie.perso->Nom, 92, 60, Color(128, 255, 128, 255), 12.f);
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 
-	static RectangleShape MasquePerso(Vector2f(100, 7));
-	MasquePerso.setFillColor(Color(0, 0, 0, 175));
-	MasquePerso.setPosition(42, 70);
-	Jeu.App.draw(MasquePerso);
-	MasquePerso.setPosition(42, 79);
-	Jeu.App.draw(MasquePerso);
-	
-	if ((signed)Partie.perso->get("Vitalite") != PersoViePrec) PersoViePrec += ((int)Partie.perso->get("Vitalite") - PersoViePrec)/10;
+    playerLifeGauge->setRectangle(0, 0, Partie.perso->get("Vitalite") / 10, 7);
+    playerEnergyGauge->setRectangle(0, 0, Partie.perso->get("Energie") / 10, 7);
 
-	Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0, 0, PersoViePrec/10 + 1, 7));
-	Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, Partie.perso->get("Energie")/10, 7));
+    if (Partie.perso->get("Vitalite") < 50) playerLifeGaugeBackground->setFlickering(0.5);
+    else if (Partie.perso->get("Vitalite") < 100) playerLifeGaugeBackground->setFlickering(0.25);
+    else
+    {
+        playerLifeGaugeBackground->setFlickering(0);
+        playerLifeGaugeBackground->setColor(Color(0, 0, 0, 255));
+    }
+
+    if (Partie.perso->get("Energie") < 50) playerEnergyGaugeBackground->setFlickering(0.5);
+    else if (Partie.perso->get("Energie") < 100) playerEnergyGaugeBackground->setFlickering(0.25);
+    else
+    {
+        playerEnergyGaugeBackground->setFlickering(0);
+        playerEnergyGaugeBackground->setColor(Color(0, 0, 0, 255));
+    }
+
+    playerLifeGaugeBackground->display(Jeu.App, 42, 70, false);
+    playerLifeGauge->display(Jeu.App, 42, 70, false);
+    playerEnergyGaugeBackground->display(Jeu.App, 42, 79, false);
+    playerEnergyGauge->display(Jeu.App, 42, 79, false);
 
 	int Recup = Partie.perso->get("Recuperation");
 
@@ -332,28 +352,6 @@ void Disp_JaugesVie()
 	{
 		Set_ImageDecoration("BarreRecup", Color(255,255,255,255), IntRect(51+Recup/2, 0, - Recup/2, 7));
 		imageManager::display(Jeu.App, "misc", "BarreRecup", 92+Recup/2, 88);
-	}
-
-	imageManager::display(Jeu.App, "misc", "BarreVie", 42, 70);
-	imageManager::display(Jeu.App, "misc", "BarreEnergie", 42, 79);
-
-	if (PersoViePrec < 75)
-	{
-		Set_ImageDecoration("BarreVie", Color(255,255,255,(ClignVie > 255) ? 510-ClignVie : ClignVie), IntRect(0, 0, 102, 7));
-		Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0, 0, 100, 7));
-		imageManager::display(Jeu.App, "misc", "BarreVie", 42, 70);
-		if (PersoViePrec <= 35) ClignVie += 24;
-		else ClignVie += 16;
-		if (ClignVie > 510) ClignVie = 0;
-	}
-	if (Partie.perso->get("Energie") < 75)
-	{
-		Set_ImageDecoration("BarreEnergie", Color(255,255,255,(ClignEne > 255) ? 510-ClignEne : ClignEne), IntRect(0, 0, 102, 7));
-		Set_ImageDecoration("BarreEnergie", Color(255,255,255,255), IntRect(0, 0, 100, 7));
-		imageManager::display(Jeu.App, "misc", "BarreEnergie", 42, 79);
-		if (Partie.perso->get("Energie") <= 35) ClignEne += 24;
-		else ClignEne += 16;
-		if (ClignEne > 510) ClignEne = 0;
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
