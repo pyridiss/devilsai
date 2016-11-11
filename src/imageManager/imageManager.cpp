@@ -27,6 +27,7 @@
 
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
+#include "imageManager/animation.h"
 
 namespace imageManager{
 
@@ -136,8 +137,10 @@ ClasseCompetences		ImgCompetences;
 
 typedef map < string, imageManager::Image > Container;
 typedef map < string, Container > Database;
+typedef map < string, imageManager::Animation > AnimationDatabase;
 
 Database images;
+AnimationDatabase animations;
 
 void addContainer(string container)
 {
@@ -204,6 +207,31 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
     Container::iterator i = (*c).second.find(key);
 
     (*i).second.display(app, x, y, atCenter);
+}
+
+void addAnimation(string name, string file)
+{
+    AnimationDatabase::iterator a = animations.find(name);
+
+    if (a == animations.end())
+    {
+        imageManager::Animation ani;
+        const auto& result = animations.insert(AnimationDatabase::value_type(name, ani));
+        result.first->second.image.set(file, Vector2i(0, 0));
+    }
+}
+
+imageManager::Animation* getAnimation(string name)
+{
+    AnimationDatabase::iterator a = animations.find(name);
+
+    if (a == animations.end())
+    {
+        Erreur("Animation not found:", name);
+        return nullptr;
+    }
+
+    return &(a->second);
 }
 
 /** FONCTIONS D'AJOUT **/
