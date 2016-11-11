@@ -60,7 +60,7 @@ void Animation::display(RenderWindow& app, int x, int y, bool atCenter)
     static double time;
     time += I(1);
     if (flickering)
-        image.sprite.setColor(Color(255, 255, 255, 255*sin(time)*flickering));
+        image.sprite.setColor(Color(255, 255, 255, 255*sin(time*flickering)));
 
     image.display(app, x, y, atCenter);
 }
