@@ -24,6 +24,8 @@
  * http://creativecommons.org/licenses/by-nc-nd/2.5/
  */
 
+#include <cmath>
+
 #include "config.h"
 
 #include "Bibliotheque/Bibliotheque.h"
