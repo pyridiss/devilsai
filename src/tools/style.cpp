@@ -104,8 +104,8 @@ void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
     rect.setPosition(x, y);
     RenderStates states;
     states.shader = &blurShader;
-    blurShader.setParameter("texture", tex);
-    blurShader.setParameter("textureSize", tex.getSize().x, tex.getSize().y);
+    blurShader.setUniform("texture", tex);
+    blurShader.setUniform("textureSize", Glsl::Vec2(tex.getSize().x, tex.getSize().y));
     app.draw(rect, states);
 }
 
@@ -121,8 +121,8 @@ void highlightShader(RenderWindow& app, int x, int y, int w, int h)
     rect.setPosition(x, y);
     RenderStates states;
     states.shader = &contrastShader;
-    contrastShader.setParameter("texture", tex);
-    contrastShader.setParameter("luminosity", 1.f, 1.f, 1.f);
+    contrastShader.setUniform("texture", tex);
+    contrastShader.setUniform("luminosity", Glsl::Vec3(1.f, 1.f, 1.f));
     app.draw(rect, states);
 }
 
@@ -140,8 +140,8 @@ void warnShader(RenderWindow& app, int x, int y, int w, int h)
     rect.setPosition(x, y);
     RenderStates states;
     states.shader = &contrastShader;
-    contrastShader.setParameter("texture", tex);
-    contrastShader.setParameter("luminosity", 1.f + 0.25f*sin(time), 0.75f, 0.75f);
+    contrastShader.setUniform("texture", tex);
+    contrastShader.setUniform("luminosity", Glsl::Vec3(1.f + 0.25f*sin(time), 0.75f, 0.75f));
     app.draw(rect, states);
 }
 

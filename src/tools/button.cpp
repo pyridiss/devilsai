@@ -198,22 +198,22 @@ void Button::setTextFont(const Font& f, float s)
 
 void Button::setNormalTextColor(Color c)
 {
-    normal.text.setColor(c);
+    normal.text.setFillColor(c);
 }
 
 void Button::setActiveTextColor(Color c)
 {
-    active.text.setColor(c);
+    active.text.setFillColor(c);
 }
 
 void Button::setHoverTextColor(Color c)
 {
-    hover.text.setColor(c);
+    hover.text.setFillColor(c);
 }
 
 void Button::setDisabledTextColor(Color c)
 {
-    disabled.text.setColor(c);
+    disabled.text.setFillColor(c);
 }
 
 void Button::setAllBackground(string b)
