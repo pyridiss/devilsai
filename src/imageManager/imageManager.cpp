@@ -90,22 +90,6 @@ struct ClefProjectile
 	}
 };
 
-struct ClefObjet
-{
-	unsigned Id;
-	short Taille;
-
-	ClefObjet(unsigned i, short t)
-	{
-		Id = i;
-		Taille = t;
-	}
-	bool operator<(const ClefObjet& right) const
-	{
-		return (Id*10 + Taille < right.Id*10 + right.Taille);
-	}
-};
-
 struct ClefCompetence
 {
 	string Id;
@@ -125,13 +109,11 @@ struct ClefCompetence
 typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
 typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
 typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
-typedef map < ClefObjet, imageManager::Image >			ClasseObjets;
 typedef map < ClefCompetence, imageManager::Image >		ClasseCompetences;
 
 ClasseIndividus			ImgIndividus;
 ClassePaysagesMouvants	ImgPaysagesMouvants;
 ClasseProjectiles		ImgProjectiles;
-ClasseObjets			ImgObjets;
 ClasseCompetences		ImgCompetences;
 
 
@@ -286,25 +268,6 @@ void AjouterImageProjectile(string Type, short Dir)
 	MESSAGE("Image Projectile " + Type + ", " + intToString(Dir) + " ajoutée", IMAGE)
 }
 
-void AjouterImagesObjet(unsigned Id)
-{
-	if (ImgObjets.find(ClefObjet(Id, OBJET_IMG)) != ImgObjets.end()) return;
-	if (ImgObjets.find(ClefObjet(Id, OBJET_MINIATURE)) != ImgObjets.end()) return;
-
-	imageManager::Image img;
-	const auto& resultImg = ImgObjets.insert(ClasseObjets::value_type(ClefObjet(Id, OBJET_IMG), img));
-
-	imageManager::Image mini;
-	const auto& resultMini = ImgObjets.insert(ClasseObjets::value_type(ClefObjet(Id, OBJET_MINIATURE), mini));
-
-	string path = INSTALL_DIR + "img/O" + intToString(Id/100) + intToString((Id%100)/10) + intToString(Id%10);
-
-	resultImg.first->second.set(path + "+", Vector2i(0, 0));
-	resultMini.first->second.set(path + "-", Vector2i(0, 0));
-
-	MESSAGE("Images Objet " + intToString(Id) + " ajoutées", IMAGE)
-}
-
 void AjouterImageCompetence(string Id)
 {
 	if (ImgCompetences.find(ClefCompetence(Id)) != ImgCompetences.end()) return;
@@ -391,24 +354,6 @@ void Disp_ImageProjectile(string Type, short Dir, float x, float y, bool Centre)
 	}
 }
 
-void Disp_ImageObjet(unsigned Id, short Taille, float x, float y, bool Centre)
-{
-	ClasseObjets::iterator i = ImgObjets.find(ClefObjet(Id, Taille));
-
-	if (i != ImgObjets.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image Objet demandée : [" + intToString(Id) + ", " + intToString(Taille) + "] … OK", IMAGE)
-	}
-	else
-	{
-		string StrId = intToString(Id) + ", " + intToString(Taille);
-		Erreur("L'image Objet suivante a été demandée sans avoir été chargée :", StrId);
-		MESSAGE("Image Objet demandée : [" + StrId + "] … INEXISTANTE", IMAGE)
-	}
-}
-
 void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, float ScaleY)
 {
 	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
@@ -441,7 +386,6 @@ void Supprimer_Images()
 	ImgPaysages.clear();
 	ImgPaysagesMouvants.clear();
 	ImgProjectiles.clear();
-	ImgObjets.clear();
 	ImgCompetences.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)

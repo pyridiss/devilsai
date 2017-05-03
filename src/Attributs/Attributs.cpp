@@ -24,6 +24,7 @@
 #include "../Jeu/Jeu.h"
 #include "Attributs.h"
 
+#include "imageManager/imageManager.h"
 
 /* Manager for objects */
 
@@ -47,8 +48,11 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
 
 	if (qualityRandomObject > 0) setIntToLUA(L, "generateRandomObject", qualityRandomObject);
 
-	//internalNumber should be replaced with newObject
-	AjouterImagesObjet(getIntFromLUA(L, "getInternalNumber"));
+    imageManager::addContainer("objects");
+    imageManager::addContainer("objectsIcons");
+
+    imageManager::addImage("objects", newObject, INSTALL_DIR + getStringFromLUA(L, "getImageFile"));
+    imageManager::addImage("objectsIcons", newObject, INSTALL_DIR + getStringFromLUA(L, "getIconFile"));
 
 	pair<mapObjects::iterator, bool> result = objects.insert(mapObjects::value_type(key, L));
 

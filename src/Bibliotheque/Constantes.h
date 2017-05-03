@@ -137,10 +137,6 @@ using namespace std;
 #define CLEF_STUFF		200
 #define CLEF_COFFRE		300
 
-//Images des objets
-#define OBJET_IMG		0
-#define OBJET_MINIATURE	1
-
 
 /** CONSTANTES DIVERSES **/
 

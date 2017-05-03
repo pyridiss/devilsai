@@ -241,13 +241,13 @@ void Disp_Equipement()
 
 		if (obj != objects->end())
 		{
-			int internalNumber = getIntFromLUA(obj->second, "getInternalNumber");
-			Disp_ImageObjet(internalNumber, OBJET_IMG, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
+            string objectName = getStringFromLUA(obj->second, "getFileName");
+            imageManager::display(Jeu.App, "objects", objectName, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
 			mapObjects::iterator equip2 = objects->find("amelioratif-" + emp.TypeObjet);
 			if (equip2 != objects->end())
 			{
-				int internalNumber2 = getIntFromLUA(equip2->second, "getInternalNumber");
-				Disp_ImageObjet(internalNumber2, OBJET_IMG, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
+                string objectName2 = getStringFromLUA(equip2->second, "getFileName");
+                imageManager::display(Jeu.App, "objects", objectName2, emp.BoutonEquipement->getXTopLeft(), emp.BoutonEquipement->getYTopLeft());
 			}
 		}
 	}
@@ -281,8 +281,8 @@ void Disp_Equipement()
 		inv = objects->find(intToString(CLEF_INVENTAIRE + cmpt));
 		if (inv != objects->end())
 		{
-			int internalNumber = getIntFromLUA(inv->second, "getInternalNumber");
-			Disp_ImageObjet(internalNumber, OBJET_MINIATURE, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
+            string objectName = getStringFromLUA(inv->second, "getFileName");
+            imageManager::display(Jeu.App, "objectsIcons", objectName, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
 			if (getBoolFromLUA(inv->second, "getCumul"))
 			{
 				string StrNombre = intToString(getIntFromLUA(inv->second, "getQuantite"));
@@ -305,8 +305,10 @@ void Disp_Equipement()
 
 	//Affichage de l'équipement sélectionné :
 	if (Partie.selectedObject != nullptr)
-		Disp_ImageObjet(getIntFromLUA(Partie.selectedObject, "getInternalNumber"), OBJET_IMG, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y, true);
-
+    {
+        string objectName = getStringFromLUA(Partie.selectedObject, "getFileName");
+        imageManager::display(Jeu.App, "objects", objectName, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y, true);
+    }
 	//Skills:
 	Disp_MiniaturesCompetences();
 }
@@ -328,7 +330,8 @@ void Disp_Coffre()
 		i = Partie.CoffreOuvert->objects.objects.find(intToString(CLEF_COFFRE + cmpt));
 		if (i != Partie.CoffreOuvert->objects.objects.end())
 		{
-			Disp_ImageObjet(getIntFromLUA(i->second, "getInternalNumber"), OBJET_MINIATURE, BoutonsCoffre[cmpt]->getXTopLeft(), BoutonsCoffre[cmpt]->getYTopLeft());
+            string objectName = getStringFromLUA(i->second, "getFileName");
+            imageManager::display(Jeu.App, "objectsIcons", objectName, BoutonsCoffre[cmpt]->getXTopLeft(), BoutonsCoffre[cmpt]->getYTopLeft());
 			if (getBoolFromLUA(i->second, "getCumul"))
 			{
 				string StrNombre = intToString(getIntFromLUA(i->second, "getQuantite"));
