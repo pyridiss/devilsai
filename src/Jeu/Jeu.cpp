@@ -209,7 +209,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 		//1. GESTION DE LA CARTE ET DES ÉLÉMENTS
 
-		Partie.CarteCourante->Disp_FondCarte();
+		Partie.CarteCourante->displayBackground();
 
 		Action = Partie.CarteCourante->GestionElements();
 
@@ -249,7 +249,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 			//Réaffichage de la carte telle quelle
 			Jeu.App.clear();
-			Partie.CarteCourante->Disp_FondCarte();
+			Partie.CarteCourante->displayBackground();
 			for (auto& tmp : Partie.CarteCourante->elements)
 				tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
 
@@ -312,7 +312,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 			Jeu.App.clear();
 
-			Partie.CarteCourante->Disp_FondCarte();
+			Partie.CarteCourante->displayBackground();
 			Partie.CarteCourante->GestionElements();
 			Disp_Menu();
 			if (Action == ACTION_MORT) Disp_Mort();

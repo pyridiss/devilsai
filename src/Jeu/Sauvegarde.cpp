@@ -81,7 +81,7 @@ void Save_Partie()
 
 		if (!fileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
 
-		if (carte.second.FondCarte != "") fileStream << "FOND_CARTE " << carte.second.FondCarte << endl;
+		if (carte.second.backgroundImage != "") fileStream << "backgroundImage " << carte.second.backgroundImage << endl;
 		fileStream << "AMBIENCE " << carte.second.ambience << endl;
 
 		//Parcours de la liste des Elements :
@@ -280,9 +280,9 @@ bool Load_Partie(string path)
 		{
 			fileStream >> TypeDonnee;
 
-			if (TypeDonnee == "FOND_CARTE")
+			if (TypeDonnee == "backgroundImage")
 			{
-				fileStream >> StrType; carte.second.Set_FondCarte(StrType);
+				fileStream >> StrType; carte.second.setBackgroundImage(StrType);
 			}
 
 			if (TypeDonnee == "AMBIENCE")

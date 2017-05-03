@@ -59,8 +59,7 @@ class Carte
 		string Id = "";
 		float PosFondX = 0, PosFondY = 0;
 		string ambience = "";
-		bool AffichageFond = false;
-		string FondCarte = "";
+		string backgroundImage = "";
 
 	//Constructeurs / Destructeurs :
 	public:
@@ -95,8 +94,8 @@ class Carte
 
 	//Fond de la carte :
 	public:
-		void Set_FondCarte(string NumFond);
-		void Disp_FondCarte();
+		void setBackgroundImage(string path);
+		void displayBackground();
 
 	//Collisions manager
 	public:

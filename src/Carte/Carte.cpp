@@ -81,10 +81,10 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;
 		if (TypeDonnee == "SANS_COLLISION") SansCollision = true;
 
-		if (TypeDonnee == "FOND_CARTE")
+		if (TypeDonnee == "backgroundImage")
 		{
 			Fichier >> bufferString;
-			if (carte != NULL) carte->Set_FondCarte(bufferString);
+			if (carte != NULL) carte->setBackgroundImage(bufferString);
 			else Erreur("Load_Carte() :", "FOND_CARTE demandé alors que la carte n'est pas initialisée");
 		}
 
@@ -645,21 +645,19 @@ int Carte::GestionElements()
 	return Retour;
 }
 
-void Carte::Set_FondCarte(string NumFond)
+void Carte::setBackgroundImage(string path)
 {
-    FondCarte = NumFond;
-    AffichageFond = true;
+    backgroundImage = path;
 
     imageManager::addContainer("paysage");
-
-    imageManager::addImage("paysage", NumFond, INSTALL_DIR + "img/" + NumFond);
+    imageManager::addImage("paysage", path, INSTALL_DIR + path);
 
     MESSAGE("Fond de la carte choisi", IMAGE)
 }
 
-void Carte::Disp_FondCarte()
+void Carte::displayBackground()
 {
-	if (!AffichageFond) return;
+	if (backgroundImage.empty()) return;
 
 	while (PosFondX > 0)
 		PosFondX -= 135;
@@ -677,7 +675,7 @@ void Carte::Disp_FondCarte()
 	{
 		for (unsigned short b = 0 ; b < Options.ScreenH/144 + 2 ; ++b)
 		{
-            imageManager::display(Jeu.App, "paysage", FondCarte, PosFondX+135*a, PosFondY+144*b);
+            imageManager::display(Jeu.App, "paysage", backgroundImage, PosFondX+135*a, PosFondY+144*b);
 		}
 	}
 }
