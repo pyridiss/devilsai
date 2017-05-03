@@ -138,7 +138,10 @@ function getVitesseBlesse()
 	return 0
 end
 
-function dispImage(x, y)
-	dispImageSkill(getInternalNumber(), x, y)
-	dispText(getQuantityOf(owner, object), x + 30, y + 30)
+function getName()
+	return "healpotion"
+end
+
+function getImageFile()
+    return "img/C401.png"
 end

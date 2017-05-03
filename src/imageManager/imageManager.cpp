@@ -90,31 +90,15 @@ struct ClefProjectile
 	}
 };
 
-struct ClefCompetence
-{
-	string Id;
-
-	ClefCompetence(string i)
-	{
-		Id = i;
-	}
-	bool operator<(const ClefCompetence& right) const
-	{
-		return (Id < right.Id);
-	}
-};
-
 /** DÉFINITION DES CONTENEURS **/
 
 typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
 typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
 typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
-typedef map < ClefCompetence, imageManager::Image >		ClasseCompetences;
 
 ClasseIndividus			ImgIndividus;
 ClassePaysagesMouvants	ImgPaysagesMouvants;
 ClasseProjectiles		ImgProjectiles;
-ClasseCompetences		ImgCompetences;
 
 
 typedef map < string, imageManager::Image > Container;
@@ -268,17 +252,6 @@ void AjouterImageProjectile(string Type, short Dir)
 	MESSAGE("Image Projectile " + Type + ", " + intToString(Dir) + " ajoutée", IMAGE)
 }
 
-void AjouterImageCompetence(string Id)
-{
-	if (ImgCompetences.find(ClefCompetence(Id)) != ImgCompetences.end()) return;
-
-	imageManager::Image img;
-	const auto& result = ImgCompetences.insert(ClasseCompetences::value_type(ClefCompetence(Id), img));
-
-	result.first->second.set(INSTALL_DIR + "img/C" + Id, Vector2i(0, 0));
-
-	MESSAGE("Image Compétence " + Id + " ajoutée", IMAGE)
-}
 
 /** FONCTIONS D'AFFICHAGE **/
 
@@ -363,22 +336,6 @@ void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, f
 	i->second.sprite.setScale(ScaleX, ScaleY);
 }
 
-void Disp_ImageCompetence(string Id, float x, float y)
-{
-	ClasseCompetences::iterator i = ImgCompetences.find(ClefCompetence(Id));
-
-	if (i != ImgCompetences.end())
-	{
-		i->second.display(Jeu.App, x, y, false);
-
-		MESSAGE("Image Compétence demandée : " + Id + " … OK", IMAGE)
-	}
-	else
-	{
-		Erreur("L'image Compétence suivante a été demandée sans avoir été chargée :", Id);
-		MESSAGE("Image Compétence demandée : " + Id + " … INEXISTANTE", IMAGE)
-	}
-}
 
 void Supprimer_Images()
 {
@@ -386,7 +343,6 @@ void Supprimer_Images()
 	ImgPaysages.clear();
 	ImgPaysagesMouvants.clear();
 	ImgProjectiles.clear();
-	ImgCompetences.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)
 }

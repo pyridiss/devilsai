@@ -107,9 +107,8 @@ void Disp_Competences()
         BoutonsInventaire[cmpt]->display(Jeu.App);
 		if (skill != Partie.perso->Get_Caracs()->skills.end())
 		{
-			string internalNumber = getStringFromLUA(skill->second, "getInternalNumber");
-            Disp_ImageCompetence(internalNumber, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
-
+            string name = getStringFromLUA(skill->second, "getName");
+            imageManager::display(Jeu.App, "skills", name, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
             if (BoutonsInventaire[cmpt]->mouseHovering(Jeu.App))
                 Disp_Skill(skill->second);
 
@@ -120,7 +119,7 @@ void Disp_Competences()
 	Disp_MiniaturesCompetences();
 
 	if (Partie.selectedSkill != nullptr)
-		Disp_ImageCompetence(getStringFromLUA(Partie.selectedSkill, "getInternalNumber"), Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.selectedSkill, "getName"), Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
 }
 
 void Gestion_Competences(Event &event)

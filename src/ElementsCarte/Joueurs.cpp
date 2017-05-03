@@ -342,16 +342,17 @@ void Disp_Personnage()
 
 void Disp_MiniaturesCompetences()
 {
-	imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
+    imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
 
-	unsigned y[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
+    if (Partie.perso->skillLinks[0] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[0], "getName"), 5, Options.ScreenH - 55);
 
-	for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
-		if (Partie.perso->skillLinks[i] != NULL)
-		{
-			lua_getglobal(Partie.perso->skillLinks[i], "dispImage");
-			lua_pushnumber(Partie.perso->skillLinks[i], 5 + 66*(i/3));
-			lua_pushnumber(Partie.perso->skillLinks[i], y[i]);
-			lua_call(Partie.perso->skillLinks[i], 2, 0);
-		}
+    if (Partie.perso->skillLinks[1] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[1], "getName"), 5, Options.ScreenH - 105);
+
+    if (Partie.perso->skillLinks[2] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[2], "getName"), 5, Options.ScreenH - 171);
+
+    if (Partie.perso->skillLinks[3] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[3], "getName"), 71, Options.ScreenH - 55);
 }

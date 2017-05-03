@@ -216,6 +216,10 @@ function getVitesseBlesse()
 	return 0
 end
 
-function dispImage(x, y)
-	dispImageSkill(getInternalNumber(), x, y)
+function getName()
+	return "fireball"
+end
+
+function getImageFile()
+    return "img/C301.png"
 end

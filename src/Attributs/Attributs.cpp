@@ -120,9 +120,6 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 		AjouterImageProjectile(lua_tostring(L, 1), lua_tonumber(L, 2)); return 0;
 	});
 
-	lua_register(L, "dispImageSkill", [](lua_State* L) {
-		Disp_ImageCompetence(lua_tostring(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3)); return 0;
-	});
 
 	lua_register(L, "getElementById", LUA_getElementById);
 	lua_register(L, "getElementInteraction", LUA_getElementInteraction);
@@ -149,8 +146,11 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_pushnumber(L, owner);
 	lua_call(L, 1, 0);
 
-	//Should be replaced with newSkill
-	AjouterImageCompetence(getStringFromLUA(L, "getInternalNumber"));
+    string name = getStringFromLUA(L, "getName");
+    string file = INSTALL_DIR + getStringFromLUA(L, "getImageFile");
+
+    imageManager::addContainer("skills");
+    imageManager::addImage("skills", name, file);
 
 	skills.insert(map<string, lua_State*>::value_type(newSkill, L));
 }
