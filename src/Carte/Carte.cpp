@@ -19,6 +19,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "imageManager/imageManager.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "Carte.h"
@@ -645,11 +647,14 @@ int Carte::GestionElements()
 
 void Carte::Set_FondCarte(string NumFond)
 {
-	FondCarte = NumFond;
-	AjouterImagePaysage(NumFond, 0, 0);
-	AffichageFond = true;
+    FondCarte = NumFond;
+    AffichageFond = true;
 
-	MESSAGE("Fond de la carte choisi", IMAGE)
+    imageManager::addContainer("paysage");
+
+    imageManager::addImage("paysage", NumFond, INSTALL_DIR + "img/" + NumFond);
+
+    MESSAGE("Fond de la carte choisi", IMAGE)
 }
 
 void Carte::Disp_FondCarte()
@@ -672,7 +677,7 @@ void Carte::Disp_FondCarte()
 	{
 		for (unsigned short b = 0 ; b < Options.ScreenH/144 + 2 ; ++b)
 		{
-			Disp_ImagePaysage(FondCarte, PosFondX+135*a, PosFondY+144*b);
+            imageManager::display(Jeu.App, "paysage", FondCarte, PosFondX+135*a, PosFondY+144*b);
 		}
 	}
 }
