@@ -43,26 +43,38 @@ int LUA_cout(lua_State* L)
 
 int LUA_getElementById(lua_State* L)
 {
-	lua_pushnumber(L, (long int)Get_Element(lua_tonumber(L, 1)));
+    Element_Carte* elem = Get_Element(lua_tonumber(L, 1));
+
+    if (elem != NULL)
+        lua_pushlightuserdata(L, (void*)elem);
+    else
+        lua_pushnumber(L, 0);
+
 	return 1;
 }
 
 int LUA_getElementInteraction(lua_State* L)
 {
-	Joueur* elem = (Joueur*)(int)lua_tonumber(L, 1);
+    Joueur* player = (Joueur*)lua_touserdata(L, 1);
+    Element_Carte* elem = NULL;
 
-	int inter = 0;
-	if (elem != NULL && elem->ElementInteraction != -1) inter = (long int)Get_Element(elem->ElementInteraction);
-	lua_pushnumber(L, inter);
+    if (player != NULL && player->ElementInteraction != -1)
+        elem = Get_Element(player->ElementInteraction);
+
+    if (elem != NULL)
+        lua_pushlightuserdata(L, (void*)elem);
+    else
+        lua_pushnumber(L, 0);
 
 	return 1;
 }
 
 int LUA_isIndividu(lua_State* L)
 {
-	long int id = lua_tonumber(L, 1);
 
-	Individu* ind = dynamic_cast<Individu*>((Element_Carte*)id);
+	Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
+
+	Individu* ind = dynamic_cast<Individu*>(elem);
 
 	if (ind != NULL) lua_pushboolean(L, true);
 	else lua_pushboolean(L, false);
@@ -72,12 +84,10 @@ int LUA_isIndividu(lua_State* L)
 
 int LUA_collisionCCwithRayon(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
+    Individu* indA = (Individu*)lua_touserdata(L, 1);
 	string rayA = lua_tostring(L, 2);
-	long int b = lua_tonumber(L, 3);
+    Individu* indB = (Individu*)lua_touserdata(L, 3);
 	string rayB = lua_tostring(L, 4);
-	Individu* indA = (Individu*)a;
-	Individu* indB = (Individu*)b;
 
 	bool result = false;
 	if (rayA == "RayonInteraction" && rayB == "RayonInteraction")
@@ -96,10 +106,10 @@ int LUA_collisionCCwithRayon(lua_State* L)
 
 int LUA_testAngle(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
-	long int b = lua_tonumber(L, 2);
-	Individu* indA = dynamic_cast<Individu*>((Element_Carte*)a);
-	Individu* indB = dynamic_cast<Individu*>((Element_Carte*)b);
+    Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
+    Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
+    Individu* indA = dynamic_cast<Individu*>(a);
+    Individu* indB = dynamic_cast<Individu*>(b);
 
 	bool result = false;
 
@@ -113,10 +123,10 @@ int LUA_testAngle(lua_State* L)
 
 int LUA_combat(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
-	long int b = lua_tonumber(L, 2);
-	Individu* indA = dynamic_cast<Individu*>((Element_Carte*)a);
-	Individu* indB = dynamic_cast<Individu*>((Element_Carte*)b);
+    Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
+    Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
+    Individu* indA = dynamic_cast<Individu*>(a);
+    Individu* indB = dynamic_cast<Individu*>(b);
 
 	Combat(indA, indB, L);
 
@@ -138,11 +148,10 @@ int LUA_createProjectile(lua_State* L)
 
 int LUA_set(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
+    Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 	double value = lua_tonumber(L, 3);
 
-	Element_Carte*	elem = (Element_Carte*)a;
 	Individu*		ind  = dynamic_cast<Individu*>(elem);
 	Projectile*		prj  = dynamic_cast<Projectile*>(ind);
 
@@ -181,10 +190,9 @@ int LUA_get(lua_State* L)
 {
 	float result = 0;
 
-	long int a = lua_tonumber(L, 1);
+    Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 
-	Element_Carte* elem = (Element_Carte*)a;
 	Individu* ind = dynamic_cast<Individu*>(elem);
 	Individu_Unique* ind_unique = dynamic_cast<Individu_Unique*>(elem);
 
@@ -218,10 +226,9 @@ int LUA_dirToCoeff(lua_State *L)
 
 int LUA_useObject(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
+    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	string object = lua_tostring(L, 2);
 
-	Individu_Unique* ind = (Individu_Unique*)a;
 	mapObjects* objects = &(ind->Get_Caracs()->objects.objects);
 
 	mapObjects::iterator i = objects->begin();
@@ -262,11 +269,10 @@ int LUA_dispText(lua_State* L)
 
 int LUA_getQuantityOf(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
+    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	string object = lua_tostring(L, 2);
 	int result = 0;
 
-	Individu_Unique* ind = (Individu_Unique*)a;
 	mapObjects* objects = &(ind->Get_Caracs()->objects.objects);
 
 	mapObjects::iterator i = objects->begin();
@@ -297,7 +303,7 @@ int LUA_getElement(lua_State* L)
 	//A quest can ask for an element already dead (KillStolas for example)
 //	if (ind == NULL) Erreur("Un élément non chargé ou non Individu_Unique a été demandé", "");
 
-	lua_pushnumber(L, (long int)ind);
+    lua_pushlightuserdata(L, (void*)ind);
 	return 1;
 }
 
@@ -338,8 +344,8 @@ int LUA_dialogDisplayed(lua_State* L)
 
 int LUA_collisionCC(lua_State* L)
 {
-	Individu_Unique* indA = (Individu_Unique*)(int)lua_tonumber(L, 1);
-	Individu_Unique* indB = (Individu_Unique*)(int)lua_tonumber(L, 2);
+    Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
 	bool result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayonCollision+2);
 	lua_pushboolean(L, result);
 	return 1;
@@ -347,8 +353,8 @@ int LUA_collisionCC(lua_State* L)
 
 int LUA_collisionCR(lua_State* L)
 {
-	Element_Carte* indA = (Element_Carte*)(int)lua_tonumber(L, 1);
-	Element_Carte* indB = (Element_Carte*)(int)lua_tonumber(L, 2);
+    Element_Carte* indA = (Element_Carte*)lua_touserdata(L, 1);
+    Element_Carte* indB = (Element_Carte*)lua_touserdata(L, 2);
 	bool result = Collision_cercle_rectangle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayX+2, indB->RayY+2);
 	lua_pushboolean(L, result);
 	return 1;
@@ -383,21 +389,20 @@ int LUA_addActionneur(lua_State* L)
 	Actionneur *newActionneur = Partie.CarteCourante->AjouterActionneur("NO_SAVE", x, y);
 	newActionneur->RayX = w;
 	newActionneur->RayY = h;
-	lua_pushnumber(L, (long int)newActionneur);
+	lua_pushlightuserdata(L, (void*)newActionneur);
 	return 1;
 }
 
 int LUA_deleteElement(lua_State* L)
 {
-	long int a = lua_tonumber(L, 1);
-	Element_Carte* elem = (Element_Carte*)a;
+    Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	Partie.CarteCourante->SupprimerElement(elem);
 	return 0;
 }
 
 int LUA_setActivity(lua_State* L)
 {
-	Individu_Unique* ind = (Individu_Unique*)(int)lua_tonumber(L, 1);
+    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 
 	if (ind != NULL) ind->Set_Activite(lua_tonumber(L, 2));
 
@@ -406,7 +411,7 @@ int LUA_setActivity(lua_State* L)
 
 int LUA_possess(lua_State* L)
 {
-	Individu_Unique* ind = (Individu_Unique*)(int)lua_tonumber(L, 1);
+    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 
 	int object = lua_tonumber(L, 2);
 
@@ -426,8 +431,8 @@ int LUA_possess(lua_State* L)
 
 int LUA_transferObject(lua_State* L)
 {
-	Individu_Unique* indA = (Individu_Unique*)(int)lua_tonumber(L, 1);
-	Individu_Unique* indB = (Individu_Unique*)(int)lua_tonumber(L, 2);
+    Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
 
 	int object = lua_tonumber(L, 3);
 
@@ -507,25 +512,25 @@ int LUA_loadElement(lua_State* L)
 
 	Element_Carte* elem = loadElementsFromStream(stream, Partie.CarteCourante, list);
 
-	lua_pushnumber(L, (long int)elem);
+    lua_pushlightuserdata(L, (void*)elem);
 	return 1;
 }
 
 int LUA_createActivite(lua_State* L)
 {
-	Individu_Unique* ind = (Individu_Unique*)(int)lua_tonumber(L, 1);
+    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	int id = lua_tonumber(L, 2);
 
 	ind->Ajouter_Activite(id);
 	Activite* act = ind->Get_Activite(id);
 
-	lua_pushnumber(L, (long int)act);
+    lua_pushlightuserdata(L, (void*)act);
 	return 1;
 }
 
 int LUA_activiteSet(lua_State* L)
 {
-	Activite* act = (Activite*)(int)lua_tonumber(L, 1);
+    Activite* act = (Activite*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 	int value = lua_tonumber(L, 3);
 
@@ -543,7 +548,7 @@ int LUA_activiteSet(lua_State* L)
 
 int LUA_activiteAddImage(lua_State* L)
 {
-	Activite* act = (Activite*)(int)lua_tonumber(L, 1);
+	Activite* act = (Activite*)lua_touserdata(L, 1);
 	int Act = lua_tonumber(L, 2);
 	int Num = lua_tonumber(L, 3);
 
