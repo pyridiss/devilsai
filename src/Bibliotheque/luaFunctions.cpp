@@ -43,6 +43,8 @@ int LUA_cout(lua_State* L)
 
 int LUA_getElementById(lua_State* L)
 {
+    MESSAGE("LUA_getElementById() called", LUA)
+
     Element_Carte* elem = Get_Element(lua_tonumber(L, 1));
 
     if (elem != NULL)
@@ -55,6 +57,8 @@ int LUA_getElementById(lua_State* L)
 
 int LUA_getElementInteraction(lua_State* L)
 {
+    MESSAGE("LUA_getElementInteraction() called", LUA)
+
     Joueur* player = (Joueur*)lua_touserdata(L, 1);
     Element_Carte* elem = NULL;
 
@@ -71,6 +75,7 @@ int LUA_getElementInteraction(lua_State* L)
 
 int LUA_isIndividu(lua_State* L)
 {
+    MESSAGE("LUA_isIndividu() called", LUA)
 
 	Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 
@@ -84,6 +89,8 @@ int LUA_isIndividu(lua_State* L)
 
 int LUA_collisionCCwithRayon(lua_State* L)
 {
+    MESSAGE("LUA_collisionCCwithRayon() called", LUA)
+
     Individu* indA = (Individu*)lua_touserdata(L, 1);
 	string rayA = lua_tostring(L, 2);
     Individu* indB = (Individu*)lua_touserdata(L, 3);
@@ -106,6 +113,8 @@ int LUA_collisionCCwithRayon(lua_State* L)
 
 int LUA_testAngle(lua_State* L)
 {
+    MESSAGE("LUA_testAngle() called", LUA)
+
     Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
     Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
     Individu* indA = dynamic_cast<Individu*>(a);
@@ -123,6 +132,8 @@ int LUA_testAngle(lua_State* L)
 
 int LUA_combat(lua_State* L)
 {
+    MESSAGE("LUA_combat() called", LUA)
+
     Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
     Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
     Individu* indA = dynamic_cast<Individu*>(a);
@@ -135,6 +146,8 @@ int LUA_combat(lua_State* L)
 
 int LUA_createProjectile(lua_State* L)
 {
+    MESSAGE("LUA_createProjectile() called", LUA)
+
 	string type = lua_tostring(L, 1);
 	Projectile prj;
 	prj.Type = type;
@@ -148,6 +161,8 @@ int LUA_createProjectile(lua_State* L)
 
 int LUA_set(lua_State* L)
 {
+    MESSAGE("LUA_set() called", LUA)
+
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 	double value = lua_tonumber(L, 3);
@@ -188,6 +203,8 @@ int LUA_set(lua_State* L)
 
 int LUA_get(lua_State* L)
 {
+    MESSAGE("LUA_get() called", LUA)
+
 	float result = 0;
 
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
@@ -213,6 +230,8 @@ int LUA_get(lua_State* L)
 
 int LUA_dirToCoeff(lua_State *L)
 {
+    MESSAGE("LUA_dirToCoeff() called", LUA)
+
 	string coord = lua_tostring(L, 1);
 	int dir = lua_tonumber(L, 2);
 
@@ -226,6 +245,8 @@ int LUA_dirToCoeff(lua_State *L)
 
 int LUA_useObject(lua_State* L)
 {
+    MESSAGE("LUA_useObject() called", LUA)
+
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	string object = lua_tostring(L, 2);
 
@@ -263,12 +284,16 @@ int LUA_useObject(lua_State* L)
 
 int LUA_dispText(lua_State* L)
 {
+    MESSAGE("LUA_dispText() called", LUA)
+
 	Disp_Texte(lua_tostring(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3), Color(255,255,255), 12.);
 	return 0;
 }
 
 int LUA_getQuantityOf(lua_State* L)
 {
+    MESSAGE("LUA_getQuantityOf() called", LUA)
+
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	string object = lua_tostring(L, 2);
 	int result = 0;
@@ -288,6 +313,8 @@ int LUA_getQuantityOf(lua_State* L)
 
 int LUA_getNumberEnemiesInList(lua_State* L)
 {
+    MESSAGE("LUA_getNumberEnemiesInList() called", LUA)
+
 	string list = lua_tostring(L, 1);
 	int qty = 0;
 	for (auto& tmp : Partie.CarteCourante->elements)
@@ -299,6 +326,8 @@ int LUA_getNumberEnemiesInList(lua_State* L)
 
 int LUA_getElement(lua_State* L)
 {
+    MESSAGE("LUA_getElement() called", LUA)
+
 	Individu_Unique* ind = Get_IndividuUnique(lua_tostring(L, 1));
 	//A quest can ask for an element already dead (KillStolas for example)
 //	if (ind == NULL) Erreur("Un élément non chargé ou non Individu_Unique a été demandé", "");
@@ -309,6 +338,8 @@ int LUA_getElement(lua_State* L)
 
 int LUA_pushDialog(lua_State* L)
 {
+    MESSAGE("LUA_pushDialog() called", LUA)
+
 	string newDialog = lua_tostring(L, 1);
 	Dialog dialog;
 	Partie.listDialogs.push_back(dialog);
@@ -318,6 +349,8 @@ int LUA_pushDialog(lua_State* L)
 
 int LUA_popDialog(lua_State* L)
 {
+    MESSAGE("LUA_popDialog() called", LUA)
+
 	string dialog = lua_tostring(L, 1);
 	for (auto i = Partie.listDialogs.begin() ; i != Partie.listDialogs.end() ; ++i)
 		if (i->id == dialog + ".lng")
@@ -330,6 +363,8 @@ int LUA_popDialog(lua_State* L)
 
 int LUA_dialogDisplayed(lua_State* L)
 {
+    MESSAGE("LUA_dialogDisplayed() called", LUA)
+
 	string dialog = lua_tostring(L, 1);
 	for (auto& i : Partie.listDialogs)
 		if (i.id == dialog + ".lng")
@@ -344,6 +379,8 @@ int LUA_dialogDisplayed(lua_State* L)
 
 int LUA_collisionCC(lua_State* L)
 {
+    MESSAGE("LUA_collisionCC() called", LUA)
+
     Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
     Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
 	bool result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayonCollision+2);
@@ -353,6 +390,8 @@ int LUA_collisionCC(lua_State* L)
 
 int LUA_collisionCR(lua_State* L)
 {
+    MESSAGE("LUA_collisionCR() called", LUA)
+
     Element_Carte* indA = (Element_Carte*)lua_touserdata(L, 1);
     Element_Carte* indB = (Element_Carte*)lua_touserdata(L, 2);
 	bool result = Collision_cercle_rectangle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayX+2, indB->RayY+2);
@@ -362,6 +401,8 @@ int LUA_collisionCR(lua_State* L)
 
 int LUA_loadList(lua_State* L)
 {
+    MESSAGE("LUA_loadList() called", LUA)
+
 	string idList = lua_tostring(L, 1);
 	Load_Carte(idList, TYPE_LISTE);
 	return 0;
@@ -369,18 +410,24 @@ int LUA_loadList(lua_State* L)
 
 int LUA_deleteList(lua_State* L)
 {
+    MESSAGE("LUA_deleteList() called", LUA)
+
 	Partie.CarteCourante->SupprimerListe(lua_tostring(L, 1));
 	return 0;
 }
 
 int LUA_I(lua_State* L)
 {
+    MESSAGE("LUA_I() called", LUA)
+
 	lua_pushnumber(L, I(1./60.));
 	return 1;
 }
 
 int LUA_addActionneur(lua_State* L)
 {
+    MESSAGE("LUA_addActionneur() called", LUA)
+
 	int x = lua_tonumber(L, 1);
 	int y = lua_tonumber(L, 2);
 	int w = lua_tonumber(L, 3);
@@ -395,6 +442,8 @@ int LUA_addActionneur(lua_State* L)
 
 int LUA_deleteElement(lua_State* L)
 {
+    MESSAGE("LUA_deleteElement() called", LUA)
+
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	Partie.CarteCourante->SupprimerElement(elem);
 	return 0;
@@ -402,6 +451,8 @@ int LUA_deleteElement(lua_State* L)
 
 int LUA_setActivity(lua_State* L)
 {
+    MESSAGE("LUA_setActivity() called", LUA)
+
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 
 	if (ind != NULL) ind->Set_Activite(lua_tonumber(L, 2));
@@ -411,6 +462,8 @@ int LUA_setActivity(lua_State* L)
 
 int LUA_possess(lua_State* L)
 {
+    MESSAGE("LUA_possess() called", LUA)
+
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 
 	int object = lua_tonumber(L, 2);
@@ -431,6 +484,8 @@ int LUA_possess(lua_State* L)
 
 int LUA_transferObject(lua_State* L)
 {
+    MESSAGE("LUA_transferObject() called", LUA)
+
     Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
     Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
 
@@ -492,6 +547,8 @@ int LUA_transferObject(lua_State* L)
 
 int LUA_questRunning(lua_State* L)
 {
+    MESSAGE("LUA_questRunning() called", LUA)
+
 	string quest = lua_tostring(L, 1);
 
 	bool result = false;
@@ -505,6 +562,8 @@ int LUA_questRunning(lua_State* L)
 
 int LUA_loadElement(lua_State* L)
 {
+    MESSAGE("LUA_loadElement() called", LUA)
+
 	//Be careful: only the last element is included in collision list
 	stringstream stream;
 	stream << lua_tostring(L, 1);
@@ -518,6 +577,8 @@ int LUA_loadElement(lua_State* L)
 
 int LUA_createActivite(lua_State* L)
 {
+    MESSAGE("LUA_createActivite() called", LUA)
+
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	int id = lua_tonumber(L, 2);
 
@@ -530,6 +591,8 @@ int LUA_createActivite(lua_State* L)
 
 int LUA_activiteSet(lua_State* L)
 {
+    MESSAGE("LUA_activiteSet() called", LUA)
+
     Activite* act = (Activite*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 	int value = lua_tonumber(L, 3);
@@ -548,6 +611,8 @@ int LUA_activiteSet(lua_State* L)
 
 int LUA_activiteAddImage(lua_State* L)
 {
+    MESSAGE("LUA_activiteAddImage() called", LUA)
+
 	Activite* act = (Activite*)lua_touserdata(L, 1);
 	int Act = lua_tonumber(L, 2);
 	int Num = lua_tonumber(L, 3);
@@ -559,6 +624,8 @@ int LUA_activiteAddImage(lua_State* L)
 
 int LUA_addSound(lua_State* L)
 {
+    MESSAGE("LUA_addSound() called", LUA)
+
 	string sound = lua_tostring(L, 1);
 	addSound(sound);
 	return 0;
@@ -566,6 +633,8 @@ int LUA_addSound(lua_State* L)
 
 int LUA_playSound(lua_State* L)
 {
+    MESSAGE("LUA_playSound() called", LUA)
+
 	string sound = lua_tostring(L, 1);
 	playSound(sound);
 	return 0;
@@ -573,6 +642,8 @@ int LUA_playSound(lua_State* L)
 
 int LUA_triggerActivated(lua_State* L)
 {
+    MESSAGE("LUA_triggerActivated() called", LUA)
+
 	int id = lua_tonumber(L, 1);
 	for (Trigger* i : Partie.CarteCourante->triggers)
 	{
@@ -587,6 +658,8 @@ int LUA_triggerActivated(lua_State* L)
 
 int LUA_changePlace(lua_State* L)
 {
+    MESSAGE("LUA_changePlace() called", LUA)
+
 	int indice = lua_tonumber(L, 1);
 	string type = lua_tostring(L, 2);
 	Partie.perso->IndiceLieu = indice;
