@@ -344,7 +344,7 @@ class Individu_Unique : public Individu
 		ListEmplacementsEquipements EmplacementsEquip;
 
 	public:
- 		lua_State* skillLinks[4]    = {NULL};
+        lua_State* skillLinks[4]    = {nullptr, nullptr, nullptr, nullptr};
 
 	//Constructeurs / Destructeurs :
 	public:

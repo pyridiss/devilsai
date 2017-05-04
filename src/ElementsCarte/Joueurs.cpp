@@ -41,7 +41,7 @@ int Joueur::TabToAct(int TabAppui)
 	if (TabAppui < 10000)	return COURSE;
 
 	for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-		if (TabAppui/10000 == c+1 && skillLinks[c] != NULL) return getIntFromLUA(skillLinks[c], "getActivite");
+        if (TabAppui/10000 == c+1 && skillLinks[c] != nullptr) return getIntFromLUA(skillLinks[c], "getActivite");
 
 	return PAUSE;
 }

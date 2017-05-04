@@ -147,7 +147,7 @@ void Gestion_Competences(Event &event)
 			for (int j : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
 			{
 				if (i != j && Partie.perso->skillLinks[j] == Partie.selectedSkill)
-					Partie.perso->skillLinks[j] = NULL;
+                    Partie.perso->skillLinks[j] = nullptr;
 			}
 			Partie.selectedSkill = nullptr;
 		}

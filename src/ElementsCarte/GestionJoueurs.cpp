@@ -147,7 +147,7 @@ int Joueur::Gestion()
 		if (Appui[a] != Old[a]) Temps = 1;
 		Old[a] = Appui[a];
 	}
-	if (ChoixCompetence != COMPETENCE_AUCUNE && skillLinks[ChoixCompetence] != NULL && Competence != ChoixCompetence)
+    if (ChoixCompetence != COMPETENCE_AUCUNE && skillLinks[ChoixCompetence] != nullptr && Competence != ChoixCompetence)
 	{
 		if (getBoolFromLUA(skillLinks[ChoixCompetence], "testEnoughEnergy") == true)
 		{
@@ -222,7 +222,7 @@ int Joueur::Gestion()
 			Set_Activite(TabToAct(TabAppui));
 			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
 			{
-				if (skillLinks[c] != NULL)
+                if (skillLinks[c] != nullptr)
 				{
 					if (Competence == c)
 						setBoolToLUA(skillLinks[c], "setActivated", true);
@@ -304,7 +304,7 @@ int Joueur::Gestion()
 		if (Get_Num() == 0)
 		{
 			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-				if (skillLinks[c] != NULL && Get_Act() == getIntFromLUA(skillLinks[c], "getActivite"))
+                if (skillLinks[c] != nullptr && Get_Act() == getIntFromLUA(skillLinks[c], "getActivite"))
 					setBoolToLUA(skillLinks[c], "setActiviteFinished", true);
 		}
 
@@ -324,7 +324,7 @@ int Joueur::Gestion()
 		}
 
 		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-			if (skillLinks[c] != NULL)
+            if (skillLinks[c] != nullptr)
 			{
 				lua_getglobal(skillLinks[c], "use");
 				lua_call(skillLinks[c], 0, 0);
