@@ -590,10 +590,15 @@ void Disp_TitrePage(enumPhrases NumPhrase)
 	Disp_TexteCentre(NumPhrase, Options.ScreenW/2, 120, Color(50,192,192,255), 45, Jeu.DayRoman);
 }
 
-string intToString(double number)
+string intToString(double number, int size)
 {
 	stringstream out;
 	out.precision(8);
+    if (size != -1)
+    {
+        out.width(size);
+        out.fill('0');
+    }
 	out << number;
 	return out.str();
 }

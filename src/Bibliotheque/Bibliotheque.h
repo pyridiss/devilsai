@@ -327,6 +327,6 @@ void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255
 void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
 void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
 void Disp_TitrePage(enumPhrases);
-string intToString(double);
+string intToString(double, int size = -1);
 
 #endif
