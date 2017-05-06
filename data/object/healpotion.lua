@@ -49,6 +49,14 @@ function getFileName()
 	return "healpotion"
 end
 
+function getImageFile()
+    return "img/O600+.png"
+end
+
+function getIconFile()
+    return "img/O600-.png"
+end
+
 function setKey(value)
 	key = value
 end

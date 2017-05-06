@@ -49,6 +49,14 @@ function getFileName()
 	return "spidervenom"
 end
 
+function getImageFile()
+    return "img/O800+.png"
+end
+
+function getIconFile()
+    return "img/O800-.png"
+end
+
 function setKey(value)
 	key = value
 end

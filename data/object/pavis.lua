@@ -69,6 +69,14 @@ function getFileName()
 	return "pavis"
 end
 
+function getImageFile()
+    return "img/O102+.png"
+end
+
+function getIconFile()
+    return "img/O102-.png"
+end
+
 function setKey(value)
 	key = value
 end

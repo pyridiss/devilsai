@@ -51,6 +51,14 @@ function getFileName()
 	return "defensepotion"
 end
 
+function getImageFile()
+    return "img/O602+.png"
+end
+
+function getIconFile()
+    return "img/O602-.png"
+end
+
 function setKey(value)
 	key = value
 end

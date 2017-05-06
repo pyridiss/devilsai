@@ -63,6 +63,14 @@ function getFileName()
 	return "sabaton"
 end
 
+function getImageFile()
+    return "img/O401+.png"
+end
+
+function getIconFile()
+    return "img/O401-.png"
+end
+
 function setKey(value)
 	key = value
 end

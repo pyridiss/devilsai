@@ -70,6 +70,14 @@ function getFileName()
 	return "steelsword"
 end
 
+function getImageFile()
+    return "img/O003+.png"
+end
+
+function getIconFile()
+    return "img/O003-.png"
+end
+
 function setKey(value)
 	key = value
 end

@@ -51,6 +51,14 @@ function getFileName()
 	return "shield0"
 end
 
+function getImageFile()
+    return "img/O100+.png"
+end
+
+function getIconFile()
+    return "img/O100-.png"
+end
+
 function setKey(value)
 	key = value
 end

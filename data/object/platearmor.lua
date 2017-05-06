@@ -63,6 +63,14 @@ function getFileName()
 	return "platearmor"
 end
 
+function getImageFile()
+    return "img/O302+.png"
+end
+
+function getIconFile()
+    return "img/O302-.png"
+end
+
 function setKey(value)
 	key = value
 end

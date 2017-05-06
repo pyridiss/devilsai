@@ -63,6 +63,14 @@ function getFileName()
 	return "diamondring"
 end
 
+function getImageFile()
+    return "img/O501+.png"
+end
+
+function getIconFile()
+    return "img/O501-.png"
+end
+
 function setKey(value)
 	key = value
 end

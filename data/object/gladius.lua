@@ -63,6 +63,14 @@ function getFileName()
 	return "gladius"
 end
 
+function getImageFile()
+    return "img/O001+.png"
+end
+
+function getIconFile()
+    return "img/O001-.png"
+end
+
 function setKey(value)
 	key = value
 end

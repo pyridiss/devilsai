@@ -51,6 +51,14 @@ function getFileName()
 	return "greathelm0"
 end
 
+function getImageFile()
+    return "img/O200+.png"
+end
+
+function getIconFile()
+    return "img/O200-.png"
+end
+
 function setKey(value)
 	key = value
 end

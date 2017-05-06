@@ -63,6 +63,14 @@ function getFileName()
 	return "fabricboots"
 end
 
+function getImageFile()
+    return "img/O402+.png"
+end
+
+function getIconFile()
+    return "img/O402-.png"
+end
+
 function setKey(value)
 	key = value
 end

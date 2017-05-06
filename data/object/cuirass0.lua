@@ -51,6 +51,14 @@ function getFileName()
 	return "cuirass0"
 end
 
+function getImageFile()
+    return "img/O300+.png"
+end
+
+function getIconFile()
+    return "img/O300-.png"
+end
+
 function setKey(value)
 	key = value
 end

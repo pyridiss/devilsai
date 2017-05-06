@@ -47,6 +47,14 @@ function getFileName()
 	return "unidentifiedstone"
 end
 
+function getImageFile()
+    return "img/O700+.png"
+end
+
+function getIconFile()
+    return "img/O700-.png"
+end
+
 function setKey(value)
 	key = value
 end

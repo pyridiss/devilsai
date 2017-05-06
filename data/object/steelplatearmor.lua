@@ -72,6 +72,14 @@ function getFileName()
 	return "steelplatearmor"
 end
 
+function getImageFile()
+    return "img/O303+.png"
+end
+
+function getIconFile()
+    return "img/O303-.png"
+end
+
 function setKey(value)
 	key = value
 end

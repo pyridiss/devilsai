@@ -70,6 +70,14 @@ function getFileName()
 	return "steelshield"
 end
 
+function getImageFile()
+    return "img/O103+.png"
+end
+
+function getIconFile()
+    return "img/O103-.png"
+end
+
 function setKey(value)
 	key = value
 end

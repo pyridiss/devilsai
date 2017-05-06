@@ -66,6 +66,14 @@ function getFileName()
 	return "spatha"
 end
 
+function getImageFile()
+    return "img/O002+.png"
+end
+
+function getIconFile()
+    return "img/O002-.png"
+end
+
 function setKey(value)
 	key = value
 end

@@ -63,6 +63,14 @@ function getFileName()
 	return "shield"
 end
 
+function getImageFile()
+    return "img/O101+.png"
+end
+
+function getIconFile()
+    return "img/O101-.png"
+end
+
 function setKey(value)
 	key = value
 end

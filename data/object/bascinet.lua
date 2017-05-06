@@ -66,6 +66,14 @@ function getFileName()
 	return "bascinet"
 end
 
+function getImageFile()
+    return "img/O202+.png"
+end
+
+function getIconFile()
+    return "img/O202-.png"
+end
+
 function setKey(value)
 	key = value
 end

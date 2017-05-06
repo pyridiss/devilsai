@@ -63,6 +63,14 @@ function getFileName()
 	return "sapphirering"
 end
 
+function getImageFile()
+    return "img/O502+.png"
+end
+
+function getIconFile()
+    return "img/O502-.png"
+end
+
 function setKey(value)
 	key = value
 end

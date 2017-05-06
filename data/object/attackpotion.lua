@@ -52,6 +52,14 @@ function getFileName()
 	return "attackpotion"
 end
 
+function getImageFile()
+    return "img/O601+.png"
+end
+
+function getIconFile()
+    return "img/O601-.png"
+end
+
 function setKey(value)
 	key = value
 end

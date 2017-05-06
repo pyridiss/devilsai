@@ -71,6 +71,14 @@ function getFileName()
 	return "steelboots"
 end
 
+function getImageFile()
+    return "img/O403+.png"
+end
+
+function getIconFile()
+    return "img/O403-.png"
+end
+
 function setKey(value)
 	key = value
 end

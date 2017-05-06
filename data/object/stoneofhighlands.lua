@@ -70,6 +70,14 @@ function getFileName()
 	return "stonehighlands"
 end
 
+function getImageFile()
+    return "img/O503+.png"
+end
+
+function getIconFile()
+    return "img/O503-.png"
+end
+
 function setKey(value)
 	key = value
 end
