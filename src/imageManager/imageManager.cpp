@@ -54,32 +54,12 @@ struct ClefIndividu
 	}
 };
 
-struct ClefPaysageMouvant
-{
-	string Type;
-	short Act;
-	short Num;
-
-	ClefPaysageMouvant(string t, short a, short n)
-	{
-		Type = t;
-		Act = a;
-		Num = n;
-	}
-	bool operator<(const ClefPaysageMouvant& right) const
-	{
-		if (Type == right.Type) return (Act*100 + Num < right.Act*100 + right.Num);
-		else return (Type < right.Type);
-	}
-};
 
 /** DÉFINITION DES CONTENEURS **/
 
 typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
-typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
 
 ClasseIndividus			ImgIndividus;
-ClassePaysagesMouvants	ImgPaysagesMouvants;
 
 
 typedef map < string, imageManager::Image > Container;
@@ -216,23 +196,6 @@ void AjouterImagesIndividu(string Type, short Act, short Dir, short Num, float m
 	}
 }
 
-void AjouterImagesPaysageMouvant(string Type, short Act, short Num, int ExX, int ExY)
-{
-	for (short n = 0 ; n < Num ; ++n)
-	{
-		if (ImgPaysagesMouvants.find(ClefPaysageMouvant(Type, Act, n)) != ImgPaysagesMouvants.end()) continue;
-
-		imageManager::Image img;
-		const auto& result = ImgPaysagesMouvants.insert(ClassePaysagesMouvants::value_type(ClefPaysageMouvant(Type, Act, n), img));
-
-		string path = intToString(Act) + "/" + ((n < 10) ? "0" : "") + intToString(n);
-
-		result.first->second.setFromArchive(path, Vector2i(0, 0));
-
-		MESSAGE("Image PayMouvant " + Type + ", " + intToString(n) + " ajoutée", IMAGE)
-	}
-}
-
 
 /** FONCTIONS D'AFFICHAGE **/
 
@@ -272,24 +235,6 @@ void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool
 	}
 }
 
-void Disp_ImagePaysageMouvant(string Type, short Act, short Num, float x, float y, bool Centre)
-{
-	ClassePaysagesMouvants::iterator i = ImgPaysagesMouvants.find(ClefPaysageMouvant(Type, Act, Num));
-
-	if (i != ImgPaysagesMouvants.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image PayMouvant demandée : [" + Type + ", " + intToString(Act) + ", " + intToString(Num) + "] … OK", IMAGE)
-	}
-	else
-	{
-		string StrId = Type + ", " + intToString(Act) + ", " + intToString(Num);
-		Erreur("L'image PayMouvant suivante a été demandée sans avoir été chargée :", StrId);
-		MESSAGE("Image PayMouvant demandée : [" + StrId + "] … OK", IMAGE)
-	}
-}
-
 void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, float ScaleY)
 {
 	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
@@ -304,7 +249,6 @@ void Supprimer_Images()
 {
 	ImgIndividus.clear();
 	ImgPaysages.clear();
-	ImgPaysagesMouvants.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)
 }

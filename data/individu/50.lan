@@ -1,4 +1,3 @@
-ARCHIVE_IMG Baliste.img
 RECT_COL 38 16
 EXCENTR 18 -1
 ACTIVATION_NECESSAIRE
@@ -25,3 +24,11 @@ PRJ_FORCE 220
 PRJ_PUISS 100
 PRJ_AGILITE 80
 PRJ_INTELLI 5
+addImageArchiveFile img/Baliste.img
+addImage 0/00.png
+addImage 7/00.png
+addImage 7/01.png
+addImage 7/02.png
+addImage 7/03.png
+addImage 7/04.png
+addImage 7/05.png

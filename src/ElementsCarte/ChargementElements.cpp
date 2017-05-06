@@ -446,21 +446,9 @@ void Load_ClassePaysageMouvant(string Type)
 	short Act, Dir, Num;
 	int ExX = 0, ExY = 0;
 
-	string ArchiveImg = INSTALL_DIR + "img/";
-
 	while (Fichier.rdstate() == 0)
 	{
 		Fichier >> TypeDonnee;
-
-		if (TypeDonnee == "ARCHIVE_IMG")
-		{
-			string bufferString;	Fichier >> bufferString;	ArchiveImg += bufferString;
-			if (PHYSFS_addToSearchPath(ArchiveImg.c_str(), 1) == 0)
-			{
-				Erreur("Le fichier suivant n'a pu être chargé :", ArchiveImg.c_str());
-			}
-			else MESSAGE(" > Fichier \"" + ArchiveImg + "\" ouvert", FICHIER)
-		}
 
 		if (TypeDonnee == "EXCENTR")
 		{
@@ -497,7 +485,6 @@ void Load_ClassePaysageMouvant(string Type)
 		if (TypeDonnee == "img")
 		{
 			Fichier >> Num;
-			AjouterImagesPaysageMouvant(Type, Act, Num, ExX, ExY);
 			act->Num_Max[Dir] = Num;
 		}
 
@@ -506,10 +493,25 @@ void Load_ClassePaysageMouvant(string Type)
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}
+
+        if (TypeDonnee == "addImageArchiveFile")
+        {
+            Fichier >> cl_paymvt->imagePrefix;
+            imageManager::addArchiveFile(INSTALL_DIR + cl_paymvt->imagePrefix);
+        }
+        if (TypeDonnee == "addImage")
+        {
+            imageManager::addContainer("movingObjects");
+            string path;
+            Fichier >> path;
+            string key = cl_paymvt->imagePrefix + "/" + path;
+            imageManager::addImage("movingObjects", key, path);
+        }
+
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+    imageManager::removeArchiveFile(cl_paymvt->imagePrefix);
 
 	Fichier.close();
 }

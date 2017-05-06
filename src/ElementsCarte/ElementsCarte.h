@@ -108,6 +108,8 @@ class Classe_Paysage_Mouvant
 		short RayX = 0, RayY = 0;
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
+        string imagePrefix = "";
+
 		Caracteristiques Caracs;
 		bool ActivationNecessaire	= false;
 //		bool ActivationUnique;
