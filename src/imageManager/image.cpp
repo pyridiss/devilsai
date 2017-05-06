@@ -30,40 +30,37 @@ void Image::set(string file, Vector2i of, float scale)
 {
     offset = of;
 
-    if (!texture.loadFromFile(file))
-        Erreur("Unable to load file:", file.c_str());
+    //Images can be loaded from a file or from an archive.
+    ifstream f(file);
+    bool fromFile = f.good();
+    bool fromArch = PHYSFS_exists(file.c_str());
 
-    sprite.setTexture(texture);
-    texture.setSmooth(false);
-
-    if (scale != 1) sprite.setScale(scale, scale);
-}
-
-void Image::setFromArchive(string file, Vector2i of)
-{
-    offset = of;
-
-    if (PHYSFS_exists(file.c_str()) == 0)
+    if (fromFile)
     {
-        const char* error = PHYSFS_getLastError();
-        if (error != NULL) Erreur("PhysicsFS error:", error);
+        texture.loadFromFile(file);
     }
-    else
+    if (fromArch)
     {
         PHYSFS_file* physfsFile = PHYSFS_openRead(file.c_str());
         char *buffer = new char[PHYSFS_fileLength(physfsFile)];
         PHYSFS_read(physfsFile, buffer, 1, PHYSFS_fileLength(physfsFile));
 
         if (!texture.loadFromMemory(buffer, PHYSFS_fileLength(physfsFile)))
-        {
-            Erreur("Unable to load file:", file.c_str());
-        }
-        sprite.setTexture(texture);
-        texture.setSmooth(false);
+            fromArch = false;
 
         delete[] buffer;
         PHYSFS_close(physfsFile);
     }
+
+    if (!fromFile && !fromArch)
+    {
+        Erreur("Unable to load file:", file);
+    }
+
+    sprite.setTexture(texture);
+    texture.setSmooth(false);
+
+    if (scale != 1) sprite.setScale(scale, scale);
 }
 
 void Image::applyShader(string file)

@@ -34,6 +34,8 @@ class Animation;
 
 void addContainer(string container);
 void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0), float scale = 1);
+void addArchiveFile(string path);
+void removeArchiveFile(string path);
 imageManager::Image* getImage(string container, string key);
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter = false);
 void addAnimation(string name, string file);

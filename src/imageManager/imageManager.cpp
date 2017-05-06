@@ -120,6 +120,20 @@ void addImage(string container, string key, string file, Vector2i of, float scal
     }
 }
 
+void addArchiveFile(string path)
+{
+    if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
+    {
+        Erreur("Unable to load file:", path);
+    }
+    else MESSAGE("File \"" + path + "\" open", FICHIER)
+}
+
+void removeArchiveFile(string path)
+{
+    PHYSFS_removeFromSearchPath(path.c_str());
+}
+
 imageManager::Image* getImage(string container, string key)
 {
     Database::iterator c = images.find(container);
