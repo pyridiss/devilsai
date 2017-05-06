@@ -502,8 +502,8 @@ void displayJournal()
 			if (numberOfLine >= (int)Options.ScreenH - 170 - 20 - 64) opacity = 255 - 4*(numberOfLine - (Options.ScreenH - 170 - 20 - 64));
 			if (numberOfLine >= (int)Options.ScreenH - 170 - 20) return;
 
-			if (entry->done) Texte.setColor(Color(180, 180, 180, opacity));
-			else Texte.setColor(Color(255, 255, 255, opacity));
+			if (entry->done) Texte.setFillColor(Color(180, 180, 180, opacity));
+			else Texte.setFillColor(Color(255, 255, 255, opacity));
 			Jeu.App.draw(Texte);
 
 			if (entry->done)
