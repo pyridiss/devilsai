@@ -1,4 +1,4 @@
-ARCHIVE_IMG Joueur.img
+addImageArchiveFile img/Joueur.img
 DIPLOM 1
 CMP_VIS 0
 RAY_COL 20
@@ -30,91 +30,91 @@ DEFAUT_SPACE finishoff
 ACT 6 blo 4
 VIT 6
 MAJ 0
-DIR 1 img 9
+DIR 1 numberOfImages 9 pathToImages 6/1/%%.png
 FIN_ACT
 ACT 5 blo 2
 VIT 15
 MAJ 0
-DIR 0 img 8
-DIR 1 img 8
-DIR 2 img 8
-DIR 3 img 8
-DIR 4 img 8
-DIR 5 img 8
-DIR 6 img 8
-DIR 7 img 8
+DIR 0 numberOfImages 8 pathToImages 5/0/%%.png
+DIR 1 numberOfImages 8 pathToImages 5/1/%%.png
+DIR 2 numberOfImages 8 pathToImages 5/2/%%.png
+DIR 3 numberOfImages 8 pathToImages 5/3/%%.png
+DIR 4 numberOfImages 8 pathToImages 5/4/%%.png
+DIR 5 numberOfImages 8 pathToImages 5/5/%%.png
+DIR 6 numberOfImages 8 pathToImages 5/6/%%.png
+DIR 7 numberOfImages 8 pathToImages 5/7/%%.png
 FIN_ACT
 ACT 3 blo 0
 VIT 13
 MAJ 13
-DIR 0 img 8
-DIR 1 img 8
-DIR 2 img 8
-DIR 3 img 8
-DIR 4 img 8
-DIR 5 img 8
-DIR 6 img 8
-DIR 7 img 8
+DIR 0 numberOfImages 8 pathToImages 3/0/%%.png
+DIR 1 numberOfImages 8 pathToImages 3/1/%%.png
+DIR 2 numberOfImages 8 pathToImages 3/2/%%.png
+DIR 3 numberOfImages 8 pathToImages 3/3/%%.png
+DIR 4 numberOfImages 8 pathToImages 3/4/%%.png
+DIR 5 numberOfImages 8 pathToImages 3/5/%%.png
+DIR 6 numberOfImages 8 pathToImages 3/6/%%.png
+DIR 7 numberOfImages 8 pathToImages 3/7/%%.png
 FIN_ACT
 ACT 2 blo 0
 VIT 3
 MAJ 0
-DIR 0 img 8
-DIR 1 img 8
-DIR 2 img 8
-DIR 3 img 8
-DIR 4 img 8
-DIR 5 img 8
-DIR 6 img 8
-DIR 7 img 8
+DIR 0 numberOfImages 8 pathToImages 2/0/%%.png
+DIR 1 numberOfImages 8 pathToImages 2/1/%%.png
+DIR 2 numberOfImages 8 pathToImages 2/2/%%.png
+DIR 3 numberOfImages 8 pathToImages 2/3/%%.png
+DIR 4 numberOfImages 8 pathToImages 2/4/%%.png
+DIR 5 numberOfImages 8 pathToImages 2/5/%%.png
+DIR 6 numberOfImages 8 pathToImages 2/6/%%.png
+DIR 7 numberOfImages 8 pathToImages 2/7/%%.png
 FIN_ACT
 ACT 101 blo 1
 VIT 14
 MAJ 0
-DIR 0 img 12
-DIR 1 img 12
-DIR 2 img 12
-DIR 3 img 12
-DIR 4 img 12
-DIR 5 img 12
-DIR 6 img 12
-DIR 7 img 12
+DIR 0 numberOfImages 12 pathToImages 101/0/%%.png
+DIR 1 numberOfImages 12 pathToImages 101/1/%%.png
+DIR 2 numberOfImages 12 pathToImages 101/2/%%.png
+DIR 3 numberOfImages 12 pathToImages 101/3/%%.png
+DIR 4 numberOfImages 12 pathToImages 101/4/%%.png
+DIR 5 numberOfImages 12 pathToImages 101/5/%%.png
+DIR 6 numberOfImages 12 pathToImages 101/6/%%.png
+DIR 7 numberOfImages 12 pathToImages 101/7/%%.png
 FIN_ACT
 ACT 102 blo 1
 VIT 30
 MAJ 26
-DIR 0 img 10
-DIR 1 img 10
-DIR 2 img 10
-DIR 3 img 10
-DIR 4 img 10
-DIR 5 img 10
-DIR 6 img 10
-DIR 7 img 10
+DIR 0 numberOfImages 10 pathToImages 102/0/%%.png
+DIR 1 numberOfImages 10 pathToImages 102/1/%%.png
+DIR 2 numberOfImages 10 pathToImages 102/2/%%.png
+DIR 3 numberOfImages 10 pathToImages 102/3/%%.png
+DIR 4 numberOfImages 10 pathToImages 102/4/%%.png
+DIR 5 numberOfImages 10 pathToImages 102/5/%%.png
+DIR 6 numberOfImages 10 pathToImages 102/6/%%.png
+DIR 7 numberOfImages 10 pathToImages 102/7/%%.png
 FIN_ACT
 ACT 301 blo 1
 VIT 14
 MAJ 0
-DIR 0 img 9
-DIR 1 img 9
-DIR 2 img 9
-DIR 3 img 9
-DIR 4 img 9
-DIR 5 img 9
-DIR 6 img 9
-DIR 7 img 9
+DIR 0 numberOfImages 9 pathToImages 301/0/%%.png
+DIR 1 numberOfImages 9 pathToImages 301/1/%%.png
+DIR 2 numberOfImages 9 pathToImages 301/2/%%.png
+DIR 3 numberOfImages 9 pathToImages 301/3/%%.png
+DIR 4 numberOfImages 9 pathToImages 301/4/%%.png
+DIR 5 numberOfImages 9 pathToImages 301/5/%%.png
+DIR 6 numberOfImages 9 pathToImages 301/6/%%.png
+DIR 7 numberOfImages 9 pathToImages 301/7/%%.png
 FIN_ACT
 ACT 401 blo 3
 VIT 5
 MAJ 0
-DIR 0 img 1
-DIR 1 img 1
-DIR 2 img 1
-DIR 3 img 1
-DIR 4 img 1
-DIR 5 img 1
-DIR 6 img 1
-DIR 7 img 1
+DIR 0 numberOfImages 1 pathToImages 401/0/%%.png
+DIR 1 numberOfImages 1 pathToImages 401/1/%%.png
+DIR 2 numberOfImages 1 pathToImages 401/2/%%.png
+DIR 3 numberOfImages 1 pathToImages 401/3/%%.png
+DIR 4 numberOfImages 1 pathToImages 401/4/%%.png
+DIR 5 numberOfImages 1 pathToImages 401/5/%%.png
+DIR 6 numberOfImages 1 pathToImages 401/6/%%.png
+DIR 7 numberOfImages 1 pathToImages 401/7/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 100

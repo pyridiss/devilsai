@@ -1,4 +1,4 @@
-ARCHIVE_IMG Fluellen.img
+addImageArchiveFile img/Fluellen.img
 DIPLOM 1
 CMP_VIS 0
 RAY_COL 20
@@ -6,7 +6,7 @@ RAY_INTER 0
 ACT 2 blo 0
 VIT 2
 MAJ 0
-DIR 1 img 8
+DIR 1 numberOfImages 8 pathToImages 2/1/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 350

@@ -1,4 +1,4 @@
-ARCHIVE_IMG Stolas.img
+addImageArchiveFile img/Stolas.img
 DIPLOM 2
 CMP_VIS 600
 RAY_COL 32
@@ -27,28 +27,28 @@ FIN_INVENTAIRE
 ACT 6 blo 3
 VIT 3
 MAJ 0
-DIR 3 img 24
+DIR 3 numberOfImages 24 pathToImages 6/3/%%.png
 FIN_ACT
 ACT 4 blo 1
 VIT 8
 MAJ 0
-DIR 0 img 14
-DIR 1 img 14
-DIR 2 img 14
-DIR 3 img 14
+DIR 0 numberOfImages 14 pathToImages 4/0/%%.png
+DIR 1 numberOfImages 14 pathToImages 4/1/%%.png
+DIR 2 numberOfImages 14 pathToImages 4/2/%%.png
+DIR 3 numberOfImages 14 pathToImages 4/3/%%.png
 FIN_ACT
 ACT 3 blo 0
 VIT 15
 MAJ 6
-DIR 0 img 16
-DIR 1 img 16
-DIR 2 img 16
-DIR 3 img 16
+DIR 0 numberOfImages 16 pathToImages 3/0/%%.png
+DIR 1 numberOfImages 16 pathToImages 3/1/%%.png
+DIR 2 numberOfImages 16 pathToImages 3/2/%%.png
+DIR 3 numberOfImages 16 pathToImages 3/3/%%.png
 FIN_ACT
 ACT 2 blo 0
 VIT 6
 MAJ 0
-DIR 3 img 16
+DIR 3 numberOfImages 16 pathToImages 2/3/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 440

@@ -1,4 +1,4 @@
-ARCHIVE_IMG Gnome.img
+addImageArchiveFile img/Gnome.img
 DIPLOM 2
 CMP_VIS 600
 RAY_COL 0
@@ -6,17 +6,17 @@ RAY_INTER 0
 ACT 6 blo 3
 VIT 3
 MAJ 0
-DIR 1 img 10
+DIR 1 numberOfImages 10 pathToImages 6/1/%%.png
 FIN_ACT
 ACT 4 blo 1
 VIT 8
 MAJ 0
-DIR 5 img 10
+DIR 5 numberOfImages 10 pathToImages 4/5/%%.png
 FIN_ACT
 ACT 2 blo 0
 VIT 3
 MAJ 0
-DIR 5 img 6
+DIR 5 numberOfImages 6 pathToImages 2/5/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 440
