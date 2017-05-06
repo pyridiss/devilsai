@@ -22,6 +22,8 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
+#include "imageManager/imageManager.h"
+
 /** FONCTIONS DE LA CLASSE Paysage_Lanceur **/
 
 Paysage_Lanceur::Paysage_Lanceur()
@@ -192,7 +194,7 @@ void Projectile::Disp(float RefX, float RefY)
 			Disp_Masks(RefX, RefY);
 	#endif
 
-	Disp_ImageProjectile(Type, Dir, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(Jeu.App, "projectiles", Type, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 }
 
 void Projectile::Disp_Masks(float RefX, float RefY)

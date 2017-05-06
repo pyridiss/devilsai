@@ -555,7 +555,9 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 	ind->ProjectileLance.OrigineX += ind->PosX;
 	ind->ProjectileLance.OrigineY += ind->PosY;
 
-	AjouterImageProjectile(ind->ProjectileLance.Type, ind->ProjectileLance.Get_Dir());
+    string path = INSTALL_DIR + "img/" + ind->ProjectileLance.Type + "0" + intToString(ind->ProjectileLance.Get_Dir()) + "00" + ".png";
+    imageManager::addContainer("projectiles");
+    imageManager::addImage("projectiles", ind->ProjectileLance.Type, path);
 
 	Fichier.close();
 }

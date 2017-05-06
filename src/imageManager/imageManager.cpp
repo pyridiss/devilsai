@@ -73,32 +73,13 @@ struct ClefPaysageMouvant
 	}
 };
 
-struct ClefProjectile
-{
-	string Type;
-	short Dir;
-
-	ClefProjectile(string t, short d)
-	{
-		Type = t;
-		Dir = d;
-	}
-	bool operator<(const ClefProjectile& right) const
-	{
-		if (Type == right.Type) return (Dir < right.Dir);
-		else return (Type < right.Type);
-	}
-};
-
 /** DÉFINITION DES CONTENEURS **/
 
 typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
 typedef map < ClefPaysageMouvant, imageManager::Image >	ClassePaysagesMouvants;
-typedef map < ClefProjectile, imageManager::Image >		ClasseProjectiles;
 
 ClasseIndividus			ImgIndividus;
 ClassePaysagesMouvants	ImgPaysagesMouvants;
-ClasseProjectiles		ImgProjectiles;
 
 
 typedef map < string, imageManager::Image > Container;
@@ -238,20 +219,6 @@ void AjouterImagesPaysageMouvant(string Type, short Act, short Num, int ExX, int
 	}
 }
 
-void AjouterImageProjectile(string Type, short Dir)
-{
-	if (ImgProjectiles.find(ClefProjectile(Type, Dir)) != ImgProjectiles.end()) return;
-
-	imageManager::Image img;
-	const auto& result = ImgProjectiles.insert(ClasseProjectiles::value_type(ClefProjectile(Type, Dir), img));
-
-	string path = INSTALL_DIR + "img/" + Type + "0" + intToString(Dir) + "00";
-
-	result.first->second.set(path, Vector2i(0, 0));
-
-	MESSAGE("Image Projectile " + Type + ", " + intToString(Dir) + " ajoutée", IMAGE)
-}
-
 
 /** FONCTIONS D'AFFICHAGE **/
 
@@ -309,24 +276,6 @@ void Disp_ImagePaysageMouvant(string Type, short Act, short Num, float x, float 
 	}
 }
 
-void Disp_ImageProjectile(string Type, short Dir, float x, float y, bool Centre)
-{
-	ClasseProjectiles::iterator i = ImgProjectiles.find(ClefProjectile(Type, Dir));
-
-	if (i != ImgProjectiles.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image Projectile demandée : [" + Type + ", " + intToString(Dir) + "] … OK", IMAGE)
-	}
-	else
-	{
-		string StrId = Type + ", " + intToString(Dir);
-		Erreur("L'image Projectile suivante a été demandée sans avoir été chargée :", StrId);
-		MESSAGE("Image Projectile demandée : [" + StrId + "] … OK", IMAGE)
-	}
-}
-
 void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, float ScaleY)
 {
 	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
@@ -342,7 +291,6 @@ void Supprimer_Images()
 	ImgIndividus.clear();
 	ImgPaysages.clear();
 	ImgPaysagesMouvants.clear();
-	ImgProjectiles.clear();
 
 	MESSAGE("Toutes les images ont été suppprimées", IMAGE)
 }

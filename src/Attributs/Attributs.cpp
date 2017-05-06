@@ -117,9 +117,11 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_atpanic(L, LUA_panic);
 
 	lua_register(L, "addImageProjectile", [](lua_State* L) {
-		AjouterImageProjectile(lua_tostring(L, 1), lua_tonumber(L, 2)); return 0;
+        string path = INSTALL_DIR + lua_tostring(L, 2);
+        imageManager::addContainer("projectiles");
+        imageManager::addImage("projectiles", lua_tostring(L, 1), path);
+        return 0;
 	});
-
 
 	lua_register(L, "getElementById", LUA_getElementById);
 	lua_register(L, "getElementInteraction", LUA_getElementInteraction);

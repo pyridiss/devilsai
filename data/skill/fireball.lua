@@ -44,14 +44,7 @@ projectile_cout_fixe = 5
 
 function skillBegin(_owner)
 	owner = _owner
-	addImageProjectile(projectile_id, 0);
-	addImageProjectile(projectile_id, 1);
-	addImageProjectile(projectile_id, 2);
-	addImageProjectile(projectile_id, 3);
-	addImageProjectile(projectile_id, 4);
-	addImageProjectile(projectile_id, 5);
-	addImageProjectile(projectile_id, 6);
-	addImageProjectile(projectile_id, 7);
+    addImageProjectile(projectile_id, "img/10010000.png")
 	addSound("Fireball")
 end
 
