@@ -123,30 +123,12 @@ class Activite
 
 		short priority	= 0;
 
-		struct ImageReference
-		{
-			int sentAct = 0;
-			int sentNum = 0;
-			
-			ImageReference(int _act, int _num)
-			{
-				sentAct = _act;
-				sentNum = _num;
-			}
-			ImageReference()
-			{
-				sentAct = 0;
-				sentNum = 0;
-			}
-		};
-
-		map<int, ImageReference> Animation;
+        map< pair<int , int> , string > Animation;
 
 	public:
 		int NombreDirections();
-		void addImage(int act, int num);
-		int actToShow(int currentNum);
-		int numToShow(int currentNum);
+        void addImage(int dir, int num, string imageKey);
+        string getImageKey(int dir, int num);
 };
 
 class EmplacementEquipement

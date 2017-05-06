@@ -284,22 +284,26 @@ int Activite::NombreDirections()
 	return nb;
 }
 
-void Activite::addImage(int act, int num)
+void Activite::addImage(int dir, int num, string imageKey)
 {
-	Animation.insert(map<int,ImageReference>::value_type(Animation.size(), ImageReference(act, num)));
-	for (int i = 0 ; i < 8 ; ++i)
-		if (Num_Max[i] != -1) Num_Max[i] = Animation.size();
+    pair<int, int> key(dir, num);
+    Animation.insert(pair<pair<int,int>,string>(key, imageKey));
 }
 
-int Activite::actToShow(int currentNum)
+string Activite::getImageKey(int dir, int num)
 {
-	return Animation[currentNum].sentAct;
+    pair<int, int> key(dir, num);
+    map< pair<int , int> , string >::iterator it;
+
+    it = Animation.find(key);
+    if (it == Animation.end())
+    {
+        Erreur("This key has not been registered in current activity:", intToString(dir) + ", " + intToString(num));
+        return "";
+    }
+    return it->second;
 }
 
-int Activite::numToShow(int currentNum)
-{
-	return Animation[currentNum].sentNum;
-}
 
 /** FONCTIONS DE LA CLASSE Caracteristiques **/
 
