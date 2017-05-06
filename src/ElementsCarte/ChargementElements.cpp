@@ -60,6 +60,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 					>> Matrice[1][0] >> Matrice[1][1] >> Matrice[1][2]
 					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
 		}
+        if (TypeDonnee == "corpseImageKey")
+            Fichier >> ind->corpseImageKey;
 		if (TypeDonnee == "EMPLACEMENT_EQUIP")
 		{
 			int x, y, w, h;
@@ -269,6 +271,8 @@ void Load_ClasseCommune(string Type)
 					>> Matrice[1][0] >> Matrice[1][1] >> Matrice[1][2]
 					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
 		}
+        if (TypeDonnee == "corpseImageKey")
+            Fichier >> cl_com->corpseImageKey;
 		if (TypeDonnee == "DIPLOM")		Fichier >> cl_com->Diplomatie;
 		if (TypeDonnee == "CMP_VIS")	Fichier >> cl_com->ChampVision;
 		if (TypeDonnee == "RAY_COL")	Fichier >> cl_com->RayonCollision;

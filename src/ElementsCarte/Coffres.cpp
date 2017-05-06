@@ -22,8 +22,7 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
-
-#include <physfs.h>
+#include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Coffre **/
 
@@ -78,48 +77,12 @@ int Cadavre::Gestion()
 void Cadavre::Set_Individu()
 {
 	Nom = getFormatedTranslatedMessage(_CADAVRE, getTranslatedNameOfElement(Ind_Id));
-
-	ifstream Fichier(FichierIndividu, ios_base::in);
-	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", FichierIndividu);
-
-	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-	string TypeDonnee;
-	string Archive = INSTALL_DIR + "img/";
-
-	while (Fichier.rdstate() == 0)
-	{
-		Fichier >> TypeDonnee;
-
-		if (TypeDonnee == "ARCHIVE_IMG")
-		{
-			string buffer;	Fichier >> buffer;	Archive += buffer;
-			if (PHYSFS_addToSearchPath(Archive.c_str(), 1) == 0)
-				Erreur("Le fichier suivant n'a pu être chargé :", Archive);
-		}
-		if (TypeDonnee == "MATRICE_TEINTE")
-		{
-			Fichier >> Matrice[0][0] >> Matrice[0][1] >> Matrice[0][2]
-					>> Matrice[1][0] >> Matrice[1][1] >> Matrice[1][2]
-					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
-		}
-		TypeDonnee = "";
-	}
-
-	AjouterImagesIndividu(Ind_Id, MORT, Ind_Dir, Ind_Num, Matrice);
-
-	if (Archive != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(Archive.c_str());
-	Fichier.close();
 }
 
-void Cadavre::Set_Individu(string type, short dir, short num, bool Unique)
+void Cadavre::Set_Individu(string type, string key)
 {
 	Ind_Id = type;
-	Ind_Dir = dir;
-	Ind_Num = num;
-
-	FichierIndividu = INSTALL_DIR + "individu/" + type;
-	if (Unique) FichierIndividu += ".one";
-	else FichierIndividu += ".com";
+    imageKey = key;
 
 	Set_Individu();
 }
@@ -128,6 +91,6 @@ void Cadavre::Disp(float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-	Disp_ImageCadavre(Ind_Id, Ind_Dir, Ind_Num - 1, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(Jeu.App, "individuals", imageKey, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 }
 

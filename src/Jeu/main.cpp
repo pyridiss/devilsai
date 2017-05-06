@@ -208,7 +208,6 @@ int main(int n, char *params[])
 	}
 
 	Supprimer_Decorations();
-	Supprimer_Images();
 	deleteLanguagesList();
 
 	if (Arguments.LimitToFpsDisabled) MoyenneFPS();

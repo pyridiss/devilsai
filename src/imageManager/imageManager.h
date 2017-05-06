@@ -41,9 +41,7 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
 void addAnimation(string name, string file);
 imageManager::Animation* getAnimation(string name);
 
-void Disp_ImageCadavre(string, short, short, float, float, bool = false);
 void Set_ImageDecoration(string, Color, IntRect, float = 1, float = 1);
-void Supprimer_Images();
 
 } //namespace imageManager
 

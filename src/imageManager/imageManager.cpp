@@ -31,37 +31,6 @@
 
 namespace imageManager{
 
-/** CLASSES POUR LES CLEFS DES CONTENEURS **/
-
-struct ClefIndividu
-{
-	string Type;
-	short Act;
-	short Dir;
-	short Num;
-
-	ClefIndividu(string t, short a, short d, short n)
-	{
-		Type = t;
-		Act = a;
-		Dir = d;
-		Num = n;
-	}
-	bool operator<(const ClefIndividu& right) const
-	{
-		if (Type == right.Type) return (Act*1000 + Dir*100 + Num < right.Act*1000 + right.Dir*100 + right.Num);
-		else return (Type < right.Type);
-	}
-};
-
-
-/** DÉFINITION DES CONTENEURS **/
-
-typedef map < ClefIndividu, imageManager::Image >		ClasseIndividus;
-
-ClasseIndividus			ImgIndividus;
-
-
 typedef map < string, imageManager::Image > Container;
 typedef map < string, Container > Database;
 typedef map < string, imageManager::Animation > AnimationDatabase;
@@ -175,27 +144,7 @@ imageManager::Animation* getAnimation(string name)
     return &(a->second);
 }
 
-/** FONCTIONS D'AJOUT **/
 
-
-/** FONCTIONS D'AFFICHAGE **/
-
-void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool Centre)
-{
-	ClasseIndividus::iterator i = ImgIndividus.find(ClefIndividu(Type, MORT, Dir, Num));
-
-	if (i != ImgIndividus.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image Cadavre demandée : [" + Type + "] … OK", IMAGE)
-	}
-	else
-	{
-		Erreur("Le cadavre de l'individu suivant n'a pu être affiché :", Type);
-		MESSAGE("Image Cadavre demandée : [" + Type + "] … INEXISTANTE", IMAGE)
-	}
-}
 
 void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, float ScaleY)
 {
@@ -207,12 +156,5 @@ void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, f
 }
 
 
-void Supprimer_Images()
-{
-	ImgIndividus.clear();
-	ImgPaysages.clear();
-
-	MESSAGE("Toutes les images ont été suppprimées", IMAGE)
-}
 
 } //namespace imageManager

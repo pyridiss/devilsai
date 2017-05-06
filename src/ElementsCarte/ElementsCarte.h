@@ -70,6 +70,7 @@ class Classe_Commune
 
     public:
         string imagePrefix = "";
+        string corpseImageKey = "";
 
 		MapActivites Activites;
 
@@ -196,12 +197,10 @@ class Cadavre : public Coffre
 {
 	public:
 		string Ind_Id	= "";
-		short Ind_Dir	= 0;
-		short Ind_Num	= 0;
 		float Duree		= 0;
 		bool Vide		= false;
 
-		string FichierIndividu = "";
+        string imageKey = "";
 
 	public:
 		Cadavre();
@@ -210,7 +209,7 @@ class Cadavre : public Coffre
 	public:
 		int Gestion();
 		void Set_Individu();
-		void Set_Individu(string type, short dir, short num, bool Unique);
+        void Set_Individu(string type, string key);
 
 	//Affichage :
 	public:
@@ -339,6 +338,7 @@ class Individu_Unique : public Individu
 
     public:
         string imagePrefix = "";
+        string corpseImageKey = "";
 
 	public:
 		MapActivites Activites;

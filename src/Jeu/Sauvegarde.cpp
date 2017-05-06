@@ -172,8 +172,7 @@ void Save_Partie()
 			if (TypeTmp == TypeCadavre)
 			{
 				Cadavre *cad = dynamic_cast<Cadavre*>(tmp);
-				fileStream << cad->Ind_Id << " " << cad->Ind_Dir << " " << cad->Ind_Num << " " << cad->Duree << " "
-						   << cad->FichierIndividu << " ";
+                fileStream << cad->Ind_Id << " " << cad->Duree << " " << cad->imageKey << " ";
 				cad->objects.saveObjects(fileStream);
 
 				fileStream << endl;
@@ -401,7 +400,7 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Cadavre* ind = carte.second.AjouterCadavre(StrListe, FloatX, FloatY);
 				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
-				fileStream >> ind->Ind_Id >> ind->Ind_Dir >> ind->Ind_Num >> ind->Duree >> ind->FichierIndividu;
+                fileStream >> ind->Ind_Id >> ind->Duree >> ind->imageKey;
 				ind->Set_Individu();
 
 				fileStream >> ind->objects;

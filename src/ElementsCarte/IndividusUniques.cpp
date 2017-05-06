@@ -219,7 +219,7 @@ bool Individu_Unique::Set_Activite(int nv)
 		int key = CLEF_COFFRE;
 
 		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, PosX, PosY);
-		corpse->Set_Individu(Type, Dir, Get_Activite(MORT)->Num_Max[Dir], true);
+        corpse->Set_Individu(Type, corpseImageKey);
 
 		TypeClassement = CLASSEMENT_CADAVRE;
 		Diplomatie = DIPLOM_NEUTRE;
