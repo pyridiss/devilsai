@@ -68,6 +68,9 @@ class Classe_Commune
 		list<TemplateObject> inventory;	//These objects are always put on corpses, whatever probability
 		list<TemplateObject> stuff;
 
+    public:
+        string imagePrefix = "";
+
 		MapActivites Activites;
 
 	public:
@@ -246,7 +249,6 @@ class Element_Mouvant : public Element_Carte
 		short DirPietinement    = 0;
 		bool ArreterChasse      = false;
 
-
 	//Constructeurs / Destructeurs :
 	public:
 		Element_Mouvant() : Element_Carte() {}
@@ -334,6 +336,9 @@ class Individu_Unique : public Individu
 		unsigned int Experience = 0;
 		bool RecuperationFixe   = false;
 		bool EnergieMax         = false;
+
+    public:
+        string imagePrefix = "";
 
 	public:
 		MapActivites Activites;

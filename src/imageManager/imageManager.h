@@ -41,8 +41,6 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
 void addAnimation(string name, string file);
 imageManager::Animation* getAnimation(string name);
 
-void AjouterImagesIndividu(string, short, short, short, float[3][3]);
-void Disp_ImageIndividu(string, short, short, short, float, float, bool = false);
 void Disp_ImageCadavre(string, short, short, float, float, bool = false);
 void Set_ImageDecoration(string, Color, IntRect, float = 1, float = 1);
 void Supprimer_Images();

@@ -177,46 +177,8 @@ imageManager::Animation* getAnimation(string name)
 
 /** FONCTIONS D'AJOUT **/
 
-void AjouterImagesIndividu(string Type, short Act, short Dir, short Num, float m[3][3])
-{
-	for (short n = 0 ; n < Num ; ++n)
-	{
-		if (ImgIndividus.find(ClefIndividu(Type, Act, Dir, n)) != ImgIndividus.end()) continue;
-
-		imageManager::Image img;
-		const auto& result = ImgIndividus.insert(ClasseIndividus::value_type(ClefIndividu(Type, Act, Dir, n), img));
-
-		string path = intToString(Act) + "/" + intToString(Dir) + "/" + ((n < 10) ? "0" : "") + intToString(n);
-
-		result.first->second.setFromArchive(path, Vector2i(0, 0));
-//TODO		result.first->second.ModifierTeinte(m);
-
-		MESSAGE("Image Individu " + Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", "
-				+ intToString(n) + " ajoutée", IMAGE)
-	}
-}
-
 
 /** FONCTIONS D'AFFICHAGE **/
-
-void Disp_ImageIndividu(string Type, short Act, short Dir, short Num, float x, float y, bool Centre)
-{
-	ClasseIndividus::iterator i = ImgIndividus.find(ClefIndividu(Type, Act, Dir, Num));
-
-	if (i != ImgIndividus.end())
-	{
-		i->second.display(Jeu.App, x, y, Centre);
-
-		MESSAGE("Image Individu demandée : [" + Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", "
-				+ intToString(Num) + "] … OK", IMAGE)
-	}
-	else
-	{
-		string StrId = Type + ", " + intToString(Act) + ", " + intToString(Dir) + ", " + intToString(Num);
-		Erreur("L'image Individu suivante a été demandée sans avoir été chargée :", StrId);
-		MESSAGE("Image Individu demandée : [" + StrId + "] … INEXISTANTE", IMAGE)
-	}
-}
 
 void Disp_ImageCadavre(string Type, short Dir, short Num, float x, float y, bool Centre)
 {

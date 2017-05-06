@@ -29,6 +29,7 @@
 
 #include "Jeu.h"
 
+#include "imageManager/imageManager.h"
 
 /** VARIABLES GLOBALES **/
 
@@ -173,6 +174,8 @@ int main(int n, char *params[])
 	Jeu.Ind_AI = new Individu_Unique();
 	Jeu.Ind_AI->collisionType = RectangleCollision;
 	Jeu.Ind_AI->Id = -1;
+
+    imageManager::addContainer("individuals");
 
 	playMusic("Gates_Of_Heaven");
 

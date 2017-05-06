@@ -45,21 +45,15 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 	string TypeDonnee;
 
-	string ArchiveImg = INSTALL_DIR + "img/";
-
 	while (Fichier.rdstate() == 0)
 	{
 		Fichier >> TypeDonnee;
 
-		if (TypeDonnee == "ARCHIVE_IMG")
-		{
-			string bufferString;	Fichier >> bufferString;	ArchiveImg += bufferString;
-			if (PHYSFS_addToSearchPath(ArchiveImg.c_str(), 1) == 0)
-			{
-				Erreur("Le fichier suivant n'a pu être chargé :", ArchiveImg.c_str());
-			}
-			else MESSAGE(" Fichier \"" + ArchiveImg + "\" ouvert", FICHIER)
-		}
+        if (TypeDonnee == "addImageArchiveFile")
+        {
+            Fichier >> ind->imagePrefix;
+            imageManager::addArchiveFile(INSTALL_DIR + ind->imagePrefix);
+        }
 		if (TypeDonnee == "MATRICE_TEINTE")
 		{
 			Fichier >> Matrice[0][0] >> Matrice[0][1] >> Matrice[0][2]
@@ -185,17 +179,28 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			Fichier >> Dir;
 		}
 
-		if (TypeDonnee == "img")
+        if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
-			AjouterImagesIndividu(Type, Act, Dir, Num, Matrice);
 			act->Num_Max[Dir] = Num;
 		}
+        if (TypeDonnee == "pathToImages")
+        {
+            string pathPattern;
+            Fichier >> pathPattern;
+            for (int i = 0 ; i < Num ; ++i)
+            {
+                string path = pathPattern;
+                string number = intToString(i, 2);
+                path.replace(path.find_first_of('%'), 2, number);
+                string key = ind->imagePrefix + "/" + path;
+                imageManager::addImage("individuals", key, path);
+                act->addImage(Dir, i, key);
+            }
+        }
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			for (int i = 0 ; i < Num ; ++i)
-				act->addImage(Act, i);
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}
@@ -220,7 +225,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+	imageManager::removeArchiveFile(INSTALL_DIR + ind->imagePrefix);
 
 	Fichier.close();
 }
@@ -249,21 +254,15 @@ void Load_ClasseCommune(string Type)
 //	int ClefStuff = CLEF_STUFF;
 	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-	string ArchiveImg = INSTALL_DIR + "img/";
-
 	while (Fichier.rdstate() == 0)
 	{
 		Fichier >> TypeDonnee;
 
-		if (TypeDonnee == "ARCHIVE_IMG")
-		{
-			string bufferString;	Fichier >> bufferString;	ArchiveImg += bufferString;
-			if (PHYSFS_addToSearchPath(ArchiveImg.c_str(), 1) == 0)
-			{
-				Erreur("Le fichier suivant n'a pu être chargé :", ArchiveImg.c_str());
-			}
-			else MESSAGE(" > Fichier \"" + ArchiveImg + "\" ouvert", FICHIER)
-		}
+		if (TypeDonnee == "addImageArchiveFile")
+        {
+            Fichier >> cl_com->imagePrefix;
+            imageManager::addArchiveFile(INSTALL_DIR + cl_com->imagePrefix);
+        }
 		if (TypeDonnee == "MATRICE_TEINTE")
 		{
 			Fichier >> Matrice[0][0] >> Matrice[0][1] >> Matrice[0][2]
@@ -330,17 +329,29 @@ void Load_ClasseCommune(string Type)
 			//cl_com->Caracs.DirDisponibles[Dir] = true;
 		}
 
-		if (TypeDonnee == "img")
+		if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
-			AjouterImagesIndividu(Type, Act, Dir, Num, Matrice);
 			act->Num_Max[Dir] = Num;
 		}
 
+        if (TypeDonnee == "pathToImages")
+        {
+            string pathPattern;
+            Fichier >> pathPattern;
+            for (int i = 0 ; i < Num ; ++i)
+            {
+                string path = pathPattern;
+                string number = intToString(i, 2);
+                path.replace(path.find_first_of('%'), 2, number);
+                string key = cl_com->imagePrefix + "/" + path;
+                imageManager::addImage("individuals", key, path);
+                act->addImage(Dir, i, key);
+            }
+        }
+
 		if (TypeDonnee == "FIN_ACT")
 		{
-			for (int i = 0 ; i < Num ; ++i)
-				act->addImage(Act, i);
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}
@@ -358,7 +369,7 @@ void Load_ClasseCommune(string Type)
 		TypeDonnee = "";
 	}
 
-	if (ArchiveImg != INSTALL_DIR + "img/") PHYSFS_removeFromSearchPath(ArchiveImg.c_str());
+    imageManager::removeArchiveFile(INSTALL_DIR + cl_com->imagePrefix);
 
 	Fichier.close();
 }
@@ -511,7 +522,7 @@ void Load_ClassePaysageMouvant(string Type)
 		TypeDonnee = "";
 	}
 
-    imageManager::removeArchiveFile(cl_paymvt->imagePrefix);
+    imageManager::removeArchiveFile(INSTALL_DIR + cl_paymvt->imagePrefix);
 
 	Fichier.close();
 }

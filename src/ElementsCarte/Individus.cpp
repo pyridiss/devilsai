@@ -22,6 +22,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Individu **/
 
@@ -192,5 +193,5 @@ void Individu::Disp(float RefX, float RefY)
 	#endif
 
 	Activite* act = Get_Activite(Act);
-	Disp_ImageIndividu(Type, act->actToShow(Num), Dir, act->numToShow(Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(Jeu.App, "individuals", act->getImageKey(Dir, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 }
