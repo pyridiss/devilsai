@@ -1,4 +1,4 @@
-addImageArchiveFile img/Araignee.img
+addImageArchiveFile img/monster-spider-red.img
 corpseImageKey 300:6/1/09.png
 DIPLOM 2
 CMP_VIS 450

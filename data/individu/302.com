@@ -1,6 +1,6 @@
-addImageArchiveFile img/Araignee.img
-MATRICE_TEINTE 0 0.5 0 0.8 0 0 0.4 0 0
-corpseImageKey 302:6/1/09.png
+addImageArchiveFile img/monster-spider-greyscale.img
+changeHSL 125 90 40
+corpseImageKey 302:death/south/09.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14
@@ -9,36 +9,36 @@ STUFF spidervenom 1 10
 ACT 6 blo 3
 VIT 9
 MAJ 0
-DIR 1 numberOfImages 10 pathToImages 6/1/%%.png
+DIR 1 numberOfImages 10 pathToImages death/south/%%.png
 FIN_ACT
 ACT 5 blo 2
 VIT 20
 MAJ 0
-DIR 0 numberOfImages 8 pathToImages 5/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 5/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 5/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 5/3/%%.png
+DIR 0 numberOfImages 8 pathToImages hurt/north/%%.png
+DIR 1 numberOfImages 8 pathToImages hurt/south/%%.png
+DIR 2 numberOfImages 8 pathToImages hurt/east/%%.png
+DIR 3 numberOfImages 8 pathToImages hurt/west/%%.png
 FIN_ACT
 ACT 4 blo 1
 VIT 11
 MAJ 0
-DIR 0 numberOfImages 8 pathToImages 4/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 4/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 4/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 4/3/%%.png
+DIR 0 numberOfImages 8 pathToImages attack/north/%%.png
+DIR 1 numberOfImages 8 pathToImages attack/south/%%.png
+DIR 2 numberOfImages 8 pathToImages attack/east/%%.png
+DIR 3 numberOfImages 8 pathToImages attack/west/%%.png
 FIN_ACT
 ACT 2 blo 1
 VIT 7
 MAJ 0
-DIR 1 numberOfImages 7 pathToImages 2/1/%%.png
+DIR 1 numberOfImages 7 pathToImages pause/south/%%.png
 FIN_ACT
 ACT 1 blo 0
 VIT 15
 MAJ 2
-DIR 0 numberOfImages 8 pathToImages 1/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 1/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 1/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 1/3/%%.png
+DIR 0 numberOfImages 8 pathToImages walking/north/%%.png
+DIR 1 numberOfImages 8 pathToImages walking/south/%%.png
+DIR 2 numberOfImages 8 pathToImages walking/east/%%.png
+DIR 3 numberOfImages 8 pathToImages walking/west/%%.png
 FIN_ACT
 ACT_DEFAUT 1
 FORCE 165

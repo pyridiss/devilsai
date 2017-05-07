@@ -95,7 +95,6 @@ set(img
     10010500.png
     10010600.png
     10010700.png
-    Araignee.img
     Art.png
     Baliste.img
     BarreEnergie.png
@@ -133,6 +132,8 @@ set(img
     Horst.img
     Joueur.img
     Mannequin.img
+    monster-spider-greyscale.img
+    monster-spider-red.img
     O000-.png
     O000+.png
     O001-.png
