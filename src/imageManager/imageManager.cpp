@@ -28,6 +28,7 @@
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
+#include "imageManager/HSL.h"
 
 namespace imageManager{
 
@@ -115,6 +116,17 @@ imageManager::Image* getImage(string container, string key)
     }
 
     return &(i->second);
+}
+
+void changeHSL(string container, string key, double h, double s, double l)
+{
+    Image* i = getImage(container, key);
+
+    if (i != nullptr)
+    {
+        HSL hsl(h, s, l);
+        i->sprite.setColor(hsl.turnToRGB());
+    }
 }
 
 void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter)
