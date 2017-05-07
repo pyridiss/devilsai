@@ -176,6 +176,7 @@ int main(int n, char *params[])
 	Jeu.Ind_AI->Id = -1;
 
     imageManager::addContainer("individuals");
+    imageManager::addContainer("movingObjects");
 
 	playMusic("Gates_Of_Heaven");
 

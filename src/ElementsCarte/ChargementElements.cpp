@@ -458,10 +458,19 @@ void Load_ClassePaysageMouvant(string Type)
 	Activite *act = NULL;
 	short Act, Dir, Num;
 	int ExX = 0, ExY = 0;
+    int h = 0, s = 0, l = 0;
 
 	while (Fichier.rdstate() == 0)
 	{
 		Fichier >> TypeDonnee;
+
+        if (TypeDonnee == "addImageArchiveFile")
+        {
+            Fichier >> cl_paymvt->imagePrefix;
+            imageManager::addArchiveFile(INSTALL_DIR + cl_paymvt->imagePrefix);
+        }
+        if (TypeDonnee == "changeHSL")
+            Fichier >> h >> s >> l;
 
 		if (TypeDonnee == "EXCENTR")
 		{
@@ -495,31 +504,33 @@ void Load_ClassePaysageMouvant(string Type)
 		if (TypeDonnee == "MAJ")	Fichier >> act->step;
 		if (TypeDonnee == "DIR")	Fichier >> Dir;
 
-		if (TypeDonnee == "img")
+		if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
 			act->Num_Max[Dir] = Num;
 		}
+        if (TypeDonnee == "pathToImages")
+        {
+            string pathPattern;
+            Fichier >> pathPattern;
+            for (int i = 0 ; i < Num ; ++i)
+            {
+                string path = pathPattern;
+                string number = intToString(i, 2);
+                path.replace(path.find_first_of('%'), 2, number);
+                string key = Type + ":" + path;
+                imageManager::addImage("movingObjects", key, path);
+                if (h + s + l != 0)
+                    imageManager::changeHSL("movingObjects", key, h, s, l);
+                act->addImage(Dir, i, key);
+            }
+        }
 
 		if (TypeDonnee == "FIN_ACT")
 		{
 			Act = 0; Dir = 0; Num = 0;
 			act = NULL;
 		}
-
-        if (TypeDonnee == "addImageArchiveFile")
-        {
-            Fichier >> cl_paymvt->imagePrefix;
-            imageManager::addArchiveFile(INSTALL_DIR + cl_paymvt->imagePrefix);
-        }
-        if (TypeDonnee == "addImage")
-        {
-            imageManager::addContainer("movingObjects");
-            string path;
-            Fichier >> path;
-            string key = Type + ":" + path;
-            imageManager::addImage("movingObjects", key, path);
-        }
 
 		TypeDonnee = "";
 	}

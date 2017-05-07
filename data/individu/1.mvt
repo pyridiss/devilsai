@@ -1,18 +1,13 @@
+addImageArchiveFile img/Fontaine.img
 RECT_COL 30 16
 EXCENTR 6 -6
 ACT 1 blo 0
 VIT 3
 MAJ 0
-DIR 0 img 4
+DIR 0 numberOfImages 4 pathToImages 1/%%.png
 FIN_ACT
 ACT 0 blo 0
 VIT 1
 MAJ 0
-DIR 0 img 1
+DIR 0 numberOfImages 1 pathToImages 0/%%.png
 FIN_ACT
-addImageArchiveFile img/Fontaine.img
-addImage 0/00.png
-addImage 1/00.png
-addImage 1/01.png
-addImage 1/02.png
-addImage 1/03.png

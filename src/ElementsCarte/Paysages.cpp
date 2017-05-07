@@ -196,6 +196,7 @@ void Classe_Paysage::Copie_Element(Paysage *elem)
 Paysage_Mouvant::Paysage_Mouvant() : Element_Mouvant()
 {
 	Classe = NULL;
+    Dir = NORD;
 }
 Paysage_Mouvant::~Paysage_Mouvant()
 {
@@ -256,8 +257,8 @@ void Paysage_Mouvant::Disp(float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-    string key = Type + ":" + intToString(Act) + "/0" + intToString(Num) + ".png";
-    imageManager::display(Jeu.App, "movingObjects", key, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    Activite* act = Get_Activite(Act);
+    imageManager::display(Jeu.App, "movingObjects", act->getImageKey(Dir, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
