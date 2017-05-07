@@ -35,6 +35,7 @@ class Animation
 
     public:
         void setRectangle(int x, int y, int w, int h);
+        void setSmoothRectangle(int x, int y, int w, int h);
         void setFlickering(float f);
         void setColor(Color c);
         void display(RenderWindow& app, int x, int y, bool atCenter);

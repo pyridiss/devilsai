@@ -29,20 +29,19 @@ namespace imageManager{
 
 void Animation::setRectangle(int x, int y, int w, int h)
 {
+    IntRect newRect(x, y, w,h );
+    image.sprite.setTextureRect(newRect);
+}
+
+void Animation::setSmoothRectangle(int x, int y, int w, int h)
+{
     IntRect newRect;
     IntRect currentRect = image.sprite.getTextureRect();
 
-    if (abs((float)currentRect.left - (float)x) < 2) newRect.left = x;
-    else newRect.left = currentRect.left - (currentRect.left - x) / 10.f;
-
-    if (abs((float)currentRect.top - (float)y) < 2) newRect.top = y;
-    else newRect.top = currentRect.top - (currentRect.top - y) / 10.f;
-
-    if (abs((float)currentRect.width - (float)w) < 2) newRect.width = w;
-    else newRect.width = currentRect.width - (currentRect.width - w) / 10.f;
-
-    if (abs((float)currentRect.height - (float)h) < 2) newRect.height = h;
-    else newRect.height = currentRect.height - (currentRect.height - h) / 10.f;
+    newRect.left   = currentRect.left   - (currentRect.left   - x) / (abs(currentRect.left   - x)/3 + 1) ;
+    newRect.top    = currentRect.top    - (currentRect.top    - y) / (abs(currentRect.top    - y)/3 + 1) ;
+    newRect.width  = currentRect.width  - (currentRect.width  - w) / (abs(currentRect.width  - w)/3 + 1) ;
+    newRect.height = currentRect.height - (currentRect.height - h) / (abs(currentRect.height - h)/3 + 1) ;
 
     image.sprite.setTextureRect(newRect);
 }
