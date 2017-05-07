@@ -195,7 +195,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
                 string path = pathPattern;
                 string number = intToString(i, 2);
                 path.replace(path.find_first_of('%'), 2, number);
-                string key = ind->imagePrefix + "/" + path;
+                string key = Type + ":" + path;
                 imageManager::addImage("individuals", key, path);
                 act->addImage(Dir, i, key);
             }
@@ -348,7 +348,7 @@ void Load_ClasseCommune(string Type)
                 string path = pathPattern;
                 string number = intToString(i, 2);
                 path.replace(path.find_first_of('%'), 2, number);
-                string key = cl_com->imagePrefix + "/" + path;
+                string key = Type + ":" + path;
                 imageManager::addImage("individuals", key, path);
                 act->addImage(Dir, i, key);
             }
@@ -519,7 +519,7 @@ void Load_ClassePaysageMouvant(string Type)
             imageManager::addContainer("movingObjects");
             string path;
             Fichier >> path;
-            string key = cl_paymvt->imagePrefix + "/" + path;
+            string key = Type + ":" + path;
             imageManager::addImage("movingObjects", key, path);
         }
 
