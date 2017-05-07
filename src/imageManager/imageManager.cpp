@@ -169,17 +169,4 @@ imageManager::Animation* getAnimation(string name)
     return &(a->second);
 }
 
-
-
-void Set_ImageDecoration(string Id, Color Couleur, IntRect Clip, float ScaleX, float ScaleY)
-{
-	ClasseDecorations::iterator i = ImgDecorations.find(ClefDecoration(Id));
-
-	i->second.sprite.setColor(Couleur);
-	i->second.sprite.setTextureRect(Clip);
-	i->second.sprite.setScale(ScaleX, ScaleY);
-}
-
-
-
 } //namespace imageManager

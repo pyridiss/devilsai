@@ -42,8 +42,6 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
 void addAnimation(string name, string file);
 imageManager::Animation* getAnimation(string name);
 
-void Set_ImageDecoration(string, Color, IntRect, float = 1, float = 1);
-
 } //namespace imageManager
 
 #endif //IMAGEMANAGER_H
