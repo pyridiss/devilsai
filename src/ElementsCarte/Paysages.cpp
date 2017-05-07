@@ -256,7 +256,7 @@ void Paysage_Mouvant::Disp(float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-    string key = Classe->imagePrefix + "/" + intToString(Act) + "/0" + intToString(Num) + ".png";
+    string key = Type + ":" + intToString(Act) + "/0" + intToString(Num) + ".png";
     imageManager::display(Jeu.App, "movingObjects", key, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 
 	#ifdef DEBOGAGE
