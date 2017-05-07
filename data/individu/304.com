@@ -1,5 +1,6 @@
 addImageArchiveFile img/Araignee.img
 MATRICE_TEINTE 1.1 0 0 0 0 0 0 0 0
+corpseImageKey 304:6/1/09.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14

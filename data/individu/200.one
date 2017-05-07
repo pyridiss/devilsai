@@ -1,4 +1,5 @@
 addImageArchiveFile img/Joueur.img
+corpseImageKey 200:6/1/08.png
 DIPLOM 1
 CMP_VIS 0
 RAY_COL 20

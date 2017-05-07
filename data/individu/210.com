@@ -1,4 +1,5 @@
 addImageArchiveFile img/Guerrier.img
+corpseImageKey 210:6/1/05.png
 DIPLOM 1
 CMP_VIS 650
 RAY_COL 20

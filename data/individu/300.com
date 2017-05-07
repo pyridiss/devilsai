@@ -1,4 +1,5 @@
 addImageArchiveFile img/Araignee.img
+corpseImageKey 300:6/1/09.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14

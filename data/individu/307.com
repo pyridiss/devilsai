@@ -1,5 +1,6 @@
 addImageArchiveFile img/Orc.img
 MATRICE_TEINTE 0 0.1 1.2 0 0.1 1.2 0 0.1 1.2
+corpseImageKey 307:6/1/12.png
 DIPLOM 2
 CMP_VIS 400
 RAY_COL 24

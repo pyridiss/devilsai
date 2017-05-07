@@ -1,4 +1,5 @@
 addImageArchiveFile img/Mannequin.img
+corpseImageKey didact_manneq2:6/1/11.png
 DIPLOM 2
 CMP_VIS 0
 RAY_COL 14

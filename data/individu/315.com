@@ -1,4 +1,5 @@
 addImageArchiveFile img/Ogre.img
+corpseImageKey 315:6/1/10.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 17

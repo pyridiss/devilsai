@@ -1,4 +1,5 @@
 addImageArchiveFile img/Orc.img
+corpseImageKey 305:6/1/12.png
 DIPLOM 2
 CMP_VIS 400
 RAY_COL 24

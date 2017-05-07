@@ -1,4 +1,5 @@
 addImageArchiveFile img/Zombie.img
+corpseImageKey 310:6/1/08.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14

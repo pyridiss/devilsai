@@ -1,5 +1,6 @@
 addImageArchiveFile img/Zombie.img
 MATRICE_TEINTE 0.2 0.2 0.2 0.2 0.3 0.2 0.4 0.4 0.9
+corpseImageKey 311:6/1/08.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14

@@ -1,4 +1,5 @@
 addImageArchiveFile img/Troll.img
+corpseImageKey 320:6/1/08.png
 DIPLOM 2
 CMP_VIS 450
 RAY_COL 14
