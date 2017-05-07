@@ -26,7 +26,7 @@
 
 namespace imageManager{
 
-void Image::set(string file, Vector2i of, float scale)
+void Image::set(string file, Image* reference, Vector2i of, float scale)
 {
     offset = of;
 
@@ -34,12 +34,20 @@ void Image::set(string file, Vector2i of, float scale)
     ifstream f(file);
     bool fromFile = f.good();
     bool fromArch = PHYSFS_exists(file.c_str());
+    bool fromRef  = (reference != nullptr);
 
-    if (fromFile)
+    if (fromRef)
+    {
+        sprite.setTexture(reference->texture);
+        sourceFile = reference->sourceFile;
+    }
+    else if (fromFile)
     {
         texture.loadFromFile(file);
+        sprite.setTexture(texture);
+        sourceFile = file;
     }
-    if (fromArch)
+    else if (fromArch)
     {
         PHYSFS_file* physfsFile = PHYSFS_openRead(file.c_str());
         char *buffer = new char[PHYSFS_fileLength(physfsFile)];
@@ -49,15 +57,18 @@ void Image::set(string file, Vector2i of, float scale)
             fromArch = false;
 
         delete[] buffer;
+
+        sprite.setTexture(texture);
+        sourceFile = *(PHYSFS_getSearchPath()) + string("/") + file;
+
         PHYSFS_close(physfsFile);
     }
 
-    if (!fromFile && !fromArch)
+    if (!fromRef && !fromFile && !fromArch)
     {
         Erreur("Unable to load file:", file);
     }
 
-    sprite.setTexture(texture);
     texture.setSmooth(false);
 
     if (scale != 1) sprite.setScale(scale, scale);

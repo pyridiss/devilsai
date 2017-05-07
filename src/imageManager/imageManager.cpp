@@ -64,8 +64,21 @@ void addImage(string container, string key, string file, Vector2i of, float scal
     if (i == (*c).second.end())
     {
         imageManager::Image img;
+        imageManager::Image* reference = nullptr;
         const auto& result = (*c).second.insert(Container::value_type(key, img));
-        result.first->second.set(file, of, scale);
+        Container::iterator j = (*c).second.begin();
+        while (j != (*c).second.end())
+        {
+            if (j->second.sourceFile == file) reference = &(j->second);
+            if (PHYSFS_getSearchPath() != NULL && *(PHYSFS_getSearchPath()) != NULL)
+            {
+                string s = *(PHYSFS_getSearchPath());
+                s += "/" + file;
+                if (j->second.sourceFile == s) reference = &(j->second);
+            }
+            ++j;
+        }
+        result.first->second.set(file, reference, of, scale);
     }
 }
 
@@ -127,7 +140,7 @@ void addAnimation(string name, string file)
     {
         imageManager::Animation ani;
         const auto& result = animations.insert(AnimationDatabase::value_type(name, ani));
-        result.first->second.image.set(file, Vector2i(0, 0));
+        result.first->second.image.set(file, nullptr, Vector2i(0, 0));
     }
 }
 

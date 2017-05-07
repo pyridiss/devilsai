@@ -32,15 +32,14 @@ namespace imageManager
 
 class Image
 {
-    private:
-        Texture texture;
-
     public:
+        Texture texture;
         Sprite sprite;
+        string sourceFile;
         Vector2i offset;
 
     public:
-        void set(string file, Vector2i of, float scale = 1);
+        void set(string file, Image* reference, Vector2i of, float scale = 1);
         void applyShader(string file);
         const Vector2u getSize();
         void display(RenderWindow& app, float x, float y, bool atCenter = false);
