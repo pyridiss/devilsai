@@ -41,7 +41,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	short Act, Dir, Num;
-	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+	int h = 0, s = 0, l = 0;
 
 	string TypeDonnee;
 
@@ -54,14 +54,11 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
             Fichier >> ind->imagePrefix;
             imageManager::addArchiveFile(INSTALL_DIR + ind->imagePrefix);
         }
-		if (TypeDonnee == "MATRICE_TEINTE")
-		{
-			Fichier >> Matrice[0][0] >> Matrice[0][1] >> Matrice[0][2]
-					>> Matrice[1][0] >> Matrice[1][1] >> Matrice[1][2]
-					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
-		}
+        if (TypeDonnee == "changeHSL")
+            Fichier >> h >> s >> l;
         if (TypeDonnee == "corpseImageKey")
             Fichier >> ind->corpseImageKey;
+
 		if (TypeDonnee == "EMPLACEMENT_EQUIP")
 		{
 			int x, y, w, h;
@@ -197,6 +194,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
                 path.replace(path.find_first_of('%'), 2, number);
                 string key = Type + ":" + path;
                 imageManager::addImage("individuals", key, path);
+                if (h + s + l != 0)
+                    imageManager::changeHSL("individuals", key, h, s, l);
                 act->addImage(Dir, i, key);
             }
         }
@@ -254,7 +253,7 @@ void Load_ClasseCommune(string Type)
 	short Act, Dir, Num;
 	string TypeDonnee;
 //	int ClefStuff = CLEF_STUFF;
-	float Matrice[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+	int h = 0, s = 0, l = 0;
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -265,14 +264,11 @@ void Load_ClasseCommune(string Type)
             Fichier >> cl_com->imagePrefix;
             imageManager::addArchiveFile(INSTALL_DIR + cl_com->imagePrefix);
         }
-		if (TypeDonnee == "MATRICE_TEINTE")
-		{
-			Fichier >> Matrice[0][0] >> Matrice[0][1] >> Matrice[0][2]
-					>> Matrice[1][0] >> Matrice[1][1] >> Matrice[1][2]
-					>> Matrice[2][0] >> Matrice[2][1] >> Matrice[2][2];
-		}
+        if (TypeDonnee == "changeHSL")
+            Fichier >> h >> s >> l;
         if (TypeDonnee == "corpseImageKey")
             Fichier >> cl_com->corpseImageKey;
+
 		if (TypeDonnee == "DIPLOM")		Fichier >> cl_com->Diplomatie;
 		if (TypeDonnee == "CMP_VIS")	Fichier >> cl_com->ChampVision;
 		if (TypeDonnee == "RAY_COL")	Fichier >> cl_com->RayonCollision;
@@ -350,6 +346,8 @@ void Load_ClasseCommune(string Type)
                 path.replace(path.find_first_of('%'), 2, number);
                 string key = Type + ":" + path;
                 imageManager::addImage("individuals", key, path);
+                if (h + s + l != 0)
+                    imageManager::changeHSL("individuals", key, h, s, l);
                 act->addImage(Dir, i, key);
             }
         }
