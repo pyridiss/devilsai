@@ -48,9 +48,6 @@ void Load_Decorations()
     imageManager::addContainer("misc");
 	imageManager::addImage("misc", "Fond", INSTALL_DIR + "img/Fond.png", Vector2i(0, 0), (float)Options.ScreenW/400.f);
 	imageManager::addImage("misc", "Frange", INSTALL_DIR + "img/Frange.png");
-	imageManager::addImage("misc", "BarreVie", INSTALL_DIR + "img/BarreVie.png");
-	imageManager::addImage("misc", "BarreEnergie", INSTALL_DIR + "img/BarreEnergie.png");
-	imageManager::addImage("misc", "BarreRecup", INSTALL_DIR + "img/BarreRecup.png");
 	imageManager::addImage("misc", "Art", INSTALL_DIR + "img/Art.png");
 	imageManager::addImage("misc", "FondObjet_75_100", INSTALL_DIR + "img/FondObjet_75_100.png");
 	imageManager::addImage("misc", "FondObjet_75_75", INSTALL_DIR + "img/FondObjet_75_75.png");
@@ -74,6 +71,8 @@ void Load_Decorations()
     imageManager::addAnimation("playerLifeGaugeBackground", INSTALL_DIR + "img/BarreVie.png");
     imageManager::addAnimation("playerEnergyGauge", INSTALL_DIR + "img/BarreEnergie.png");
     imageManager::addAnimation("playerEnergyGaugeBackground", INSTALL_DIR + "img/BarreEnergie.png");
+    imageManager::addAnimation("playerRecoveryGauge", INSTALL_DIR + "img/BarreRecup.png");
+    imageManager::addAnimation("interactorLifeGauge", INSTALL_DIR + "img/BarreVie.png");
 
     Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
     Partie.screenCharacter.button.setSize(32, 32);
@@ -312,13 +311,14 @@ void Disp_JaugesVie()
     static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
     static imageManager::Animation* playerEnergyGauge = imageManager::getAnimation("playerEnergyGauge");
     static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
+    static imageManager::Animation* playerRecoveryGauge = imageManager::getAnimation("playerRecoveryGauge");
 
 	Disp_TexteCentre(Partie.perso->Nom, 92, 60, Color(128, 255, 128, 255), 12.f);
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 
-    playerLifeGauge->setRectangle(0, 0, Partie.perso->get("Vitalite") / 10, 7);
-    playerEnergyGauge->setRectangle(0, 0, Partie.perso->get("Energie") / 10, 7);
+    playerLifeGauge->setSmoothRectangle(0, 0, Partie.perso->get("Vitalite") / 10, 7);
+    playerEnergyGauge->setSmoothRectangle(0, 0, Partie.perso->get("Energie") / 10, 7);
 
     if (Partie.perso->get("Vitalite") < 50) playerLifeGaugeBackground->setFlickering(0.5);
     else if (Partie.perso->get("Vitalite") < 100) playerLifeGaugeBackground->setFlickering(0.25);
@@ -345,13 +345,13 @@ void Disp_JaugesVie()
 
 	if (Recup > 0)
 	{
-		Set_ImageDecoration("BarreRecup", Color(255,255,255,255), IntRect(51, 0, (Recup-(Recup/98)*Recup%98)/2, 7));
-		imageManager::display(Jeu.App, "misc", "BarreRecup", 93, 88);
+        playerRecoveryGauge->setRectangle(51, 0, (Recup-(Recup/98)*Recup%98)/2, 7);
+        playerRecoveryGauge->display(Jeu.App, 93, 88, false);
 	}
 	if (Recup < 0)
 	{
-		Set_ImageDecoration("BarreRecup", Color(255,255,255,255), IntRect(51+Recup/2, 0, - Recup/2, 7));
-		imageManager::display(Jeu.App, "misc", "BarreRecup", 92+Recup/2, 88);
+        playerRecoveryGauge->setRectangle(51+Recup/2, 0, - Recup/2, 7);
+        playerRecoveryGauge->display(Jeu.App, 92+Recup/2, 88, false);
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
@@ -395,17 +395,18 @@ void Disp_JaugesVie()
 	static RectangleShape MasqueInter(Vector2f(100, 7));
 	MasqueInter.setPosition(Options.ScreenW - 114, Options.ScreenH/2 - 25);
 
+    static imageManager::Animation* interactorLifeGauge = imageManager::getAnimation("interactorLifeGauge");
+
 	if (TransInd != 0)
 	{
 		Disp_TexteCentre(NomInd, Options.ScreenW - 64, Options.ScreenH/2 - 35, CouleurNom, 12.f);
 
 		MasqueInter.setFillColor(Color(0, 0, 0, (TransInd > 80) ? TransInd-80 : 0));
-		Set_ImageDecoration("BarreVie", Color(255,255,255,TransInd), IntRect(0, 0, sIVit/10, 7));
-
 		Jeu.App.draw(MasqueInter);
-		imageManager::display(Jeu.App, "misc", "BarreVie", Options.ScreenW - 114, Options.ScreenH/2 - 25);
 
-		Set_ImageDecoration("BarreVie", Color(255,255,255,255), IntRect(0,0,0,0));
+        interactorLifeGauge->setSmoothRectangle(0, 0, sIVit/10, 7);
+        interactorLifeGauge->setColor(Color(255, 255, 255, TransInd));
+        interactorLifeGauge->display(Jeu.App, Options.ScreenW - 114, Options.ScreenH/2 - 25, false);
 
 		if		(sIVit == 0)				Disp_TexteCentre(_MORT, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(168, 168, 168, TransInd), 11.f);
 		else if	(sIVit/10 + sIRec >= 90)	Disp_TexteCentre(_SANTE1, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(128, 255, 128, TransInd), 11.f);
@@ -436,6 +437,7 @@ void Disp_JaugesVie()
 			if (Elem->Diplomatie == DIPLOM_ENNEMI) CouleurNom = Color(255, 255, 255, 255);
 		}
 		else Ind = NULL;
+        interactorLifeGauge->setRectangle(0, 0, Ind->get("Vitalite")/10, 7);
 		AncienInteraction = Partie.perso->ElementInteraction;
 	}
 	if (Ind != NULL && Partie.perso->ElementInteraction != -1)
