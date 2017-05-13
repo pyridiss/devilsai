@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STYLE_H
-#define STYLE_H
+#ifndef GUI_STYLE_H
+#define GUI_STYLE_H
 
 #include <string>
 
@@ -27,7 +27,7 @@
 using namespace std;
 using namespace sf;
 
-namespace tools{
+namespace gui{
 
 namespace style{
 
@@ -47,7 +47,7 @@ void warnShader(RenderWindow& app, int x, int y, int w, int h);
 
 } //namespace style
 
-} //namespace tools
+} //namespace gui
 
-#endif // STYLE_H
+#endif // GUI_STYLE_H
 

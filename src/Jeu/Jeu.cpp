@@ -441,7 +441,7 @@ void Clean_Partie()
 
 int MenuPrincipal()
 {
-    tools::Button newGameButton, loadGameButton, optionsButton, exitButton;
+    gui::Button newGameButton, loadGameButton, optionsButton, exitButton;
 
     newGameButton.setCenterCoordinates(Options.ScreenW/2, 238);
     newGameButton.setTextFont(Jeu.DayRoman, 28);

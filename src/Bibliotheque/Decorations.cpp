@@ -25,17 +25,17 @@
 
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
-#include "tools/button.h"
+#include "gui/button.h"
 
 /** VARIABLES GLOBALES **/
 
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-tools::Button *pauseGameTopButton;
-tools::Button *saveGameTopButton;
-tools::Button *exitGameTopButton;
-tools::Button *restingButton;
+gui::Button *pauseGameTopButton;
+gui::Button *saveGameTopButton;
+gui::Button *exitGameTopButton;
+gui::Button *restingButton;
 
 unsigned int NombreMesures = 0;
 float SommeFPS = 0;
@@ -77,7 +77,7 @@ void Load_Decorations()
     Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
     Partie.screenCharacter.button.setSize(32, 32);
     Partie.screenCharacter.button.setAllBackground("BoutonPersonnage");
-    Partie.screenCharacter.button.setHoverShader(tools::style::highlightShader);
+    Partie.screenCharacter.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
@@ -85,7 +85,7 @@ void Load_Decorations()
     Partie.screenEquipment.button.setTopLeftCoordinates(Options.ScreenW/2 - 1*32 - 2, 28);
     Partie.screenEquipment.button.setSize(32, 32);
     Partie.screenEquipment.button.setAllBackground("BoutonEquipement");
-    Partie.screenEquipment.button.setHoverShader(tools::style::highlightShader);
+    Partie.screenEquipment.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenEquipment.key = Keyboard::Key::E;
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
@@ -93,7 +93,7 @@ void Load_Decorations()
     Partie.screenSkills.button.setTopLeftCoordinates(Options.ScreenW/2 + 2, 28);
     Partie.screenSkills.button.setSize(32, 32);
     Partie.screenSkills.button.setAllBackground("BoutonCompetences");
-    Partie.screenSkills.button.setHoverShader(tools::style::highlightShader);
+    Partie.screenSkills.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
@@ -101,12 +101,12 @@ void Load_Decorations()
     Partie.screenJournal.button.setTopLeftCoordinates(Options.ScreenW/2 + 32 + 4 + 2, 28);
     Partie.screenJournal.button.setSize(32, 32);
     Partie.screenJournal.button.setAllBackground("BoutonJournal");
-    Partie.screenJournal.button.setHoverShader(tools::style::highlightShader);
+    Partie.screenJournal.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenJournal.key = Keyboard::Key::J;
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
 
-    pauseGameTopButton = new tools::Button;
+    pauseGameTopButton = new gui::Button;
     pauseGameTopButton->setTopLeftCoordinates(275, 2);
     pauseGameTopButton->setSize(125, 18);
     pauseGameTopButton->setNormalBackground("Bouton");
@@ -115,7 +115,7 @@ void Load_Decorations()
     pauseGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_PAUSE));
     pauseGameTopButton->addOffsetToActiveText(1, 1);
 
-    saveGameTopButton = new tools::Button;
+    saveGameTopButton = new gui::Button;
     saveGameTopButton->setTopLeftCoordinates(410, 2);
     saveGameTopButton->setSize(125, 18);
     saveGameTopButton->setNormalBackground("Bouton");
@@ -124,7 +124,7 @@ void Load_Decorations()
     saveGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_SAUVEG));
     saveGameTopButton->addOffsetToActiveText(1, 1);
 
-    exitGameTopButton = new tools::Button;
+    exitGameTopButton = new gui::Button;
     exitGameTopButton->setTopLeftCoordinates(Options.ScreenW - 255, 2);
     exitGameTopButton->setSize(125, 18);
     exitGameTopButton->setNormalBackground("Bouton");
@@ -133,7 +133,7 @@ void Load_Decorations()
     exitGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_QUITTER));
     exitGameTopButton->addOffsetToActiveText(1, 1);
 
-    restingButton = new tools::Button;
+    restingButton = new gui::Button;
     restingButton->setTopLeftCoordinates(31, 130);
     restingButton->setSize(125, 18);
     restingButton->setNormalBackground("Bouton");
@@ -191,7 +191,7 @@ void Disp_FPS()
 	static string Texte("");
 	static short Compteur = 15;
 	static float Framerate;
-	static Text FPS("", tools::style::defaultTextFont(), 10);
+	static Text FPS("", gui::style::defaultTextFont(), 10);
 	FPS.setPosition(Options.ScreenW - 100, 7);
 
 	if (Arguments.LimitToFpsDisabled) Compteur = 15;
@@ -292,7 +292,7 @@ void Disp_Menu()
     Partie.screenJournal.button.display(Jeu.App);
 
     if (Partie.journal.newEntryAdded)
-        Partie.screenJournal.button.setNormalShader(tools::style::warnShader);
+        Partie.screenJournal.button.setNormalShader(gui::style::warnShader);
     else
         Partie.screenJournal.button.setNormalShader(NULL);
 }

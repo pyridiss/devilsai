@@ -17,13 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tools/button.h"
-#include "tools/style.h"
+#include "gui/button.h"
+#include "gui/style.h"
 #include "imageManager/imageManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 
-namespace tools{
+namespace gui{
 
 void Button::setTopLeftCoordinates(int x, int y)
 {
@@ -110,9 +110,9 @@ void Button::setNormalText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (normal.text.getFont() == NULL)
-        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
+        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
 
-    setNormalTextColor(tools::style::normalButtonTextColor());
+    setNormalTextColor(gui::style::normalButtonTextColor());
 
     FloatRect rect = normal.text.getGlobalBounds();
     normal.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
@@ -130,9 +130,9 @@ void Button::setActiveText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (active.text.getFont() == NULL)
-        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
+        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
 
-    setActiveTextColor(tools::style::activeButtonTextColor());
+    setActiveTextColor(gui::style::activeButtonTextColor());
 
     FloatRect rect = active.text.getGlobalBounds();
     active.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
@@ -150,9 +150,9 @@ void Button::setHoverText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (hover.text.getFont() == NULL)
-        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
+        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
 
-    setHoverTextColor(tools::style::hoverButtonTextColor());
+    setHoverTextColor(gui::style::hoverButtonTextColor());
 
     FloatRect rect = hover.text.getGlobalBounds();
     hover.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
@@ -170,9 +170,9 @@ void Button::setDisabledText(String32& t)
 
     //If no font properties set, use default (needed to compute position)
     if (disabled.text.getFont() == NULL)
-        setTextFont(tools::style::buttonTextFont(), tools::style::buttonTextSize());
+        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
 
-    setDisabledTextColor(tools::style::disabledButtonTextColor());
+    setDisabledTextColor(gui::style::disabledButtonTextColor());
 
     FloatRect rect = disabled.text.getGlobalBounds();
     disabled.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
@@ -392,4 +392,4 @@ void Button::display(RenderWindow& app)
     }
 }
 
-}
+} //namespace gui

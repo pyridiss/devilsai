@@ -26,7 +26,7 @@
 
 #include <SFML/System.hpp>
 
-#include "tools/button.h"
+#include "gui/button.h"
 
 using namespace std;
 using namespace sf;
@@ -134,7 +134,7 @@ class Activite
 class EmplacementEquipement
 {
 	public:
-        tools::Button* BoutonEquipement = nullptr;
+        gui::Button* BoutonEquipement = nullptr;
 
 	public:
 		string CategorieObjet		= "";

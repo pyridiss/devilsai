@@ -323,7 +323,7 @@ EmplacementEquipement::~EmplacementEquipement()
 
 void EmplacementEquipement::Set(int x, int y, int w, int h)
 {
-    if (BoutonEquipement == nullptr) BoutonEquipement = new tools::Button;
+    if (BoutonEquipement == nullptr) BoutonEquipement = new gui::Button;
 
     BoutonEquipement->setTopLeftCoordinates(x, y);
     BoutonEquipement->setSize(w, h);
@@ -340,7 +340,7 @@ void EmplacementEquipement::Set(int x, int y, int w, int h)
         BoutonEquipement->setAllBackground("FondObjet_75_100");
     }
 
-    BoutonEquipement->setHoverShader(tools::style::highlightShader);
+    BoutonEquipement->setHoverShader(gui::style::highlightShader);
 }
 
 string EmplacementEquipement::Get_IdEmplacement()

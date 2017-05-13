@@ -30,9 +30,9 @@
 
 #include "Bibliotheque/Bibliotheque.h"
 
-#include "tools/style.h"
+#include "gui/style.h"
 
-namespace tools{
+namespace gui{
 
 namespace style{
 
@@ -149,4 +149,4 @@ void warnShader(RenderWindow& app, int x, int y, int w, int h)
 
 } //namespace style
 
-} //namespace tools
+} //namespace gui

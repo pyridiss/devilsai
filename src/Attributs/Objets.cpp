@@ -22,11 +22,11 @@
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "imageManager/imageManager.h"
-#include "tools/button.h"
+#include "gui/button.h"
 
-tools::Button *BoutonsInventaire[24];
-tools::Button *BoutonsCoffre[8];
-tools::Button *BoutonsCompetences[4]; //Never displayed, but useful to test activation
+gui::Button *BoutonsInventaire[24];
+gui::Button *BoutonsCoffre[8];
+gui::Button *BoutonsCompetences[4]; //Never displayed, but useful to test activation
 
 int PosDescX = 0, PosDescY = 0;
 int PosCoffreX = 0, PosCoffreY = 0;
@@ -35,11 +35,11 @@ void Load_Decorations_Objets()
 {
     for (int a = 0 ; a < 24 ; ++a)
     {
-        BoutonsInventaire[a] = new tools::Button;
+        BoutonsInventaire[a] = new gui::Button;
         BoutonsInventaire[a]->setTopLeftCoordinates(150 + 5 + 50*(a%12), Options.ScreenH - 110 + 50*(a/12));
         BoutonsInventaire[a]->setSize(50, 50);
         BoutonsInventaire[a]->setAllBackground("FondObjet_50_50");
-        BoutonsInventaire[a]->setHoverShader(tools::style::highlightShader);
+        BoutonsInventaire[a]->setHoverShader(gui::style::highlightShader);
     }
 
 	if (Options.ScreenW > 150 + 610 + 250) //Assez de place à droite de l'inventaire
@@ -55,21 +55,21 @@ void Load_Decorations_Objets()
 
     for (int a = 0 ; a < 8 ; ++a)
     {
-        BoutonsCoffre[a] = new tools::Button;
+        BoutonsCoffre[a] = new gui::Button;
         BoutonsCoffre[a]->setTopLeftCoordinates(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4));
         BoutonsCoffre[a]->setSize(50, 50);
         BoutonsCoffre[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCoffre[a]->setHoverShader(tools::style::highlightShader);
+        BoutonsCoffre[a]->setHoverShader(gui::style::highlightShader);
     }
 
     unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
     for (int a = 0 ; a < 4 ; ++a)
     {
-        BoutonsCompetences[a] = new tools::Button;
+        BoutonsCompetences[a] = new gui::Button;
         BoutonsCompetences[a]->setTopLeftCoordinates(5 + 66*(a/3), yCompetences[a]);
         BoutonsCompetences[a]->setSize(50, 50);
         BoutonsCompetences[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCompetences[a]->setHoverShader(tools::style::highlightShader);
+        BoutonsCompetences[a]->setHoverShader(gui::style::highlightShader);
     }
 }
 

@@ -297,7 +297,7 @@ void DialogueEtGestionEvenements(string fichier)
 
 int SaisieNom(String32 &Texte)
 {
-    tools::Button mainMenuButton, BoutonDidacticiel, BoutonChapitre1;
+    gui::Button mainMenuButton, BoutonDidacticiel, BoutonChapitre1;
 
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);

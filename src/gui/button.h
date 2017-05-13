@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef GUI_BUTTON_H
+#define GUI_BUTTON_H
 
 #include <string>
 
@@ -29,7 +29,7 @@ using namespace sf;
 
 typedef basic_string<Uint32> String32;
 
-namespace tools{
+namespace gui{
 
 class Button
 {
@@ -110,6 +110,7 @@ class Button
         void display(RenderWindow& app);
 };
 
-}
-#endif // BUTTON_H
+} //namespace gui
+
+#endif // GUI_BUTTON_H
 

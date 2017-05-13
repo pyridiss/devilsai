@@ -21,7 +21,7 @@
 
 #include <string.h>
 
-#include "tools/style.h"
+#include "gui/style.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -160,7 +160,7 @@ int main(int n, char *params[])
 	loadDevilsaiMessages();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
-    tools::style::initStyle();
+    gui::style::initStyle();
 
 	Jeu.Cardinal.loadFromFile(INSTALL_DIR + "Cardinal.ttf");
 	Jeu.DayRoman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");

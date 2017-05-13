@@ -29,9 +29,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "tools/style.h"
+#include "gui/style.h"
 
-#include "tools/button.h"
+#include "gui/button.h"
 
 using namespace std;
 using namespace sf;
@@ -231,7 +231,7 @@ class Dialog
 class UserScreen
 {
 	public:
-		tools::Button button;
+		gui::Button button;
 		Keyboard::Key key;
 
 	public:
@@ -321,11 +321,11 @@ void Erreur(const string&, const float&);
 float DirToCoeff_X(short, float Devn=0);
 float DirToCoeff_Y(short, float Devn=0);
 bool TestAngle(float&, float&, short, float&, float&, const short&);
-void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
-void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
-void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
-void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
-void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=tools::style::defaultTextFont());
+void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
+void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
+void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
+void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
+void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_TitrePage(enumPhrases);
 string intToString(double, int size = -1);
 

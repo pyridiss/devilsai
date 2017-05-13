@@ -129,7 +129,7 @@ void EcranOptions()
 {
 	bool AfficherDemandeRedemarrage = false;
 
-    tools::Button mainMenuButton, languageButton, fullscreenButton, showDamageButton, changeResolutionButton;
+    gui::Button mainMenuButton, languageButton, fullscreenButton, showDamageButton, changeResolutionButton;
 
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);

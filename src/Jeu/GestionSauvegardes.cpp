@@ -151,7 +151,7 @@ void LectureSauvegardes()
 
 void PasDeSauvegarde()
 {
-    tools::Button mainMenuButton;
+    gui::Button mainMenuButton;
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);
     mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
@@ -224,7 +224,7 @@ string ChoixSauvegarde()
 	Texture TexCapture;
 	Sprite Capture;
 
-	tools::Button startGameButton, previousButton, nextButton, mainMenuButton, deleteGameButton;
+	gui::Button startGameButton, previousButton, nextButton, mainMenuButton, deleteGameButton;
 
     startGameButton.setCenterCoordinates(Options.ScreenW/2, 188);
     startGameButton.setTextFont(Jeu.DayRoman, 24);
