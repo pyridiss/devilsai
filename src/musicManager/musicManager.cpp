@@ -1,7 +1,7 @@
 
 /*
     Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2015  Quentin Henriet
+    Copyright (C) 2009-2017  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,12 +17,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <map>
+
 #include <SFML/Audio.hpp>
 
-#include "Bibliotheque.h"
-#include "Constantes.h"
+#include "config.h"
+#include "tools/debug.h"
+#include "musicManager/musicManager.h"
 
-/** Ce fichier implémente le gestionnaire d'images du jeu **/
+#include "Bibliotheque/Bibliotheque.h"
+
+using namespace sf;
+
+namespace musicManager{
 
 class Basic_Sound
 {
@@ -38,7 +45,7 @@ class Basic_Music
 {
 	public:
 		enum musicStates {Running, Stopped, FadingIn, FadingOut};
-	
+
 	public:
 		Music* music;
 		musicStates musicState;
@@ -64,28 +71,28 @@ MusicClass musics;
 
 void addSound(string soundID)
 {
-	if (sounds.find(soundID) != sounds.end()) return;
+    if (sounds.find(soundID) != sounds.end()) return;
 
-	Basic_Sound sound;
-	const auto& result = sounds.insert(SoundClass::value_type(soundID, sound));
+    Basic_Sound sound;
+    const auto& result = sounds.insert(SoundClass::value_type(soundID, sound));
 
-	bool success = result.first->second.loadFromFile(INSTALL_DIR + "sound/" + soundID + ".ogg");
+    bool success = result.first->second.loadFromFile(INSTALL_DIR + "sound/" + soundID + ".ogg");
 
-	if (success) MESSAGE("Sound " + soundID + " loaded", MUSIC)
-	else Erreur("This sound does not exist:", soundID);
+    if (success) tools::debug::message("Sound " + soundID + " has been loaded", "musics");
+    else tools::debug::error("Failed to load sound: " + soundID, "files");
 }
 
 void addMusic(string musicID)
 {
-	if (musics.find(musicID) != musics.end()) return;
+    if (musics.find(musicID) != musics.end()) return;
 
-	Basic_Music music;
-	const auto& result = musics.insert(MusicClass::value_type(musicID, music));
+    Basic_Music music;
+    const auto& result = musics.insert(MusicClass::value_type(musicID, music));
 
-	bool success = result.first->second.openFromFile(INSTALL_DIR + "music/" + musicID + ".ogg");
+    bool success = result.first->second.openFromFile(INSTALL_DIR + "music/" + musicID + ".ogg");
 
-	if (success) MESSAGE("Music " + musicID + " opened", MUSIC)
-	else Erreur("This music does not exist:", musicID);
+    if (success) tools::debug::message("Music " + musicID + " has been loaded", "musics");
+    else tools::debug::error("Failed to load music: " + musicID, "files");
 }
 
 void playSound(string soundID)
@@ -94,7 +101,7 @@ void playSound(string soundID)
 
 	if (i != sounds.end())
 		sounds[soundID].start();
-	else Erreur("This sound has not been loaded:", soundID);
+	else tools::debug::error("This sound has not been loaded yet: " + soundID, "files");
 }
 
 void playMusic(string musicID)
@@ -109,7 +116,7 @@ void playMusic(string musicID)
 
 	if (i != musics.end())
 		musics[musicID].fadeIn();
-	else Erreur("This music has not been loaded:", musicID);
+	else tools::debug::error("This music has not been loaded yet: " + musicID, "files");
 }
 
 void stopMusic(string musicID)
@@ -118,7 +125,7 @@ void stopMusic(string musicID)
 
 	if (i != musics.end())
 		musics[musicID].fadeOut();
-	else Erreur("This music has not been loaded:", musicID);
+	else tools::debug::error("This music has not been loaded yet: " + musicID, "files");
 }
 
 void manageRunningMusics()
@@ -235,5 +242,7 @@ void deleteMusics()
 	musics.clear();
 	sounds.clear();
 
-	MESSAGE("All sounds and musics are deleted.", MUSIC)
+    tools::debug::message("All sounds and musics are deleted.", "musics");
 }
+
+} //namespace musicManager

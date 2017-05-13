@@ -22,6 +22,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "musicManager/musicManager.h"
+
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "../Jeu/Jeu.h"
@@ -612,7 +614,8 @@ int LUA_activiteSet(lua_State* L)
 int LUA_activiteAddImage(lua_State* L)
 {
     MESSAGE("LUA_activiteAddImage() called", LUA)
-
+    Erreur("LUA_activiteAddImage() not implemented.", "");
+/*
 	Activite* act = (Activite*)lua_touserdata(L, 1);
 	int Act = lua_tonumber(L, 2);
 	int Num = lua_tonumber(L, 3);
@@ -620,6 +623,7 @@ int LUA_activiteAddImage(lua_State* L)
 	if (act != NULL) act->addImage(Act, Num);
 
 	return 0;
+    */
 }
 
 int LUA_addSound(lua_State* L)
@@ -627,7 +631,7 @@ int LUA_addSound(lua_State* L)
     MESSAGE("LUA_addSound() called", LUA)
 
 	string sound = lua_tostring(L, 1);
-	addSound(sound);
+    musicManager::addSound(sound);
 	return 0;
 }
 
@@ -636,7 +640,7 @@ int LUA_playSound(lua_State* L)
     MESSAGE("LUA_playSound() called", LUA)
 
 	string sound = lua_tostring(L, 1);
-	playSound(sound);
+    musicManager::playSound(sound);
 	return 0;
 }
 

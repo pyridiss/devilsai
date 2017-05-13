@@ -263,16 +263,6 @@ void Disp_FonduNoir(int);
 float Disp_Chargement(float);
 bool Disp_Repos();
 
-/* Fonctions définies dans le fichier music.cpp */
-
-void addSound(string);
-void addMusic(string);
-void playSound(string);
-void playMusic(string);
-void stopMusic(string);
-void manageRunningMusics();
-void deleteMusics();
-
 /* Fonctions définies dans le fichier Langues.cpp */
 
 void loadAvailableLanguages();

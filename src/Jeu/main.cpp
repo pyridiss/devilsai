@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "gui/style.h"
+#include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -178,7 +179,7 @@ int main(int n, char *params[])
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");
 
-	playMusic("Gates_Of_Heaven");
+    musicManager::playMusic("Gates_Of_Heaven");
 
 	short choice = 0;
 	while (choice != QUITTER)
@@ -189,18 +190,18 @@ int main(int n, char *params[])
 		{
 			case NOUVEAU :	if (NouvellePartie())
 							{
-								stopMusic("Gates_Of_Heaven");
+                                musicManager::stopMusic("Gates_Of_Heaven");
 								EcranJeu(true);
 								Clean_Partie();
-								playMusic("Gates_Of_Heaven");
+                                musicManager::playMusic("Gates_Of_Heaven");
 							}
 							break;
 			case CHARGER :	if (PartieSauvegardee())
 							{
-								stopMusic("Gates_Of_Heaven");
+                                musicManager::stopMusic("Gates_Of_Heaven");
 								EcranJeu(false);
 								Clean_Partie();
-								playMusic("Gates_Of_Heaven");
+                                musicManager::playMusic("Gates_Of_Heaven");
 							}
 							break;
 			case OPTIONS :	EcranOptions();

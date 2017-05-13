@@ -18,7 +18,6 @@ set(devilsai_SRCS
 	Bibliotheque/Templates.h
 	Bibliotheque/Utilitaires.cpp
 	Bibliotheque/luaFunctions.cpp
-	Bibliotheque/music.cpp
 	Carte/Carte.cpp
 	Carte/Carte.h
 	Carte/Collisions.cpp
@@ -60,6 +59,7 @@ set(devilsaiTargetLibs
 add_subdirectory(tools)
 add_subdirectory(imageManager)
 add_subdirectory(gui)
+add_subdirectory(musicManager)
 
 add_executable(devilsai ${devilsai_SRCS})
 
@@ -68,6 +68,7 @@ target_link_libraries(devilsai
     tools
     imageManager
     gui
+    musicManager
 )
 
 set_target_properties(devilsai PROPERTIES COMPILE_FLAGS "-std=c++11")

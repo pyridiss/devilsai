@@ -20,8 +20,7 @@
 #include "gui/button.h"
 #include "gui/style.h"
 #include "imageManager/imageManager.h"
-
-#include "Bibliotheque/Bibliotheque.h"
+#include "musicManager/musicManager.h"
 
 namespace gui{
 
@@ -309,7 +308,7 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
     {
         if (event == Event::MouseButtonPressed)
         {
-            playSound("Click");
+            musicManager::playSound("Click");
 
             if (autoRelease)
             {

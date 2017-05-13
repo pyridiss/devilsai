@@ -19,6 +19,8 @@
 
 #include <typeinfo>
 
+#include "musicManager/musicManager.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Templates.h"
@@ -287,7 +289,7 @@ bool Load_Partie(string path)
 			if (TypeDonnee == "AMBIENCE")
 			{
 				fileStream >> StrType;
-				addMusic(StrType);
+                musicManager::addMusic(StrType);
 				carte.second.ambience = StrType;
 			}
 

@@ -20,6 +20,7 @@
 #include <lua5.2/lua.hpp>
 
 #include "imageManager/imageManager.h"
+#include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
@@ -75,7 +76,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 		if (TypeDonnee == "AMBIENCE")
 		{
 			Fichier >> bufferString;
-			addMusic(bufferString);
+            musicManager::addMusic(bufferString);
 			if (carte != NULL) carte->ambience = bufferString;
 		}
 		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;

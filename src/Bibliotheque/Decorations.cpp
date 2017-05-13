@@ -26,6 +26,7 @@
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
 #include "gui/button.h"
+#include "musicManager/musicManager.h"
 
 /** VARIABLES GLOBALES **/
 
@@ -144,9 +145,9 @@ void Load_Decorations()
 
 	Load_Decorations_Objets();
 
-	addSound("Click");
+    musicManager::addSound("Click");
 
-	addMusic("Gates_Of_Heaven");
+    musicManager::addMusic("Gates_Of_Heaven");
 }
 
 void Supprimer_Decorations()
@@ -157,7 +158,7 @@ void Supprimer_Decorations()
 	delete restingButton;
 
 	Supprimer_Decorations_Objets();
-	deleteMusics();
+    musicManager::deleteMusics();
 }
 
 

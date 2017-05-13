@@ -20,6 +20,7 @@
 #include <sstream>
 
 #include "tools/filesystem.h"
+#include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
@@ -152,7 +153,7 @@ bool NouvellePartie()
         tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
 	}
 
-	playMusic(Partie.CarteCourante->ambience);
+    musicManager::playMusic(Partie.CarteCourante->ambience);
 	MESSAGE(">> Mise en place du nouveau jeu terminée <<", FICHIER)
 
 	return true;
@@ -180,7 +181,7 @@ bool PartieSauvegardee()
 	bool joueur = RechercheJoueur();
 	if (!joueur) return false;
 
-	playMusic(Partie.CarteCourante->ambience);
+    musicManager::playMusic(Partie.CarteCourante->ambience);
 
 	MESSAGE(">> Mise en place du jeu sauvegardé terminée <<", FICHIER)
 
@@ -410,7 +411,7 @@ void EcranJeu(bool SauvegardePrealable)
 		}
 
 		Jeu.App.display();
-		manageRunningMusics();
+        musicManager::manageRunningMusics();
 	}
 }
 
@@ -525,7 +526,7 @@ int MenuPrincipal()
 		Disp_Texte(version, Options.ScreenW - 250, Options.ScreenH - 60, Color(175,255,255,255), 10.);
 
 		Jeu.App.display();
-		manageRunningMusics();
+        musicManager::manageRunningMusics();
 		/* Fin animation */
 	}
 
