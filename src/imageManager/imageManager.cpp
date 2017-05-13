@@ -21,9 +21,8 @@
 
 #include <physfs.h>
 
+#include "tools/debug.h"
 #include "Jeu/Jeu.h"
-#include "Bibliotheque/Bibliotheque.h"
-#include "Bibliotheque/Constantes.h"
 
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
@@ -56,7 +55,7 @@ void addImage(string container, string key, string file, Vector2i of, float scal
 
     if (c == images.end())
     {
-        Erreur("Contained has not been created yet:", container);
+        tools::debug::error("Image container has not been created yet: " + container, "images");
         return;
     }
 
@@ -87,9 +86,9 @@ void addArchiveFile(string path)
 {
     if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
     {
-        Erreur("Unable to load file:", path);
+        tools::debug::error("Unable to load file: " + path, "images");
     }
-    else MESSAGE("File \"" + path + "\" open", FICHIER)
+    else tools::debug::message("File \"" + path + "\" open", "files");
 }
 
 void removeArchiveFile(string path)
@@ -103,7 +102,7 @@ imageManager::Image* getImage(string container, string key)
 
     if (c == images.end())
     {
-        Erreur("Container not found:", container);
+        tools::debug::error("Container not found: " + container, "images");
         return nullptr;
     }
 
@@ -111,7 +110,7 @@ imageManager::Image* getImage(string container, string key)
 
     if (i == (*c).second.end())
     {
-        Erreur("Image not found:", container + "::" + key);
+        tools::debug::error("Image not found: " + container + "::" + key, "images");
         return nullptr;
     }
 
@@ -135,13 +134,21 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
 
     if (c == images.end())
     {
-        Erreur("Image container has not been added yet:", container);
+        tools::debug::error("Image container has not been added yet: " + container, "images");
         return;
     }
 
     Container::iterator i = (*c).second.find(key);
 
+    if (i == (*c).second.end())
+    {
+        tools::debug::error("Image '" + container + "::" + key + "' has not been loaded yet, skipping...", "images");
+        return;
+    }
+
     (*i).second.display(app, x, y, atCenter);
+
+    tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images");
 }
 
 void addAnimation(string name, string file)
@@ -162,7 +169,7 @@ imageManager::Animation* getAnimation(string name)
 
     if (a == animations.end())
     {
-        Erreur("Animation not found:", name);
+        tools::debug::error("Animation not found: " + name, "images");
         return nullptr;
     }
 

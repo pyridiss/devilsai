@@ -19,10 +19,10 @@
 
 #include <physfs.h>
 
-#include "Bibliotheque/Bibliotheque.h"
 
 #include "image.h"
 #include "config.h"
+#include "tools/debug.h"
 
 namespace imageManager{
 
@@ -66,7 +66,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
 
     if (!fromRef && !fromFile && !fromArch)
     {
-        Erreur("Unable to load file:", file);
+        tools::debug::error("Unable to load file: " + file, "images");
     }
 
     texture.setSmooth(false);
