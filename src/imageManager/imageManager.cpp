@@ -17,13 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <sstream>
-
 #include <physfs.h>
 
 #include "tools/debug.h"
-#include "Jeu/Jeu.h"
-
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 #include "imageManager/animation.h"

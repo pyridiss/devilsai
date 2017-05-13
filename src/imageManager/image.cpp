@@ -17,12 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <fstream>
+
 #include <physfs.h>
 
-
-#include "image.h"
 #include "config.h"
 #include "tools/debug.h"
+#include "imageManager/image.h"
 
 namespace imageManager{
 
