@@ -293,9 +293,6 @@ void displayJournal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 
-bool CreerDossier(string);
-bool SupprimerDossier(string);
-bool SupprimerFichier(string);
 string Get_DossierSauvegardes();
 bool getBoolFromLUA(lua_State*, string);
 int getIntFromLUA(lua_State*, string);

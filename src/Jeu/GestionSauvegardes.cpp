@@ -19,6 +19,8 @@
 
 #include <map>
 
+#include "tools/filesystem.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Templates.h"
@@ -77,19 +79,19 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 		if (TypeDonnee == "CARTE")
 		{
 			FichierPrincipal >> DonneeStr;
-			SupprimerFichier(path + DonneeStr + ".map");
+            tools::filesystem::removeFile(path + DonneeStr + ".map");
 		}
 		TypeDonnee = "";
 	}
 
-	SupprimerFichier(path + "capture.png");
+    tools::filesystem::removeFile(path + "capture.png");
 
 	//Fermeture du fichier principal pour suppression
 	FichierPrincipal.close();
-	SupprimerFichier(path + "save.sav");
+    tools::filesystem::removeFile(path + "save.sav");
 
 	//Suppression du dossier
-	SupprimerDossier(Get_DossierSauvegardes() + save->second.Dossier);
+    tools::filesystem::removeDirectory(Get_DossierSauvegardes() + save->second.Dossier);
 
 	//Suppression de la sauvegarde
 	Sauvegardes.erase(save);

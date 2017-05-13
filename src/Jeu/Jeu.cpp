@@ -19,6 +19,8 @@
 
 #include <sstream>
 
+#include "tools/filesystem.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Templates.h"
@@ -147,7 +149,7 @@ bool NouvellePartie()
 	if (!Arguments.SaveDisabled)
 	#endif
 	{
-		CreerDossier(Get_DossierSauvegardes() + Partie.SAVE);
+        tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
 	}
 
 	playMusic(Partie.CarteCourante->ambience);

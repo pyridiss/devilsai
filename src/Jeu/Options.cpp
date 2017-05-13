@@ -19,6 +19,8 @@
 
 #include <fstream>
 
+#include "tools/filesystem.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "Jeu.h"
@@ -60,7 +62,7 @@ void Load_Options()
 	if (!Fichier.good())
 	{
 		ChargerDefaut = true;
-		CreerDossier(Get_DossierSauvegardes());
+        tools::filesystem::createDirectory(Get_DossierSauvegardes());
 	}
 
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
