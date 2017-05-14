@@ -17,8 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <physfs.h>
-
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"

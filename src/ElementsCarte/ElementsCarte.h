@@ -23,8 +23,6 @@
 #include <string>
 #include <fstream>
 
-#include <SFML/Window.hpp>
-
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
 

@@ -24,8 +24,6 @@
 #include <map>
 #include <list>
 
-#include <SFML/System.hpp>
-
 #include "gui/button.h"
 
 using namespace std;

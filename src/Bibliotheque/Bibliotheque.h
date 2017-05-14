@@ -25,12 +25,7 @@
 #include <fstream>
 #include <list>
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "gui/style.h"
-
 #include "gui/button.h"
 
 using namespace std;

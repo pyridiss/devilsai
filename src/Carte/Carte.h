@@ -24,8 +24,6 @@
 #include <list>
 #include <map>
 
-#include <SFML/System.hpp>
-
 using namespace std;
 
 class lua_State;
