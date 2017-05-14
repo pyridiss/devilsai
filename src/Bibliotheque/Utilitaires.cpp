@@ -296,16 +296,6 @@ int SaisieNom(String32 &Texte)
 	return Resultat;
 }
 
-float Minimum(float a, float b)
-{
-	return (a < b) ? a : b;
-}
-
-float Maximum(float a, float b)
-{
-	return (a < b) ? b : a;
-}
-
 double ToSegment(double x, int min, int max)
 {
 	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));

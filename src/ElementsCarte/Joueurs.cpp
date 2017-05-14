@@ -112,7 +112,7 @@ void Joueur::Gestion_Statistiques()
 
 	//5. Évolution du taux de récupération
 	float RecupCible = get("RecuperationMoyenne") * ((get("Vitalite")-200)/740.f);
-	if (RecupCible > 0) RecupCible *= Maximum(0, (get("Energie")-70.f)/1000.f);
+	if (RecupCible > 0) RecupCible *= max(0.f, (get("Energie")-70.f)/1000.f);
 
 	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(tools::timeManager::I(0.1));
 	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-tools::timeManager::I(0.1));
@@ -158,11 +158,11 @@ void Joueur::BlessureGrave(Individu* ennemi)
 {
 	//Constitution-, selon Puissance de l'ennemi
 	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufConstitution -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+		BufConstitution -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Charisme-, selon Charisme de l'ennemi
 	if (!(rand()%(int)(5 + 10 + ToSegment(get("Charisme") - ennemi->get("Charisme"), 0, 10) + 1)))
-		BufCharisme -= Minimum(2, ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10));
+		BufCharisme -= min(2.0, ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -215,15 +215,15 @@ void Joueur::BlessuresMultiples(Individu* ennemi)
 {
 	//Force-, selon sa propre Constitution et Puissance de l'un des ennemis
 	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufForce -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+		BufForce -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Puissance-, selon sa propre Constitution et Puissance de l'un des ennemis
 	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufPuissance -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+		BufPuissance -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Esquive-, selon sa propre Constitution et Puissance de l'un des ennemis
 	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufEsquive -= Minimum(2, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+		BufEsquive -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));

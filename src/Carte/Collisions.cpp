@@ -57,7 +57,7 @@ bool Collision_cercle_rectangle(int Cx, int Cy, int Cr, int Rx, int Ry, int Rrx,
 	if (Cx + Cr < Rx - Rrx) return false;	if (Cx - Cr > Rx + Rrx) return false;
 	if (Cy + Cr < Ry - Rry) return false;	if (Cy - Cr > Ry + Rry) return false;
 	if (Cr == 0 || Rrx == 0 || Rry == 0) return false;
-	if ((Cx-Rx)*(Cx-Rx) + (Cy-Ry)*(Cy-Ry) <= (Cr + Maximum(Rrx, Rry))*(Cr + Maximum(Rrx, Rry))) return true;
+	if ((Cx-Rx)*(Cx-Rx) + (Cy-Ry)*(Cy-Ry) <= (Cr + max(Rrx, Rry))*(Cr + max(Rrx, Rry))) return true;
 	return false;
 }
 
