@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
@@ -148,7 +150,7 @@ int Projectile::Gestion()
 	Lag_Pos(DirToCoeff_X(Dir)*Deplacement.step, DirToCoeff_Y(Dir)*Deplacement.step);
 
 	//On n'autorise pas à blesser un ennemi trop près de la position d'origine
-	if (Abs(PosX - OrigineX) < RayX && Abs(PosY - OrigineY) < RayY) return ETAT_NORMAL;
+	if (abs(PosX - OrigineX) < RayX && abs(PosY - OrigineY) < RayY) return ETAT_NORMAL;
 
 	Element_Carte *tmp = NULL;
 	int Resultat = COLL_OK;
@@ -190,7 +192,7 @@ void Projectile::Disp(float RefX, float RefY)
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2 + 12)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2 + 12)
 			Disp_Masks(RefX, RefY);
 	#endif
 

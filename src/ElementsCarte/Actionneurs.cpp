@@ -18,6 +18,7 @@
 */
 
 #include <typeinfo>
+#include <cmath>
 
 #include <lua5.2/lua.hpp>
 
@@ -96,7 +97,7 @@ void Actionneur::Disp(float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 
@@ -272,7 +273,7 @@ void Trigger::Disp(float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include <lua5.2/lua.hpp>
 
 #include "../Bibliotheque/Constantes.h"
@@ -259,8 +261,8 @@ int Joueur::Gestion()
 				//La solution n'est pas optimale, mais on s'en contente pour le moment…
 				Element_Carte* tmp2 = Partie.CarteCourante->getCurrentCollider();
 
-				while ((Abs(PosX - tmp2->PosX) < tmp2->RayonCollision && Abs(PosY - tmp2->PosY) < tmp2->RayonCollision) ||
-						(Abs(PosX - tmp2->PosX) < tmp2->RayX && Abs(PosY - tmp2->PosY) < tmp2->RayY))
+				while ((abs(PosX - tmp2->PosX) < tmp2->RayonCollision && abs(PosY - tmp2->PosY) < tmp2->RayonCollision) ||
+						(abs(PosX - tmp2->PosX) < tmp2->RayX && abs(PosY - tmp2->PosY) < tmp2->RayY))
 				{
 					PosX += 2*DirToCoeff_X(Dir)*RayonCollision;
 					PosY += 2*DirToCoeff_Y(Dir)*RayonCollision;

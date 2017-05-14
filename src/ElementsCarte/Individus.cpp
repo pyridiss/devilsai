@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Jeu/Jeu.h"
@@ -188,7 +190,7 @@ void Individu::Disp(float RefX, float RefY)
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 

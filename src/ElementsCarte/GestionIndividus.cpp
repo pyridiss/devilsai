@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
@@ -292,11 +294,11 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		switch(dir)
 		{
 			case NORD :
-			case SUD :	if (elem->PosY != PosY) Devn[dir] = 100*((elem->PosX - PosX)/Abs(elem->PosY - PosY));
+			case SUD :	if (elem->PosY != PosY) Devn[dir] = 100*((elem->PosX - PosX)/abs(elem->PosY - PosY));
 						else Devn[dir] = 0;
 						break;
 			case EST :
-			case OUEST :	if (elem->PosX != PosX) Devn[dir] = 100*((elem->PosY - PosY)/Abs(elem->PosX - PosX));
+			case OUEST :	if (elem->PosX != PosX) Devn[dir] = 100*((elem->PosY - PosY)/abs(elem->PosX - PosX));
 							else Devn[dir] = 0;
 							break;
 			default : Devn[dir] = 0;

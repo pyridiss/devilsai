@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
@@ -107,7 +109,7 @@ void Paysage::Disp(float RefX, float RefY)
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 }
@@ -162,7 +164,7 @@ void Door::Disp(float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 
@@ -262,7 +264,7 @@ void Paysage_Mouvant::Disp(float RefX, float RefY)
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
-		if (Abs(RefX - PosX) <= Options.ScreenW/2 && Abs(RefY - PosY) <= Options.ScreenH/2)
+		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
 			Disp_Masks(RefX, RefY);
 	#endif
 }

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
@@ -52,27 +54,27 @@ int Element_Carte::Gestion()
 {
 	if (Get_Controle() == HUMAIN) return ETAT_CONTINUER;
 
-	if (Abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
+	if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
 	{
 		Set_Controle(ARRET);
 		return ETAT_DESACTIVE;
 	}
 	else
 	{
-		if (Abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 400)
+		if (abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 400)
 		{
 			Set_Controle(ARRET);
 			return ETAT_DESACTIVE;
 		}
 		else
 		{
-			if (Abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 100)
+			if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 100)
 			{
 				Set_Controle(AI_IMG_HORSCHAMP);
 			}
 			else
 			{
-				if (Abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 200)
+				if (abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 200)
 					Set_Controle(AI_IMG_HORSCHAMP);
 				else Set_Controle(AI);
 			}

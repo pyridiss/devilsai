@@ -308,20 +308,6 @@ float Maximum(float a, float b)
 	return (a < b) ? b : a;
 }
 
-float Abs(float a)
-{
-	return (a >= 0) ? a : -a;
-}
-
-int Abs(int a)
-{
-	return (a >= 0) ? a : -a;
-}
-long int Abs(long int a)
-{
-	return (a >= 0) ? a : -a;
-}
-
 double ToSegment(double x, int min, int max)
 {
 	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
@@ -420,24 +406,24 @@ bool TestAngle(float &Ox, float &Oy, short dir, float &Ax, float &Ay, const shor
 	{
 		switch (dir)
 		{
-			case NORD :		if (2*Abs((long int)(Ax-Ox)) <= Oy-Ay) Touche = true; break;
-			case SUD :		if (2*Abs((long int)(Ax-Ox)) <= Ay-Oy) Touche = true; break;
-			case EST :		if (2*Abs((long int)(Ay-Oy)) <= Ax-Ox) Touche = true; break;
-			case OUEST :	if (2*Abs((long int)(Ay-Oy)) <= Ox-Ax) Touche = true; break;
-			case N_E :		if ((Ax-Ox) > 0 && (Oy-Ay) > 0 && 2*Abs((long int)(Ax-Ox)) >= Oy-Ay && 2*Abs((long int)(Ay-Oy)) >= Ax-Ox) Touche = true; break;
-			case N_O :		if ((Ox-Ax) > 0 && (Oy-Ay) > 0 && 2*Abs((long int)(Ax-Ox)) >= Oy-Ay && 2*Abs((long int)(Ay-Oy)) >= Ox-Ax) Touche = true; break;
-			case S_E :		if ((Ax-Ox) > 0 && (Ay-Oy) > 0 && 2*Abs((long int)(Ax-Ox)) >= Ay-Oy && 2*Abs((long int)(Ay-Oy)) >= Ax-Ox) Touche = true; break;
-			case S_O :		if ((Ox-Ax) > 0 && (Ay-Oy) > 0 && 2*Abs((long int)(Ax-Ox)) >= Ay-Oy && 2*Abs((long int)(Ay-Oy)) >= Ox-Ax) Touche = true; break;
+			case NORD :		if (2*abs((long int)(Ax-Ox)) <= Oy-Ay) Touche = true; break;
+			case SUD :		if (2*abs((long int)(Ax-Ox)) <= Ay-Oy) Touche = true; break;
+			case EST :		if (2*abs((long int)(Ay-Oy)) <= Ax-Ox) Touche = true; break;
+			case OUEST :	if (2*abs((long int)(Ay-Oy)) <= Ox-Ax) Touche = true; break;
+			case N_E :		if ((Ax-Ox) > 0 && (Oy-Ay) > 0 && 2*abs((long int)(Ax-Ox)) >= Oy-Ay && 2*abs((long int)(Ay-Oy)) >= Ax-Ox) Touche = true; break;
+			case N_O :		if ((Ox-Ax) > 0 && (Oy-Ay) > 0 && 2*abs((long int)(Ax-Ox)) >= Oy-Ay && 2*abs((long int)(Ay-Oy)) >= Ox-Ax) Touche = true; break;
+			case S_E :		if ((Ax-Ox) > 0 && (Ay-Oy) > 0 && 2*abs((long int)(Ax-Ox)) >= Ay-Oy && 2*abs((long int)(Ay-Oy)) >= Ax-Ox) Touche = true; break;
+			case S_O :		if ((Ox-Ax) > 0 && (Ay-Oy) > 0 && 2*abs((long int)(Ax-Ox)) >= Ay-Oy && 2*abs((long int)(Ay-Oy)) >= Ox-Ax) Touche = true; break;
 		}
 	}
 	if (NbDir == 4)
 	{
 		switch (dir)
 		{
-			case NORD :		if (Abs((long int)(Ax-Ox)) <= Oy-Ay) Touche = true; break;
-			case SUD :		if (Abs((long int)(Ax-Ox)) <= Ay-Oy) Touche = true; break;
-			case EST :		if (Abs((long int)(Ay-Oy)) <= Ax-Ox) Touche = true; break;
-			case OUEST :	if (Abs((long int)(Ay-Oy)) <= Ox-Ax) Touche = true; break;
+			case NORD :		if (abs((long int)(Ax-Ox)) <= Oy-Ay) Touche = true; break;
+			case SUD :		if (abs((long int)(Ax-Ox)) <= Ay-Oy) Touche = true; break;
+			case EST :		if (abs((long int)(Ay-Oy)) <= Ax-Ox) Touche = true; break;
+			case OUEST :	if (abs((long int)(Ay-Oy)) <= Ox-Ax) Touche = true; break;
 		}
 	}
 

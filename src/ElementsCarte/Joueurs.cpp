@@ -94,7 +94,7 @@ void Joueur::Gestion_Statistiques()
 	}
 
 	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
-	if (Abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("Constitution"), 0, 100))
+	if (abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("Constitution"), 0, 100))
 	{
 		if (get("Recuperation") > 0) Lag_Energie(I(0.5));
 		else Lag_Energie(-I(0.25));
@@ -116,7 +116,7 @@ void Joueur::Gestion_Statistiques()
 	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(I(0.1));
 	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-I(0.1));
 
-	if (Abs(get("RecuperationMoyenne")) >= 95) Set_Recuperation(get("RecuperationMoyenne"));
+	if (abs(get("RecuperationMoyenne")) >= 95) Set_Recuperation(get("RecuperationMoyenne"));
 
 	//6. Durée d'éveil
 	DureeEveil += I(0.0005);
