@@ -23,9 +23,8 @@
 
 #include "config.h"
 #include "tools/debug.h"
+#include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
-
-#include "Bibliotheque/Bibliotheque.h"
 
 using namespace sf;
 
@@ -200,7 +199,7 @@ void Basic_Music::fadeIn()
 		currentVolume = 0;
 	}
 
-	currentVolume += I(1);
+    currentVolume += tools::timeManager::I(1);
 
 	if (currentVolume >= 100)
 	{
@@ -219,7 +218,7 @@ void Basic_Music::fadeOut()
 		currentVolume = 100;
 	}
 
-	currentVolume -= I(1);
+    currentVolume -= tools::timeManager::I(1);
 
 	if (currentVolume <= 0)
 	{

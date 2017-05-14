@@ -20,6 +20,8 @@
 #include <fstream>
 #include <map>
 
+#include "tools/timeManager.h"
+
 #include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"
@@ -391,7 +393,7 @@ bool Dialog::display()
 		Jeu.App.draw(text);
 	}
 
-	duration += I(1);
+	duration += tools::timeManager::I(1);
 
 	if (duration > 200 + 2.5*paragraphNumber->characters.size())
 	{

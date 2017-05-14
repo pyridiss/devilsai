@@ -23,6 +23,7 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
+#include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
 #include "gui/button.h"
@@ -178,16 +179,6 @@ void AjouterMesureFPS(float Mesure)
 
 void Disp_FPS()
 {
-	static Clock FrameClock;
-
-	Jeu.FrameTime = FrameClock.getElapsedTime();
-	FrameClock.restart();
-
-// 	#ifdef DEBOGAGE
-	//Test de FPS trop bas :
-// 	if (Jeu.FrameTime.asSeconds() > 5) Erreur("Un blocage a été détecté :", Jeu.FrameTime.asSeconds());
-// 	#endif
-
 	#ifdef DEBOGAGE
 	static string Texte("");
 	static short Compteur = 15;
@@ -199,7 +190,7 @@ void Disp_FPS()
 
 	if (Compteur == 15)
 	{
-		Framerate = 1000.f/Jeu.FrameTime.asMilliseconds();
+        Framerate = tools::timeManager::getFPS();
 		string Texte("FPS : " + intToString(Framerate));
 		FPS.setString(Texte);
 		Compteur = 0;
@@ -210,7 +201,7 @@ void Disp_FPS()
 
 	#endif
 
-	if (Arguments.LimitToFpsDisabled) AjouterMesureFPS(1000.f/Jeu.FrameTime.asMilliseconds());
+    if (Arguments.LimitToFpsDisabled) AjouterMesureFPS(tools::timeManager::getFPS());
 }
 
 /** FOND POUR LES MENUS **/
@@ -223,7 +214,7 @@ void Disp_FondMenus()
 
 	imageManager::display(Jeu.App, "misc", "Fond", 0, 0);
 
-	Animation += I(0.75);
+	Animation += tools::timeManager::I(0.75);
 
 	if (Animation < 250) Masque.setFillColor(Color((255-Animation)/2,0,0,Animation));
 	if (Animation >= 250 && Animation < 350) Masque.setFillColor(Color(0,0,0,250));
@@ -263,7 +254,7 @@ void Disp_Menu()
 {
 	static bool Clign = false;
 	static float Cmpt = 0;
-	Cmpt += I(1);
+	Cmpt += tools::timeManager::I(1);
 	if (Cmpt >= 30)
 	{
 		Cmpt = 0;
@@ -535,7 +526,7 @@ void Disp_Consoles()
 	{
 		if (ConsolePerso[a].Affichage)
 		{
-			ConsolePerso[a].Temps += I(1);
+			ConsolePerso[a].Temps += tools::timeManager::I(1);
 			if (ConsolePerso[a].Temps < 300)
 				Disp_Texte(ConsolePerso[a].Ligne, Options.ScreenW - 115, 90+15*ConsolePerso[a].NumLigne, ConsolePerso[a].Couleur, 13.f);
 
@@ -547,7 +538,7 @@ void Disp_Consoles()
 		}
 		if (ConsoleAmeliorations[a].Affichage)
 		{
-			ConsoleAmeliorations[a].Temps += I(1);
+			ConsoleAmeliorations[a].Temps += tools::timeManager::I(1);
 			if (ConsoleAmeliorations[a].Temps < 345)
 				Disp_Texte(ConsoleAmeliorations[a].Ligne, 210, 400-16*ConsoleAmeliorations[a].NumLigne, ConsoleAmeliorations[a].Couleur, 13.f);
 
@@ -585,7 +576,7 @@ void Disp_Information(enumPhrases info, bool reactiver)
 	if (Temps > 0)
 	{
 		Disp_TexteCentre(Information, Options.ScreenW/2, Options.ScreenH/2 - 100, Color(255,255,255,Temps), 20., Jeu.DayRoman);
-		Temps -= I((256-Temps)/24);
+		Temps -= tools::timeManager::I((256-Temps)/24);
 	}
 }
 
@@ -614,7 +605,7 @@ void Disp_FonduNoir(int Commande)
 
 		Fond.setFillColor(Color(0, 0, 0, Avancement));
 		Jeu.App.draw(Fond);
-		Avancement += I(1);
+		Avancement += tools::timeManager::I(1);
 		if (Avancement > 255) Avancement = 255;
 	}
 }
@@ -642,9 +633,10 @@ float Disp_Chargement(float Transparence)
 	Disp_TexteCentre(_CHARGEMENT, Options.ScreenW - 150, Options.ScreenH - 100, Color(0,0,0,255), 45., Jeu.Cardinal);
 
 	imageManager::display(Jeu.App, "misc", "Art", Options.ScreenW/2-390, Options.ScreenH/2 - 252);
+    tools::timeManager::frameDone();
 	Jeu.App.display();
 
-	Transparence -= I((256-Transparence)/2);
+	Transparence -= tools::timeManager::I((256-Transparence)/2);
 	if (Transparence < 0) Transparence = 0;
 	return Transparence;
 }
@@ -656,27 +648,27 @@ bool Disp_Repos()
 
 	Jeu.App.clear(Color::Black);
 
-	Animation += I(1);
+	Animation += tools::timeManager::I(1);
 
 	if (Animation < 255)
 	{
-		if (T1 > 5) T1 -= I(1);
-		if (T2 > 5) T2 -= I(0.75);
-		if (T3 > 5) T3 -= I(0.5);
+		if (T1 > 5) T1 -= tools::timeManager::I(1);
+		if (T2 > 5) T2 -= tools::timeManager::I(0.75);
+		if (T3 > 5) T3 -= tools::timeManager::I(0.5);
 	}
 	else if (Animation < 510)
 	{
-		if (T1 < 250) T1 += I(0.25);
-		if (T2 < 250) T2 += I(0.5);
-		if (T3 > 5) T3 -= I(0.25);
-		if (T4 > 5) T4 -= I(1);
+		if (T1 < 250) T1 += tools::timeManager::I(0.25);
+		if (T2 < 250) T2 += tools::timeManager::I(0.5);
+		if (T3 > 5) T3 -= tools::timeManager::I(0.25);
+		if (T4 > 5) T4 -= tools::timeManager::I(1);
 	}
 	else
 	{
-		if (T1 < 250) T1 += I(1);
-		if (T2 < 250) T2 += I(1);
-		if (T3 < 250) T3 += I(1);
-		if (T4 < 250) T4 += I(1);
+		if (T1 < 250) T1 += tools::timeManager::I(1);
+		if (T2 < 250) T2 += tools::timeManager::I(1);
+		if (T3 < 250) T3 += tools::timeManager::I(1);
+		if (T4 < 250) T4 += tools::timeManager::I(1);
 	}
 	if (Animation > 800)
 	{

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/timeManager.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
@@ -136,7 +138,7 @@ void Individu_Unique::Gestion_Recuperation()
 		{
 			if (getDoubleFromLUA(i->second, "getDuree") > 0)
 			{
-				setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - I(1));
+                setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
 				if (getDoubleFromLUA(i->second, "getDuree") <= 0)
 				{
 					lua_State *j = i->second;

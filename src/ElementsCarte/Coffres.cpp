@@ -22,6 +22,7 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
+#include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Coffre **/
@@ -69,7 +70,7 @@ int Cadavre::Gestion()
 		return ETAT_MORT;
 	else
 	{
-		Duree -= I(1/60.);
+		Duree -= tools::timeManager::I(1/60.);
 		return ETAT_NORMAL;
 	}
 }

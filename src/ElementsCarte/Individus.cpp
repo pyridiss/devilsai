@@ -24,6 +24,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Individu **/
@@ -105,7 +106,7 @@ void Individu::Gestion_Recuperation()
 		if (get("Energie") > 900) if (!rand()%15) Lag_Recuperation(1);
 		buf_rec = 0;
 	}
-	else buf_rec += I(1);
+    else buf_rec += tools::timeManager::I(1);
 }
 
 /* GETTER STATS AND CHARACTERISTICS */

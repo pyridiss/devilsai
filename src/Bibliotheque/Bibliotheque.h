@@ -294,7 +294,6 @@ void setDoubleToLUA(lua_State*, string, double);
 void setStringToLUA(lua_State*, string, string);
 void DialogueEtGestionEvenements(string);
 int SaisieNom(String32&);
-float I(float);
 float Minimum(float, float);
 float Maximum(float, float);
 double ToSegment(double, int, int);

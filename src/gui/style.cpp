@@ -27,9 +27,7 @@
 #include <cmath>
 
 #include "config.h"
-
-#include "Bibliotheque/Bibliotheque.h"
-
+#include "tools/timeManager.h"
 #include "gui/style.h"
 
 namespace gui{
@@ -131,7 +129,7 @@ void highlightShader(RenderWindow& app, int x, int y, int w, int h)
 void warnShader(RenderWindow& app, int x, int y, int w, int h)
 {
     static double time;
-    time += I(1);
+    time += tools::timeManager::I(1);
     Texture tex;
     tex.create(app.getSize().x, app.getSize().y);
     tex.update(app);

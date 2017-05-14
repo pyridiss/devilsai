@@ -22,6 +22,7 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
 #include "../Carte/Carte.h"
@@ -422,7 +423,7 @@ int LUA_I(lua_State* L)
 {
     MESSAGE("LUA_I() called", LUA)
 
-	lua_pushnumber(L, I(1./60.));
+	lua_pushnumber(L, tools::timeManager::I(1./60.));
 	return 1;
 }
 

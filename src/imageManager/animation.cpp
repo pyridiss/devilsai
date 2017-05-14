@@ -19,11 +19,10 @@
 
 #include <cmath>
 
+#include "tools/timeManager.h"
 #include "imageManager/animation.h"
 
 using namespace std;
-
-float I(float);
 
 namespace imageManager{
 
@@ -59,7 +58,7 @@ void Animation::setColor(Color c)
 void Animation::display(RenderWindow& app, int x, int y, bool atCenter)
 {
     static double time;
-    time += I(1);
+    time += tools::timeManager::I(1);
     if (flickering)
         image.sprite.setColor(Color(255, 255, 255, 255*sin(time*flickering)));
 

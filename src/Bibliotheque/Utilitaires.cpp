@@ -24,6 +24,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/timeManager.h"
+
 #include "Bibliotheque.h"
 #include "Constantes.h"
 #include "../Jeu/Jeu.h"
@@ -183,6 +185,7 @@ void DialogueEtGestionEvenements(string fichier)
 
 		FinDialogue = Intro.display();
 
+        tools::timeManager::frameDone();
 		Jeu.App.display();
 
 		Event event;
@@ -287,15 +290,10 @@ int SaisieNom(String32 &Texte)
 		mainMenuButton.display(Jeu.App);
 		BoutonDidacticiel.display(Jeu.App);
 		BoutonChapitre1.display(Jeu.App);
+        tools::timeManager::frameDone();
 		Jeu.App.display();
 	}
 	return Resultat;
-}
-
-/* Retourne l'incrément à donner à une variable dépendante du temps */
-float I(float i)
-{
-	return Options.VitesseJeu * Jeu.FrameTime.asMilliseconds() * i;
 }
 
 float Minimum(float a, float b)

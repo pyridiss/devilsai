@@ -20,6 +20,7 @@
 #include <sstream>
 
 #include "tools/filesystem.h"
+#include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
@@ -281,6 +282,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 			Disp_FPS();
 
+            tools::timeManager::frameDone();
 			Jeu.App.display();
 		}
 		while (Action == ACTION_REPOS)
@@ -307,6 +309,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 			Disp_FPS();
 
+            tools::timeManager::frameDone();
 			Jeu.App.display();
 		}
 		while (Action == ACTION_MORT)
@@ -334,6 +337,7 @@ void EcranJeu(bool SauvegardePrealable)
 					Action = ACTION_QUITTER;
 			}
 
+			tools::timeManager::frameDone();
 			Jeu.App.display();
 		}
 		if (Action == ACTION_QUITTER)
@@ -355,7 +359,7 @@ void EcranJeu(bool SauvegardePrealable)
 		}
 		if (ChangementLieu != 255)
 		{
-			ChangementLieu -= I((256-ChangementLieu)/24);
+			ChangementLieu -= tools::timeManager::I((256-ChangementLieu)/24);
 			if (ChangementLieu <= 0) ChangementLieu = 255;
 			else
 			{
@@ -369,7 +373,7 @@ void EcranJeu(bool SauvegardePrealable)
 
 		if (SauvegardeEffectuee != 255)
 		{
-			SauvegardeEffectuee -= I((256-SauvegardeEffectuee)/24);
+			SauvegardeEffectuee -= tools::timeManager::I((256-SauvegardeEffectuee)/24);
 			if (SauvegardeEffectuee <= 0) SauvegardeEffectuee = 255;
 			else
 			{
@@ -410,6 +414,7 @@ void EcranJeu(bool SauvegardePrealable)
 			Partie.loadFirstChapter = false;
 		}
 
+        tools::timeManager::frameDone();
 		Jeu.App.display();
         musicManager::manageRunningMusics();
 	}
@@ -506,7 +511,7 @@ int MenuPrincipal()
 			}
 			else
 			{
-				Temps -= I(1);
+				Temps -= tools::timeManager::I(1);
 				X += rand()%6-3;
 				Y += rand()%6-3;
 			}
@@ -525,6 +530,7 @@ int MenuPrincipal()
 		string version = string("Devilsai : version ") + VERSION + "   (" +  __DATE__ + ")";
 		Disp_Texte(version, Options.ScreenW - 250, Options.ScreenH - 60, Color(175,255,255,255), 10.);
 
+        tools::timeManager::frameDone();
 		Jeu.App.display();
         musicManager::manageRunningMusics();
 		/* Fin animation */

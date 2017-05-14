@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "gui/style.h"
+#include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Constantes.h"
@@ -142,6 +143,7 @@ int main(int n, char *params[])
 	PHYSFS_init(params[0]);
 
 	Load_Options();
+    tools::timeManager::setSpeed(Options.VitesseJeu);
 
 	if (!Options.PleinEcran) Jeu.App.create(VideoMode(Options.ScreenW, Options.ScreenH, VideoMode::getDesktopMode().bitsPerPixel), "Devilsai");
 	else

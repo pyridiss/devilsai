@@ -27,6 +27,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Joueur **/
@@ -60,7 +61,7 @@ void Joueur::Gestion_Equipement()
 	{
 		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first && getDoubleFromLUA(i->second, "getDuree") > 0)
 		{
-			setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - I(1));
+			setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
 
 			if (getDoubleFromLUA(i->second, "getDuree") <= 0)
 			{
@@ -89,37 +90,37 @@ void Joueur::Gestion_Statistiques()
 	//1. Régénération de la vitalité
 	if (get("Vitalite") < 1000)
 	{
-		Lag_Vitalite(I(1/4.f*tan(get("Recuperation")/70.f)));
-		if (Abs(get("Recuperation")) <= 95) Lag_Energie(-Abs(I(get("Recuperation")/25.f*(1000-get("Vitalite"))/1000.f)));
+		Lag_Vitalite(tools::timeManager::I(1/4.f*tan(get("Recuperation")/70.f)));
+		if (abs(get("Recuperation")) <= 95) Lag_Energie(-abs(tools::timeManager::I(get("Recuperation")/25.f*(1000-get("Vitalite"))/1000.f)));
 	}
 
 	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
 	if (abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("Constitution"), 0, 100))
 	{
-		if (get("Recuperation") > 0) Lag_Energie(I(0.5));
-		else Lag_Energie(-I(0.25));
+		if (get("Recuperation") > 0) Lag_Energie(tools::timeManager::I(0.5));
+		else Lag_Energie(-tools::timeManager::I(0.25));
 	}
 
 	//3. Perte d'énergie selon durée depuis repos
-	if (DureeEveil > get("Constitution")) Lag_Energie(-I(DureeEveil-get("Constitution"))/10000);
+	if (DureeEveil > get("Constitution")) Lag_Energie(-tools::timeManager::I(DureeEveil-get("Constitution"))/10000);
 
 	//4. Gain & Perte d'énergie par activité
 	if (Get_Act() == PAUSE)
-		Lag_Energie(I(get("Vitalite")/25000) + (LieuVillage == "village")*I(get("Vitalite")/10000));
+		Lag_Energie(tools::timeManager::I(get("Vitalite")/25000) + (LieuVillage == "village")*tools::timeManager::I(get("Vitalite")/10000));
 	if (Get_Act() == COURSE)
-		Lag_Energie(-I(0.05/get("Constitution")));
+		Lag_Energie(-tools::timeManager::I(0.05/get("Constitution")));
 
 	//5. Évolution du taux de récupération
 	float RecupCible = get("RecuperationMoyenne") * ((get("Vitalite")-200)/740.f);
 	if (RecupCible > 0) RecupCible *= Maximum(0, (get("Energie")-70.f)/1000.f);
 
-	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(I(0.1));
-	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-I(0.1));
+	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(tools::timeManager::I(0.1));
+	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-tools::timeManager::I(0.1));
 
 	if (abs(get("RecuperationMoyenne")) >= 95) Set_Recuperation(get("RecuperationMoyenne"));
 
 	//6. Durée d'éveil
-	DureeEveil += I(0.0005);
+	DureeEveil += tools::timeManager::I(0.0005);
 
 	//7. Fatigue extrême
 	if (get("Energie") < 70 && get("Energie") > 10)

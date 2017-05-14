@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#include "tools/timeManager.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
@@ -175,10 +177,10 @@ int Element_Mouvant::Gestion()
 {
 	if (Temps < (1/(float)Get_Vitesse(Get_Act())))
 	{
-		Temps += I(1/60.);
+		Temps += tools::timeManager::I(1/60.);
 		return ETAT_NORMAL;
 	}
-	else Temps = I(1/60.);
+	else Temps = tools::timeManager::I(1/60.);
 
 	return ETAT_CONTINUER;
 }

@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#include "tools/timeManager.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
@@ -41,7 +43,7 @@ int Individu::Gestion()
 			return ETAT_MORT;
 		else
 		{
-			DureeCadavre -= I(1/60.); //App.GetFrameTime();
+            DureeCadavre -= tools::timeManager::I(1/60.);
 			return ETAT_NORMAL;
 		}
 	}

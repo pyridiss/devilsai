@@ -25,8 +25,6 @@
 #include <string>
 #include <list>
 
-#include <SFML/System.hpp>
-
 #include "../Bibliotheque/Bibliotheque.h"
 
 using namespace std;
@@ -97,7 +95,6 @@ struct Classe_Jeu
 	Font Cardinal;
 	Font DayRoman;
 	Dictionnaire Dico;
-	Time FrameTime;
 
 	int intNotFound = MAX_VALUE;
 	float floatNotFound = MAX_VALUE;

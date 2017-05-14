@@ -20,6 +20,7 @@
 #include <map>
 
 #include "tools/filesystem.h"
+#include "tools/timeManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
@@ -190,6 +191,7 @@ void PasDeSauvegarde()
 
         mainMenuButton.display(Jeu.App);
 
+        tools::timeManager::frameDone();
 		Jeu.App.display();
 	}
 }
@@ -356,6 +358,7 @@ string ChoixSauvegarde()
 		Disp_Texte(_PERSO_VITALITE, Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
 		Disp_Texte(Vitalite, Options.ScreenW/2 - 220, 320, Color(255, 64, 64, 255), 14.);
 
+        tools::timeManager::frameDone();
 		Jeu.App.display();
 	}
 
