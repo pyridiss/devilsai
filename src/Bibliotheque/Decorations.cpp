@@ -64,10 +64,10 @@ void Load_Decorations()
 	imageManager::addImage("misc", "BoutonPrecedentAppuye", INSTALL_DIR + "img/BoutonPrecedentAppuye.png");
 	imageManager::addImage("misc", "BoutonSuivant", INSTALL_DIR + "img/BoutonSuivant.png");
 	imageManager::addImage("misc", "BoutonSuivantAppuye", INSTALL_DIR + "img/BoutonSuivantAppuye.png");
-	imageManager::addImage("misc", "BoutonPersonnage", INSTALL_DIR + "img/BoutonPersonnage.png");
-	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png");
-	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png");
-	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png");
+	imageManager::addImage("misc", "BoutonPersonnage", INSTALL_DIR + "img/BoutonPersonnage.png", Vector2i(0, 0), 0.38);
+	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png", Vector2i(0, 0), 0.38);
+	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png", Vector2i(0, 0), 0.38);
+	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png", Vector2i(0, 0), 0.38);
 
     imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");
     imageManager::addAnimation("playerLifeGaugeBackground", INSTALL_DIR + "img/BarreVie.png");
@@ -76,16 +76,16 @@ void Load_Decorations()
     imageManager::addAnimation("playerRecoveryGauge", INSTALL_DIR + "img/BarreRecup.png");
     imageManager::addAnimation("interactorLifeGauge", INSTALL_DIR + "img/BarreVie.png");
 
-    Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*32 - 4 - 2, 28);
-    Partie.screenCharacter.button.setSize(32, 32);
+    Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*41 - 4 - 2, 28);
+    Partie.screenCharacter.button.setSize(41, 41);
     Partie.screenCharacter.button.setAllBackground("BoutonPersonnage");
     Partie.screenCharacter.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
 
-    Partie.screenEquipment.button.setTopLeftCoordinates(Options.ScreenW/2 - 1*32 - 2, 28);
-    Partie.screenEquipment.button.setSize(32, 32);
+    Partie.screenEquipment.button.setTopLeftCoordinates(Options.ScreenW/2 - 1*41 - 2, 28);
+    Partie.screenEquipment.button.setSize(41, 41);
     Partie.screenEquipment.button.setAllBackground("BoutonEquipement");
     Partie.screenEquipment.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenEquipment.key = Keyboard::Key::E;
@@ -93,15 +93,15 @@ void Load_Decorations()
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
 
     Partie.screenSkills.button.setTopLeftCoordinates(Options.ScreenW/2 + 2, 28);
-    Partie.screenSkills.button.setSize(32, 32);
+    Partie.screenSkills.button.setSize(41, 41);
     Partie.screenSkills.button.setAllBackground("BoutonCompetences");
     Partie.screenSkills.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
 
-    Partie.screenJournal.button.setTopLeftCoordinates(Options.ScreenW/2 + 32 + 4 + 2, 28);
-    Partie.screenJournal.button.setSize(32, 32);
+    Partie.screenJournal.button.setTopLeftCoordinates(Options.ScreenW/2 + 41 + 4 + 2, 28);
+    Partie.screenJournal.button.setSize(41, 41);
     Partie.screenJournal.button.setAllBackground("BoutonJournal");
     Partie.screenJournal.button.setHoverShader(gui::style::highlightShader);
 	Partie.screenJournal.key = Keyboard::Key::J;
