@@ -21,6 +21,7 @@
 
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
+#include "tools/signals.h"
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
@@ -193,11 +194,13 @@ bool PartieSauvegardee()
 
 void EcranJeu(bool SauvegardePrealable)
 {
-	int Action = ACTION_JEU;
-
 	float Chargement = 255;
 	float ChangementLieu = 255;
 	float SauvegardeEffectuee = 255;
+
+    bool managementActivated = true;
+    bool playerResting = false;
+    bool playerDead = false;
 
 	String32 NomLieu;
 
@@ -213,137 +216,112 @@ void EcranJeu(bool SauvegardePrealable)
 
 		//1. GESTION DE LA CARTE ET DES ÉLÉMENTS
 
-		Partie.CarteCourante->displayBackground();
+        if (managementActivated)
+            Partie.CarteCourante->GestionElements();
 
-		Action = Partie.CarteCourante->GestionElements();
+        Partie.CarteCourante->displayBackground();
+        Partie.CarteCourante->display();
 
-		if (Action == ACTION_SAUVEG)
-		{
-			Partie.currentUserScreen = nullptr;
-			Disp_Menu();
-			Disp_JaugesVie();
-			Disp_Consoles();
-			SauvegardeEffectuee = 254;
-			Save_Partie();
-			continue;
-		}
+        Event event;
+        while (Jeu.App.pollEvent(event))
+        {
+            Gestion_Menu(event);
 
-		if (Action == ACTION_JEU)
-		{
-			if (Partie.currentUserScreen != NULL)
-				Partie.currentUserScreen->dispFunction();
-			else
-				Disp_MiniaturesCompetences();
+            if (Partie.currentUserScreen != nullptr && Partie.currentUserScreen->manageFunction != nullptr)
+                Partie.currentUserScreen->manageFunction(event);
 
-			if (!Partie.ModeCinematiques)
-			{
-				Disp_Menu();
-				Disp_JaugesVie();
-				Disp_Consoles();
-			}
+            if (event.type == Event::KeyReleased)
+            {
+                switch (event.key.code)
+                {
+                    case Keyboard::P : tools::signals::addSignal("pause"); break;
+                    case Keyboard::S : tools::signals::addSignal("savegame"); break;
+                    case Keyboard::R : tools::signals::addSignal("rest"); break;
+                    case Keyboard::Q : tools::signals::addSignal("exit"); break;
+                    default : break;
+                }
+            }
 
-			Disp_FonduNoir(0);
-			Chargement = Disp_Chargement(Chargement);
+            if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
+                return;
 
-			Disp_FPS();
-		}
-		while (Action == ACTION_PAUSE)
-		{
-			Event event;
+            if (playerDead && Keyboard::isKeyPressed(Keyboard::Return))
+                return;
+        }
 
-			//Réaffichage de la carte telle quelle
-			Jeu.App.clear();
-			Partie.CarteCourante->displayBackground();
-			for (auto& tmp : Partie.CarteCourante->elements)
-				tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
+        string signal = tools::signals::getNextSignal();
+        while (signal != "")
+        {
+            if (signal == "savegame")
+            {
+                Partie.currentUserScreen = nullptr;
+                Disp_Menu();
+                Disp_JaugesVie();
+                Disp_Consoles();
+                SauvegardeEffectuee = 254;
+                Save_Partie();
+            }
 
-			while (Jeu.App.pollEvent(event))
-			{
-				Action = Gestion_Menu(event);
+            if (signal == "pause")
+            {
+                managementActivated = !managementActivated;
+            }
 
-				if (Action == ACTION_JEU) Action = ACTION_PAUSE;
-				else if (Action == ACTION_PAUSE) Action = ACTION_JEU;
+            if (signal == "rest")
+            {
+                managementActivated = false;
+                playerResting = true;
+                Partie.perso->Repos();
+            }
 
-				if (event.type == Event::KeyReleased)
-				{
-					switch (event.key.code)
-					{
-						case Keyboard::P :	Action = ACTION_JEU; break;
-						default :			break;
-					}
-				}
-				if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-					Action = ACTION_QUITTER;
-			}
+            if (signal == "player-dead")
+            {
+                playerDead = true;
+            }
 
-			Disp_Menu();
-			Disp_JaugesVie();
-			Disp_Pause();
+            if (signal == "exit")
+            {
+                return;
+            }
 
-			Disp_FPS();
+            tools::signals::removeSignal(signal);
+            signal = tools::signals::getNextSignal();
+        }
 
-            tools::timeManager::frameDone();
-			Jeu.App.display();
-		}
-		while (Action == ACTION_REPOS)
-		{
-			Partie.perso->Repos();
+        if (Partie.currentUserScreen != NULL)
+            Partie.currentUserScreen->dispFunction();
+        else
+            Disp_MiniaturesCompetences();
 
-			Event event;
+        if (!Partie.ModeCinematiques)
+        {
+            Disp_Menu();
+            Disp_JaugesVie();
+            Disp_Consoles();
+        }
 
-			if (Disp_Repos()) Action = ACTION_JEU;
+        Disp_FonduNoir(0);
+        Chargement = Disp_Chargement(Chargement);
 
-			while (Jeu.App.pollEvent(event))
-			{
-				if (event.type == Event::KeyReleased)
-				{
-					switch (event.key.code)
-					{
-						case Keyboard::Escape :	Action = ACTION_JEU; break;
-						default :				break;
-					}
-				}
-				if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-					Action = ACTION_QUITTER;
-			}
+        if (!managementActivated && !playerResting)
+            Disp_Pause();
 
-			Disp_FPS();
+        if (playerResting)
+        {
+            bool animationFinished = Disp_Repos();
+            if (animationFinished)
+            {
+                playerResting = false;
+                managementActivated = true;
+            }
+        }
 
-            tools::timeManager::frameDone();
-			Jeu.App.display();
-		}
-		while (Action == ACTION_MORT)
-		{
-			Event event;
+        if (playerDead)
+        {
+            Disp_Mort();
+        }
 
-			Jeu.App.clear();
-
-			Partie.CarteCourante->displayBackground();
-			Partie.CarteCourante->GestionElements();
-			Disp_Menu();
-			if (Action == ACTION_MORT) Disp_Mort();
-
-			while (Jeu.App.pollEvent(event))
-			{
-				if (event.type == Event::KeyReleased || event.type == Event::KeyPressed)
-				{
-					switch (event.key.code)
-					{
-						case Keyboard::Return :	Action = ACTION_QUITTER; break;
-						default:				break;
-					}
-				}
-				if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-					Action = ACTION_QUITTER;
-			}
-
-			tools::timeManager::frameDone();
-			Jeu.App.display();
-		}
-		if (Action == ACTION_QUITTER)
-			break;
-
-		Set_PosCarte(0, 0, true);
+        Disp_FPS();
 
 		//2. GESTION DES MISSIONS
 

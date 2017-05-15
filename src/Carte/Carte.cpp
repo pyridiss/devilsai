@@ -648,10 +648,17 @@ int Carte::GestionElements()
 		lua_call(L.second, 0, 0);
 	}
 
+	return Retour;
+}
+
+void Carte::display()
+{
+    Set_PosCarte(0, 0, true);
+    for (auto& tmp : elements)
+        tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
+
 	for (auto& tmp : triggers)
 		tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
-
-	return Retour;
 }
 
 void Carte::setBackgroundImage(string path)

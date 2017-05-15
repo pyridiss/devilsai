@@ -89,6 +89,7 @@ class Carte
 	//Gestion :
 	public:
 		int GestionElements();
+        void display();
 
 	//Fond de la carte :
 	public:
