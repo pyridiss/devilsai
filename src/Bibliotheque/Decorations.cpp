@@ -24,6 +24,7 @@
 #include "Constantes.h"
 
 #include "tools/timeManager.h"
+#include "tools/signals.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
 #include "gui/button.h"
@@ -41,6 +42,9 @@ gui::Button *restingButton;
 
 unsigned int NombreMesures = 0;
 float SommeFPS = 0;
+
+void displayMenu();
+void manageMenu(Event &event);
 
 
 /** GESTION DES DÉCORATIONS **/
@@ -68,6 +72,7 @@ void Load_Decorations()
 	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png", Vector2i(0, 0), 0.38);
 	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png", Vector2i(0, 0), 0.38);
 	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png", Vector2i(0, 0), 0.38);
+    imageManager::addImage("misc", "gui-menu-button", INSTALL_DIR + "img/gui-menu-button.png", Vector2i(0, 0), 0.38);
 
     imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");
     imageManager::addAnimation("playerLifeGaugeBackground", INSTALL_DIR + "img/BarreVie.png");
@@ -76,7 +81,7 @@ void Load_Decorations()
     imageManager::addAnimation("playerRecoveryGauge", INSTALL_DIR + "img/BarreRecup.png");
     imageManager::addAnimation("interactorLifeGauge", INSTALL_DIR + "img/BarreVie.png");
 
-    Partie.screenCharacter.button.setTopLeftCoordinates(Options.ScreenW/2 - 2*41 - 4 - 2, 28);
+    Partie.screenCharacter.button.setTopLeftCoordinates(60, 2);
     Partie.screenCharacter.button.setSize(41, 41);
     Partie.screenCharacter.button.setAllBackground("BoutonPersonnage");
     Partie.screenCharacter.button.setHoverShader(gui::style::highlightShader);
@@ -84,7 +89,7 @@ void Load_Decorations()
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
 
-    Partie.screenEquipment.button.setTopLeftCoordinates(Options.ScreenW/2 - 1*41 - 2, 28);
+    Partie.screenEquipment.button.setTopLeftCoordinates(110, 2);
     Partie.screenEquipment.button.setSize(41, 41);
     Partie.screenEquipment.button.setAllBackground("BoutonEquipement");
     Partie.screenEquipment.button.setHoverShader(gui::style::highlightShader);
@@ -92,7 +97,7 @@ void Load_Decorations()
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
 
-    Partie.screenSkills.button.setTopLeftCoordinates(Options.ScreenW/2 + 2, 28);
+    Partie.screenSkills.button.setTopLeftCoordinates(160, 2);
     Partie.screenSkills.button.setSize(41, 41);
     Partie.screenSkills.button.setAllBackground("BoutonCompetences");
     Partie.screenSkills.button.setHoverShader(gui::style::highlightShader);
@@ -100,7 +105,7 @@ void Load_Decorations()
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
 
-    Partie.screenJournal.button.setTopLeftCoordinates(Options.ScreenW/2 + 41 + 4 + 2, 28);
+    Partie.screenJournal.button.setTopLeftCoordinates(210, 2);
     Partie.screenJournal.button.setSize(41, 41);
     Partie.screenJournal.button.setAllBackground("BoutonJournal");
     Partie.screenJournal.button.setHoverShader(gui::style::highlightShader);
@@ -108,8 +113,16 @@ void Load_Decorations()
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
 
+    Partie.screenMenu.button.setTopLeftCoordinates(10, 2);
+    Partie.screenMenu.button.setSize(41, 41);
+    Partie.screenMenu.button.setAllBackground("gui-menu-button");
+    Partie.screenMenu.button.setHoverShader(gui::style::highlightShader);
+    Partie.screenMenu.key = Keyboard::Key::M;
+    Partie.screenMenu.dispFunction = displayMenu;
+    Partie.screenMenu.manageFunction = manageMenu;
+
     pauseGameTopButton = new gui::Button;
-    pauseGameTopButton->setTopLeftCoordinates(275, 2);
+    pauseGameTopButton->setTopLeftCoordinates(10, 50);
     pauseGameTopButton->setSize(125, 18);
     pauseGameTopButton->setNormalBackground("Bouton");
     pauseGameTopButton->setHoverBackground("Bouton");
@@ -118,7 +131,7 @@ void Load_Decorations()
     pauseGameTopButton->addOffsetToActiveText(1, 1);
 
     saveGameTopButton = new gui::Button;
-    saveGameTopButton->setTopLeftCoordinates(410, 2);
+    saveGameTopButton->setTopLeftCoordinates(10, 70);
     saveGameTopButton->setSize(125, 18);
     saveGameTopButton->setNormalBackground("Bouton");
     saveGameTopButton->setHoverBackground("Bouton");
@@ -127,7 +140,7 @@ void Load_Decorations()
     saveGameTopButton->addOffsetToActiveText(1, 1);
 
     exitGameTopButton = new gui::Button;
-    exitGameTopButton->setTopLeftCoordinates(Options.ScreenW - 255, 2);
+    exitGameTopButton->setTopLeftCoordinates(10, 90);
     exitGameTopButton->setSize(125, 18);
     exitGameTopButton->setNormalBackground("Bouton");
     exitGameTopButton->setHoverBackground("Bouton");
@@ -229,7 +242,7 @@ void Disp_FondMenus()
 
 /** MENU SUPÉRIEUR **/
 
-int Gestion_Menu(Event &event)
+void Gestion_Menu(Event &event)
 {
     if (Arguments.SaveDisabled) saveGameTopButton->setDisabled(true);
     else saveGameTopButton->setDisabled(false);
@@ -237,17 +250,23 @@ int Gestion_Menu(Event &event)
     if (Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
     else restingButton->setDisabled(false);
 
-    if (pauseGameTopButton->activated(Jeu.App, event.type)) return ACTION_PAUSE;
-    if (saveGameTopButton->activated(Jeu.App, event.type)) return ACTION_SAUVEG;
-    if (exitGameTopButton->activated(Jeu.App, event.type)) return ACTION_QUITTER;
-    if (restingButton->activated(Jeu.App, event.type)) return ACTION_REPOS;
+    if (restingButton->activated(Jeu.App, event.type))
+        tools::signals::addSignal("rest");
 
     if (Partie.screenCharacter.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
     if (Partie.screenEquipment.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
     if (Partie.screenSkills.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
     if (Partie.screenJournal.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
+    if (Partie.screenMenu.button.activated(Jeu.App, event.type))        Partie.changeCurrentUserScreen(&Partie.screenMenu);
 
-    return ACTION_JEU;
+    if (event.type == Event::KeyReleased)
+    {
+        if (event.key.code == Partie.screenCharacter.key) Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+        if (event.key.code == Partie.screenEquipment.key) Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+        if (event.key.code == Partie.screenSkills.key) Partie.changeCurrentUserScreen(&Partie.screenSkills);
+        if (event.key.code == Partie.screenJournal.key) Partie.changeCurrentUserScreen(&Partie.screenJournal);
+        if (event.key.code == Partie.screenMenu.key) Partie.changeCurrentUserScreen(&Partie.screenMenu);
+    }
 }
 
 void Disp_Menu()
@@ -262,11 +281,10 @@ void Disp_Menu()
 	}
 
 	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
+    {
 		imageManager::display(Jeu.App, "misc", "Frange", 100*a, 0);
-
-    pauseGameTopButton->display(Jeu.App);
-    saveGameTopButton->display(Jeu.App);
-    exitGameTopButton->display(Jeu.App);
+        imageManager::display(Jeu.App, "misc", "Frange", 100*a, 22);
+    }
     restingButton->display(Jeu.App);
 
 	//Erreur éventuelle
@@ -282,6 +300,7 @@ void Disp_Menu()
     Partie.screenEquipment.button.display(Jeu.App);
     Partie.screenSkills.button.display(Jeu.App);
     Partie.screenJournal.button.display(Jeu.App);
+    Partie.screenMenu.button.display(Jeu.App);
 
     if (Partie.journal.newEntryAdded)
         Partie.screenJournal.button.setNormalShader(gui::style::warnShader);
@@ -289,6 +308,22 @@ void Disp_Menu()
         Partie.screenJournal.button.setNormalShader(NULL);
 }
 
+void displayMenu()
+{
+    pauseGameTopButton->display(Jeu.App);
+    saveGameTopButton->display(Jeu.App);
+    exitGameTopButton->display(Jeu.App);
+}
+
+void manageMenu(Event &event)
+{
+    if (pauseGameTopButton->activated(Jeu.App, event.type))
+        tools::signals::addSignal("pause");
+    if (saveGameTopButton->activated(Jeu.App, event.type))
+        tools::signals::addSignal("savegame");
+    if (exitGameTopButton->activated(Jeu.App, event.type))
+        tools::signals::addSignal("exit");
+}
 
 /** CONSOLES DU PERSONNAGE **/
 

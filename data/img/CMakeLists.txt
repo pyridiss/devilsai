@@ -129,6 +129,7 @@ set(img
     Gnome.img
     Gower.img
     Guerrier.img
+    gui-menu-button.png
     Horst.img
     Joueur.img
     Mannequin.img

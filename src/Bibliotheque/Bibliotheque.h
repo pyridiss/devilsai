@@ -244,7 +244,7 @@ void Supprimer_Decorations();
 void MoyenneFPS();
 void Disp_FPS();
 void Disp_FondMenus();
-int Gestion_Menu(Event &event);
+void Gestion_Menu(Event &event);
 void Disp_Menu();
 void Disp_JaugesVie();
 void Ajouter_LignePerso(String32, Color);
