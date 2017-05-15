@@ -156,11 +156,6 @@ using namespace std;
 #define COLL_VIS		8
 
 //Action de l'utilisateur & états des individus
-#define ACTION_JEU		0
-#define ACTION_QUITTER	1
-#define ACTION_PAUSE	2
-#define ACTION_SAUVEG	3
-#define ACTION_REPOS	4
 #define ACTION_MORT		5
 #define ETAT_NORMAL		6
 #define ETAT_DESACTIVE	7

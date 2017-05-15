@@ -615,7 +615,7 @@ bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 
 int Carte::GestionElements()
 {
-	int Retour = ACTION_JEU;
+	int Retour;
 
 	int RetourElement = 0;
 	Element_Carte* ASupprimer = NULL;
@@ -626,14 +626,6 @@ int Carte::GestionElements()
 
 		switch(RetourElement)
 		{
-			case ACTION_JEU		: break;
-			case ACTION_QUITTER	: Retour = ACTION_QUITTER; break;
-			case ACTION_PAUSE	: Retour = ACTION_PAUSE; break;
-			case ACTION_SAUVEG	: Retour = ACTION_SAUVEG; break;
-			case ACTION_REPOS	: Retour = ACTION_REPOS; break;
-			case ACTION_MORT	: Retour = ACTION_MORT; break;
-			case ETAT_NORMAL	: tmp->Disp(Partie.PosCarteX, Partie.PosCarteY); break;
-			case ETAT_DESACTIVE	: break;
 			case ETAT_MORT		: ASupprimer = tmp; break;
 		}
 	}

@@ -21,6 +21,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/signals.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
@@ -30,7 +32,6 @@
 int Joueur::Gestion()
 {
 		// 1. Définition des variables
-	int Retour = ACTION_JEU;
 
 	bool MouvementAutorise = true;
 	static bool Appui[4] = {false};
@@ -47,7 +48,7 @@ int Joueur::Gestion()
 		{
 			Appui[a] = false; Old[a] = false;
 		}
-		if (Get_Num() == 8) Retour = ACTION_MORT;
+        if (Get_Num() == 8) tools::signals::addSignal("player-dead");
 	}
 
 	Gestion_Equipement();
@@ -80,7 +81,6 @@ int Joueur::Gestion()
 	{
 		Appui[HAUT] = false; Appui[BAS] = false; Appui[DROITE] = false; Appui[GAUCHE] = false;
 		ChoixCompetence = COMPETENCE_AUCUNE;
-		if (Retour != ACTION_QUITTER) Retour = ACTION_JEU;
 	}
 
 	//Enchaîne les activités sans attendre que la précédente soit terminée et détermine la compétence à activer
@@ -277,18 +277,5 @@ int Joueur::Gestion()
 			Competence = COMPETENCE_AUCUNE;
 	}
 
-	Disp(PosX, PosY);
-
-	//Désactive tous les déplacements et toutes les compétences avant la mise en pause ou la mort
-	if (Retour == ACTION_PAUSE || Retour == ACTION_MORT)
-	{
-		for (int a = 0 ; a < 4 ; ++a)
-		{
-			Appui[a] = false; Old[a] = false;
-		}
-		Competence = COMPETENCE_AUCUNE;
-		ChoixCompetence = COMPETENCE_AUCUNE;
-	}
-
-	return Retour;
+	return 0;
 }
