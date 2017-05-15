@@ -32,8 +32,6 @@ int Joueur::Gestion()
 		// 1. Définition des variables
 	int Retour = ACTION_JEU;
 
-	static Event event;
-
 	bool MouvementAutorise = true;
 	static bool Appui[4] = {false};
 	static bool Old[4] = {false};
@@ -62,77 +60,19 @@ int Joueur::Gestion()
 
 		// 4. Gestion des événements
 
-	if (get("Vitalite") > 0) while (Jeu.App.pollEvent(event))
+	if (get("Vitalite") > 0 && Jeu.App.hasFocus())
 	{
-		Retour = Gestion_Menu(event);
-
-		if (Partie.currentUserScreen != nullptr && Partie.currentUserScreen->manageFunction != nullptr)
-			Partie.currentUserScreen->manageFunction(event);
-
-		if (event.type == Event::KeyPressed)
-		{
-			switch (event.key.code)
-			{
-				//Direction du joueur :
-				case Keyboard::Up :			Appui[HAUT] = true; break;
-				case Keyboard::Down :		Appui[BAS] = true; break;
-				case Keyboard::Right :		Appui[DROITE] = true; break;
-				case Keyboard::Left :		Appui[GAUCHE] = true; break;
+        Appui[HAUT]   = Keyboard::isKeyPressed(Keyboard::Up);
+        Appui[BAS]    = Keyboard::isKeyPressed(Keyboard::Down);
+        Appui[DROITE] = Keyboard::isKeyPressed(Keyboard::Right);
+        Appui[GAUCHE] = Keyboard::isKeyPressed(Keyboard::Left);
 
 				//Activité (pas de touche) ou Compétence :
-				case Keyboard::LControl :	ChoixCompetence = COMPETENCE_CTRL; break;
-				case Keyboard::LShift :		ChoixCompetence = COMPETENCE_SHIFT; break;
-				case Keyboard::Tab :		ChoixCompetence = COMPETENCE_TAB; break;
-				case Keyboard::Space :		ChoixCompetence = COMPETENCE_SPACE; break;
-
-				//Quelques touches utiles pour la programmation ^^
-#ifdef DEBOGAGE
-				case Keyboard::LAlt :		cout << PosX << " " << PosY << endl;
-											cout << "Vitesse de l'activité actuelle (" << Get_Act() << ") : " << Get_Vitesse(Get_Act()) << endl;
-											break;
-				case Keyboard::PageUp :		Options.VitesseJeu += 2./100; cout << "Vitesse : " << 1000*Options.VitesseJeu << endl; break;
-				case Keyboard::PageDown :	Options.VitesseJeu -= 2./100; cout << "Vitesse : " << 1000*Options.VitesseJeu << endl; break;
-				case Keyboard::Z :			{
-												Individu_Unique* ind = Get_IndividuUnique("201");
-												if (ind != NULL) ind->Set_Vitalite(0);
-											}
-											break;
-				case Keyboard::C :			Partie.ModeCinematiques = !Partie.ModeCinematiques;
-											break;
-#endif
-				default :					break;
-			}
-		}
-		if (event.type == Event::KeyReleased)
-		{
-			switch (event.key.code)
-			{
-				//Direction du joueur :
-				case Keyboard::Up :			Appui[HAUT] = false; break;
-				case Keyboard::Down :		Appui[BAS] = false; break;
-				case Keyboard::Right :		Appui[DROITE] = false; break;
-				case Keyboard::Left :		Appui[GAUCHE] = false; break;
-
-				//Compétence :
-				case Keyboard::LControl :
-				case Keyboard::LShift :
-				case Keyboard::Tab :
-				case Keyboard::Space :		ChoixCompetence = COMPETENCE_AUCUNE; break;
-
-				//Actions spécifiques :
-				case Keyboard::S :			if (!Arguments.SaveDisabled) Retour = ACTION_SAUVEG; break;
-				case Keyboard::R :			if (LieuVillage == "village") Retour = ACTION_REPOS; break;
-
-				default :					break;
-			}
-			if (event.key.code == Partie.screenCharacter.key)	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
-			if (event.key.code == Partie.screenEquipment.key)	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
-			if (event.key.code == Partie.screenSkills.key)		Partie.changeCurrentUserScreen(&Partie.screenSkills);
-			if (event.key.code == Partie.screenJournal.key)		Partie.changeCurrentUserScreen(&Partie.screenJournal);
-		}
-
-		if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-			return ACTION_QUITTER;
+        ChoixCompetence = COMPETENCE_AUCUNE;
+        if (Keyboard::isKeyPressed(Keyboard::LControl)) ChoixCompetence = COMPETENCE_CTRL;
+        if (Keyboard::isKeyPressed(Keyboard::LShift))   ChoixCompetence = COMPETENCE_SHIFT;
+        if (Keyboard::isKeyPressed(Keyboard::Tab))      ChoixCompetence = COMPETENCE_TAB;
+        if (Keyboard::isKeyPressed(Keyboard::Space))    ChoixCompetence = COMPETENCE_SPACE;
 	}
 
 	//Désactivation de (presque) tout si on est en mode cinématiques
