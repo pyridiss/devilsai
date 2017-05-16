@@ -462,9 +462,9 @@ void Disp_JaugesVie()
 			NomInd = Ind->Get_Nom();
 			if (Elem->Diplomatie == DIPLOM_ALLIE) CouleurNom = Color(128, 255, 128, 255);
 			if (Elem->Diplomatie == DIPLOM_ENNEMI) CouleurNom = Color(255, 255, 255, 255);
+            interactorLifeGauge->setRectangle(0, 0, Ind->get("Vitalite")/10, 7);
 		}
 		else Ind = NULL;
-        interactorLifeGauge->setRectangle(0, 0, Ind->get("Vitalite")/10, 7);
 		AncienInteraction = Partie.perso->ElementInteraction;
 	}
 	if (Ind != NULL && Partie.perso->ElementInteraction != -1)
