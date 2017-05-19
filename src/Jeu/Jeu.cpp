@@ -202,6 +202,7 @@ void EcranJeu(bool SauvegardePrealable)
     bool managementActivated = true;
     bool playerResting = false;
     bool playerDead = false;
+    bool askExit = false;
 
 	String32 NomLieu;
 
@@ -226,13 +227,10 @@ void EcranJeu(bool SauvegardePrealable)
 	{
 		Jeu.App.clear();
 
-		//1. GESTION DE LA CARTE ET DES ÉLÉMENTS
+        //1. Management, Events & Signals
 
         if (managementActivated)
             Partie.CarteCourante->GestionElements();
-
-        Partie.CarteCourante->displayBackground();
-        Partie.CarteCourante->display();
 
         Event event;
         while (Jeu.App.pollEvent(event))
@@ -294,7 +292,7 @@ void EcranJeu(bool SauvegardePrealable)
             if (signal == "ask-exit")
             {
                 confirmExitGameWindow.startWindow();
-                confirmExitGameWindow.manage(Jeu.App);
+                askExit = true;
             }
 
             if (signal == "exit")
@@ -306,10 +304,10 @@ void EcranJeu(bool SauvegardePrealable)
             signal = tools::signals::getNextSignal();
         }
 
-        if (Partie.currentUserScreen != NULL)
-            Partie.currentUserScreen->dispFunction();
-        else
-            Disp_MiniaturesCompetences();
+        //2. Display
+
+        Partie.CarteCourante->displayBackground();
+        Partie.CarteCourante->display();
 
         if (!Partie.ModeCinematiques)
         {
@@ -317,6 +315,11 @@ void EcranJeu(bool SauvegardePrealable)
             Disp_JaugesVie();
             Disp_Consoles();
         }
+
+        if (Partie.currentUserScreen != NULL)
+            Partie.currentUserScreen->dispFunction();
+        else
+            Disp_MiniaturesCompetences();
 
         Disp_FonduNoir(0);
         Chargement = Disp_Chargement(Chargement);
@@ -337,6 +340,12 @@ void EcranJeu(bool SauvegardePrealable)
         if (playerDead)
         {
             Disp_Mort();
+        }
+
+        if (askExit)
+        {
+            confirmExitGameWindow.manage(Jeu.App);
+            askExit = false;
         }
 
         Disp_FPS();
