@@ -20,6 +20,7 @@
 #include <tinyxml2.h>
 
 #include "tools/signals.h"
+#include "tools/timeManager.h"
 #include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
@@ -27,6 +28,7 @@
 #include "gui/window.h"
 #include "gui/textWidget.h"
 #include "gui/button.h"
+#include "gui/style.h"
 
 #include "config.h"
 
@@ -105,6 +107,8 @@ void Window::display(RenderWindow& app)
 
 void Window::manage(RenderWindow& app)
 {
+    gui::style::disableShader(app, 0, 0, app.getSize().x, app.getSize().y);
+
     while (!exitWindow)
     {
         Event event;
@@ -114,6 +118,7 @@ void Window::manage(RenderWindow& app)
         }
 
         display(app);
+        tools::timeManager::frameDone();
         app.display();
     }
 }
