@@ -24,6 +24,24 @@
 
 namespace gui{
 
+Button::Button()
+{
+    minimalistWidget w;
+
+    states.insert(map<string,minimalistWidget>::value_type("normal", w));
+    states.insert(map<string,minimalistWidget>::value_type("active", w));
+    states.insert(map<string,minimalistWidget>::value_type("hover", w));
+    states.insert(map<string,minimalistWidget>::value_type("disabled", w));
+
+    setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
+
+    setTextColor("normal",   gui::style::normalButtonTextColor());
+    setTextColor("active",   gui::style::activeButtonTextColor());
+    setTextColor("hover",    gui::style::hoverButtonTextColor());
+    setTextColor("disabled", gui::style::disabledButtonTextColor());
+
+}
+
 void Button::setAutoRelease(bool a)
 {
     autoRelease = a;
@@ -31,24 +49,24 @@ void Button::setAutoRelease(bool a)
 
 bool Button::mouseHovering(RenderWindow& app)
 {
-    if (state == Disabled) return false;
+    if (currentState == "disabled") return false;
 
     if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
         Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
     {
-        if (state == Normal) state = Hover;
+        if (currentState == "normal") currentState = "hover";
         return true;
     }
 
-    if (autoRelease) state = Normal;
-    else if (state == Hover) state = Normal;
+    if (autoRelease) currentState = "normal";
+    else if (currentState == "hover") currentState = "normal";
 
     return false;
 }
 
 bool Button::activated(RenderWindow& app, Event::EventType event)
 {
-    if (state == Disabled) return false;
+    if (currentState == "disabled") return false;
 
     if (mouseHovering(app))
     {
@@ -58,44 +76,44 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
 
             if (autoRelease)
             {
-                state = Active;
+                currentState = "active";
                 return false; //We wait for MouseButtonReleased
             }
             else
             {
-                if (state == Active) state = Normal;
-                else state = Active;
+                if (currentState == "active") currentState = "normal";
+                else currentState = "active";
                 return true;
             }
         }
         if (event == Event::MouseButtonReleased)
         {
-            if (state == Active)
+            if (currentState == "active")
             {
                 if (autoRelease)
                 {
-                    state = Normal;
+                    currentState = "normal";
                     return true;
                 }
                 else //MouseButtonReleased must not be used
                 {
-                    if (state == Active) return true;
+                    if (currentState == "active") return true;
                     else return false;
                 }
             }
             else return false;
         }
 
-        if (!autoRelease && state == Active)
+        if (!autoRelease && currentState == "active")
             return true;
 
         return false;
     }
 
     if (autoRelease)
-        state = Normal;
+        currentState = "normal";
 
-    if (!autoRelease && state == Active)
+    if (!autoRelease && currentState == "active")
         return true;
 
     return false;
@@ -103,38 +121,15 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
 
 void Button::display(RenderWindow& app)
 {
-    //TODO: Button shoud add images by itself in its own container
-    switch (state)
-    {
-        case Normal:
-            if (!normal.background.empty())
-                imageManager::display(app, "misc", normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
-            app.draw(normal.text);
-            if (normal.shader != NULL)
-                normal.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Active:
-            if (!active.background.empty())
-                imageManager::display(app, "misc", active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
-            app.draw(active.text);
-            if (active.shader != NULL)
-                active.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Hover:
-            if (!hover.background.empty())
-                imageManager::display(app, "misc", hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
-            app.draw(hover.text);
-            if (hover.shader != NULL)
-                hover.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Disabled:
-            if (!disabled.background.empty())
-                imageManager::display(app, "misc", disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
-            app.draw(disabled.text);
-            if (disabled.shader != NULL)
-                disabled.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-    }
+    const auto& state = states.find(currentState);
+
+    if (!state->second.background.empty())
+        imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
+
+    app.draw(state->second.text);
+
+    if (state->second.shader != NULL)
+        state->second.shader(app, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui

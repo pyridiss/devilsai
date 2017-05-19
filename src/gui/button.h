@@ -35,6 +35,9 @@ class Button : public Widget
         bool autoRelease = true;
 
     public:
+        Button();
+
+    public:
         void setAutoRelease(bool a);
 
         bool mouseHovering(RenderWindow& app);

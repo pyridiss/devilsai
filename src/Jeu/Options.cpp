@@ -140,9 +140,9 @@ void EcranOptions()
     fullscreenButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 270);
     fullscreenButton.setAutoRelease(false);
     fullscreenButton.setTextFont(Jeu.DayRoman, 16);
-    fullscreenButton.setNormalText(getTranslatedMessage(_DESACTIVE));
-    fullscreenButton.setHoverText(getTranslatedMessage(_DESACTIVE));
-    fullscreenButton.setActiveText(getTranslatedMessage(_ACTIVE));
+    fullscreenButton.setText("normal", getTranslatedMessage(_DESACTIVE));
+    fullscreenButton.setText("hover", getTranslatedMessage(_DESACTIVE));
+    fullscreenButton.setText("active", getTranslatedMessage(_ACTIVE));
 
     if (Options.PleinEcran_Save)
         fullscreenButton.setActive(true);
@@ -150,9 +150,9 @@ void EcranOptions()
     showDamageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 310);
     showDamageButton.setAutoRelease(false);
     showDamageButton.setTextFont(Jeu.DayRoman, 16);
-    showDamageButton.setNormalText(getTranslatedMessage(_DESACTIVE));
-    showDamageButton.setHoverText(getTranslatedMessage(_DESACTIVE));
-    showDamageButton.setActiveText(getTranslatedMessage(_ACTIVE));
+    showDamageButton.setText("normal", getTranslatedMessage(_DESACTIVE));
+    showDamageButton.setText("hover", getTranslatedMessage(_DESACTIVE));
+    showDamageButton.setText("active", getTranslatedMessage(_ACTIVE));
 
     if (Options.AffichageDegats)
         showDamageButton.setActive(true);

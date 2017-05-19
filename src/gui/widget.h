@@ -21,6 +21,7 @@
 #define GUI_WIDGET_H
 
 #include <string>
+#include <map>
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -37,20 +38,12 @@ namespace gui{
 
 class Widget
 {
-    struct minimalistWidget
-    {
-        Text text;
-        string background;
-        void (*shader)(RenderWindow&, int, int, int, int) = NULL;
-    };
-
     protected:
-        enum States
+        struct minimalistWidget
         {
-            Normal,
-            Active,
-            Hover,
-            Disabled
+            Text text;
+            string background;
+            void (*shader)(RenderWindow&, int, int, int, int) = NULL;
         };
 
     protected:
@@ -58,12 +51,9 @@ class Widget
         int xCenter = 0, yCenter = 0;
         int width = 0, height = 0;
 
-        minimalistWidget normal;
-        minimalistWidget active;
-        minimalistWidget hover;
-        minimalistWidget disabled;
+        map < string, minimalistWidget> states;
 
-        States state = Normal;
+        string currentState = "normal";
 
     public:
         void setTopLeftCoordinates(int x, int y);
@@ -79,33 +69,14 @@ class Widget
         int getYCenter();
 
         void setAllText(String32& t);
-        void setNormalText(String32& t);
-        void setActiveText(String32& t);
-        void setHoverText(String32& t);
-        void setDisabledText(String32& t);
-
-        void setTextFont(const Font& f, float s);
-
-        void setNormalTextColor(Color c);
-        void setActiveTextColor(Color c);
-        void setHoverTextColor(Color c);
-        void setDisabledTextColor(Color c);
-
-        void addOffsetToNormalText(int x, int y);
-        void addOffsetToActiveText(int x, int y);
-        void addOffsetToHoverText(int x, int y);
-        void addOffsetToDisabledText(int x, int y);
-
         void setAllBackground(string b);
-        void setNormalBackground(string b);
-        void setActiveBackground(string b);
-        void setHoverBackground(string b);
-        void setDisabledBackground(string b);
 
-        void setNormalShader(void (*s)(RenderWindow&, int, int, int, int));
-        void setActiveShader(void (*s)(RenderWindow&, int, int, int, int));
-        void setHoverShader(void (*s)(RenderWindow&, int, int, int, int));
-        void setDisabledShader(void (*s)(RenderWindow&, int, int, int, int));
+        void setText(string state, String32& t);
+        void setTextFont(const Font& f, float s);
+        void setTextColor(string state, Color c);
+        void addOffsetToText(string state, int x, int y);
+        void setBackground(string state, string b);
+        void setShader(string state, void (*s)(RenderWindow&, int, int, int, int));
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event::EventType event) = 0;

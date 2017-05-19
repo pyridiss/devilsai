@@ -32,6 +32,9 @@ namespace gui{
 class TextWidget : public Widget
 {
     public:
+        TextWidget();
+
+    public:
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event::EventType event);
 

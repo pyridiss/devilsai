@@ -46,14 +46,14 @@ void Widget::setSize(int w, int h)
 
 void Widget::setDisabled(bool d)
 {
-    if (d) state = Disabled;
-    else if (state == Disabled) state = Normal;
+    if (d) currentState = "disabled";
+    else if (currentState == "disabled") currentState = "normal";
 }
 
 void Widget::setActive(bool a)
 {
-    if (a) state = Active;
-    else if (state == Active) state = Normal;
+    if (a) currentState = "active";
+    else if (currentState == "active") currentState = "normal";
 }
 
 int Widget::getXTopLeft()
@@ -88,86 +88,30 @@ int Widget::getYCenter()
     return yCenter;
 }
 
-void Widget::setAllText(String32 & t)
+void Widget::setAllText(String32& t)
 {
-    setNormalText(t);
-    setActiveText(t);
-    setHoverText(t);
-    setDisabledText(t);
-}
-
-void Widget::setNormalText(String32& t)
-{
-    normal.text.setString(t);
-
-    //If no font properties set, use default (needed to compute position)
-    if (normal.text.getFont() == NULL)
-        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
-
-    setNormalTextColor(gui::style::normalButtonTextColor());
-
-    FloatRect rect = normal.text.getGlobalBounds();
-    normal.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
-
-    if (width == 0 || height == 0)
+    for (auto& state : states)
     {
-        width = rect.width + 12;
-        height = rect.height + 6;
+        setText(state.first, t);
     }
 }
 
-void Widget::setActiveText(String32& t)
+void Widget::setAllBackground(string b)
 {
-    active.text.setString(t);
-
-    //If no font properties set, use default (needed to compute position)
-    if (active.text.getFont() == NULL)
-        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
-
-    setActiveTextColor(gui::style::activeButtonTextColor());
-
-    FloatRect rect = active.text.getGlobalBounds();
-    active.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
-
-    if (width == 0 || height == 0)
+    for (auto& state : states)
     {
-        width = rect.width + 12;
-        height = rect.height + 6;
+        setBackground(state.first, b);
     }
 }
 
-void Widget::setHoverText(String32& t)
+void Widget::setText(string state, String32& t)
 {
-    hover.text.setString(t);
+    const auto& s = states.find(state);
 
-    //If no font properties set, use default (needed to compute position)
-    if (hover.text.getFont() == NULL)
-        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
+    s->second.text.setString(t);
 
-    setHoverTextColor(gui::style::hoverButtonTextColor());
-
-    FloatRect rect = hover.text.getGlobalBounds();
-    hover.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
-
-    if (width == 0 || height == 0)
-    {
-        width = rect.width + 12;
-        height = rect.height + 6;
-    }
-}
-
-void Widget::setDisabledText(String32& t)
-{
-    disabled.text.setString(t);
-
-    //If no font properties set, use default (needed to compute position)
-    if (disabled.text.getFont() == NULL)
-        setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
-
-    setDisabledTextColor(gui::style::disabledButtonTextColor());
-
-    FloatRect rect = disabled.text.getGlobalBounds();
-    disabled.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+    FloatRect rect = s->second.text.getGlobalBounds();
+    s->second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
 
     if (width == 0 || height == 0)
     {
@@ -178,102 +122,34 @@ void Widget::setDisabledText(String32& t)
 
 void Widget::setTextFont(const Font& f, float s)
 {
-    normal.text.setFont(f);
-    normal.text.setCharacterSize(s);
-    active.text.setFont(f);
-    active.text.setCharacterSize(s);
-    hover.text.setFont(f);
-    hover.text.setCharacterSize(s);
-    disabled.text.setFont(f);
-    disabled.text.setCharacterSize(s);
+    for (auto& state : states)
+    {
+        state.second.text.setFont(f);
+        state.second.text.setCharacterSize(s);
+    }
 }
 
-void Widget::setNormalTextColor(Color c)
+void Widget::setTextColor(string state, Color c)
 {
-    normal.text.setFillColor(c);
+    states.find(state)->second.text.setFillColor(c);
 }
 
-void Widget::setActiveTextColor(Color c)
+void Widget::addOffsetToText(string state, int x, int y)
 {
-    active.text.setFillColor(c);
+    states.find(state)->second.text.setPosition(
+        states.find(state)->second.text.getPosition().x + x,
+        states.find(state)->second.text.getPosition().y + y
+    );
 }
 
-void Widget::setHoverTextColor(Color c)
+void Widget::setBackground(string state, string b)
 {
-    hover.text.setFillColor(c);
+    states.find(state)->second.background = b;
 }
 
-void Widget::setDisabledTextColor(Color c)
+void Widget::setShader(string state, void (*s)(RenderWindow&, int, int, int, int))
 {
-    disabled.text.setFillColor(c);
-}
-
-void Widget::setAllBackground(string b)
-{
-    setNormalBackground(b);
-    setActiveBackground(b);
-    setHoverBackground(b);
-    setDisabledBackground(b);
-}
-
-void Widget::addOffsetToNormalText(int x, int y)
-{
-    normal.text.setPosition(normal.text.getPosition().x + x, normal.text.getPosition().y + y);
-}
-
-void Widget::addOffsetToActiveText(int x, int y)
-{
-    active.text.setPosition(active.text.getPosition().x + x, active.text.getPosition().y + y);
-}
-
-void Widget::addOffsetToHoverText(int x, int y)
-{
-    hover.text.setPosition(hover.text.getPosition().x + x, hover.text.getPosition().y + y);
-}
-
-void Widget::addOffsetToDisabledText(int x, int y)
-{
-    disabled.text.setPosition(disabled.text.getPosition().x + x, disabled.text.getPosition().y + y);
-}
-
-void Widget::setNormalBackground(string b)
-{
-    normal.background = b;
-}
-
-void Widget::setActiveBackground(string b)
-{
-    active.background = b;
-}
-
-void Widget::setHoverBackground(string b)
-{
-    hover.background = b;
-}
-
-void Widget::setDisabledBackground(string b)
-{
-    disabled.background = b;
-}
-
-void Widget::setNormalShader(void (*s)(RenderWindow&, int, int, int, int))
-{
-    normal.shader = s;
-}
-
-void Widget::setActiveShader(void (*s)(RenderWindow&, int, int, int, int))
-{
-    active.shader = s;
-}
-
-void Widget::setHoverShader(void (*s)(RenderWindow&, int, int, int, int))
-{
-    hover.shader = s;
-}
-
-void Widget::setDisabledShader(void (*s)(RenderWindow&, int, int, int, int))
-{
-    disabled.shader = s;
+    states.find(state)->second.shader = s;
 }
 
 } //namespace gui

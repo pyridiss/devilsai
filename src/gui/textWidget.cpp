@@ -23,14 +23,22 @@
 
 namespace gui{
 
+TextWidget::TextWidget()
+{
+    minimalistWidget w;
+
+    states.insert(map<string,minimalistWidget>::value_type("normal", w));
+
+    setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
+
+    setTextColor("normal", gui::style::normalButtonTextColor());;
+}
+
 bool TextWidget::mouseHovering(RenderWindow& app)
 {
-    if (state == Disabled) return false;
-
     if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
         Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
     {
-        if (state == Normal) state = Hover;
         return true;
     }
 
@@ -44,37 +52,15 @@ bool TextWidget::activated(RenderWindow& app, Event::EventType event)
 
 void TextWidget::display(RenderWindow& app)
 {
-    switch (state)
-    {
-        case Normal:
-            if (!normal.background.empty())
-                imageManager::display(app, "misc", normal.background, getXTopLeft(), getYTopLeft());
-            app.draw(normal.text);
-            if (normal.shader != NULL)
-                normal.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Active:
-            if (!active.background.empty())
-                imageManager::display(app, "misc", active.background, getXTopLeft(), getYTopLeft());
-            app.draw(active.text);
-            if (active.shader != NULL)
-                active.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Hover:
-            if (!hover.background.empty())
-                imageManager::display(app, "misc", hover.background, getXTopLeft(), getYTopLeft());
-            app.draw(hover.text);
-            if (hover.shader != NULL)
-                hover.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-        case Disabled:
-            if (!disabled.background.empty())
-                imageManager::display(app, "misc", disabled.background, getXTopLeft(), getYTopLeft());
-            app.draw(disabled.text);
-            if (disabled.shader != NULL)
-                disabled.shader(app, getXTopLeft(), getYTopLeft(), width, height);
-            break;
-    }
+    const auto& state = states.find("normal");
+
+    if (!state->second.background.empty())
+        imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
+
+    app.draw(state->second.text);
+
+    if (state->second.shader != NULL)
+        state->second.shader(app, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui

@@ -39,7 +39,7 @@ void Load_Decorations_Objets()
         BoutonsInventaire[a]->setTopLeftCoordinates(150 + 5 + 50*(a%12), Options.ScreenH - 110 + 50*(a/12));
         BoutonsInventaire[a]->setSize(50, 50);
         BoutonsInventaire[a]->setAllBackground("FondObjet_50_50");
-        BoutonsInventaire[a]->setHoverShader(gui::style::highlightShader);
+        BoutonsInventaire[a]->setShader("hover", gui::style::highlightShader);
     }
 
 	if (Options.ScreenW > 150 + 610 + 250) //Assez de place à droite de l'inventaire
@@ -59,7 +59,7 @@ void Load_Decorations_Objets()
         BoutonsCoffre[a]->setTopLeftCoordinates(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4));
         BoutonsCoffre[a]->setSize(50, 50);
         BoutonsCoffre[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCoffre[a]->setHoverShader(gui::style::highlightShader);
+        BoutonsCoffre[a]->setShader("hover", gui::style::highlightShader);
     }
 
     unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
@@ -69,7 +69,7 @@ void Load_Decorations_Objets()
         BoutonsCompetences[a]->setTopLeftCoordinates(5 + 66*(a/3), yCompetences[a]);
         BoutonsCompetences[a]->setSize(50, 50);
         BoutonsCompetences[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCompetences[a]->setHoverShader(gui::style::highlightShader);
+        BoutonsCompetences[a]->setShader("hover", gui::style::highlightShader);
     }
 }
 
