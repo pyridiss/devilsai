@@ -125,11 +125,12 @@ set(img
     FondObjet_75_75.png
     FondObjet_75_100.png
     Fontaine.img
-    Frange.png
     Gnome.img
     Gower.img
     Guerrier.img
     gui-menu-button.png
+    gui-rest-button.png
+    gui-top-border.png
     Horst.img
     Joueur.img
     Mannequin.img

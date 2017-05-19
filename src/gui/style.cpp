@@ -109,7 +109,7 @@ void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
     app.draw(rect, states);
 }
 
-void highlightShader(RenderWindow& app, int x, int y, int w, int h)
+void useContrastShader(RenderWindow& app, int x, int y, int w, int h, float r, float g, float b)
 {
     Texture tex;
     tex.create(app.getSize().x, app.getSize().y);
@@ -122,27 +122,25 @@ void highlightShader(RenderWindow& app, int x, int y, int w, int h)
     RenderStates states;
     states.shader = &contrastShader;
     contrastShader.setUniform("texture", tex);
-    contrastShader.setUniform("luminosity", Glsl::Vec3(1.f, 1.f, 1.f));
+    contrastShader.setUniform("luminosity", Glsl::Vec3(r, g, b));
     app.draw(rect, states);
+}
+
+void highlightShader(RenderWindow& app, int x, int y, int w, int h)
+{
+    useContrastShader(app, x, y, w, h, 1.f, 1.f, 1.f);
+}
+
+void disableShader(RenderWindow& app, int x, int y, int w, int h)
+{
+    useContrastShader(app, x, y, w, h, 0.25f, 0.25f, 0.25f);
 }
 
 void warnShader(RenderWindow& app, int x, int y, int w, int h)
 {
     static double time;
-    time += tools::timeManager::I(1);
-    Texture tex;
-    tex.create(app.getSize().x, app.getSize().y);
-    tex.update(app);
-    RectangleShape rect;
-    rect.setSize(Vector2f(w, h));
-    rect.setTexture(&tex, true);
-    rect.setTextureRect(IntRect(x, y, w, h));
-    rect.setPosition(x, y);
-    RenderStates states;
-    states.shader = &contrastShader;
-    contrastShader.setUniform("texture", tex);
-    contrastShader.setUniform("luminosity", Glsl::Vec3(1.f + 0.25f*sin(time), 0.75f, 0.75f));
-    app.draw(rect, states);
+    time += tools::timeManager::I(0.2);
+    useContrastShader(app, x, y, w, h, 1.f + 0.25f*sin(time), 0.75f, 0.75f);
 }
 
 } //namespace style

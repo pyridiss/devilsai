@@ -53,7 +53,6 @@ void Load_Decorations()
 {
     imageManager::addContainer("misc");
 	imageManager::addImage("misc", "Fond", INSTALL_DIR + "img/Fond.png", Vector2i(0, 0), (float)Options.ScreenW/400.f);
-	imageManager::addImage("misc", "Frange", INSTALL_DIR + "img/Frange.png");
 	imageManager::addImage("misc", "Art", INSTALL_DIR + "img/Art.png");
 	imageManager::addImage("misc", "FondObjet_75_100", INSTALL_DIR + "img/FondObjet_75_100.png");
 	imageManager::addImage("misc", "FondObjet_75_75", INSTALL_DIR + "img/FondObjet_75_75.png");
@@ -73,6 +72,8 @@ void Load_Decorations()
 	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png", Vector2i(0, 0), 0.38);
 	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png", Vector2i(0, 0), 0.38);
     imageManager::addImage("misc", "gui-menu-button", INSTALL_DIR + "img/gui-menu-button.png", Vector2i(0, 0), 0.38);
+    imageManager::addImage("misc", "gui-rest-button", INSTALL_DIR + "img/gui-rest-button.png", Vector2i(0, 0), 0.38);
+    imageManager::addImage("misc", "gui-top-border", INSTALL_DIR + "img/gui-top-border.png");
 
     imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");
     imageManager::addAnimation("playerLifeGaugeBackground", INSTALL_DIR + "img/BarreVie.png");
@@ -149,13 +150,11 @@ void Load_Decorations()
     exitGameTopButton->addOffsetToActiveText(1, 1);
 
     restingButton = new gui::Button;
-    restingButton->setTopLeftCoordinates(31, 130);
-    restingButton->setSize(125, 18);
-    restingButton->setNormalBackground("Bouton");
-    restingButton->setHoverBackground("Bouton");
-    restingButton->setActiveBackground("BoutonAppuye");
-    restingButton->setAllText(getTranslatedMessage(_MENUJEU_REPOS));
-    restingButton->addOffsetToActiveText(1, 1);
+    restingButton->setTopLeftCoordinates(260, 2);
+    restingButton->setSize(41, 41);
+    restingButton->setAllBackground("gui-rest-button");
+    restingButton->setHoverShader(gui::style::highlightShader);
+    restingButton->setDisabledShader(gui::style::disableShader);
 
 	Load_Decorations_Objets();
 
@@ -280,10 +279,9 @@ void Disp_Menu()
 		Clign = !Clign;
 	}
 
-	for (unsigned short a = 0 ; a < Options.ScreenW/100 + 1 ; ++a)
+	for (unsigned short a = 0 ; a < Options.ScreenW/220 + 1 ; ++a)
     {
-		imageManager::display(Jeu.App, "misc", "Frange", 100*a, 0);
-        imageManager::display(Jeu.App, "misc", "Frange", 100*a, 22);
+		imageManager::display(Jeu.App, "misc", "gui-top-border", 220*a, 0);
     }
     restingButton->display(Jeu.App);
 
