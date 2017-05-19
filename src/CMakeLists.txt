@@ -52,6 +52,7 @@ set(devilsaiTargetLibs
     sfml-audio
     physfs
     lua5.2
+    tinyxml2
     ${sfml-all_LIBS}
 )
 
