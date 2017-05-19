@@ -27,6 +27,7 @@ set(lng
     actionneur_1_2.lng
     desc_objets.lng
     devilsai.lng
+    devilsai_FR.xml
     EndOfGame.lng
     journal.lng
     langues

@@ -22,6 +22,7 @@
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
+#include "gui/window.h"
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
@@ -210,6 +211,17 @@ void EcranJeu(bool SauvegardePrealable)
 		return;
 	}
 
+    gui::Window confirmExitGameWindow;
+    confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml");
+
+    //Clear signals before starting the main loop
+    string s = tools::signals::getNextSignal();
+    while (s != "")
+    {
+        tools::signals::removeSignal(s);
+        s = tools::signals::getNextSignal();
+    }
+
 	while (true)
 	{
 		Jeu.App.clear();
@@ -237,7 +249,7 @@ void EcranJeu(bool SauvegardePrealable)
                     case Keyboard::P : tools::signals::addSignal("pause"); break;
                     case Keyboard::S : tools::signals::addSignal("savegame"); break;
                     case Keyboard::R : tools::signals::addSignal("rest"); break;
-                    case Keyboard::Q : tools::signals::addSignal("exit"); break;
+                    case Keyboard::Q : tools::signals::addSignal("ask-exit"); break;
                     default : break;
                 }
             }
@@ -277,6 +289,12 @@ void EcranJeu(bool SauvegardePrealable)
             if (signal == "player-dead")
             {
                 playerDead = true;
+            }
+
+            if (signal == "ask-exit")
+            {
+                confirmExitGameWindow.startWindow();
+                confirmExitGameWindow.manage(Jeu.App);
             }
 
             if (signal == "exit")

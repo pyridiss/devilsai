@@ -23,6 +23,7 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
+#include "tools/textManager.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
 #include "imageManager/imageManager.h"
@@ -73,6 +74,8 @@ void Load_Decorations()
 	imageManager::addImage("misc", "BoutonJournal", INSTALL_DIR + "img/BoutonJournal.png", Vector2i(0, 0), 0.38);
     imageManager::addImage("misc", "gui-menu-button", INSTALL_DIR + "img/gui-menu-button.png", Vector2i(0, 0), 0.38);
     imageManager::addImage("misc", "gui-rest-button", INSTALL_DIR + "img/gui-rest-button.png", Vector2i(0, 0), 0.38);
+    imageManager::addImage("misc", "gui-button-background-156x46", INSTALL_DIR + "img/gui-button-background-156x46.png");
+    imageManager::addImage("misc", "gui-dialog-background-488x308", INSTALL_DIR + "img/gui-dialog-background-488x308.png");
     imageManager::addImage("misc", "gui-top-border", INSTALL_DIR + "img/gui-top-border.png");
 
     imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");
@@ -155,6 +158,8 @@ void Load_Decorations()
     restingButton->setAllBackground("gui-rest-button");
     restingButton->setShader("hover", gui::style::highlightShader);
     restingButton->setShader("disabled", gui::style::disableShader);
+
+    tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
 
 	Load_Decorations_Objets();
 
@@ -320,7 +325,7 @@ void manageMenu(Event &event)
     if (saveGameTopButton->activated(Jeu.App, event.type))
         tools::signals::addSignal("savegame");
     if (exitGameTopButton->activated(Jeu.App, event.type))
-        tools::signals::addSignal("exit");
+        tools::signals::addSignal("ask-exit");
 }
 
 /** CONSOLES DU PERSONNAGE **/

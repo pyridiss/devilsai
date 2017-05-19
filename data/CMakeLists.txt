@@ -1,5 +1,6 @@
 add_subdirectory(carte)
 add_subdirectory(chapitre)
+add_subdirectory(gui)
 add_subdirectory(img)
 add_subdirectory(individu)
 add_subdirectory(lng)

@@ -20,6 +20,7 @@
 #include <tinyxml2.h>
 
 #include "tools/signals.h"
+#include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 
@@ -225,7 +226,7 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("allText"))
             {
                 string t = elem->Attribute("allText");
-//                 widget->setAllText(t);
+                widget->setAllText(tools::textManager::getText("devilsai", t));
             }
         }
 
