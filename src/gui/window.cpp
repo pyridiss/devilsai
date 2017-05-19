@@ -90,9 +90,17 @@ int Window::getYCenter()
     return yCenter;
 }
 
-void Window::startWindow()
+void Window::startWindow(RenderWindow& app)
 {
     exitWindow = false;
+
+    if (xCenterOfScreen) setCenterCoordinates(app.getSize().x / 2, getYCenter());
+    if (yCenterOfScreen) setCenterCoordinates(getXCenter(), app.getSize().y / 2);
+
+    for (auto& widget : widgets)
+    {
+        widget.second->setOriginCoordinates(getXTopLeft(), getYTopLeft());
+    }
 }
 
 void Window::display(RenderWindow& app)
@@ -177,6 +185,14 @@ void Window::loadFromFile(string path)
                 elem->QueryAttribute("yCenter", &y);
                 setCenterCoordinates(x, y);
             }
+            if (elem->Attribute("xCenterOfScreen"))
+            {
+                xCenterOfScreen = true;
+            }
+            if (elem->Attribute("yCenterOfScreen"))
+            {
+                yCenterOfScreen = true;
+            }
 
             int w = 0, h = 0;
             elem->QueryAttribute("width", &w);
@@ -207,14 +223,14 @@ void Window::loadFromFile(string path)
                 int x = 0, y = 0;
                 elem->QueryAttribute("xTopLeft", &x);
                 elem->QueryAttribute("yTopLeft", &y);
-                widget->setTopLeftCoordinates(getXTopLeft() + x, getYTopLeft() + y);
+                widget->setTopLeftCoordinates(x, y);
             }
             if (elem->Attribute("xCenter"))
             {
                 int x = 0, y = 0;
                 elem->QueryAttribute("xCenter", &x);
                 elem->QueryAttribute("yCenter", &y);
-                widget->setCenterCoordinates(getXTopLeft() + x, getYTopLeft() + y);
+                widget->setCenterCoordinates(x, y);
             }
 
             int w = 0, h = 0;

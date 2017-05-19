@@ -49,6 +49,7 @@ class Widget
     protected:
         int xTopLeft = 0, yTopLeft = 0;
         int xCenter = 0, yCenter = 0;
+        int xOrigin = 0, yOrigin = 0;
         int width = 0, height = 0;
 
         map < string, minimalistWidget> states;
@@ -58,6 +59,7 @@ class Widget
     public:
         void setTopLeftCoordinates(int x, int y);
         void setCenterCoordinates(int x, int y);
+        void setOriginCoordinates(int x, int y);
         void setSize(int w, int h);
 
         void setDisabled(bool d);

@@ -126,6 +126,9 @@ void Button::display(RenderWindow& app)
     if (!state->second.background.empty())
         imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
 
+    FloatRect rect = state->second.text.getGlobalBounds();
+    state->second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+
     app.draw(state->second.text);
 
     if (state->second.shader != NULL)

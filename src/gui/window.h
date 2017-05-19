@@ -45,6 +45,7 @@ class Window
 
         int xTopLeft = 0, yTopLeft = 0;
         int xCenter = 0, yCenter = 0;
+        bool xCenterOfScreen = false, yCenterOfScreen = false;
         int width = 0, height = 0;
 
         string background;
@@ -59,7 +60,7 @@ class Window
         int getYCenter();
 
     public:
-        void startWindow();
+        void startWindow(RenderWindow& app);
         void display(RenderWindow& app);
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties xTopLeft="156" yTopLeft="156" width="488" height="146" background="gui-dialog-background-488x308"/>
-	<widget name="question" type="text" xTopLeft="244" yTopLeft="100" allText="confirm-exit-game-question"/>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" background="gui-dialog-background-488x308"/>
+	<widget name="question" type="text" xCenter="244" yCenter="100" allText="confirm-exit-game-question"/>
 	<widget name="button-return" type="button" xTopLeft="58" yTopLeft="200" width="156" height="46" allBackground="gui-button-background-156x46" allText="confirm-exit-game-return-to-game"/>
 	<widget name="button-exit" type="button" xTopLeft="274" yTopLeft="200" width="156" height="46" allBackground="gui-button-background-156x46" allText="confirm-exit-game-exit"/>
 	<signal emitter="button-exit" signal="exit"/>

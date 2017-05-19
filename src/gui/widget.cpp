@@ -38,6 +38,12 @@ void Widget::setCenterCoordinates(int x, int y)
     yTopLeft = 0;
 }
 
+void Widget::setOriginCoordinates(int x, int y)
+{
+    xOrigin = x;
+    yOrigin = y;
+}
+
 void Widget::setSize(int w, int h)
 {
     width = w;
@@ -59,33 +65,33 @@ void Widget::setActive(bool a)
 int Widget::getXTopLeft()
 {
     if (xTopLeft == 0)
-        return xCenter - width/2;
+        return xOrigin + xCenter - width/2;
 
-    return xTopLeft;
+    return xOrigin + xTopLeft;
 }
 
 int Widget::getYTopLeft()
 {
     if (yTopLeft == 0)
-        return yCenter - height/2;
+        return yOrigin + yCenter - height/2;
 
-    return yTopLeft;
+    return yOrigin + yTopLeft;
 }
 
 int Widget::getXCenter()
 {
     if (xCenter == 0)
-        return xTopLeft + width/2;
+        return xOrigin + xTopLeft + width/2;
 
-    return xCenter;
+    return xOrigin + xCenter;
 }
 
 int Widget::getYCenter()
 {
     if (yCenter == 0)
-        return yTopLeft + height/2;
+        return yOrigin + yTopLeft + height/2;
 
-    return yCenter;
+    return yOrigin + yCenter;
 }
 
 void Widget::setAllText(String32& t)
@@ -111,7 +117,6 @@ void Widget::setText(string state, String32& t)
     s->second.text.setString(t);
 
     FloatRect rect = s->second.text.getGlobalBounds();
-    s->second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
 
     if (width == 0 || height == 0)
     {

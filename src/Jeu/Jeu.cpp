@@ -291,7 +291,7 @@ void EcranJeu(bool SauvegardePrealable)
 
             if (signal == "ask-exit")
             {
-                confirmExitGameWindow.startWindow();
+                confirmExitGameWindow.startWindow(Jeu.App);
                 askExit = true;
             }
 
