@@ -17,19 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "gui/button.h"
+#include "gui/textWidget.h"
 #include "gui/style.h"
 #include "imageManager/imageManager.h"
-#include "musicManager/musicManager.h"
 
 namespace gui{
 
-void Button::setAutoRelease(bool a)
-{
-    autoRelease = a;
-}
-
-bool Button::mouseHovering(RenderWindow& app)
+bool TextWidget::mouseHovering(RenderWindow& app)
 {
     if (state == Disabled) return false;
 
@@ -40,96 +34,42 @@ bool Button::mouseHovering(RenderWindow& app)
         return true;
     }
 
-    if (autoRelease) state = Normal;
-    else if (state == Hover) state = Normal;
-
     return false;
 }
 
-bool Button::activated(RenderWindow& app, Event::EventType event)
+bool TextWidget::activated(RenderWindow& app, Event::EventType event)
 {
-    if (state == Disabled) return false;
-
-    if (mouseHovering(app))
-    {
-        if (event == Event::MouseButtonPressed)
-        {
-            musicManager::playSound("Click");
-
-            if (autoRelease)
-            {
-                state = Active;
-                return false; //We wait for MouseButtonReleased
-            }
-            else
-            {
-                if (state == Active) state = Normal;
-                else state = Active;
-                return true;
-            }
-        }
-        if (event == Event::MouseButtonReleased)
-        {
-            if (state == Active)
-            {
-                if (autoRelease)
-                {
-                    state = Normal;
-                    return true;
-                }
-                else //MouseButtonReleased must not be used
-                {
-                    if (state == Active) return true;
-                    else return false;
-                }
-            }
-            else return false;
-        }
-
-        if (!autoRelease && state == Active)
-            return true;
-
-        return false;
-    }
-
-    if (autoRelease)
-        state = Normal;
-
-    if (!autoRelease && state == Active)
-        return true;
-
     return false;
 }
 
-void Button::display(RenderWindow& app)
+void TextWidget::display(RenderWindow& app)
 {
-    //TODO: Button shoud add images by itself in its own container
     switch (state)
     {
         case Normal:
             if (!normal.background.empty())
-                imageManager::display(app, "misc", normal.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", normal.background, getXTopLeft(), getYTopLeft());
             app.draw(normal.text);
             if (normal.shader != NULL)
                 normal.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Active:
             if (!active.background.empty())
-                imageManager::display(app, "misc", active.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", active.background, getXTopLeft(), getYTopLeft());
             app.draw(active.text);
             if (active.shader != NULL)
                 active.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Hover:
             if (!hover.background.empty())
-                imageManager::display(app, "misc", hover.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", hover.background, getXTopLeft(), getYTopLeft());
             app.draw(hover.text);
             if (hover.shader != NULL)
                 hover.shader(app, getXTopLeft(), getYTopLeft(), width, height);
             break;
         case Disabled:
             if (!disabled.background.empty())
-                imageManager::display(app, "misc", disabled.background, getXTopLeft(), getYTopLeft()); //Depends on Bibliotheque
+                imageManager::display(app, "misc", disabled.background, getXTopLeft(), getYTopLeft());
             app.draw(disabled.text);
             if (disabled.shader != NULL)
                 disabled.shader(app, getXTopLeft(), getYTopLeft(), width, height);

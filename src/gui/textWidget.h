@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef GUI_BUTTON_H
-#define GUI_BUTTON_H
+#ifndef GUI_TEXTWIDGET_H
+#define GUI_TEXTWIDGET_H
 
 #include <string>
 
@@ -29,14 +29,9 @@ using namespace sf;
 
 namespace gui{
 
-class Button : public Widget
+class TextWidget : public Widget
 {
-    private:
-        bool autoRelease = true;
-
     public:
-        void setAutoRelease(bool a);
-
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event::EventType event);
 
@@ -45,5 +40,5 @@ class Button : public Widget
 
 } //namespace gui
 
-#endif // GUI_BUTTON_H
+#endif // GUI_TEXTWIDGET_H
 
