@@ -100,6 +100,7 @@ void Window::startWindow(RenderWindow& app)
     for (auto& widget : widgets)
     {
         widget.second->setOriginCoordinates(getXTopLeft(), getYTopLeft());
+        widget.second->updateTextPosition();
     }
 }
 

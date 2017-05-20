@@ -126,13 +126,13 @@ void Button::display(RenderWindow& app)
     if (!state->second.background.empty())
         imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
 
-    FloatRect rect = state->second.text.getGlobalBounds();
-    state->second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+    if (state->second.backgroundShader != nullptr)
+        state->second.backgroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
 
     app.draw(state->second.text);
 
-    if (state->second.shader != NULL)
-        state->second.shader(app, getXTopLeft(), getYTopLeft(), width, height);
+    if (state->second.foregroundShader != nullptr)
+        state->second.foregroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui

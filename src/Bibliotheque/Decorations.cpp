@@ -88,7 +88,7 @@ void Load_Decorations()
     Partie.screenCharacter.button.setTopLeftCoordinates(60, 2);
     Partie.screenCharacter.button.setSize(41, 41);
     Partie.screenCharacter.button.setAllBackground("BoutonPersonnage");
-    Partie.screenCharacter.button.setShader("hover", gui::style::highlightShader);
+    Partie.screenCharacter.button.setForegroundShader("hover", gui::style::highlightShader);
 	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
@@ -96,7 +96,7 @@ void Load_Decorations()
     Partie.screenEquipment.button.setTopLeftCoordinates(110, 2);
     Partie.screenEquipment.button.setSize(41, 41);
     Partie.screenEquipment.button.setAllBackground("BoutonEquipement");
-    Partie.screenEquipment.button.setShader("hover", gui::style::highlightShader);
+    Partie.screenEquipment.button.setForegroundShader("hover", gui::style::highlightShader);
 	Partie.screenEquipment.key = Keyboard::Key::E;
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
@@ -104,7 +104,7 @@ void Load_Decorations()
     Partie.screenSkills.button.setTopLeftCoordinates(160, 2);
     Partie.screenSkills.button.setSize(41, 41);
     Partie.screenSkills.button.setAllBackground("BoutonCompetences");
-    Partie.screenSkills.button.setShader("hover", gui::style::highlightShader);
+    Partie.screenSkills.button.setForegroundShader("hover", gui::style::highlightShader);
 	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
@@ -112,7 +112,7 @@ void Load_Decorations()
     Partie.screenJournal.button.setTopLeftCoordinates(210, 2);
     Partie.screenJournal.button.setSize(41, 41);
     Partie.screenJournal.button.setAllBackground("BoutonJournal");
-    Partie.screenJournal.button.setShader("hover", gui::style::highlightShader);
+    Partie.screenJournal.button.setForegroundShader("hover", gui::style::highlightShader);
 	Partie.screenJournal.key = Keyboard::Key::J;
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
@@ -120,7 +120,7 @@ void Load_Decorations()
     Partie.screenMenu.button.setTopLeftCoordinates(10, 2);
     Partie.screenMenu.button.setSize(41, 41);
     Partie.screenMenu.button.setAllBackground("gui-menu-button");
-    Partie.screenMenu.button.setShader("hover", gui::style::highlightShader);
+    Partie.screenMenu.button.setForegroundShader("hover", gui::style::highlightShader);
     Partie.screenMenu.key = Keyboard::Key::M;
     Partie.screenMenu.dispFunction = displayMenu;
     Partie.screenMenu.manageFunction = manageMenu;
@@ -156,8 +156,8 @@ void Load_Decorations()
     restingButton->setTopLeftCoordinates(260, 2);
     restingButton->setSize(41, 41);
     restingButton->setAllBackground("gui-rest-button");
-    restingButton->setShader("hover", gui::style::highlightShader);
-    restingButton->setShader("disabled", gui::style::disableShader);
+    restingButton->setForegroundShader("hover", gui::style::highlightShader);
+    restingButton->setForegroundShader("disabled", gui::style::disableShader);
 
     tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
 
@@ -306,9 +306,9 @@ void Disp_Menu()
     Partie.screenMenu.button.display(Jeu.App);
 
     if (Partie.journal.newEntryAdded)
-        Partie.screenJournal.button.setShader("normal", gui::style::warnShader);
+        Partie.screenJournal.button.setForegroundShader("normal", gui::style::warnShader);
     else
-        Partie.screenJournal.button.setShader("normal", NULL);
+        Partie.screenJournal.button.setForegroundShader("normal", nullptr);
 }
 
 void displayMenu()

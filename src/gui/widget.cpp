@@ -123,6 +123,8 @@ void Widget::setText(string state, String32& t)
         width = rect.width + 12;
         height = rect.height + 6;
     }
+
+    updateTextPosition();
 }
 
 void Widget::setTextFont(const Font& f, float s)
@@ -152,9 +154,23 @@ void Widget::setBackground(string state, string b)
     states.find(state)->second.background = b;
 }
 
-void Widget::setShader(string state, void (*s)(RenderWindow&, int, int, int, int))
+void Widget::setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int))
 {
-    states.find(state)->second.shader = s;
+    states.find(state)->second.backgroundShader = s;
+}
+
+void Widget::setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int))
+{
+    states.find(state)->second.foregroundShader = s;
+}
+
+void Widget::updateTextPosition()
+{
+    for (auto& state : states)
+    {
+        FloatRect rect = state.second.text.getGlobalBounds();
+        state.second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+    }
 }
 
 } //namespace gui

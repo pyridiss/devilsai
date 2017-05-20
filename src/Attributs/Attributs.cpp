@@ -340,7 +340,7 @@ void EmplacementEquipement::Set(int x, int y, int w, int h)
         BoutonEquipement->setAllBackground("FondObjet_75_100");
     }
 
-    BoutonEquipement->setShader("hover", gui::style::highlightShader);
+    BoutonEquipement->setForegroundShader("hover", gui::style::highlightShader);
 }
 
 string EmplacementEquipement::Get_IdEmplacement()

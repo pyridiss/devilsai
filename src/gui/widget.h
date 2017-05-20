@@ -43,7 +43,8 @@ class Widget
         {
             Text text;
             string background;
-            void (*shader)(RenderWindow&, int, int, int, int) = NULL;
+            void (*backgroundShader)(RenderWindow&, int, int, int, int) = nullptr;
+            void (*foregroundShader)(RenderWindow&, int, int, int, int) = nullptr;
         };
 
     protected:
@@ -78,7 +79,10 @@ class Widget
         void setTextColor(string state, Color c);
         void addOffsetToText(string state, int x, int y);
         void setBackground(string state, string b);
-        void setShader(string state, void (*s)(RenderWindow&, int, int, int, int));
+        void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
+        void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
+
+        void updateTextPosition();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event::EventType event) = 0;
