@@ -36,6 +36,12 @@ using namespace tinyxml2;
 
 namespace gui{
 
+Window::~Window()
+{
+    for (auto& w : widgets)
+        delete w.second;
+}
+
 void Window::setTopLeftCoordinates(int x, int y)
 {
     xTopLeft = x;

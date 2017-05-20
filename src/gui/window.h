@@ -50,6 +50,10 @@ class Window
 
         string background;
 
+    public:
+        ~Window();
+
+    private:
         void setTopLeftCoordinates(int x, int y);
         void setCenterCoordinates(int x, int y);
         void setSize(int w, int h);
