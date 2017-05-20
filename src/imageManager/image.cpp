@@ -24,6 +24,7 @@
 #include "config.h"
 #include "tools/debug.h"
 #include "imageManager/image.h"
+#include "imageManager/imageManager.h"
 
 namespace imageManager{
 
@@ -60,7 +61,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
         delete[] buffer;
 
         sprite.setTexture(texture);
-        sourceFile = *(PHYSFS_getSearchPath()) + string("/") + file;
+        sourceFile = getCurrentArchiveFile() + "/" + file;
 
         PHYSFS_close(physfsFile);
     }

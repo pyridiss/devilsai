@@ -35,6 +35,7 @@ class Animation;
 void addContainer(string container);
 void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0), float scale = 1);
 void addArchiveFile(string path);
+string getCurrentArchiveFile();
 void removeArchiveFile(string path);
 imageManager::Image* getImage(string container, string key);
 void changeHSL(string container, string key, double h, double s, double l);

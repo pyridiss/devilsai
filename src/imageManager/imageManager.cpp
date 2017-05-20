@@ -33,6 +33,7 @@ typedef map < string, imageManager::Animation > AnimationDatabase;
 
 Database images;
 AnimationDatabase animations;
+string currentArchiveFile;
 
 void addContainer(string container)
 {
@@ -66,10 +67,9 @@ void addImage(string container, string key, string file, Vector2i of, float scal
         while (j != (*c).second.end())
         {
             if (j->second.sourceFile == file) reference = &(j->second);
-            if (PHYSFS_getSearchPath() != NULL && *(PHYSFS_getSearchPath()) != NULL)
+            if (getCurrentArchiveFile() != "")
             {
-                string s = *(PHYSFS_getSearchPath());
-                s += "/" + file;
+                string s = getCurrentArchiveFile() + "/" + file;
                 if (j->second.sourceFile == s) reference = &(j->second);
             }
             ++j;
@@ -84,12 +84,22 @@ void addArchiveFile(string path)
     {
         tools::debug::error("Unable to load file: " + path, "images");
     }
-    else tools::debug::message("File \"" + path + "\" open", "files");
+    else
+    {
+        tools::debug::message("File \"" + path + "\" open", "files");
+        currentArchiveFile = path;
+    }
+}
+
+string getCurrentArchiveFile()
+{
+    return currentArchiveFile;
 }
 
 void removeArchiveFile(string path)
 {
     PHYSFS_removeFromSearchPath(path.c_str());
+    currentArchiveFile = "";
 }
 
 imageManager::Image* getImage(string container, string key)
