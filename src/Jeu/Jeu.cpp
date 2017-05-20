@@ -203,6 +203,7 @@ void EcranJeu(bool SauvegardePrealable)
     bool playerResting = false;
     bool playerDead = false;
     bool askExit = false;
+    bool askIngameMenu = false;
 
 	String32 NomLieu;
 
@@ -214,6 +215,9 @@ void EcranJeu(bool SauvegardePrealable)
 
     gui::Window confirmExitGameWindow;
     confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml");
+
+    gui::Window ingameMenuWindow;
+    ingameMenuWindow.loadFromFile("gui/ingame-menu.xml");
 
     //Clear signals before starting the main loop
     string s = tools::signals::getNextSignal();
@@ -244,7 +248,7 @@ void EcranJeu(bool SauvegardePrealable)
             {
                 switch (event.key.code)
                 {
-                    case Keyboard::P : tools::signals::addSignal("pause"); break;
+                    case Keyboard::M : tools::signals::addSignal("ask-menu"); break;
                     case Keyboard::S : tools::signals::addSignal("savegame"); break;
                     case Keyboard::R : tools::signals::addSignal("rest"); break;
                     case Keyboard::Q : tools::signals::addSignal("ask-exit"); break;
@@ -272,11 +276,6 @@ void EcranJeu(bool SauvegardePrealable)
                 Save_Partie();
             }
 
-            if (signal == "pause")
-            {
-                managementActivated = !managementActivated;
-            }
-
             if (signal == "rest")
             {
                 managementActivated = false;
@@ -287,6 +286,12 @@ void EcranJeu(bool SauvegardePrealable)
             if (signal == "player-dead")
             {
                 playerDead = true;
+            }
+
+            if (signal == "ask-menu")
+            {
+                ingameMenuWindow.startWindow(Jeu.App);
+                askIngameMenu = true;
             }
 
             if (signal == "ask-exit")
@@ -324,9 +329,6 @@ void EcranJeu(bool SauvegardePrealable)
         Disp_FonduNoir(0);
         Chargement = Disp_Chargement(Chargement);
 
-        if (!managementActivated && !playerResting)
-            Disp_Pause();
-
         if (playerResting)
         {
             bool animationFinished = Disp_Repos();
@@ -340,6 +342,12 @@ void EcranJeu(bool SauvegardePrealable)
         if (playerDead)
         {
             Disp_Mort();
+        }
+
+        if (askIngameMenu)
+        {
+            ingameMenuWindow.manage(Jeu.App);
+            askIngameMenu = false;
         }
 
         if (askExit)

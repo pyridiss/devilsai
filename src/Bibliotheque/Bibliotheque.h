@@ -251,7 +251,6 @@ void Ajouter_LignePerso(String32, Color);
 void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles();
 void SupprimerLignesConsoles();
-void Disp_Pause();
 void Disp_Information(enumPhrases, bool);
 void Disp_Mort();
 void Disp_FonduNoir(int);

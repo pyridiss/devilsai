@@ -36,9 +36,7 @@
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-gui::Button *pauseGameTopButton;
-gui::Button *saveGameTopButton;
-gui::Button *exitGameTopButton;
+gui::Button *menuButton;
 gui::Button *restingButton;
 
 unsigned int NombreMesures = 0;
@@ -117,40 +115,12 @@ void Load_Decorations()
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
 
-    Partie.screenMenu.button.setTopLeftCoordinates(10, 2);
-    Partie.screenMenu.button.setSize(41, 41);
-    Partie.screenMenu.button.setAllBackground("gui-menu-button");
-    Partie.screenMenu.button.setForegroundShader("hover", gui::style::highlightShader);
-    Partie.screenMenu.key = Keyboard::Key::M;
-    Partie.screenMenu.dispFunction = displayMenu;
-    Partie.screenMenu.manageFunction = manageMenu;
-
-    pauseGameTopButton = new gui::Button;
-    pauseGameTopButton->setTopLeftCoordinates(10, 50);
-    pauseGameTopButton->setSize(125, 18);
-    pauseGameTopButton->setBackground("normal", "Bouton");
-    pauseGameTopButton->setBackground("hover", "Bouton");
-    pauseGameTopButton->setBackground("active", "BoutonAppuye");
-    pauseGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_PAUSE));
-    pauseGameTopButton->addOffsetToText("active", 1, 1);
-
-    saveGameTopButton = new gui::Button;
-    saveGameTopButton->setTopLeftCoordinates(10, 70);
-    saveGameTopButton->setSize(125, 18);
-    saveGameTopButton->setBackground("normal", "Bouton");
-    saveGameTopButton->setBackground("hover", "Bouton");
-    saveGameTopButton->setBackground("active", "BoutonAppuye");
-    saveGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_SAUVEG));
-    saveGameTopButton->addOffsetToText("active", 1, 1);
-
-    exitGameTopButton = new gui::Button;
-    exitGameTopButton->setTopLeftCoordinates(10, 90);
-    exitGameTopButton->setSize(125, 18);
-    exitGameTopButton->setBackground("normal", "Bouton");
-    exitGameTopButton->setBackground("hover", "Bouton");
-    exitGameTopButton->setBackground("active", "BoutonAppuye");
-    exitGameTopButton->setAllText(getTranslatedMessage(_MENUJEU_QUITTER));
-    exitGameTopButton->addOffsetToText("active", 1, 1);
+    menuButton = new gui::Button;
+    menuButton->setTopLeftCoordinates(10, 2);
+    menuButton->setSize(41, 41);
+    menuButton->setAllBackground("gui-menu-button");
+    menuButton->setForegroundShader("hover", gui::style::highlightShader);
+    menuButton->setForegroundShader("disabled", gui::style::disableShader);
 
     restingButton = new gui::Button;
     restingButton->setTopLeftCoordinates(260, 2);
@@ -170,9 +140,7 @@ void Load_Decorations()
 
 void Supprimer_Decorations()
 {
-	delete pauseGameTopButton;
-	delete saveGameTopButton;
-	delete exitGameTopButton;
+    delete menuButton;
 	delete restingButton;
 
 	Supprimer_Decorations_Objets();
@@ -248,8 +216,8 @@ void Disp_FondMenus()
 
 void Gestion_Menu(Event &event)
 {
-    if (Arguments.SaveDisabled) saveGameTopButton->setDisabled(true);
-    else saveGameTopButton->setDisabled(false);
+    if (menuButton->activated(Jeu.App, event.type))
+        tools::signals::addSignal("ask-menu");
 
     if (Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
     else restingButton->setDisabled(false);
@@ -261,7 +229,6 @@ void Gestion_Menu(Event &event)
     if (Partie.screenEquipment.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
     if (Partie.screenSkills.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
     if (Partie.screenJournal.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
-    if (Partie.screenMenu.button.activated(Jeu.App, event.type))        Partie.changeCurrentUserScreen(&Partie.screenMenu);
 
     if (event.type == Event::KeyReleased)
     {
@@ -269,7 +236,6 @@ void Gestion_Menu(Event &event)
         if (event.key.code == Partie.screenEquipment.key) Partie.changeCurrentUserScreen(&Partie.screenEquipment);
         if (event.key.code == Partie.screenSkills.key) Partie.changeCurrentUserScreen(&Partie.screenSkills);
         if (event.key.code == Partie.screenJournal.key) Partie.changeCurrentUserScreen(&Partie.screenJournal);
-        if (event.key.code == Partie.screenMenu.key) Partie.changeCurrentUserScreen(&Partie.screenMenu);
     }
 }
 
@@ -288,6 +254,8 @@ void Disp_Menu()
     {
 		imageManager::display(Jeu.App, "misc", "gui-top-border", 220*a, 0);
     }
+
+    menuButton->display(Jeu.App);
     restingButton->display(Jeu.App);
 
 	//Erreur éventuelle
@@ -303,29 +271,11 @@ void Disp_Menu()
     Partie.screenEquipment.button.display(Jeu.App);
     Partie.screenSkills.button.display(Jeu.App);
     Partie.screenJournal.button.display(Jeu.App);
-    Partie.screenMenu.button.display(Jeu.App);
 
     if (Partie.journal.newEntryAdded)
         Partie.screenJournal.button.setForegroundShader("normal", gui::style::warnShader);
     else
         Partie.screenJournal.button.setForegroundShader("normal", nullptr);
-}
-
-void displayMenu()
-{
-    pauseGameTopButton->display(Jeu.App);
-    saveGameTopButton->display(Jeu.App);
-    exitGameTopButton->display(Jeu.App);
-}
-
-void manageMenu(Event &event)
-{
-    if (pauseGameTopButton->activated(Jeu.App, event.type))
-        tools::signals::addSignal("pause");
-    if (saveGameTopButton->activated(Jeu.App, event.type))
-        tools::signals::addSignal("savegame");
-    if (exitGameTopButton->activated(Jeu.App, event.type))
-        tools::signals::addSignal("ask-exit");
 }
 
 /** CONSOLES DU PERSONNAGE **/
@@ -595,11 +545,6 @@ void SupprimerLignesConsoles()
 }
 
 /** SITUATIONS PARTICULIÈRES **/
-
-void Disp_Pause()
-{
-	Disp_TexteCentre(_AFFICHAGE_PAUSE, Options.ScreenW/2, Options.ScreenH/2, Color(255,255,255,255), 40., Jeu.DayRoman);
-}
 
 void Disp_Information(enumPhrases info, bool reactiver)
 {

@@ -65,7 +65,6 @@ struct Classe_Partie
 	UserScreen screenEquipment;
 	UserScreen screenSkills;
 	UserScreen screenJournal;
-    UserScreen screenMenu;
 	UserScreen *currentUserScreen = nullptr;
 
 	Coffre *CoffreOuvert        = NULL;
