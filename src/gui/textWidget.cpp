@@ -29,9 +29,9 @@ TextWidget::TextWidget()
 
     states.insert(map<string,minimalistWidget>::value_type("normal", w));
 
-    setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
+    setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
 
-    setTextColor("normal", gui::style::normalButtonTextColor());;
+    setTextColor("normal", Color::Black);
 }
 
 bool TextWidget::mouseHovering(RenderWindow& app)

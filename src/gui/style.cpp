@@ -53,6 +53,14 @@ const Font& defaultTextFont()
     return liberation;
 }
 
+const Font& fontFromString(string s)
+{
+    if (s == "liberation") return liberation;
+    if (s == "liberation-bold") return liberationBold;
+
+    return defaultTextFont();
+}
+
 int defaultTextSize()
 {
     return 10;

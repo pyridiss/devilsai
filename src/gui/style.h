@@ -34,6 +34,7 @@ namespace style{
 void initStyle();
 
 const Font& defaultTextFont();
+const Font& fontFromString(string f);
 int defaultTextSize();
 const Font& buttonTextFont();
 int buttonTextSize();

@@ -250,6 +250,11 @@ void Window::loadFromFile(string path)
                 string t = elem->Attribute("allText");
                 widget->setAllText(tools::textManager::getText("devilsai", t));
             }
+            int textSize = gui::style::defaultTextSize();
+            elem->QueryAttribute("textSize", &textSize);
+            string font;
+            if (elem->Attribute("textFont")) font = elem->Attribute("textFont");
+            widget->setTextFont(gui::style::fontFromString(font), textSize);
         }
 
         if (elemName == "signal")
