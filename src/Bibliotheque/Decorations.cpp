@@ -39,9 +39,6 @@ LigneConsole ConsoleAmeliorations[10];
 gui::Button *menuButton;
 gui::Button *restingButton;
 
-unsigned int NombreMesures = 0;
-float SommeFPS = 0;
-
 void displayMenu();
 void manageMenu(Event &event);
 
@@ -150,43 +147,12 @@ void Supprimer_Decorations()
 
 /** F.P.S. **/
 
-void MoyenneFPS()
-{
-	cout << "Moyenne FPS : " << SommeFPS << endl;
-}
-
-void AjouterMesureFPS(float Mesure)
-{
-	if (Mesure > 100000) return;	//Évite les 'inf'
-	SommeFPS = (NombreMesures * SommeFPS + Mesure)/(NombreMesures + 1.);
-	++NombreMesures;
-}
-
 void Disp_FPS()
 {
-	#ifdef DEBOGAGE
-	static string Texte("");
-	static short Compteur = 15;
-	static float Framerate;
-	static Text FPS("", gui::style::defaultTextFont(), 10);
-	FPS.setPosition(Options.ScreenW - 100, 7);
-
-	if (Arguments.LimitToFpsDisabled) Compteur = 15;
-
-	if (Compteur == 15)
-	{
-        Framerate = tools::timeManager::getFPS();
-		string Texte("FPS : " + intToString(Framerate));
-		FPS.setString(Texte);
-		Compteur = 0;
-	}
-	else ++Compteur;
-
-	Jeu.App.draw(FPS);
-
-	#endif
-
-    if (Arguments.LimitToFpsDisabled) AjouterMesureFPS(tools::timeManager::getFPS());
+    float Framerate = tools::timeManager::getFPS();
+    Text FPS("FPS : " + intToString(Framerate), gui::style::defaultTextFont(), 10);
+    FPS.setPosition(Options.ScreenW - 100, 16);
+    Jeu.App.draw(FPS);
 }
 
 /** FOND POUR LES MENUS **/
@@ -241,15 +207,6 @@ void Gestion_Menu(Event &event)
 
 void Disp_Menu()
 {
-	static bool Clign = false;
-	static float Cmpt = 0;
-	Cmpt += tools::timeManager::I(1);
-	if (Cmpt >= 30)
-	{
-		Cmpt = 0;
-		Clign = !Clign;
-	}
-
 	for (unsigned short a = 0 ; a < Options.ScreenW/220 + 1 ; ++a)
     {
 		imageManager::display(Jeu.App, "misc", "gui-top-border", 220*a, 0);
@@ -261,10 +218,7 @@ void Disp_Menu()
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)
 	{
-		if (Clign)
-			Disp_TexteCentre(_ERREUR, Options.ScreenW/2, 32, Color(255,255,255,255), 10.);
-		else
-			Disp_TexteCentre(_ERREUR, Options.ScreenW/2, 32, Color(255,0,0,255), 10.);
+        Disp_Texte(_ERREUR, 350, 16, Color(255,0,0,255), 10.);
 	}
 
     Partie.screenCharacter.button.display(Jeu.App);

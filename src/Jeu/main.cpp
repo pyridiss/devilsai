@@ -122,11 +122,6 @@ void GestionArguments(int n, char *params[])
 			Arguments.SaveDisabled = true;
 		}
 		#endif
-		if (strcmp(params[i], "--no-limit-fps") == 0)
-		{
-			cout << "Mode LIMIT TO FPS DISABLED activé" << endl;
-			Arguments.LimitToFpsDisabled = true;
-		}
 	}
 }
 
@@ -153,7 +148,7 @@ int main(int n, char *params[])
 		else Jeu.App.create(vm, "Devilsai");
 	}
 
-	if (!Arguments.LimitToFpsDisabled) Jeu.App.setFramerateLimit(60);
+    Jeu.App.setFramerateLimit(60);
 	Jeu.App.setKeyRepeatEnabled(false);
 	Jeu.App.setVerticalSyncEnabled(true);
 
@@ -213,8 +208,6 @@ int main(int n, char *params[])
 
 	Supprimer_Decorations();
 	deleteLanguagesList();
-
-	if (Arguments.LimitToFpsDisabled) MoyenneFPS();
 
 	PHYSFS_deinit();
 

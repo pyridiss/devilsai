@@ -27,8 +27,10 @@ namespace tools{
 namespace timeManager{
 
 double speed = 0;
+double FrameNumber = 1;
 Time FrameTime;
 Clock FrameClock;
+bool NewStart = true;
 
 void setSpeed(double s)
 {
@@ -38,17 +40,27 @@ void setSpeed(double s)
 void frameDone()
 {
     FrameTime = FrameClock.getElapsedTime();
-    FrameClock.restart();
+
+    if (NewStart) FrameNumber = 1;
+    else ++FrameNumber;
+
+    NewStart = false;
+
+    if (FrameTime.asMilliseconds() > 1000)
+    {
+        FrameClock.restart();
+        NewStart = true;
+    }
 }
 
 double I(double i)
 {
-    return speed * FrameTime.asMilliseconds() * i;
+    return speed * FrameTime.asMilliseconds() / FrameNumber * i;
 }
 
 double getFPS()
 {
-    return 1000.f/FrameTime.asMilliseconds();
+    return 1000.0 * FrameNumber / FrameTime.asMilliseconds();
 }
 
 

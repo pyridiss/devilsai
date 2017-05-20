@@ -241,7 +241,6 @@ class UserScreen
 
 void Load_Decorations();
 void Supprimer_Decorations();
-void MoyenneFPS();
 void Disp_FPS();
 void Disp_FondMenus();
 void Gestion_Menu(Event &event);

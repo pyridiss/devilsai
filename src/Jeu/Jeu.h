@@ -103,7 +103,6 @@ struct Classe_Jeu
 	{
 		bool TabVerbose[6]      = {false};
 		bool Masks              = false;
-		bool LimitToFpsDisabled = false;
 		bool SaveDisabled       = false;
 	};
 
