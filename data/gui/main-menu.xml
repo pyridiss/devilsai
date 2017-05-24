@@ -10,5 +10,8 @@
     <signal emitter="button-load-game" signal="load-game"/>
     <signal emitter="button-options" signal="options"/>
     <signal emitter="button-exit" signal="exit"/>
+    <exitWindowSignal emitter="button-new-game"/>
+    <exitWindowSignal emitter="button-load-game"/>
+    <exitWindowSignal emitter="button-options"/>
     <exitWindowSignal emitter="button-exit"/>
 </window>

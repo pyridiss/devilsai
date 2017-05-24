@@ -203,8 +203,6 @@ void EcranJeu(bool SauvegardePrealable)
     bool isInGame = false;
     bool playerResting = false;
     bool playerDead = false;
-    bool askExit = false;
-    bool askIngameMenu = false;
 
 	String32 NomLieu;
 
@@ -301,13 +299,13 @@ void EcranJeu(bool SauvegardePrealable)
             if (signal == "ask-menu")
             {
                 ingameMenuWindow.startWindow(Jeu.App);
-                askIngameMenu = true;
+                ingameMenuWindow.manage(Jeu.App);
             }
 
             if (signal == "ask-exit")
             {
                 confirmExitGameWindow.startWindow(Jeu.App);
-                askExit = true;
+                confirmExitGameWindow.manage(Jeu.App);
             }
 
             if (signal == "exit")
@@ -365,18 +363,6 @@ void EcranJeu(bool SauvegardePrealable)
         if (playerDead)
         {
             Disp_Mort();
-        }
-
-        if (askIngameMenu)
-        {
-            ingameMenuWindow.manage(Jeu.App);
-            askIngameMenu = false;
-        }
-
-        if (askExit)
-        {
-            confirmExitGameWindow.manage(Jeu.App);
-            askExit = false;
         }
 
         Disp_FPS();
