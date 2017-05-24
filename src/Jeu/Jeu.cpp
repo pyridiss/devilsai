@@ -214,10 +214,10 @@ void EcranJeu(bool SauvegardePrealable)
 	}
 
     gui::Window confirmExitGameWindow;
-    confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml");
+    confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml", Jeu.App);
 
     gui::Window ingameMenuWindow;
-    ingameMenuWindow.loadFromFile("gui/ingame-menu.xml");
+    ingameMenuWindow.loadFromFile("gui/ingame-menu.xml", Jeu.App);
 
     //Clear signals before starting the main loop
     string s = tools::signals::getNextSignal();

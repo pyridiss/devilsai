@@ -69,7 +69,7 @@ class Window
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
 
-        void loadFromFile(string path);
+        void loadFromFile(string path, RenderWindow& app);
 };
 
 } //namespace gui

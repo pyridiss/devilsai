@@ -46,16 +46,16 @@ void Window::setTopLeftCoordinates(int x, int y)
 {
     xTopLeft = x;
     yTopLeft = y;
-    xCenter = 0;
-    yCenter = 0;
+    xCenter = -1;
+    yCenter = -1;
 }
 
 void Window::setCenterCoordinates(int x, int y)
 {
     xCenter = x;
     yCenter = y;
-    xTopLeft = 0;
-    yTopLeft = 0;
+    xTopLeft = -1;
+    yTopLeft = -1;
 }
 
 void Window::setSize(int w, int h)
@@ -66,7 +66,7 @@ void Window::setSize(int w, int h)
 
 int Window::getXTopLeft()
 {
-    if (xTopLeft == 0)
+    if (xTopLeft == -1)
         return xCenter - width/2;
 
     return xTopLeft;
@@ -74,7 +74,7 @@ int Window::getXTopLeft()
 
 int Window::getYTopLeft()
 {
-    if (yTopLeft == 0)
+    if (yTopLeft == -1)
         return yCenter - height/2;
 
     return yTopLeft;
@@ -82,7 +82,7 @@ int Window::getYTopLeft()
 
 int Window::getXCenter()
 {
-    if (xCenter == 0)
+    if (xCenter == -1)
         return xTopLeft + width/2;
 
     return xCenter;
@@ -90,7 +90,7 @@ int Window::getXCenter()
 
 int Window::getYCenter()
 {
-    if (yCenter == 0)
+    if (yCenter == -1)
         return yTopLeft + height/2;
 
     return yCenter;
@@ -162,7 +162,7 @@ void Window::manage(RenderWindow& app, Event &event)
     }
 }
 
-void Window::loadFromFile(string path)
+void Window::loadFromFile(string path, RenderWindow& app)
 {
     path = INSTALL_DIR + path;
 
@@ -200,11 +200,18 @@ void Window::loadFromFile(string path)
             {
                 yCenterOfScreen = true;
             }
-
-            int w = 0, h = 0;
-            elem->QueryAttribute("width", &w);
-            elem->QueryAttribute("height", &h);
-            setSize(w, h);
+            if (elem->Attribute("width"))
+            {
+                int w = 0, h = 0;
+                elem->QueryAttribute("width", &w);
+                elem->QueryAttribute("height", &h);
+                setSize(w, h);
+            }
+            if (elem->Attribute("fullscreen"))
+            {
+                setTopLeftCoordinates(0, 0);
+                setSize(app.getSize().x, app.getSize().y);
+            }
 
             background = elem->Attribute("background");
         }
@@ -232,11 +239,15 @@ void Window::loadFromFile(string path)
                 elem->QueryAttribute("yTopLeft", &y);
                 widget->setTopLeftCoordinates(x, y);
             }
-            if (elem->Attribute("xCenter"))
+            if (elem->Attribute("xCenter") || elem->Attribute("yCenter") || elem->Attribute("xWindowCenter") || elem->Attribute("yWindowCenter"))
             {
                 int x = 0, y = 0;
                 elem->QueryAttribute("xCenter", &x);
                 elem->QueryAttribute("yCenter", &y);
+                if (x == 0 && elem->Attribute("xWindowCenter"))
+                    x = app.getSize().x / 2;
+                if (y == 0 && elem->Attribute("yWindowCenter"))
+                    y = app.getSize().y / 2;
                 widget->setCenterCoordinates(x, y);
             }
 
