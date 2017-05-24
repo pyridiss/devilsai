@@ -71,6 +71,7 @@ void Load_Decorations()
     imageManager::addImage("misc", "gui-rest-button", INSTALL_DIR + "img/gui-rest-button.png", Vector2i(0, 0), 0.38);
     imageManager::addImage("misc", "gui-button-background-156x46", INSTALL_DIR + "img/gui-button-background-156x46.png");
     imageManager::addImage("misc", "gui-dialog-background-488x308", INSTALL_DIR + "img/gui-dialog-background-488x308.png");
+    imageManager::addImage("misc", "gui-input-field-background-356x46", INSTALL_DIR + "img/gui-input-field-background-356x46.png");
     imageManager::addImage("misc", "gui-top-border", INSTALL_DIR + "img/gui-top-border.png");
 
     imageManager::addAnimation("playerLifeGauge", INSTALL_DIR + "img/BarreVie.png");

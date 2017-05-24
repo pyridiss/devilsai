@@ -11,4 +11,8 @@
     <text id="main-menu-load-game">Charger une partie</text>
     <text id="main-menu-options">Options</text>
     <text id="main-menu-exit">Quitter</text>
+    <text id="new-game-title">Nom du personnage :</text>
+    <text id="new-game-tutorial">Tutoriel</text>
+    <text id="new-game-chapter1">Chapitre 1</text>
+    <text id="new-game-back">Retour</text>
 </texts>

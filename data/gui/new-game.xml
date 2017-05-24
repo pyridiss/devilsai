@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" background="gui-dialog-background-488x308"/>
+    <widget name="question" type="text" xCenter="244" yCenter="50" allText="new-game-title" textSize="24" textFont="dayroman"/>
+    <widget name="answer" type = "input-field" xCenter="244" yCenter="120" width="356" height="46" allBackground="gui-input-field-background-356x46" textSize="18" textFont="dayroman"/>
+    <widget name="button-back" type="button" xTopLeft="20" yTopLeft="242" width="156" height="46" allBackground="gui-button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-tutorial" type="button" xTopLeft="312" yTopLeft="192" width="156" height="46" allBackground="gui-button-background-156x46" allText="new-game-tutorial" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-chapter1" type="button" xTopLeft="312" yTopLeft="242" width="156" height="46" allBackground="gui-button-background-156x46" allText="new-game-chapter1" textSize="12" textFont="liberation-bold"/>
+    <signal emitter="button-tutorial" signal="start-game-tutorial" dataProvider="answer"/>
+    <signal emitter="button-chapter1" signal="start-game-chapter-1" dataProvider="answer"/>
+    <exitWindowSignal emitter="button-back"/>
+    <exitWindowSignal emitter="button-tutorial"/>
+    <exitWindowSignal emitter="button-chapter1"/>
+</window>

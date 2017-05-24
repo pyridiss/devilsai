@@ -111,57 +111,6 @@ bool RechercheJoueur()
 	return true;
 }
 
-bool NouvellePartie()
-{
-	String32 NomPersonnage;
-	int ResultatSaisie = SaisieNom(NomPersonnage);
-
-	if (ResultatSaisie == -1) return false;
-
-	if (ResultatSaisie == 1) Load_Chapitre(0);
-	if (ResultatSaisie == 2) Load_Chapitre(1);
-
-	MESSAGE(">> Chargement du nouveau jeu terminé <<", FICHIER)
-
-	bool joueur = RechercheJoueur();
-	if (!joueur) return false;
-
-	//Nom du joueur et nom du dossier de sauvegarde :
-	#ifdef DEBOGAGE
-	if (!Arguments.SaveDisabled)
-	#endif
-	Partie.perso->Nom = NomPersonnage;
-	#ifdef DEBOGAGE
-	else
-	{
-		string strNom = "ModeDeTest";
-		Utf8::toUtf32(strNom.begin(), strNom.end(), back_inserter(Partie.perso->Nom));
-	}
-	#endif
-
-	#ifdef DEBOGAGE
-	if (!Arguments.SaveDisabled)
-	#endif
-	{
-		stringstream stream; stream << time(NULL);
-		Partie.SAVE = stream.str();
-	}
-
-	//Mise à jour de la liste de sauvegarde, création du dossier, enregistrement de la nouvelle partie :
-
-	#ifdef DEBOGAGE
-	if (!Arguments.SaveDisabled)
-	#endif
-	{
-        tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
-	}
-
-    musicManager::playMusic(Partie.CarteCourante->ambience);
-	MESSAGE(">> Mise en place du nouveau jeu terminée <<", FICHIER)
-
-	return true;
-}
-
 bool PartieSauvegardee()
 {
 	Partie.SAVE = ChoixSauvegarde();
@@ -208,6 +157,9 @@ void EcranJeu(bool SauvegardePrealable)
 
     gui::Window mainMenuWindow;
     mainMenuWindow.loadFromFile("gui/main-menu.xml", Jeu.App);
+
+    gui::Window newGameWindow;
+    newGameWindow.loadFromFile("gui/new-game.xml", Jeu.App);
 
     gui::Window confirmExitGameWindow;
     confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml", Jeu.App);
@@ -274,11 +226,34 @@ void EcranJeu(bool SauvegardePrealable)
 
             if (signal.first == "new-game")
             {
-                if (NouvellePartie())
-                {
-                    isInGame = true;
-                    managementActivated = true;
-                }
+                newGameWindow.startWindow(Jeu.App);
+                newGameWindow.manage(Jeu.App);
+            }
+
+            if (signal.first == "start-game-chapter-1")
+            {
+                Load_Chapitre(1);
+                RechercheJoueur();
+                Partie.perso->Nom = signal.second.String32Data;
+                stringstream stream; stream << time(NULL);
+                Partie.SAVE = stream.str();
+                tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
+                musicManager::playMusic(Partie.CarteCourante->ambience);
+                isInGame = true;
+                managementActivated = true;
+            }
+
+            if (signal.first == "start-game-tutorial")
+            {
+                Load_Chapitre(0);
+                RechercheJoueur();
+                Partie.perso->Nom = signal.second.String32Data;
+                stringstream stream; stream << time(NULL);
+                Partie.SAVE = stream.str();
+                tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
+                musicManager::playMusic(Partie.CarteCourante->ambience);
+                isInGame = true;
+                managementActivated = true;
             }
 
             if (signal.first == "load-game")

@@ -130,6 +130,7 @@ set(img
     Guerrier.img
     gui-button-background-156x46.png
     gui-dialog-background-488x308.png
+    gui-input-field-background-356x46.png
     gui-menu-button.png
     gui-rest-button.png
     gui-top-border.png

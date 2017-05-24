@@ -286,7 +286,6 @@ void setIntToLUA(lua_State*, string, int);
 void setDoubleToLUA(lua_State*, string, double);
 void setStringToLUA(lua_State*, string, string);
 void DialogueEtGestionEvenements(string);
-int SaisieNom(String32&);
 double ToSegment(double, int, int);
 int NouveauId();
 void Verbose(const string&, const short&);
