@@ -28,6 +28,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Color.hpp>
 
+#include "tools/signals.h"
 
 using namespace std;
 using namespace sf;
@@ -88,6 +89,7 @@ class Widget
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event event) = 0;
 
+        virtual void setData(tools::signals::SignalData& data) = 0;
         virtual void display(RenderWindow& app) = 0;
 };
 

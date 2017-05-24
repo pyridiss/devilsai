@@ -38,7 +38,7 @@ class Window
 {
     private:
         map < string, Widget* > widgets;
-        list < pair<string, string> > signals;
+        list < tuple<string, string, string> > signals;
         list < string > exitWindowSignals;
 
         bool exitWindow = false;

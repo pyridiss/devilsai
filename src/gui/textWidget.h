@@ -38,6 +38,8 @@ class TextWidget : public Widget
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);
 
+        void setData(tools::signals::SignalData& data);
+
         void display(RenderWindow& app);
 };
 

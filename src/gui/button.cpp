@@ -119,6 +119,10 @@ bool Button::activated(RenderWindow& app, Event event)
     return false;
 }
 
+void Button::setData(tools::signals::SignalData& data)
+{
+}
+
 void Button::display(RenderWindow& app)
 {
     const auto& state = states.find(currentState);

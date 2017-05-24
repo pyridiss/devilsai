@@ -146,9 +146,14 @@ void Window::manage(RenderWindow& app, Event &event)
         {
             for (auto& signal : signals)
             {
-                if (signal.first == widget.first)
+                if (get<0>(signal) == widget.first)
                 {
-                    tools::signals::addSignal(signal.second);
+                    tools::signals::SignalData d;
+
+                    if (!get<2>(signal).empty() && widgets.find(get<2>(signal)) != widgets.end())
+                        widgets.find(get<2>(signal))->second->setData(d);
+
+                    tools::signals::addSignal(get<1>(signal), d);
                 }
             }
             for (auto& exitWindowSignal : exitWindowSignals)
@@ -278,7 +283,12 @@ void Window::loadFromFile(string path, RenderWindow& app)
         {
             string emitter = elem->Attribute("emitter");
             string signal = elem->Attribute("signal");
-            signals.push_back(pair<string, string>(emitter, signal));
+
+            string dataProvider = "";
+            if (elem->Attribute("dataProvider"))
+                dataProvider = elem->Attribute("dataProvider");
+
+            signals.push_back(tuple<string, string, string>(emitter, signal, dataProvider));
         }
 
         if (elemName == "exitWindowSignal")

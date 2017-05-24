@@ -50,6 +50,10 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     return false;
 }
 
+void TextWidget::setData(tools::signals::SignalData& data)
+{
+}
+
 void TextWidget::display(RenderWindow& app)
 {
     const auto& state = states.find("normal");
