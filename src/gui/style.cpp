@@ -36,6 +36,7 @@ namespace style{
 
 Font liberation;
 Font liberationBold;
+Font dayroman;
 
 Shader blurShader;
 Shader contrastShader;
@@ -44,6 +45,7 @@ void initStyle()
 {
     liberation.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
     liberationBold.loadFromFile(INSTALL_DIR + "LiberationSans-Bold.ttf");
+    dayroman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
     blurShader.loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(INSTALL_DIR + "contrastShader.frag", Shader::Type::Fragment);
 }
@@ -57,6 +59,7 @@ const Font& fontFromString(string s)
 {
     if (s == "liberation") return liberation;
     if (s == "liberation-bold") return liberationBold;
+    if (s == "dayroman") return dayroman;
 
     return defaultTextFont();
 }

@@ -199,7 +199,8 @@ void EcranJeu(bool SauvegardePrealable)
 	float ChangementLieu = 255;
 	float SauvegardeEffectuee = 255;
 
-    bool managementActivated = true;
+    bool managementActivated = false;
+    bool isInGame = false;
     bool playerResting = false;
     bool playerDead = false;
     bool askExit = false;
@@ -207,11 +208,8 @@ void EcranJeu(bool SauvegardePrealable)
 
 	String32 NomLieu;
 
-	if (Partie.CarteCourante == NULL)
-	{
-		Erreur("La fonction EcranJeu() a été appelée avec CarteCourante == NULL" , "");
-		return;
-	}
+    gui::Window mainMenuWindow;
+    mainMenuWindow.loadFromFile("gui/main-menu.xml", Jeu.App);
 
     gui::Window confirmExitGameWindow;
     confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml", Jeu.App);
@@ -219,25 +217,13 @@ void EcranJeu(bool SauvegardePrealable)
     gui::Window ingameMenuWindow;
     ingameMenuWindow.loadFromFile("gui/ingame-menu.xml", Jeu.App);
 
-    //Clear signals before starting the main loop
-    string s = tools::signals::getNextSignal();
-    while (s != "")
-    {
-        tools::signals::removeSignal(s);
-        s = tools::signals::getNextSignal();
-    }
 
 	while (true)
 	{
-		Jeu.App.clear();
-
-        //1. Management, Events & Signals
-
-        if (managementActivated)
-            Partie.CarteCourante->GestionElements();
+        //1. Events & Signals
 
         Event event;
-        while (Jeu.App.pollEvent(event))
+        while (isInGame && Jeu.App.pollEvent(event))
         {
             Gestion_Menu(event);
 
@@ -288,6 +274,30 @@ void EcranJeu(bool SauvegardePrealable)
                 playerDead = true;
             }
 
+            if (signal == "new-game")
+            {
+                if (NouvellePartie())
+                {
+                    isInGame = true;
+                    managementActivated = true;
+                }
+            }
+
+            if (signal == "load-game")
+            {
+                if (PartieSauvegardee())
+                {
+                    SauvegardePrealable = false;
+                    isInGame = true;
+                    managementActivated = true;
+                }
+            }
+
+            if (signal == "options")
+            {
+                EcranOptions();
+            }
+
             if (signal == "ask-menu")
             {
                 ingameMenuWindow.startWindow(Jeu.App);
@@ -309,8 +319,21 @@ void EcranJeu(bool SauvegardePrealable)
             signal = tools::signals::getNextSignal();
         }
 
-        //2. Display
+        if (!isInGame)
+        {
+            mainMenuWindow.startWindow(Jeu.App);
+            mainMenuWindow.manage(Jeu.App);
+            continue;
+        }
 
+        //2. Management
+
+        if (managementActivated)
+            Partie.CarteCourante->GestionElements();
+
+        //3. Display
+
+        Jeu.App.clear();
         Partie.CarteCourante->displayBackground();
         Partie.CarteCourante->display();
 
@@ -456,98 +479,4 @@ void Clean_Partie()
 	deleteCommonClasses();
 	deleteLandsClasses();
 	deleteMovingLandsClasses();
-}
-
-/** GESTION DU MENU PRINCIPAL : ÉVÉNEMENTS ET ANIMATION  **/
-
-int MenuPrincipal()
-{
-    gui::Button newGameButton, loadGameButton, optionsButton, exitButton;
-
-    newGameButton.setCenterCoordinates(Options.ScreenW/2, 238);
-    newGameButton.setTextFont(Jeu.DayRoman, 28);
-    newGameButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_NOUVEAU));
-
-    loadGameButton.setCenterCoordinates(Options.ScreenW/2, 298);
-    loadGameButton.setTextFont(Jeu.DayRoman, 28);
-    loadGameButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_CHARGER));
-
-    optionsButton.setCenterCoordinates(Options.ScreenW/2, 358);
-    optionsButton.setTextFont(Jeu.DayRoman, 28);
-    optionsButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_OPTIONS));
-
-    exitButton.setCenterCoordinates(Options.ScreenW/2, 418);
-    exitButton.setTextFont(Jeu.DayRoman, 28);
-    exitButton.setAllText(getTranslatedMessage(_MENUPRINCIPAL_QUITTER));
-
-	while (true)
-	{
-		/* Gestion des evenements */
-		Event event;
-		while (Jeu.App.pollEvent(event))
-		{
-            if (newGameButton.activated(Jeu.App, event.type)) return NOUVEAU;
-            if (loadGameButton.activated(Jeu.App, event.type)) return CHARGER;
-            if (optionsButton.activated(Jeu.App, event.type)) return OPTIONS;
-            if (exitButton.activated(Jeu.App, event.type)) return QUITTER;
-
-			if (event.type == Event::KeyPressed)
-			{
-				switch (event.key.code)
-				{
-					case Keyboard::Escape :	return QUITTER;
-					default: break;
-				}
-			}
-			if (event.type == Event::Closed) break;
-			if (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)) return QUITTER;
-		}
-		/* Fin gestion des evenements */
-
-		/* Affichage */
-
-		Jeu.App.clear();
-		Disp_FondMenus();
-
-		Disp_TitrePage(_TITRE);
-
-		static float Temps = 0;
-		if (!(rand()%200) || Temps > 0)
-		{
-			static int X = 0, Y = 0;
-			static int Taille = 0;
-			if (Temps <= 0)
-			{
-				X = 100 + rand()%(Options.ScreenW - 200), Y = 100 + rand()%(Options.ScreenH - 200);
-				Taille = 120 + rand()%80;
-				Temps = 3;
-			}
-			else
-			{
-				Temps -= tools::timeManager::I(1);
-				X += rand()%6-3;
-				Y += rand()%6-3;
-			}
-
-			Disp_TexteCentre(_TITRE, X-4, Y-4, Color(0,0,0,96), Taille, Jeu.DayRoman);
-			Disp_TexteCentre(_TITRE, X+4, Y+4, Color(0,0,0,96), Taille, Jeu.DayRoman);
-			Disp_TexteCentre(_TITRE, X, Y, Color(50,192,192,128), Taille, Jeu.DayRoman);
-		}
-
-        newGameButton.display(Jeu.App);
-        loadGameButton.display(Jeu.App);
-        optionsButton.display(Jeu.App);
-        exitButton.display(Jeu.App);
-
-		//Numéro de version de Devilsai
-		string version = string("Devilsai : version ") + VERSION + "   (" +  __DATE__ + ")";
-		Disp_Texte(version, Options.ScreenW - 250, Options.ScreenH - 60, Color(175,255,255,255), 10.);
-
-        tools::timeManager::frameDone();
-		Jeu.App.display();
-        musicManager::manageRunningMusics();
-		/* Fin animation */
-	}
-
-	return QUITTER;
 }

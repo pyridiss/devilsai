@@ -33,6 +33,7 @@
 
 #include "imageManager/imageManager.h"
 
+
 /** VARIABLES GLOBALES **/
 
 //Création du jeu et de la partie :
@@ -178,33 +179,8 @@ int main(int n, char *params[])
 
     musicManager::playMusic("Gates_Of_Heaven");
 
-	short choice = 0;
-	while (choice != QUITTER)
-	{
-		choice = MenuPrincipal();
-
-		switch (choice)
-		{
-			case NOUVEAU :	if (NouvellePartie())
-							{
-                                musicManager::stopMusic("Gates_Of_Heaven");
-								EcranJeu(true);
-								Clean_Partie();
-                                musicManager::playMusic("Gates_Of_Heaven");
-							}
-							break;
-			case CHARGER :	if (PartieSauvegardee())
-							{
-                                musicManager::stopMusic("Gates_Of_Heaven");
-								EcranJeu(false);
-								Clean_Partie();
-                                musicManager::playMusic("Gates_Of_Heaven");
-							}
-							break;
-			case OPTIONS :	EcranOptions();
-			case QUITTER :	break;
-		}
-	}
+    EcranJeu(true);
+    Clean_Partie();
 
 	Supprimer_Decorations();
 	deleteLanguagesList();
