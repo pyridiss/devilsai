@@ -19,31 +19,51 @@
 
 #include <iostream>
 #include <fstream>
-
+#include "Bibliotheque/Templates.h"
 #include "tools/signals.h"
 
 namespace tools{
 
 namespace signals{
 
-list<string> signals;
+list<Signal> signals;
+Signal emptySignal;
 
-void addSignal(string s)
+SignalData::SignalData()
 {
-    signals.push_back(s);
+    intData = 0;
+    doubleData = 0;
+    boolData = false;
+    stringData.clear();
+    String32Data.clear();
 }
 
-string getNextSignal()
+SignalData& SignalData::operator=(const SignalData& right)
+{
+    intData = right.intData;
+    doubleData = right.doubleData;
+    boolData = right.boolData;
+    stringData = right.stringData;
+    String32Data = right.String32Data;
+}
+
+void addSignal(string s, SignalData d)
+{
+    signals.push_back(Signal(s, d));
+}
+
+Signal& getNextSignal()
 {
     if (signals.empty())
-        return "";
-
+    {
+        return emptySignal;
+    }
     return signals.front();
 }
 
-void removeSignal(string s)
+void removeSignal()
 {
-    signals.remove(s);
+    signals.pop_front();
 }
 
 } //namespace signals

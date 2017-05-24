@@ -247,10 +247,10 @@ void EcranJeu(bool SauvegardePrealable)
                 return;
         }
 
-        string signal = tools::signals::getNextSignal();
-        while (signal != "")
+        tools::signals::Signal signal = tools::signals::getNextSignal();
+        while (signal.first != "")
         {
-            if (signal == "savegame")
+            if (signal.first == "savegame")
             {
                 Partie.currentUserScreen = nullptr;
                 Disp_Menu();
@@ -260,19 +260,19 @@ void EcranJeu(bool SauvegardePrealable)
                 Save_Partie();
             }
 
-            if (signal == "rest")
+            if (signal.first == "rest")
             {
                 managementActivated = false;
                 playerResting = true;
                 Partie.perso->Repos();
             }
 
-            if (signal == "player-dead")
+            if (signal.first == "player-dead")
             {
                 playerDead = true;
             }
 
-            if (signal == "new-game")
+            if (signal.first == "new-game")
             {
                 if (NouvellePartie())
                 {
@@ -281,7 +281,7 @@ void EcranJeu(bool SauvegardePrealable)
                 }
             }
 
-            if (signal == "load-game")
+            if (signal.first == "load-game")
             {
                 if (PartieSauvegardee())
                 {
@@ -291,29 +291,29 @@ void EcranJeu(bool SauvegardePrealable)
                 }
             }
 
-            if (signal == "options")
+            if (signal.first == "options")
             {
                 EcranOptions();
             }
 
-            if (signal == "ask-menu")
+            if (signal.first == "ask-menu")
             {
                 ingameMenuWindow.startWindow(Jeu.App);
                 ingameMenuWindow.manage(Jeu.App);
             }
 
-            if (signal == "ask-exit")
+            if (signal.first == "ask-exit")
             {
                 confirmExitGameWindow.startWindow(Jeu.App);
                 confirmExitGameWindow.manage(Jeu.App);
             }
 
-            if (signal == "exit")
+            if (signal.first == "exit")
             {
                 return;
             }
 
-            tools::signals::removeSignal(signal);
+            tools::signals::removeSignal();
             signal = tools::signals::getNextSignal();
         }
 

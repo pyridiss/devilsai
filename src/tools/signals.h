@@ -23,15 +23,34 @@
 #include <string>
 #include <list>
 
+#include <SFML/System/Utf.hpp>
+
 using namespace std;
+using namespace sf;
+
+typedef basic_string<Uint32> String32;
 
 namespace tools{
 
 namespace signals{
 
-void addSignal(string s);
-string getNextSignal();
-void removeSignal(string s);
+struct SignalData
+{
+    int intData;
+    double doubleData;
+    bool boolData;
+    string stringData;
+    String32 String32Data;
+
+    SignalData();
+    SignalData& operator=(const SignalData& right);
+};
+
+typedef pair < string , SignalData > Signal;
+
+void addSignal(string s, SignalData d = SignalData());
+Signal& getNextSignal();
+void removeSignal();
 
 } //namespace signals
 
