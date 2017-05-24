@@ -145,10 +145,9 @@ extern Classe_Jeu::Classe_Options Options;
 void Load_Chapitre(int);
 
 bool RechercheJoueur();
-bool NouvellePartie();
 void LectureSauvegardes();
 bool PartieSauvegardee();
-void EcranJeu(bool);
+void mainLoop();
 void Clean_Partie();
 
 int MenuPrincipal();

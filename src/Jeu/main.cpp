@@ -179,7 +179,7 @@ int main(int n, char *params[])
 
     musicManager::playMusic("Gates_Of_Heaven");
 
-    EcranJeu(true);
+    mainLoop();
     Clean_Partie();
 
 	Supprimer_Decorations();

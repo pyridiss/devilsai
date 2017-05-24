@@ -370,7 +370,8 @@ void MaJ_Sauvegarde()
 	DicoSauvegardes::iterator i = Sauvegardes.find(Partie.SAVE);
 	if (i == Sauvegardes.end())
 	{
-		Erreur("MaJ_Sauvegarde() appelé sans partie ajoutée auparavant", "");
+        AjouterSauvegarde();
+        MaJ_Sauvegarde();
 		return;
 	}
 	i->second.Version = VERSION;

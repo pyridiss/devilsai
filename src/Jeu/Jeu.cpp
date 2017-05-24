@@ -122,11 +122,7 @@ bool PartieSauvegardee()
 	}
 	Disp_Chargement(255);
 
-	if (!Load_Partie(Partie.SAVE))
-	{
-		DialogueEtGestionEvenements("sauvegarde_incompatible.lng");
-		return NouvellePartie();
-	}
+    Load_Partie(Partie.SAVE);
 
 	MESSAGE(">> Chargement de la sauvegarde terminée <<", FICHIER)
 
@@ -142,7 +138,7 @@ bool PartieSauvegardee()
 
 /** FONCTIONS DE GESTION DE LA PARTIE **/
 
-void EcranJeu(bool SauvegardePrealable)
+void mainLoop()
 {
 	float Chargement = 255;
 	float ChangementLieu = 255;
@@ -260,7 +256,6 @@ void EcranJeu(bool SauvegardePrealable)
             {
                 if (PartieSauvegardee())
                 {
-                    SauvegardePrealable = false;
                     isInGame = true;
                     managementActivated = true;
                 }
@@ -378,20 +373,6 @@ void EcranJeu(bool SauvegardePrealable)
 				Disp_TexteCentre(_SAUVEGARDE, Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
 
 			}
-		}
-
-		//6. SAUVEGARDE PRÉALABLE
-
-		if (SauvegardePrealable && Chargement <= 0)
-		{
-			#ifdef DEBOGAGE
-			if (!Arguments.SaveDisabled)
-			#endif
-			{
-				AjouterSauvegarde();
-				Save_Partie();
-			}
-			SauvegardePrealable = false;
 		}
 
 		//7. CHARGEMENT DU JEU APRÈS LE DIDACTICIEL
