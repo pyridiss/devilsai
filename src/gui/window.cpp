@@ -28,6 +28,7 @@
 #include "gui/window.h"
 #include "gui/textWidget.h"
 #include "gui/button.h"
+#include "gui/inputField.h"
 #include "gui/style.h"
 
 #include "config.h"
@@ -226,16 +227,11 @@ void Window::loadFromFile(string path, RenderWindow& app)
             string name = elem->Attribute("name");
             string type = elem->Attribute("type");
             Widget* widget = nullptr;
-            if (type == "text")
-            {
-                widget = new TextWidget();
-                widgets.insert(map<string, Widget*>::value_type(name, widget));
-            }
-            if (type == "button")
-            {
-                widget = new Button();
-                widgets.insert(map<string, Widget*>::value_type(name, widget));
-            }
+            if (type == "text")         widget = new TextWidget();
+            if (type == "button")       widget = new Button();
+            if (type == "input-field")  widget = new InputField();
+
+            widgets.insert(map<string, Widget*>::value_type(name, widget));
 
             if (elem->Attribute("xTopLeft"))
             {
