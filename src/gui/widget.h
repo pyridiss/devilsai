@@ -83,6 +83,7 @@ class Widget
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
 
         void updateTextPosition();
+        void updateSize();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event::EventType event) = 0;

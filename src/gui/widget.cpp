@@ -26,16 +26,16 @@ void Widget::setTopLeftCoordinates(int x, int y)
 {
     xTopLeft = x;
     yTopLeft = y;
-    xCenter = 0;
-    yCenter = 0;
+    xCenter = -1;
+    yCenter = -1;
 }
 
 void Widget::setCenterCoordinates(int x, int y)
 {
     xCenter = x;
     yCenter = y;
-    xTopLeft = 0;
-    yTopLeft = 0;
+    xTopLeft = -1;
+    yTopLeft = -1;
 }
 
 void Widget::setOriginCoordinates(int x, int y)
@@ -64,7 +64,7 @@ void Widget::setActive(bool a)
 
 int Widget::getXTopLeft()
 {
-    if (xTopLeft == 0)
+    if (xTopLeft == -1)
         return xOrigin + xCenter - width/2;
 
     return xOrigin + xTopLeft;
@@ -72,7 +72,7 @@ int Widget::getXTopLeft()
 
 int Widget::getYTopLeft()
 {
-    if (yTopLeft == 0)
+    if (yTopLeft == -1)
         return yOrigin + yCenter - height/2;
 
     return yOrigin + yTopLeft;
@@ -80,7 +80,7 @@ int Widget::getYTopLeft()
 
 int Widget::getXCenter()
 {
-    if (xCenter == 0)
+    if (xCenter == -1)
         return xOrigin + xTopLeft + width/2;
 
     return xOrigin + xCenter;
@@ -88,7 +88,7 @@ int Widget::getXCenter()
 
 int Widget::getYCenter()
 {
-    if (yCenter == 0)
+    if (yCenter == -1)
         return yOrigin + yTopLeft + height/2;
 
     return yOrigin + yCenter;
@@ -116,15 +116,8 @@ void Widget::setText(string state, String32& t)
 
     s->second.text.setString(t);
 
-    FloatRect rect = s->second.text.getGlobalBounds();
-
-    if (width == 0 || height == 0)
-    {
-        width = rect.width + 12;
-        height = rect.height + 6;
-    }
-
     updateTextPosition();
+    updateSize();
 }
 
 void Widget::setTextFont(const Font& f, float s)
@@ -134,6 +127,9 @@ void Widget::setTextFont(const Font& f, float s)
         state.second.text.setFont(f);
         state.second.text.setCharacterSize(s);
     }
+
+    updateTextPosition();
+    updateSize();
 }
 
 void Widget::setTextColor(string state, Color c)
@@ -170,6 +166,17 @@ void Widget::updateTextPosition()
     {
         FloatRect rect = state.second.text.getGlobalBounds();
         state.second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
+    }
+}
+
+void Widget::updateSize()
+{
+    for (auto& state : states)
+    {
+        FloatRect rect = state.second.text.getGlobalBounds();
+
+        width = max(width, (int)rect.width + 12);
+        height = max(height, (int)rect.height + 6);
     }
 }
 
