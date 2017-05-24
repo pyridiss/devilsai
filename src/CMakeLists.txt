@@ -1,5 +1,8 @@
 project(devilsai)
 
+set(VERSION "master")
+string(TIMESTAMP TIME %Y-%m-%d)
+
 configure_file("${devilsai_SOURCE_DIR}/config.h.cmake" "${devilsai_BINARY_DIR}/config.h" @ONLY)
 
 include_directories(

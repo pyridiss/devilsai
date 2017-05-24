@@ -26,9 +26,6 @@ using namespace std;
 
 #include "config.h"
 
-//Version du jeu
-#define VERSION "master"
-
 //Constantes de débogage
 #define DEBOGAGE 1
 

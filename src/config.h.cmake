@@ -18,3 +18,4 @@
 */
 
 #define INSTALL_DIR string("@CMAKE_INSTALL_PREFIX@/share/devilsai/")
+#define VERSION string("@VERSION@ (@TIME@)")
