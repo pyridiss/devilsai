@@ -176,13 +176,13 @@ void EcranOptions()
         Event event;
         while (Jeu.App.pollEvent(event))
         {
-            if (mainMenuButton.activated(Jeu.App, event.type)) RetourMenu = true;
-            if (languageButton.activated(Jeu.App, event.type))
+            if (mainMenuButton.activated(Jeu.App, event)) RetourMenu = true;
+            if (languageButton.activated(Jeu.App, event))
             {
                 changeLanguage();
                 AfficherDemandeRedemarrage = true;
             }
-            if (fullscreenButton.activated(Jeu.App, event.type))
+            if (fullscreenButton.activated(Jeu.App, event))
             {
                 Options.PleinEcran_Save = true;
                 if (!Options.PleinEcran) AfficherDemandeRedemarrage = true;
@@ -192,7 +192,7 @@ void EcranOptions()
                 Options.PleinEcran_Save = false;
                 if (Options.PleinEcran) AfficherDemandeRedemarrage = true;
             }
-            if (showDamageButton.activated(Jeu.App, event.type))
+            if (showDamageButton.activated(Jeu.App, event))
             {
                 Options.AffichageDegats = true;
             }
@@ -200,7 +200,7 @@ void EcranOptions()
             {
                 Options.AffichageDegats = false;
             }
-            if (changeResolutionButton.activated(Jeu.App, event.type))
+            if (changeResolutionButton.activated(Jeu.App, event))
             {
                 ChangerResolution();
                 AfficherDemandeRedemarrage = true;

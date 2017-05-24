@@ -165,7 +165,7 @@ void PasDeSauvegarde()
 	{
 		while (Jeu.App.pollEvent(event))
 		{
-            if (mainMenuButton.activated(Jeu.App, event.type))
+            if (mainMenuButton.activated(Jeu.App, event))
             {
                 return;
             }
@@ -273,21 +273,21 @@ string ChoixSauvegarde()
             else
                 startGameButton.setDisabled(true);
 
-            if (previousButton.activated(Jeu.App, event.type))
+            if (previousButton.activated(Jeu.App, event))
             {
                 SauvegardePrecedente(save);
                 ChangementSauvegarde = true;
             }
-            if (nextButton.activated(Jeu.App, event.type))
+            if (nextButton.activated(Jeu.App, event))
             {
                 SauvegardeSuivante(save);
                 ChangementSauvegarde = true;
             }
-            if (startGameButton.activated(Jeu.App, event.type))
+            if (startGameButton.activated(Jeu.App, event))
             {
                 path = save->second.Dossier;
             }
-            if (deleteGameButton.activated(Jeu.App, event.type))
+            if (deleteGameButton.activated(Jeu.App, event))
             {
                 SupprimerSauvegarde(save);
                 if (NombreSauvegardesDisponibles())
@@ -302,7 +302,7 @@ string ChoixSauvegarde()
                     return "ANNULER";
                 }
             }
-            if (mainMenuButton.activated(Jeu.App, event.type))
+            if (mainMenuButton.activated(Jeu.App, event))
             {
                 path = "ANNULER";
             }

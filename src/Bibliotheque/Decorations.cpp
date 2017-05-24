@@ -182,19 +182,19 @@ void Disp_FondMenus()
 
 void Gestion_Menu(Event &event)
 {
-    if (menuButton->activated(Jeu.App, event.type))
+    if (menuButton->activated(Jeu.App, event))
         tools::signals::addSignal("ask-menu");
 
     if (Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
     else restingButton->setDisabled(false);
 
-    if (restingButton->activated(Jeu.App, event.type))
+    if (restingButton->activated(Jeu.App, event))
         tools::signals::addSignal("rest");
 
-    if (Partie.screenCharacter.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
-    if (Partie.screenEquipment.button.activated(Jeu.App, event.type))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
-    if (Partie.screenSkills.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
-    if (Partie.screenJournal.button.activated(Jeu.App, event.type))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
+    if (Partie.screenCharacter.button.activated(Jeu.App, event))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+    if (Partie.screenEquipment.button.activated(Jeu.App, event))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+    if (Partie.screenSkills.button.activated(Jeu.App, event))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
+    if (Partie.screenJournal.button.activated(Jeu.App, event))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
 
     if (event.type == Event::KeyReleased)
     {

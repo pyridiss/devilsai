@@ -86,7 +86,7 @@ class Widget
         void updateSize();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
-        virtual bool activated(RenderWindow& app, Event::EventType event) = 0;
+        virtual bool activated(RenderWindow& app, Event event) = 0;
 
         virtual void display(RenderWindow& app) = 0;
 };

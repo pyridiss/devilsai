@@ -130,7 +130,7 @@ void Gestion_Competences(Event &event)
 	{
 		if (skill != Partie.perso->Get_Caracs()->skills.end())
 		{
-            if (BoutonsInventaire[cmpt]->activated(Jeu.App, event.type))
+            if (BoutonsInventaire[cmpt]->activated(Jeu.App, event))
                 Partie.selectedSkill = skill->second;
 
 			++skill;
@@ -140,7 +140,7 @@ void Gestion_Competences(Event &event)
 	if (Partie.selectedSkill != nullptr)
 	{
 		for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
-		if (BoutonsCompetences[i]->activated(Jeu.App, event.type))
+		if (BoutonsCompetences[i]->activated(Jeu.App, event))
 		{
 			Partie.perso->skillLinks[i] = Partie.selectedSkill;
 			//We must remove duplicates of this skill
@@ -364,7 +364,7 @@ void Gestion_Coffre(Event &event)
 
 	for (emp = Partie.perso->EmplacementsEquip.begin() ; emp != Partie.perso->EmplacementsEquip.end() ; ++emp)
 	{
-		if (emp->BoutonEquipement->activated(Jeu.App, event.type))
+		if (emp->BoutonEquipement->activated(Jeu.App, event))
 		{
 			currentObject = objects->find(emp->Get_IdEmplacement());
 			EquipClic = true;
@@ -416,7 +416,7 @@ void Gestion_Coffre(Event &event)
 
 	for (int Case = 0 ; Case < 24 ; ++Case)
 	{
-		if (!BoutonsInventaire[Case]->activated(Jeu.App, event.type)) continue;
+		if (!BoutonsInventaire[Case]->activated(Jeu.App, event)) continue;
 
 		sourceObject = objects->find(intToString(CLEF_INVENTAIRE + Case));
 
@@ -516,7 +516,7 @@ void Gestion_Coffre(Event &event)
 
 	for (int Case = 0 ; Case < 8 ; ++Case)
 	{
-		if (BoutonsCoffre[Case]->activated(Jeu.App, event.type) && ClicGauche)
+		if (BoutonsCoffre[Case]->activated(Jeu.App, event) && ClicGauche)
 		{
 			mapObjects::iterator i = Partie.CoffreOuvert->objects.objects.find(intToString(CLEF_COFFRE + Case));
 

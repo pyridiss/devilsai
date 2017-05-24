@@ -36,7 +36,7 @@ class TextWidget : public Widget
 
     public:
         bool mouseHovering(RenderWindow& app);
-        bool activated(RenderWindow& app, Event::EventType event);
+        bool activated(RenderWindow& app, Event event);
 
         void display(RenderWindow& app);
 };

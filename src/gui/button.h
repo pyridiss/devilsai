@@ -41,7 +41,7 @@ class Button : public Widget
         void setAutoRelease(bool a);
 
         bool mouseHovering(RenderWindow& app);
-        bool activated(RenderWindow& app, Event::EventType event);
+        bool activated(RenderWindow& app, Event event);
 
         void display(RenderWindow& app);
 };

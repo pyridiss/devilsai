@@ -45,7 +45,7 @@ bool TextWidget::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool TextWidget::activated(RenderWindow& app, Event::EventType event)
+bool TextWidget::activated(RenderWindow& app, Event event)
 {
     return false;
 }

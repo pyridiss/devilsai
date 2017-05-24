@@ -64,13 +64,13 @@ bool Button::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool Button::activated(RenderWindow& app, Event::EventType event)
+bool Button::activated(RenderWindow& app, Event event)
 {
     if (currentState == "disabled") return false;
 
     if (mouseHovering(app))
     {
-        if (event == Event::MouseButtonPressed)
+        if (event.type == Event::MouseButtonPressed)
         {
             musicManager::playSound("Click");
 
@@ -86,7 +86,7 @@ bool Button::activated(RenderWindow& app, Event::EventType event)
                 return true;
             }
         }
-        if (event == Event::MouseButtonReleased)
+        if (event.type == Event::MouseButtonReleased)
         {
             if (currentState == "active")
             {

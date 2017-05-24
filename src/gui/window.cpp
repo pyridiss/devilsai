@@ -142,7 +142,7 @@ void Window::manage(RenderWindow& app, Event &event)
 {
     for (auto& widget : widgets)
     {
-        if (widget.second->activated(app, event.type))
+        if (widget.second->activated(app, event))
         {
             for (auto& signal : signals)
             {
