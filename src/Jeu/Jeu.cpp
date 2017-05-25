@@ -151,17 +151,10 @@ void mainLoop()
 
 	String32 NomLieu;
 
-    gui::Window mainMenuWindow;
-    mainMenuWindow.loadFromFile("gui/main-menu.xml", Jeu.App);
-
-    gui::Window newGameWindow;
-    newGameWindow.loadFromFile("gui/new-game.xml", Jeu.App);
-
-    gui::Window confirmExitGameWindow;
-    confirmExitGameWindow.loadFromFile("gui/confirm-exit-game.xml", Jeu.App);
-
-    gui::Window ingameMenuWindow;
-    ingameMenuWindow.loadFromFile("gui/ingame-menu.xml", Jeu.App);
+    gui::Window mainMenuWindow("gui/main-menu.xml", Jeu.App);
+    gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
+    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
+    gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
 
 
 	while (true)

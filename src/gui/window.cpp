@@ -37,6 +37,11 @@ using namespace tinyxml2;
 
 namespace gui{
 
+Window::Window(string path, RenderWindow& app) : Window()
+{
+    loadFromFile(path, app);
+}
+
 Window::~Window()
 {
     for (auto& w : widgets)

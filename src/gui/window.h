@@ -51,6 +51,8 @@ class Window
         string background;
 
     public:
+        Window() = default;
+        Window(string path, RenderWindow& app);
         ~Window();
 
     private:
