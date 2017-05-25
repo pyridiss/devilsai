@@ -33,6 +33,7 @@ class TextWidget : public Widget
 {
     public:
         TextWidget();
+        ~TextWidget() = default;
 
     public:
         bool mouseHovering(RenderWindow& app);

@@ -36,6 +36,7 @@ class InputField : public Widget
 
     public:
         InputField();
+        ~InputField() = default;
 
     public:
         bool mouseHovering(RenderWindow& app);

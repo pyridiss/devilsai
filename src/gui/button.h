@@ -36,6 +36,7 @@ class Button : public Widget
 
     public:
         Button();
+        ~Button() = default;
 
     public:
         void setAutoRelease(bool a);

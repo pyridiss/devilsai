@@ -59,6 +59,9 @@ class Widget
         string currentState = "normal";
 
     public:
+        virtual ~Widget() = default;
+
+    public:
         void setTopLeftCoordinates(int x, int y);
         void setCenterCoordinates(int x, int y);
         void setOriginCoordinates(int x, int y);
