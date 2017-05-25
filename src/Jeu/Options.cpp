@@ -56,13 +56,13 @@ void Load_Options()
 {
 	bool ChargerDefaut = false;
 
-	string fichier = Get_DossierSauvegardes() + "options.opt";
+	string fichier = tools::filesystem::getSaveDirectoryPath() + "options.opt";
 
 	ifstream Fichier(fichier, ios_base::in);
 	if (!Fichier.good())
 	{
 		ChargerDefaut = true;
-        tools::filesystem::createDirectory(Get_DossierSauvegardes());
+        tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath());
 	}
 
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
@@ -110,7 +110,7 @@ void Load_Options()
 
 void Save_Options()
 {
-	string fileName = Get_DossierSauvegardes() + "options.opt";
+	string fileName = tools::filesystem::getSaveDirectoryPath() + "options.opt";
 
 	ofstream fileStream(fileName, ios_base::out);
 

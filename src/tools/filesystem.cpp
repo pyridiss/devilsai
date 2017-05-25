@@ -86,6 +86,16 @@ bool removeFile(string str)
     return false;
 }
 
+string getSaveDirectoryPath()
+{
+#if defined(_WIN32) || defined(__WIN32__)
+    return "save/";
+#else
+    return ".devilsai/";
+#endif
+    return "";
+}
+
 } //namespace filesystem
 
 } //namespace tools

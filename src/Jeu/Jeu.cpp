@@ -233,7 +233,7 @@ void mainLoop()
                 Partie.perso->Nom = signal.second.String32Data;
                 stringstream stream; stream << time(NULL);
                 Partie.SAVE = stream.str();
-                tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
+                tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
                 musicManager::playMusic(Partie.CarteCourante->ambience);
                 isInGame = true;
                 managementActivated = true;
@@ -246,7 +246,7 @@ void mainLoop()
                 Partie.perso->Nom = signal.second.String32Data;
                 stringstream stream; stream << time(NULL);
                 Partie.SAVE = stream.str();
-                tools::filesystem::createDirectory(Get_DossierSauvegardes() + Partie.SAVE);
+                tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
                 musicManager::playMusic(Partie.CarteCourante->ambience);
                 isInGame = true;
                 managementActivated = true;

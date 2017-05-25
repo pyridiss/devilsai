@@ -19,6 +19,7 @@
 
 #include <typeinfo>
 
+#include "tools/filesystem.h"
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
@@ -33,7 +34,7 @@ void Save_Partie()
 {
 	/* 1. FICHIER PRINCIPAL DE LA SAUVEGARDE */
 
-	string PATH = Get_DossierSauvegardes() + Partie.SAVE + "/";
+	string PATH = tools::filesystem::getSaveDirectoryPath() + Partie.SAVE + "/";
 
 	string mainFileName = PATH + "save.sav";
 
@@ -203,7 +204,7 @@ bool Load_Partie(string path)
 {
 	/* 1. CHARGEMENT DU FICHIER PRINCIPAL */
 
-	string PATH = Get_DossierSauvegardes() + path + "/";
+	string PATH = tools::filesystem::getSaveDirectoryPath() + path + "/";
 
 	string mainFileName = PATH + "save.sav";
 

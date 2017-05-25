@@ -276,7 +276,6 @@ void displayJournal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 
-string Get_DossierSauvegardes();
 bool getBoolFromLUA(lua_State*, string);
 int getIntFromLUA(lua_State*, string);
 double getDoubleFromLUA(lua_State*, string);

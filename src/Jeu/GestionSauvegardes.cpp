@@ -63,7 +63,7 @@ void AjouterSauvegarde()
 void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 {
 	//Ouverture du fichier principal pour déterminer les fichiers présents dans le dossier
-	string path = Get_DossierSauvegardes() + save->second.Dossier + "/";
+	string path = tools::filesystem::getSaveDirectoryPath() + save->second.Dossier + "/";
 	string strFichierPrincipal = path + "save.sav";
 
 	ifstream FichierPrincipal(strFichierPrincipal.c_str(), ios_base::in);
@@ -92,7 +92,7 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
     tools::filesystem::removeFile(path + "save.sav");
 
 	//Suppression du dossier
-    tools::filesystem::removeDirectory(Get_DossierSauvegardes() + save->second.Dossier);
+    tools::filesystem::removeDirectory(tools::filesystem::getSaveDirectoryPath() + save->second.Dossier);
 
 	//Suppression de la sauvegarde
 	Sauvegardes.erase(save);
@@ -100,7 +100,7 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 
 void LectureSauvegardes()
 {
-	string fichier = Get_DossierSauvegardes() + "sauvegardes.opt";
+	string fichier = tools::filesystem::getSaveDirectoryPath() + "sauvegardes.opt";
 
 	ifstream Fichier(fichier.c_str(), ios_base::in);
 
@@ -258,7 +258,7 @@ string ChoixSauvegarde()
 
 	string path = "";
 
-	string PATH = Get_DossierSauvegardes();
+	string PATH = tools::filesystem::getSaveDirectoryPath();
 
 	bool ChangementSauvegarde = true;
 	Event event;
@@ -382,7 +382,7 @@ void MaJ_Sauvegarde()
 
 void Save_Sauvegardes()
 {
-	string fileName = Get_DossierSauvegardes() + "sauvegardes.opt";
+	string fileName = tools::filesystem::getSaveDirectoryPath() + "sauvegardes.opt";
 
 	string bufferString;
 

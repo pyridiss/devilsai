@@ -34,15 +34,6 @@
 
 #define PI 3.1415926
 
-string Get_DossierSauvegardes()
-{
-#if defined(_WIN32) || defined(__WIN32__)
-	return "save/";
-#else
-	return ".Devilsai/";
-#endif
-	return "";
-}
 
 void getFromLUA(lua_State* L, string fct)
 {
