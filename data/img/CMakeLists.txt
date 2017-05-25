@@ -100,16 +100,10 @@ set(img
     BarreEnergie.png
     BarreRecup.png
     BarreVie.png
-    Bouton.png
-    BoutonAppuye.png
     BoutonCompetences.png
     BoutonEquipement.png
     BoutonJournal.png
     BoutonPersonnage.png
-    BoutonPrecedent.png
-    BoutonPrecedentAppuye.png
-    BoutonSuivant.png
-    BoutonSuivantAppuye.png
     C101.png
     C102.png
     C301.png

@@ -57,12 +57,6 @@ void Load_Decorations()
 	imageManager::addImage("misc", "FondInventaire", INSTALL_DIR + "img/FondInventaire.png");
 	imageManager::addImage("misc", "FondMiniaturesCompetences", INSTALL_DIR + "img/FondMiniaturesCompetences.png");
 	imageManager::addImage("misc", "Repos", INSTALL_DIR + "img/Repos.png");
-	imageManager::addImage("misc", "Bouton", INSTALL_DIR + "img/Bouton.png");
-	imageManager::addImage("misc", "BoutonAppuye", INSTALL_DIR + "img/BoutonAppuye.png");
-	imageManager::addImage("misc", "BoutonPrecedent", INSTALL_DIR + "img/BoutonPrecedent.png");
-	imageManager::addImage("misc", "BoutonPrecedentAppuye", INSTALL_DIR + "img/BoutonPrecedentAppuye.png");
-	imageManager::addImage("misc", "BoutonSuivant", INSTALL_DIR + "img/BoutonSuivant.png");
-	imageManager::addImage("misc", "BoutonSuivantAppuye", INSTALL_DIR + "img/BoutonSuivantAppuye.png");
 	imageManager::addImage("misc", "BoutonPersonnage", INSTALL_DIR + "img/BoutonPersonnage.png", Vector2i(0, 0), 0.38);
 	imageManager::addImage("misc", "BoutonEquipement", INSTALL_DIR + "img/BoutonEquipement.png", Vector2i(0, 0), 0.38);
 	imageManager::addImage("misc", "BoutonCompetences", INSTALL_DIR + "img/BoutonCompetences.png", Vector2i(0, 0), 0.38);
