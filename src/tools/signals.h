@@ -43,7 +43,9 @@ struct SignalData
     String32 String32Data;
 
     SignalData();
-    SignalData& operator=(const SignalData& right);
+    SignalData(const SignalData&) = default;
+    SignalData(SignalData&&) noexcept = default;
+    SignalData& operator=(const SignalData&) = default;
 };
 
 typedef pair < string , SignalData > Signal;

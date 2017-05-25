@@ -38,15 +38,6 @@ SignalData::SignalData()
     String32Data.clear();
 }
 
-SignalData& SignalData::operator=(const SignalData& right)
-{
-    intData = right.intData;
-    doubleData = right.doubleData;
-    boolData = right.boolData;
-    stringData = right.stringData;
-    String32Data = right.String32Data;
-}
-
 void addSignal(string s, SignalData d)
 {
     signals.push_back(Signal(s, d));
