@@ -31,7 +31,7 @@
 
 /** VARIABLES GLOBALES **/
 
-const int numberOfMessages = 109;
+const int numberOfMessages = 98;
 
 Language *languages;
 

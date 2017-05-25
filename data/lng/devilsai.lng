@@ -14,14 +14,6 @@ xx= ...
 fr= UNE ERREUR S'EST PRODUITE. VOIR LE FICHIER "Devilsai_Errors".
 en= AN ERROR OCCURRED. SEE THE FILE "Devilsai_Errors".
 xx= ...
-* CHARGEMENT	102
-fr= Chargement...
-en= Loading...
-xx= ...
-* SAISIE_NOM	103
-fr= Saisissez le nom du personnage :
-en= Type the name of the character:
-xx= ...
 * CHOIX_SAUVEGARDE	104
 fr= Choix de la sauvegarde
 en= Choice of the saved game
@@ -42,10 +34,6 @@ xx= ...
 fr= Cette sauvegarde n'est pas compatible avec cette version du jeu.
 en= This saved game is not compatible with this version of the program.
 xx= ...
-* AFFICHAGE_PAUSE	109
-fr= Pause
-en= Pause
-xx= ...
 * SAUVEGARDE	110
 fr= Sauvegarde effectuée
 en= Game saved
@@ -58,21 +46,9 @@ xx= ...
 fr= Appuyer sur Entrée pour revenir au menu principal
 en= Press Enter to return to the main menu
 xx= ...
-* RETOUR	113
-fr= Retour
-en= Back
-xx= ...
 * RETOUR_MENU 114
 fr= < Menu principal
 en= < Main menu
-xx= ...
-* LANCER_DIDACTICIEL	115
-fr= Lancer le didacticiel >
-en= Start the tutorial >
-xx= ...
-* LANCER_CHAP1	116
-fr= Passer directement au chapitre 1 >
-en= Skip to Chapter 1 >
 xx= ...
 # Catégorie : Menus
 # #################
@@ -87,26 +63,6 @@ xx= ...
 * MENUPRINCIPAL_OPTIONS	202
 fr= Options
 en= Options
-xx= ...
-* MENUPRINCIPAL_QUITTER	203
-fr= Quitter
-en= Exit
-xx= ...
-* MENUJEU_PAUSE	204
-fr= Pause (P)
-en= Pause (P)
-xx= ...
-* MENUJEU_SAUVEG	205
-fr= Sauvegarder (S)
-en= Save (S)
-xx= ...
-* MENUJEU_QUITTER	206
-fr= Quitter le jeu
-en= Exit game
-xx= ...
-* MENUJEU_REPOS	207
-fr= Repos
-en= Rest
 xx= ...
 * PAS_DE_SAUVEG	208
 fr= Pas de sauvegarde disponible
