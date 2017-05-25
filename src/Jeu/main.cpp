@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "gui/style.h"
+#include "tools/debug.h"
 #include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
@@ -91,26 +92,31 @@ void GestionArguments(int n, char *params[])
 		{
 			cout << "Mode VERBOSE : FICHIERS activé" << endl;
 			Arguments.TabVerbose[FICHIER] = true;
+            tools::debug::addDebugCategory("files");
 		}
 		if (strcmp(params[i], "images") == 0 && Arguments.TabVerbose[0])
 		{
 			cout << "Mode VERBOSE : IMAGES activé" << endl;
 			Arguments.TabVerbose[IMAGE] = true;
+            tools::debug::addDebugCategory("images");
 		}
 		if (strcmp(params[i], "listes") == 0 && Arguments.TabVerbose[0])
 		{
 			cout << "Mode VERBOSE : LISTES CHAINEES activé" << endl;
 			Arguments.TabVerbose[LISTE] = true;
+            tools::debug::addDebugCategory("lists");
 		}
 		if (strcmp(params[i], "lua") == 0 && Arguments.TabVerbose[0])
 		{
 			cout << "Mode VERBOSE : LUA activé" << endl;
 			Arguments.TabVerbose[LUA] = true;
+            tools::debug::addDebugCategory("lua");
 		}
 		if (strcmp(params[i], "music") == 0 && Arguments.TabVerbose[0])
 		{
 			cout << "Mode VERBOSE : MUSIC activé" << endl;
 			Arguments.TabVerbose[MUSIC] = true;
+            tools::debug::addDebugCategory("musics");
 		}
 		if (strcmp(params[i], "-m") == 0 || strcmp(params[i], "--masks") == 0)
 		{
@@ -133,6 +139,8 @@ int main(int n, char *params[])
 	#ifdef DEBOGAGE
 	cout << "Compilé avec DEBOGAGE activé" << endl;
 	#endif
+
+    tools::debug::openDebugFile();
 
 	GestionArguments(n, params);
 

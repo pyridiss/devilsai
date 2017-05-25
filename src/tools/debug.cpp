@@ -19,12 +19,58 @@
 
 #include <iostream>
 #include <fstream>
+#include <unordered_set>
 
+#include <SFML/System.hpp>
+
+#include "config.h"
+#include "tools/filesystem.h"
 #include "tools/debug.h"
+
+using namespace sf;
 
 namespace tools{
 
 namespace debug{
+
+ofstream logfile;
+Clock clock;
+
+unordered_set<string> debugCategories;
+
+void openDebugFile()
+{
+    logfile.open(tools::filesystem::getSaveDirectoryPath() + "devilsai.log", ios_base::out);
+    logfile.precision(4);
+    logfile.setf(std::ios::fixed, std::ios::floatfield);
+
+    clock.restart();
+
+    time_t rawtime;
+    struct tm * timeinfo;
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+
+    logfile << "=================================================" << endl;
+    logfile << "=== devilsai logfile" << endl;
+    logfile << "=== version : " << VERSION << endl;
+    logfile << "=== debug file opened on " << asctime(timeinfo);
+    logfile << "=================================================" << endl;
+
+    cout.rdbuf(logfile.rdbuf());
+    cerr.rdbuf(logfile.rdbuf());
+}
+
+void addDebugCategory(string category)
+{
+    debugCategories.insert(std::move(category));
+}
+
+void writeToDebugFile(string s)
+{
+    logfile << "[" << clock.getElapsedTime().asSeconds() << "] ";
+    logfile << s << endl;
+}
 
 void fatal(string str, string category)
 {
@@ -33,26 +79,23 @@ void fatal(string str, string category)
 
 void error(string str, string category)
 {
-    ofstream file("Devilsai_Errors", ios_base::out | ios_base::app);
-
-    time_t rawtime;
-    struct tm * timeinfo;
-
-    time (&rawtime);
-    timeinfo = localtime (&rawtime);
-    file << "On " << asctime (timeinfo) << " (EE) " << category << " – " << str << endl << endl;
-
-    file.close();
+    writeToDebugFile("(EE) " + category + " – " + str);
 }
 
 void warning(string str, string category)
 {
-    error(str, category);
+    if (debugCategories.empty()) return;
+    if (debugCategories.find(category) == debugCategories.end()) return;
+
+    writeToDebugFile("(WW) " + category + " – " + str);
 }
 
 void message(string str, string category)
 {
-    cout << category << " – " << str << endl;
+    if (debugCategories.empty()) return;
+    if (debugCategories.find(category) == debugCategories.end()) return;
+
+    writeToDebugFile("(II) " + category + " – " + str);
 }
 
 } //namespace debug

@@ -28,6 +28,8 @@ namespace tools{
 
 namespace debug{
 
+void openDebugFile();
+void addDebugCategory(string category);
 void fatal(string str, string category);
 void error(string str, string category);
 void warning(string str, string category);
