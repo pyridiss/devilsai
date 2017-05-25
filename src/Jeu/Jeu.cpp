@@ -35,8 +35,6 @@
 
 void Load_Chapitre(int Id)
 {
-	Disp_Chargement(255);
-
 	string fileName = INSTALL_DIR + "chapitre/" + intToString(Id) + ".chp";
 
 	ifstream fileStream(fileName.c_str(), ios_base::in);
@@ -120,7 +118,6 @@ bool PartieSauvegardee()
 		Partie.SAVE = "";
 		return false;
 	}
-	Disp_Chargement(255);
 
     Load_Partie(Partie.SAVE);
 
@@ -140,7 +137,6 @@ bool PartieSauvegardee()
 
 void mainLoop()
 {
-	float Chargement = 255;
 	float ChangementLieu = 255;
 	float SauvegardeEffectuee = 255;
 
@@ -155,7 +151,9 @@ void mainLoop()
     gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
+    gui::Window loadingWindow("gui/loading.xml", Jeu.App);
 
+    loadingWindow.startWindow(Jeu.App);
 
 	while (true)
 	{
@@ -221,6 +219,8 @@ void mainLoop()
 
             if (signal.first == "start-game-chapter-1")
             {
+                loadingWindow.display(Jeu.App);
+                Jeu.App.display();
                 Load_Chapitre(1);
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
@@ -234,6 +234,8 @@ void mainLoop()
 
             if (signal.first == "start-game-tutorial")
             {
+                loadingWindow.display(Jeu.App);
+                Jeu.App.display();
                 Load_Chapitre(0);
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
@@ -311,7 +313,6 @@ void mainLoop()
             Disp_MiniaturesCompetences();
 
         Disp_FonduNoir(0);
-        Chargement = Disp_Chargement(Chargement);
 
         if (playerResting)
         {
@@ -336,7 +337,7 @@ void mainLoop()
 
 		//4. CHANGEMENTS DE LIEU
 
-		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu && Chargement <= 0)
+		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu)
 		{
 			ChangementLieu = 254;
 			NomLieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);

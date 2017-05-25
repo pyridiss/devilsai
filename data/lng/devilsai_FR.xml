@@ -6,6 +6,7 @@
     <text id="ingame-menu-return-to-game">Reprendre la partie</text>
     <text id="ingame-menu-savegame">Sauvegarder la partie</text>
     <text id="ingame-menu-exit">Quitter le jeu</text>
+    <text id="loading-text">Chargement...</text>
     <text id="main-menu-title">DEVILSAI</text>
     <text id="main-menu-new-game">Nouvelle partie</text>
     <text id="main-menu-load-game">Charger une partie</text>

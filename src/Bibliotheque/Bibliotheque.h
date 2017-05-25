@@ -253,7 +253,6 @@ void SupprimerLignesConsoles();
 void Disp_Information(enumPhrases, bool);
 void Disp_Mort();
 void Disp_FonduNoir(int);
-float Disp_Chargement(float);
 bool Disp_Repos();
 
 /* Fonctions définies dans le fichier Langues.cpp */

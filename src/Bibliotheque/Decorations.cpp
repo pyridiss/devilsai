@@ -548,37 +548,6 @@ void Disp_FonduNoir(int Commande)
 	}
 }
 
-float Disp_Chargement(float Transparence)
-{
-	static float OldTransparence = 255;
-	if (Transparence <= 0)
-	{
-		if (OldTransparence != 255) return Transparence;
-		else Transparence = 255;
-	}
-	OldTransparence = Transparence;
-
-	sf::Vertex Degrade[] =
-	{
-		sf::Vertex(sf::Vector2f(0, 0), Color(240, 240, 240, (int)Transparence)),
-		sf::Vertex(sf::Vector2f(0, Options.ScreenH), Color(195, 195, 195, (int)Transparence)),
-		sf::Vertex(sf::Vector2f(Options.ScreenW, Options.ScreenH), Color(10, 10, 10, (int)Transparence)),
-		sf::Vertex(sf::Vector2f(Options.ScreenW, 0), Color(230, 230, 230, (int)Transparence))
-	};
-
- 	Jeu.App.draw(Degrade, 4, sf::Quads);
-
-	Disp_TexteCentre(_CHARGEMENT, Options.ScreenW - 150, Options.ScreenH - 100, Color(0,0,0,255), 45., Jeu.Cardinal);
-
-	imageManager::display(Jeu.App, "misc", "Art", Options.ScreenW/2-390, Options.ScreenH/2 - 252);
-    tools::timeManager::frameDone();
-	Jeu.App.display();
-
-	Transparence -= tools::timeManager::I((256-Transparence)/2);
-	if (Transparence < 0) Transparence = 0;
-	return Transparence;
-}
-
 bool Disp_Repos()
 {
 	static float Animation = 0;
