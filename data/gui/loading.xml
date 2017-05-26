@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" background="gui-dialog-background-488x308"/>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="gui-dialog-background-488x308"/>
     <widget name="text" type="text" xCenter="244" yCenter="154" allText="loading-text" textSize="28" textFont="dayroman"/>
 </window>

@@ -185,7 +185,6 @@ void mainLoop()
         {
             if (signal.first == "main-menu")
             {
-                musicManager::playMusic("Gates_Of_Heaven");
                 mainMenuWindow.manage(Jeu.App);
                 managementActivated = false;
             }

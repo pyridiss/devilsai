@@ -120,7 +120,7 @@ void Window::startWindow(RenderWindow& app)
 
 void Window::display(RenderWindow& app)
 {
-    imageManager::display(app, "misc", background, getXTopLeft(), getYTopLeft());
+    imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
 
     for (auto& widget : widgets)
     {
@@ -132,7 +132,14 @@ void Window::manage(RenderWindow& app)
 {
     startWindow(app);
 
-    gui::style::disableShader(app, 0, 0, app.getSize().x, app.getSize().y);
+    if (!music.empty())
+        musicManager::playMusic(music);
+
+    if (!backgroundFullscreenShader.empty())
+        gui::style::displayShader(app, backgroundFullscreenShader, 0, 0, app.getSize().x, app.getSize().y);
+
+    if (!backgroundShader.empty())
+        gui::style::displayShader(app, backgroundShader, getXTopLeft(), getYTopLeft(), width, height);
 
     while (!exitWindow)
     {
@@ -143,6 +150,10 @@ void Window::manage(RenderWindow& app)
         }
 
         display(app);
+
+        if (!foregroundShader.empty())
+            gui::style::displayShader(app, foregroundShader, getXTopLeft(), getYTopLeft(), width, height);
+
         tools::timeManager::frameDone();
         app.display();
         musicManager::manageRunningMusics();
@@ -229,7 +240,20 @@ void Window::loadFromFile(string path, RenderWindow& app)
                 setSize(app.getSize().x, app.getSize().y);
             }
 
-            background = elem->Attribute("background");
+            if (elem->Attribute("backgroundImage"))
+                backgroundImage = elem->Attribute("backgroundImage");
+
+            if (elem->Attribute("backgroundFullscreenShader"))
+                backgroundFullscreenShader = elem->Attribute("backgroundFullscreenShader");
+
+            if (elem->Attribute("backgroundShader"))
+                backgroundShader = elem->Attribute("backgroundShader");
+
+            if (elem->Attribute("foregroundShader"))
+                foregroundShader = elem->Attribute("foregroundShader");
+
+            if (elem->Attribute("music"))
+                music = elem->Attribute("music");
         }
 
         if (elemName == "widget")

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" background="gui-dialog-background-488x308"/>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="gui-dialog-background-488x308" backgroundFullscreenShader="disable"/>
     <widget name="question" type="text" xCenter="244" yCenter="50" allText="new-game-title" textSize="24" textFont="dayroman"/>
     <widget name="answer" type = "input-field" xCenter="244" yCenter="120" width="356" height="46" allBackground="gui-input-field-background-356x46" textSize="18" textFont="dayroman"/>
     <widget name="button-back" type="button" xTopLeft="20" yTopLeft="242" width="156" height="46" allBackground="gui-button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>

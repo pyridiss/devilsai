@@ -48,7 +48,11 @@ class Window
         bool xCenterOfScreen = false, yCenterOfScreen = false;
         int width = 0, height = 0;
 
-        string background;
+        string backgroundImage;
+        string backgroundFullscreenShader;
+        string backgroundShader;
+        string foregroundShader;
+        string music;
 
     public:
         Window() = default;
