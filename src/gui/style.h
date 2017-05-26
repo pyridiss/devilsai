@@ -46,6 +46,7 @@ void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
 void highlightShader(RenderWindow& app, int x, int y, int w, int h);
 void disableShader(RenderWindow& app, int x, int y, int w, int h);
 void warnShader(RenderWindow& app, int x, int y, int w, int h);
+void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h);
 
 } //namespace style
 

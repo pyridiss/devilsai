@@ -154,6 +154,18 @@ void warnShader(RenderWindow& app, int x, int y, int w, int h)
     useContrastShader(app, x, y, w, h, 1.f + 0.25f*sin(time), 0.75f, 0.75f);
 }
 
+void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h)
+{
+    if (shader == "textBackground")
+        textBackgroundShader(app, x, y, w, h);
+    else if (shader == "highlight")
+        highlightShader(app, x, y, w, h);
+    else if (shader == "disable")
+        disableShader(app, x, y, w, h);
+    else if (shader == "warn")
+        warnShader(app, x, y, w, h);
+}
+
 } //namespace style
 
 } //namespace gui
