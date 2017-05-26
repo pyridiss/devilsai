@@ -18,6 +18,7 @@
 */
 
 #include <map>
+#include <sstream>
 
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
@@ -46,6 +47,10 @@ DicoSauvegardes Sauvegardes;
 void AjouterSauvegarde()
 {
 	Sauvegarde Save;
+
+    stringstream stream; stream << time(NULL);
+    Partie.SAVE = stream.str();
+    tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
 
 	Save.Dossier = Partie.SAVE;
 	Save.Nom = Partie.perso->Nom;

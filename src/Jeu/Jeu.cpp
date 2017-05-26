@@ -17,8 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <sstream>
-
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
@@ -229,9 +227,6 @@ void mainLoop()
                 Load_Chapitre(1);
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
-                stringstream stream; stream << time(NULL);
-                Partie.SAVE = stream.str();
-                tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
                 musicManager::playMusic(Partie.CarteCourante->ambience);
                 isInGame = true;
                 managementActivated = true;
@@ -244,9 +239,6 @@ void mainLoop()
                 Load_Chapitre(0);
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
-                stringstream stream; stream << time(NULL);
-                Partie.SAVE = stream.str();
-                tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
                 musicManager::playMusic(Partie.CarteCourante->ambience);
                 isInGame = true;
                 managementActivated = true;
