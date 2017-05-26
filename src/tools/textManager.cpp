@@ -25,8 +25,6 @@
 #include "tools/debug.h"
 #include "tools/textManager.h"
 
-#include "Bibliotheque/Templates.h"
-
 #include "config.h"
 
 using namespace tinyxml2;
@@ -40,6 +38,21 @@ typedef map < string, Container > Database;
 
 Database texts;
 String32 emptyString;
+
+
+template <class charT, class Traits>
+basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, String32 &str)
+{
+	typename basic_istream<charT, Traits>::sentry init(flux);
+	if (init)
+	{
+		string Buffer;
+		getline(flux, Buffer);
+		str.clear();
+		Utf8::toUtf32(Buffer.begin(), Buffer.end(), back_inserter(str));
+	}
+	return flux;
+}
 
 void loadFile(string container, string path)
 {
