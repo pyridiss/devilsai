@@ -161,42 +161,6 @@ void setStringToLUA(lua_State* L, string fct, string value)
 	}
 }
 
-void DialogueEtGestionEvenements(string fichier)
-{
-	Dialog Intro;
-	Intro.load(fichier.c_str());
-
-	bool FinDialogue = false;
-
-	while (!FinDialogue)
-	{
-		Jeu.App.clear();
-
-		Disp_FondMenus();
-
-		FinDialogue = Intro.display();
-
-        tools::timeManager::frameDone();
-		Jeu.App.display();
-
-		Event event;
-
-		while (Jeu.App.pollEvent(event))
-		{
-			if (event.type == Event::KeyReleased)
-			{
-				switch (event.key.code)
-				{
-					case Keyboard::Escape :	FinDialogue = true; break;
-					default :				break;
-				}
-			}
-			if (event.type == Event::Closed) FinDialogue = true;
-		}
-	}
-
-}
-
 double ToSegment(double x, int min, int max)
 {
 	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
