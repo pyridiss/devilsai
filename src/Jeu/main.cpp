@@ -168,7 +168,6 @@ int main(int n, char *params[])
 
     gui::style::initStyle();
 
-	Jeu.Cardinal.loadFromFile(INSTALL_DIR + "Cardinal.ttf");
 	Jeu.DayRoman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
 	Load_Decorations();
 	MESSAGE("Décorations chargées", FICHIER)

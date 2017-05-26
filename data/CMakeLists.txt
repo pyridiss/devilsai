@@ -15,7 +15,6 @@ add_subdirectory(sound)
 set(data
     LiberationSans-Regular.ttf
     LiberationSans-Bold.ttf
-    Cardinal.ttf
     DayRoman.ttf
     defaut.opt
     devilsai.png
