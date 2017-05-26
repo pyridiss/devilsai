@@ -155,6 +155,8 @@ void mainLoop()
 
     loadingWindow.startWindow(Jeu.App);
 
+    musicManager::playMusic("Gates_Of_Heaven");
+
 	while (true)
 	{
         //1. Events & Signals
@@ -188,6 +190,7 @@ void mainLoop()
         {
             if (signal.first == "main-menu")
             {
+                musicManager::playMusic("Gates_Of_Heaven");
                 isInGame = false;
                 managementActivated = false;
             }

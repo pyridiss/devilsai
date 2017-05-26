@@ -25,6 +25,8 @@
 
 #include "imageManager/imageManager.h"
 
+#include "musicManager/musicManager.h"
+
 #include "gui/window.h"
 #include "gui/textWidget.h"
 #include "gui/button.h"
@@ -141,6 +143,7 @@ void Window::manage(RenderWindow& app)
         display(app);
         tools::timeManager::frameDone();
         app.display();
+        musicManager::manageRunningMusics();
     }
 }
 

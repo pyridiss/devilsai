@@ -24,7 +24,6 @@
 #include "gui/style.h"
 #include "tools/debug.h"
 #include "tools/timeManager.h"
-#include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -184,8 +183,6 @@ int main(int n, char *params[])
 
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");
-
-    musicManager::playMusic("Gates_Of_Heaven");
 
     mainLoop();
     Clean_Partie();
