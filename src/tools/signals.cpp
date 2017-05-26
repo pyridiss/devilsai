@@ -17,9 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
-#include <fstream>
-
 #include "tools/signals.h"
 
 namespace tools{
