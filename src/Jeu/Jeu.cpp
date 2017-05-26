@@ -209,14 +209,12 @@ void mainLoop()
 
             if (signal.first == "player-dead")
             {
-                playerDeadWindow.startWindow(Jeu.App);
                 playerDeadWindow.manage(Jeu.App);
                 Clean_Partie();
             }
 
             if (signal.first == "new-game")
             {
-                newGameWindow.startWindow(Jeu.App);
                 newGameWindow.manage(Jeu.App);
             }
 
@@ -260,13 +258,11 @@ void mainLoop()
 
             if (signal.first == "ask-menu")
             {
-                ingameMenuWindow.startWindow(Jeu.App);
                 ingameMenuWindow.manage(Jeu.App);
             }
 
             if (signal.first == "ask-exit")
             {
-                confirmExitGameWindow.startWindow(Jeu.App);
                 confirmExitGameWindow.manage(Jeu.App);
             }
 
@@ -281,7 +277,6 @@ void mainLoop()
 
         if (!isInGame)
         {
-            mainMenuWindow.startWindow(Jeu.App);
             mainMenuWindow.manage(Jeu.App);
             continue;
         }

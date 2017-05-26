@@ -130,6 +130,8 @@ void Window::display(RenderWindow& app)
 
 void Window::manage(RenderWindow& app)
 {
+    startWindow(app);
+
     gui::style::disableShader(app, 0, 0, app.getSize().x, app.getSize().y);
 
     while (!exitWindow)
