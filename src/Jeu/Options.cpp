@@ -19,6 +19,7 @@
 
 #include <fstream>
 
+#include "tools/signals.h"
 #include "tools/filesystem.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
@@ -247,6 +248,8 @@ void EcranOptions()
 	}
 
 	Save_Options();
+
+    tools::signals::addSignal("main-menu");
 
 	return;
 }

@@ -180,7 +180,7 @@ void Gestion_Menu(Event &event)
     if (menuButton->activated(Jeu.App, event))
         tools::signals::addSignal("ask-menu");
 
-    if (Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
+    if (Partie.perso != NULL && Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
     else restingButton->setDisabled(false);
 
     if (restingButton->activated(Jeu.App, event))

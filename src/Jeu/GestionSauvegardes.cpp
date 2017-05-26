@@ -20,6 +20,7 @@
 #include <map>
 #include <sstream>
 
+#include "tools/signals.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 
@@ -172,6 +173,7 @@ void PasDeSauvegarde()
 		{
             if (mainMenuButton.activated(Jeu.App, event))
             {
+                tools::signals::addSignal("main-menu");
                 return;
             }
 
@@ -179,12 +181,17 @@ void PasDeSauvegarde()
 			{
 				switch (event.key.code)
 				{
-					case Keyboard::Escape : return;
+					case Keyboard::Escape :
+                        tools::signals::addSignal("main-menu");
+                        return;
 					default: break;
 				}
 			}
 			if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
+            {
+                tools::signals::addSignal("exit");
 				return;
+            }
 		}
 
 		//Affichage :

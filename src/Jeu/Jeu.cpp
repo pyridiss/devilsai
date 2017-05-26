@@ -111,6 +111,7 @@ bool PartieSauvegardee()
 	if (Partie.SAVE == "ANNULER")
 	{
 		Partie.SAVE = "";
+        tools::signals::addSignal("main-menu");
 		return false;
 	}
 
@@ -136,7 +137,6 @@ void mainLoop()
 	float SauvegardeEffectuee = 255;
 
     bool managementActivated = false;
-    bool isInGame = false;
     bool playerResting = false;
 
 	String32 NomLieu;
@@ -150,14 +150,14 @@ void mainLoop()
 
     loadingWindow.startWindow(Jeu.App);
 
-    musicManager::playMusic("Gates_Of_Heaven");
+    tools::signals::addSignal("main-menu");
 
 	while (true)
 	{
         //1. Events & Signals
 
         Event event;
-        while (isInGame && Jeu.App.pollEvent(event))
+        while (Jeu.App.pollEvent(event))
         {
             Gestion_Menu(event);
 
@@ -186,7 +186,7 @@ void mainLoop()
             if (signal.first == "main-menu")
             {
                 musicManager::playMusic("Gates_Of_Heaven");
-                isInGame = false;
+                mainMenuWindow.manage(Jeu.App);
                 managementActivated = false;
             }
 
@@ -226,7 +226,6 @@ void mainLoop()
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
                 musicManager::playMusic(Partie.CarteCourante->ambience);
-                isInGame = true;
                 managementActivated = true;
             }
 
@@ -238,7 +237,6 @@ void mainLoop()
                 RechercheJoueur();
                 Partie.perso->Nom = signal.second.String32Data;
                 musicManager::playMusic(Partie.CarteCourante->ambience);
-                isInGame = true;
                 managementActivated = true;
             }
 
@@ -246,7 +244,6 @@ void mainLoop()
             {
                 if (PartieSauvegardee())
                 {
-                    isInGame = true;
                     managementActivated = true;
                 }
             }
@@ -275,15 +272,8 @@ void mainLoop()
             signal = tools::signals::getNextSignal();
         }
 
-        if (!isInGame)
-        {
-            mainMenuWindow.manage(Jeu.App);
-            continue;
-        }
-
         if (Partie.CarteCourante == NULL)
         {
-            isInGame = false;
             managementActivated = false;
             continue;
         }
