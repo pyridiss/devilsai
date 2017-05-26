@@ -173,7 +173,6 @@ void PasDeSauvegarde()
 		{
             if (mainMenuButton.activated(Jeu.App, event))
             {
-                tools::signals::addSignal("main-menu");
                 return;
             }
 
@@ -182,7 +181,6 @@ void PasDeSauvegarde()
 				switch (event.key.code)
 				{
 					case Keyboard::Escape :
-                        tools::signals::addSignal("main-menu");
                         return;
 					default: break;
 				}
