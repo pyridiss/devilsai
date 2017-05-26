@@ -258,14 +258,14 @@ void Window::loadFromFile(string path, RenderWindow& app)
 
         if (elemName == "widget")
         {
-            string name = elem->Attribute("name");
+            string widgetName = elem->Attribute("name");
             string type = elem->Attribute("type");
             Widget* widget = nullptr;
             if (type == "text")         widget = new TextWidget();
             if (type == "button")       widget = new Button();
             if (type == "input-field")  widget = new InputField();
 
-            widgets.insert(map<string, Widget*>::value_type(name, widget));
+            widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
             if (elem->Attribute("xTopLeft"))
             {
@@ -307,6 +307,40 @@ void Window::loadFromFile(string path, RenderWindow& app)
             string font;
             if (elem->Attribute("textFont")) font = elem->Attribute("textFont");
             widget->setTextFont(gui::style::fontFromString(font), textSize);
+
+            XMLHandle hdl2(elem);
+            XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
+            while (elem2)
+            {
+                string elem2Name = elem2->Name();
+
+                if (elem2Name == "state")
+                {
+                    string stateName = elem2->Attribute("name");
+                    widget->addState(stateName);
+
+                    if (elem2->Attribute("text"))
+                    {
+                        string t = elem2->Attribute("text");
+                        widget->setText(stateName, tools::textManager::getText("devilsai", t));
+                    }
+
+                    if (elem2->Attribute("backgroundShader"))
+                    {
+                        string s = elem2->Attribute("backgroundShader");
+                        widget->setBackgroundShader(stateName, s);
+                    }
+
+                    if (elem2->Attribute("foregroundShader"))
+                    {
+                        string s = elem2->Attribute("foregroundShader");
+                        widget->setForegroundShader(stateName, s);
+                    }
+                }
+
+                elem2 = elem2->NextSiblingElement();
+            }
+
         }
 
         if (elemName == "signal")
