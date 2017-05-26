@@ -36,32 +36,15 @@ HSL::HSL() : hue(0), saturation(0), luminance(0)
 
 HSL::HSL(int h, int s, int l)
 {
-    //Range control for hue.
-    if (h <= 360 && h >= 0) hue = h;
-    else
-    {
-        if(h > 360) hue = h%360;
-        else if(h < 0 && h > -360) hue = -h;
-        else if(h < 0 && h < -360) hue = -(h%360);
-    }
+    //Range control for hue, saturation and luminance.
+    hue = min(360, h);
+    hue = max(hue, 0.0);
 
-    //Range control for saturation.
-    if (s <= 100 && s >= 0) saturation = s;
-    else
-    {
-        if(s > 100) saturation = s%100;
-        else if(s < 0 && s > -100) saturation = -s;
-        else if(s < 0 && s < -100) saturation = -(s%100);
-    }
+    saturation = min(100, s);
+    saturation = max(saturation, 0.0);
 
-    //Range control for luminance
-    if (l <= 100 && l >= 0) luminance = l;
-    else
-    {
-        if(l > 100) luminance = l%100;
-        if(l < 0 && l > -100) luminance = -l;
-        if(l < 0 && l < -100) luminance = -(l%100);
-    }
+    luminance = min(100, l);
+    luminance = max(luminance, 0.0);
 }
 
 double HSL::hueToRGB(double arg1, double arg2, double h)
@@ -81,8 +64,6 @@ sf::Color HSL::turnToRGB()
     double S = saturation/100.0;
     double L = luminance/100.0;
 
-    float arg1, arg2;
-
     if (S <= D_EPSILON)
     {
         sf::Color C(L*255, L*255, L*255);
@@ -90,9 +71,10 @@ sf::Color HSL::turnToRGB()
     }
     else
     {
-        if ( L < 0.5 ) { arg2 = L * ( 1 + S ); }
+        double arg1, arg2;
+        if ( L < 0.5 ) { arg2 = L * ( 1.0 + S ); }
         else { arg2 = ( L + S ) - ( S * L ); }
-        arg1 = 2 * L - arg2;
+        arg1 = 2.0 * L - arg2;
 
         sf::Uint8 r =( 255 * hueToRGB( arg1, arg2, (H + 1.0/3.0 ) ) );
         sf::Uint8 g =( 255 * hueToRGB( arg1, arg2, H ) );
@@ -142,6 +124,7 @@ HSL turnToHSL(const sf::Color& C)
 
     HSL A;
     l = ((max + min)/2.0);
+    s = 0;
 
     if (max - min <= D_EPSILON )
     {
@@ -166,7 +149,7 @@ HSL turnToHSL(const sf::Color& C)
         else if ( max - G <= D_EPSILON ) { A.hue = (1*360)/3.0 + (diffR - diffB); }
         else if ( max - B <= D_EPSILON ) { A.hue = (2*360)/3.0 + (diffG - diffR); }
 
-        if (A.hue <= 0 || A.hue >= 360) { fmod(A.hue, 360); }
+        if (A.hue <= 0 || A.hue >= 360) { A.hue = fmod(A.hue, 360); }
 
         s *= 100;
     }
