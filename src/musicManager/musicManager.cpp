@@ -108,7 +108,11 @@ void playMusic(string musicID)
 	//First, we check if no other music is running
 	for (auto& i : musics)
 	{
-		if (i.second.getMusicState() == Basic_Music::Running) i.second.fadeOut();
+		if (i.second.getMusicState() == Basic_Music::Running)
+        {
+            if (i.first == musicID) return; //Music is already running
+            i.second.fadeOut();
+        }
 	}
 
 	MusicClass::iterator i = musics.find(musicID);
