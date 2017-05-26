@@ -44,10 +44,6 @@ en= < Main menu
 xx= ...
 # Catégorie : Menus
 # #################
-* MENUPRINCIPAL_NOUVEAU	200
-fr= Nouveau Jeu
-en= New Game
-xx= ...
 * MENUPRINCIPAL_CHARGER	201
 fr= Charger une Partie Sauvegardée
 en= Load a Saved Game
@@ -104,10 +100,6 @@ en= The resolution requested is incompatible with your computer
 xx= ...
 # Catégorie : Écran de jeu
 # ########################
-* PERSONNAGE	400
-fr= Personnage
-en= Character
-xx= ...
 * SANTE1	401
 fr= Bonne santé
 en= Good health
