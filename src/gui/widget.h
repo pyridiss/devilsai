@@ -46,6 +46,8 @@ class Widget
             string background;
             void (*backgroundShader)(RenderWindow&, int, int, int, int) = nullptr;
             void (*foregroundShader)(RenderWindow&, int, int, int, int) = nullptr;
+            string bShader;
+            string fShader;
         };
 
     protected:
@@ -85,6 +87,8 @@ class Widget
         void setBackground(string state, string b);
         void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
+        void setBackgroundShader(string state, string s);
+        void setForegroundShader(string state, string s);
 
         void updateTextPosition();
         void updateSize();

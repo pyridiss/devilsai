@@ -63,11 +63,15 @@ void TextWidget::display(RenderWindow& app)
 
     if (state->second.backgroundShader != nullptr)
         state->second.backgroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
+    else if (!state->second.bShader.empty())
+        gui::style::displayShader(app, state->second.bShader, getXTopLeft(), getYTopLeft(), width, height);
 
     app.draw(state->second.text);
 
     if (state->second.foregroundShader != nullptr)
         state->second.foregroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
+    else if (!state->second.fShader.empty())
+        gui::style::displayShader(app, state->second.fShader, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui

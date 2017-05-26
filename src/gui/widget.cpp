@@ -160,6 +160,16 @@ void Widget::setForegroundShader(string state, void (*s)(RenderWindow&, int, int
     states.find(state)->second.foregroundShader = s;
 }
 
+void Widget::setBackgroundShader(string state, string s)
+{
+    states.find(state)->second.bShader = s;
+}
+
+void Widget::setForegroundShader(string state, string s)
+{
+    states.find(state)->second.fShader = s;
+}
+
 void Widget::updateTextPosition()
 {
     for (auto& state : states)
