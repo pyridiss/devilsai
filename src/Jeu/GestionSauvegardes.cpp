@@ -262,8 +262,8 @@ string ChoixSauvegarde()
 
     if (NombreSauvegardesDisponibles() <= 1)
     {
-        previousButton.setDisabled(true);
-        nextButton.setDisabled(true);
+        previousButton.setCurrentState("disabled");
+        nextButton.setCurrentState("disabled");
     }
 
 	string path = "";
@@ -279,9 +279,9 @@ string ChoixSauvegarde()
 		while (Jeu.App.pollEvent(event))
 		{
             if (SauvegardeCompatible)
-                startGameButton.setDisabled(false);
+                startGameButton.setCurrentState("normal");
             else
-                startGameButton.setDisabled(true);
+                startGameButton.setCurrentState("normal");
 
             if (previousButton.activated(Jeu.App, event))
             {

@@ -69,8 +69,8 @@ class Widget
         void setOriginCoordinates(int x, int y);
         void setSize(int w, int h);
 
-        void setDisabled(bool d);
-        void setActive(bool a);
+        void addState(string state);
+        void setCurrentState(string state);
 
         int getXTopLeft();
         int getYTopLeft();

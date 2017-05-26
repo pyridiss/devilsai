@@ -25,9 +25,7 @@ namespace gui{
 
 TextWidget::TextWidget()
 {
-    minimalistWidget w;
-
-    states.insert(map<string,minimalistWidget>::value_type("normal", w));
+    addState("normal");
 
     setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
 

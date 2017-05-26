@@ -26,12 +26,10 @@ namespace gui{
 
 Button::Button()
 {
-    minimalistWidget w;
-
-    states.insert(map<string,minimalistWidget>::value_type("normal", w));
-    states.insert(map<string,minimalistWidget>::value_type("active", w));
-    states.insert(map<string,minimalistWidget>::value_type("hover", w));
-    states.insert(map<string,minimalistWidget>::value_type("disabled", w));
+    addState("normal");
+    addState("active");
+    addState("hover");
+    addState("disabled");
 
     setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
 

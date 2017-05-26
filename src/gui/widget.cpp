@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/debug.h"
 #include "gui/widget.h"
 #include "gui/style.h"
 
@@ -50,16 +51,20 @@ void Widget::setSize(int w, int h)
     height = h;
 }
 
-void Widget::setDisabled(bool d)
+void Widget::addState(string state)
 {
-    if (d) currentState = "disabled";
-    else if (currentState == "disabled") currentState = "normal";
+    states.emplace(state, minimalistWidget());
 }
 
-void Widget::setActive(bool a)
+void Widget::setCurrentState(string state)
 {
-    if (a) currentState = "active";
-    else if (currentState == "active") currentState = "normal";
+    if (states.find(state) == states.end())
+    {
+        tools::debug::warning("gui", "An unknown state (" + state + ") has been asked to a widget; aborting.");
+        return;
+    }
+
+    currentState = state;
 }
 
 int Widget::getXTopLeft()
