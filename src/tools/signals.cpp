@@ -24,6 +24,8 @@ namespace tools{
 namespace signals{
 
 list<Signal> signals;
+list<SignalListener*> listeners;
+
 Signal emptySignal;
 
 SignalData::SignalData()
@@ -35,8 +37,22 @@ SignalData::SignalData()
     String32Data.clear();
 }
 
+void registerListener(SignalListener* l)
+{
+    listeners.push_back(l);
+}
+
 void addSignal(string s, SignalData d)
 {
+    for (auto& l : listeners)
+    {
+        if (l->signal == s)
+        {
+            l->signalSent = true;
+            return;
+        }
+    }
+
     signals.push_back(Signal(s, d));
 }
 

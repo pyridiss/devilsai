@@ -48,8 +48,15 @@ struct SignalData
     SignalData& operator=(const SignalData&) = default;
 };
 
+struct SignalListener
+{
+    string signal;
+    bool signalSent = false;
+};
+
 typedef pair < string , SignalData > Signal;
 
+void registerListener(SignalListener* l);
 void addSignal(string s, SignalData d = SignalData());
 Signal& getNextSignal();
 void removeSignal();
