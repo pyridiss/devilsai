@@ -40,6 +40,7 @@ class Window
         map < string, Widget* > widgets;
         list < tuple<string, string, string> > signals;
         list < string > exitWindowSignals;
+        list < tuple<tools::signals::SignalListener, string, string> > signalListeners;
 
         bool exitWindow = false;
 

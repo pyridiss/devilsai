@@ -120,6 +120,19 @@ void Window::startWindow(RenderWindow& app)
 
 void Window::display(RenderWindow& app)
 {
+    for (auto& l : signalListeners)
+    {
+        if (get<0>(l).signalSent)
+        {
+            auto i = widgets.find(get<1>(l));
+            if (i != widgets.end())
+            {
+                i->second->setCurrentState(get<2>(l));
+                get<0>(l).signalSent = false;
+            }
+        }
+    }
+
     imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
 
     for (auto& widget : widgets)
@@ -353,6 +366,18 @@ void Window::loadFromFile(string path, RenderWindow& app)
                 dataProvider = elem->Attribute("dataProvider");
 
             signals.push_back(tuple<string, string, string>(emitter, signal, dataProvider));
+        }
+
+        if (elemName == "signalListener")
+        {
+            string signal = elem->Attribute("signal");
+            string widget = elem->Attribute("widget");
+            string state = elem->Attribute("state");
+
+            tools::signals::SignalListener l;
+            l.signal = signal;
+            signalListeners.push_back(tuple<tools::signals::SignalListener, string, string>(l, widget, state));
+            tools::signals::registerListener(&(get<0>(signalListeners.back())));
         }
 
         if (elemName == "exitWindowSignal")
