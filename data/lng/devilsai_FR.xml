@@ -16,4 +16,7 @@
     <text id="new-game-tutorial">Tutoriel</text>
     <text id="new-game-chapter1">Chapitre 1</text>
     <text id="new-game-back">Retour</text>
+    <text id="player-dead-text">Vous êtes mort !</text>
+    <text id="player-dead-main-menu">Menu principal</text>
+    <text id="player-dead-load-game">Charger une partie</text>
 </texts>

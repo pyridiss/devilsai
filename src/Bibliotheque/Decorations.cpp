@@ -512,16 +512,6 @@ void Disp_Information(enumPhrases info, bool reactiver)
 	}
 }
 
-void Disp_Mort()
-{
-	static RectangleShape Fond(Vector2f(Options.ScreenW, Options.ScreenH));
-	//Peut-être moduler la couleur…
-	Fond.setFillColor(Color(200, 0, 0, 128));
-	Jeu.App.draw(Fond);
-	Disp_TexteCentre(_AFFICHAGE_MORT, Options.ScreenW/2, 280, Color(255,255,255,255), 40., Jeu.DayRoman);
-	Disp_TexteCentre(_RETOUR_MENU_ENTREE, Options.ScreenW/2, 320, Color(255,255,255,255), 18.);
-}
-
 void Disp_FonduNoir(int Commande)
 {
 	static float Avancement = 0;

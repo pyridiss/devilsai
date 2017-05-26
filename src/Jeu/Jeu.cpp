@@ -143,7 +143,6 @@ void mainLoop()
     bool managementActivated = false;
     bool isInGame = false;
     bool playerResting = false;
-    bool playerDead = false;
 
 	String32 NomLieu;
 
@@ -152,6 +151,7 @@ void mainLoop()
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
     gui::Window loadingWindow("gui/loading.xml", Jeu.App);
+    gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
 
     loadingWindow.startWindow(Jeu.App);
 
@@ -181,14 +181,17 @@ void mainLoop()
 
             if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 return;
-
-            if (playerDead && Keyboard::isKeyPressed(Keyboard::Return))
-                return;
         }
 
         tools::signals::Signal signal = tools::signals::getNextSignal();
         while (signal.first != "")
         {
+            if (signal.first == "main-menu")
+            {
+                isInGame = false;
+                managementActivated = false;
+            }
+
             if (signal.first == "savegame")
             {
                 Partie.currentUserScreen = nullptr;
@@ -208,7 +211,9 @@ void mainLoop()
 
             if (signal.first == "player-dead")
             {
-                playerDead = true;
+                playerDeadWindow.startWindow(Jeu.App);
+                playerDeadWindow.manage(Jeu.App);
+                Clean_Partie();
             }
 
             if (signal.first == "new-game")
@@ -289,6 +294,13 @@ void mainLoop()
             continue;
         }
 
+        if (Partie.CarteCourante == NULL)
+        {
+            isInGame = false;
+            managementActivated = false;
+            continue;
+        }
+
         //2. Management
 
         if (managementActivated)
@@ -322,11 +334,6 @@ void mainLoop()
                 playerResting = false;
                 managementActivated = true;
             }
-        }
-
-        if (playerDead)
-        {
-            Disp_Mort();
         }
 
         Disp_FPS();

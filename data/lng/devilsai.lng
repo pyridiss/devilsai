@@ -38,14 +38,6 @@ xx= ...
 fr= Sauvegarde effectuée
 en= Game saved
 xx= ...
-* AFFICHAGE_MORT	111
-fr= Vous êtes mort !
-en= You are dead !
-xx= ...
-* RETOUR_MENU_ENTREE	112
-fr= Appuyer sur Entrée pour revenir au menu principal
-en= Press Enter to return to the main menu
-xx= ...
 * RETOUR_MENU 114
 fr= < Menu principal
 en= < Main menu

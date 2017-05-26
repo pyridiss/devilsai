@@ -49,8 +49,6 @@ enum enumPhrases{
 	_SAUVEGARDE_VERSION,
 	_VERSION_INCOMPATIBLE,
 	_SAUVEGARDE = 110,
-	_AFFICHAGE_MORT,
-	_RETOUR_MENU_ENTREE,
 	_RETOUR_MENU = 114,
 	_MENUPRINCIPAL_CHARGER = 201,
 	_MENUPRINCIPAL_OPTIONS,
@@ -239,7 +237,6 @@ void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles();
 void SupprimerLignesConsoles();
 void Disp_Information(enumPhrases, bool);
-void Disp_Mort();
 void Disp_FonduNoir(int);
 bool Disp_Repos();
 
