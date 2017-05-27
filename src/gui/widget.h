@@ -30,6 +30,7 @@
 
 #include "tools/signals.h"
 
+#include "imageManager/imageManager.h"
 using namespace std;
 using namespace sf;
 
@@ -97,7 +98,8 @@ class Widget
         virtual bool activated(RenderWindow& app, Event event) = 0;
 
         virtual void setData(tools::signals::SignalData& data) = 0;
-        virtual void display(RenderWindow& app) = 0;
+
+        virtual void display(RenderWindow& app);
 };
 
 } //namespace gui

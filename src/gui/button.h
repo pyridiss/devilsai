@@ -45,8 +45,6 @@ class Button : public Widget
         bool activated(RenderWindow& app, Event event);
 
         void setData(tools::signals::SignalData& data);
-
-        void display(RenderWindow& app);
 };
 
 } //namespace gui

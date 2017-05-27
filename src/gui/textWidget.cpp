@@ -19,7 +19,6 @@
 
 #include "gui/textWidget.h"
 #include "gui/style.h"
-#include "imageManager/imageManager.h"
 
 namespace gui{
 
@@ -50,26 +49,6 @@ bool TextWidget::activated(RenderWindow& app, Event event)
 
 void TextWidget::setData(tools::signals::SignalData& data)
 {
-}
-
-void TextWidget::display(RenderWindow& app)
-{
-    const auto& state = states.find("normal");
-
-    if (!state->second.background.empty())
-        imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
-
-    if (state->second.backgroundShader != nullptr)
-        state->second.backgroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
-    else if (!state->second.bShader.empty())
-        gui::style::displayShader(app, state->second.bShader, getXTopLeft(), getYTopLeft(), width, height);
-
-    app.draw(state->second.text);
-
-    if (state->second.foregroundShader != nullptr)
-        state->second.foregroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
-    else if (!state->second.fShader.empty())
-        gui::style::displayShader(app, state->second.fShader, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui

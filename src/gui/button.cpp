@@ -19,7 +19,6 @@
 
 #include "gui/button.h"
 #include "gui/style.h"
-#include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"
 
 namespace gui{
@@ -119,26 +118,6 @@ bool Button::activated(RenderWindow& app, Event event)
 
 void Button::setData(tools::signals::SignalData& data)
 {
-}
-
-void Button::display(RenderWindow& app)
-{
-    const auto& state = states.find(currentState);
-
-    if (!state->second.background.empty())
-        imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
-
-    if (state->second.backgroundShader != nullptr)
-        state->second.backgroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
-    else if (!state->second.bShader.empty())
-        gui::style::displayShader(app, state->second.bShader, getXTopLeft(), getYTopLeft(), width, height);
-
-    app.draw(state->second.text);
-
-    if (state->second.foregroundShader != nullptr)
-        state->second.foregroundShader(app, getXTopLeft(), getYTopLeft(), width, height);
-    else if (!state->second.fShader.empty())
-        gui::style::displayShader(app, state->second.fShader, getXTopLeft(), getYTopLeft(), width, height);
 }
 
 } //namespace gui
