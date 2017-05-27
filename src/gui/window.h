@@ -39,6 +39,7 @@ class Window
     private:
         map < string, Widget* > widgets;
         list < tuple<string, string, string> > signals;
+        list < pair<int, string> > keyboardSignals;
         list < string > exitWindowSignals;
         list < tuple<tools::signals::SignalListener, string, string> > signalListeners;
 

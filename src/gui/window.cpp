@@ -200,6 +200,12 @@ void Window::manage(RenderWindow& app, Event &event)
             }
         }
     }
+
+    if (event.type == Event::KeyReleased)
+        for (auto& k : keyboardSignals)
+        {
+            if (event.key.code == k.first) tools::signals::addSignal(k.second);
+        }
 }
 
 void Window::loadFromFile(string path, RenderWindow& app)
@@ -366,6 +372,15 @@ void Window::loadFromFile(string path, RenderWindow& app)
                 dataProvider = elem->Attribute("dataProvider");
 
             signals.push_back(tuple<string, string, string>(emitter, signal, dataProvider));
+        }
+
+        if (elemName == "keyboardSignal")
+        {
+            int key = 0;
+            elem->QueryAttribute("key", &key);
+            string signal = elem->Attribute("signal");
+
+            keyboardSignals.push_back(pair<int, string>(key, signal));
         }
 
         if (elemName == "signalListener")
