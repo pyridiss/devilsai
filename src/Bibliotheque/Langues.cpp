@@ -20,6 +20,7 @@
 #include <fstream>
 #include <map>
 
+#include "tools/signals.h"
 #include "tools/timeManager.h"
 
 #include "../Jeu/Jeu.h"
@@ -465,7 +466,7 @@ void Journal::addEntry(string _ref)
 
 	cutParagraph(&entry);
 
-	newEntryAdded = true;
+    tools::signals::addSignal("ingame-toolbar:warn-journal");
 
 	fileStream.close();
 }
@@ -483,8 +484,6 @@ void Journal::setDone(string _ref)
 void displayJournal()
 {
 	if (Partie.journal.entries.empty()) return;
-
-	Partie.journal.newEntryAdded = false;
 
     gui::style::textBackgroundShader(Jeu.App, 10, 170, Options.ScreenW / 2 - 20, Options.ScreenH - 170 - 10);
 

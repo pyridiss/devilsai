@@ -145,9 +145,11 @@ void mainLoop()
     gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
+    gui::Window ingameToolbar("gui/ingame-toolbar.xml", Jeu.App);
     gui::Window loadingWindow("gui/loading.xml", Jeu.App);
     gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
 
+    ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
 
     tools::signals::addSignal("main-menu");
@@ -159,22 +161,10 @@ void mainLoop()
         Event event;
         while (Jeu.App.pollEvent(event))
         {
-            Gestion_Menu(event);
+            ingameToolbar.manage(Jeu.App, event);
 
             if (Partie.currentUserScreen != nullptr && Partie.currentUserScreen->manageFunction != nullptr)
                 Partie.currentUserScreen->manageFunction(event);
-
-            if (event.type == Event::KeyReleased)
-            {
-                switch (event.key.code)
-                {
-                    case Keyboard::M : tools::signals::addSignal("ask-menu"); break;
-                    case Keyboard::S : tools::signals::addSignal("savegame"); break;
-                    case Keyboard::R : tools::signals::addSignal("rest"); break;
-                    case Keyboard::Q : tools::signals::addSignal("ask-exit"); break;
-                    default : break;
-                }
-            }
 
             if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 return;
@@ -257,6 +247,27 @@ void mainLoop()
                 ingameMenuWindow.manage(Jeu.App);
             }
 
+            if (signal.first == "screen-character")
+            {
+                Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+            }
+
+            if (signal.first == "screen-equipment")
+            {
+                Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+            }
+
+            if (signal.first == "screen-skills")
+            {
+                Partie.changeCurrentUserScreen(&Partie.screenSkills);
+            }
+
+            if (signal.first == "screen-journal")
+            {
+                Partie.changeCurrentUserScreen(&Partie.screenJournal);
+                tools::signals::addSignal("ingame-toolbar:remove-warn-journal");
+            }
+
             if (signal.first == "ask-exit")
             {
                 confirmExitGameWindow.manage(Jeu.App);
@@ -295,6 +306,8 @@ void mainLoop()
             Disp_Consoles();
         }
 
+        ingameToolbar.display(Jeu.App);
+
         if (Partie.currentUserScreen != NULL)
             Partie.currentUserScreen->dispFunction();
         else
@@ -322,6 +335,11 @@ void mainLoop()
 
 		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu)
 		{
+            if (Partie.perso->LieuVillage != "village")
+                tools::signals::addSignal("ingame-toolbar:disable-rest");
+            else
+                tools::signals::addSignal("ingame-toolbar:enable-rest");
+
 			ChangementLieu = 254;
 			NomLieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
 			Partie.perso->SauvegardeIndiceLieu = Partie.perso->IndiceLieu;

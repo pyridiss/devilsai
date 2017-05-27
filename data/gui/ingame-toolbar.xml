@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <properties xTopLeft="0" yTopLeft="0" width="800" height="50"/>
+    <widget name="button-ingame-menu" type="button" xTopLeft="10" yTopLeft="2" width="41" height="41" allBackground="gui-menu-button">
+        <state name="hover" foregroundShader="hightlight"/>
+    </widget>
+    <widget name="button-character" type="button" xTopLeft="60" yTopLeft="2" width="41" height="41" allBackground="BoutonPersonnage">
+        <state name="hover" foregroundShader="highlight"/>
+    </widget>
+    <widget name="button-equipment" type="button" xTopLeft="110" yTopLeft="2" width="41" height="41" allBackground="BoutonEquipement">
+        <state name="hover" foregroundShader="highlight"/>
+    </widget>
+    <widget name="button-skills" type="button" xTopLeft="160" yTopLeft="2" width="41" height="41" allBackground="BoutonCompetences">
+        <state name="hover" foregroundShader="highlight"/>
+    </widget>
+    <widget name="button-journal" type="button" xTopLeft="210" yTopLeft="2" width="41" height="41" allBackground="BoutonJournal">
+        <state name="hover" foregroundShader="highlight"/>
+    </widget>
+    <widget name="warn-journal" type="text" xTopLeft="210" yTopLeft="2" width="41" height="41">
+        <state name="warn" foregroundShader="warn"/>
+    </widget>
+    <widget name="button-rest" type="button" xTopLeft="260" yTopLeft="2" width="41" height="41" allBackground="gui-rest-button">
+        <state name="hover" foregroundShader="highlight"/>
+        <state name="disabled" foregroundShader="disable"/>
+    </widget>
+    <signal emitter="button-ingame-menu" signal="ask-menu"/>
+    <signal emitter="button-character" signal="screen-character"/>
+    <signal emitter="button-equipment" signal="screen-equipment"/>
+    <signal emitter="button-skills" signal="screen-skills"/>
+    <signal emitter="button-journal" signal="screen-journal"/>
+    <signal emitter="button-rest" signal="rest"/>
+    <keyboardSignal key="12" signal="ask-menu"/> <!-- 'M' -->
+    <keyboardSignal key="18" signal="savegame"/> <!-- 'S' -->
+    <keyboardSignal key="17" signal="rest"/> <!-- 'R' -->
+    <keyboardSignal key="16" signal="ask-exit"/> <!-- 'Q' -->
+    <keyboardSignal key="0" signal="screen-character"/> <!-- 'A' -->
+    <keyboardSignal key="4" signal="screen-equipment"/> <!-- 'E' -->
+    <keyboardSignal key="10" signal="screen-skills"/> <!-- 'K' -->
+    <keyboardSignal key="9" signal="screen-journal"/> <!-- 'J' -->
+    <signalListener signal="ingame-toolbar:disable-rest" widget="button-rest" state="disabled"/>
+    <signalListener signal="ingame-toolbar:enable-rest" widget="button-rest" state="normal"/>
+    <signalListener signal="ingame-toolbar:warn-journal" widget="warn-journal" state="warn"/>
+    <signalListener signal="ingame-toolbar:remove-warn-journal" widget="warn-journal" state="normal"/>
+</window>

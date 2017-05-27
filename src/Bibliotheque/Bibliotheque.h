@@ -182,7 +182,6 @@ class Journal
 {
 	public:
 		list<JournalEntry> entries;
-		bool newEntryAdded = false;
 
 	public:
 		void addEntry(string _ref);
@@ -211,10 +210,6 @@ class Dialog
 class UserScreen
 {
 	public:
-		gui::Button button;
-		Keyboard::Key key;
-
-	public:
 		void (*dispFunction)(void);
 		void (*manageFunction)(Event&);
 };
@@ -228,7 +223,6 @@ void Load_Decorations();
 void Supprimer_Decorations();
 void Disp_FPS();
 void Disp_FondMenus();
-void Gestion_Menu(Event &event);
 void Disp_Menu();
 void Disp_JaugesVie();
 void Ajouter_LignePerso(String32, Color);

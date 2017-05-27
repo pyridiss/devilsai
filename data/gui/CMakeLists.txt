@@ -2,6 +2,7 @@
 set(gui
     confirm-exit-game.xml
     ingame-menu.xml
+    ingame-toolbar.xml
     loading.xml
     main-menu.xml
     new-game.xml

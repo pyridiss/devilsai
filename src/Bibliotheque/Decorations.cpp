@@ -36,9 +36,6 @@
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-gui::Button *menuButton;
-gui::Button *restingButton;
-
 void displayMenu();
 void manageMenu(Event &event);
 
@@ -75,51 +72,17 @@ void Load_Decorations()
     imageManager::addAnimation("playerRecoveryGauge", INSTALL_DIR + "img/BarreRecup.png");
     imageManager::addAnimation("interactorLifeGauge", INSTALL_DIR + "img/BarreVie.png");
 
-    Partie.screenCharacter.button.setTopLeftCoordinates(60, 2);
-    Partie.screenCharacter.button.setSize(41, 41);
-    Partie.screenCharacter.button.setAllBackground("BoutonPersonnage");
-    Partie.screenCharacter.button.setForegroundShader("hover", gui::style::highlightShader);
-	Partie.screenCharacter.key = Keyboard::Key::A;
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
 
-    Partie.screenEquipment.button.setTopLeftCoordinates(110, 2);
-    Partie.screenEquipment.button.setSize(41, 41);
-    Partie.screenEquipment.button.setAllBackground("BoutonEquipement");
-    Partie.screenEquipment.button.setForegroundShader("hover", gui::style::highlightShader);
-	Partie.screenEquipment.key = Keyboard::Key::E;
 	Partie.screenEquipment.dispFunction = Disp_Equipement;
 	Partie.screenEquipment.manageFunction = Gestion_Coffre;
 
-    Partie.screenSkills.button.setTopLeftCoordinates(160, 2);
-    Partie.screenSkills.button.setSize(41, 41);
-    Partie.screenSkills.button.setAllBackground("BoutonCompetences");
-    Partie.screenSkills.button.setForegroundShader("hover", gui::style::highlightShader);
-	Partie.screenSkills.key = Keyboard::Key::K;
 	Partie.screenSkills.dispFunction = Disp_Competences;
 	Partie.screenSkills.manageFunction = Gestion_Competences;
 
-    Partie.screenJournal.button.setTopLeftCoordinates(210, 2);
-    Partie.screenJournal.button.setSize(41, 41);
-    Partie.screenJournal.button.setAllBackground("BoutonJournal");
-    Partie.screenJournal.button.setForegroundShader("hover", gui::style::highlightShader);
-	Partie.screenJournal.key = Keyboard::Key::J;
 	Partie.screenJournal.dispFunction = displayJournal;
 	Partie.screenJournal.manageFunction = nullptr;
-
-    menuButton = new gui::Button;
-    menuButton->setTopLeftCoordinates(10, 2);
-    menuButton->setSize(41, 41);
-    menuButton->setAllBackground("gui-menu-button");
-    menuButton->setForegroundShader("hover", gui::style::highlightShader);
-    menuButton->setForegroundShader("disabled", gui::style::disableShader);
-
-    restingButton = new gui::Button;
-    restingButton->setTopLeftCoordinates(260, 2);
-    restingButton->setSize(41, 41);
-    restingButton->setAllBackground("gui-rest-button");
-    restingButton->setForegroundShader("hover", gui::style::highlightShader);
-    restingButton->setForegroundShader("disabled", gui::style::disableShader);
 
     tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
 
@@ -132,9 +95,6 @@ void Load_Decorations()
 
 void Supprimer_Decorations()
 {
-    delete menuButton;
-	delete restingButton;
-
 	Supprimer_Decorations_Objets();
     musicManager::deleteMusics();
 }
@@ -175,31 +135,6 @@ void Disp_FondMenus()
 
 /** MENU SUPÉRIEUR **/
 
-void Gestion_Menu(Event &event)
-{
-    if (menuButton->activated(Jeu.App, event))
-        tools::signals::addSignal("ask-menu");
-
-    if (Partie.perso != NULL && Partie.perso->LieuVillage != "village") restingButton->setDisabled(true);
-    else restingButton->setDisabled(false);
-
-    if (restingButton->activated(Jeu.App, event))
-        tools::signals::addSignal("rest");
-
-    if (Partie.screenCharacter.button.activated(Jeu.App, event))	Partie.changeCurrentUserScreen(&Partie.screenCharacter);
-    if (Partie.screenEquipment.button.activated(Jeu.App, event))	Partie.changeCurrentUserScreen(&Partie.screenEquipment);
-    if (Partie.screenSkills.button.activated(Jeu.App, event))		Partie.changeCurrentUserScreen(&Partie.screenSkills);
-    if (Partie.screenJournal.button.activated(Jeu.App, event))		Partie.changeCurrentUserScreen(&Partie.screenJournal);
-
-    if (event.type == Event::KeyReleased)
-    {
-        if (event.key.code == Partie.screenCharacter.key) Partie.changeCurrentUserScreen(&Partie.screenCharacter);
-        if (event.key.code == Partie.screenEquipment.key) Partie.changeCurrentUserScreen(&Partie.screenEquipment);
-        if (event.key.code == Partie.screenSkills.key) Partie.changeCurrentUserScreen(&Partie.screenSkills);
-        if (event.key.code == Partie.screenJournal.key) Partie.changeCurrentUserScreen(&Partie.screenJournal);
-    }
-}
-
 void Disp_Menu()
 {
 	for (unsigned short a = 0 ; a < Options.ScreenW/220 + 1 ; ++a)
@@ -207,24 +142,11 @@ void Disp_Menu()
 		imageManager::display(Jeu.App, "misc", "gui-top-border", 220*a, 0);
     }
 
-    menuButton->display(Jeu.App);
-    restingButton->display(Jeu.App);
-
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)
 	{
         Disp_Texte(_ERREUR, 350, 16, Color(255,0,0,255), 10.);
 	}
-
-    Partie.screenCharacter.button.display(Jeu.App);
-    Partie.screenEquipment.button.display(Jeu.App);
-    Partie.screenSkills.button.display(Jeu.App);
-    Partie.screenJournal.button.display(Jeu.App);
-
-    if (Partie.journal.newEntryAdded)
-        Partie.screenJournal.button.setForegroundShader("normal", gui::style::warnShader);
-    else
-        Partie.screenJournal.button.setForegroundShader("normal", nullptr);
 }
 
 /** CONSOLES DU PERSONNAGE **/
