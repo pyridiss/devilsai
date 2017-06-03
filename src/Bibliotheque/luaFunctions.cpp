@@ -114,25 +114,6 @@ int LUA_collisionCCwithRayon(lua_State* L)
 	return 1;
 }
 
-int LUA_testAngle(lua_State* L)
-{
-    MESSAGE("LUA_testAngle() called", LUA)
-
-    Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
-    Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
-    Individu* indA = dynamic_cast<Individu*>(a);
-    Individu* indB = dynamic_cast<Individu*>(b);
-
-	bool result = false;
-
-	if (indA != NULL && indB != NULL)
-		result = TestAngle(indA->PosX, indA->PosY, indA->Get_Dir(), indB->PosX, indB->PosY, indA->Get_NombreDir());
-
-	lua_pushboolean(L, result);
-
-	return 1;
-}
-
 int LUA_combat(lua_State* L)
 {
     MESSAGE("LUA_combat() called", LUA)
@@ -180,14 +161,7 @@ int LUA_set(lua_State* L)
 	if (field == "Controle")		if (elem != NULL) elem->Set_Controle((int)value);
 	if (field == "RayX")			if (elem != NULL) elem->RayX = (int)value;
 	if (field == "RayY")			if (elem != NULL) elem->RayY = (int)value;
-	if (field == "Num_Max_0")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[0] = (int)value;
-	if (field == "Num_Max_1")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[1] = (int)value;
-	if (field == "Num_Max_2")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[2] = (int)value;
-	if (field == "Num_Max_3")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[3] = (int)value;
-	if (field == "Num_Max_4")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[4] = (int)value;
-	if (field == "Num_Max_5")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[5] = (int)value;
-	if (field == "Num_Max_6")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[6] = (int)value;
-	if (field == "Num_Max_7")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->Num_Max[7] = (int)value;
+	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
 	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.speed = value;
 	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.step = value;
 	if (field == "ChampAttaque")	if (prj != NULL) prj->ChampAttaque = value;
@@ -195,7 +169,6 @@ int LUA_set(lua_State* L)
 	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;
 	if (field == "Agilite")			if (ind != NULL) (*ind->Get_Caracs())["Agilite"] = value;
 	if (field == "Intelligence")	if (ind != NULL) (*ind->Get_Caracs())["Intelligence"] = value;
-	if (field == "Dir")				if (ind != NULL) ind->Set_Dir(value);
 	if (field == "OrigineX")		if (prj != NULL) prj->OrigineX = value;
 	if (field == "OrigineY")		if (prj != NULL) prj->OrigineY = value;
 	if (field == "PosX")			if (elem != NULL) elem->PosX = value;
@@ -224,23 +197,7 @@ int LUA_get(lua_State* L)
 	{
 		if (field == "PosX")	if (ind != NULL) result = ind->PosX;
 		if (field == "PosY")	if (ind != NULL) result = ind->PosY;
-		if (field == "Dir")		if (ind != NULL) result = ind->Get_Dir();
 	}
-
-	lua_pushnumber(L, result);
-	return 1;
-}
-
-int LUA_dirToCoeff(lua_State *L)
-{
-    MESSAGE("LUA_dirToCoeff() called", LUA)
-
-	string coord = lua_tostring(L, 1);
-	int dir = lua_tonumber(L, 2);
-
-	double result = 0;
-	if (coord == "X") result = DirToCoeff_X(dir);
-	if (coord == "Y") result = DirToCoeff_Y(dir);
 
 	lua_pushnumber(L, result);
 	return 1;
@@ -603,11 +560,6 @@ int LUA_activiteSet(lua_State* L)
 	if (field == "speed")		if (act != NULL)	act->speed = value;
 	if (field == "step")		if (act != NULL)	act->step = value;
 	if (field == "priority")	if (act != NULL)	act->priority = value;
-	if (field == "numberOfDir")	if (act != NULL)
-	{
-		for (int i = 0 ; i < value ; ++i)
-			act->Num_Max[i] = 0;
-	}
 
 	return 0;
 }

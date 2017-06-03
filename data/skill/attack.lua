@@ -50,7 +50,7 @@ function use()
 		if enemy ~= 0 and testEnoughEnergy() == true then
 			randomNumber = math.random(1, 4)
 			playSound("Sword_" .. randomNumber)
-			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
+			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") then
 				combat(owner, enemy)
 			end
 		end

@@ -75,11 +75,6 @@ short Individu_Unique::Get_RayonInteraction()
 	return RayonInteraction;
 }
 
-short Individu_Unique::Get_NombreDir()
-{
-	return Get_Activite(Act)->NombreDirections();
-}
-
 int Individu_Unique::Get_Experience()
 {
 	return Experience;
@@ -216,7 +211,7 @@ bool Individu_Unique::Set_Activite(int nv)
 		Set_Energie(0);
 		Set_Recuperation(0);
 	}
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->Num_Max[Dir]-2)
+	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{
 		int key = CLEF_COFFRE;
 

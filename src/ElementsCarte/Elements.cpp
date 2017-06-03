@@ -93,11 +93,6 @@ short Element_Mouvant::Get_Act()
 	return Act;
 }
 
-short Element_Mouvant::Get_Dir()
-{
-	return Dir;
-}
-
 short Element_Mouvant::Get_Num()
 {
 	return Num;
@@ -117,17 +112,6 @@ bool Element_Mouvant::Set_Activite(int nv)
 
 	if (Get_Activite(Act)->priority > Get_Activite(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
-	//La direction en cours est-elle compatible avec la nouvelle activité ?
-	if (Get_Activite(nv)->Num_Max[Dir] == -1)
-	{
-		Dir = NORD;
-		while (Get_Activite(nv)->Num_Max[Dir] == -1)
-		{
-			++Dir;
-			if (Dir == 8) return false; //Maximum atteint
-		}
-	}
-
 	if (Act == nv) return true;
 
 	Act = nv;
@@ -136,11 +120,6 @@ bool Element_Mouvant::Set_Activite(int nv)
 
 	if (Get_Activite(nv)->priority > 0) IncrementNum(true);
 	return true;
-}
-
-void Element_Mouvant::Set_Dir(int nv)
-{
-	Dir = nv;
 }
 
 int Element_Mouvant::Collision(Individu *elem, int TypeCollision)
@@ -158,7 +137,7 @@ int Element_Mouvant::Collision(Individu *elem, int TypeCollision)
 
 void Element_Mouvant::IncrementNum(bool RaZ)
 {
-	if (Act == MORT && Num == Get_Activite(Act)->Num_Max[Dir]-1) return;
+	if (Act == MORT && Num == Get_Activite(Act)->numberOfImages-1) return;
 
 	if (RaZ)
 	{
@@ -168,7 +147,7 @@ void Element_Mouvant::IncrementNum(bool RaZ)
 	else
 	{
 		++Num;
-		if (Num == Get_Activite(Act)->Num_Max[Dir]) Num = 0;
+		if (Num == Get_Activite(Act)->numberOfImages) Num = 0;
 		ActEffectue = true;
 	}
 }

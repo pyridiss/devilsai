@@ -28,6 +28,14 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#define NORD 0
+#define SUD 1
+#define EST 2
+#define OUEST 3
+#define N_E 4
+#define S_O 5
+#define N_O 6
+#define S_E 7
 
 int Joueur::Gestion()
 {
@@ -105,19 +113,20 @@ int Joueur::Gestion()
 
 	int TabAppui = 10000*(Competence+1) + 1000*Appui[NORD] + 100*Appui[SUD] + 10*Appui[EST] + Appui[OUEST];
 
+    //Be careful: the Y axis is inversed
 	switch (TabAppui%10000)
 	{
-		case 1		: Dir = OUEST; break;
-		case 10		: Dir = EST; break;
-		case 100	: Dir = SUD; break;
-		case 101	: Dir = S_O; break;
-		case 110	: Dir = S_E; break;
-		case 1000	: Dir = NORD; break;
-		case 1001	: Dir = N_O; break;
-		case 1010	: Dir = N_E; break;
+		case 1		: angle = M_PI; break;
+		case 10		: angle = 0; break;
+		case 100	: angle = M_PI / 2; break;
+		case 101	: angle = 3 * M_PI / 4; break;
+		case 110	: angle = M_PI / 4; break;
+		case 1000	: angle = 3 * M_PI / 2; break;
+		case 1001	: angle = 5 * M_PI / 4; break;
+		case 1010	: angle = 7 * M_PI / 4; break;
 		default :	break; //Aucune touche, Competence seule, ou touches superflues (prend l'ancienne config)
 	}
-	if (Get_Act() == MORT) Dir = SUD;
+	if (Get_Act() == MORT) angle = 3 * M_PI / 2;
 
 	int Resultat = COLL_OK;
 	int EnAttente = 0;
@@ -141,11 +150,11 @@ int Joueur::Gestion()
 				case 1 :	modif_maj = 0.5; break;
 				case 2 :	modif_maj = 0.25; break;
 				case 3 :	modif_maj = 1;
-							PosX += DirToCoeff_Y(Dir) * 7; Lag_PosFondCartes(-DirToCoeff_Y(Dir) * 7, 0); break;
-				case 4 :	PosX -= DirToCoeff_Y(Dir) * 14; Lag_PosFondCartes(DirToCoeff_Y(Dir) * 14, 0); break;
-				case 5 :	PosX += DirToCoeff_Y(Dir) * 7; PosY -= DirToCoeff_X(Dir) * 7; Lag_PosFondCartes(-DirToCoeff_Y(Dir) * 7, DirToCoeff_X(Dir) * 7); break;
-				case 6 :	PosY += DirToCoeff_X(Dir) * 14; Lag_PosFondCartes(0, -DirToCoeff_X(Dir) * 14); break;
-				case 7 :	PosY -= DirToCoeff_X(Dir) * 7; Lag_PosFondCartes(0, DirToCoeff_X(Dir) * 7); break;
+							PosX += sin(angle) * 7; Lag_PosFondCartes(-sin(angle) * 7, 0); break;
+				case 4 :	PosX -= sin(angle) * 14; Lag_PosFondCartes(sin(angle) * 14, 0); break;
+				case 5 :	PosX += sin(angle) * 7; PosY -= cos(angle) * 7; Lag_PosFondCartes(-sin(angle) * 7, cos(angle) * 7); break;
+				case 6 :	PosY += cos(angle) * 14; Lag_PosFondCartes(0, -cos(angle) * 14); break;
+				case 7 :	PosY -= cos(angle) * 7; Lag_PosFondCartes(0, cos(angle) * 7); break;
 			}
 			if (Iteration >= 8) //Aucun mouvement valable n'a été trouvé
 			{
@@ -177,10 +186,10 @@ int Joueur::Gestion()
 		//Nouveau mouvement
 		maj = Get_Activite(Get_Act())->step * modif_maj;
 
-		Lag_PosFondCartes(-DirToCoeff_X(Dir)*maj, -DirToCoeff_Y(Dir)*maj);
+		Lag_PosFondCartes(-cos(angle)*maj, -sin(angle)*maj);
 
-		PosX += DirToCoeff_X(Dir)*maj;
-		PosY += DirToCoeff_Y(Dir)*maj;
+		PosX += cos(angle)*maj;
+		PosY += sin(angle)*maj;
 
 		//TESTS DE COLLISIONS
 		Resultat = COLL_OK;
@@ -204,8 +213,8 @@ int Joueur::Gestion()
 				while ((abs(PosX - tmp2->PosX) < tmp2->RayonCollision && abs(PosY - tmp2->PosY) < tmp2->RayonCollision) ||
 						(abs(PosX - tmp2->PosX) < tmp2->RayX && abs(PosY - tmp2->PosY) < tmp2->RayY))
 				{
-					PosX += 2*DirToCoeff_X(Dir)*RayonCollision;
-					PosY += 2*DirToCoeff_Y(Dir)*RayonCollision;
+					PosX += 2*cos(angle)*RayonCollision;
+					PosY += 2*sin(angle)*RayonCollision;
 					Set_PosCarte(PosX, PosY, false);
 					Set_PosCarte(PosX, PosY, true);
 					Partie.CarteCourante->resetCollisionManager();
@@ -222,8 +231,6 @@ int Joueur::Gestion()
 				}
 				Resultat = COLL_OK;
 			}
-
-			if (Resultat == COLL_INTER_ARR) Resultat = COLL_OK;
 
 			if (Resultat == COLL_ATT)
 			{

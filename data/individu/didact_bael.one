@@ -7,17 +7,17 @@ RAY_INTER 0
 ACT 6 blo 3
 VIT 3
 MAJ 0
-DIR 1 numberOfImages 10 pathToImages 6/1/%%.png
+angle 90 numberOfImages 10 pathToImages 6/1/%%.png
 FIN_ACT
 ACT 4 blo 1
 VIT 8
 MAJ 0
-DIR 5 numberOfImages 10 pathToImages 4/5/%%.png
+angle 225 numberOfImages 10 pathToImages 4/5/%%.png
 FIN_ACT
 ACT 2 blo 0
 VIT 3
 MAJ 0
-DIR 5 numberOfImages 6 pathToImages 2/5/%%.png
+angle 225 numberOfImages 6 pathToImages 2/5/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 440

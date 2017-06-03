@@ -42,7 +42,6 @@ function skillBegin(_owner)
 	activiteSet(activityRun, "speed", 30)
 	activiteSet(activityRun, "step", 26)
 	activiteSet(activityRun, "priority", 1)
-	activiteSet(activityRun, "numberOfDir", 8)
 	activiteAddImage(activityRun, 3, 0)
 	activiteAddImage(activityRun, 3, 2)
 	activiteAddImage(activityRun, 3, 4)
@@ -52,7 +51,6 @@ function skillBegin(_owner)
 	activiteSet(activityAttack, "speed", 30)
 	activiteSet(activityAttack, "step", 26)
 	activiteSet(activityAttack, "priority", 1)
-	activiteSet(activityAttack, "numberOfDir", 8)
 	activiteAddImage(activityAttack, 101, 2)
 	activiteAddImage(activityAttack, 101, 4)
 	activiteAddImage(activityAttack, 101, 6)
@@ -63,7 +61,6 @@ function skillBegin(_owner)
 	activiteSet(activityRest, "speed", 4)
 	activiteSet(activityRest, "step", 0)
 	activiteSet(activityRest, "priority", 2)
-	activiteSet(activityRest, "numberOfDir", 8)
 	activiteAddImage(activityRest, 2, 0)
 	activiteAddImage(activityRest, 2, 2)
 	activiteAddImage(activityRest, 2, 4)
@@ -101,7 +98,7 @@ function use()
 		end
 
 		if partOfSkill == "attack" and activiteFinished == true then --We wait for the end of attack animation
-			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") and testAngle(owner, enemy) then
+			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") then
 				combat(owner, enemy)
 			end
 			set(owner, "energy", get(owner, "energy") - getNeededEnergy())

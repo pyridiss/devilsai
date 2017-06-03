@@ -46,11 +46,6 @@ short Individu_Commun::Get_RayonInteraction()
 	return Classe->RayonInteraction;
 }
 
-short Individu_Commun::Get_NombreDir()
-{
-	return Classe->Get_Activite(Act)->NombreDirections();
-}
-
 int Individu_Commun::Get_Experience()
 {
 	return Classe->Experience;
@@ -77,7 +72,7 @@ bool Individu_Commun::Set_Activite(int nv)
 
 	bool Resultat = Element_Mouvant::Set_Activite(nv);
 
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->Num_Max[Dir]-2)
+	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{
 		int key = CLEF_COFFRE;
 

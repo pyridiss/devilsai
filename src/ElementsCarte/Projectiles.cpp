@@ -43,19 +43,12 @@ int Paysage_Lanceur::Gestion()
 	Retour = Element_Mouvant::Gestion();
 	if (Retour != ETAT_CONTINUER) return Retour;
 
+    return ETAT_NORMAL;
+
 	int Resultat = COLL_OK;
 	Element_Carte* tmp = NULL;
 
 	//1. Recherche de cible
-
-	Jeu.Ind_AI->PosX = ProjectileLance.OrigineX
-						+ (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * (ProjectileLance.ChampAttaque/2 - ProjectileLance.RayX);
-	Jeu.Ind_AI->PosY = ProjectileLance.OrigineY
-						+ (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * (ProjectileLance.ChampAttaque/2 - ProjectileLance.RayY);
-	Jeu.Ind_AI->RayX = (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * ProjectileLance.ChampAttaque/2
-						+ (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * ProjectileLance.RayX;
-	Jeu.Ind_AI->RayY = (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * ProjectileLance.ChampAttaque/2
-						+ (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * ProjectileLance.RayY;
 
 	Partie.CarteCourante->resetCollisionManager();
 
@@ -103,15 +96,6 @@ void Paysage_Lanceur::Disp_Masks(float RefX, float RefY)
 {
 	Paysage_Mouvant::Disp_Masks(RefX, RefY);
 
-	Jeu.Ind_AI->PosX = ProjectileLance.OrigineX
-						+ (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * (ProjectileLance.ChampAttaque/2 - ProjectileLance.RayX);
-	Jeu.Ind_AI->PosY = ProjectileLance.OrigineY
-						+ (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * (ProjectileLance.ChampAttaque/2 - ProjectileLance.RayY);
-	Jeu.Ind_AI->RayX = (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * ProjectileLance.ChampAttaque/2
-						+ (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * ProjectileLance.RayX;
-	Jeu.Ind_AI->RayY = (ProjectileLance.Get_Dir() == NORD || ProjectileLance.Get_Dir() == SUD) * ProjectileLance.ChampAttaque/2
-						+ (ProjectileLance.Get_Dir() == EST || ProjectileLance.Get_Dir() == OUEST) * ProjectileLance.RayY;
-
 	RectangleShape MasqueCollision(Vector2f(2*Jeu.Ind_AI->RayX, 2*Jeu.Ind_AI->RayY));
 	MasqueCollision.setPosition(Options.ScreenW/2 - (Partie.perso->PosX - Jeu.Ind_AI->PosX) - Jeu.Ind_AI->RayX, Options.ScreenH/2 + 12 - (Partie.perso->PosY - Jeu.Ind_AI->PosY) - Jeu.Ind_AI->RayY);
 	MasqueCollision.setFillColor(Color(255, 0, 0, 100));
@@ -147,7 +131,7 @@ int Projectile::Gestion()
 
 	//Déplacement et vérification de collision
 
-	Lag_Pos(DirToCoeff_X(Dir)*Deplacement.step, DirToCoeff_Y(Dir)*Deplacement.step);
+	Lag_Pos(cos(angle)*Deplacement.step, sin(angle)*Deplacement.step);
 
 	//On n'autorise pas à blesser un ennemi trop près de la position d'origine
 	if (abs(PosX - OrigineX) < RayX && abs(PosY - OrigineY) < RayY) return ETAT_NORMAL;

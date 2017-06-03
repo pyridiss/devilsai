@@ -7,28 +7,28 @@ RAY_INTER 45
 ACT 6 blo 3
 VIT 5
 MAJ 0
-DIR 1 numberOfImages 6 pathToImages 6/1/%%.png
+angle 90 numberOfImages 6 pathToImages 6/1/%%.png
 FIN_ACT
 ACT 4 blo 1
 VIT 10
 MAJ 0
-DIR 0 numberOfImages 10 pathToImages 4/0/%%.png
-DIR 1 numberOfImages 10 pathToImages 4/1/%%.png
-DIR 2 numberOfImages 10 pathToImages 4/2/%%.png
-DIR 3 numberOfImages 10 pathToImages 4/3/%%.png
+angle 270 numberOfImages 10 pathToImages 4/0/%%.png
+angle 90 numberOfImages 10 pathToImages 4/1/%%.png
+angle 0 numberOfImages 10 pathToImages 4/2/%%.png
+angle 180 numberOfImages 10 pathToImages 4/3/%%.png
 FIN_ACT
 ACT 3 blo 0
 VIT 9
 MAJ 5
-DIR 0 numberOfImages 8 pathToImages 3/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 3/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 3/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 3/3/%%.png
+angle 270 numberOfImages 8 pathToImages 3/0/%%.png
+angle 90 numberOfImages 8 pathToImages 3/1/%%.png
+angle 0 numberOfImages 8 pathToImages 3/2/%%.png
+angle 180 numberOfImages 8 pathToImages 3/3/%%.png
 FIN_ACT
 ACT 2 blo 1
 VIT 2
 MAJ 0
-DIR 1 numberOfImages 6 pathToImages 2/1/%%.png
+angle 90 numberOfImages 6 pathToImages 2/1/%%.png
 FIN_ACT
 ACT_DEFAUT 3
 FORCE 150

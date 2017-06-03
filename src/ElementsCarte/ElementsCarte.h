@@ -219,7 +219,7 @@ class Element_Mouvant : public Element_Carte
 	//Objet
 	protected:
 		short Act   = 0;
-		short Dir   = SUD;
+        double angle = 0;
 		short Num   = 0;
 
 	public:
@@ -227,24 +227,12 @@ class Element_Mouvant : public Element_Carte
 		bool ActEffectue    = true;
 
 	public:
-		short FinMouvement  = 0;
 		float Temps         = 0;
 
 	public:
 		int Comportement        = COMPORTEMENT_ALEATOIRE;
 		int NouveauComportement = COMPORTEMENT_ALEATOIRE;
 		int ElementVision       = -1;
-
-		bool ObstacleRencontre  = false;
-		//8 directions principales au maximum, puis déviation.
-		float Dist[8]           = {0};
-		short Pref[8]           = {0};
-		int Devn[8]             = {0};
-		short NombrePas[6]      = {100};
-		short DerniersPas       = 0;
-		short Pietinement       = false;
-		short DirPietinement    = 0;
-		bool ArreterChasse      = false;
 
 	//Constructeurs / Destructeurs :
 	public:
@@ -254,7 +242,6 @@ class Element_Mouvant : public Element_Carte
 	//Getter :
 	public:
 		short Get_Act();
-		short Get_Dir();
 		short Get_Num();
 
 		virtual Activite* Get_Activite(short act) =0;
@@ -264,7 +251,6 @@ class Element_Mouvant : public Element_Carte
 		virtual int Gestion();
 		virtual bool Set_Activite(int nv);
 		virtual int Get_Vitesse(short act);
-		void Set_Dir(int nv);
 		int Collision(Individu *elem, int TypeCollision);
 		void IncrementNum(bool RaZ = false);
 };
@@ -293,7 +279,6 @@ class Individu : public Element_Mouvant
 		virtual String32& Get_Nom() = 0;
 		virtual short Get_ChampVision() = 0;
 		virtual short Get_RayonInteraction() = 0;
-		virtual short Get_NombreDir() = 0;
 		virtual int Get_Experience() = 0;
 		virtual Caracteristiques* Get_Caracs() =0;
 		virtual Statistiques* Get_Stats() =0;
@@ -301,7 +286,6 @@ class Individu : public Element_Mouvant
 	//Gestion :
 	public:
 		int Gestion();
-		void Set_Dir(int nv);
 		void MouvementAleatoire(int Iteration);
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
@@ -365,7 +349,6 @@ class Individu_Unique : public Individu
 		String32& Get_Nom();
 		short Get_ChampVision();
 		short Get_RayonInteraction();
-		short Get_NombreDir();
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
@@ -401,7 +384,6 @@ class Individu_Commun : public Individu
 		String32& Get_Nom();
 		short Get_ChampVision();
 		short Get_RayonInteraction();
-		short Get_NombreDir();
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();

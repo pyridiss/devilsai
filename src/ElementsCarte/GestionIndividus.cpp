@@ -20,6 +20,7 @@
 #include <cmath>
 
 #include "tools/timeManager.h"
+#include "tools/math.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
@@ -37,7 +38,7 @@ int Individu::Gestion()
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(Get_Act())->Num_Max[Dir]-1)
+	if (Get_Act() == MORT && Get_Num() == Get_Activite(Get_Act())->numberOfImages-1)
 	{
 		if (DureeCadavre <= 0)
 			return ETAT_MORT;
@@ -68,7 +69,6 @@ int Individu::Gestion()
 	}
 
 	if (NouveauComportement != -1) Comportement = NouveauComportement;
-	if (ArreterChasse) Comportement = COMPORTEMENT_ALEATOIRE;
 
 	int Resultat = COLL_OK;
 	int EnAttente = 0;
@@ -89,21 +89,16 @@ int Individu::Gestion()
 
 		//Aucun déplacement : pas besoin de tests ; on termine d'abord l'activité.
 		//En revanche, s'il s'agit de la dernière image, on a besoin de vérifier le comportement suivant.
-		if (!Set_Activite(COURSE) && !Set_Activite(MARCHE) && Get_Num() != Get_Activite(Act)->Num_Max[Dir])
+		if (!Set_Activite(COURSE) && !Set_Activite(MARCHE) && Get_Num() != Get_Activite(Act)->numberOfImages)
 		{
 			//Si l'ActDefaut est autre chose que MARCHE ou COURSE, on essaye de lui mettre
 			Set_Activite(ActDefaut);
 			Resultat = COLL_END;
 			EnAttente = -1;
 			//En cas d'attaque, on cherche quand même la meilleure direction
-			if (Act == ATTAQUE && Elem != NULL && !TestAngle(PosX, PosY, Dir, Elem->PosX, Elem->PosY, Get_NombreDir()))
+			if (Act == ATTAQUE && Elem != NULL)
 			{
-				Set_Dir(NORD);
-				while (!TestAngle(PosX, PosY, Dir, Elem->PosX, Elem->PosY, Get_NombreDir()))
-				{
-					++Dir;
-					if (Dir == Get_NombreDir()) break;
-				}
+                angle = tools::math::angle(Elem->PosX - PosX, Elem->PosY - PosY);
 			}
 			break;
 		}
@@ -143,26 +138,9 @@ int Individu::Gestion()
 
 			if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
 
-			//Les Collisions INTER et INTER_ARR sont pour le moment inutiles ici
-			if (Resultat == COLL_INTER || Resultat == COLL_INTER_ARR) Resultat = COLL_OK;
+			//Les Collisions INTER sont pour le moment inutiles ici
+			if (Resultat == COLL_INTER) Resultat = COLL_OK;
 
-			if (Resultat == COLL_ATT_ARR && tmp1 == NULL)
-			{
-				//On cherche la direction qui va donner le bon angle
-				tmp2 = Partie.CarteCourante->getCurrentCollider();
-				Set_Dir(NORD);
-				while (tmp2 != NULL && !TestAngle(PosX, PosY, Dir, tmp2->PosX, tmp2->PosY, Get_NombreDir()))
-				{
-					++Dir;
-					if (Dir == Get_NombreDir()) break;
-				}
-				if (Dir != Get_NombreDir())
-				{
-					Resultat = COLL_ATT;
-					NouveauComportement = COMPORTEMENT_ATTAQUE;
-				}
-				else Resultat = COLL_OK;
-			}
 			if (Resultat == COLL_ATT)
 			{
 				tmp2 = Partie.CarteCourante->getCurrentCollider();
@@ -198,7 +176,7 @@ int Individu::Gestion()
 		if (Resultat == COLL_PRIM)
 		{
 			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->step, -DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
+			Lag_Pos(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
 
 			if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
 			{
@@ -222,7 +200,6 @@ int Individu::Gestion()
 	}
 	if (EnAttente == 0) NouveauComportement = COMPORTEMENT_ALEATOIRE;
 
-	--FinMouvement;
 	IncrementNum();
 
 	if (Get_Num() == 0 && Get_Act() == ATTAQUE)
@@ -244,36 +221,21 @@ int Individu::Gestion()
 
 void Individu::MouvementAleatoire(int Iteration)
 {
-	if (FinMouvement <= 0)
-	{
-		Set_Dir(DIR_ALEATOIRE);
+    Set_Activite(ActDefaut);
 
-		Num = 0;
-		FinMouvement = 10 + (rand()%40);
-		ArreterChasse = false;
-	}
-	//Pour éviter des pauses inutiles, on désactive le piétinement et l'arrêt de la chasse si l'individu
-	//se met en PAUSE lors des mouvements aléatoires
-	if (ActDefaut == PAUSE) ArreterChasse = false;
+    angle += M_PI / 2.0 * Iteration;
+    angle += tools::math::randomNumber_BinomialLaw(-10.0, 10.0);
 
-	Set_Activite(ActDefaut);
+    while (angle < 0) angle += 2.0 * M_PI;
+    while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-	switch (Iteration)
-	{
-		case 0 :	Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
-		case 1 :	Set_Dir((Dir + 2)%4); if (Dir % 2 == 0) Set_Dir(Dir+1); else Set_Dir(Dir-1);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
-		case 2 :	if (Dir % 2 == 0) Set_Dir(Dir+1); else Set_Dir(Dir-1);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
-		case 3 :	if (Dir%2) Set_Dir((Dir + 1)%4); else Set_Dir((Dir + 3)%4);
-					Lag_Pos(DirToCoeff_X(Dir)*Get_Activite(Act)->step, DirToCoeff_Y(Dir)*Get_Activite(Act)->step); break;
-	}
+    Lag_Pos(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
 }
 
 bool Individu::MouvementChasse(Element_Carte *elem)
 {
 	int buf = 0;
-	int DirActuelle = Dir;
+	int DirActuelle = 0;
 	int Iteration = 0;
 	int coeff = 1;
 
@@ -283,158 +245,53 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		return true;
 	}
 
-	//Première partie : Classement des directions et enregistrement des distances
-	for(int dir=0 ; dir < Get_NombreDir() ; ++dir)
-	{
-		Set_Dir(dir);
-		Lag_Pos(5*DirToCoeff_X(Dir)*Get_Activite(Act)->step, 5*DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
+    angle = tools::math::angle(elem->PosX - PosX, elem->PosY - PosY);
 
-		Dist[dir] = (PosX-elem->PosX)*(PosX-elem->PosX) + (PosY-elem->PosY)*(PosY-elem->PosY);
-		//Afin d'éviter des changements de directions incessants, la direction actuelle a un bonus :
-		if (dir == DirActuelle) Dist[dir] *= 0.95;
+    while(Iteration < 10)
+    {
+        angle += (double)Iteration * M_PI / 4.0;
 
-		switch(dir)
-		{
-			case NORD :
-			case SUD :	if (elem->PosY != PosY) Devn[dir] = 100*((elem->PosX - PosX)/abs(elem->PosY - PosY));
-						else Devn[dir] = 0;
-						break;
-			case EST :
-			case OUEST :	if (elem->PosX != PosX) Devn[dir] = 100*((elem->PosY - PosY)/abs(elem->PosX - PosX));
-							else Devn[dir] = 0;
-							break;
-			default : Devn[dir] = 0;
-		}
+        while (angle < 0) angle += 2.0 * M_PI;
+        while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-		if (Devn[dir] > 40) Devn[dir] = 40;
-		if (Devn[dir] < -40) Devn[dir] = -40;
+        Lag_Pos(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
 
-		int i = dir, j = i;
-		Pref[i]=i;
-		while(j > 0)
-		{
-			--j;
-			if (Dist[j] > Dist[i])
-			{
-				buf = Dist[i]; Dist[i] = Dist[j]; Dist[j] = buf;
-				buf = Pref[i]; Pref[i] = Pref[j]; Pref[j] = buf;
-				buf = Devn[i]; Devn[i] = Devn[j]; Devn[j] = buf;
-			}
-			--i;
-		}
-		Lag_Pos(-DirToCoeff_X(Dir)*Get_Activite(Act)->step, -DirToCoeff_Y(Dir)*Get_Activite(Act)->step);
-	}
+        //Tests de collision :
+        int Resultat = COLL_OK;
+        Partie.CarteCourante->resetCollisionManager();
+        while(Resultat != COLL_END && Resultat != COLL_PRIM)
+        {
+            Resultat = Partie.CarteCourante->browseCollisionList(this);
 
-	int IndActuel = 0;
-	while (Pref[IndActuel] != DirActuelle)
-	{
-		++IndActuel;
-		if (IndActuel == Get_NombreDir()) break;
-	}
+            //Annihile COLL_PRIM_MVT si c'est l'élément chassé qui est détecté
+            if (Resultat == COLL_PRIM_MVT && Partie.CarteCourante->getCurrentCollider() == elem) Resultat = COLL_OK;
 
-	for ( ; Iteration < Get_NombreDir() ; ++Iteration)
-	{
-		Set_Dir(Pref[Iteration]);
+            //Les Collisions INTER sont pour le moment inutiles ici
+            if (Resultat == COLL_INTER) Resultat = COLL_OK;
 
-		//Deuxième partie : Vérification que la route n'est pas trop rapidement bloquée
-		float Deplacement = (DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step)*(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step) +
-							(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step)*(DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step);
-		float DistanceRestante = Dist[Iteration];
-		coeff = 1;
-		int FractionDist = 4;
-		if (DistanceRestante < 10000) FractionDist = 8;
-
-		//CETTE BOUCLE PEUT NE PAS AVOIR DE FIN
-		while(DistanceRestante > Dist[Iteration]/FractionDist && DistanceRestante > 2*coeff*coeff*Deplacement)
-		{
-			Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
-
-			//Tests de collision :
-			int Resultat = COLL_OK;
-			Partie.CarteCourante->resetCollisionManager();
-			while(Resultat != COLL_END && Resultat != COLL_PRIM)
-			{
-				Resultat = Partie.CarteCourante->browseCollisionList(this);
-
-				//Annihile COLL_PRIM_MVT si c'est l'élément chassé qui est détecté
-				if (Resultat == COLL_PRIM_MVT && Partie.CarteCourante->getCurrentCollider() == elem) Resultat = COLL_OK;
-				
-				//Les Collisions INTER et INTER_ARR sont pour le moment inutiles ici
-				if (Resultat == COLL_INTER || Resultat == COLL_INTER_ARR) Resultat = COLL_OK;
-
-				if (Resultat == COLL_PRIM_MVT && coeff <= 15) Resultat = COLL_PRIM;
-				if (Resultat == COLL_PRIM_MVT && coeff > 15) Resultat = COLL_OK;
-				if (Resultat == COLL_ATT) Resultat = COLL_OK;
-			}
-			if (Resultat == COLL_PRIM)
-			{
-				Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
-				Set_Dir(DirActuelle);
-				break;
-			}
-
-			Lag_Pos(-DirToCoeff_X(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step, -DirToCoeff_Y(Dir, Devn[Iteration])*coeff*Get_Activite(Act)->step);
-			DistanceRestante -= coeff*Deplacement;
-			coeff *= 2;
-
-			//On doit limiter la variable coeff qui pourrait, à cause des limitations de son type, pourrait
-			//devenir nulle et pourrait transformer la boucle en boucle infinie…
-			if (coeff > 10000) break;
-
-			if (Pietinement) DistanceRestante = 0; //Court-circuite la boucle ; seul coeff=1 est ainsi testé
-		}
-		if (DistanceRestante <= Dist[Iteration]/FractionDist || DistanceRestante <= 2*coeff*coeff*Deplacement) break; //Mouvement OK !
-	}
+            if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
+            if (Resultat == COLL_ATT) Resultat = COLL_OK;
+        }
+        if (Resultat == COLL_PRIM)
+        {
+            Lag_Pos(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
+            ++Iteration;
+        }
+        else
+        {
+            break;
+        }
+    }
 
 	//Pas de mouvement trouvé : PAUSE.
-	if (Iteration >= Get_NombreDir())
+    if (Iteration == 10)
 	{
 		Set_Activite(PAUSE);
 		return false;
 	}
 
-	if (ObstacleRencontre)
-	{
-		--Iteration;
-		ObstacleRencontre = false;
-	}
-
-	if (Iteration) ObstacleRencontre = true;
-
 	//Mouvement correct trouvé :
-
 	Set_Activite(COURSE);
-
-	if (Pietinement && DerniersPas == 10)
-	{
-		Pietinement = false;
-		for (int a = 0 ; a < 6 ; ++a) NombrePas[a] = 100;
-	}
-
-	if (Dir == DirActuelle) ++DerniersPas;
-
-	if (Dir != DirActuelle && !Pietinement)
-	{
-		for (int a = 5 ; a >= 1 ; --a)
-			NombrePas[a] = NombrePas[a-1];
-		NombrePas[0] = DerniersPas;
-		DerniersPas = 0;
-		int a = 0;
-		for ( ; a < 6 ; ++a)
-			if (NombrePas[a] > 20) break;
-		if (a == 6) Pietinement = true;
-		DirPietinement = Pref[Iteration+1];
-	}
-	if (Pietinement)
-	{
-		ArreterChasse = true;
-		FinMouvement = 10;
-		Set_Dir(DIR_ALEATOIRE);
-		for (int a = 0 ; a < 6 ; ++a) NombrePas[a] = 100;
-		Pietinement = false;
-	}
-
-	Lag_Pos(DirToCoeff_X(Dir, Devn[Iteration])*Get_Activite(Act)->step, DirToCoeff_Y(Dir, Devn[Iteration])*Get_Activite(Act)->step);
 
 	return true;
 }

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"
@@ -38,7 +40,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	short Act, Dir, Num;
+	short Act, Num;
+    double angle;
 	int h = 0, s = 0, l = 0;
 
 	string TypeDonnee;
@@ -171,15 +174,15 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 		if (TypeDonnee == "VIT")	Fichier >> act->speed;
 		if (TypeDonnee == "MAJ")	Fichier >> act->step;
-		if (TypeDonnee == "DIR")
+		if (TypeDonnee == "angle")
 		{
-			Fichier >> Dir;
+			Fichier >> angle;
 		}
 
         if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
-			act->Num_Max[Dir] = Num;
+			act->numberOfImages = Num;
 		}
         if (TypeDonnee == "pathToImages")
         {
@@ -194,13 +197,15 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
                 imageManager::addImage("individuals", key, path);
                 if (h + s + l != 0)
                     imageManager::changeHSL("individuals", key, h, s, l);
-                act->addImage(Dir, i, key);
+
+                act->addImage(angle * M_PI / 180.0, i, key);
             }
         }
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Dir = 0; Num = 0;
+			Act = 0; Num = 0;
+            angle = 0;
 			act = NULL;
 		}
 
@@ -248,7 +253,8 @@ void Load_ClasseCommune(string Type)
 	Classe_Commune *cl_com = getCommonClass(Type);
 
 	Activite *act = NULL;
-	short Act, Dir, Num;
+	short Act, Num;
+    double angle = 0;
 	string TypeDonnee;
 //	int ClefStuff = CLEF_STUFF;
 	int h = 0, s = 0, l = 0;
@@ -321,16 +327,16 @@ void Load_ClasseCommune(string Type)
 
 		if (TypeDonnee == "VIT")	Fichier >> act->speed;
 		if (TypeDonnee == "MAJ")	Fichier >> act->step;
-		if (TypeDonnee == "DIR")
+		if (TypeDonnee == "angle")
 		{
-			Fichier >> Dir;
+			Fichier >> angle;
 			//cl_com->Caracs.DirDisponibles[Dir] = true;
 		}
 
 		if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
-			act->Num_Max[Dir] = Num;
+			act->numberOfImages = Num;
 		}
 
         if (TypeDonnee == "pathToImages")
@@ -346,13 +352,15 @@ void Load_ClasseCommune(string Type)
                 imageManager::addImage("individuals", key, path);
                 if (h + s + l != 0)
                     imageManager::changeHSL("individuals", key, h, s, l);
-                act->addImage(Dir, i, key);
+
+                act->addImage(angle * M_PI / 180.0, i, key);
             }
         }
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Dir = 0; Num = 0;
+			Act = 0; Num = 0;
+            angle = 0;
 			act = NULL;
 		}
 
@@ -454,7 +462,8 @@ void Load_ClassePaysageMouvant(string Type)
 
 	string TypeDonnee;
 	Activite *act = NULL;
-	short Act, Dir, Num;
+	short Act, Num;
+    double angle;
 	int ExX = 0, ExY = 0;
     int h = 0, s = 0, l = 0;
 
@@ -500,12 +509,12 @@ void Load_ClassePaysageMouvant(string Type)
 
 		if (TypeDonnee == "VIT")	Fichier >> act->speed;
 		if (TypeDonnee == "MAJ")	Fichier >> act->step;
-		if (TypeDonnee == "DIR")	Fichier >> Dir;
+		if (TypeDonnee == "angle")	Fichier >> angle;
 
 		if (TypeDonnee == "numberOfImages")
 		{
 			Fichier >> Num;
-			act->Num_Max[Dir] = Num;
+			act->numberOfImages = Num;
 		}
         if (TypeDonnee == "pathToImages")
         {
@@ -520,13 +529,14 @@ void Load_ClassePaysageMouvant(string Type)
                 imageManager::addImage("movingObjects", key, path);
                 if (h + s + l != 0)
                     imageManager::changeHSL("movingObjects", key, h, s, l);
-                act->addImage(Dir, i, key);
+                act->addImage(angle, i, key);
             }
         }
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Dir = 0; Num = 0;
+			Act = 0; Num = 0;
+            angle = 0;
 			act = NULL;
 		}
 
@@ -549,7 +559,8 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
 	string TypeDonnee;
-	short dir = 0;
+	double angle = 0;
+    string imageFile;
 
 	while (Fichier.rdstate() == 0)
 	{
@@ -563,7 +574,7 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 		if (TypeDonnee == "PRJ_RECT_COL")	Fichier >> ind->ProjectileLance.RayX >> ind->ProjectileLance.RayY;
 		if (TypeDonnee == "PRJ_VIT")		Fichier >> ind->ProjectileLance.Deplacement.speed;
 		if (TypeDonnee == "PRJ_MAJ")		Fichier >> ind->ProjectileLance.Deplacement.step;
-		if (TypeDonnee == "PRJ_DIR")		Fichier >> dir;
+		if (TypeDonnee == "PRJ_angle")		Fichier >> angle;
 		if (TypeDonnee == "PRJ_CHP_ATT")	Fichier >> ind->ProjectileLance.ChampAttaque;
 
 		if (TypeDonnee == "PRJ_FORCE")		Fichier >> ind->ProjectileLance.Caracs["Force"];
@@ -571,15 +582,16 @@ void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
 		if (TypeDonnee == "PRJ_AGILITE")	Fichier >> ind->ProjectileLance.Caracs["Agilite"];
 		if (TypeDonnee == "PRJ_INTELLI")	Fichier >> ind->ProjectileLance.Caracs["Intelligence"];
 
+        if (TypeDonnee mm "PRJ_image")      Fichier >> imageFile;
 		TypeDonnee = "";
 	}
 
-	ind->ProjectileLance.Get_Activite(ind->ProjectileLance.Get_Act())->Num_Max[dir] = 0;
-	ind->ProjectileLance.Set_Dir(dir);
+	ind->ProjectileLance.Get_Activite(ind->ProjectileLance.Get_Act())->numberOfImages = 0;
+    ind->ProjectileLance.angle = angle;
 	ind->ProjectileLance.OrigineX += ind->PosX;
 	ind->ProjectileLance.OrigineY += ind->PosY;
 
-    string path = INSTALL_DIR + "img/" + ind->ProjectileLance.Type + "0" + intToString(ind->ProjectileLance.Get_Dir()) + "00" + ".png";
+    string path = INSTALL_DIR + imageFile;
     imageManager::addContainer("projectiles");
     imageManager::addImage("projectiles", ind->ProjectileLance.Type, path);
 

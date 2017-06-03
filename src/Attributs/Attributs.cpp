@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include <lua5.2/lua.hpp>
 
 #include "../Bibliotheque/Constantes.h"
@@ -127,12 +129,10 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_register(L, "getElementInteraction", LUA_getElementInteraction);
 	lua_register(L, "isIndividu", LUA_isIndividu);
 	lua_register(L, "collisionCC", LUA_collisionCCwithRayon);
-	lua_register(L, "testAngle", LUA_testAngle);
 	lua_register(L, "combat", LUA_combat);
 	lua_register(L, "createProjectile", LUA_createProjectile);
 	lua_register(L, "set", LUA_set);
 	lua_register(L, "get", LUA_get);
-	lua_register(L, "dirToCoeff", LUA_dirToCoeff);
 	lua_register(L, "useObject", LUA_useObject);
 	lua_register(L, "dispText", LUA_dispText);
 	lua_register(L, "getQuantityOf", LUA_getQuantityOf);
@@ -275,33 +275,32 @@ const float& Statistiques::operator[](string stat) const
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
-int Activite::NombreDirections()
+void Activite::addImage(double angle, int num, string imageKey)
 {
-	int nb = 0;
-	for (int a = 0 ; a < 8 ; ++a)
-		if (Num_Max[a] != -1) ++nb;
+    pair<double, int> key(angle, num);
+    Animation.insert(pair<pair<double,int>,string>(key, imageKey));
 
-	return nb;
+    if (angle == 0) addImage(2.0 * M_PI, num, imageKey);
 }
 
-void Activite::addImage(int dir, int num, string imageKey)
+string Activite::getImageKey(double angle, int num)
 {
-    pair<int, int> key(dir, num);
-    Animation.insert(pair<pair<int,int>,string>(key, imageKey));
-}
+    string key = Animation.begin()->second;
+    double distance = 10;
 
-string Activite::getImageKey(int dir, int num)
-{
-    pair<int, int> key(dir, num);
-    map< pair<int , int> , string >::iterator it;
-
-    it = Animation.find(key);
-    if (it == Animation.end())
+    for (auto& i : Animation)
     {
-        Erreur("This key has not been registered in current activity:", intToString(dir) + ", " + intToString(num));
-        return "";
+        if (i.first.second != num) continue;
+
+        double d = (i.first.first - angle) * (i.first.first - angle);
+        if (d < distance)
+        {
+            distance = d;
+            key = i.second;
+        }
     }
-    return it->second;
+
+    return key;
 }
 
 

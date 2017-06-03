@@ -89,17 +89,6 @@ using namespace std;
 #define MORT		6
 #define ACTIVATION	7
 
-//Identificateurs Directions et Images
-#define DIR_ALEATOIRE -1
-#define NORD			0
-#define SUD				1
-#define EST				2
-#define OUEST			3
-#define N_E				4
-#define N_O				5
-#define S_E				6
-#define S_O				7
-
 //Comportements des individus
 #define COMPORTEMENT_ALEATOIRE	10
 #define COMPORTEMENT_DEFENSE	11
@@ -147,9 +136,7 @@ using namespace std;
 #define COLL_PRIM		2
 #define COLL_PRIM_MVT	3
 #define COLL_INTER		4
-#define COLL_INTER_ARR	5
 #define COLL_ATT		6
-#define COLL_ATT_ARR	7
 #define COLL_VIS		8
 
 //Action de l'utilisateur & états des individus

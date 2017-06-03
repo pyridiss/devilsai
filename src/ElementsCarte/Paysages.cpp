@@ -198,7 +198,6 @@ void Classe_Paysage::Copie_Element(Paysage *elem)
 Paysage_Mouvant::Paysage_Mouvant() : Element_Mouvant()
 {
 	Classe = NULL;
-    Dir = NORD;
 }
 Paysage_Mouvant::~Paysage_Mouvant()
 {
@@ -242,7 +241,7 @@ void Paysage_Mouvant::IncrementNum(bool RaZ)
 	else
 	{
 		++Num;
-		if (Num == Get_Activite(Act)->Num_Max[Dir]) Num = 0;
+		if (Num == Get_Activite(Act)->numberOfImages) Num = 0;
 
 		if (Num == 0 && Act == ACTIVATION) ActEffectue = true;
 		else ActEffectue = false;
@@ -260,7 +259,7 @@ void Paysage_Mouvant::Disp(float RefX, float RefY)
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
     Activite* act = Get_Activite(Act);
-    imageManager::display(Jeu.App, "movingObjects", act->getImageKey(Dir, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(Jeu.App, "movingObjects", act->getImageKey(angle, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)

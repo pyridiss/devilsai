@@ -66,14 +66,7 @@ function use()
 		projectile = createProjectile(projectile_id)
 		set(projectile, "RayX", projectile_rect_x)
 		set(projectile, "RayY", projectile_rect_y)
-		set(projectile, "Num_Max_0", projectile_dir_0)
-		set(projectile, "Num_Max_1", projectile_dir_1)
-		set(projectile, "Num_Max_2", projectile_dir_2)
-		set(projectile, "Num_Max_3", projectile_dir_3)
-		set(projectile, "Num_Max_4", projectile_dir_4)
-		set(projectile, "Num_Max_5", projectile_dir_5)
-		set(projectile, "Num_Max_6", projectile_dir_6)
-		set(projectile, "Num_Max_7", projectile_dir_7)
+		set(projectile, "Num_Max", projectile_dir_0)
 
 		set(projectile, "Vitesse", projectile_vitesse)
 		set(projectile, "MaJ", projectile_maj)
@@ -86,12 +79,12 @@ function use()
 		--On place le projectile à 20px du centre du joueur
 		set(projectile, "Diplomatie", 1) -- DIPLOM_ALLIE
 		set(projectile, "Controle", 1)   -- CONTROLE_HUMAIN
-		set(projectile, "OrigineX", get(owner, "PosX") + dirToCoeff("X", get(owner, "Dir")) * 20)
-		set(projectile, "OrigineY", get(owner, "PosY") + dirToCoeff("Y", get(owner, "Dir")) * 20)
+		set(projectile, "OrigineX", get(owner, "PosX"))
+		set(projectile, "OrigineY", get(owner, "PosY"))
 		set(projectile, "Dir", get(owner, "Dir"))
 
-		set(projectile, "PosX", get(owner, "PosX") + dirToCoeff("X", get(owner, "Dir")) * 20)
-		set(projectile, "PosY", get(owner, "PosY") + dirToCoeff("Y", get(owner, "Dir")) * 20)
+		set(projectile, "PosX", get(owner, "PosX"))
+		set(projectile, "PosY", get(owner, "PosY"))
 
 		set(owner, "energy", get(owner, "energy") - getNeededEnergy())
 		activated = false

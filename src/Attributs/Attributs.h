@@ -115,18 +115,17 @@ class Activite
 {
 	public:
 		int Id			= -1;
-		int Num_Max[8]	= {-1, -1, -1, -1, -1, -1, -1, -1};
+        int numberOfImages = 0;
 		short speed		= 0;
 		short step		= 0;
 
 		short priority	= 0;
 
-        map< pair<int , int> , string > Animation;
+        map< pair<double , int> , string > Animation;
 
 	public:
-		int NombreDirections();
-        void addImage(int dir, int num, string imageKey);
-        string getImageKey(int dir, int num);
+        void addImage(double angle, int num, string imageKey);
+        string getImageKey(double angle, int num);
 };
 
 class EmplacementEquipement

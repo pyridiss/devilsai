@@ -25,6 +25,7 @@
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
+#include "tools/math.h"
 #include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Individu **/
@@ -34,6 +35,7 @@
 Individu::Individu() : Element_Mouvant()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
+    angle = tools::math::randomNumber(0, 2 * M_PI);
 }
 
 
@@ -42,29 +44,6 @@ Individu::Individu() : Element_Mouvant()
 /* La fonction Individu::Gestion() est développée dans le fichier AI.cpp */
 /* La fonction Individu::MouvementAleatoire() est développée dans le fichier AI.cpp */
 /* La fonction Individu::MouvementChasse() est développée dans le fichier AI.cpp */
-
-void Individu::Set_Dir(int nv)
-{
-	if (nv != DIR_ALEATOIRE)
-	{
-		//if (Get_Caracs()->DirDisponibles[nv])
-		if (Get_Activite(Act)->Num_Max[nv] != -1)
-		{
-			Dir = nv;
-			if (Num > Get_Activite(Act)->Num_Max[Dir]) Num = 0;
-		}
-	}
-	else
-	{
-		do
-		{
-			Dir = rand()%4;
-		}
-		//while(!Get_Caracs()->DirDisponibles[Dir]);
-		while (Get_Activite(Act)->Num_Max[Dir] == -1);
-		if (Num > Get_Activite(Act)->Num_Max[Dir]) Num = 0;
-	}
-}
 
 void Individu::Gestion_Recuperation()
 {
@@ -196,5 +175,5 @@ void Individu::Disp(float RefX, float RefY)
 	#endif
 
 	Activite* act = Get_Activite(Act);
-    imageManager::display(Jeu.App, "individuals", act->getImageKey(Dir, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(Jeu.App, "individuals", act->getImageKey(angle, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
 }

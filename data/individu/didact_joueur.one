@@ -27,79 +27,79 @@ DEFAUT_TAB healpotion
 ACT 6 blo 4
 VIT 6
 MAJ 0
-DIR 1 numberOfImages 9 pathToImages 6/1/%%.png
+angle 90 numberOfImages 9 pathToImages 6/1/%%.png
 FIN_ACT
 ACT 5 blo 2
 VIT 15
 MAJ 0
-DIR 0 numberOfImages 8 pathToImages 5/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 5/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 5/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 5/3/%%.png
-DIR 4 numberOfImages 8 pathToImages 5/4/%%.png
-DIR 5 numberOfImages 8 pathToImages 5/5/%%.png
-DIR 6 numberOfImages 8 pathToImages 5/6/%%.png
-DIR 7 numberOfImages 8 pathToImages 5/7/%%.png
+angle 270 numberOfImages 8 pathToImages 5/0/%%.png
+angle 90 numberOfImages 8 pathToImages 5/1/%%.png
+angle 0 numberOfImages 8 pathToImages 5/2/%%.png
+angle 180 numberOfImages 8 pathToImages 5/3/%%.png
+angle 315 numberOfImages 8 pathToImages 5/4/%%.png
+angle 225 numberOfImages 8 pathToImages 5/5/%%.png
+angle 45 numberOfImages 8 pathToImages 5/6/%%.png
+angle 135 numberOfImages 8 pathToImages 5/7/%%.png
 FIN_ACT
 ACT 3 blo 0
 VIT 13
 MAJ 13
-DIR 0 numberOfImages 8 pathToImages 3/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 3/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 3/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 3/3/%%.png
-DIR 4 numberOfImages 8 pathToImages 3/4/%%.png
-DIR 5 numberOfImages 8 pathToImages 3/5/%%.png
-DIR 6 numberOfImages 8 pathToImages 3/6/%%.png
-DIR 7 numberOfImages 8 pathToImages 3/7/%%.png
+angle 270 numberOfImages 8 pathToImages 3/0/%%.png
+angle 90 numberOfImages 8 pathToImages 3/1/%%.png
+angle 0 numberOfImages 8 pathToImages 3/2/%%.png
+angle 180 numberOfImages 8 pathToImages 3/3/%%.png
+angle 315 numberOfImages 8 pathToImages 3/4/%%.png
+angle 225 numberOfImages 8 pathToImages 3/5/%%.png
+angle 45 numberOfImages 8 pathToImages 3/6/%%.png
+angle 135 numberOfImages 8 pathToImages 3/7/%%.png
 FIN_ACT
 ACT 2 blo 0
 VIT 3
 MAJ 0
-DIR 0 numberOfImages 8 pathToImages 2/0/%%.png
-DIR 1 numberOfImages 8 pathToImages 2/1/%%.png
-DIR 2 numberOfImages 8 pathToImages 2/2/%%.png
-DIR 3 numberOfImages 8 pathToImages 2/3/%%.png
-DIR 4 numberOfImages 8 pathToImages 2/4/%%.png
-DIR 5 numberOfImages 8 pathToImages 2/5/%%.png
-DIR 6 numberOfImages 8 pathToImages 2/6/%%.png
-DIR 7 numberOfImages 8 pathToImages 2/7/%%.png
+angle 270 numberOfImages 8 pathToImages 2/0/%%.png
+angle 90 numberOfImages 8 pathToImages 2/1/%%.png
+angle 0 numberOfImages 8 pathToImages 2/2/%%.png
+angle 180 numberOfImages 8 pathToImages 2/3/%%.png
+angle 315 numberOfImages 8 pathToImages 2/4/%%.png
+angle 225 numberOfImages 8 pathToImages 2/5/%%.png
+angle 45 numberOfImages 8 pathToImages 2/6/%%.png
+angle 135 numberOfImages 8 pathToImages 2/7/%%.png
 FIN_ACT
 ACT 101 blo 1
 VIT 14
 MAJ 0
-DIR 0 numberOfImages 12 pathToImages 101/0/%%.png
-DIR 1 numberOfImages 12 pathToImages 101/1/%%.png
-DIR 2 numberOfImages 12 pathToImages 101/2/%%.png
-DIR 3 numberOfImages 12 pathToImages 101/3/%%.png
-DIR 4 numberOfImages 12 pathToImages 101/4/%%.png
-DIR 5 numberOfImages 12 pathToImages 101/5/%%.png
-DIR 6 numberOfImages 12 pathToImages 101/6/%%.png
-DIR 7 numberOfImages 12 pathToImages 101/7/%%.png
+angle 270 numberOfImages 12 pathToImages 101/0/%%.png
+angle 90 numberOfImages 12 pathToImages 101/1/%%.png
+angle 0 numberOfImages 12 pathToImages 101/2/%%.png
+angle 180 numberOfImages 12 pathToImages 101/3/%%.png
+angle 315 numberOfImages 12 pathToImages 101/4/%%.png
+angle 225 numberOfImages 12 pathToImages 101/5/%%.png
+angle 45 numberOfImages 12 pathToImages 101/6/%%.png
+angle 135 numberOfImages 12 pathToImages 101/7/%%.png
 FIN_ACT
 ACT 301 blo 1
 VIT 14
 MAJ 0
-DIR 0 numberOfImages 9 pathToImages 301/0/%%.png
-DIR 1 numberOfImages 9 pathToImages 301/1/%%.png
-DIR 2 numberOfImages 9 pathToImages 301/2/%%.png
-DIR 3 numberOfImages 9 pathToImages 301/3/%%.png
-DIR 4 numberOfImages 9 pathToImages 301/4/%%.png
-DIR 5 numberOfImages 9 pathToImages 301/5/%%.png
-DIR 6 numberOfImages 9 pathToImages 301/6/%%.png
-DIR 7 numberOfImages 9 pathToImages 301/7/%%.png
+angle 270 numberOfImages 9 pathToImages 301/0/%%.png
+angle 90 numberOfImages 9 pathToImages 301/1/%%.png
+angle 0 numberOfImages 9 pathToImages 301/2/%%.png
+angle 180 numberOfImages 9 pathToImages 301/3/%%.png
+angle 315 numberOfImages 9 pathToImages 301/4/%%.png
+angle 225 numberOfImages 9 pathToImages 301/5/%%.png
+angle 45 numberOfImages 9 pathToImages 301/6/%%.png
+angle 135 numberOfImages 9 pathToImages 301/7/%%.png
 FIN_ACT
 ACT 401 blo 3
 VIT 1
 MAJ 0
-DIR 0 numberOfImages 1 pathToImages 401/0/%%.png
-DIR 1 numberOfImages 1 pathToImages 401/1/%%.png
-DIR 2 numberOfImages 1 pathToImages 401/2/%%.png
-DIR 3 numberOfImages 1 pathToImages 401/3/%%.png
-DIR 4 numberOfImages 1 pathToImages 401/4/%%.png
-DIR 5 numberOfImages 1 pathToImages 401/5/%%.png
-DIR 6 numberOfImages 1 pathToImages 401/6/%%.png
-DIR 7 numberOfImages 1 pathToImages 401/7/%%.png
+angle 270 numberOfImages 1 pathToImages 401/0/%%.png
+angle 90 numberOfImages 1 pathToImages 401/1/%%.png
+angle 0 numberOfImages 1 pathToImages 401/2/%%.png
+angle 180 numberOfImages 1 pathToImages 401/3/%%.png
+angle 315 numberOfImages 1 pathToImages 401/4/%%.png
+angle 225 numberOfImages 1 pathToImages 401/5/%%.png
+angle 45 numberOfImages 1 pathToImages 401/6/%%.png
+angle 135 numberOfImages 1 pathToImages 401/7/%%.png
 FIN_ACT
 ACT_DEFAUT 2
 FORCE 300

@@ -153,9 +153,7 @@ int Carte::browseCollisionList(Individu *elem)
 										 collider->PosX, collider->PosY, collider->RayonCollision);
 	if (ResultColl)
 	{
-		if (TestAngle(elem->PosX, elemPosY, elem->Get_Dir(), collider->PosX, collider->PosY, elem->Get_NombreDir()))
-			Retour = COLL_INTER;
-		else Retour = COLL_INTER_ARR;
+        Retour = COLL_INTER;
 	}
 
 	//Dans le cas de diplomatie identique, on s'arrête là
@@ -168,7 +166,6 @@ int Carte::browseCollisionList(Individu *elem)
 
 	//Dans le cas de la diplomatie adverse, on transforme l'interaction en attaque
 	if (collider->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER) Retour = COLL_ATT;
-	if (collider->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER_ARR) Retour = COLL_ATT_ARR;
 
 	//Pas de collision primaire, pas de collision en interaction ; on teste une collision en vision
 	if (Retour == COLL_OK && elem->Get_ChampVision() != 0)
