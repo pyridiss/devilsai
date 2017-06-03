@@ -70,7 +70,7 @@ int Element_Carte::Gestion()
 		}
 		else
 		{
-			if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 100)
+			if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
 			{
 				Set_Controle(AI_IMG_HORSCHAMP);
 			}

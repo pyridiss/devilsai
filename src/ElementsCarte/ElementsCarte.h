@@ -23,6 +23,8 @@
 #include <string>
 #include <fstream>
 
+#include <SFML/Graphics.hpp>
+
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
 
@@ -165,7 +167,7 @@ class Element_Carte
 
 	//Affichage :
 	public:
-		virtual void Disp(float RefX, float RefY) =0;
+		virtual void Disp(RenderTarget& target, float RefX, float RefY) =0;
 		virtual void Disp_Masks(float RefX, float RefY) =0;
 };
 
@@ -187,7 +189,7 @@ class Coffre : public Element_Carte
 
 	//Affichage :
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 		void Disp_Masks(float RefX, float RefY);
 };
 
@@ -211,7 +213,7 @@ class Cadavre : public Coffre
 
 	//Affichage :
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
 class Element_Mouvant : public Element_Carte
@@ -305,7 +307,7 @@ class Individu : public Element_Mouvant
 
 	//Affichage
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
 class Individu_Unique : public Individu
@@ -448,7 +450,7 @@ class Paysage : public Element_Carte
 	public:
 		void Disp_Masks(float RefX, float RefY);
 
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
 class Door : public Element_Carte
@@ -467,7 +469,7 @@ class Door : public Element_Carte
 
 	public:
 		void Disp_Masks(float RefX, float RefY);
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
 class Paysage_Mouvant : public Element_Mouvant
@@ -490,7 +492,7 @@ class Paysage_Mouvant : public Element_Mouvant
 
 	//Affichage :
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 		void Disp_Masks(float RefX, float RefY);
 };
 
@@ -514,7 +516,7 @@ class Projectile : public Individu_Unique
 
 	//Affichage :
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 		void Disp_Masks(float RefX, float RefY);
 };
 
@@ -556,7 +558,7 @@ class Actionneur : public Element_Carte
 
 	//Affichage :
 	public:
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 		void Disp_Masks(float RefX, float RefY);
 };
 
@@ -578,7 +580,7 @@ class Trigger : public Element_Carte
 
 	public:
 		void Disp_Masks(float RefX, float RefY);
-		void Disp(float RefX, float RefY);
+		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
 void Disp_Coffre();

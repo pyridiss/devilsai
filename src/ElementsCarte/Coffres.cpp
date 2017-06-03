@@ -38,7 +38,7 @@ int Coffre::Collision(Individu* elem, int TypeCollision)
 	return COLL_INTER;
 }
 
-void Coffre::Disp(float RefX, float RefY)
+void Coffre::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	return;
 }
@@ -88,10 +88,10 @@ void Cadavre::Set_Individu(string type, string key)
 	Set_Individu();
 }
 
-void Cadavre::Disp(float RefX, float RefY)
+void Cadavre::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-    imageManager::display(Jeu.App, "individuals", imageKey, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(target, "individuals", imageKey, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }
 

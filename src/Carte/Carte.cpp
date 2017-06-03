@@ -643,14 +643,14 @@ int Carte::GestionElements()
 	return Retour;
 }
 
-void Carte::display()
+void Carte::display(RenderTarget& target)
 {
     Set_PosCarte(0, 0, true);
     for (auto& tmp : elements)
-        tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
+        tmp->Disp(target, Partie.PosCarteX, Partie.PosCarteY);
 
 	for (auto& tmp : triggers)
-		tmp->Disp(Partie.PosCarteX, Partie.PosCarteY);
+		tmp->Disp(target, Partie.PosCarteX, Partie.PosCarteY);
 }
 
 void Carte::setBackgroundImage(string path)
@@ -663,7 +663,7 @@ void Carte::setBackgroundImage(string path)
     MESSAGE("Fond de la carte choisi", IMAGE)
 }
 
-void Carte::displayBackground()
+void Carte::displayBackground(RenderTarget& target)
 {
 	if (backgroundImage.empty()) return;
 
@@ -673,17 +673,17 @@ void Carte::displayBackground()
 	while (PosFondX < -134)
 		PosFondX += 135;
 
-	while (PosFondY > 24)
+	while (PosFondY > 0)
 		PosFondY -= 144;
 
-	while (PosFondY < -119)
+	while (PosFondY < -143)
 		PosFondY += 144;
 
-	for (unsigned short a = 0 ; a < Options.ScreenW/135 + 2 ; ++a)
+	for (unsigned short a = 0 ; a < target.getSize().x/135 + 2 ; ++a)
 	{
-		for (unsigned short b = 0 ; b < Options.ScreenH/144 + 2 ; ++b)
+		for (unsigned short b = 0 ; b < target.getSize().y/144 + 2 ; ++b)
 		{
-            imageManager::display(Jeu.App, "paysage", backgroundImage, PosFondX+135*a, PosFondY+144*b);
+            imageManager::display(target, "paysage", backgroundImage, PosFondX+135*a, PosFondY+144*b);
 		}
 	}
 }

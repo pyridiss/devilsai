@@ -93,7 +93,7 @@ void Actionneur::Load(istream &Fichier)
 	}
 }
 
-void Actionneur::Disp(float RefX, float RefY)
+void Actionneur::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
@@ -269,7 +269,7 @@ END_SHARED_TRIGGER
 // 	dialogue->load(chemin);
 // }
 
-void Trigger::Disp(float RefX, float RefY)
+void Trigger::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)

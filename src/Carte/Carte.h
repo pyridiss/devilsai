@@ -24,7 +24,10 @@
 #include <list>
 #include <map>
 
+#include <SFML/Graphics.hpp>
+
 using namespace std;
+using namespace sf;
 
 class lua_State;
 
@@ -89,12 +92,12 @@ class Carte
 	//Gestion :
 	public:
 		int GestionElements();
-        void display();
+        void display(RenderTarget& target);
 
 	//Fond de la carte :
 	public:
 		void setBackgroundImage(string path);
-		void displayBackground();
+		void displayBackground(RenderTarget& target);
 
 	//Collisions manager
 	public:

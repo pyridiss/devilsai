@@ -164,7 +164,7 @@ void Individu::Lag_Recuperation(float lag)
 	if (get("Recuperation") > 100) Set_Recuperation(100);
 }
 
-void Individu::Disp(float RefX, float RefY)
+void Individu::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
@@ -175,5 +175,5 @@ void Individu::Disp(float RefX, float RefY)
 	#endif
 
 	Activite* act = Get_Activite(Act);
-    imageManager::display(Jeu.App, "individuals", act->getImageKey(angle, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }

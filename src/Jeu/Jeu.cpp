@@ -154,6 +154,12 @@ void mainLoop()
 
     tools::signals::addSignal("main-menu");
 
+    RenderTexture mapRenderTarget;
+    mapRenderTarget.create(Options.ScreenW, Options.ScreenH - 50);
+    Sprite mapRenderSprite(mapRenderTarget.getTexture());
+    mapRenderSprite.setScale(1, -1);
+    mapRenderSprite.setPosition(0, Options.ScreenH);
+
 	while (true)
 	{
         //1. Events & Signals
@@ -296,8 +302,11 @@ void mainLoop()
         //3. Display
 
         Jeu.App.clear();
-        Partie.CarteCourante->displayBackground();
-        Partie.CarteCourante->display();
+
+        mapRenderTarget.clear();
+        Partie.CarteCourante->displayBackground(mapRenderTarget);
+        Partie.CarteCourante->display(mapRenderTarget);
+        Jeu.App.draw(mapRenderSprite);
 
         if (!Partie.ModeCinematiques)
         {

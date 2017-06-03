@@ -76,13 +76,13 @@ void Paysage::calculateCollisionRadius()
 	}
 }
 
-void Paysage::Disp(float RefX, float RefY)
+void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
 	if (repeatX == 1 && repeatY == 1)
 	{
-        imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+        imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 	}
 	else
 	{
@@ -91,19 +91,19 @@ void Paysage::Disp(float RefX, float RefY)
 		{
 			if (repeatX % 2 == 0)
 				for (float i = -repeatX/2 ; i < repeatX/2 ; ++i)
-                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + (i+0.5)*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - (PosX + (i+0.5)*imageDimension.x)), target.getSize().y/2 - (RefY - PosY), true);
 			else
 				for (float i = -(repeatX-1)/2 ; i <= (repeatX-1)/2 ; ++i)
-                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - (PosX + i*imageDimension.x)), (float)Options.ScreenH/2 + 12 - (int)(RefY - PosY), true);
+                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - (PosX + i*imageDimension.x)), target.getSize().y/2 - (RefY - PosY), true);
 		}
 		else if (repeatY > 1)
 		{
 			if (repeatY % 2 == 0)
 				for (float i = -repeatY/2 ; i < repeatY/2 ; ++i)
-                    imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + (i+0.5)*imageDimension.y)), true);
+                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - (PosY + (i+0.5)*imageDimension.y)), true);
 			else
 				for (float i = -(repeatY-1)/2 ; i <= (repeatY-1)/2 ; ++i)
-					imageManager::display(Jeu.App, "paysage", Type, (float)Options.ScreenW/2 - (int)(RefX - PosX), (float)Options.ScreenH/2 + 12 - (int)(RefY - (PosY + i*imageDimension.y)), true);
+					imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - (PosY + i*imageDimension.y)), true);
 		}
 	}
 
@@ -160,7 +160,7 @@ int Door::Collision(Individu *elem, int TypeCollision)
 	return COLL_OK;
 }
 
-void Door::Disp(float RefX, float RefY)
+void Door::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)
@@ -254,12 +254,12 @@ int Paysage_Mouvant::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM;
 }
 
-void Paysage_Mouvant::Disp(float RefX, float RefY)
+void Paysage_Mouvant::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
     Activite* act = Get_Activite(Act);
-    imageManager::display(Jeu.App, "movingObjects", act->getImageKey(angle, Num), Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 
 	#ifdef DEBOGAGE
 	if (Arguments.Masks)

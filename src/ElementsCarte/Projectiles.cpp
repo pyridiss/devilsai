@@ -170,7 +170,7 @@ int Projectile::Gestion()
 	return ETAT_MORT;
 }
 
-void Projectile::Disp(float RefX, float RefY)
+void Projectile::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
@@ -180,7 +180,7 @@ void Projectile::Disp(float RefX, float RefY)
 			Disp_Masks(RefX, RefY);
 	#endif
 
-    imageManager::display(Jeu.App, "projectiles", Type, Options.ScreenW/2 - (RefX - PosX), Options.ScreenH/2 + 12 - (RefY - PosY), true);
+    imageManager::display(target, "projectiles", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }
 
 void Projectile::Disp_Masks(float RefX, float RefY)
