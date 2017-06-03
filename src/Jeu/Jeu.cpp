@@ -160,6 +160,12 @@ void mainLoop()
     mapRenderSprite.setScale(1, -1);
     mapRenderSprite.setPosition(0, Options.ScreenH);
 
+    Individu_Unique cursor;
+    cursor.collisionType = RectangleCollision;
+    cursor.RayX = 5;
+    cursor.RayY = 5;
+    Individu* underCursor = NULL;
+
 	while (true)
 	{
         //1. Events & Signals
@@ -299,6 +305,26 @@ void mainLoop()
         if (managementActivated)
             Partie.CarteCourante->GestionElements();
 
+        //Mouse cursor
+        cursor.PosX = Partie.PosCarteX - mapRenderTarget.getSize().x/2 + (Mouse::getPosition(Jeu.App).x - mapRenderSprite.getPosition().x);
+        cursor.PosY = Partie.PosCarteY - mapRenderTarget.getSize().y/2 + Mouse::getPosition(Jeu.App).y - (mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y);
+
+        Partie.CarteCourante->resetCollisionManager();
+        underCursor = NULL;
+        int Resultat = COLL_OK;
+
+        while(Resultat == COLL_OK)
+        {
+            Resultat = Partie.CarteCourante->browseCollisionList(&cursor);
+
+            if (Resultat == COLL_PRIM_MVT)
+            {
+                underCursor = dynamic_cast<Individu*>(Partie.CarteCourante->getCurrentCollider());
+                break;
+            }
+        }
+
+
         //3. Display
 
         Jeu.App.clear();
@@ -312,6 +338,7 @@ void mainLoop()
         {
             Disp_Menu();
             Disp_JaugesVie();
+            Disp_JaugesVie2(underCursor, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
             Disp_Consoles();
         }
 
