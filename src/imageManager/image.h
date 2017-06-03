@@ -42,7 +42,7 @@ class Image
         void set(string file, Image* reference, Vector2i of, float scale = 1);
         void applyShader(string file);
         const Vector2u getSize();
-        void display(RenderWindow& app, float x, float y, bool atCenter = false);
+        void display(RenderTarget& target, float x, float y, bool atCenter = false);
 };
 
 } //namespace imageManager

@@ -134,7 +134,7 @@ void changeHSL(string container, string key, double h, double s, double l)
     }
 }
 
-void display(RenderWindow& app, string container, string key, float x, float y, bool atCenter)
+void display(RenderTarget& target, string container, string key, float x, float y, bool atCenter)
 {
     Database::iterator c = images.find(container);
 
@@ -152,7 +152,7 @@ void display(RenderWindow& app, string container, string key, float x, float y, 
         return;
     }
 
-    (*i).second.display(app, x, y, atCenter);
+    (*i).second.display(target, x, y, atCenter);
 
     tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images");
 }
