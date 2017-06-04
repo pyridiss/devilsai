@@ -22,6 +22,7 @@
 #include <lua5.2/lua.hpp>
 
 #include "tools/signals.h"
+#include "tools/math.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
@@ -128,6 +129,20 @@ int Joueur::Gestion()
 	}
 	if (Get_Act() == MORT) angle = 3 * M_PI / 2;
 
+    if (TabAppui%10000 == 0 && automove)
+    {
+        angle = tools::math::angle(automoveEndpoint.x - PosX, automoveEndpoint.y - PosY);
+        TabAppui += 1; //TabToAct() will think we are holding an arrow key.
+
+        //Check if we are close enough to the endPoint
+        if (abs(automoveEndpoint.x - PosX) + abs(automoveEndpoint.y - PosY) < 15)
+            modif_maj = 0.25; //Last step will be divided by four
+        if (abs(automoveEndpoint.x - PosX) + abs(automoveEndpoint.y - PosY) < 5)
+            automove = false;
+    }
+    else automove = false;
+
+
 	int Resultat = COLL_OK;
 	int EnAttente = 0;
 	int Iteration = 0;
@@ -161,6 +176,7 @@ int Joueur::Gestion()
 				Resultat = COLL_END;
 				Set_Activite(PAUSE);
 				modif_maj = 0;
+                automove = false;
 			}
 		}
 

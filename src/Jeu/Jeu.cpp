@@ -324,6 +324,19 @@ void mainLoop()
             }
         }
 
+        //Mouse click
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            if (Mouse::getPosition(Jeu.App).x >= mapRenderSprite.getPosition().x &&
+                Mouse::getPosition(Jeu.App).y <= mapRenderSprite.getPosition().y &&
+                Mouse::getPosition(Jeu.App).x <= mapRenderSprite.getPosition().x + mapRenderTarget.getSize().x &&
+                Mouse::getPosition(Jeu.App).y >= mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y)
+            {
+                Partie.perso->automove = true;
+                Partie.perso->automoveEndpoint.x = cursor.PosX;
+                Partie.perso->automoveEndpoint.y = cursor.PosY;
+            }
+        }
 
         //3. Display
 

@@ -40,6 +40,12 @@ class Dialog;
 
 enum enumCollisionType { NoCollision = 0, RectangleCollision = 1, CircleCollision = 2 };
 
+struct Point
+{
+    double x;
+    double y;
+};
+
 /** INDIVIDUS **/
 
 struct TemplateObject
@@ -406,6 +412,8 @@ class Joueur : public Individu_Unique
 		int SauvegardeIndiceLieu       = 0;
 // 		bool GestionCoffresActivee     = false;
 // 		bool GestionCompetencesActivee = false;
+        bool automove                  = false;
+        Point automoveEndpoint;
 
 	public:
 		float BufForce = 0, BufPuissance = 0, BufAgilite = 0, BufIntelligence = 0;
