@@ -351,7 +351,8 @@ void mainLoop()
         {
             Disp_Menu();
             Disp_JaugesVie();
-            Disp_JaugesVie2(underCursor, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
+            if (underCursor != NULL)
+                underCursor->displayLifeGauge(Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
             Disp_Consoles();
         }
 

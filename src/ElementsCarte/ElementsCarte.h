@@ -314,6 +314,7 @@ class Individu : public Element_Mouvant
 	//Affichage
 	public:
 		void Disp(RenderTarget& target, float RefX, float RefY);
+        void displayLifeGauge(int x, int y);
 };
 
 class Individu_Unique : public Individu

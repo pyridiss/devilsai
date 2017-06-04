@@ -70,8 +70,6 @@ void Load_Decorations()
     imageManager::addAnimation("playerEnergyGauge", INSTALL_DIR + "img/BarreEnergie.png");
     imageManager::addAnimation("playerEnergyGaugeBackground", INSTALL_DIR + "img/BarreEnergie.png");
     imageManager::addAnimation("playerRecoveryGauge", INSTALL_DIR + "img/BarreRecup.png");
-    imageManager::addAnimation("interactorLifeGauge", INSTALL_DIR + "img/BarreVie.png");
-    imageManager::addAnimation("interactorLifeGauge2", INSTALL_DIR + "img/BarreVie.png");
 
 	Partie.screenCharacter.dispFunction = Disp_Personnage;
 	Partie.screenCharacter.manageFunction = nullptr;
@@ -155,9 +153,6 @@ void Disp_Menu()
 void Disp_JaugesVie()
 {
 	static int PersoEnePrec = Partie.perso->get("Energie");
-	static int AncienInteraction = 0;
-
-	static Element_Carte *Elem; static Individu* Ind;
 
     static imageManager::Animation* playerLifeGauge = imageManager::getAnimation("playerLifeGauge");
     static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
@@ -237,102 +232,6 @@ void Disp_JaugesVie()
 	}
 
 	Disp_Information(_TITRE, false);
-
-	//3. Individu en interaction
-
-	static unsigned char TransInd = 0;
-	static int sIVit = 0, sIRec = 0;
-	static String32 NomInd;
-	static Color CouleurNom = Color(255, 255, 255, 255);
-	static RectangleShape MasqueInter(Vector2f(100, 7));
-	MasqueInter.setPosition(Options.ScreenW - 114, Options.ScreenH/2 - 25);
-
-    static imageManager::Animation* interactorLifeGauge = imageManager::getAnimation("interactorLifeGauge");
-
-	if (TransInd != 0)
-	{
-		Disp_TexteCentre(NomInd, Options.ScreenW - 64, Options.ScreenH/2 - 35, CouleurNom, 12.f);
-
-		MasqueInter.setFillColor(Color(0, 0, 0, (TransInd > 80) ? TransInd-80 : 0));
-		Jeu.App.draw(MasqueInter);
-
-        interactorLifeGauge->setSmoothRectangle(0, 0, sIVit/10, 7);
-        interactorLifeGauge->setColor(Color(255, 255, 255, TransInd));
-        interactorLifeGauge->display(Jeu.App, Options.ScreenW - 114, Options.ScreenH/2 - 25, false);
-
-		if		(sIVit == 0)				Disp_TexteCentre(_MORT, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(168, 168, 168, TransInd), 11.f);
-		else if	(sIVit/10 + sIRec >= 90)	Disp_TexteCentre(_SANTE1, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(128, 255, 128, TransInd), 11.f);
-		else if (sIVit/10 + sIRec >= 65)	Disp_TexteCentre(_SANTE2, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(255, 220, 30, TransInd), 11.f);
-		else if (sIVit/10 + sIRec >= 30)	Disp_TexteCentre(_SANTE3, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(255, 190, 10, TransInd), 11.f);
-		else if (sIVit/10 + sIRec >= 10)	Disp_TexteCentre(_SANTE4, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(255, 80, 10, TransInd), 11.f);
-		else 								Disp_TexteCentre(_SANTE5, Options.ScreenW - 64, Options.ScreenH/2 - 10, Color(255, 0, 0, TransInd), 11.f);
-	}
-
-	if (Partie.perso->ElementInteraction != -1 && Partie.perso->ElementInteraction != AncienInteraction)
-	{
-		Elem = Get_Element(Partie.perso->ElementInteraction);
-		if (Elem == NULL) return;
-
-		if (Elem->Diplomatie != 0)
-		{
-			TransInd = 255;
-			Ind = dynamic_cast<Individu*>(Elem);
-
-			if (Ind == NULL)
-			{
-				Erreur("Disp_JaugesVie() tente d'afficher les statistiques d'un élément non individu", "");
-				return;
-			}
-
-			NomInd = Ind->Get_Nom();
-			if (Elem->Diplomatie == DIPLOM_ALLIE) CouleurNom = Color(128, 255, 128, 255);
-			if (Elem->Diplomatie == DIPLOM_ENNEMI) CouleurNom = Color(255, 255, 255, 255);
-            interactorLifeGauge->setRectangle(0, 0, Ind->get("Vitalite")/10, 7);
-		}
-		else Ind = NULL;
-		AncienInteraction = Partie.perso->ElementInteraction;
-	}
-	if (Ind != NULL && Partie.perso->ElementInteraction != -1)
-	{
-		sIVit = Ind->get("Vitalite");
-		sIRec = Ind->get("Recuperation");
-	}
-
-	if ((Ind == NULL || Partie.perso->ElementInteraction == -1) && TransInd > 0)
-	{
-		Elem = NULL; Ind = NULL;
-		TransInd -= 5;
-		if (CouleurNom.r == 128) CouleurNom = Color(128, 255, 128, TransInd);
-		if (CouleurNom.r == 255) CouleurNom = Color(255, 255, 255, TransInd);
-		AncienInteraction = 0;
-	}
-}
-
-
-void Disp_JaugesVie2(Individu* ind, int x, int y)
-{
-    static imageManager::Animation* interactorLifeGauge = imageManager::getAnimation("interactorLifeGauge2");
-
-    if (ind == NULL)
-    {
-        interactorLifeGauge->setRectangle(0, 0, 100, 7);
-        return;
-    }
-
-    String32 NomInd = ind->Get_Nom();
-    Color CouleurNom;
-    if (ind->Diplomatie == DIPLOM_ALLIE) CouleurNom = Color(128, 255, 128, 255);
-    if (ind->Diplomatie == DIPLOM_ENNEMI) CouleurNom = Color(255, 255, 255, 255);
-    Disp_TexteCentre(NomInd, x, y + 25, CouleurNom, 10.f);
-
-    RectangleShape MasqueInter(Vector2f(100, 7));
-    MasqueInter.setPosition(x - 50, y + 35);
-    MasqueInter.setFillColor(Color(0, 0, 0, 175));
-    Jeu.App.draw(MasqueInter);
-
-    interactorLifeGauge->setSmoothRectangle(0, 0, ind->get("Vitalite")/10, 7);
-    interactorLifeGauge->setColor(Color(255, 255, 255, 255));
-    interactorLifeGauge->display(Jeu.App, x - 50, y + 35, false);
 }
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)

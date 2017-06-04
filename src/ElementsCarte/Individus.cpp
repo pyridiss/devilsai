@@ -177,3 +177,21 @@ void Individu::Disp(RenderTarget& target, float RefX, float RefY)
 	Activite* act = Get_Activite(Act);
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }
+
+void Individu::displayLifeGauge(int x, int y)
+{
+    Color color;
+    if (Diplomatie == DIPLOM_ALLIE) color = Color(128, 255, 128, 255);
+    if (Diplomatie == DIPLOM_ENNEMI) color = Color(255, 255, 255, 255);
+    Disp_TexteCentre(Get_Nom(), x, y + 25, color, 10.f);
+
+    RectangleShape background(Vector2f(50, 4));
+    background.setPosition(x - 25, y + 35);
+    background.setFillColor(Color(0, 0, 0, 175));
+    Jeu.App.draw(background);
+
+    RectangleShape foreground(Vector2f(get("Vitalite")/20, 4));
+    foreground.setPosition(x - 25, y + 35);
+    foreground.setFillColor(Color(228, 0, 0, 255));
+    Jeu.App.draw(foreground);
+}

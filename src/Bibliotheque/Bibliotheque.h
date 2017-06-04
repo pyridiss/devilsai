@@ -226,7 +226,6 @@ void Disp_FPS();
 void Disp_FondMenus();
 void Disp_Menu();
 void Disp_JaugesVie();
-void Disp_JaugesVie2(Individu* ind, int x, int y);
 void Ajouter_LignePerso(String32, Color);
 void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles();
