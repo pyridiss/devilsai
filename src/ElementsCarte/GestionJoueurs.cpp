@@ -269,7 +269,7 @@ int Joueur::Gestion()
 		if (Get_Num() == 0)
 		{
 			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-                if (skillLinks[c] != nullptr && Get_Act() == getIntFromLUA(skillLinks[c], "getActivite"))
+                if (skillLinks[c] != nullptr && Get_Act() == getStringFromLUA(skillLinks[c], "getActivite"))
 					setBoolToLUA(skillLinks[c], "setActiviteFinished", true);
 		}
 

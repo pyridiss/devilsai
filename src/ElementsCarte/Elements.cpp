@@ -88,7 +88,7 @@ int Element_Carte::Gestion()
 
 /** FONCTIONS DE LA CLASSE Element_Mouvant **/
 
-short Element_Mouvant::Get_Act()
+string Element_Mouvant::Get_Act()
 {
 	return Act;
 }
@@ -98,9 +98,9 @@ short Element_Mouvant::Get_Num()
 	return Num;
 }
 
-bool Element_Mouvant::Set_Activite(int nv)
+bool Element_Mouvant::Set_Activite(string nv)
 {
-	if (Act == -1)
+	if (Get_Activite(Act) == NULL)
 	{
 		Act = nv;
 		Num = 0;
@@ -164,7 +164,7 @@ int Element_Mouvant::Gestion()
 	return ETAT_CONTINUER;
 }
 
-int Element_Mouvant::Get_Vitesse(short act)
+int Element_Mouvant::Get_Vitesse(string act)
 {
 	return Get_Activite(act)->speed;
 }

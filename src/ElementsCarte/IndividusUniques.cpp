@@ -42,7 +42,7 @@ Individu_Unique::~Individu_Unique()
 // 		delete i->second;
 }
 
-void Individu_Unique::Ajouter_Activite(int Id)
+void Individu_Unique::Ajouter_Activite(string Id)
 {
 	Activite act;
 	Activites.insert(MapActivites::value_type(Id, act));
@@ -90,7 +90,7 @@ Statistiques* Individu_Unique::Get_Stats()
 	return &Stats;
 }
 
-Activite* Individu_Unique::Get_Activite(short act)
+Activite* Individu_Unique::Get_Activite(string act)
 {
 	MapActivites::iterator i = Activites.find(act);
 	if (i == Activites.end()) return NULL;
@@ -171,7 +171,7 @@ float Individu_Unique::get(string field)
 	return Jeu.floatNotFound;
 }
 
-int Individu_Unique::Get_Vitesse(short act)
+int Individu_Unique::Get_Vitesse(string act)
 {
 	int Total = Get_Activite(act)->speed;
 
@@ -179,13 +179,9 @@ int Individu_Unique::Get_Vitesse(short act)
 
 	string speedType = "";
 
-	switch (act)
-	{
-		case 3 : speedType = "getVitesseCourse"; break;
-		case 6 : speedType = "getVitesseBlesse"; break;
-		case 101 :
-		case 301 : speedType = "getVitesseAttaque"; break;
-	}
+    if (act == "3") speedType = "getVitesseCourse";
+    else if (act == "6") speedType = "getVitesseBlesse";
+    else if (act == "101" || act == "301") speedType = "getVitesseAttaque";
 
 	if (speedType != "")
 	{
@@ -199,7 +195,7 @@ int Individu_Unique::Get_Vitesse(short act)
 	return Total;
 }
 
-bool Individu_Unique::Set_Activite(int nv)
+bool Individu_Unique::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
 

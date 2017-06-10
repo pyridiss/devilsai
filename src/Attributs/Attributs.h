@@ -41,7 +41,7 @@ class EmplacementEquipement;
 typedef map < int, int > MapVitesses;
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
-typedef map < int, Activite > MapActivites;
+typedef map < string, Activite > MapActivites;
 typedef map < string, lua_State* > mapSkills;
 typedef list <EmplacementEquipement> ListEmplacementsEquipements;
 
@@ -114,7 +114,7 @@ class Caracteristiques
 class Activite
 {
 	public:
-		int Id			= -1;
+        string Id          = "-1";
         int numberOfImages = 0;
 		short speed		= 0;
 		short step		= 0;

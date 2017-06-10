@@ -40,7 +40,8 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	short Act, Num;
+    string Act;
+	short Num;
     double angle;
 	int h = 0, s = 0, l = 0;
 
@@ -204,7 +205,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Num = 0;
+			Act = ""; Num = 0;
             angle = 0;
 			act = NULL;
 		}
@@ -253,7 +254,8 @@ void Load_ClasseCommune(string Type)
 	Classe_Commune *cl_com = getCommonClass(Type);
 
 	Activite *act = NULL;
-	short Act, Num;
+    string Act;
+	short Num;
     double angle = 0;
 	string TypeDonnee;
 //	int ClefStuff = CLEF_STUFF;
@@ -359,7 +361,7 @@ void Load_ClasseCommune(string Type)
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Num = 0;
+			Act = ""; Num = 0;
             angle = 0;
 			act = NULL;
 		}
@@ -462,7 +464,8 @@ void Load_ClassePaysageMouvant(string Type)
 
 	string TypeDonnee;
 	Activite *act = NULL;
-	short Act, Num;
+    string Act;
+	short Num;
     double angle;
 	int ExX = 0, ExY = 0;
     int h = 0, s = 0, l = 0;
@@ -535,7 +538,7 @@ void Load_ClassePaysageMouvant(string Type)
 
 		if (TypeDonnee == "FIN_ACT")
 		{
-			Act = 0; Num = 0;
+			Act = ""; Num = 0;
             angle = 0;
 			act = NULL;
 		}

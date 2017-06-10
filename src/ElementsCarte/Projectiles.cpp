@@ -106,12 +106,12 @@ void Paysage_Lanceur::Disp_Masks(float RefX, float RefY)
 
 /** FONCTIONS DE LA CLASSE Projectile **/
 
-Activite* Projectile::Get_Activite(short act)
+Activite* Projectile::Get_Activite(string act)
 {
 	return &Deplacement;
 }
 
-bool Projectile::Set_Activite(int nv)
+bool Projectile::Set_Activite(string nv)
 {
 	return true;
 }

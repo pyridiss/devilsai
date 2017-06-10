@@ -64,7 +64,7 @@ class Classe_Commune
 		int RayonCollision      = 0;
 		int ChampVision         = 0;
 		int RayonInteraction    = 0;
-		short ActDefaut         = 0;
+		string ActDefaut         = "0";
 
 	public:
 		unsigned int Experience = 0;
@@ -85,8 +85,8 @@ class Classe_Commune
 		~Classe_Commune();
 
 	public:
-		void Ajouter_Activite(int Id);
-		Activite* Get_Activite(int Id);
+		void Ajouter_Activite(string Id);
+		Activite* Get_Activite(string Id);
 
 	public:
 		void Copie_Element(Individu_Commun *elem);
@@ -126,8 +126,8 @@ class Classe_Paysage_Mouvant
 
 	//Gestion :
 	public:
-		void Ajouter_Activite(int Id);
-		Activite* Get_Activite(int Id);
+		void Ajouter_Activite(string Id);
+		Activite* Get_Activite(string Id);
 
 	public:
 		void Copie_Element(Element_Carte *elem);
@@ -226,12 +226,12 @@ class Element_Mouvant : public Element_Carte
 {
 	//Objet
 	protected:
-		short Act   = 0;
+		string Act   = "0";
         double angle = 0;
 		short Num   = 0;
 
 	public:
-		short ActDefaut     = 0;
+		string ActDefaut     = "0";
 		bool ActEffectue    = true;
 
 	public:
@@ -249,16 +249,16 @@ class Element_Mouvant : public Element_Carte
 
 	//Getter :
 	public:
-		short Get_Act();
+		string Get_Act();
 		short Get_Num();
 
-		virtual Activite* Get_Activite(short act) =0;
+		virtual Activite* Get_Activite(string act) =0;
 
 	//Gestion :
 	public:
 		virtual int Gestion();
-		virtual bool Set_Activite(int nv);
-		virtual int Get_Vitesse(short act);
+		virtual bool Set_Activite(string nv);
+		virtual int Get_Vitesse(string act);
 		int Collision(Individu *elem, int TypeCollision);
 		void IncrementNum(bool RaZ = false);
 };
@@ -350,7 +350,7 @@ class Individu_Unique : public Individu
 		virtual ~Individu_Unique();
 
 	public:
-		void Ajouter_Activite(int Id);
+		void Ajouter_Activite(string Id);
 		void Ajouter_EmplacementEquip(int x, int y, int w, int h, string Categorie, string Type, string Classe);
 
 	//Getter :
@@ -361,16 +361,16 @@ class Individu_Unique : public Individu
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
-		virtual Activite* Get_Activite(short act);
+		virtual Activite* Get_Activite(string act);
 
 		float get(string field);
 
-		int Get_Vitesse(short act);
+		int Get_Vitesse(string act);
 
 		void Gestion_Recuperation();
 		void Lag_Recuperation(float lag);
 
-		bool Set_Activite(int nv);
+		bool Set_Activite(string nv);
 
 	//Affichage :
 	public:
@@ -396,9 +396,9 @@ class Individu_Commun : public Individu
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
-		Activite* Get_Activite(short act);
+		Activite* Get_Activite(string act);
 
-		bool Set_Activite(int nv);
+		bool Set_Activite(string nv);
 
 	//Affichage :
 	public:
@@ -430,7 +430,7 @@ class Joueur : public Individu_Unique
 		void Gestion_Statistiques();
 		void Repos();
 
-		int TabToAct(int TabAppui);
+		string TabToAct(int TabAppui);
 		void CoupCritique(Individu* ennemi);
 		void BlessureGrave(Individu* ennemi);
 		void CoupEsquive(Individu* ennemi);
@@ -494,7 +494,7 @@ class Paysage_Mouvant : public Element_Mouvant
 	//Gestion :
 	public:
 		void Activation();
-		Activite* Get_Activite(short act);
+		Activite* Get_Activite(string act);
 		int Gestion();
 		void IncrementNum(bool RaZ = false);
 		int Collision(Individu *elem, int TypeCollision);
@@ -519,8 +519,8 @@ class Projectile : public Individu_Unique
 
 	//Gestion :
 	public:
-		Activite* Get_Activite(short act);
-		bool Set_Activite(int nv);
+		Activite* Get_Activite(string act);
+		bool Set_Activite(string nv);
 		int Gestion();
 
 	//Affichage :

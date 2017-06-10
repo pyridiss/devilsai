@@ -415,7 +415,7 @@ int LUA_setActivity(lua_State* L)
 
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 
-	if (ind != NULL) ind->Set_Activite(lua_tonumber(L, 2));
+	if (ind != NULL) ind->Set_Activite(lua_tostring(L, 2));
 
 	return 0;
 }
@@ -540,7 +540,7 @@ int LUA_createActivite(lua_State* L)
     MESSAGE("LUA_createActivite() called", LUA)
 
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
-	int id = lua_tonumber(L, 2);
+	string id = lua_tostring(L, 2);
 
 	ind->Ajouter_Activite(id);
 	Activite* act = ind->Get_Activite(id);

@@ -208,7 +208,7 @@ void Paysage_Mouvant::Activation()
 	Set_Activite(ACTIVATION);
 }
 
-Activite* Paysage_Mouvant::Get_Activite(short act)
+Activite* Paysage_Mouvant::Get_Activite(string act)
 {
 	return Classe->Get_Activite(act);
 }
@@ -298,7 +298,7 @@ void Classe_Paysage_Mouvant::Copie_Element(Element_Carte *elem)
 	elem->Diplomatie = 0;
 }
 
-void Classe_Paysage_Mouvant::Ajouter_Activite(int Id)
+void Classe_Paysage_Mouvant::Ajouter_Activite(string Id)
 {
 	Activite act;
 	Activites.insert(MapActivites::value_type(Id, act));
@@ -306,7 +306,7 @@ void Classe_Paysage_Mouvant::Ajouter_Activite(int Id)
 	i->second.Id = Id;
 }
 
-Activite* Classe_Paysage_Mouvant::Get_Activite(int Id)
+Activite* Classe_Paysage_Mouvant::Get_Activite(string Id)
 {
 	MapActivites::iterator i = Activites.find(Id);
 	if (i == Activites.end()) return NULL;

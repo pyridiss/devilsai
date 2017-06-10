@@ -61,12 +61,12 @@ Statistiques* Individu_Commun::Get_Stats()
 	return &Stats;
 }
 
-Activite* Individu_Commun::Get_Activite(short act)
+Activite* Individu_Commun::Get_Activite(string act)
 {
 	return Classe->Get_Activite(act);
 }
 
-bool Individu_Commun::Set_Activite(int nv)
+bool Individu_Commun::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
 
@@ -147,7 +147,7 @@ Classe_Commune::~Classe_Commune()
 	Activites.clear();
 }
 
-void Classe_Commune::Ajouter_Activite(int Id)
+void Classe_Commune::Ajouter_Activite(string Id)
 {
 	Activite act;
 	Activites.insert(MapActivites::value_type(Id, act));
@@ -155,7 +155,7 @@ void Classe_Commune::Ajouter_Activite(int Id)
 	i->second.Id = Id;
 }
 
-Activite* Classe_Commune::Get_Activite(int Id)
+Activite* Classe_Commune::Get_Activite(string Id)
 {
 	MapActivites::iterator i = Activites.find(Id);
 	if (i == Activites.end()) return NULL;

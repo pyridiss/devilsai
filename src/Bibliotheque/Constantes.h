@@ -80,14 +80,14 @@ using namespace std;
 #define CLASSEMENT_NUAGE	4
 
 //Activités
-#define STOP		0
-#define MARCHE 		1
-#define PAUSE		2
-#define COURSE		3
-#define ATTAQUE		4
-#define BLESSE		5
-#define MORT		6
-#define ACTIVATION	7
+#define STOP		"0"
+#define MARCHE 		"1"
+#define PAUSE		"2"
+#define COURSE		"3"
+#define ATTAQUE		"4"
+#define BLESSE		"5"
+#define MORT		"6"
+#define ACTIVATION	"7"
 
 //Comportements des individus
 #define COMPORTEMENT_ALEATOIRE	10
