@@ -130,7 +130,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 		if (TypeDonnee == "SKILL")
 		{
 			string numero = ""; Fichier >> numero;
-			ind->Get_Caracs()->addSkill(numero, (long int)ind);
+			ind->Get_Caracs()->addSkill(numero, ind);
 		}
 		if (TypeDonnee == "DEFAUT_CTRL")
 		{

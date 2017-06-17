@@ -109,7 +109,7 @@ void Objects::deleteObjects()
 
 /* Manager for skills */
 
-void Caracteristiques::addSkill(string newSkill, int owner)
+void Caracteristiques::addSkill(string newSkill, Individu* owner)
 {
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
@@ -145,7 +145,7 @@ void Caracteristiques::addSkill(string newSkill, int owner)
 	lua_register(L, "playSound", LUA_playSound);
 
 	lua_getglobal(L, "skillBegin");
-	lua_pushnumber(L, owner);
+    lua_pushlightuserdata(L, (void*)owner);
 	lua_call(L, 1, 0);
 
     string name = getStringFromLUA(L, "getName");

@@ -101,7 +101,7 @@ class Caracteristiques
 		const int& operator[](string characteristic) const;
 
 	public:
-		void addSkill(string newSkill, int owner);
+		void addSkill(string newSkill, Individu* owner);
 		void manageSkills();
 		void saveSkills(ofstream& stream);
 		void loadSkillFromSavedGame(string skill, string data);
