@@ -65,6 +65,7 @@ class Classe_Commune
 		int ChampVision         = 0;
 		int RayonInteraction    = 0;
 		string ActDefaut         = "0";
+        double lifetime         = -1;
 
         bool angleFixed = false;
         double fixedAngle = 0;
@@ -145,6 +146,7 @@ class Element_Carte
 		string Type         = "DEFAUT";
 		string Liste        = "DEFAUT";
 		short Diplomatie    = 0;
+        double lifetime     = -1;
 
 	protected:
 		short Controle      = AUCUN;

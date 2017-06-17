@@ -56,6 +56,12 @@ int Element_Carte::Gestion()
 {
 	if (Get_Controle() == HUMAIN) return ETAT_CONTINUER;
 
+    if (lifetime > 0)
+    {
+        lifetime -= tools::timeManager::I(1);
+        if (lifetime < 0) lifetime = 0;
+    }
+
 	if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
 	{
 		Set_Controle(ARRET);

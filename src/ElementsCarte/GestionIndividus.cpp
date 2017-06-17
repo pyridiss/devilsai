@@ -48,7 +48,7 @@ int Individu::Gestion()
 			return ETAT_NORMAL;
 		}
 	}
-	if (Get_Act() != MORT && get("Vitalite") == 0)
+	if (Get_Act() != MORT && (get("Vitalite") == 0 || lifetime == 0))
 	{
 		if (!Set_Activite(MORT)) return ETAT_MORT;
 		else return ETAT_NORMAL;
