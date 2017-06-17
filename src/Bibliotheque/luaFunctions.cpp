@@ -197,6 +197,7 @@ int LUA_get(lua_State* L)
 	{
 		if (field == "PosX")	if (ind != NULL) result = ind->PosX;
 		if (field == "PosY")	if (ind != NULL) result = ind->PosY;
+        if (field == "angle")   if (ind != NULL) result = ind->angle;
 	}
 
 	lua_pushnumber(L, result);

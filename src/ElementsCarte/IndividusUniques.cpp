@@ -253,3 +253,8 @@ void Individu_Unique::Disp_Masks(float RefX, float RefY)
 	Jeu.App.draw(MasqueAttaque);
 	Jeu.App.draw(MasqueCollision);
 }
+
+bool Individu_Unique::angleFixed()
+{
+    return false;
+}

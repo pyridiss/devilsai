@@ -98,7 +98,8 @@ int Individu::Gestion()
 			//En cas d'attaque, on cherche quand même la meilleure direction
 			if (Act == ATTAQUE && Elem != NULL)
 			{
-                angle = tools::math::angle(Elem->PosX - PosX, Elem->PosY - PosY);
+                if (!angleFixed())
+                    angle = tools::math::angle(Elem->PosX - PosX, Elem->PosY - PosY);
 			}
 			break;
 		}
@@ -223,8 +224,11 @@ void Individu::MouvementAleatoire(int Iteration)
 {
     Set_Activite(ActDefaut);
 
-    angle += M_PI / 2.0 * Iteration;
-    angle += tools::math::randomNumber_BinomialLaw(-10.0, 10.0);
+    if (!angleFixed())
+    {
+        angle += M_PI / 2.0 * Iteration;
+        angle += tools::math::randomNumber_BinomialLaw(-10.0, 10.0);
+    }
 
     while (angle < 0) angle += 2.0 * M_PI;
     while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
@@ -245,7 +249,8 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		return true;
 	}
 
-    angle = tools::math::angle(elem->PosX - PosX, elem->PosY - PosY);
+    if (!angleFixed())
+        angle = tools::math::angle(elem->PosX - PosX, elem->PosY - PosY);
 
     while(Iteration < 10)
     {

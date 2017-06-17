@@ -135,6 +135,10 @@ void Individu_Commun::Disp_Masks(float RefX, float RefY)
 	Jeu.App.draw(MasqueCollision);
 }
 
+bool Individu_Commun::angleFixed()
+{
+    return Classe->angleFixed;
+}
 
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
 
@@ -169,5 +173,12 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
 	elem->RayonCollision = RayonCollision;
 	elem->Diplomatie = Diplomatie;
 	(*(elem->Get_Stats()))["Recuperation"] = Caracs["RecuperationMoyenne"];
+
+    if (angleFixed) elem->angle = fixedAngle;
 }
 
+void Classe_Commune::setAngleFixed(double angle)
+{
+    angleFixed = true;
+    fixedAngle = angle;
+}

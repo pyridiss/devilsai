@@ -66,6 +66,9 @@ class Classe_Commune
 		int RayonInteraction    = 0;
 		string ActDefaut         = "0";
 
+        bool angleFixed = false;
+        double fixedAngle = 0;
+
 	public:
 		unsigned int Experience = 0;
 
@@ -90,6 +93,7 @@ class Classe_Commune
 
 	public:
 		void Copie_Element(Individu_Commun *elem);
+        void setAngleFixed(double angle);
 };
 
 class Classe_Paysage
@@ -225,7 +229,7 @@ class Cadavre : public Coffre
 class Element_Mouvant : public Element_Carte
 {
 	//Objet
-	protected:
+	public:
 		string Act   = "0";
         double angle = 0;
 		short Num   = 0;
@@ -290,6 +294,7 @@ class Individu : public Element_Mouvant
 		virtual int Get_Experience() = 0;
 		virtual Caracteristiques* Get_Caracs() =0;
 		virtual Statistiques* Get_Stats() =0;
+        virtual bool angleFixed() =0;
 
 	//Gestion :
 	public:
@@ -362,6 +367,7 @@ class Individu_Unique : public Individu
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
 		virtual Activite* Get_Activite(string act);
+        bool angleFixed();
 
 		float get(string field);
 
@@ -397,6 +403,7 @@ class Individu_Commun : public Individu
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
 		Activite* Get_Activite(string act);
+        bool angleFixed();
 
 		bool Set_Activite(string nv);
 
