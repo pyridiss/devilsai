@@ -38,6 +38,10 @@ class Individu_Commun;
 class Paysage;
 class Dialog;
 
+namespace tinyxml2{
+    class XMLHandle;
+};
+
 enum enumCollisionType { NoCollision = 0, RectangleCollision = 1, CircleCollision = 2 };
 
 struct Point
@@ -95,6 +99,8 @@ class Classe_Commune
 	public:
 		void Copie_Element(Individu_Commun *elem);
         void setAngleFixed(double angle);
+
+        void loadFromXML(tinyxml2::XMLHandle &handle);
 };
 
 class Classe_Paysage

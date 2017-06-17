@@ -89,6 +89,8 @@ class Carte
 
 		void SupprimerListe(string num);
 
+        void loadFromFile(string path);
+
 	//Gestion :
 	public:
 		int GestionElements();

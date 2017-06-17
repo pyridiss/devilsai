@@ -18,6 +18,7 @@
 */
 
 #include <lua5.2/lua.hpp>
+#include <tinyxml2.h>
 
 #include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"
@@ -26,6 +27,8 @@
 #include "../Jeu/Jeu.h"
 #include "Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
+
+using namespace tinyxml2;
 
 void Load_Carte(string Id, bool TypeCarte)
 {
@@ -88,6 +91,12 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			if (carte != NULL) carte->setBackgroundImage(bufferString);
 			else Erreur("Load_Carte() :", "FOND_CARTE demandé alors que la carte n'est pas initialisée");
 		}
+        if (TypeDonnee == "loadXMLFile")
+        {
+            string file;
+            Fichier >> file;
+            carte->loadFromFile(INSTALL_DIR + file);
+        }
 
 		if (TypeDonnee == "IND_UNIQUE" && carte != NULL)
 		{
@@ -706,3 +715,31 @@ void Set_PosCarte(float posX, float posY, bool MaJ)		//DEVRAIT APPARTENIR À CLA
 	else {Partie.PosCarteX = bufX; Partie.PosCarteY = bufY;}
 }
 
+void Carte::loadFromFile(string path)
+{
+    XMLDocument file;
+    file.LoadFile(path.c_str());
+
+    XMLHandle hdl(file);
+    XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
+
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "species")
+        {
+            string speciesName = elem->Attribute("name");
+
+            if (getCommonClass(speciesName) == NULL)
+            {
+                addCommonClass(speciesName);
+                Classe_Commune *species = getCommonClass(speciesName);
+                XMLHandle hdl2(elem);
+                species->loadFromXML(hdl2);
+            }
+        }
+
+        elem = elem->NextSiblingElement();
+    }
+}

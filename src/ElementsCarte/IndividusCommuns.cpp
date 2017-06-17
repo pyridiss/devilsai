@@ -16,11 +16,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <tinyxml2.h>
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
+
+using namespace tinyxml2;
 
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
@@ -182,4 +185,8 @@ void Classe_Commune::setAngleFixed(double angle)
 {
     angleFixed = true;
     fixedAngle = angle;
+}
+
+void Classe_Commune::loadFromXML(XMLHandle &handle)
+{
 }
