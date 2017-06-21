@@ -92,17 +92,6 @@ int Paysage_Lanceur::Gestion()
 	return ETAT_NORMAL;
 }
 
-void Paysage_Lanceur::Disp_Masks(float RefX, float RefY)
-{
-	Paysage_Mouvant::Disp_Masks(RefX, RefY);
-
-	RectangleShape MasqueCollision(Vector2f(2*Jeu.Ind_AI->RayX, 2*Jeu.Ind_AI->RayY));
-	MasqueCollision.setPosition(Options.ScreenW/2 - (Partie.perso->PosX - Jeu.Ind_AI->PosX) - Jeu.Ind_AI->RayX, Options.ScreenH/2 + 12 - (Partie.perso->PosY - Jeu.Ind_AI->PosY) - Jeu.Ind_AI->RayY);
-	MasqueCollision.setFillColor(Color(255, 0, 0, 100));
-
-	Jeu.App.draw(MasqueCollision);
-	
-}
 
 /** FONCTIONS DE LA CLASSE Projectile **/
 
@@ -174,20 +163,5 @@ void Projectile::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2 + 12)
-			Disp_Masks(RefX, RefY);
-	#endif
-
     imageManager::display(target, "projectiles", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
-}
-
-void Projectile::Disp_Masks(float RefX, float RefY)
-{
-	RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-	MasqueCollision.setPosition(Options.ScreenW/2 - (Partie.perso->PosX - PosX) - RayX, Options.ScreenH/2 + 12 - (Partie.perso->PosY - PosY) - RayY);
-	MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-
-	Jeu.App.draw(MasqueCollision);
 }

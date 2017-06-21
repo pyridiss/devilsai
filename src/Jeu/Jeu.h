@@ -101,7 +101,6 @@ struct Classe_Jeu
 	struct Classe_Arguments
 	{
 		bool TabVerbose[6]      = {false};
-		bool Masks              = false;
 		bool SaveDisabled       = false;
 	};
 

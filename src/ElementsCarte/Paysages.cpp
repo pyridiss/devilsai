@@ -106,30 +106,6 @@ void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
 					imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - (PosY + i*imageDimension.y)), true);
 		}
 	}
-
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-}
-
-void Paysage::Disp_Masks(float RefX, float RefY)
-{
-	if (collisionType == CircleCollision)
-	{
-		CircleShape MasqueCollision(RayonCollision);
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
-		MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-		Jeu.App.draw(MasqueCollision);
-	}
-	else
-	{
-		RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
-		MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-		Jeu.App.draw(MasqueCollision);
-	}
 }
 
 /** Class Door **/
@@ -162,21 +138,7 @@ int Door::Collision(Individu *elem, int TypeCollision)
 
 void Door::Disp(RenderTarget& target, float RefX, float RefY)
 {
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-
 	return;
-}
-
-void Door::Disp_Masks(float RefX, float RefY)
-{
-	RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-	MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
-	MasqueCollision.setFillColor(Color(0, 200, 200, 200));
-	Jeu.App.draw(MasqueCollision);
 }
 
 
@@ -260,31 +222,8 @@ void Paysage_Mouvant::Disp(RenderTarget& target, float RefX, float RefY)
 
     Activite* act = Get_Activite(Act);
     imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
-
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
 }
 
-void Paysage_Mouvant::Disp_Masks(float RefX, float RefY)
-{
-	if (collisionType == CircleCollision)
-	{
-		CircleShape MasqueCollision(RayonCollision);
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
-		MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-		Jeu.App.draw(MasqueCollision);
-	}
-	else
-	{
-		RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
-		MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-		Jeu.App.draw(MasqueCollision);
-	}
-}
 
 /** FONCTIONS DE LA CLASSE Classe_Paysage_Mouvant **/
 

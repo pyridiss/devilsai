@@ -95,31 +95,7 @@ void Actionneur::Load(istream &Fichier)
 
 void Actionneur::Disp(RenderTarget& target, float RefX, float RefY)
 {
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-
 	return;
-}
-
-void Actionneur::Disp_Masks(float RefX, float RefY)
-{
-	if (collisionType == CircleCollision)
-	{
-		CircleShape MasqueCollision(RayonCollision);
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
-		MasqueCollision.setFillColor(Color(0, 0, 200, 200));
-		Jeu.App.draw(MasqueCollision);
-	}
-	else
-	{
-		RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
-		MasqueCollision.setFillColor(Color(0, 0, 200, 200));
-		Jeu.App.draw(MasqueCollision);
-	}
 }
 
 
@@ -271,29 +247,5 @@ END_SHARED_TRIGGER
 
 void Trigger::Disp(RenderTarget& target, float RefX, float RefY)
 {
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-
 	return;
-}
-
-void Trigger::Disp_Masks(float RefX, float RefY)
-{
-	if (collisionType == CircleCollision)
-	{
-		CircleShape MasqueCollision(RayonCollision);
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision);
-		MasqueCollision.setFillColor(Color(200, 200, 0, 200));
-		Jeu.App.draw(MasqueCollision);
-	}
-	else
-	{
-		RectangleShape MasqueCollision(Vector2f(2*RayX, 2*RayY));
-		MasqueCollision.setPosition(Options.ScreenW/2 - (RefX -PosX) - RayX, Options.ScreenH/2 + 12 - (RefY - PosY) - RayY);
-		MasqueCollision.setFillColor(Color(200, 200, 0, 200));
-		Jeu.App.draw(MasqueCollision);
-	}
 }

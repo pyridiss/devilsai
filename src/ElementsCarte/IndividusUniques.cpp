@@ -235,25 +235,6 @@ bool Individu_Unique::Set_Activite(string nv)
 
 /* La fonction Individu_Unique::Load() est développée dans le fichier ChargementElements.cpp */
 
-void Individu_Unique::Disp_Masks(float RefX, float RefY)
-{
-	CircleShape MasqueVision(ChampVision);
-	MasqueVision.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - ChampVision, Options.ScreenH/2 + 12 - (RefY - PosY) - ChampVision));
-	MasqueVision.setFillColor(Color(225, 225, 255, 25));
-
-	CircleShape MasqueCollision(RayonCollision);
-	MasqueCollision.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision));
-	MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-
-	CircleShape MasqueAttaque(RayonInteraction);
-	MasqueAttaque.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - RayonInteraction, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonInteraction));
-	MasqueAttaque.setFillColor(Color(255, 0, 0, 150));
-
-	Jeu.App.draw(MasqueVision);
-	Jeu.App.draw(MasqueAttaque);
-	Jeu.App.draw(MasqueCollision);
-}
-
 bool Individu_Unique::angleFixed()
 {
     return false;

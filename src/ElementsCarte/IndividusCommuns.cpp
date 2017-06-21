@@ -119,25 +119,6 @@ bool Individu_Commun::Set_Activite(string nv)
 	return Resultat;
 }
 
-void Individu_Commun::Disp_Masks(float RefX, float RefY)
-{
-	CircleShape MasqueVision(Classe->ChampVision);
-	MasqueVision.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - Classe->ChampVision, Options.ScreenH/2 + 12 - (RefY - PosY) - Classe->ChampVision));
-	MasqueVision.setFillColor(Color(225, 225, 255, 25));
-
-	CircleShape MasqueCollision(RayonCollision);
-	MasqueCollision.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - RayonCollision, Options.ScreenH/2 + 12 - (RefY - PosY) - RayonCollision));
-	MasqueCollision.setFillColor(Color(255, 255, 255, 100));
-
-	CircleShape MasqueAttaque(Classe->RayonInteraction);
-	MasqueAttaque.setPosition(Vector2f(Options.ScreenW/2 - (RefX - PosX) - Classe->RayonInteraction, Options.ScreenH/2 + 12 - (RefY - PosY) - Classe->RayonInteraction));
-	MasqueAttaque.setFillColor(Color(255, 0, 0, 150));
-
-	Jeu.App.draw(MasqueVision);
-	Jeu.App.draw(MasqueAttaque);
-	Jeu.App.draw(MasqueCollision);
-}
-
 bool Individu_Commun::angleFixed()
 {
     return Classe->angleFixed;

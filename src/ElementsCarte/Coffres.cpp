@@ -43,11 +43,6 @@ void Coffre::Disp(RenderTarget& target, float RefX, float RefY)
 	return;
 }
 
-void Coffre::Disp_Masks(float RefX, float RefY)
-{
-	return;
-}
-
 /** FONCTIONS DE LA CLASSE Cadavre **/
 
 Cadavre::Cadavre() : Coffre()

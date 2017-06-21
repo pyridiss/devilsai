@@ -118,11 +118,6 @@ void GestionArguments(int n, char *params[])
 			Arguments.TabVerbose[MUSIC] = true;
             tools::debug::addDebugCategory("musics");
 		}
-		if (strcmp(params[i], "-m") == 0 || strcmp(params[i], "--masks") == 0)
-		{
-			cout << "Mode MASKS activé" << endl;
-			Arguments.Masks = true;
-		}
 		if (strcmp(params[i], "--no-save") == 0)
 		{
 			cout << "Mode SAVE DISABLED activé" << endl;

@@ -186,7 +186,6 @@ class Element_Carte
 	//Affichage :
 	public:
 		virtual void Disp(RenderTarget& target, float RefX, float RefY) =0;
-		virtual void Disp_Masks(float RefX, float RefY) =0;
 };
 
 class Coffre : public Element_Carte
@@ -208,7 +207,6 @@ class Coffre : public Element_Carte
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target, float RefX, float RefY);
-		void Disp_Masks(float RefX, float RefY);
 };
 
 class Cadavre : public Coffre
@@ -385,10 +383,6 @@ class Individu_Unique : public Individu
 		void Lag_Recuperation(float lag);
 
 		bool Set_Activite(string nv);
-
-	//Affichage :
-	public:
-		void Disp_Masks(float RefX, float RefY);
 };
 
 class Individu_Commun : public Individu
@@ -414,10 +408,6 @@ class Individu_Commun : public Individu
         bool angleFixed();
 
 		bool Set_Activite(string nv);
-
-	//Affichage :
-	public:
-		void Disp_Masks(float RefX, float RefY);
 };
 
 class Joueur : public Individu_Unique
@@ -472,8 +462,6 @@ class Paysage : public Element_Carte
 		void calculateCollisionRadius();
 
 	public:
-		void Disp_Masks(float RefX, float RefY);
-
 		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
@@ -492,7 +480,6 @@ class Door : public Element_Carte
 		int Collision(Individu *elem, int TypeCollision);
 
 	public:
-		void Disp_Masks(float RefX, float RefY);
 		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
@@ -517,7 +504,6 @@ class Paysage_Mouvant : public Element_Mouvant
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target, float RefX, float RefY);
-		void Disp_Masks(float RefX, float RefY);
 };
 
 
@@ -541,7 +527,6 @@ class Projectile : public Individu_Unique
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target, float RefX, float RefY);
-		void Disp_Masks(float RefX, float RefY);
 };
 
 class Paysage_Lanceur : public Paysage_Mouvant
@@ -555,10 +540,6 @@ class Paysage_Lanceur : public Paysage_Mouvant
 	public:
 		Paysage_Lanceur();
 		int Gestion();
-
-	//Affichage :
-	public:
-		void Disp_Masks(float RefX, float RefY);
 };
 
 
@@ -583,7 +564,6 @@ class Actionneur : public Element_Carte
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target, float RefX, float RefY);
-		void Disp_Masks(float RefX, float RefY);
 };
 
 class Trigger : public Element_Carte
@@ -603,7 +583,6 @@ class Trigger : public Element_Carte
 		bool activated();
 
 	public:
-		void Disp_Masks(float RefX, float RefY);
 		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 

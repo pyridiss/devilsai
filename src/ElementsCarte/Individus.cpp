@@ -168,12 +168,6 @@ void Individu::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-	#ifdef DEBOGAGE
-	if (Arguments.Masks)
-		if (abs(RefX - PosX) <= Options.ScreenW/2 && abs(RefY - PosY) <= Options.ScreenH/2)
-			Disp_Masks(RefX, RefY);
-	#endif
-
 	Activite* act = Get_Activite(Act);
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }
