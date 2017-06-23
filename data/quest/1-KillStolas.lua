@@ -54,7 +54,7 @@ function questManage()
 
 -- END OF GAME
 --	elseif questStep == "2" then
---		if collisionCC(player_ptr, fluellen_ptr) then
+--		if interact(player_ptr, fluellen_ptr) then
 --			questStep = "3"
 --			pushDialog("1-KillStolas-Fluellen")
 --		end

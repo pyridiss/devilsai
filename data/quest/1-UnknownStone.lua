@@ -52,7 +52,7 @@ function questManage()
 			hasTheStone = false
 		end
 
-		if hasTheStone == true and collisionCC(player_ptr, gower_ptr) == true and gowersWorriesLaunched == false then
+		if hasTheStone == true and interact(player_ptr, gower_ptr) == true and gowersWorriesLaunched == false then
 			transferObject(player_ptr, gower_ptr, 700)
 			hasTheStone = false
 			questStep = "2"
@@ -65,21 +65,21 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		if gowersWorriesDone == true and collisionCC(player_ptr, gower_ptr) == true then
+		if gowersWorriesDone == true and interact(player_ptr, gower_ptr) == true then
 			transferObject(gower_ptr, player_ptr, 700)
 			pushDialog("1-UnknownStone-GivenBack")
 			questStep = "3"
 		end
 
 	elseif questStep == "10" then
-		if collisionCR(player_ptr, act_ptr) == true then
+		if interact(player_ptr, act_ptr) == true then
 			deleteList("UnknownStone-Scroll")
 			pushDialog("1-UnknownStone-Scroll")
 			questStep = "11"
 		end
 
 	elseif questStep == "11" then
-		if collisionCC(player_ptr, gower_ptr) == true then
+		if interact(player_ptr, gower_ptr) == true then
 			pushDialog("1-UnknownStone-Gower")
 			questStep = "12"
 		end

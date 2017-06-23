@@ -48,7 +48,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if collisionCR(player_ptr, act_ptr) then
+		if interact(player_ptr, act_ptr) then
 			loadList("1004")
 			loadList("1105")
 			questStep = "2"
@@ -71,13 +71,13 @@ function questManage()
 		-- Auparavant : Lancement de F1, G1, H1, et 13 !
 
 	elseif questStep == "20" then
-		if collisionCC(player_ptr, gower_ptr) then
+		if interact(player_ptr, gower_ptr) then
 			pushDialog("mis_1.E3_intro")
 			questStep = "21"
 		end
 
 	elseif questStep == "21" then
-		if collisionCC(player_ptr, fluellen_ptr) then
+		if interact(player_ptr, fluellen_ptr) then
 			deleteList("Obstacle-IceRoad-Forres")
 			loadList("1241")
 			pushDialog("mis_1.E3_ccl")

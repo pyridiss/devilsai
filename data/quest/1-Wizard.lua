@@ -43,14 +43,14 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if collisionCR(player_ptr, act_ptr_1) == true or collisionCR(player_ptr, act_ptr_2) == true then
+		if interact(player_ptr, act_ptr_1) == true or interact(player_ptr, act_ptr_2) == true then
 			deleteList("Actionneurs-Noirefontaine")
 			pushDialog("1-Wizard-Beginning")
 			questStep = "2"
 		end
 
 	elseif questStep == "2" then
-		if collisionCC(player_ptr, wizard_ptr) == true then
+		if interact(player_ptr, wizard_ptr) == true then
 			pushDialog("1-Wizard-Wizard")
 			questStep = "3"
 		end

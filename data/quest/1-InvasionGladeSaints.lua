@@ -57,7 +57,7 @@ end
 function questManage()
 
 	if hasTalkedToGower == false then
-		if collisionCC(player_ptr, gower_ptr) then
+		if interact(player_ptr, gower_ptr) then
 			pushDialog("1-InvasionGlade-Intro2")
 			journalEntryDone("1-InvasionGlade-Intro1")
 			addJournalEntry("1-InvasionGlade-Intro2")
@@ -81,7 +81,7 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		if collisionCC(player_ptr, gower_ptr) then
+		if interact(player_ptr, gower_ptr) then
 			questStep = "3"
 			pushDialog("1-InvasionGlade-2")
 			journalEntryDone("1-InvasionGlade-1")

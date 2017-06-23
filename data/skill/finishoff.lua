@@ -98,7 +98,7 @@ function use()
 		end
 
 		if partOfSkill == "attack" and activiteFinished == true then --We wait for the end of attack animation
-			if isIndividu(enemy) and collisionCC(owner, "RayonInteraction", enemy, "RayonCollision") then
+			if isIndividu(enemy) and interact(owner, enemy) then
 				combat(owner, enemy)
 			end
 			set(owner, "energy", get(owner, "energy") - getNeededEnergy())

@@ -90,30 +90,6 @@ int LUA_isIndividu(lua_State* L)
 	return 1;
 }
 
-int LUA_collisionCCwithRayon(lua_State* L)
-{
-    MESSAGE("LUA_collisionCCwithRayon() called", LUA)
-
-    Individu* indA = (Individu*)lua_touserdata(L, 1);
-	string rayA = lua_tostring(L, 2);
-    Individu* indB = (Individu*)lua_touserdata(L, 3);
-	string rayB = lua_tostring(L, 4);
-
-	bool result = false;
-	if (rayA == "RayonInteraction" && rayB == "RayonInteraction")
-		result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->Get_RayonInteraction(), indB->PosX, indB->PosY, indB->Get_RayonInteraction());
-	if (rayA == "RayonInteraction" && rayB == "RayonCollision")
-		result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->Get_RayonInteraction(), indB->PosX, indB->PosY, indB->RayonCollision);
-	if (rayA == "RayonCollision" && rayB == "RayonInteraction")
-		result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->RayonCollision, indB->PosX, indB->PosY, indB->Get_RayonInteraction());
-	if (rayA == "RayonCollision" && rayB == "RayonCollision")
-		result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->RayonCollision, indB->PosX, indB->PosY, indB->RayonCollision);
-
-	lua_pushboolean(L, result);
-
-	return 1;
-}
-
 int LUA_combat(lua_State* L)
 {
     MESSAGE("LUA_combat() called", LUA)
@@ -338,24 +314,14 @@ int LUA_dialogDisplayed(lua_State* L)
 	return 1;
 }
 
-int LUA_collisionCC(lua_State* L)
+int LUA_interact(lua_State* L)
 {
-    MESSAGE("LUA_collisionCC() called", LUA)
+    MESSAGE("LUA_interact() called", LUA)
 
-    Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
-    Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
-	bool result = Collision_cercle_cercle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayonCollision+2);
-	lua_pushboolean(L, result);
-	return 1;
-}
+    Individu* individual = (Individu*)lua_touserdata(L, 1);
+    Element_Carte* element = (Element_Carte*)lua_touserdata(L, 2);
+    bool result = intersection(individual->interactionField, element->size);//false; //= Collision_cercle_cercle(indA->position().x, indA->position().y, indA->size.r1+2, indB->position().x, indB->position().y, indB->size.r1+2);
 
-int LUA_collisionCR(lua_State* L)
-{
-    MESSAGE("LUA_collisionCR() called", LUA)
-
-    Element_Carte* indA = (Element_Carte*)lua_touserdata(L, 1);
-    Element_Carte* indB = (Element_Carte*)lua_touserdata(L, 2);
-	bool result = Collision_cercle_rectangle(indA->PosX, indA->PosY, indA->RayonCollision+2, indB->PosX, indB->PosY, indB->RayX+2, indB->RayY+2);
 	lua_pushboolean(L, result);
 	return 1;
 }

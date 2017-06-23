@@ -77,7 +77,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if collisionCR(player_ptr, act_ptr_1) or collisionCR(player_ptr, act_ptr_2) then
+		if interact(player_ptr, act_ptr_1) or interact(player_ptr, act_ptr_2) then
 			deleteList("Warriors-GladeSaints")
 			questStep = "2"
 			pushDialog("1-RescueFluellensCamp-Reminder")
@@ -98,7 +98,7 @@ function questManage()
 		end
 
 	elseif questStep == "3" then
-		if collisionCC(player_ptr, fluellen_ptr) then
+		if interact(player_ptr, fluellen_ptr) then
 			questStep = "4"
 			pushDialog("1-RescueFluellensCamp-Fluellen")
 		end

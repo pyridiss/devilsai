@@ -41,13 +41,13 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		if collisionCC(player_ptr, fluellen_ptr) == true then
+		if interact(player_ptr, fluellen_ptr) == true then
 			pushDialog("1-FreeIceRoad-GoToGower")
 			questStep = "3"
 		end
 
 	elseif questStep == "3" then
-		if collisionCC(player_ptr, gower_ptr) == true then
+		if interact(player_ptr, gower_ptr) == true then
 			loadElement([[	COFFRE -81 -169
 							RAY_COL 15
 							NOM 612
