@@ -49,7 +49,7 @@ function questManage()
 	elseif questStep == "3" then
 		if interact(player_ptr, gower_ptr) == true then
 			loadElement([[	COFFRE -81 -169
-							RAY_COL 15
+							RAY_COL 1
 							NOM 612
 							NOMBRE_OBJETS 1
 							OBJET
