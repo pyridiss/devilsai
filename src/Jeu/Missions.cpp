@@ -56,8 +56,7 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "pushDialog", LUA_pushDialog);
 	lua_register(L, "popDialog", LUA_popDialog);
 	lua_register(L, "dialogDisplayed", LUA_dialogDisplayed);
-	lua_register(L, "collisionCC", LUA_collisionCC);
-	lua_register(L, "collisionCR", LUA_collisionCR);
+	lua_register(L, "interact", LUA_interact);
 	lua_register(L, "loadList", LUA_loadList);
 	lua_register(L, "deleteList", LUA_deleteList);
 	lua_register(L, "I", LUA_I);

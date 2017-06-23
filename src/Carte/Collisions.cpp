@@ -24,10 +24,6 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Carte.h"
 
-void Carte::setMaxRadius(int i)
-{
-	if (i*1.1 > maxRadius) maxRadius = i*1.1;
-}
 
 /** FONCTIONS DE DÉTECTION DES COLLISIONS **/
 
@@ -41,31 +37,6 @@ void Carte::resetCollisionManager()
 {
 	currentCollider = elements.begin();
 	lastCollider = elements.begin();
-}
-
-bool Collision_cercle_cercle(int Ax, int Ay, int Ar, int Bx, int By, int Br)
-{
-	if (Ax + Ar < Bx - Br) return false;	if (Ax - Ar > Bx + Br) return false;
-	if (Ay + Ar < By - Br) return false;	if (Ay - Ar > By + Br) return false;
-	if (Ar == 0 || Br == 0) return false;
-	if ((Ax-Bx)*(Ax-Bx) + (Ay-By)*(Ay-By) <= (Ar+Br)*(Ar+Br)) return true;
-	return false;
-}
-
-bool Collision_cercle_rectangle(int Cx, int Cy, int Cr, int Rx, int Ry, int Rrx, int Rry)
-{
-	if (Cx + Cr < Rx - Rrx) return false;	if (Cx - Cr > Rx + Rrx) return false;
-	if (Cy + Cr < Ry - Rry) return false;	if (Cy - Cr > Ry + Rry) return false;
-	if (Cr == 0 || Rrx == 0 || Rry == 0) return false;
-	if ((Cx-Rx)*(Cx-Rx) + (Cy-Ry)*(Cy-Ry) <= (Cr + max(Rrx, Rry))*(Cr + max(Rrx, Rry))) return true;
-	return false;
-}
-
-bool Collision_rectangle_rectangle(int Ax, int Ay, int Arx, int Ary, int Bx, int By, int Brx, int Bry)
-{
-	if (Ax + Arx < Bx - Brx) return false;	if (Ax - Arx > Bx + Brx) return false;
-	if (Ay + Ary < By - Bry) return false;	if (Ay - Ary > By + Bry) return false;
-	return true;
 }
 
 int Carte::browseCollisionList(Individu *elem)

@@ -108,7 +108,6 @@ class Carte
 		int maxRadius = 0;
 
 	public:
-		void setMaxRadius(int i);
 		Element_Carte* getCurrentCollider();
 		void resetCollisionManager();
 		int browseCollisionList(Individu *elem);
@@ -120,10 +119,6 @@ Element_Carte* loadElementsFromStream(istream&, Carte*, string);
 void ChangerCarte(Element_Carte*, string, string);
 Element_Carte* Get_Element(int);
 Individu_Unique* Get_IndividuUnique(string);
-
-bool Collision_cercle_cercle(int, int, int, int, int, int);
-bool Collision_cercle_rectangle(int, int, int, int, int, int, int);
-bool Collision_rectangle_rectangle(int, int, int, int, int, int, int, int);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 void Blessure_Projectile(Projectile *Attaquant, Individu *Blesse);
