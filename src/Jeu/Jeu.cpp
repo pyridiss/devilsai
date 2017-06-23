@@ -92,7 +92,7 @@ bool RechercheJoueur()
 		return false;
 	}
 
-	Set_PosCarte(Partie.perso->PosX, Partie.perso->PosY, false);
+	Set_PosCarte(Partie.perso->position().x, Partie.perso->position().y, false);
 	Set_PosCarte(0, 0, true);
 
 	//Mise en place des éléments dans la liste de collisions :
@@ -161,9 +161,7 @@ void mainLoop()
     mapRenderSprite.setPosition(0, Options.ScreenH);
 
     Individu_Unique cursor;
-    cursor.collisionType = RectangleCollision;
-    cursor.RayX = 5;
-    cursor.RayY = 5;
+    cursor.size.circle(tools::math::Vector2d(0, 0), 5);
     Individu* underCursor = NULL;
 
 	while (true)
@@ -306,8 +304,8 @@ void mainLoop()
             Partie.CarteCourante->GestionElements();
 
         //Mouse cursor
-        cursor.PosX = Partie.PosCarteX - mapRenderTarget.getSize().x/2 + (Mouse::getPosition(Jeu.App).x - mapRenderSprite.getPosition().x);
-        cursor.PosY = Partie.PosCarteY - mapRenderTarget.getSize().y/2 + Mouse::getPosition(Jeu.App).y - (mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y);
+        cursor.move(Partie.PosCarteX - mapRenderTarget.getSize().x/2 + (Mouse::getPosition(Jeu.App).x - mapRenderSprite.getPosition().x) - cursor.position().x, 0);
+        cursor.move(0, Partie.PosCarteY - mapRenderTarget.getSize().y/2 + Mouse::getPosition(Jeu.App).y - (mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y) - cursor.position().y);
 
         Partie.CarteCourante->resetCollisionManager();
         underCursor = NULL;
@@ -333,8 +331,8 @@ void mainLoop()
                 Mouse::getPosition(Jeu.App).y >= mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y)
             {
                 Partie.perso->automove = true;
-                Partie.perso->automoveEndpoint.x = cursor.PosX;
-                Partie.perso->automoveEndpoint.y = cursor.PosY;
+                Partie.perso->automoveEndpoint.x = cursor.position().x;
+                Partie.perso->automoveEndpoint.y = cursor.position().y;
             }
         }
 
