@@ -20,6 +20,7 @@
 #include <cmath>
 
 #include <lua5.2/lua.hpp>
+#include <tinyxml2.h>
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/luaFunctions.h"
@@ -27,6 +28,8 @@
 #include "Attributs.h"
 
 #include "imageManager/imageManager.h"
+
+using namespace tinyxml2;
 
 /* Manager for objects */
 
@@ -275,6 +278,11 @@ const float& Statistiques::operator[](string stat) const
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
+Activite::~Activite()
+{
+    if (script != nullptr) lua_close(script);
+}
+
 void Activite::addImage(double angle, int num, string imageKey)
 {
     pair<double, int> key(angle, num);
@@ -303,6 +311,86 @@ string Activite::getImageKey(double angle, int num)
     return key;
 }
 
+void Activite::loadFromXML(XMLHandle &handle)
+{
+    XMLElement *elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "properties")
+        {
+            elem->QueryAttribute("priority", &priority);
+            elem->QueryAttribute("speed", &speed);
+            elem->QueryAttribute("step", &step);
+            elem->QueryAttribute("fightAtEnd", &fightAtEnd); //TODO
+            elem->QueryAttribute("numberOfImages", &numberOfImages);
+        }
+        if (elemName == "images")
+        {
+            double angle = 0;
+            int xAlignment = 0, yAlignment = 0;
+
+            elem->QueryAttribute("angle", &angle);
+            elem->QueryAttribute("xAlignment", &xAlignment);
+            elem->QueryAttribute("yAlignment", &yAlignment);
+
+            if (elem->Attribute("pathToImages"))
+            {
+                string pathPattern = elem->Attribute("pathToImages");
+
+                for (int i = 0 ; i < numberOfImages ; ++i)
+                {
+                    string path = pathPattern;
+                    string number = intToString(i, 2);
+                    path.replace(path.find_first_of('%'), 2, number);
+                    string key = "activity" + Id + ":" + path; //TODO
+                    imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
+
+                    addImage(angle * M_PI / 180.0, i, key);
+                }
+            }
+
+            if (elem->Attribute("imageFile"))
+            {
+                string path = elem->Attribute("imageFile");
+                path = INSTALL_DIR + path;
+                string key = "activity" + Id + ":" + path; //TODO
+                imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
+                addImage(angle * M_PI / 180.0, 0, key);
+            }
+        }
+        if (elemName == "script")
+        {
+            scriptString = elem->GetText();
+            loadScript();
+        }
+
+        elem = elem->NextSiblingElement();
+    }
+}
+
+void Activite::loadScript()
+{
+    script = luaL_newstate();
+    luaL_openlibs(script);
+
+    lua_atpanic(script, LUA_panic);
+
+
+    luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
+    lua_pcall(script, 0, 0, 0);
+}
+
+void Activite::atEnd(Individu* owner)
+{
+    if (script == nullptr)
+        return;
+
+    lua_getglobal(script, "atEnd");
+    lua_pushlightuserdata(script, (void*)owner);
+    lua_call(script, 1, 0);
+}
 
 /** FONCTIONS DE LA CLASSE Caracteristiques **/
 

@@ -33,10 +33,15 @@ class lua_State;
 
 class Caracteristiques;
 class Activite;
+class Individu;
 class Joueur;
 class Individu_Unique;
 class Projectile;
 class EmplacementEquipement;
+
+namespace tinyxml2{
+    class XMLHandle;
+};
 
 typedef map < int, int > MapVitesses;
 typedef map < string, lua_State* > mapObjects;
@@ -116,16 +121,26 @@ class Activite
 	public:
         string Id          = "-1";
         int numberOfImages = 0;
-		short speed		= 0;
-		short step		= 0;
+        int speed          = 0;
+        int step           = 0;
+        bool fightAtEnd    = false;
+        string scriptString;
+        lua_State* script  = nullptr;
 
-		short priority	= 0;
+        int priority       = 0;
 
         map< pair<double , int> , string > Animation;
 
 	public:
+        ~Activite();
+
         void addImage(double angle, int num, string imageKey);
         string getImageKey(double angle, int num);
+
+        void loadFromXML(tinyxml2::XMLHandle &handle);
+        void loadScript();
+
+        void atEnd(Individu* owner);
 };
 
 class EmplacementEquipement
