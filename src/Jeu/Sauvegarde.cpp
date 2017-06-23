@@ -70,7 +70,6 @@ void Save_Partie()
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Paysage			ExemplePaysage;			const type_info &TypePaysage = typeid(ExemplePaysage);
 	Paysage_Mouvant	ExempleMouvant;			const type_info &TypeMouvant = typeid(ExempleMouvant);
-	Paysage_Lanceur ExempleLanceur;			const type_info &TypeLanceur = typeid(ExempleLanceur);
 // 	Projectile		ExempleProjectile;		const type_info &TypeProjectile = typeid(ExempleProjectile);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
@@ -104,7 +103,6 @@ void Save_Partie()
 				else fileStream << "PAYSAGE ";
 			}
 			if (TypeTmp == TypeMouvant)		fileStream << "PAYSAGE_MOUVANT ";
-			if (TypeTmp == TypeLanceur)		fileStream << "LANCEUR ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
 			if (TypeTmp == TypeCadavre)		fileStream << "CADAVRE ";
@@ -151,7 +149,7 @@ void Save_Partie()
 				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << pay->repeatX << " " << pay->repeatY;
 			}
 
-			if (TypeTmp == TypeMouvant || TypeTmp == TypeLanceur) fileStream << endl;
+			if (TypeTmp == TypeMouvant) fileStream << endl;
 
 			if (TypeTmp == TypeActionneur)
 			{
@@ -365,15 +363,7 @@ bool Load_Partie(string path)
 				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
 				Load_ClassePaysageMouvant(StrType);
 				Paysage_Mouvant* ind = carte.second.AjouterPaysageMouvant(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
-			}
-
-			if (TypeDonnee == "LANCEUR")
-			{
-				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Load_ClassePaysageMouvant(StrType);
-				Paysage_Lanceur* ind = carte.second.AjouterPaysageLanceur(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
+				fileStream >> ind->Id >> /*ind->collisionType >>*/ ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "ACTIONNEUR")

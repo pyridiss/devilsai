@@ -46,7 +46,6 @@ class Paysage;
 class Door;
 class Paysage_Mouvant;
 class Projectile;
-class Paysage_Lanceur;
 class Actionneur;
 class Trigger;
 
@@ -78,7 +77,6 @@ class Carte
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
 		Door* addDoor(string liste, int x, int y);
 		Paysage_Mouvant* AjouterPaysageMouvant(string Type, string liste, int x, int y);
-		Paysage_Lanceur* AjouterPaysageLanceur(string Type, string liste, int x, int y);
 		Projectile* AjouterProjectile(Projectile &prj);
 		Actionneur* AjouterActionneur(string liste, int x, int y);
 		Trigger* addTrigger(string liste);

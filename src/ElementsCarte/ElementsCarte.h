@@ -526,20 +526,6 @@ class Projectile : public Individu_Unique
 		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
-class Paysage_Lanceur : public Paysage_Mouvant
-{
-	public:
-		Projectile ProjectileLance;
-
-	public:
-		bool ActivationEnCours;
-
-	public:
-		Paysage_Lanceur();
-		int Gestion();
-};
-
-
 class Actionneur : public Element_Carte
 {
 	public:
@@ -590,7 +576,6 @@ void Load_IndividuUnique(string, Individu_Unique*);
 void Load_ClasseCommune(string);
 void Load_ClassePaysage(string);
 void Load_ClassePaysageMouvant(string);
-void Load_PaysageLanceur(string, Paysage_Lanceur*);
 void Disp_Personnage();
 void Disp_MiniaturesCompetences();
 

@@ -480,14 +480,9 @@ void Load_ClassePaysageMouvant(string Type)
 
 	ifstream Fichier(fichier, ios_base::in);
 
-	if (!Fichier.good()) //Il peut s'agir d'un lanceur
+	if (!Fichier.good())
 	{
-		fichier = INSTALL_DIR + "individu/" + Type + ".lan";
-
-		Fichier.open(fichier, ios_base::in);
-
-		//Introuvable en tant que PayMouvant ou en tant que Lanceur
-		if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
+		Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	}
 
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
@@ -581,56 +576,6 @@ void Load_ClassePaysageMouvant(string Type)
 	}
 
     imageManager::removeArchiveFile(INSTALL_DIR + cl_paymvt->imagePrefix);
-
-	Fichier.close();
-}
-
-void Load_PaysageLanceur(string Type, Paysage_Lanceur *ind)
-{
-	string fichier = INSTALL_DIR + "individu/" + Type;
-	fichier += ".lan";
-
-	ifstream Fichier(fichier, ios_base::in);
-
-	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
-
-	string TypeDonnee;
-	double angle = 0;
-    string imageFile;
-
-	while (Fichier.rdstate() == 0)
-	{
-		Fichier >> TypeDonnee;
-
-		//Données du projectile lancé
-		if (TypeDonnee == "PRJ_ID")			Fichier >> ind->ProjectileLance.Type;
-		if (TypeDonnee == "PRJ_X")			Fichier >> ind->ProjectileLance.OrigineX;
-		if (TypeDonnee == "PRJ_Y")			Fichier >> ind->ProjectileLance.OrigineY;
-		if (TypeDonnee == "PRJ_DIPLOM")		Fichier >> ind->ProjectileLance.Diplomatie;
-		if (TypeDonnee == "PRJ_RECT_COL")	Fichier >> ind->ProjectileLance.RayX >> ind->ProjectileLance.RayY;
-		if (TypeDonnee == "PRJ_VIT")		Fichier >> ind->ProjectileLance.Deplacement.speed;
-		if (TypeDonnee == "PRJ_MAJ")		Fichier >> ind->ProjectileLance.Deplacement.step;
-		if (TypeDonnee == "PRJ_angle")		Fichier >> angle;
-		if (TypeDonnee == "PRJ_CHP_ATT")	Fichier >> ind->ProjectileLance.ChampAttaque;
-
-		if (TypeDonnee == "PRJ_FORCE")		Fichier >> ind->ProjectileLance.Caracs["Force"];
-		if (TypeDonnee == "PRJ_PUISS")		Fichier >> ind->ProjectileLance.Caracs["Puissance"];
-		if (TypeDonnee == "PRJ_AGILITE")	Fichier >> ind->ProjectileLance.Caracs["Agilite"];
-		if (TypeDonnee == "PRJ_INTELLI")	Fichier >> ind->ProjectileLance.Caracs["Intelligence"];
-
-        if (TypeDonnee mm "PRJ_image")      Fichier >> imageFile;
-		TypeDonnee = "";
-	}
-
-	ind->ProjectileLance.Get_Activite(ind->ProjectileLance.Get_Act())->numberOfImages = 0;
-    ind->ProjectileLance.angle = angle;
-	ind->ProjectileLance.OrigineX += ind->PosX;
-	ind->ProjectileLance.OrigineY += ind->PosY;
-
-    string path = INSTALL_DIR + imageFile;
-    imageManager::addContainer("projectiles");
-    imageManager::addImage("projectiles", ind->ProjectileLance.Type, path);
 
 	Fichier.close();
 }

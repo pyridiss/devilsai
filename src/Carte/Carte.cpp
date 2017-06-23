@@ -147,11 +147,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Fichier >> Ind >> X >> Y;
 			lastElementLoaded = carte->AjouterPaysageMouvant(Ind, list, X, Y);
 		}
-		if (TypeDonnee == "LANCEUR" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterPaysageLanceur(Ind, list, X, Y);
-		}
 		if (TypeDonnee == "ACTIONNEUR" && carte != NULL)
 		{
 			Fichier >> X >> Y;
@@ -464,34 +459,6 @@ Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, 
     ind->size.setOrigin(&ind->position());
 
 	MESSAGE("Un paysage mouvant a été ajouté - Classe = " + Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Paysage_Lanceur* Carte::AjouterPaysageLanceur(string Type, string liste, int x, int y)
-{
-	Paysage_Lanceur *ind = new Paysage_Lanceur;
-
-	ind->Id = NouveauId();
-	ind->Liste = liste;
-	ind->Type = Type;
-
-	ind->Set_Controle(AI);
-
-	Load_ClassePaysageMouvant(Type);
-	ind->Classe = getMovingLandsClass(Type);	//Données du paysage
-
-	if (ind->Classe == NULL)
-	{
-		Erreur("La classe du paysage mouvant lanceur suivant a été demandée sans avoir été chargée", Type);
-		delete ind;
-		return NULL;
-	}
-	ind->Classe->Copie_Element(ind);
-	Load_PaysageLanceur(Type, ind);		//Données du projectile
-
-	MESSAGE("Un paysage lanceur a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
 	return ind;
