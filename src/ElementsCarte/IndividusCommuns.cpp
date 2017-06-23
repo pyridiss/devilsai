@@ -162,4 +162,98 @@ void Classe_Commune::setAngleFixed(double angle)
 
 void Classe_Commune::loadFromXML(XMLHandle &handle)
 {
+    XMLElement *elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "addImageArchiveFile")
+        {
+            imagePrefix = elem->Attribute("file");
+            imageManager::addArchiveFile(INSTALL_DIR + imagePrefix);
+        }
+        if (elemName == "shape")
+        {
+            string type = elem->Attribute("type");
+            if (type == "rectangle")
+            {
+                double xSize = 0, ySize = 0;
+                elem->QueryAttribute("xSize", &xSize);
+                elem->QueryAttribute("ySize", &ySize);
+                size.rectangle(tools::math::Vector2d(-xSize/2.0, -ySize/2.0), tools::math::Vector2d(xSize/2.0, -ySize/2.0), tools::math::Vector2d(-xSize/2.0, ySize/2.0));
+            }
+        }
+        if (elemName == "viewField")
+        {
+            string type = elem->Attribute("type");
+            if (type == "circle")
+            {
+                double radius = 0;
+                elem->QueryAttribute("radius", &radius);
+                viewField.circle(tools::math::Vector2d(0, 0), radius);
+            }
+        }
+        if (elemName == "attackField")
+        {
+            string type = elem->Attribute("type");
+            if (type == "circle")
+            {
+                double radius = 0;
+                elem->QueryAttribute("radius", &radius);
+                interactionField.circle(tools::math::Vector2d(0, 0), radius);
+            }
+            if (type == "rectangle")
+            {
+                double xSize = 0, ySize = 0;
+                elem->QueryAttribute("xSize", &xSize);
+                elem->QueryAttribute("ySize", &ySize);
+                interactionField.rectangle(tools::math::Vector2d(-xSize/2.0, -ySize/2.0), tools::math::Vector2d(xSize/2.0, -ySize/2.0), tools::math::Vector2d(-xSize/2.0, ySize/2.0));
+            }
+            if (type == "line")
+            {
+                double length = 0, angle = 0;
+                elem->QueryAttribute("length", &length);
+                elem->QueryAttribute("angle", &angle);
+                interactionField.line(tools::math::Vector2d(0, 0), length, angle);
+            }
+        }
+        if (elemName == "characteristics")
+        {
+            elem->QueryAttribute("strength", &Caracs["Force"]);
+            elem->QueryAttribute("power", &Caracs["Puissance"]);
+            elem->QueryAttribute("agility", &Caracs["Agilite"]);
+            elem->QueryAttribute("intellect", &Caracs["Intelligence"]);
+            //TODO
+        }
+        if (elemName == "properties")
+        {
+            if (elem->Attribute("angleFixed"))
+            {
+                double angle = 0;
+                elem->QueryAttribute("angleFixed", &angle);
+                setAngleFixed(angle);
+            }
+            elem->QueryAttribute("diplomacy", &Diplomatie);
+            elem->QueryAttribute("lifetime", &lifetime);
+        }
+        if (elemName == "skill")
+        {
+            string skillName = elem->Attribute("name");
+            Ajouter_Activite(skillName);
+            Activite *skill = Get_Activite(skillName);
+
+            XMLHandle hdl2(elem);
+            skill->loadFromXML(hdl2);
+        }
+        if (elemName == "skillsManagement")
+        {
+            ActDefaut = elem->Attribute("default");
+            if (elem->Attribute("onAttack"))
+            {
+                //TODO
+            }
+        }
+
+        elem = elem->NextSiblingElement();
+    }
 }
