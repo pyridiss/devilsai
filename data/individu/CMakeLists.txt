@@ -35,7 +35,6 @@ set(individu
     2129.pay
     30104.pay
     302.com
-    50.lan
     10006.pay
     10109.pay
     10309.pay
@@ -114,6 +113,7 @@ set(individu
     300.com
     30202.pay
     311.com
+    ballista.xml
 )
 
 install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)

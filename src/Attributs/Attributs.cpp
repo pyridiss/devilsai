@@ -377,6 +377,11 @@ void Activite::loadScript()
 
     lua_atpanic(script, LUA_panic);
 
+    lua_register(script, "cout", LUA_cout);
+    lua_register(script, "individual_get", LUA_get);
+    lua_register(script, "individual_set", LUA_set);
+    lua_register(script, "individual_copy", LUA_individual_copy);
+    lua_register(script, "createIndividual", LUA_createIndividual);
 
     luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
     lua_pcall(script, 0, 0, 0);

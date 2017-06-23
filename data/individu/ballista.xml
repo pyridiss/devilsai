@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <species name="ballista">
+        <addImageArchiveFile file="img/Baliste.img"/>
+        <shape type="rectangle" xSize="38" ySize="16"/>
+        <attackField type="line" length="250"/>
+        <properties angleFixed="0" diplomacy="2"/>
+        <skill name="4">
+            <properties priority="1" speed="6" step="0" numberOfImages="6"/>
+            <images angle="0" xAlignment="18" yAlignment="-1" pathToImages="7/%%.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    angle = individual_get(owner, "angle")
+                    x = individual_get(owner, "PosX") + 100 * math.cos(angle)
+                    y = individual_get(owner, "PosY") + 100 * math.sin(angle)
+                    bullet = createIndividual("ballista_bullet", x, y)
+                    individual_copy(owner, bullet, "diplomacy")
+                    individual_copy(owner, bullet, "angle")
+                end
+            </script>
+        </skill>
+        <skill name="pause">
+            <properties priority="0" speed="1" step="0" numberOfImages="1"/>
+            <images angle="0" xAlignment="18" yAlignment="-1" pathToImages="0/%%.png"/>
+        </skill>
+        <skillsManagement default="pause" onAttack="4"/>
+    </species>
+    <species name="ballista_bullet">
+        <shape type="rectangle" xSize="0" ySize="0"/>
+        <viewField type="circle" radius = "80"/>
+        <attackField type="circle" radius="30"/>
+        <characteristics strength="200" power="100" agility="80" intellect="5"/>
+        <properties angleFixed="0" lifetime="80" diplomacy="0"/>
+        <skill name="4">
+            <properties priority="0" speed="100" step="0" fightAtEnd="1" numberOfImages="1"/>
+            <images angle="0" imageFile="img/10000200.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    individual_set(owner, "vitality", 0)
+                end
+            </script>
+        </skill>
+        <skill name="normal">
+            <properties priority="0" speed="100" step="8" numberOfImages="1"/>
+            <images angle="0" imageFile="img/10000200.png"/>
+        </skill>
+        <skillsManagement default="normal" onAttack="4"/>
+    </species>
+</world>
