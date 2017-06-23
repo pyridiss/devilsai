@@ -137,7 +137,10 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Fichier >> X >> Y;
 			lastElementLoaded = carte->addDoor(list, X, Y);
 			Door* door = dynamic_cast<Door*>(lastElementLoaded);
-			Fichier >> door->RayX >> door->RayY >> door->deniedDiplomacy;
+            int a, b;
+            Fichier >> a >> b >> door->deniedDiplomacy;
+            door->size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
+            door->size.setOrigin(&door->position());
 		}
 		if (TypeDonnee == "PAYSAGE_MOUVANT" && carte != NULL)
 		{
@@ -176,8 +179,10 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 				Fichier >> TypeDonnee2;
 				if (TypeDonnee2 == "RAY_COL")
 				{
-					coffre->collisionType = CircleCollision;
-					Fichier >> coffre->RayonCollision;
+                    int a;
+                    Fichier >> a;
+                    coffre->size.circle(tools::math::Vector2d(0, 0), a);
+                    coffre->size.setOrigin(&coffre->position());
 				}
 				if (TypeDonnee2 == "PAYSAGE")
 				{
@@ -312,9 +317,6 @@ void Carte::AjouterElementEnListe(Element_Carte *elem)
 	}
 
 	elements.push_back(elem);
-	setMaxRadius(elem->RayonCollision);
-	setMaxRadius(elem->RayX);
-	setMaxRadius(elem->RayY);
 }
 
 Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, int y)
@@ -327,14 +329,15 @@ Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, 
 
 	Load_IndividuUnique(Type, ind);
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
+    ind->interactionField.setOrigin(&ind->position());
+    ind->viewField.setOrigin(&ind->position());
 	ind->Set_Controle(AI);
 
 	MESSAGE("Un individu unique a été ajouté - Type = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
-	setMaxRadius(ind->ChampVision);
 	return ind;
 }
 
@@ -356,16 +359,16 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 		return NULL;
 	}
 
-	ind->PosX = x;
-	ind->PosY = y;
 	ind->Set_Controle(AI);
-
 	ind->Classe->Copie_Element(ind);
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
+    ind->interactionField.setOrigin(&ind->position());
+    ind->viewField.setOrigin(&ind->position());
 
 	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
-	setMaxRadius(ind->Classe->ChampVision);
 	return ind;
 }
 
@@ -379,14 +382,15 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 
 	Load_IndividuUnique(Type, ind);
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
+    ind->interactionField.setOrigin(&ind->position());
+    ind->viewField.setOrigin(&ind->position());
 	ind->Set_Controle(HUMAIN); /** NE DISTINGUE PAS LE JOUEUR PRINCIPAL D'UN JOUEUR EN RÉSEAU **/
 
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
-	setMaxRadius(ind->ChampVision);
 	return ind;
 }
 
@@ -408,11 +412,10 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 		return NULL;
 	}
 
-	ind->PosX = x;
-	ind->PosY = y;
 	ind->Set_Controle(AI);
-
 	ind->Classe->Copie_Element(ind);
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 
 	MESSAGE("Un paysage a été ajouté - Classe = " + Type, FICHIER)
 
@@ -427,8 +430,8 @@ Door* Carte::addDoor(string liste, int x, int y)
 	ind->Id = NouveauId();
 	ind->Liste = liste;
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 	ind->Set_Controle(AI);
 
 	MESSAGE("A door has been added.", FICHIER)
@@ -455,11 +458,10 @@ Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, 
 		return NULL;
 	}
 
-	ind->PosX = x;
-	ind->PosY = y;
 	ind->Set_Controle(AI);
-
 	ind->Classe->Copie_Element(ind);
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 
 	MESSAGE("Un paysage mouvant a été ajouté - Classe = " + Type, FICHIER)
 
@@ -475,8 +477,6 @@ Paysage_Lanceur* Carte::AjouterPaysageLanceur(string Type, string liste, int x, 
 	ind->Liste = liste;
 	ind->Type = Type;
 
-	ind->PosX = x;
-	ind->PosY = y;
 	ind->Set_Controle(AI);
 
 	Load_ClassePaysageMouvant(Type);
@@ -502,9 +502,6 @@ Projectile* Carte::AjouterProjectile(Projectile &prj)
 	Projectile *ind = new Projectile(prj);
 
 	ind->Id = NouveauId();
-	ind->PosX = ind->OrigineX;
-	ind->PosY = ind->OrigineY;
-	ind->collisionType = RectangleCollision;
 
 	MESSAGE("Un projectile a été crée - Classe = " + ind->Type, FICHIER)
 
@@ -520,8 +517,8 @@ Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 	ind->Liste = liste;
 	ind->Type = TYPE_ACTIONNEUR;
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 	ind->Set_Controle(AI);
 
 	MESSAGE("Un actionneur a été ajouté", FICHIER)
@@ -537,6 +534,7 @@ Trigger* Carte::addTrigger(string liste)
 	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Set_Controle(AI);
+    ind->size.setOrigin(&ind->position());
 
 	MESSAGE("A trigger has been added", FICHIER)
 
@@ -552,8 +550,8 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 	ind->Liste = liste;
 	ind->Type = "TYPE_COFFRE";
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 	ind->Set_Controle(AI);
 
 	MESSAGE("Un coffre a été ajouté", FICHIER)
@@ -570,11 +568,10 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 	ind->Liste = liste;
 	ind->Type = "TYPE_CADAVRE";
 
-	ind->PosX = x;
-	ind->PosY = y;
+    ind->move(x, y);
+    ind->size.setOrigin(&ind->position());
 	ind->Set_Controle(AI);
-	ind->collisionType = CircleCollision;
-	ind->RayonCollision = 1;
+    ind->size.circle(tools::math::Vector2d(0, 0), 1);
 	ind->Duree = 500;
 
 	MESSAGE("Un cadavre a été ajouté", FICHIER)
@@ -617,7 +614,7 @@ bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 	if (aClass < bClass) return true;
 	if (aClass > bClass) return false;
 
-	if (a->PosY >= b->PosY) return false;
+	if (a->position().y >= b->position().y) return false;
 
 	return true;
 }
