@@ -121,19 +121,11 @@ void Caracteristiques::addSkill(string newSkill, Individu* owner)
 
 	lua_atpanic(L, LUA_panic);
 
-	lua_register(L, "addImageProjectile", [](lua_State* L) {
-        string path = INSTALL_DIR + lua_tostring(L, 2);
-        imageManager::addContainer("projectiles");
-        imageManager::addImage("projectiles", lua_tostring(L, 1), path);
-        return 0;
-	});
-
 	lua_register(L, "getElementById", LUA_getElementById);
 	lua_register(L, "getElementInteraction", LUA_getElementInteraction);
 	lua_register(L, "isIndividu", LUA_isIndividu);
 	lua_register(L, "interact", LUA_interact);
 	lua_register(L, "combat", LUA_combat);
-	lua_register(L, "createProjectile", LUA_createProjectile);
 	lua_register(L, "set", LUA_set);
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "useObject", LUA_useObject);

@@ -70,7 +70,6 @@ void Save_Partie()
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Paysage			ExemplePaysage;			const type_info &TypePaysage = typeid(ExemplePaysage);
 	Paysage_Mouvant	ExempleMouvant;			const type_info &TypeMouvant = typeid(ExempleMouvant);
-// 	Projectile		ExempleProjectile;		const type_info &TypeProjectile = typeid(ExempleProjectile);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
 	Cadavre			ExempleCadavre;			const type_info &TypeCadavre = typeid(ExempleCadavre);

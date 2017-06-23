@@ -30,7 +30,6 @@ int LUA_getElementById(lua_State*);
 int LUA_getElementInteraction(lua_State*);
 int LUA_isIndividu(lua_State*);
 int LUA_combat(lua_State*);
-int LUA_createProjectile(lua_State*);
 int LUA_set(lua_State*);
 int LUA_get(lua_State*);
 int LUA_individual_copy(lua_State*);

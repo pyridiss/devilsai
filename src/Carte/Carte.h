@@ -45,7 +45,6 @@ class Joueur;
 class Paysage;
 class Door;
 class Paysage_Mouvant;
-class Projectile;
 class Actionneur;
 class Trigger;
 
@@ -77,7 +76,6 @@ class Carte
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
 		Door* addDoor(string liste, int x, int y);
 		Paysage_Mouvant* AjouterPaysageMouvant(string Type, string liste, int x, int y);
-		Projectile* AjouterProjectile(Projectile &prj);
 		Actionneur* AjouterActionneur(string liste, int x, int y);
 		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
@@ -119,7 +117,6 @@ Element_Carte* Get_Element(int);
 Individu_Unique* Get_IndividuUnique(string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
-void Blessure_Projectile(Projectile *Attaquant, Individu *Blesse);
 
 void Lag_PosFondCartes(float, float);
 void Set_PosCarte(float, float, bool);

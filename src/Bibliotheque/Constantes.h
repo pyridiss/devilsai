@@ -154,8 +154,4 @@ using namespace std;
 #define COMPETENCE_TAB		2
 #define COMPETENCE_SPACE	3
 
-#define TYPE_COMP_ARME		1
-#define TYPE_COMP_PRJ		3
-#define TYPE_COMP_OBJ		4
-
 #endif

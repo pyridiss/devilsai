@@ -36,7 +36,6 @@ class Activite;
 class Individu;
 class Joueur;
 class Individu_Unique;
-class Projectile;
 class EmplacementEquipement;
 
 namespace tinyxml2{

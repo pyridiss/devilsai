@@ -503,29 +503,6 @@ class Paysage_Mouvant : public Element_Mouvant
 		void Disp(RenderTarget& target, float RefX, float RefY);
 };
 
-
-class Projectile : public Individu_Unique
-{
-	public:
-		Activite Deplacement;
-		int OrigineX = 0, OrigineY = 0;
-		int ChampAttaque = 0;
-
-	//Constructeurs / Destructeurs :
-	public:
-		Projectile() : Individu_Unique() {}
-
-	//Gestion :
-	public:
-		Activite* Get_Activite(string act);
-		bool Set_Activite(string nv);
-		int Gestion();
-
-	//Affichage :
-	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
-};
-
 class Actionneur : public Element_Carte
 {
 	public:

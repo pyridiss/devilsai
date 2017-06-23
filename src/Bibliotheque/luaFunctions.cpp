@@ -104,21 +104,6 @@ int LUA_combat(lua_State* L)
 	return 0;
 }
 
-int LUA_createProjectile(lua_State* L)
-{
-    MESSAGE("LUA_createProjectile() called", LUA)
-
-	string type = lua_tostring(L, 1);
-	Projectile prj;
-	prj.Type = type;
-	Projectile *ptr = Partie.CarteCourante->AjouterProjectile(prj);
-	int result = 0;
-	if (ptr != NULL) result = (long int)ptr;
-
-	lua_pushnumber(L, result);
-	return 1;
-}
-
 int LUA_set(lua_State* L)
 {
     MESSAGE("LUA_set() called", LUA)
@@ -128,7 +113,6 @@ int LUA_set(lua_State* L)
 	double value = lua_tonumber(L, 3);
 
 	Individu*		ind  = dynamic_cast<Individu*>(elem);
-	Projectile*		prj  = dynamic_cast<Projectile*>(ind);
 
 	if (field == "vitality")		if (ind != NULL) ind->Set_Vitalite(value);
 	if (field == "energy")			if (ind != NULL) ind->Set_Energie(value);
@@ -136,15 +120,10 @@ int LUA_set(lua_State* L)
 	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
 	if (field == "Controle")		if (elem != NULL) elem->Set_Controle((int)value);
 	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
-	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.speed = value;
-	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.step = value;
-	if (field == "ChampAttaque")	if (prj != NULL) prj->ChampAttaque = value;
 	if (field == "Force")			if (ind != NULL) (*ind->Get_Caracs())["Force"] = value;
 	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;
 	if (field == "Agilite")			if (ind != NULL) (*ind->Get_Caracs())["Agilite"] = value;
 	if (field == "Intelligence")	if (ind != NULL) (*ind->Get_Caracs())["Intelligence"] = value;
-	if (field == "OrigineX")		if (prj != NULL) prj->OrigineX = value;
-	if (field == "OrigineY")		if (prj != NULL) prj->OrigineY = value;
 
 	return 0;
 }

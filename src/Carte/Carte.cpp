@@ -464,18 +464,6 @@ Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, 
 	return ind;
 }
 
-Projectile* Carte::AjouterProjectile(Projectile &prj)
-{
-	Projectile *ind = new Projectile(prj);
-
-	ind->Id = NouveauId();
-
-	MESSAGE("Un projectile a été crée - Classe = " + ind->Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
 Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 {
 	Actionneur *ind = new Actionneur;
