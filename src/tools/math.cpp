@@ -21,7 +21,9 @@
 #include <random>
 #include <chrono>
 
+#include "tools/debug.h"
 #include "tools/math.h"
+#include "tools/shape.h"
 
 namespace tools{
 
@@ -65,6 +67,176 @@ double randomNumber_BinomialLaw(double min, double max)
     binomial_distribution<int> distribution(1000*(max - min), 0.5);
 
     return min + distribution(randomGenerator) / 1000.0;
+}
+
+double square(double a)
+{
+    return a*a;
+}
+
+bool intersection_point_point(Shape& shape1, Shape& shape2)
+{
+    if (*shape1.origin + shape1.points[0] == *shape2.origin + shape2.points[0]) return true;
+
+    return false;
+}
+
+bool intersection_point_circle(Shape& shape1, Shape& shape2)
+{
+    if (Vector2d::distance(*shape1.origin + shape1.points[0], *shape2.origin + shape2.points[0]) <= shape2.radius1) return true;
+
+    return false;
+}
+
+bool intersection_point_rectangle(Shape& shape1, Shape& shape2)
+{
+    Vector2d vec_AB = shape2.points[1] - shape2.points[0];
+    Vector2d vec_AC = shape2.points[2] - shape2.points[0];
+    Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+
+    double h1 = Vector2d::dotProduct(vec_AH, vec_AB) / vec_AB.length();
+    double h2 = Vector2d::dotProduct(vec_AH, vec_AC) / vec_AC.length();
+
+    if (h1 >= 0 && h1 <= vec_AB.length() && h2 >= 0 && h2 <= vec_AC.length())
+        return true;
+
+    return false;
+}
+
+bool intersection_point_line(Shape& shape1, Shape& shape2)
+{
+    tools::debug::warning("intersection_point_line() is not implemented", "tools::math");
+    return false;
+}
+
+bool intersection_circle_circle(Shape& shape1, Shape& shape2)
+{
+    if (Vector2d::distanceSquare(*shape1.origin + shape1.points[0], *shape2.origin + shape2.points[0]) <= square(shape1.radius1 + shape2.radius1)) return true;
+
+    return false;
+}
+
+bool intersection_circle_rectangle(Shape& shape1, Shape& shape2)
+{
+    Vector2d vec_AB = shape2.points[1] - shape2.points[0];
+    Vector2d vec_AC = shape2.points[2] - shape2.points[0];
+    Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+
+    double h1 = Vector2d::dotProduct(vec_AH, vec_AB) / vec_AB.length();
+    double h2 = Vector2d::dotProduct(vec_AH, vec_AC) / vec_AC.length();
+
+    if (h1 >= - shape1.radius1 && h1 <= vec_AB.length() + shape1.radius1 && h2 >= - shape1.radius1 && h2 <= vec_AC.length() + shape1.radius1)
+        return true;
+
+    return false;
+}
+
+bool intersection_circle_line(Shape& shape1, Shape& shape2)
+{
+    Vector2d vec_AB = shape2.points[1] - shape2.points[0];
+    Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+
+    double h1 = Vector2d::dotProduct(vec_AH, vec_AB) / vec_AB.length();
+
+    if (h1 >= - shape1.radius1 && h1 <= vec_AB.length() + shape1.radius1)
+        return true;
+
+    return false;
+}
+
+bool intersection_rectangle_rectangle(Shape& shape1, Shape& shape2)
+{
+    Shape p;
+    for (int i = 0 ; i < 4 ; ++i)
+    {
+        p.point(shape1.points[i]);
+        p.setOrigin(shape1.origin);
+        if (intersection_point_rectangle(p, shape2)) return true;
+        p.point(shape2.points[i]);
+        p.setOrigin(shape2.origin);
+        if (intersection_point_rectangle(p, shape1)) return true;
+    }
+
+    return false;
+}
+
+bool intersection_rectangle_line(Shape& shape1, Shape& shape2)
+{
+    tools::debug::warning("intersection_rectangle_line() is not implemented", "tools::math");
+    return false;
+}
+
+bool intersection_line_line(Shape& shape1, Shape& shape2)
+{
+    tools::debug::warning("intersection_line_line() is not implemented", "tools::math");
+    return false;
+}
+
+bool intersection(Shape& shape1, Shape& shape2)
+{
+    //Simplify the switches
+    if (shape2.profile < shape1.profile)
+        return intersection(shape2, shape1);
+
+    //Shapes with no origin cannot intersect
+    if (shape1.origin == nullptr || shape2.origin == nullptr)
+    {
+        tools::debug::warning("intersection() has been called with a shape which has no origin", "tools::math");
+        return false;
+    }
+
+    //If the boxes have no intersection, shapes will not have one either
+    if (shape1.box.first.x > shape2.box.second.x) return false;
+    if (shape1.box.first.y > shape2.box.second.y) return false;
+    if (shape1.box.second.x < shape2.box.first.x) return false;
+    if (shape1.box.second.y < shape2.box.first.y) return false;
+
+    //Find the good function to test intersection
+    switch (shape1.profile)
+    {
+        case Shape::Profiles::Point:
+            switch(shape2.profile)
+            {
+                case Shape::Profiles::Point:
+                    return intersection_point_point(shape1, shape2);
+                case Shape::Profiles::Circle:
+                    return intersection_point_circle(shape1, shape2);
+                case Shape::Profiles::Rectangle:
+                    return intersection_point_rectangle(shape1, shape2);
+                case Shape::Profiles::Line:
+                    return intersection_point_line(shape1, shape2);
+            }
+            break;
+        case Shape::Profiles::Circle:
+            switch(shape2.profile)
+            {
+                case Shape::Profiles::Circle:
+                    return intersection_circle_circle(shape1, shape2);
+                case Shape::Profiles::Rectangle:
+                    return intersection_circle_rectangle(shape1, shape2);
+                case Shape::Profiles::Line:
+                    return intersection_circle_line(shape1, shape2);
+            }
+            break;
+        case Shape::Profiles::Rectangle:
+            switch(shape2.profile)
+            {
+                case Shape::Profiles::Rectangle:
+                    return intersection_rectangle_rectangle(shape1, shape2);
+                case Shape::Profiles::Line:
+                    return intersection_rectangle_line(shape1, shape2);
+            }
+            break;
+        case Shape::Profiles::Line:
+            switch(shape2.profile)
+            {
+                case Shape::Profiles::Line:
+                    return intersection_line_line(shape1, shape2);
+            }
+            break;
+    }
+
+    return false;
 }
 
 } //namespace math

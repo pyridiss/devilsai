@@ -26,10 +26,13 @@ namespace tools{
 
 namespace math{
 
+struct Shape;
+
 void initLibrary();
 double angle(double x, double y);
 double randomNumber(double min, double max);
 double randomNumber_BinomialLaw(double min, double max);
+bool intersection(Shape& shape1, Shape& shape2);
 
 } //namespace math
 
