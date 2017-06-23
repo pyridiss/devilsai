@@ -131,13 +131,13 @@ int Joueur::Gestion()
 
     if (TabAppui%10000 == 0 && automove)
     {
-        angle = tools::math::angle(automoveEndpoint.x - PosX, automoveEndpoint.y - PosY);
+        angle = tools::math::angle(automoveEndpoint.x - position().x, automoveEndpoint.y - position().y);
         TabAppui += 1; //TabToAct() will think we are holding an arrow key.
 
         //Check if we are close enough to the endPoint
-        if (abs(automoveEndpoint.x - PosX) + abs(automoveEndpoint.y - PosY) < 15)
+        if (abs(automoveEndpoint.x - position().x) + abs(automoveEndpoint.y - position().y) < 15)
             modif_maj = 0.25; //Last step will be divided by four
-        if (abs(automoveEndpoint.x - PosX) + abs(automoveEndpoint.y - PosY) < 5)
+        if (abs(automoveEndpoint.x - position().x) + abs(automoveEndpoint.y - position().y) < 5)
             automove = false;
     }
     else automove = false;
@@ -155,21 +155,20 @@ int Joueur::Gestion()
 		if (Resultat == COLL_PRIM)
 		{
 			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			Lag_PosFondCartes(PosX - Partie.PosCarteX, PosY - Partie.PosCarteY);
+			Lag_PosFondCartes(position().x - Partie.PosCarteX, position().y - Partie.PosCarteY);
 
-			PosX = Partie.PosCarteX;
-			PosY = Partie.PosCarteY;
+            move(Partie.PosCarteX - position().x, Partie.PosCarteY - position().y);
 
 			switch (Iteration)
 			{
 				case 1 :	modif_maj = 0.5; break;
 				case 2 :	modif_maj = 0.25; break;
 				case 3 :	modif_maj = 1;
-							PosX += sin(angle) * 7; Lag_PosFondCartes(-sin(angle) * 7, 0); break;
-				case 4 :	PosX -= sin(angle) * 14; Lag_PosFondCartes(sin(angle) * 14, 0); break;
-				case 5 :	PosX += sin(angle) * 7; PosY -= cos(angle) * 7; Lag_PosFondCartes(-sin(angle) * 7, cos(angle) * 7); break;
-				case 6 :	PosY += cos(angle) * 14; Lag_PosFondCartes(0, -cos(angle) * 14); break;
-				case 7 :	PosY -= cos(angle) * 7; Lag_PosFondCartes(0, cos(angle) * 7); break;
+							move(sin(angle) * 7, 0); Lag_PosFondCartes(-sin(angle) * 7, 0); break;
+				case 4 :	move(-sin(angle) * 14, 0); Lag_PosFondCartes(sin(angle) * 14, 0); break;
+				case 5 :	move(sin(angle) * 7, -cos(angle) * 7); Lag_PosFondCartes(-sin(angle) * 7, cos(angle) * 7); break;
+				case 6 :	move(0, cos(angle) * 14); Lag_PosFondCartes(0, -cos(angle) * 14); break;
+				case 7 :	move(0, -cos(angle) * 7); Lag_PosFondCartes(0, cos(angle) * 7); break;
 			}
 			if (Iteration >= 8) //Aucun mouvement valable n'a été trouvé
 			{
@@ -204,8 +203,7 @@ int Joueur::Gestion()
 
 		Lag_PosFondCartes(-cos(angle)*maj, -sin(angle)*maj);
 
-		PosX += cos(angle)*maj;
-		PosY += sin(angle)*maj;
+		move(cos(angle)*maj, sin(angle)*maj);
 
 		//TESTS DE COLLISIONS
 		Resultat = COLL_OK;
@@ -219,22 +217,6 @@ int Joueur::Gestion()
 			if (Resultat == COLL_PRIM_MVT)
 			{
 				Resultat = COLL_PRIM;
-			}
-			if (Resultat == COLL_PRIM && maj == 0)
-			{
-				//On tente de détecter le cas où deux individus seraient bloqués l'un sur l'autre
-				//La solution n'est pas optimale, mais on s'en contente pour le moment…
-				Element_Carte* tmp2 = Partie.CarteCourante->getCurrentCollider();
-
-				while ((abs(PosX - tmp2->PosX) < tmp2->RayonCollision && abs(PosY - tmp2->PosY) < tmp2->RayonCollision) ||
-						(abs(PosX - tmp2->PosX) < tmp2->RayX && abs(PosY - tmp2->PosY) < tmp2->RayY))
-				{
-					PosX += 2*cos(angle)*RayonCollision;
-					PosY += 2*sin(angle)*RayonCollision;
-					Set_PosCarte(PosX, PosY, false);
-					Set_PosCarte(PosX, PosY, true);
-					Partie.CarteCourante->resetCollisionManager();
-				}
 			}
 
 			if (Resultat == COLL_INTER)
@@ -262,7 +244,7 @@ int Joueur::Gestion()
 
 	if (MouvementAutorise)
 	{
-		Set_PosCarte(PosX, PosY, false);
+		Set_PosCarte(position().x, position().y, false);
 
 		IncrementNum();
 

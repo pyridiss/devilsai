@@ -25,6 +25,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "tools/vector2d.h"
+#include "tools/shape.h"
+#include "tools/math.h"
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
 
@@ -41,8 +44,6 @@ class Dialog;
 namespace tinyxml2{
     class XMLHandle;
 };
-
-enum enumCollisionType { NoCollision = 0, RectangleCollision = 1, CircleCollision = 2 };
 
 struct Point
 {
@@ -65,9 +66,9 @@ class Classe_Commune
 		String32 Nom;
 		string Type             = "";
 		int Diplomatie          = 0;
-		int RayonCollision      = 0;
-		int ChampVision         = 0;
-		int RayonInteraction    = 0;
+        tools::math::Shape size;
+        tools::math::Shape viewField;
+        tools::math::Shape interactionField;
 		string ActDefaut         = "0";
         double lifetime         = -1;
 
@@ -108,9 +109,8 @@ class Classe_Paysage
 	public:
 		string Type             = "";
 
-		enumCollisionType collisionType = CircleCollision;
-		short RayonCollision    = 0;
-		short RayX = 0, RayY = 0;
+        tools::math::Shape size;
+
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
 	public:
@@ -124,9 +124,8 @@ class Classe_Paysage_Mouvant
 
 		string Type             = "";
 
-		enumCollisionType ModeCollision = CircleCollision;
-		short RayonCollision    = 0;
-		short RayX = 0, RayY = 0;
+        tools::math::Shape size;
+
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
         string imagePrefix = "";
@@ -157,12 +156,12 @@ class Element_Carte
 	protected:
 		short Controle      = AUCUN;
 
-	public:
-		float PosX = 0, PosY = 0;
+	private:
+        tools::math::Vector2d _position;
 
-		enumCollisionType collisionType = CircleCollision;
-		short RayonCollision    = 0;
-		short RayX = 0, RayY = 0;
+    public:
+        tools::math::Shape size;
+
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
 	//Constructeurs / Destructeurs :
@@ -173,15 +172,17 @@ class Element_Carte
 	//Getter :
 	public:
 		short Get_Controle();
+        const tools::math::Vector2d& position();
 
 	//Gestion :
 	public:
-		void Lag_Pos(float x, float y);
 		void Set_Controle(short nv);
 
 		virtual int Gestion();
 
 		virtual int Collision(Individu *elem, int TypeCollision) =0;
+
+        void move(double x, double y);
 
 	//Affichage :
 	public:
@@ -287,6 +288,9 @@ class Individu : public Element_Mouvant
 
 		float buf_rec       = 0;
 
+        tools::math::Shape interactionField;
+        tools::math::Shape viewField;
+
 	//Constructeurs / Destructeurs :
 	public:
 		Individu();
@@ -295,8 +299,6 @@ class Individu : public Element_Mouvant
 	//Getters :
 	public:
 		virtual String32& Get_Nom() = 0;
-		virtual short Get_ChampVision() = 0;
-		virtual short Get_RayonInteraction() = 0;
 		virtual int Get_Experience() = 0;
 		virtual Caracteristiques* Get_Caracs() =0;
 		virtual Statistiques* Get_Stats() =0;
@@ -332,8 +334,6 @@ class Individu_Unique : public Individu
 {
 	public:
 		String32 Nom;
-		int ChampVision         = 0;
-		int RayonInteraction    = 0;
 		unsigned int Experience = 0;
 		bool RecuperationFixe   = false;
 		bool EnergieMax         = false;
@@ -367,8 +367,6 @@ class Individu_Unique : public Individu
 	//Getter :
 	public:
 		String32& Get_Nom();
-		short Get_ChampVision();
-		short Get_RayonInteraction();
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();
@@ -399,8 +397,6 @@ class Individu_Commun : public Individu
 	//Getter :
 	public:
 		String32& Get_Nom();
-		short Get_ChampVision();
-		short Get_RayonInteraction();
 		int Get_Experience();
 		Caracteristiques* Get_Caracs();
 		Statistiques* Get_Stats();

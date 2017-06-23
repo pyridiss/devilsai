@@ -39,16 +39,6 @@ String32& Individu_Commun::Get_Nom()
 	return Classe->Nom;
 }
 
-short Individu_Commun::Get_ChampVision()
-{
-	return Classe->ChampVision;
-}
-
-short Individu_Commun::Get_RayonInteraction()
-{
-	return Classe->RayonInteraction;
-}
-
 int Individu_Commun::Get_Experience()
 {
 	return Classe->Experience;
@@ -79,7 +69,7 @@ bool Individu_Commun::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, PosX, PosY);
+		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, position().x, position().y);
         corpse->Set_Individu(Type, Classe->corpseImageKey);
 
 		TypeClassement = CLASSEMENT_CADAVRE;
@@ -154,7 +144,9 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
 {
 	elem->ActDefaut = ActDefaut;
 	elem->Set_Activite(ActDefaut);
-	elem->RayonCollision = RayonCollision;
+    elem->size = size;
+    elem->interactionField = interactionField;
+    elem->viewField = viewField;
 	elem->Diplomatie = Diplomatie;
 	(*(elem->Get_Stats()))["Recuperation"] = Caracs["RecuperationMoyenne"];
     elem->lifetime = lifetime;

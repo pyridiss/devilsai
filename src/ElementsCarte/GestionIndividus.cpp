@@ -99,7 +99,7 @@ int Individu::Gestion()
 			if (Act == ATTAQUE && Elem != NULL)
 			{
                 if (!angleFixed())
-                    angle = tools::math::angle(Elem->PosX - PosX, Elem->PosY - PosY);
+                    angle = tools::math::angle(Elem->position().x - position().x, Elem->position().y - position().y);
 			}
 			break;
 		}
@@ -108,14 +108,7 @@ int Individu::Gestion()
 		switch (Comportement)
 		{
 			case COMPORTEMENT_ALEATOIRE :	MouvementAleatoire(Iteration); break;
-			case COMPORTEMENT_DEFENSE :		if (Collision_cercle_cercle(PosX, PosY, Get_ChampVision()/4,
-					                                                    Elem->PosX, Elem->PosY, Elem->RayonCollision))
-												MouvementAleatoire(Iteration);
-											else
-												MouvementChasse(Elem);
-											break;
-			case COMPORTEMENT_CHASSE :		if (Collision_cercle_cercle(PosX, PosY, Get_RayonInteraction(),
-					                                                    Elem->PosX, Elem->PosY, Elem->RayonCollision))
+            case COMPORTEMENT_CHASSE :		if (tools::math::intersection(interactionField, Elem->size))
 											{
 												Resultat = COLL_END; EnAttente = COLL_ATT;
 												if (Elem->Diplomatie != DIPLOM_NEUTRE && Elem->Diplomatie != Diplomatie)
@@ -166,7 +159,7 @@ int Individu::Gestion()
 				{
 					if (tmp1 == NULL) tmp1 = tmp2;
 
-					if ((PosX-tmp2->PosX)*(PosX-tmp2->PosX)+(PosY-tmp2->PosY)*(PosY-tmp2->PosY) < (PosX-tmp1->PosX)*(PosX-tmp1->PosX)+(PosY-tmp1->PosY)*(PosY-tmp1->PosY))
+					if ((position().x-tmp2->position().x)*(position().x-tmp2->position().x)+(position().y-tmp2->position().y)*(position().y-tmp2->position().y) < (position().x-tmp1->position().x)*(position().x-tmp1->position().x)+(position().y-tmp1->position().y)*(position().y-tmp1->position().y))
 						tmp1 = tmp2;
 
 					EnAttente = COLL_VIS;
@@ -177,7 +170,7 @@ int Individu::Gestion()
 		if (Resultat == COLL_PRIM)
 		{
 			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			Lag_Pos(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
+			move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
 
 			if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
 			{
@@ -210,7 +203,7 @@ int Individu::Gestion()
 		//On vérifie que l'ennemi est toujours à portée, avant de lancer le combat :
 		if (ennemi != NULL)
 		{
-			if (Collision_cercle_cercle(PosX, PosY, Get_RayonInteraction(), ennemi->PosX, ennemi->PosY, ennemi->RayonCollision))
+			if (tools::math::intersection(interactionField, ennemi->size))
 				Combat(this, ennemi);
 			NouveauComportement = COMPORTEMENT_CHASSE;
 		}
@@ -233,7 +226,7 @@ void Individu::MouvementAleatoire(int Iteration)
     while (angle < 0) angle += 2.0 * M_PI;
     while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-    Lag_Pos(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
+    move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
 }
 
 bool Individu::MouvementChasse(Element_Carte *elem)
@@ -250,7 +243,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 	}
 
     if (!angleFixed())
-        angle = tools::math::angle(elem->PosX - PosX, elem->PosY - PosY);
+        angle = tools::math::angle(elem->position().x - position().x, elem->position().y - position().y);
 
     while(Iteration < 10)
     {
@@ -259,7 +252,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
         while (angle < 0) angle += 2.0 * M_PI;
         while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-        Lag_Pos(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
+        move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
 
         //Tests de collision :
         int Resultat = COLL_OK;
@@ -279,7 +272,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
         }
         if (Resultat == COLL_PRIM)
         {
-            Lag_Pos(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
+            move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
             ++Iteration;
         }
         else

@@ -157,9 +157,24 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_SPACE] = i->second;
 		}
 		if (TypeDonnee == "DIPLOM")		Fichier >> ind->Diplomatie;
-		if (TypeDonnee == "CMP_VIS")	Fichier >> ind->ChampVision;
-		if (TypeDonnee == "RAY_COL")	Fichier >> ind->RayonCollision;
-		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")	Fichier >> ind->RayonInteraction;
+		if (TypeDonnee == "CMP_VIS")
+        {
+            int a;
+            Fichier >> a;
+            ind->viewField.circle(tools::math::Vector2d(0, 0), a);
+        }
+		if (TypeDonnee == "RAY_COL")
+        {
+            int a;
+            Fichier >> a;
+            ind->size.circle(tools::math::Vector2d(0, 0), a);
+        }
+		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")
+        {
+            int a;
+            Fichier >> a;
+            ind->interactionField.circle(tools::math::Vector2d(0, 0), a);
+        }
 		if (TypeDonnee == "ACT_DEFAUT")
 		{
 			Fichier >> ind->ActDefaut;
@@ -276,9 +291,24 @@ void Load_ClasseCommune(string Type)
             Fichier >> cl_com->corpseImageKey;
 
 		if (TypeDonnee == "DIPLOM")		Fichier >> cl_com->Diplomatie;
-		if (TypeDonnee == "CMP_VIS")	Fichier >> cl_com->ChampVision;
-		if (TypeDonnee == "RAY_COL")	Fichier >> cl_com->RayonCollision;
-		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")	Fichier >> cl_com->RayonInteraction;
+		if (TypeDonnee == "CMP_VIS")
+        {
+            int a;
+            Fichier >> a;
+            cl_com->viewField.circle(tools::math::Vector2d(0, 0), a);
+        }
+		if (TypeDonnee == "RAY_COL")
+        {
+            int a;
+            Fichier >> a;
+            cl_com->size.circle(tools::math::Vector2d(0, 0), a);
+        }
+		if (TypeDonnee == "RAY_ATT" || TypeDonnee == "RAY_INTER")
+        {
+            int a;
+            Fichier >> a;
+            cl_com->interactionField.circle(tools::math::Vector2d(0, 0), a);
+        }
 // 		if (TypeDonnee == "EQUIPEMENT")
 // 		{
 // 			string id = ""; int qualite = 0;
@@ -411,13 +441,15 @@ void Load_ClassePaysage(string Type)
 		}
 		if (TypeDonnee == "RAY_COL")
 		{
-			Fichier >> cl_pay->RayonCollision;
-			cl_pay->collisionType = CircleCollision;
+            int a;
+			Fichier >> a;
+			cl_pay->size.circle(tools::math::Vector2d(0, 0), a);
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
-			Fichier >> cl_pay->RayX >> cl_pay->RayY;
-			cl_pay->collisionType = RectangleCollision;
+            int a, b;
+			Fichier >> a >> b;
+			cl_pay->size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_pay->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_pay->TypeClassement = CLASSEMENT_CADAVRE;
@@ -488,13 +520,15 @@ void Load_ClassePaysageMouvant(string Type)
 		}
 		if (TypeDonnee == "RAY_COL")
 		{
-			Fichier >> cl_paymvt->RayonCollision;
-			cl_paymvt->ModeCollision = CircleCollision;
+            int a;
+			Fichier >> a;
+			cl_paymvt->size.circle(tools::math::Vector2d(0, 0), a);
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
-			Fichier >> cl_paymvt->RayX >> cl_paymvt->RayY;
-			cl_paymvt->ModeCollision = RectangleCollision;
+            int a, b;
+			Fichier >> a >> b;
+			cl_paymvt->size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
 		}
 		if (TypeDonnee == "CLASSEMENT_SOL")		cl_paymvt->TypeClassement = CLASSEMENT_SOL;
 		if (TypeDonnee == "CLASSEMENT_CADAVRE")	cl_paymvt->TypeClassement = CLASSEMENT_CADAVRE;

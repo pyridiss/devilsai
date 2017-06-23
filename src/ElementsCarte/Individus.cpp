@@ -169,7 +169,7 @@ void Individu::Disp(RenderTarget& target, float RefX, float RefY)
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
 	Activite* act = Get_Activite(Act);
-    imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
+    imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
 }
 
 void Individu::displayLifeGauge(int x, int y)

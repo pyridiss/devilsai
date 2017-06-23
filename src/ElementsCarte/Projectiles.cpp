@@ -116,14 +116,11 @@ int Projectile::Gestion()
 	if (Retour != ETAT_CONTINUER) return Retour;
 
 	//Test de fin de course :
-	if ((PosX - OrigineX)*(PosX - OrigineX) + (PosY - OrigineY)*(PosY - OrigineY) > ChampAttaque*ChampAttaque) return ETAT_MORT;
 
 	//Déplacement et vérification de collision
 
-	Lag_Pos(cos(angle)*Deplacement.step, sin(angle)*Deplacement.step);
 
 	//On n'autorise pas à blesser un ennemi trop près de la position d'origine
-	if (abs(PosX - OrigineX) < RayX && abs(PosY - OrigineY) < RayY) return ETAT_NORMAL;
 
 	Element_Carte *tmp = NULL;
 	int Resultat = COLL_OK;
@@ -163,5 +160,4 @@ void Projectile::Disp(RenderTarget& target, float RefX, float RefY)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-    imageManager::display(target, "projectiles", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
 }

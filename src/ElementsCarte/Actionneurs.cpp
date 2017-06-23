@@ -72,13 +72,17 @@ void Actionneur::Load(istream &Fichier)
 		Fichier >> TypeDonnee;
 		if (TypeDonnee == "RAY_COL")
 		{
-			collisionType = CircleCollision;
-			Fichier >> RayonCollision;
+            int a;
+            Fichier >> a;
+            size.circle(tools::math::Vector2d(0, 0), a);
+            size.setOrigin(&position());
 		}
 		if (TypeDonnee == "RECT_COL")
 		{
-			collisionType = RectangleCollision;
-			Fichier >> RayX >> RayY;
+            int a, b;
+            Fichier >> a >> b;
+            size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
+            size.setOrigin(&position());
 		}
 		if (TypeDonnee == "RECUPERATION")
 		{
@@ -111,13 +115,7 @@ Trigger::~Trigger()
 
 bool Trigger::activated()
 {
-	bool activated = false;
-	if (collisionType == RectangleCollision)
-		activated = Collision_cercle_rectangle(Partie.perso->PosX, Partie.perso->PosY, Partie.perso->RayonCollision, PosX, PosY, RayX, RayY);
-	if (collisionType == CircleCollision)
-		activated = Collision_cercle_cercle(Partie.perso->PosX, Partie.perso->PosY, Partie.perso->RayonCollision, PosX, PosY, RayonCollision);
-
-	return activated;
+    return tools::math::intersection(Partie.perso->size, size);
 }
 
 int Trigger::Gestion()
@@ -198,20 +196,26 @@ END_SHARED_TRIGGER
 			lua_call(L, 1, 0);
 		}
 		if (TypeDonnee == "position:")
-			Fichier >> PosX >> PosY;
+        {
+            double a, b;
+			Fichier >> a >> b;
+            move(a, b);
+        }
 		if (TypeDonnee == "size:")
 		{
 			string type;
 			Fichier >> type;
 			if (type == "rectangle")
 			{
-				collisionType = RectangleCollision;
-				Fichier >> RayX >> RayY;
+                int a, b;
+                Fichier >> a >> b;
+                size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
 			}
 			if (type == "circle")
 			{
-				collisionType = CircleCollision;
-				Fichier >> RayonCollision;
+                int a;
+                Fichier >> a;
+                size.circle(tools::math::Vector2d(0, 0), a);
 			}
 		}
 		if (TypeDonnee == "argument:")

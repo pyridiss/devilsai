@@ -56,24 +56,6 @@ int Paysage::Collision(Individu *elem, int TypeCollision)
 void Paysage::calculateCollisionRadius()
 {
 	if (repeatX == 1 && repeatY == 1) return;
-	if (collisionType == NoCollision) return;
-
-	Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
-	int border = 0;
-
-	if (repeatX != 1)
-	{
-		if (collisionType == RectangleCollision) border = RayX - imageDimension.x/2;
-		if (collisionType == CircleCollision) border = RayonCollision - imageDimension.x/2;
-		RayX = repeatX * imageDimension.x / 2 + border;
-	}
-
-	if (repeatY != 1)
-	{
-		if (collisionType == RectangleCollision) border = RayY - imageDimension.y/2;
-		if (collisionType == CircleCollision) border = RayonCollision - imageDimension.y/2;
-		RayY = repeatY * imageDimension.y / 2 + border;
-	}
 }
 
 void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
@@ -82,29 +64,7 @@ void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
 
 	if (repeatX == 1 && repeatY == 1)
 	{
-        imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
-	}
-	else
-	{
-		Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
-		if (repeatX > 1)
-		{
-			if (repeatX % 2 == 0)
-				for (float i = -repeatX/2 ; i < repeatX/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - (PosX + (i+0.5)*imageDimension.x)), target.getSize().y/2 - (RefY - PosY), true);
-			else
-				for (float i = -(repeatX-1)/2 ; i <= (repeatX-1)/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - (PosX + i*imageDimension.x)), target.getSize().y/2 - (RefY - PosY), true);
-		}
-		else if (repeatY > 1)
-		{
-			if (repeatY % 2 == 0)
-				for (float i = -repeatY/2 ; i < repeatY/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - (PosY + (i+0.5)*imageDimension.y)), true);
-			else
-				for (float i = -(repeatY-1)/2 ; i <= (repeatY-1)/2 ; ++i)
-					imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - (PosY + i*imageDimension.y)), true);
-		}
+        imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
 	}
 }
 
@@ -113,7 +73,6 @@ void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
 Door::Door() : Element_Carte()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
-	collisionType = RectangleCollision;
 }
 Door::~Door()
 {
@@ -146,10 +105,7 @@ void Door::Disp(RenderTarget& target, float RefX, float RefY)
 
 void Classe_Paysage::Copie_Element(Paysage *elem)
 {
-	elem->collisionType = collisionType;
-	elem->RayonCollision = RayonCollision;
-	elem->RayX = RayX;
-	elem->RayY = RayY;
+    elem->size = size;
 	elem->TypeClassement = TypeClassement;
 	elem->Diplomatie = 0;
 }
@@ -221,7 +177,7 @@ void Paysage_Mouvant::Disp(RenderTarget& target, float RefX, float RefY)
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
     Activite* act = Get_Activite(Act);
-    imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - PosX), target.getSize().y/2 - (RefY - PosY), true);
+    imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
 }
 
 
@@ -229,10 +185,7 @@ void Paysage_Mouvant::Disp(RenderTarget& target, float RefX, float RefY)
 
 void Classe_Paysage_Mouvant::Copie_Element(Element_Carte *elem)
 {
-	elem->collisionType = ModeCollision;
-	elem->RayonCollision = RayonCollision;
-	elem->RayX = RayX;
-	elem->RayY = RayY;
+    elem->size = size;
 	elem->TypeClassement = TypeClassement;
 	elem->Diplomatie = 0;
 }

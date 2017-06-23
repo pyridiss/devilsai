@@ -65,16 +65,6 @@ String32& Individu_Unique::Get_Nom()
 	return Nom;
 }
 
-short Individu_Unique::Get_ChampVision()
-{
-	return ChampVision;
-}
-
-short Individu_Unique::Get_RayonInteraction()
-{
-	return RayonInteraction;
-}
-
 int Individu_Unique::Get_Experience()
 {
 	return Experience;
@@ -211,7 +201,7 @@ bool Individu_Unique::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, PosX, PosY);
+		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, position().x, position().y);
         corpse->Set_Individu(Type, corpseImageKey);
 
 		TypeClassement = CLASSEMENT_CADAVRE;

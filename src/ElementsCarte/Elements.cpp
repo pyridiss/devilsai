@@ -30,6 +30,9 @@
 
 Element_Carte::Element_Carte()
 {
+    _position.x = 0;
+    _position.y = 0;
+    size.setOrigin(&_position);
 }
 
 Element_Carte::~Element_Carte()
@@ -39,12 +42,6 @@ Element_Carte::~Element_Carte()
 short Element_Carte::Get_Controle()
 {
 	return Controle;
-}
-
-void Element_Carte::Lag_Pos(float x, float y)
-{
-	PosX += x;
-	PosY += y;
 }
 
 void Element_Carte::Set_Controle(short nv)
@@ -62,27 +59,27 @@ int Element_Carte::Gestion()
         if (lifetime < 0) lifetime = 0;
     }
 
-	if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
+	if (abs(Partie.PosCarteX - _position.x) >= Options.ScreenW + 200)
 	{
 		Set_Controle(ARRET);
 		return ETAT_DESACTIVE;
 	}
 	else
 	{
-		if (abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 400)
+		if (abs(Partie.PosCarteY - _position.y) >= Options.ScreenH + 400)
 		{
 			Set_Controle(ARRET);
 			return ETAT_DESACTIVE;
 		}
 		else
 		{
-			if (abs(Partie.PosCarteX - PosX) >= Options.ScreenW + 200)
+			if (abs(Partie.PosCarteX - _position.x) >= Options.ScreenW + 200)
 			{
 				Set_Controle(AI_IMG_HORSCHAMP);
 			}
 			else
 			{
-				if (abs(Partie.PosCarteY - PosY) >= Options.ScreenH + 200)
+				if (abs(Partie.PosCarteY - _position.y) >= Options.ScreenH + 200)
 					Set_Controle(AI_IMG_HORSCHAMP);
 				else Set_Controle(AI);
 			}
@@ -91,6 +88,16 @@ int Element_Carte::Gestion()
 	return ETAT_CONTINUER;
 }
 
+void Element_Carte::move(double x, double y)
+{
+    _position.x += x;
+    _position.y += y;
+}
+
+const tools::math::Vector2d& Element_Carte::position()
+{
+    return _position;
+}
 
 /** FONCTIONS DE LA CLASSE Element_Mouvant **/
 
@@ -122,7 +129,7 @@ bool Element_Mouvant::Set_Activite(string nv)
 
 	Act = nv;
 
-	if (Act == MORT) RayonCollision = 0;
+	if (Act == MORT) size.circle(tools::math::Vector2d(0, 0), 0);
 
 	if (Get_Activite(nv)->priority > 0) IncrementNum(true);
 	return true;
