@@ -606,12 +606,11 @@ int Carte::GestionElements()
 
 void Carte::display(RenderTarget& target)
 {
-    Set_PosCarte(0, 0, true);
     for (auto& tmp : elements)
-        tmp->Disp(target, Partie.PosCarteX, Partie.PosCarteY);
+        tmp->Disp(target);
 
 	for (auto& tmp : triggers)
-		tmp->Disp(target, Partie.PosCarteX, Partie.PosCarteY);
+		tmp->Disp(target);
 }
 
 void Carte::setBackgroundImage(string path)
@@ -628,44 +627,20 @@ void Carte::displayBackground(RenderTarget& target)
 {
 	if (backgroundImage.empty()) return;
 
-	while (PosFondX > 0)
-		PosFondX -= 135;
+    Vector2f origin = target.getView().getCenter();
+    origin.x -= target.getSize().x / 2;
+    origin.y -= target.getSize().y / 2;
 
-	while (PosFondX < -134)
-		PosFondX += 135;
-
-	while (PosFondY > 0)
-		PosFondY -= 144;
-
-	while (PosFondY < -143)
-		PosFondY += 144;
-
-	for (unsigned short a = 0 ; a < target.getSize().x/135 + 2 ; ++a)
-	{
-		for (unsigned short b = 0 ; b < target.getSize().y/144 + 2 ; ++b)
-		{
-            imageManager::display(target, "paysage", backgroundImage, PosFondX+135*a, PosFondY+144*b);
-		}
-	}
+    for (int a = -1 ; a < (int)(target.getSize().x/135 + 2) ; ++a)
+    {
+        for (int b = -1 ; b < (int)(target.getSize().y/144 + 2) ; ++b)
+        {
+            imageManager::display(target, "paysage", backgroundImage, origin.x + 135*a - (int)(origin.x)%135, origin.y + 144*b - (int)(origin.y)%144);
+        }
+    }
 }
 
 /** AUTRES FONCTIONS */
-
-void Lag_PosFondCartes(float lagX, float lagY)
-{
-	for (auto& map : Partie.maps)
-	{
-		map.second.PosFondX += lagX;
-		map.second.PosFondY += lagY;
-	}
-}
-
-void Set_PosCarte(float posX, float posY, bool MaJ)		//DEVRAIT APPARTENIR À CLASSE_PARTIE
-{
-	static float bufX, bufY;
-	if (!MaJ) {bufX = posX; bufY = posY;}
-	else {Partie.PosCarteX = bufX; Partie.PosCarteY = bufY;}
-}
 
 void Carte::loadFromFile(string path)
 {

@@ -165,12 +165,12 @@ void Individu::Lag_Recuperation(float lag)
 	if (get("Recuperation") > 100) Set_Recuperation(100);
 }
 
-void Individu::Disp(RenderTarget& target, float RefX, float RefY)
+void Individu::Disp(RenderTarget& target)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
 	Activite* act = Get_Activite(Act);
-    imageManager::display(target, "individuals", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
+    imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
 }
 
 void Individu::displayLifeGauge(int x, int y)

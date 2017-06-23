@@ -92,9 +92,6 @@ bool RechercheJoueur()
 		return false;
 	}
 
-	Set_PosCarte(Partie.perso->position().x, Partie.perso->position().y, false);
-	Set_PosCarte(0, 0, true);
-
 	//Mise en place des éléments dans la liste de collisions :
 	for (auto& tmp : Partie.CarteCourante->elements)
 	{
@@ -154,15 +151,13 @@ void mainLoop()
 
     tools::signals::addSignal("main-menu");
 
-    RenderTexture mapRenderTarget;
-    mapRenderTarget.create(Options.ScreenW, Options.ScreenH - 50);
-    Sprite mapRenderSprite(mapRenderTarget.getTexture());
-    mapRenderSprite.setScale(1, -1);
-    mapRenderSprite.setPosition(0, Options.ScreenH);
+    View worldView(FloatRect(0, 0, Options.ScreenW, Options.ScreenH));
+    worldView.setViewport(sf::FloatRect(0, 0, 1, 1));
 
     Individu_Unique cursor;
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
     Individu* underCursor = NULL;
+    bool cursorIsInWorld = false;
 
 	while (true)
 	{
@@ -303,15 +298,24 @@ void mainLoop()
         if (managementActivated)
             Partie.CarteCourante->GestionElements();
 
+        worldView.setCenter(Partie.perso->position().x, Partie.perso->position().y);
+
         //Mouse cursor
-        cursor.move(Partie.PosCarteX - mapRenderTarget.getSize().x/2 + (Mouse::getPosition(Jeu.App).x - mapRenderSprite.getPosition().x) - cursor.position().x, 0);
-        cursor.move(0, Partie.PosCarteY - mapRenderTarget.getSize().y/2 + Mouse::getPosition(Jeu.App).y - (mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y) - cursor.position().y);
+        cursor.move(-cursor.position().x + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x,
+                    -cursor.position().y + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y);
+
+        if (Mouse::getPosition(Jeu.App).x >= Jeu.App.getSize().x * worldView.getViewport().left &&
+            Mouse::getPosition(Jeu.App).y >= Jeu.App.getSize().y * worldView.getViewport().top &&
+            Mouse::getPosition(Jeu.App).x <= Jeu.App.getSize().x * (worldView.getViewport().left + worldView.getViewport().width) &&
+            Mouse::getPosition(Jeu.App).y <= Jeu.App.getSize().y * (worldView.getViewport().top + worldView.getViewport().height))
+            cursorIsInWorld = true;
+        else cursorIsInWorld = false;
 
         Partie.CarteCourante->resetCollisionManager();
         underCursor = NULL;
         int Resultat = COLL_OK;
 
-        while(Resultat == COLL_OK)
+        while(cursorIsInWorld && Resultat == COLL_OK)
         {
             Resultat = Partie.CarteCourante->browseCollisionList(&cursor);
 
@@ -323,27 +327,22 @@ void mainLoop()
         }
 
         //Mouse click
-        if (Mouse::isButtonPressed(Mouse::Left))
+        if (cursorIsInWorld && Mouse::isButtonPressed(Mouse::Left))
         {
-            if (Mouse::getPosition(Jeu.App).x >= mapRenderSprite.getPosition().x &&
-                Mouse::getPosition(Jeu.App).y <= mapRenderSprite.getPosition().y &&
-                Mouse::getPosition(Jeu.App).x <= mapRenderSprite.getPosition().x + mapRenderTarget.getSize().x &&
-                Mouse::getPosition(Jeu.App).y >= mapRenderSprite.getPosition().y - mapRenderTarget.getSize().y)
-            {
-                Partie.perso->automove = true;
-                Partie.perso->automoveEndpoint.x = cursor.position().x;
-                Partie.perso->automoveEndpoint.y = cursor.position().y;
-            }
+            Partie.perso->automove = true;
+            Partie.perso->automoveEndpoint.x = cursor.position().x;
+            Partie.perso->automoveEndpoint.y = cursor.position().y;
         }
 
         //3. Display
 
         Jeu.App.clear();
+        Jeu.App.setView(worldView);
 
-        mapRenderTarget.clear();
-        Partie.CarteCourante->displayBackground(mapRenderTarget);
-        Partie.CarteCourante->display(mapRenderTarget);
-        Jeu.App.draw(mapRenderSprite);
+        Partie.CarteCourante->displayBackground(Jeu.App);
+        Partie.CarteCourante->display(Jeu.App);
+
+        Jeu.App.setView(Jeu.App.getDefaultView());
 
         if (!Partie.ModeCinematiques)
         {
@@ -451,9 +450,6 @@ void Clean_Partie()
 	Partie.listDialogs.clear();
 	Partie.currentUserScreen = nullptr;
 	Partie.journal.entries.clear();
-
-	Set_PosCarte(0, 0, false);
-	Set_PosCarte(0, 0, true);
 
 	deleteQuests();
 

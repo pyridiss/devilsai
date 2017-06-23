@@ -43,7 +43,7 @@ int Coffre::Collision(Individu* elem, int TypeCollision)
     return COMPORTEMENT_ALEATOIRE;
 }
 
-void Coffre::Disp(RenderTarget& target, float RefX, float RefY)
+void Coffre::Disp(RenderTarget& target)
 {
 	return;
 }
@@ -88,10 +88,10 @@ void Cadavre::Set_Individu(string type, string key)
 	Set_Individu();
 }
 
-void Cadavre::Disp(RenderTarget& target, float RefX, float RefY)
+void Cadavre::Disp(RenderTarget& target)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
-    imageManager::display(target, "individuals", imageKey, target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
+    imageManager::display(target, "individuals", imageKey, position().x, position().y, true);
 }
 

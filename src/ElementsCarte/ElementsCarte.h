@@ -187,7 +187,7 @@ class Element_Carte
 
 	//Affichage :
 	public:
-		virtual void Disp(RenderTarget& target, float RefX, float RefY) =0;
+		virtual void Disp(RenderTarget& target) =0;
 };
 
 class Coffre : public Element_Carte
@@ -208,7 +208,7 @@ class Coffre : public Element_Carte
 
 	//Affichage :
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Cadavre : public Coffre
@@ -231,7 +231,7 @@ class Cadavre : public Coffre
 
 	//Affichage :
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Element_Mouvant : public Element_Carte
@@ -327,7 +327,7 @@ class Individu : public Element_Mouvant
 
 	//Affichage
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
         void displayLifeGauge(int x, int y);
 };
 
@@ -459,7 +459,7 @@ class Paysage : public Element_Carte
 		void calculateCollisionRadius();
 
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Door : public Element_Carte
@@ -477,7 +477,7 @@ class Door : public Element_Carte
 		int Collision(Individu *elem, int TypeCollision);
 
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Paysage_Mouvant : public Element_Mouvant
@@ -500,7 +500,7 @@ class Paysage_Mouvant : public Element_Mouvant
 
 	//Affichage :
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Actionneur : public Element_Carte
@@ -523,7 +523,7 @@ class Actionneur : public Element_Carte
 
 	//Affichage :
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 class Trigger : public Element_Carte
@@ -543,7 +543,7 @@ class Trigger : public Element_Carte
 		bool activated();
 
 	public:
-		void Disp(RenderTarget& target, float RefX, float RefY);
+		void Disp(RenderTarget& target);
 };
 
 void Disp_Coffre();

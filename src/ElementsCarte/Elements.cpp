@@ -59,32 +59,6 @@ int Element_Carte::Gestion()
         if (lifetime < 0) lifetime = 0;
     }
 
-	if (abs(Partie.PosCarteX - _position.x) >= Options.ScreenW + 200)
-	{
-		Set_Controle(ARRET);
-		return ETAT_DESACTIVE;
-	}
-	else
-	{
-		if (abs(Partie.PosCarteY - _position.y) >= Options.ScreenH + 400)
-		{
-			Set_Controle(ARRET);
-			return ETAT_DESACTIVE;
-		}
-		else
-		{
-			if (abs(Partie.PosCarteX - _position.x) >= Options.ScreenW + 200)
-			{
-				Set_Controle(AI_IMG_HORSCHAMP);
-			}
-			else
-			{
-				if (abs(Partie.PosCarteY - _position.y) >= Options.ScreenH + 200)
-					Set_Controle(AI_IMG_HORSCHAMP);
-				else Set_Controle(AI);
-			}
-		}
-	}
 	return ETAT_CONTINUER;
 }
 

@@ -97,7 +97,7 @@ void Actionneur::Load(istream &Fichier)
 	}
 }
 
-void Actionneur::Disp(RenderTarget& target, float RefX, float RefY)
+void Actionneur::Disp(RenderTarget& target)
 {
 	return;
 }
@@ -249,7 +249,7 @@ END_SHARED_TRIGGER
 // 	dialogue->load(chemin);
 // }
 
-void Trigger::Disp(RenderTarget& target, float RefX, float RefY)
+void Trigger::Disp(RenderTarget& target)
 {
 	return;
 }

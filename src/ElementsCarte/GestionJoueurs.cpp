@@ -147,6 +147,8 @@ int Joueur::Gestion()
 	int EnAttente = 0;
 	int Iteration = 0;
 	float maj = 0;
+    double oldPositionX = position().x;
+    double oldPositionY = position().y;
 	Element_Carte* tmp1 = NULL;
 
 	while(Resultat != COLL_END && MouvementAutorise)
@@ -155,20 +157,20 @@ int Joueur::Gestion()
 		if (Resultat == COLL_PRIM)
 		{
 			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			Lag_PosFondCartes(position().x - Partie.PosCarteX, position().y - Partie.PosCarteY);
+// 			Lag_PosFondCartes(position().x - Partie.PosCarteX, position().y - Partie.PosCarteY);
 
-            move(Partie.PosCarteX - position().x, Partie.PosCarteY - position().y);
+            move(oldPositionX - position().x, oldPositionY - position().y);
 
 			switch (Iteration)
 			{
 				case 1 :	modif_maj = 0.5; break;
 				case 2 :	modif_maj = 0.25; break;
 				case 3 :	modif_maj = 1;
-							move(sin(angle) * 7, 0); Lag_PosFondCartes(-sin(angle) * 7, 0); break;
-				case 4 :	move(-sin(angle) * 14, 0); Lag_PosFondCartes(sin(angle) * 14, 0); break;
-				case 5 :	move(sin(angle) * 7, -cos(angle) * 7); Lag_PosFondCartes(-sin(angle) * 7, cos(angle) * 7); break;
-				case 6 :	move(0, cos(angle) * 14); Lag_PosFondCartes(0, -cos(angle) * 14); break;
-				case 7 :	move(0, -cos(angle) * 7); Lag_PosFondCartes(0, cos(angle) * 7); break;
+							move(sin(angle) * 7, 0); break;
+				case 4 :	move(-sin(angle) * 14, 0); break;
+				case 5 :	move(sin(angle) * 7, -cos(angle) * 7); break;
+				case 6 :	move(0, cos(angle) * 14); break;
+				case 7 :	move(0, -cos(angle) * 7); break;
 			}
 			if (Iteration >= 8) //Aucun mouvement valable n'a été trouvé
 			{
@@ -200,8 +202,6 @@ int Joueur::Gestion()
 
 		//Nouveau mouvement
 		maj = Get_Activite(Get_Act())->step * modif_maj;
-
-		Lag_PosFondCartes(-cos(angle)*maj, -sin(angle)*maj);
 
 		move(cos(angle)*maj, sin(angle)*maj);
 
@@ -244,8 +244,6 @@ int Joueur::Gestion()
 
 	if (MouvementAutorise)
 	{
-		Set_PosCarte(position().x, position().y, false);
-
 		IncrementNum();
 
 		if (Get_Num() == 0)

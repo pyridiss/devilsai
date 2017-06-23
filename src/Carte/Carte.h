@@ -56,7 +56,6 @@ class Carte
 		list <Trigger*> triggers;
 		map <string, lua_State*> luaTriggers;
 		string Id = "";
-		float PosFondX = 0, PosFondY = 0;
 		string ambience = "";
 		string backgroundImage = "";
 
@@ -117,9 +116,6 @@ Element_Carte* Get_Element(int);
 Individu_Unique* Get_IndividuUnique(string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
-
-void Lag_PosFondCartes(float, float);
-void Set_PosCarte(float, float, bool);
 
 void Ajouter_Carte(string);
 void SupprimerListe_Carte();

@@ -59,13 +59,13 @@ void Paysage::calculateCollisionRadius()
 	if (repeatX == 1 && repeatY == 1) return;
 }
 
-void Paysage::Disp(RenderTarget& target, float RefX, float RefY)
+void Paysage::Disp(RenderTarget& target)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
 	if (repeatX == 1 && repeatY == 1)
 	{
-        imageManager::display(target, "paysage", Type, target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
+        imageManager::display(target, "paysage", Type, position().x, position().y, true);
 	}
 }
 
@@ -96,7 +96,7 @@ int Door::Collision(Individu *elem, int TypeCollision)
 	return COLL_OK;
 }
 
-void Door::Disp(RenderTarget& target, float RefX, float RefY)
+void Door::Disp(RenderTarget& target)
 {
 	return;
 }
@@ -173,12 +173,12 @@ int Paysage_Mouvant::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM;
 }
 
-void Paysage_Mouvant::Disp(RenderTarget& target, float RefX, float RefY)
+void Paysage_Mouvant::Disp(RenderTarget& target)
 {
 	if (Controle == AI_IMG_HORSCHAMP) return;
 
     Activite* act = Get_Activite(Act);
-    imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), target.getSize().x/2 - (RefX - position().x), target.getSize().y/2 - (RefY - position().y), true);
+    imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), position().x, position().y, true);
 }
 
 

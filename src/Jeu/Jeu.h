@@ -55,7 +55,6 @@ struct Classe_Partie
 	bool ModeCinematiques   = false;
 
 	Carte *CarteCourante    = NULL;
-	float PosCarteX = 0, PosCarteY = 0;
 
 	Joueur *perso   = NULL;
 
