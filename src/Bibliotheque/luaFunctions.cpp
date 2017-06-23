@@ -176,6 +176,20 @@ int LUA_get(lua_State* L)
 	return 1;
 }
 
+int LUA_individual_copy(lua_State* L)
+{
+    MESSAGE("LUA_individual_copy() called", LUA)
+
+    Individu* i1 = (Individu*)lua_touserdata(L, 1);
+    Individu* i2 = (Individu*)lua_touserdata(L, 2);
+    string field = lua_tostring(L, 3);
+
+    if (field == "angle") i2->angle = i1->angle;
+    if (field == "diplomacy") i2->Diplomatie = i1->Diplomatie;
+
+    return 0;
+}
+
 int LUA_useObject(lua_State* L)
 {
     MESSAGE("LUA_useObject() called", LUA)
@@ -584,4 +598,19 @@ int LUA_changePlace(lua_State* L)
 	Partie.perso->IndiceLieu = indice;
 	Partie.perso->LieuVillage = type;
 	return 0;
+}
+
+int LUA_createIndividual(lua_State* L)
+{
+    MESSAGE("LUA_createIndividual() called", LUA)
+
+    string type = lua_tostring(L, 1);
+    double x = lua_tonumber(L, 2);
+    double y = lua_tonumber(L, 3);
+
+    Individu* i = Partie.CarteCourante->AjouterElement_Commun(type, "default", x, y);
+
+    lua_pushlightuserdata(L, (void*)i);
+
+    return 1;
 }

@@ -33,6 +33,7 @@ int LUA_combat(lua_State*);
 int LUA_createProjectile(lua_State*);
 int LUA_set(lua_State*);
 int LUA_get(lua_State*);
+int LUA_individual_copy(lua_State*);
 int LUA_useObject(lua_State*);
 int LUA_dispText(lua_State*);
 int LUA_getQuantityOf(lua_State*);
@@ -59,5 +60,6 @@ int LUA_addSound(lua_State*);
 int LUA_playSound(lua_State*);
 int LUA_triggerActivated(lua_State*);
 int LUA_changePlace(lua_State*);
+int LUA_createIndividual(lua_State* L);
 
 #endif
