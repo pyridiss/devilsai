@@ -135,8 +135,6 @@ int LUA_set(lua_State* L)
 	if (field == "recuperation")	if (ind != NULL) ind->Set_Recuperation(value);
 	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
 	if (field == "Controle")		if (elem != NULL) elem->Set_Controle((int)value);
-	if (field == "RayX")			if (elem != NULL) elem->RayX = (int)value;
-	if (field == "RayY")			if (elem != NULL) elem->RayY = (int)value;
 	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
 	if (field == "Vitesse")			if (prj != NULL) prj->Deplacement.speed = value;
 	if (field == "MaJ")				if (prj != NULL) prj->Deplacement.step = value;
@@ -147,8 +145,6 @@ int LUA_set(lua_State* L)
 	if (field == "Intelligence")	if (ind != NULL) (*ind->Get_Caracs())["Intelligence"] = value;
 	if (field == "OrigineX")		if (prj != NULL) prj->OrigineX = value;
 	if (field == "OrigineY")		if (prj != NULL) prj->OrigineY = value;
-	if (field == "PosX")			if (elem != NULL) elem->PosX = value;
-	if (field == "PosY")			if (elem != NULL) elem->PosY = value;
 
 	return 0;
 }
@@ -171,8 +167,8 @@ int LUA_get(lua_State* L)
 
 	if (result == Jeu.floatNotFound)
 	{
-		if (field == "PosX")	if (ind != NULL) result = ind->PosX;
-		if (field == "PosY")	if (ind != NULL) result = ind->PosY;
+		if (field == "PosX")	if (ind != NULL) result = ind->position().x;
+		if (field == "PosY")	if (ind != NULL) result = ind->position().y;
         if (field == "angle")   if (ind != NULL) result = ind->angle;
 	}
 
@@ -361,8 +357,7 @@ int LUA_addActionneur(lua_State* L)
 	int h = lua_tonumber(L, 4);
 
 	Actionneur *newActionneur = Partie.CarteCourante->AjouterActionneur("NO_SAVE", x, y);
-	newActionneur->RayX = w;
-	newActionneur->RayY = h;
+    newActionneur->size.rectangle(tools::math::Vector2d(-w, -h), tools::math::Vector2d(w, -h), tools::math::Vector2d(-w, h));
 	lua_pushlightuserdata(L, (void*)newActionneur);
 	return 1;
 }
