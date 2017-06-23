@@ -90,8 +90,6 @@ void Cadavre::Set_Individu(string type, string key)
 
 void Cadavre::Disp(RenderTarget& target)
 {
-	if (Controle == AI_IMG_HORSCHAMP) return;
-
     imageManager::display(target, "individuals", imageKey, position().x, position().y, true);
 }
 

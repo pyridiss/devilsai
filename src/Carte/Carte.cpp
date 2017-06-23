@@ -574,16 +574,18 @@ bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 	return true;
 }
 
-int Carte::GestionElements()
+void Carte::GestionElements(const View& worldView)
 {
-	int Retour;
-
 	int RetourElement = 0;
 	Element_Carte* ASupprimer = NULL;
 
+    int max = worldView.getSize().x + 1500;
+
 	for (auto& tmp : elements)
 	{
-		RetourElement = tmp->Gestion();
+        if (abs((int)(tmp->position().x - worldView.getCenter().x)) <= max &&
+            abs((int)(tmp->position().y - worldView.getCenter().y)) <= max)
+            RetourElement = tmp->Gestion();
 
 		switch(RetourElement)
 		{
@@ -600,17 +602,17 @@ int Carte::GestionElements()
 		lua_getglobal(L.second, "triggerManage");
 		lua_call(L.second, 0, 0);
 	}
-
-	return Retour;
 }
 
 void Carte::display(RenderTarget& target)
 {
+    int max = target.getView().getSize().x + 300;
     for (auto& tmp : elements)
-        tmp->Disp(target);
-
-	for (auto& tmp : triggers)
-		tmp->Disp(target);
+    {
+        if (abs((int)(tmp->position().x - target.getView().getCenter().x)) <= max &&
+            abs((int)(tmp->position().y - target.getView().getCenter().y)) <= max)
+            tmp->Disp(target);
+    }
 }
 
 void Carte::setBackgroundImage(string path)

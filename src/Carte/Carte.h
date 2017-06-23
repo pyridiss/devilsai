@@ -88,7 +88,7 @@ class Carte
 
 	//Gestion :
 	public:
-		int GestionElements();
+        void GestionElements(const View& worldView);
         void display(RenderTarget& target);
 
 	//Fond de la carte :

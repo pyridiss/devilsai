@@ -167,8 +167,6 @@ void Individu::Lag_Recuperation(float lag)
 
 void Individu::Disp(RenderTarget& target)
 {
-	if (Controle == AI_IMG_HORSCHAMP) return;
-
 	Activite* act = Get_Activite(Act);
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
 }

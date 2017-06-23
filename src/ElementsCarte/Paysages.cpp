@@ -61,8 +61,6 @@ void Paysage::calculateCollisionRadius()
 
 void Paysage::Disp(RenderTarget& target)
 {
-	if (Controle == AI_IMG_HORSCHAMP) return;
-
 	if (repeatX == 1 && repeatY == 1)
 	{
         imageManager::display(target, "paysage", Type, position().x, position().y, true);
@@ -175,8 +173,6 @@ int Paysage_Mouvant::Collision(Individu *elem, int TypeCollision)
 
 void Paysage_Mouvant::Disp(RenderTarget& target)
 {
-	if (Controle == AI_IMG_HORSCHAMP) return;
-
     Activite* act = Get_Activite(Act);
     imageManager::display(target, "movingObjects", act->getImageKey(angle, Num), position().x, position().y, true);
 }

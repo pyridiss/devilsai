@@ -296,7 +296,7 @@ void mainLoop()
         //2. Management
 
         if (managementActivated)
-            Partie.CarteCourante->GestionElements();
+            Partie.CarteCourante->GestionElements(worldView);
 
         worldView.setCenter(Partie.perso->position().x, Partie.perso->position().y);
 

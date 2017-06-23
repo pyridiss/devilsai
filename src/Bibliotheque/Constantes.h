@@ -63,8 +63,6 @@ using namespace std;
 #define AUCUN		0
 #define HUMAIN		1
 #define AI			2
-#define ARRET		3
-#define AI_IMG_HORSCHAMP 5
 //#define RESEAU	-1
 
 //Diplomaties
@@ -142,7 +140,6 @@ using namespace std;
 //Action de l'utilisateur & états des individus
 #define ACTION_MORT		5
 #define ETAT_NORMAL		6
-#define ETAT_DESACTIVE	7
 #define ETAT_MORT		8
 #define ETAT_CONTINUER	9
 
