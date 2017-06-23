@@ -161,6 +161,7 @@ class Element_Carte
 
     public:
         tools::math::Shape size;
+        bool inert;
 
 		short TypeClassement    = CLASSEMENT_NORMAL;
 
@@ -198,7 +199,7 @@ class Coffre : public Element_Carte
 		String32 Nom;
 
 	public:
-		Coffre() : Element_Carte() {}
+		Coffre();
 
 	//Gestion :
 	public:

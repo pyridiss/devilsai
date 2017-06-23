@@ -32,6 +32,7 @@
 Paysage::Paysage() : Element_Carte()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
+    inert = true;
 }
 
 Paysage::~Paysage()

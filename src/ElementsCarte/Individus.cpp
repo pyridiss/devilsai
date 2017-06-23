@@ -36,6 +36,7 @@ Individu::Individu() : Element_Mouvant()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     angle = tools::math::randomNumber(0, 2 * M_PI);
+    inert = false;
 }
 
 

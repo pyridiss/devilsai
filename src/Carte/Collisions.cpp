@@ -91,6 +91,12 @@ int Carte::browseCollisionList(Individu *elem)
 		return Retour;
 	}
 
+    if (collider->inert)
+    {
+        lastCollider = currentCollider;
+        ++currentCollider;
+        return COLL_OK;
+    }
 
 	//Pas de collision primaire ; on teste une collision en interaction
     ResultColl = tools::math::intersection(elem->interactionField, collider->size);
