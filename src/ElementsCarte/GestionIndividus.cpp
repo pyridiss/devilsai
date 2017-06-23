@@ -87,12 +87,8 @@ int Individu::Gestion()
 	{
 		Resultat = COLL_OK;
 
-		//Aucun déplacement : pas besoin de tests ; on termine d'abord l'activité.
-		//En revanche, s'il s'agit de la dernière image, on a besoin de vérifier le comportement suivant.
-		if (!Set_Activite(COURSE) && !Set_Activite(MARCHE) && Get_Num() != Get_Activite(Act)->numberOfImages)
+		if (!Set_Activite(ActDefaut) && Get_Num() != Get_Activite(Act)->numberOfImages)
 		{
-			//Si l'ActDefaut est autre chose que MARCHE ou COURSE, on essaye de lui mettre
-			Set_Activite(ActDefaut);
 			Resultat = COLL_END;
 			EnAttente = -1;
 			//En cas d'attaque, on cherche quand même la meilleure direction
@@ -183,10 +179,10 @@ int Individu::Gestion()
 		++Iteration;
 	}	//Fin du while d'AI
 
-	if (EnAttente == COLL_VIS)
+	if (EnAttente == COLL_VIS || EnAttente == COLL_ATT)
 	{
 		if (tmp1 != NULL) ElementVision = tmp1->Id;
-		else ElementVision = tmp2->Id;
+		else if (tmp2 != NULL) ElementVision = tmp2->Id;
 	}
 	if (EnAttente == COLL_ATT && ElementVision != -1) 
 	{
@@ -209,6 +205,10 @@ int Individu::Gestion()
 		}
 		else NouveauComportement = COMPORTEMENT_ALEATOIRE;
 	}
+    if (Get_Num() == 0)
+    {
+        Get_Activite(Act)->atEnd(this);
+    }
 
 	return ETAT_NORMAL;
 }
