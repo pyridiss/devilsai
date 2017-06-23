@@ -88,13 +88,6 @@ set(img
     90001.png
     10000200.png
     10010000.png
-    10010100.png
-    10010200.png
-    10010300.png
-    10010400.png
-    10010500.png
-    10010600.png
-    10010700.png
     Art.png
     Baliste.img
     BarreEnergie.png

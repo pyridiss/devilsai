@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <species name="player_fireball_bullet">
+        <shape type="rectangle" xSize="0" ySize="0"/>
+        <viewField type="circle" radius = "80"/>
+        <attackField type="circle" radius="30"/>
+        <characteristics strength="140" power="100" agility="180" intellect="5"/>
+        <properties angleFixed="0" lifetime="80" diplomacy="1"/>
+        <skill name="4">
+            <properties priority="0" speed="100" step="0" fightAtEnd="1" numberOfImages="1"/>
+            <images angle="0" imageFile="img/10010000.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    individual_set(owner, "vitality", 0)
+                end
+            </script>
+        </skill>
+        <skill name="normal">
+            <properties priority="0" speed="35" step="8" numberOfImages="1"/>
+            <images angle="0" imageFile="img/10010000.png"/>
+        </skill>
+        <skillsManagement default="normal" onAttack="4"/>
+    </species>
+</world>

@@ -114,6 +114,7 @@ set(individu
     30202.pay
     311.com
     ballista.xml
+    player.xml
 )
 
 install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)

@@ -1,5 +1,6 @@
 backgroundImage img/00001.png
 AMBIENCE Spring_1
+loadXMLFile individu/player.xml
 PAYSAGE 2001 2570 -6198
 PAYSAGE 2001 446 -6124
 PAYSAGE 2001 287 -6119

@@ -146,6 +146,10 @@ void Caracteristiques::addSkill(string newSkill, Individu* owner)
 	lua_register(L, "activiteAddImage", LUA_activiteAddImage);
 	lua_register(L, "addSound", LUA_addSound);
 	lua_register(L, "playSound", LUA_playSound);
+    lua_register(L, "individual_get", LUA_get);
+    lua_register(L, "individual_set", LUA_set);
+    lua_register(L, "individual_copy", LUA_individual_copy);
+    lua_register(L, "createIndividual", LUA_createIndividual);
 
 	lua_getglobal(L, "skillBegin");
     lua_pushlightuserdata(L, (void*)owner);
