@@ -125,9 +125,6 @@ struct Classe_Jeu
 
 	bool ErreurDetectee = false;
 
-	//Utilisé par certains éléments pour déterminer leur comportement
-	Individu_Unique *Ind_AI;
-
 	Classe_Jeu();
 	~Classe_Jeu();
 };

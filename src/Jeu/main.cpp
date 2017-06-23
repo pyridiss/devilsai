@@ -48,12 +48,10 @@ Classe_Jeu::Classe_Options Options;
 
 Classe_Jeu::Classe_Jeu()
 {
-	Ind_AI = NULL;
 }
 
 Classe_Jeu::~Classe_Jeu()
 {
-	if (Ind_AI != NULL) delete Ind_AI;
 }
 
 Classe_Jeu::Classe_Options::Classe_Options()
@@ -171,11 +169,6 @@ int main(int n, char *params[])
 
 	LectureSauvegardes();
 	MESSAGE("Sauvegardes chargées", FICHIER)
-
-
-	Jeu.Ind_AI = new Individu_Unique();
-	Jeu.Ind_AI->collisionType = RectangleCollision;
-	Jeu.Ind_AI->Id = -1;
 
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");
