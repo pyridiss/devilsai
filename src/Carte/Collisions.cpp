@@ -75,19 +75,9 @@ int Carte::browseCollisionList(Individu *elem)
 	int Retour = COLL_OK;
 
 	static float elemPosX = 0, elemPosY = 0;
-	elemPosX = elem->PosX; elemPosY = elem->PosY;
+	elemPosX = elem->position().x; elemPosY = elem->position().y;
 
 	const auto& end = elements.end();
-
-	//If currentCollider has no collision, we can jump to the next element
-	while (currentCollider != end && (*currentCollider)->collisionType == NoCollision)
-		++currentCollider;
-
-	//On avance dans la liste jusqu'à trouver un élément dont la différence des PosY est inférieure à MaximumRayonCollision
-	while (currentCollider != end && elemPosY - (*currentCollider)->PosY > maxRadius)
-		++currentCollider;
-	while (currentCollider != end && abs(elemPosX - (*currentCollider)->PosX) > maxRadius)
-		++currentCollider;
 
 	if (currentCollider == end)
 	{
@@ -106,16 +96,7 @@ int Carte::browseCollisionList(Individu *elem)
 		return COLL_OK;
 	}
 
-	bool ResultColl = false;
-
-	if (elem->collisionType == CircleCollision && collider->collisionType == CircleCollision)
-		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->RayonCollision, collider->PosX, collider->PosY, collider->RayonCollision);
-	if (elem->collisionType == CircleCollision && collider->collisionType == RectangleCollision)
-		ResultColl = Collision_cercle_rectangle(elem->PosX, elemPosY, elem->RayonCollision, collider->PosX, collider->PosY, collider->RayX, collider->RayY);
-	if (elem->collisionType == RectangleCollision && collider->collisionType == CircleCollision)
-		ResultColl = Collision_cercle_rectangle(collider->PosX, collider->PosY, collider->RayonCollision, elem->PosX, elemPosY, elem->RayX, elem->RayY);
-	if (elem->collisionType == RectangleCollision && collider->collisionType == RectangleCollision)
-		ResultColl = Collision_rectangle_rectangle(elem->PosX, elem->PosY, elem->RayX, elem->RayY, collider->PosX, collider->PosY, collider->RayX, collider->RayY);
+	bool ResultColl = tools::math::intersection(elem->size, collider->size);
 
 	if (ResultColl)
 	{
@@ -139,18 +120,9 @@ int Carte::browseCollisionList(Individu *elem)
 		return Retour;
 	}
 
-	//La suite teste les collisions en interaction et en vision : cela ne concerne pas les tmp paysages
-	//Attention : seuls les paysages en RECT_COL sont bloqués ici ; un moyen pour les bloquer tous ?
-	if (elem->Get_RayonInteraction() == 0 || elem->collisionType == RectangleCollision)
-	{
-		lastCollider = currentCollider;
-		++currentCollider;
-		return COLL_OK;
-	}
 
 	//Pas de collision primaire ; on teste une collision en interaction
-	ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->Get_RayonInteraction(),
-										 collider->PosX, collider->PosY, collider->RayonCollision);
+    ResultColl = tools::math::intersection(elem->interactionField, collider->size);
 	if (ResultColl)
 	{
         Retour = COLL_INTER;
@@ -168,10 +140,9 @@ int Carte::browseCollisionList(Individu *elem)
 	if (collider->Diplomatie != DIPLOM_NEUTRE && Retour == COLL_INTER) Retour = COLL_ATT;
 
 	//Pas de collision primaire, pas de collision en interaction ; on teste une collision en vision
-	if (Retour == COLL_OK && elem->Get_ChampVision() != 0)
+	if (Retour == COLL_OK)
 	{
-		ResultColl = Collision_cercle_cercle(elem->PosX, elemPosY, elem->Get_ChampVision(),
-											 collider->PosX, collider->PosY, collider->RayonCollision);
+        ResultColl = tools::math::intersection(elem->viewField, collider->size);
 		if (ResultColl) Retour = COLL_VIS;
 	}
 
