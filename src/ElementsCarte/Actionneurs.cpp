@@ -99,6 +99,8 @@ void Actionneur::Load(istream &Fichier)
 
 void Actionneur::Disp(RenderTarget& target)
 {
+    if (Options.displayShapes)
+        size.display(target, Color(255, 0, 0, 50));
 	return;
 }
 
@@ -251,5 +253,7 @@ END_SHARED_TRIGGER
 
 void Trigger::Disp(RenderTarget& target)
 {
+    if (Options.displayShapes)
+        size.display(target, Color(0, 255, 0, 50));
 	return;
 }

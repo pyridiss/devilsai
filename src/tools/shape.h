@@ -30,6 +30,11 @@ namespace tinyxml2{
     class XMLElement;
 };
 
+namespace sf{
+    class RenderTarget;
+    class Color;
+};
+
 namespace tools{
 
 namespace math{
@@ -64,6 +69,8 @@ struct Shape
     void line(const Vector2d& p, double length, double angle);
 
     void loadFromXML(tinyxml2::XMLElement* elem);
+
+    void display(sf::RenderTarget& target, const sf::Color& color);
 };
 
 } //namespace math

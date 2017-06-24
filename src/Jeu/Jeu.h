@@ -107,6 +107,7 @@ struct Classe_Jeu
 		bool PleinEcran_Save        = false;
 		bool SauvegardeDisponible	= false;
 		bool AffichageDegats        = false;
+        bool displayShapes          = false;
 		float VitesseJeu            = 60.f/1000.f;
 		unsigned ScreenW            = 800;
 		unsigned ScreenW_Save       = 800;

@@ -20,6 +20,7 @@
 #include <cmath>
 
 #include <tinyxml2.h>
+#include <SFML/Graphics.hpp>
 
 #include "tools/debug.h"
 #include "tools/math.h"
@@ -28,6 +29,7 @@
 
 using namespace std;
 using namespace tinyxml2;
+using namespace sf;
 
 namespace tools{
 
@@ -82,7 +84,7 @@ void Shape::rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3
     points.emplace_back(p1.x, p1.y);
     points.emplace_back(p2.x, p2.y);
     points.emplace_back(p3.x, p3.y);
-    points.emplace_back((p2 - p1) + (p3 - p1));
+    points.emplace_back(p2 + p3 - p1);
 
     box.first.x = min(p1.x, min(p2.x, p3.x));
     box.first.y = min(p1.y, min(p2.y, p3.y));
@@ -185,6 +187,50 @@ void Shape::loadFromXML(XMLElement* elem)
         elem->QueryAttribute("angle", &angle);
 
         line(p, length, angle);
+    }
+}
+
+void Shape::display(RenderTarget& target, const Color& color)
+{
+    switch (profile)
+    {
+        case Profiles::None:
+            break;
+        case Profiles::Point:
+            break;
+        case Profiles::Circle:
+            {
+                CircleShape drawing(radius1);
+                drawing.setPosition(origin->x + points[0].x - radius1, origin->y + points[0].y - radius1);
+                drawing.setFillColor(color);
+                target.draw(drawing);
+            }
+            break;
+        case Profiles::Rectangle:
+            {
+                ConvexShape drawing;
+                drawing.setPointCount(4);
+                drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
+                drawing.setPoint(1, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
+                drawing.setPoint(2, Vector2f(origin->x + points[3].x, origin->y + points[3].y));
+                drawing.setPoint(3, Vector2f(origin->x + points[2].x, origin->y + points[2].y));
+                drawing.setFillColor(color);
+                target.draw(drawing);
+            }
+            break;
+        case Profiles::Line:
+            {
+                ConvexShape drawing;
+                drawing.setPointCount(4);
+                drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
+                drawing.setPoint(1, Vector2f(origin->x + points[0].x + length1 * cos(angle1), origin->y + points[0].y + length1 * sin(angle1)));
+                drawing.setPoint(2, Vector2f(origin->x + points[0].x + length1 * cos(angle1), origin->y + points[0].y + length1 * sin(angle1)));
+                drawing.setPoint(3, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
+                drawing.setOutlineColor(color);
+                drawing.setOutlineThickness(1);
+                target.draw(drawing);
+            }
+            break;
     }
 }
 

@@ -121,6 +121,10 @@ void GestionArguments(int n, char *params[])
 			cout << "Mode SAVE DISABLED activé" << endl;
 			Arguments.SaveDisabled = true;
 		}
+		if (strcmp(params[i], "-m") == 0)
+		{
+			Options.displayShapes = true;
+		}
 		#endif
 	}
 }

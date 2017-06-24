@@ -63,6 +63,9 @@ void Paysage::Disp(RenderTarget& target)
 {
 	if (repeatX == 1 && repeatY == 1)
 	{
+        if (Options.displayShapes)
+            size.display(target, Color(255, 255, 255, 50));
+
         imageManager::display(target, "paysage", Type, position().x, position().y, true);
 	}
 }
@@ -96,6 +99,9 @@ int Door::Collision(Individu *elem, int TypeCollision)
 
 void Door::Disp(RenderTarget& target)
 {
+    if (Options.displayShapes)
+        size.display(target, Color(0, 255, 255, 50));
+
 	return;
 }
 

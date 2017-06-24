@@ -167,6 +167,13 @@ void Individu::Lag_Recuperation(float lag)
 
 void Individu::Disp(RenderTarget& target)
 {
+    if (Options.displayShapes)
+    {
+        viewField.display(target, Color(255, 255, 0, 20));
+        interactionField.display(target, Color(255, 0, 0, 30));
+        size.display(target, Color(255, 255, 255, 50));
+    }
+
 	Activite* act = Get_Activite(Act);
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
 }
