@@ -46,7 +46,6 @@ set(individu
     90001.pay
     10007.pay
     10201.pay
-    1.mvt
     2001.pay
     21004.pay
     30001.pay
@@ -114,6 +113,7 @@ set(individu
     30202.pay
     311.com
     ballista.xml
+    fountainOfLife.xml
     player.xml
 )
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <species name="fountainOfLife_animation">
+        <addImageArchiveFile file="img/Fontaine.img"/>
+        <shape type="rectangle" xSize="30" ySize="16"/>
+        <properties angleFixed="0" diplomacy="0"/>
+        <skill name="animation">
+            <properties priority="0" speed="3" step="0" numberOfImages="4"/>
+            <images angle="0" xAlignment="6" yAlignment="-6" pathToImages="1/%%.png"/>
+        </skill>
+        <skillsManagement default="animation"/>
+    </species>
+</world>
