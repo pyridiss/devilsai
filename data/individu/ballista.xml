@@ -2,12 +2,12 @@
 <world>
     <species name="ballista">
         <addImageArchiveFile file="img/Baliste.img"/>
-        <shape type="rectangle" xSize="38" ySize="16"/>
-        <attackField type="line" length="250"/>
+        <shape type="rectangle" xCenter="-18" yCenter="4" xSize="54" ySize="20"/>
+        <attackField type="line" length="600"/>
         <properties angleFixed="0" diplomacy="2"/>
         <skill name="4">
             <properties priority="1" speed="6" step="0" numberOfImages="6"/>
-            <images angle="0" xAlignment="18" yAlignment="-1" pathToImages="7/%%.png"/>
+            <images angle="0" pathToImages="7/%%.png"/>
             <script>
                 function atBegin(owner)
                 end
@@ -23,15 +23,15 @@
             </script>
         </skill>
         <skill name="pause">
-            <properties priority="0" speed="1" step="0" numberOfImages="1"/>
-            <images angle="0" xAlignment="18" yAlignment="-1" pathToImages="0/%%.png"/>
+            <properties priority="0" speed="10" step="0" numberOfImages="1"/>
+            <images angle="0" pathToImages="0/%%.png"/>
         </skill>
         <skillsManagement default="pause" onAttack="4"/>
     </species>
     <species name="ballista_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>
-        <viewField type="circle" radius = "80"/>
-        <attackField type="circle" radius="30"/>
+        <viewField type="circle" radius="80"/>
+        <attackField type="rectangle" yCenter="-5" xSize="60" ySize="14"/>
         <characteristics strength="200" power="100" agility="80" intellect="5"/>
         <properties angleFixed="0" lifetime="80" diplomacy="0"/>
         <skill name="4">
