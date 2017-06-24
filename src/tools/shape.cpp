@@ -223,8 +223,8 @@ void Shape::display(RenderTarget& target, const Color& color)
                 ConvexShape drawing;
                 drawing.setPointCount(4);
                 drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
-                drawing.setPoint(1, Vector2f(origin->x + points[0].x + length1 * cos(angle1), origin->y + points[0].y + length1 * sin(angle1)));
-                drawing.setPoint(2, Vector2f(origin->x + points[0].x + length1 * cos(angle1), origin->y + points[0].y + length1 * sin(angle1)));
+                drawing.setPoint(1, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
+                drawing.setPoint(2, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
                 drawing.setPoint(3, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
                 drawing.setOutlineColor(color);
                 drawing.setOutlineThickness(1);

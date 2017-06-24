@@ -134,11 +134,13 @@ bool intersection_circle_rectangle(Shape& shape1, Shape& shape2)
 bool intersection_circle_line(Shape& shape1, Shape& shape2)
 {
     Vector2d vec_AB = shape2.points[1] - shape2.points[0];
+    Vector2d vec_AC(-vec_AB.y, vec_AB.x);
     Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
 
     double h1 = Vector2d::dotProduct(vec_AH, vec_AB) / vec_AB.length();
+    double h2 = Vector2d::dotProduct(vec_AH, vec_AC) / vec_AC.length();
 
-    if (h1 >= - shape1.radius1 && h1 <= vec_AB.length() + shape1.radius1)
+    if (h1 >= - shape1.radius1 && h1 <= vec_AB.length() + shape1.radius1 && abs(h2) <= shape1.radius1)
         return true;
 
     return false;
