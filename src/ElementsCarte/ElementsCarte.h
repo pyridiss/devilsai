@@ -162,6 +162,7 @@ class Element_Carte
     public:
         tools::math::Shape size;
         bool inert;
+        bool ignoreCollision = false;
 
 		short TypeClassement    = CLASSEMENT_NORMAL;
 

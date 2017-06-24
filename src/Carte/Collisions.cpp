@@ -50,6 +50,10 @@ int Carte::browseCollisionList(Individu *elem)
 
 	const auto& end = elements.end();
 
+    //If currentCollider has no collision, we can jump to the next one
+    while (currentCollider != end && (*currentCollider)->ignoreCollision)
+        ++currentCollider;
+
 	if (currentCollider == end)
 	{
 		currentCollider = elements.begin();
