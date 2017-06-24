@@ -142,11 +142,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
             door->size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
             door->size.setOrigin(&door->position());
 		}
-		if (TypeDonnee == "PAYSAGE_MOUVANT" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterPaysageMouvant(Ind, list, X, Y);
-		}
 		if (TypeDonnee == "ACTIONNEUR" && carte != NULL)
 		{
 			Fichier >> X >> Y;
@@ -430,35 +425,6 @@ Door* Carte::addDoor(string liste, int x, int y)
 	ind->Set_Controle(AI);
 
 	MESSAGE("A door has been added.", FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Paysage_Mouvant* Carte::AjouterPaysageMouvant(string Type, string liste, int x, int y)
-{
-	Paysage_Mouvant *ind = new Paysage_Mouvant;
-
-	ind->Id = NouveauId();
-	ind->Liste = liste;
-	ind->Type = Type;
-
-	Load_ClassePaysageMouvant(Type);
-	ind->Classe = getMovingLandsClass(Type);
-
-	if (ind->Classe == NULL)
-	{
-		Erreur("La classe du paysage mouvant suivant a été demandée sans avoir été chargée :", Type);
-		delete ind;
-		return NULL;
-	}
-
-	ind->Set_Controle(AI);
-	ind->Classe->Copie_Element(ind);
-    ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
-
-	MESSAGE("Un paysage mouvant a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
 	return ind;

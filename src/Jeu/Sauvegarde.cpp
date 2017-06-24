@@ -69,7 +69,6 @@ void Save_Partie()
 	Individu_Commun	ExempleCommun;			const type_info &TypeCommun = typeid(ExempleCommun);
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Paysage			ExemplePaysage;			const type_info &TypePaysage = typeid(ExemplePaysage);
-	Paysage_Mouvant	ExempleMouvant;			const type_info &TypeMouvant = typeid(ExempleMouvant);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
 	Cadavre			ExempleCadavre;			const type_info &TypeCadavre = typeid(ExempleCadavre);
@@ -101,7 +100,6 @@ void Save_Partie()
 				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << "PAYSAGE-REPEAT ";
 				else fileStream << "PAYSAGE ";
 			}
-			if (TypeTmp == TypeMouvant)		fileStream << "PAYSAGE_MOUVANT ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
 			if (TypeTmp == TypeCadavre)		fileStream << "CADAVRE ";
@@ -147,8 +145,6 @@ void Save_Partie()
 				Paysage *pay = dynamic_cast<Paysage*>(tmp);
 				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << pay->repeatX << " " << pay->repeatY;
 			}
-
-			if (TypeTmp == TypeMouvant) fileStream << endl;
 
 			if (TypeTmp == TypeActionneur)
 			{
@@ -355,14 +351,6 @@ bool Load_Partie(string path)
 				ind->calculateCollisionRadius();
 				carte.second.setMaxRadius(ind->RayX);
 				carte.second.setMaxRadius(ind->RayY);
-			}
-
-			if (TypeDonnee == "PAYSAGE_MOUVANT")
-			{
-				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Load_ClassePaysageMouvant(StrType);
-				Paysage_Mouvant* ind = carte.second.AjouterPaysageMouvant(StrType, StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> /*ind->collisionType >>*/ ind->TypeClassement;
 			}
 
 			if (TypeDonnee == "ACTIONNEUR")

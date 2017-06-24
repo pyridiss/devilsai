@@ -33,18 +33,15 @@ class lua_State;
 
 class Classe_Commune;
 class Classe_Paysage;
-class Classe_Paysage_Mouvant;
 class Element_Carte;
 class Coffre;
 class Cadavre;
-class Element_Mouvant;
 class Individu;
 class Individu_Unique;
 class Individu_Commun;
 class Joueur;
 class Paysage;
 class Door;
-class Paysage_Mouvant;
 class Actionneur;
 class Trigger;
 
@@ -74,7 +71,6 @@ class Carte
 		Joueur* AjouterJoueur(string Type, string liste, int x, int y);
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
 		Door* addDoor(string liste, int x, int y);
-		Paysage_Mouvant* AjouterPaysageMouvant(string Type, string liste, int x, int y);
 		Actionneur* AjouterActionneur(string liste, int x, int y);
 		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
@@ -128,9 +124,5 @@ Classe_Commune* getCommonClass(string);
 void addLandsClass(string);
 void deleteLandsClasses();
 Classe_Paysage* getLandsClass(string);
-
-void addMovingLandsClass(string);
-void deleteMovingLandsClasses();
-Classe_Paysage_Mouvant* getMovingLandsClass(string);
 
 #endif

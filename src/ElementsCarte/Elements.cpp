@@ -75,17 +75,17 @@ const tools::math::Vector2d& Element_Carte::position()
 
 /** FONCTIONS DE LA CLASSE Element_Mouvant **/
 
-string Element_Mouvant::Get_Act()
+string Individu::Get_Act()
 {
 	return Act;
 }
 
-short Element_Mouvant::Get_Num()
+short Individu::Get_Num()
 {
 	return Num;
 }
 
-bool Element_Mouvant::Set_Activite(string nv)
+bool Individu::Set_Activite(string nv)
 {
 	if (Get_Activite(Act) == NULL)
 	{
@@ -109,7 +109,7 @@ bool Element_Mouvant::Set_Activite(string nv)
 	return true;
 }
 
-int Element_Mouvant::Collision(Individu *elem, int TypeCollision)
+int Individu::Collision(Individu *elem, int TypeCollision)
 {
 	if (TypeCollision == COLL_VIS)
 	{
@@ -122,7 +122,7 @@ int Element_Mouvant::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM_MVT;
 }
 
-void Element_Mouvant::IncrementNum(bool RaZ)
+void Individu::IncrementNum(bool RaZ)
 {
 	if (Act == MORT && Num == Get_Activite(Act)->numberOfImages-1) return;
 
@@ -139,7 +139,7 @@ void Element_Mouvant::IncrementNum(bool RaZ)
 	}
 }
 
-int Element_Mouvant::Gestion()
+int Individu::GestionElementMouvant()
 {
 	if (Temps < (1/(float)Get_Vitesse(Get_Act())))
 	{
@@ -151,7 +151,7 @@ int Element_Mouvant::Gestion()
 	return ETAT_CONTINUER;
 }
 
-int Element_Mouvant::Get_Vitesse(string act)
+int Individu::Get_Vitesse(string act)
 {
 	return Get_Activite(act)->speed;
 }

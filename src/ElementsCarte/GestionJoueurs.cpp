@@ -65,7 +65,7 @@ int Joueur::Gestion()
 
 		// 3. Gestion du temps : Mouvement ou pas
 
-	if (Element_Mouvant::Gestion() != ETAT_CONTINUER)
+	if (Individu::GestionElementMouvant() != ETAT_CONTINUER)
 		MouvementAutorise = false;
 
 		// 4. Gestion des événements

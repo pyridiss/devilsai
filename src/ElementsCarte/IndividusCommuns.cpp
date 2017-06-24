@@ -63,7 +63,7 @@ bool Individu_Commun::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
 
-	bool Resultat = Element_Mouvant::Set_Activite(nv);
+	bool Resultat = Individu::Set_Activite(nv);
 
 	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{

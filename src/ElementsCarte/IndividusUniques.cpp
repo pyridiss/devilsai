@@ -189,7 +189,7 @@ bool Individu_Unique::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
 
-	bool Resultat = Element_Mouvant::Set_Activite(nv);
+	bool Resultat = Individu::Set_Activite(nv);
 
 	if (Get_Act() == MORT)
 	{

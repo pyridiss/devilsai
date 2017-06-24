@@ -36,7 +36,6 @@ class Coffre;
 class Individu_Unique;
 class Classe_Commune;
 class Classe_Paysage;
-class Classe_Paysage_Mouvant;
 
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 typedef map < int, int > MapDonneesInt;
@@ -74,7 +73,6 @@ struct Classe_Partie
 
 	map<string, Classe_Commune> commonClasses;
 	map<string, Classe_Paysage> landsClasses;
-	map<string, Classe_Paysage_Mouvant> movingLandsClasses;
 
 	bool loadFirstChapter   = false;
 

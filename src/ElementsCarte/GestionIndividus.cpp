@@ -57,9 +57,8 @@ int Individu::Gestion()
 	Gestion_Recuperation();
 
 	//Gestion du temps :
-	Retour = Element_Mouvant::Gestion();
+	Retour = Individu::GestionElementMouvant();
 	if (Retour != ETAT_CONTINUER) return Retour;
-
 
 	if (Get_Act() == MORT)
 	{

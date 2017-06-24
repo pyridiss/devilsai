@@ -117,32 +117,6 @@ class Classe_Paysage
 		void Copie_Element(Paysage *elem);
 };
 
-class Classe_Paysage_Mouvant
-{
-	public:
-		MapActivites Activites;
-
-		string Type             = "";
-
-        tools::math::Shape size;
-
-		short TypeClassement    = CLASSEMENT_NORMAL;
-
-        string imagePrefix = "";
-
-		Caracteristiques Caracs;
-		bool ActivationNecessaire	= false;
-//		bool ActivationUnique;
-
-	//Gestion :
-	public:
-		void Ajouter_Activite(string Id);
-		Activite* Get_Activite(string Id);
-
-	public:
-		void Copie_Element(Element_Carte *elem);
-};
-
 class Element_Carte
 {
 	//Objet :
@@ -235,9 +209,9 @@ class Cadavre : public Coffre
 		void Disp(RenderTarget& target);
 };
 
-class Element_Mouvant : public Element_Carte
+class Individu : public Element_Carte
 {
-	//Objet
+    //Objet
 	public:
 		string Act   = "0";
         double angle = 0;
@@ -255,30 +229,6 @@ class Element_Mouvant : public Element_Carte
 		int NouveauComportement = COMPORTEMENT_ALEATOIRE;
 		int ElementVision       = -1;
 
-	//Constructeurs / Destructeurs :
-	public:
-		Element_Mouvant() : Element_Carte() {}
-		virtual ~Element_Mouvant() {}
-
-	//Getter :
-	public:
-		string Get_Act();
-		short Get_Num();
-
-		virtual Activite* Get_Activite(string act) =0;
-
-	//Gestion :
-	public:
-		virtual int Gestion();
-		virtual bool Set_Activite(string nv);
-		virtual int Get_Vitesse(string act);
-		int Collision(Individu *elem, int TypeCollision);
-		void IncrementNum(bool RaZ = false);
-};
-
-class Individu : public Element_Mouvant
-{
-	//Objet :
 	protected:
 		Statistiques Stats;
 
@@ -305,13 +255,21 @@ class Individu : public Element_Mouvant
 		virtual Caracteristiques* Get_Caracs() =0;
 		virtual Statistiques* Get_Stats() =0;
         virtual bool angleFixed() =0;
+        string Get_Act();
+		short Get_Num();
+		virtual Activite* Get_Activite(string act) =0;
 
 	//Gestion :
 	public:
 		int Gestion();
+        int GestionElementMouvant();
 		void MouvementAleatoire(int Iteration);
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
+		virtual bool Set_Activite(string nv);
+		virtual int Get_Vitesse(string act);
+		int Collision(Individu *elem, int TypeCollision);
+		void IncrementNum(bool RaZ = false);
 
 	//Getter stats and characteristics
 	public:
@@ -481,29 +439,6 @@ class Door : public Element_Carte
 		void Disp(RenderTarget& target);
 };
 
-class Paysage_Mouvant : public Element_Mouvant
-{
-	public:
-		Classe_Paysage_Mouvant *Classe;
-
-	//Constructeurs / Destructeurs :
-	public:
-		Paysage_Mouvant();
-		~Paysage_Mouvant();
-
-	//Gestion :
-	public:
-		void Activation();
-		Activite* Get_Activite(string act);
-		int Gestion();
-		void IncrementNum(bool RaZ = false);
-		int Collision(Individu *elem, int TypeCollision);
-
-	//Affichage :
-	public:
-		void Disp(RenderTarget& target);
-};
-
 class Actionneur : public Element_Carte
 {
 	public:
@@ -553,7 +488,6 @@ void Gestion_Coffre(Event&);
 void Load_IndividuUnique(string, Individu_Unique*);
 void Load_ClasseCommune(string);
 void Load_ClassePaysage(string);
-void Load_ClassePaysageMouvant(string);
 void Disp_Personnage();
 void Disp_MiniaturesCompetences();
 

@@ -100,30 +100,3 @@ Classe_Paysage* getLandsClass(string type)
 
 	return NULL;
 }
-
-
-/** LISTE CHAINEE EN Classe_Paysage_Mouvant **/
-
-void addMovingLandsClass(string type)
-{
-	Classe_Paysage_Mouvant _new;
-	Partie.movingLandsClasses.insert(map<string, Classe_Paysage_Mouvant>::value_type(type, _new));
-
-	MESSAGE("Classe Paysage Mouvant " + type + " ajoutée", LISTE)
-}
-
-void deleteMovingLandsClasses()
-{
-	Partie.movingLandsClasses.clear();
-
-	MESSAGE("Liste des Classes Paysages Mouvants supprimée", LISTE)
-}
-
-Classe_Paysage_Mouvant* getMovingLandsClass(string type)
-{
-	auto i = Partie.movingLandsClasses.find(type);
-
-	if (i != Partie.movingLandsClasses.end()) return &(i->second);
-
-	return NULL;
-}

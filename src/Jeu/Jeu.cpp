@@ -459,5 +459,4 @@ void Clean_Partie()
 
 	deleteCommonClasses();
 	deleteLandsClasses();
-	deleteMovingLandsClasses();
 }
