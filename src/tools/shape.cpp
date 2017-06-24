@@ -18,11 +18,16 @@
 */
 
 #include <cmath>
+
+#include <tinyxml2.h>
+
+#include "tools/debug.h"
 #include "tools/math.h"
 #include "tools/vector2d.h"
 #include "tools/shape.h"
 
 using namespace std;
+using namespace tinyxml2;
 
 namespace tools{
 
@@ -114,6 +119,73 @@ void Shape::line(const Vector2d& p, double length, double angle)
     box.first.y = min(points[0].y, points[1].y);
     box.second.x = max(points[0].x, points[1].x);
     box.second.y = max(points[0].y, points[1].y);
+}
+
+void Shape::loadFromXML(XMLElement* elem)
+{
+    string type = elem->Attribute("type");
+
+    if (type == "none")
+    {
+        tools::debug::warning("Shape::loadFromXML() received type == 'none', which is not implemented", "tools::math");
+    }
+
+    else if (type == "point")
+    {
+        tools::debug::warning("Shape::loadFromXML() received type == 'point', which is not implemented", "tools::math");
+    }
+
+    else if (type == "circle")
+    {
+        Vector2d p(0, 0);
+        double radius = 0;
+        elem->QueryAttribute("xCenter", &p.x);
+        elem->QueryAttribute("yCenter", &p.y);
+        elem->QueryAttribute("radius", &radius);
+
+        circle(p, radius);
+    }
+
+    else if (type == "rectangle")
+    {
+        Vector2d p1(0, 0);
+        Vector2d p2(0, 0);
+        Vector2d p3(0, 0);
+
+        if (elem->Attribute("points"))
+        {
+            tools::debug::warning("Shape::loadFromXML() received rectangle defined with points, which is not implemented", "tools::math");
+        }
+
+        if (elem->Attribute("xSize"))
+        {
+            double xCenter = 0, yCenter = 0, xSize = 0, ySize = 0;
+            elem->QueryAttribute("xCenter", &xCenter);
+            elem->QueryAttribute("yCenter", &yCenter);
+            elem->QueryAttribute("xSize", &xSize);
+            elem->QueryAttribute("ySize", &ySize);
+            p1.x = xCenter - xSize/2.0;
+            p1.y = yCenter - ySize/2.0;
+            p2.x = xCenter + xSize/2.0;
+            p2.y = yCenter - ySize/2.0;
+            p3.x = xCenter - xSize/2.0;
+            p3.y = yCenter + ySize/2.0;
+        }
+
+        rectangle(p1, p2, p3);
+    }
+
+    else if (type == "line")
+    {
+        Vector2d p(0, 0);
+        double length = 0, angle = 0;
+        elem->QueryAttribute("xOrigin", &p.x);
+        elem->QueryAttribute("yOrigin", &p.y);
+        elem->QueryAttribute("length", &length);
+        elem->QueryAttribute("angle", &angle);
+
+        line(p, length, angle);
+    }
 }
 
 } //namespace math

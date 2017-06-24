@@ -26,6 +26,10 @@
 
 using namespace std;
 
+namespace tinyxml2{
+    class XMLElement;
+};
+
 namespace tools{
 
 namespace math{
@@ -58,6 +62,8 @@ struct Shape
     void rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
     void line(const Vector2d& p1, const Vector2d& p2);
     void line(const Vector2d& p, double length, double angle);
+
+    void loadFromXML(tinyxml2::XMLElement* elem);
 };
 
 } //namespace math

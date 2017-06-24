@@ -174,48 +174,15 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "shape")
         {
-            string type = elem->Attribute("type");
-            if (type == "rectangle")
-            {
-                double xSize = 0, ySize = 0;
-                elem->QueryAttribute("xSize", &xSize);
-                elem->QueryAttribute("ySize", &ySize);
-                size.rectangle(tools::math::Vector2d(-xSize/2.0, -ySize/2.0), tools::math::Vector2d(xSize/2.0, -ySize/2.0), tools::math::Vector2d(-xSize/2.0, ySize/2.0));
-            }
+            size.loadFromXML(elem);
         }
         if (elemName == "viewField")
         {
-            string type = elem->Attribute("type");
-            if (type == "circle")
-            {
-                double radius = 0;
-                elem->QueryAttribute("radius", &radius);
-                viewField.circle(tools::math::Vector2d(0, 0), radius);
-            }
+            viewField.loadFromXML(elem);
         }
         if (elemName == "attackField")
         {
-            string type = elem->Attribute("type");
-            if (type == "circle")
-            {
-                double radius = 0;
-                elem->QueryAttribute("radius", &radius);
-                interactionField.circle(tools::math::Vector2d(0, 0), radius);
-            }
-            if (type == "rectangle")
-            {
-                double xSize = 0, ySize = 0;
-                elem->QueryAttribute("xSize", &xSize);
-                elem->QueryAttribute("ySize", &ySize);
-                interactionField.rectangle(tools::math::Vector2d(-xSize/2.0, -ySize/2.0), tools::math::Vector2d(xSize/2.0, -ySize/2.0), tools::math::Vector2d(-xSize/2.0, ySize/2.0));
-            }
-            if (type == "line")
-            {
-                double length = 0, angle = 0;
-                elem->QueryAttribute("length", &length);
-                elem->QueryAttribute("angle", &angle);
-                interactionField.line(tools::math::Vector2d(0, 0), length, angle);
-            }
+            interactionField.loadFromXML(elem);
         }
         if (elemName == "characteristics")
         {
