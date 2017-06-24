@@ -186,10 +186,10 @@ bool intersection(Shape& shape1, Shape& shape2)
     }
 
     //If the boxes have no intersection, shapes will not have one either
-    if (shape1.box.first.x > shape2.box.second.x) return false;
-    if (shape1.box.first.y > shape2.box.second.y) return false;
-    if (shape1.box.second.x < shape2.box.first.x) return false;
-    if (shape1.box.second.y < shape2.box.first.y) return false;
+    if (shape1.origin->x + shape1.box.first.x > shape2.origin->x + shape2.box.second.x) return false;
+    if (shape1.origin->y + shape1.box.first.y > shape2.origin->y + shape2.box.second.y) return false;
+    if (shape1.origin->x + shape1.box.second.x < shape2.origin->x + shape2.box.first.x) return false;
+    if (shape1.origin->y + shape1.box.second.y < shape2.origin->y + shape2.box.first.y) return false;
 
     //Find the good function to test intersection
     switch (shape1.profile)
