@@ -38,6 +38,7 @@ namespace math{
 void Shape::setOrigin(const Vector2d* o)
 {
     origin = o;
+    if (next != nullptr) next->setOrigin(o);
 }
 
 void Shape::point(const Vector2d& p)
@@ -188,10 +189,44 @@ void Shape::loadFromXML(XMLElement* elem)
 
         line(p, length, angle);
     }
+
+    else if (type == "complex")
+    {
+        profile = Profiles::Complex;
+
+        Shape *current = this;
+        XMLHandle hdl(elem);
+        XMLElement *elem2 = hdl.FirstChildElement().ToElement();
+        while (elem2)
+        {
+            current->next = new Shape;
+            current->next->loadFromXML(elem2);
+            current = current->next;
+
+            elem2 = elem2->NextSiblingElement();
+        }
+
+        current = this->next;
+        box = current->box;
+        while (current != nullptr)
+        {
+            box.first.x = min(box.first.x, current->box.first.x);
+            box.first.y = min(box.first.y, current->box.first.y);
+            box.second.x = max(box.second.x, current->box.second.x);
+            box.second.y = max(box.second.y, current->box.second.y);
+            current = current->next;
+        }
+    }
 }
 
 void Shape::display(RenderTarget& target, const Color& color)
 {
+    if (origin == nullptr)
+    {
+        tools::debug::error("Shape::display called while the shape has no origin.", "tools::math");
+        return;
+    }
+
     switch (profile)
     {
         case Profiles::None:
@@ -229,6 +264,14 @@ void Shape::display(RenderTarget& target, const Color& color)
                 drawing.setOutlineColor(color);
                 drawing.setOutlineThickness(1);
                 target.draw(drawing);
+            }
+            break;
+        case Profiles::Complex:
+            Shape* current = next;
+            while (current != nullptr)
+            {
+                current->display(target, color);
+                current = current->next;
             }
             break;
     }

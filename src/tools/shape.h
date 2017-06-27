@@ -39,7 +39,6 @@ namespace tools{
 
 namespace math{
 
-    int nv();
 struct Shape
 {
     enum Profiles
@@ -48,7 +47,8 @@ struct Shape
         Point,
         Circle,
         Rectangle,
-        Line
+        Line,
+        Complex
     };
 
     Profiles profile;
@@ -60,6 +60,60 @@ struct Shape
     double radius1, radius2;
     double length1, length2;
     double angle1, angle2;
+
+    Shape* next = nullptr;
+
+    Shape() = default;
+
+    Shape(const Shape& s)
+        : profile(s.profile),
+          origin(nullptr),
+          points(s.points),
+          box(s.box),
+          radius1(s.radius1),
+          radius2(s.radius2),
+          length1(s.length1),
+          length2(s.length2),
+          angle1(s.angle1),
+          angle2(s.angle2)
+    {
+        if (s.next != nullptr)
+            next = new Shape(*(s.next));
+    }
+
+    Shape(Shape&& s)
+    {
+        swap(*this, s);
+    }
+
+    ~Shape()
+    {
+        if (next != nullptr)
+            delete next;
+    }
+
+    Shape& operator=(Shape s)
+    {
+        swap(*this, s);
+        return *this;
+    }
+
+    friend void swap(Shape& first, Shape& second)
+    {
+        using std::swap;
+
+        swap(first.profile, second.profile);
+        swap(first.origin, second.origin);
+        swap(first.points, second.points);
+        swap(first.box, second.box);
+        swap(first.radius1, second.radius1);
+        swap(first.radius2, second.radius2);
+        swap(first.length1, second.length1);
+        swap(first.length2, second.length2);
+        swap(first.angle1, second.angle1);
+        swap(first.angle2, second.angle2);
+        swap(first.next, second.next);
+    }
 
     void setOrigin(const Vector2d* o);
     void point(const Vector2d& p);
