@@ -26,7 +26,7 @@
 
 #include <cmath>
 
-#include "config.h"
+#include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "gui/style.h"
 
@@ -43,11 +43,11 @@ Shader contrastShader;
 
 void initStyle()
 {
-    liberation.loadFromFile(INSTALL_DIR + "LiberationSans-Regular.ttf");
-    liberationBold.loadFromFile(INSTALL_DIR + "LiberationSans-Bold.ttf");
-    dayroman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
-    blurShader.loadFromFile(INSTALL_DIR + "blurShader.frag", Shader::Type::Fragment);
-    contrastShader.loadFromFile(INSTALL_DIR + "contrastShader.frag", Shader::Type::Fragment);
+    liberation.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Regular.ttf");
+    liberationBold.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Bold.ttf");
+    dayroman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
+    blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
+    contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
 }
 
 const Font& defaultTextFont()

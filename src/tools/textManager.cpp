@@ -23,9 +23,8 @@
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
+#include "tools/filesystem.h"
 #include "tools/textManager.h"
-
-#include "config.h"
 
 using namespace tinyxml2;
 
@@ -66,7 +65,7 @@ void loadFile(string container, string path)
 
     c = texts.find(container);
 
-    path = INSTALL_DIR + path;
+    path = tools::filesystem::dataDirectory() + path;
 
     XMLDocument file;
     file.LoadFile(path.c_str());

@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#include "tools/filesystem.h"
+
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"
@@ -29,7 +31,7 @@
 
 void Load_IndividuUnique(string Type, Individu_Unique *ind)
 {
-	string fichier = INSTALL_DIR + "individu/" + Type + ".one";
+	string fichier = tools::filesystem::dataDirectory() + "individu/" + Type + ".one";
 
 	ind->Nom = getTranslatedNameOfObject(Type);
 
@@ -259,7 +261,7 @@ void Load_ClasseCommune(string Type)
 	}
 	else return;
 
-	string fichier = INSTALL_DIR + "individu/" + Type + ".com";
+	string fichier = tools::filesystem::dataDirectory() + "individu/" + Type + ".com";
 
 	ifstream Fichier(fichier, ios_base::in);
 
@@ -419,7 +421,7 @@ void Load_ClassePaysage(string Type)
 	if (getLandsClass(Type) == NULL) addLandsClass(Type);
 	else return;
 
-	string fichier = INSTALL_DIR + "individu/" + Type + ".pay";
+	string fichier = tools::filesystem::dataDirectory() + "individu/" + Type + ".pay";
 
 	ifstream Fichier(fichier, ios_base::in);
 

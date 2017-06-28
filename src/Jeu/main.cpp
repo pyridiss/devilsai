@@ -171,7 +171,7 @@ int main(int n, char *params[])
 
     gui::style::initStyle();
 
-	Jeu.DayRoman.loadFromFile(INSTALL_DIR + "DayRoman.ttf");
+	Jeu.DayRoman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
 	Load_Decorations();
 	MESSAGE("Décorations chargées", FICHIER)
 

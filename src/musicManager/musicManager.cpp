@@ -21,8 +21,8 @@
 
 #include <SFML/Audio.hpp>
 
-#include "config.h"
 #include "tools/debug.h"
+#include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
@@ -75,7 +75,7 @@ void addSound(string soundID)
     Basic_Sound sound;
     const auto& result = sounds.insert(SoundClass::value_type(soundID, sound));
 
-    bool success = result.first->second.loadFromFile(INSTALL_DIR + "sound/" + soundID + ".ogg");
+    bool success = result.first->second.loadFromFile(tools::filesystem::dataDirectory() + "sound/" + soundID + ".ogg");
 
     if (success) tools::debug::message("Sound " + soundID + " has been loaded", "musics");
     else tools::debug::error("Failed to load sound: " + soundID, "files");
@@ -88,7 +88,7 @@ void addMusic(string musicID)
     Basic_Music music;
     const auto& result = musics.insert(MusicClass::value_type(musicID, music));
 
-    bool success = result.first->second.openFromFile(INSTALL_DIR + "music/" + musicID + ".ogg");
+    bool success = result.first->second.openFromFile(tools::filesystem::dataDirectory() + "music/" + musicID + ".ogg");
 
     if (success) tools::debug::message("Music " + musicID + " has been loaded", "musics");
     else tools::debug::error("Failed to load music: " + musicID, "files");

@@ -19,6 +19,7 @@
 
 #include <tinyxml2.h>
 
+#include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "tools/textManager.h"
@@ -32,8 +33,6 @@
 #include "gui/button.h"
 #include "gui/inputField.h"
 #include "gui/style.h"
-
-#include "config.h"
 
 using namespace tinyxml2;
 
@@ -210,7 +209,7 @@ void Window::manage(RenderWindow& app, Event &event)
 
 void Window::loadFromFile(string path, RenderWindow& app)
 {
-    path = INSTALL_DIR + path;
+    path = tools::filesystem::dataDirectory() + path;
 
     XMLDocument file;
     file.LoadFile(path.c_str());

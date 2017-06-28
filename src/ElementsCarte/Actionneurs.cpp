@@ -22,6 +22,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/filesystem.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Jeu/Jeu.h"
@@ -189,7 +191,7 @@ END_SHARED_TRIGGER
 			{
 				L = luaL_newstate();
 				luaL_openlibs(L);
-				luaL_dofile(L, (INSTALL_DIR + "shared_trigger/" + triggerFunction + ".lua").c_str());
+				luaL_dofile(L, (tools::filesystem::dataDirectory() + "shared_trigger/" + triggerFunction + ".lua").c_str());
 				carte->luaTriggers.insert(map<string, lua_State*>::value_type(triggerFunction, L));
 			}
 			else L = carte->luaTriggers.at(triggerFunction);

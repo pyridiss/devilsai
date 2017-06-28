@@ -20,6 +20,8 @@
 #include <lua5.2/lua.hpp>
 #include <tinyxml2.h>
 
+#include "tools/filesystem.h"
+
 #include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"
 
@@ -32,7 +34,7 @@ using namespace tinyxml2;
 
 void Load_Carte(string Id, bool TypeCarte)
 {
-	string fileName = INSTALL_DIR + "carte/" + Id;
+	string fileName = tools::filesystem::dataDirectory() + "carte/" + Id;
 	if (TypeCarte == TYPE_CARTE) fileName += ".map";
 	if (TypeCarte == TYPE_LISTE) fileName += ".lst";
 
@@ -95,7 +97,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
         {
             string file;
             Fichier >> file;
-            carte->loadFromFile(INSTALL_DIR + file);
+            carte->loadFromFile(tools::filesystem::dataDirectory() + file);
         }
 
 		if (TypeDonnee == "IND_UNIQUE" && carte != NULL)

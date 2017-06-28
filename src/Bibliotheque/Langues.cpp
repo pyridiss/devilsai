@@ -20,6 +20,7 @@
 #include <fstream>
 #include <map>
 
+#include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
 
@@ -43,7 +44,7 @@ short numberOfLanguages;
 
 void loadAvailableLanguages()
 {
-	string fileName = INSTALL_DIR + "lng/langues";
+	string fileName = tools::filesystem::dataDirectory() + "lng/langues";
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -90,7 +91,7 @@ void deleteLanguagesList()
 
 void loadDevilsaiMessages()
 {
-	string fileName = INSTALL_DIR + "lng/devilsai.lng";
+	string fileName = tools::filesystem::dataDirectory() + "lng/devilsai.lng";
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -171,27 +172,27 @@ String32 getTranslatedName(string fichier, T Indice)
 
 String32 getTranslatedNameOfElement(string Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/noms_elements.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_elements.lng", Indice);
 }
 String32 getTranslatedNameOfPlace(int Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/noms_lieux.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_lieux.lng", Indice);
 }
 String32 getTranslatedNameOfObject(int Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_objets.lng", Indice);
 }
 String32 getTranslatedNameOfObject(string Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/noms_objets.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_objets.lng", Indice);
 }
 String32 getTranslatedNameOfSkill(string Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/noms_competences.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_competences.lng", Indice);
 }
 String32 getTranslatedDescriptionOfObject(int Indice)
 {
-	return getTranslatedName(INSTALL_DIR + "lng/desc_objets.lng", Indice);
+	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/desc_objets.lng", Indice);
 }
 
 String32& getTranslatedMessage(enumPhrases msg)
@@ -301,7 +302,7 @@ void Dialog::load(string str)
 {
 	id = str;
 
-	string fileName = INSTALL_DIR + "lng/" + str;
+	string fileName = tools::filesystem::dataDirectory() + "lng/" + str;
 
 	ifstream fileStream(fileName, ios_base::in);
 
@@ -421,7 +422,7 @@ JournalEntry::JournalEntry()
 
 void Journal::addEntry(string _ref)
 {
-	string fileName = INSTALL_DIR + "lng/journal.lng";
+	string fileName = tools::filesystem::dataDirectory() + "lng/journal.lng";
 
 	ifstream fileStream(fileName, ios_base::in);
 

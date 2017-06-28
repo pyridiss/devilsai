@@ -27,6 +27,8 @@
 #include "../Jeu/Jeu.h"
 #include "Attributs.h"
 
+#include "tools/filesystem.h"
+
 #include "imageManager/imageManager.h"
 
 using namespace tinyxml2;
@@ -45,7 +47,7 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (INSTALL_DIR + "object/" + newObject + ".lua").c_str());
+	luaL_dofile(L, (tools::filesystem::dataDirectory() + "object/" + newObject + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 
@@ -117,7 +119,7 @@ void Caracteristiques::addSkill(string newSkill, Individu* owner)
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (INSTALL_DIR + "skill/" + newSkill + ".lua").c_str());
+	luaL_dofile(L, (tools::filesystem::dataDirectory() + "skill/" + newSkill + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 

@@ -30,7 +30,7 @@
 
 void Load_Chapitre(int Id)
 {
-	string fileName = INSTALL_DIR + "chapitre/" + intToString(Id) + ".chp";
+	string fileName = tools::filesystem::dataDirectory() + "chapitre/" + intToString(Id) + ".chp";
 
 	ifstream fileStream(fileName.c_str(), ios_base::in);
 

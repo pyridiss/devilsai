@@ -21,6 +21,8 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/filesystem.h"
+
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Bibliotheque/Templates.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -33,7 +35,7 @@ void addQuest(string newQuest, string args)
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (INSTALL_DIR + "quest/" + newQuest + ".lua").c_str());
+	luaL_dofile(L, (tools::filesystem::dataDirectory() + "quest/" + newQuest + ".lua").c_str());
 
 	lua_atpanic(L, LUA_panic);
 
