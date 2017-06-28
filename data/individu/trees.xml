@@ -35,4 +35,49 @@
         <properties/>
         <image imageFile="img/inertitem-tree07.png" yAlignment="-80"/>
     </inertItemsSet>
+    <inertItemsSet name="30101">
+        <shape type="circle" xCenter="-6" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree08.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="30102">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree09.png" yAlignment="-4"/>
+    </inertItemsSet>
+    <inertItemsSet name="30103">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree10.png" yAlignment="-4"/>
+    </inertItemsSet>
+    <inertItemsSet name="30104">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree11.png" yAlignment="-4"/>
+    </inertItemsSet>
+    <inertItemsSet name="30105">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree12.png" yAlignment="-4"/>
+    </inertItemsSet>
+    <inertItemsSet name="30106">
+        <shape type="circle" radius="10"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree13.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="30107">
+        <shape type="circle" radius="10"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree14.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="30108">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree15.png" yAlignment="-4"/>
+    </inertItemsSet>
+    <inertItemsSet name="30109">
+        <shape type="circle" radius="12"/>
+        <properties/>
+        <image imageFile="img/inertitem-tree16.png" yAlignment="-4"/>
+    </inertItemsSet>
 </world>

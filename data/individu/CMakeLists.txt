@@ -6,7 +6,6 @@ set(individu
     20008.pay
     203.one
     2126.pay
-    30101.pay
     30203.pay
     315.com
     10001.pay
@@ -15,7 +14,6 @@ set(individu
     20009.pay
     204.one
     2127.pay
-    30102.pay
     30204.pay
     320.com
     10002.pay
@@ -24,7 +22,6 @@ set(individu
     20010.pay
     205.one
     2128.pay
-    30103.pay
     30205.pay
     400.one
     10004.pay
@@ -33,7 +30,6 @@ set(individu
     20011.pay
     21001.pay
     2129.pay
-    30104.pay
     302.com
     10006.pay
     10109.pay
@@ -41,21 +37,18 @@ set(individu
     20012.pay
     21002.pay
     2.mvt
-    30105.pay
     303.com
     90001.pay
     10007.pay
     10201.pay
     2001.pay
     21004.pay
-    30106.pay
     304.com
     10008.pay
     10204.pay
     20001.pay
     2002.pay
     210.com
-    30107.pay
     305.com
     didact_bael.one
     10009.pay
@@ -63,7 +56,6 @@ set(individu
     20002.pay
     2003.pay
     2120.pay
-    30108.pay
     306.com
     didact_instructeur.one
     10100.pay
@@ -71,7 +63,6 @@ set(individu
     20003.pay
     2004.pay
     2121.pay
-    30109.pay
     307.com
     didact_joueur.one
     10101.pay

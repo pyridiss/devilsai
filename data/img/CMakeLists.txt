@@ -63,15 +63,6 @@ set(img
     21002.png
     21003.png
     21004.png
-    30101.png
-    30102.png
-    30103.png
-    30104.png
-    30105.png
-    30106.png
-    30107.png
-    30108.png
-    30109.png
     30200.png
     30201.png
     30202.png
@@ -121,6 +112,16 @@ set(img
     inertitem-tree04.png
     inertitem-tree05.png
     inertitem-tree06.png
+    inertitem-tree07.png
+    inertitem-tree08.png
+    inertitem-tree09.png
+    inertitem-tree10.png
+    inertitem-tree11.png
+    inertitem-tree12.png
+    inertitem-tree13.png
+    inertitem-tree14.png
+    inertitem-tree15.png
+    inertitem-tree16.png
     Joueur.img
     Mannequin.img
     monster-spider-greyscale.img
