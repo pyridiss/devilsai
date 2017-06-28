@@ -110,16 +110,7 @@ void Door::Disp(RenderTarget& target)
 }
 
 
-/** FONCTIONS DE LA CLASSE Classe_Paysage **/
-
-void Classe_Paysage::Copie_Element(Paysage *elem)
-{
-    elem->size = size;
-	elem->TypeClassement = TypeClassement;
-	elem->Diplomatie = 0;
-}
-
-void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
+void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 {
     string archive = "";
 

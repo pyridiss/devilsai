@@ -35,7 +35,7 @@ class Joueur;
 class Coffre;
 class Individu_Unique;
 class Classe_Commune;
-class Classe_Paysage;
+class Paysage;
 
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 typedef map < int, int > MapDonneesInt;
@@ -72,7 +72,7 @@ struct Classe_Partie
 	map<string, Carte> maps;
 
 	map<string, Classe_Commune> commonClasses;
-	map<string, Classe_Paysage> landsClasses;
+	map<string, Paysage> landsClasses;
 
 	bool loadFirstChapter   = false;
 

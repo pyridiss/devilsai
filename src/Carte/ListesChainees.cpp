@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/debug.h"
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
 #include "Carte.h"
@@ -79,9 +81,9 @@ Classe_Commune* getCommonClass(string type)
 
 void addLandsClass(string type)
 {
-	Classe_Paysage _new;
+	Paysage _new;
     _new.Type = type;
-	Partie.landsClasses.insert(map<string, Classe_Paysage>::value_type(type, _new));
+	Partie.landsClasses.insert(map<string, Paysage>::value_type(type, _new));
 
 	MESSAGE("Classe Paysage " + type + " ajoutée", LISTE)
 }
@@ -93,11 +95,25 @@ void deleteLandsClasses()
 	MESSAGE("Liste des Classes Paysages supprimée", LISTE)
 }
 
-Classe_Paysage* getLandsClass(string type)
+Paysage* getLandsClass(string type)
 {
 	auto i = Partie.landsClasses.find(type);
 
 	if (i != Partie.landsClasses.end()) return &(i->second);
 
 	return NULL;
+}
+
+void copyInertItemFromTemplate(string t, Paysage *elem)
+{
+    Paysage* itemTemplate = getLandsClass(t);
+    if (itemTemplate == NULL)
+    {
+        tools::debug::error("Cannot initiate inertItem: template does not exist.", "lists");
+        return;
+    }
+
+    elem->size = itemTemplate->size;
+	elem->TypeClassement = itemTemplate->TypeClassement;
+	elem->Diplomatie = 0;
 }

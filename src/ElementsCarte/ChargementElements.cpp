@@ -428,7 +428,7 @@ void Load_ClassePaysage(string Type)
 	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	Classe_Paysage *cl_pay = getLandsClass(Type);
+	Paysage *cl_pay = getLandsClass(Type);
 
 	string TypeDonnee;
 	int ExX = 0, ExY = 0;

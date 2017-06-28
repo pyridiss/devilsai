@@ -393,19 +393,11 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = Type;
-
-	Load_ClassePaysage(Type);
-    Classe_Paysage* classe = getLandsClass(Type);
-
-    if (classe == NULL)
-	{
-		Erreur("La classe du paysage suivant a été demandée sans avoir été chargée :", Type);
-		delete ind;
-		return NULL;
-	}
-
 	ind->Set_Controle(AI);
-    classe->Copie_Element(ind);
+
+    Load_ClassePaysage(Type);
+    copyInertItemFromTemplate(Type, ind);
+
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
@@ -643,7 +635,7 @@ void Carte::loadFromFile(string path)
             if (getLandsClass(setName) == NULL)
             {
                 addLandsClass(setName);
-                Classe_Paysage* set = getLandsClass(setName);
+                Paysage* set = getLandsClass(setName);
                 XMLHandle hdl2(elem);
                 set->loadFromXML(hdl2);
             }

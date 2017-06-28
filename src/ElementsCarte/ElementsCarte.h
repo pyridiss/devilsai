@@ -104,21 +104,6 @@ class Classe_Commune
         void loadFromXML(tinyxml2::XMLHandle &handle);
 };
 
-class Classe_Paysage
-{
-	public:
-		string Type             = "";
-
-        tools::math::Shape size;
-
-		int TypeClassement    = CLASSEMENT_NORMAL;
-
-	public:
-		void Copie_Element(Paysage *elem);
-
-        void loadFromXML(tinyxml2::XMLHandle &handle);
-};
-
 class Element_Carte
 {
 	//Objet :
@@ -140,7 +125,7 @@ class Element_Carte
         bool inert;
         bool ignoreCollision = false;
 
-		short TypeClassement    = CLASSEMENT_NORMAL;
+		int TypeClassement    = CLASSEMENT_NORMAL;
 
 	//Constructeurs / Destructeurs :
 	public:
@@ -417,6 +402,8 @@ class Paysage : public Element_Carte
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
 		void calculateCollisionRadius();
+
+        void loadFromXML(tinyxml2::XMLHandle &handle);
 
 	public:
 		void Disp(RenderTarget& target);

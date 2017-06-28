@@ -32,7 +32,6 @@ using namespace sf;
 class lua_State;
 
 class Classe_Commune;
-class Classe_Paysage;
 class Element_Carte;
 class Coffre;
 class Cadavre;
@@ -123,6 +122,7 @@ Classe_Commune* getCommonClass(string);
 
 void addLandsClass(string);
 void deleteLandsClasses();
-Classe_Paysage* getLandsClass(string);
+Paysage* getLandsClass(string);
+void copyInertItemFromTemplate(string t, Paysage *elem);
 
 #endif
