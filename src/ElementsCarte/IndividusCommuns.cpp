@@ -223,4 +223,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
 
         elem = elem->NextSiblingElement();
     }
+
+    imageManager::removeArchiveFile(INSTALL_DIR + imagePrefix);
+
 }

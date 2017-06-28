@@ -121,6 +121,8 @@ void Classe_Paysage::Copie_Element(Paysage *elem)
 
 void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 {
+    string archive = "";
+
     XMLElement *elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
@@ -128,7 +130,7 @@ void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 
         if (elemName == "addImageArchiveFile")
         {
-            string archive = elem->Attribute("file");
+            archive = elem->Attribute("file");
             imageManager::addArchiveFile(INSTALL_DIR + archive);
         }
         if (elemName == "shape")
@@ -150,4 +152,6 @@ void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 
         elem = elem->NextSiblingElement();
     }
+
+    imageManager::removeArchiveFile(INSTALL_DIR + archive);
 }
