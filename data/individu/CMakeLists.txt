@@ -1,6 +1,5 @@
 
 set(individu
-    10000.pay
     10105.pay
     10304.pay
     20008.pay
@@ -8,7 +7,6 @@ set(individu
     2126.pay
     30203.pay
     315.com
-    10001.pay
     10106.pay
     10306.pay
     20009.pay
@@ -16,7 +14,6 @@ set(individu
     2127.pay
     30204.pay
     320.com
-    10002.pay
     10107.pay
     10307.pay
     20010.pay
@@ -24,14 +21,12 @@ set(individu
     2128.pay
     30205.pay
     400.one
-    10004.pay
     10108.pay
     10308.pay
     20011.pay
     21001.pay
     2129.pay
     302.com
-    10006.pay
     10109.pay
     10309.pay
     20012.pay
@@ -39,19 +34,16 @@ set(individu
     2.mvt
     303.com
     90001.pay
-    10007.pay
     10201.pay
     2001.pay
     21004.pay
     304.com
-    10008.pay
     10204.pay
     20001.pay
     2002.pay
     210.com
     305.com
     didact_bael.one
-    10009.pay
     10206.pay
     20002.pay
     2003.pay

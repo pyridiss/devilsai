@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <inertItemsSet name="10000">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="16"/>
+        <properties/>
+        <image imageFile="wall01-Sx.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10001">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="32"/>
+        <properties classement="1"/>
+        <image imageFile="wall01-NS.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10002">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="16"/>
+        <properties/>
+        <image imageFile="wall01-Nx.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10003">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="32" ySize="16"/>
+        <properties/>
+        <image imageFile="wall01-Wx.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10004">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="64" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-EW.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10005">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="32" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-Wx.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10006">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-EN.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10007">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-NW.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10008">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-ES.png"/>
+    </inertItemsSet>
+    <inertItemsSet name="10009">
+        <addImageArchiveFile file="img/inertitem-wall01.img"/>
+        <shape type="rectangle" xSize="6" ySize="6"/>
+        <properties/>
+        <image imageFile="wall01-SW.png"/>
+    </inertItemsSet>
+</world>
