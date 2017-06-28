@@ -63,13 +63,6 @@ set(img
     21002.png
     21003.png
     21004.png
-    30001.png
-    30002.png
-    30003.png
-    30004.png
-    30005.png
-    30006.png
-    30007.png
     30101.png
     30102.png
     30103.png
@@ -122,6 +115,12 @@ set(img
     gui-rest-button.png
     gui-top-border.png
     Horst.img
+    inertitem-tree01.png
+    inertitem-tree02.png
+    inertitem-tree03.png
+    inertitem-tree04.png
+    inertitem-tree05.png
+    inertitem-tree06.png
     Joueur.img
     Mannequin.img
     monster-spider-greyscale.img

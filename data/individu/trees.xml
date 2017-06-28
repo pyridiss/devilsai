@@ -3,36 +3,36 @@
     <inertItemsSet name="30001">
         <shape type="circle" xCenter="-6" radius="22"/>
         <properties/>
-        <image imageFile="img/30001.png" yAlignment="-20"/>
+        <image imageFile="img/inertitem-tree01.png" yAlignment="-20"/>
     </inertItemsSet>
     <inertItemsSet name="30002">
         <shape type="circle" radius="22"/>
         <properties/>
-        <image imageFile="img/30002.png" yAlignment="-16"/>
+        <image imageFile="img/inertitem-tree02.png" yAlignment="-16"/>
     </inertItemsSet>
     <inertItemsSet name="30003">
         <shape type="circle" radius="22"/>
         <properties/>
-        <image imageFile="img/30003.png" yAlignment="-22"/>
+        <image imageFile="img/inertitem-tree03.png" yAlignment="-22"/>
     </inertItemsSet>
     <inertItemsSet name="30004">
         <shape type="circle" radius="18"/>
         <properties/>
-        <image imageFile="img/30004.png" yAlignment="-6"/>
+        <image imageFile="img/inertitem-tree04.png" yAlignment="-6"/>
     </inertItemsSet>
     <inertItemsSet name="30005">
         <shape type="circle" radius="18"/>
         <properties/>
-        <image imageFile="img/30005.png" yAlignment="-6"/>
+        <image imageFile="img/inertitem-tree05.png" yAlignment="-6"/>
     </inertItemsSet>
     <inertItemsSet name="30006">
         <shape type="circle" radius="18"/>
         <properties/>
-        <image imageFile="img/30006.png" yAlignment="-6"/>
+        <image imageFile="img/inertitem-tree06.png" yAlignment="-6"/>
     </inertItemsSet>
     <inertItemsSet name="30007">
         <shape type="circle" yCenter="30" radius="30"/>
         <properties/>
-        <image imageFile="img/30007.png" yAlignment="-80"/>
+        <image imageFile="img/inertitem-tree07.png" yAlignment="-80"/>
     </inertItemsSet>
 </world>
