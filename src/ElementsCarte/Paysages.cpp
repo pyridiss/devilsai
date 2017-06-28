@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#include <tinyxml2.h>
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
@@ -26,6 +28,8 @@
 
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
+
+using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Paysage **/
 
@@ -113,4 +117,37 @@ void Classe_Paysage::Copie_Element(Paysage *elem)
     elem->size = size;
 	elem->TypeClassement = TypeClassement;
 	elem->Diplomatie = 0;
+}
+
+void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
+{
+    XMLElement *elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "addImageArchiveFile")
+        {
+            string archive = elem->Attribute("file");
+            imageManager::addArchiveFile(INSTALL_DIR + archive);
+        }
+        if (elemName == "shape")
+        {
+            size.loadFromXML(elem);
+        }
+        if (elemName == "image")
+        {
+            int xAlignment = 0, yAlignment = 0;
+            string path = elem->Attribute("imageFile");
+            elem->QueryAttribute("xAlignment", &xAlignment);
+            elem->QueryAttribute("yAlignment", &yAlignment);
+            imageManager::addImage("paysage", Type, INSTALL_DIR + path, Vector2i(xAlignment, yAlignment));
+        }
+        if (elemName == "properties")
+        {
+            elem->QueryAttribute("classement", &TypeClassement);
+        }
+
+        elem = elem->NextSiblingElement();
+    }
 }

@@ -111,10 +111,12 @@ class Classe_Paysage
 
         tools::math::Shape size;
 
-		short TypeClassement    = CLASSEMENT_NORMAL;
+		int TypeClassement    = CLASSEMENT_NORMAL;
 
 	public:
 		void Copie_Element(Paysage *elem);
+
+        void loadFromXML(tinyxml2::XMLHandle &handle);
 };
 
 class Element_Carte

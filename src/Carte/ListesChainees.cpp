@@ -80,6 +80,7 @@ Classe_Commune* getCommonClass(string type)
 void addLandsClass(string type)
 {
 	Classe_Paysage _new;
+    _new.Type = type;
 	Partie.landsClasses.insert(map<string, Classe_Paysage>::value_type(type, _new));
 
 	MESSAGE("Classe Paysage " + type + " ajoutée", LISTE)

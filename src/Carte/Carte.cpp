@@ -634,6 +634,18 @@ void Carte::loadFromFile(string path)
                 species->loadFromXML(hdl2);
             }
         }
+        else if (elemName == "inertItemsSet")
+        {
+            string setName = elem->Attribute("name");
+
+            if (getLandsClass(setName) == NULL)
+            {
+                addLandsClass(setName);
+                Classe_Paysage* set = getLandsClass(setName);
+                XMLHandle hdl2(elem);
+                set->loadFromXML(hdl2);
+            }
+        }
 
         elem = elem->NextSiblingElement();
     }

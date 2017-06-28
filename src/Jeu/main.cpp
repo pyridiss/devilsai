@@ -176,6 +176,7 @@ int main(int n, char *params[])
 
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");
+    imageManager::addContainer("paysage");
 
     mainLoop();
     Clean_Partie();
