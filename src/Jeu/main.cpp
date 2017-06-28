@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.h"
+
 #include <physfs.h>
 
 #include <string.h>
@@ -25,6 +27,7 @@
 #include "tools/debug.h"
 #include "tools/timeManager.h"
 #include "tools/math.h"
+#include "tools/filesystem.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -138,6 +141,7 @@ int main(int n, char *params[])
 	#endif
 
     tools::debug::openDebugFile();
+    tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
 
 	GestionArguments(n, params);

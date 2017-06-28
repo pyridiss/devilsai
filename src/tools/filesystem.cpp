@@ -32,6 +32,8 @@ namespace tools{
 
 namespace filesystem{
 
+string _dataDirectory;
+
 bool createDirectory(string str)
 {
 #if defined(_WIN32) || defined(__WIN32__)
@@ -94,6 +96,16 @@ string getSaveDirectoryPath()
     return ".devilsai/";
 #endif
     return "";
+}
+
+void setDataDirectory(const string& d)
+{
+    _dataDirectory = d;
+}
+
+const string& dataDirectory()
+{
+    return _dataDirectory;
 }
 
 } //namespace filesystem
