@@ -48,7 +48,6 @@ set(individu
     10201.pay
     2001.pay
     21004.pay
-    30001.pay
     30106.pay
     304.com
     10008.pay
@@ -56,7 +55,6 @@ set(individu
     20001.pay
     2002.pay
     210.com
-    30002.pay
     30107.pay
     305.com
     didact_bael.one
@@ -65,7 +63,6 @@ set(individu
     20002.pay
     2003.pay
     2120.pay
-    30003.pay
     30108.pay
     306.com
     didact_instructeur.one
@@ -74,7 +71,6 @@ set(individu
     20003.pay
     2004.pay
     2121.pay
-    30004.pay
     30109.pay
     307.com
     didact_joueur.one
@@ -83,7 +79,6 @@ set(individu
     20004.pay
     2005.pay
     2122.pay
-    30005.pay
     301.com
     308.com
     didact_manneq1.com
@@ -92,7 +87,6 @@ set(individu
     20005.pay
     200.one
     2123.pay
-    30006.pay
     30200.pay
     309.com
     didact_manneq2.com
@@ -101,7 +95,6 @@ set(individu
     20006.pay
     201.one
     2124.pay
-    30007.pay
     30201.pay
     310.com
     10104.pay
@@ -115,6 +108,7 @@ set(individu
     ballista.xml
     fountainOfLife.xml
     player.xml
+    trees.xml
 )
 
 install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)
