@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
-    <inertItemsSet name="30001">
+    <inertItemDesign name="30001">
         <shape type="circle" xCenter="-6" radius="22"/>
         <properties/>
         <image imageFile="img/inertitem-tree01.png" yAlignment="-20"/>
-    </inertItemsSet>
-    <inertItemsSet name="30002">
+    </inertItemDesign>
+    <inertItemDesign name="30002">
         <shape type="circle" radius="22"/>
         <properties/>
         <image imageFile="img/inertitem-tree02.png" yAlignment="-16"/>
-    </inertItemsSet>
-    <inertItemsSet name="30003">
+    </inertItemDesign>
+    <inertItemDesign name="30003">
         <shape type="circle" radius="22"/>
         <properties/>
         <image imageFile="img/inertitem-tree03.png" yAlignment="-22"/>
-    </inertItemsSet>
-    <inertItemsSet name="30004">
+    </inertItemDesign>
+    <inertItemDesign name="30004">
         <shape type="circle" radius="18"/>
         <properties/>
         <image imageFile="img/inertitem-tree04.png" yAlignment="-6"/>
-    </inertItemsSet>
-    <inertItemsSet name="30005">
+    </inertItemDesign>
+    <inertItemDesign name="30005">
         <shape type="circle" radius="18"/>
         <properties/>
         <image imageFile="img/inertitem-tree05.png" yAlignment="-6"/>
-    </inertItemsSet>
-    <inertItemsSet name="30006">
+    </inertItemDesign>
+    <inertItemDesign name="30006">
         <shape type="circle" radius="18"/>
         <properties/>
         <image imageFile="img/inertitem-tree06.png" yAlignment="-6"/>
-    </inertItemsSet>
-    <inertItemsSet name="30007">
+    </inertItemDesign>
+    <inertItemDesign name="30007">
         <shape type="circle" yCenter="30" radius="30"/>
         <properties/>
         <image imageFile="img/inertitem-tree07.png" yAlignment="-80"/>
-    </inertItemsSet>
-    <inertItemsSet name="30101">
+    </inertItemDesign>
+    <inertItemDesign name="30101">
         <shape type="circle" xCenter="-6" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree08.png"/>
-    </inertItemsSet>
-    <inertItemsSet name="30102">
+    </inertItemDesign>
+    <inertItemDesign name="30102">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree09.png" yAlignment="-4"/>
-    </inertItemsSet>
-    <inertItemsSet name="30103">
+    </inertItemDesign>
+    <inertItemDesign name="30103">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree10.png" yAlignment="-4"/>
-    </inertItemsSet>
-    <inertItemsSet name="30104">
+    </inertItemDesign>
+    <inertItemDesign name="30104">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree11.png" yAlignment="-4"/>
-    </inertItemsSet>
-    <inertItemsSet name="30105">
+    </inertItemDesign>
+    <inertItemDesign name="30105">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree12.png" yAlignment="-4"/>
-    </inertItemsSet>
-    <inertItemsSet name="30106">
+    </inertItemDesign>
+    <inertItemDesign name="30106">
         <shape type="circle" radius="10"/>
         <properties/>
         <image imageFile="img/inertitem-tree13.png"/>
-    </inertItemsSet>
-    <inertItemsSet name="30107">
+    </inertItemDesign>
+    <inertItemDesign name="30107">
         <shape type="circle" radius="10"/>
         <properties/>
         <image imageFile="img/inertitem-tree14.png"/>
-    </inertItemsSet>
-    <inertItemsSet name="30108">
+    </inertItemDesign>
+    <inertItemDesign name="30108">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree15.png" yAlignment="-4"/>
-    </inertItemsSet>
-    <inertItemsSet name="30109">
+    </inertItemDesign>
+    <inertItemDesign name="30109">
         <shape type="circle" radius="12"/>
         <properties/>
         <image imageFile="img/inertitem-tree16.png" yAlignment="-4"/>
-    </inertItemsSet>
+    </inertItemDesign>
 </world>

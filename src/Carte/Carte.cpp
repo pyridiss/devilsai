@@ -628,7 +628,7 @@ void Carte::loadFromFile(string path)
                 species->loadFromXML(hdl2);
             }
         }
-        else if (elemName == "inertItemsSet")
+        else if (elemName == "inertItemDesign")
         {
             string setName = elem->Attribute("name");
 
