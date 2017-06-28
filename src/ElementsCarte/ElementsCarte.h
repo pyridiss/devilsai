@@ -406,7 +406,6 @@ class Joueur : public Individu_Unique
 class Paysage : public Element_Carte
 {
 	public:
-		Classe_Paysage *Classe;
 		int repeatX = 1;
 		int repeatY = 1;
 

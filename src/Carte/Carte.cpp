@@ -393,9 +393,9 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Type = Type;
 
 	Load_ClassePaysage(Type);
-	ind->Classe = getLandsClass(Type);
+    Classe_Paysage* classe = getLandsClass(Type);
 
-	if (ind->Classe == NULL)
+    if (classe == NULL)
 	{
 		Erreur("La classe du paysage suivant a été demandée sans avoir été chargée :", Type);
 		delete ind;
@@ -403,7 +403,7 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	}
 
 	ind->Set_Controle(AI);
-	ind->Classe->Copie_Element(ind);
+    classe->Copie_Element(ind);
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
