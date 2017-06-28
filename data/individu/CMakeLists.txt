@@ -1,33 +1,28 @@
 
 set(individu
-    10105.pay
     10304.pay
     20008.pay
     203.one
     2126.pay
     30203.pay
     315.com
-    10106.pay
     10306.pay
     20009.pay
     204.one
     2127.pay
     30204.pay
     320.com
-    10107.pay
     10307.pay
     20010.pay
     205.one
     2128.pay
     30205.pay
     400.one
-    10108.pay
     10308.pay
     20011.pay
     21001.pay
     2129.pay
     302.com
-    10109.pay
     10309.pay
     20012.pay
     21002.pay
@@ -50,14 +45,12 @@ set(individu
     2120.pay
     306.com
     didact_instructeur.one
-    10100.pay
     10207.pay
     20003.pay
     2004.pay
     2121.pay
     307.com
     didact_joueur.one
-    10101.pay
     10208.pay
     20004.pay
     2005.pay
@@ -65,7 +58,6 @@ set(individu
     301.com
     308.com
     didact_manneq1.com
-    10102.pay
     10209.pay
     20005.pay
     200.one
@@ -73,14 +65,12 @@ set(individu
     30200.pay
     309.com
     didact_manneq2.com
-    10103.pay
     10210.pay
     20006.pay
     201.one
     2124.pay
     30201.pay
     310.com
-    10104.pay
     10301.pay
     20007.pay
     202.one

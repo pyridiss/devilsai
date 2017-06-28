@@ -60,4 +60,64 @@
         <properties/>
         <image imageFile="wall01-SW.png"/>
     </inertItemsSet>
+    <inertItemsSet name="10100">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="8" ySize="32"/>
+        <properties/>
+        <image imageFile="wall02-Sx.png" xAlignment="6" yAlignment="-12"/>
+    </inertItemsSet>
+    <inertItemsSet name="10101">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="8" ySize="76"/>
+        <properties classement="1"/>
+        <image imageFile="wall02-NS.png" xAlignment="6"/>
+    </inertItemsSet>
+    <inertItemsSet name="10102">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="8" ySize="10"/>
+        <properties/>
+        <image imageFile="wall02-Nx.png" xAlignment="6" yAlignment="6"/>
+    </inertItemsSet>
+    <inertItemsSet name="10103">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="4" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-Wx.png" yAlignment="-8"/>
+    </inertItemsSet>
+    <inertItemsSet name="10104">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="76" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-EW.png" yAlignment="-8"/>
+    </inertItemsSet>
+    <inertItemsSet name="10105">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="4" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-Wx.png" yAlignment="-8"/>
+    </inertItemsSet>
+    <inertItemsSet name="10106">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="30" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-EN.png" yAlignement="-20"/>
+    </inertItemsSet>
+    <inertItemsSet name="10107">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="30" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-NW.png" yAlignement="-20"/>
+    </inertItemsSet>
+    <inertItemsSet name="10108">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="30" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-ES.png" yAlignement="-6"/>
+    </inertItemsSet>
+    <inertItemsSet name="10109">
+        <addImageArchiveFile file="img/inertitem-wall02.img"/>
+        <shape type="rectangle" xSize="30" ySize="6"/>
+        <properties/>
+        <image imageFile="wall02-SW.png" yAlignement="-6"/>
+    </inertItemsSet>
 </world>
