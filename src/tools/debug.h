@@ -28,7 +28,7 @@ namespace tools{
 
 namespace debug{
 
-void openDebugFile();
+void openDebugFile(const string& appName, const string& version);
 void addDebugCategory(string category);
 void fatal(string str, string category);
 void error(string str, string category);

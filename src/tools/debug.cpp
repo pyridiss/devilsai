@@ -23,7 +23,6 @@
 
 #include <SFML/System.hpp>
 
-#include "config.h"
 #include "tools/filesystem.h"
 #include "tools/debug.h"
 
@@ -38,9 +37,9 @@ Clock clock;
 
 unordered_set<string> debugCategories;
 
-void openDebugFile()
+void openDebugFile(const string& appName, const string& version)
 {
-    logfile.open(tools::filesystem::getSaveDirectoryPath() + "devilsai.log", ios_base::out);
+    logfile.open(tools::filesystem::getSaveDirectoryPath() + appName + ".log", ios_base::out);
     logfile.precision(4);
     logfile.setf(std::ios::fixed, std::ios::floatfield);
 
@@ -52,8 +51,8 @@ void openDebugFile()
     timeinfo = localtime (&rawtime);
 
     logfile << "=================================================" << endl;
-    logfile << "=== devilsai logfile" << endl;
-    logfile << "=== version : " << VERSION << endl;
+    logfile << "=== " << appName << " logfile" << endl;
+    logfile << "=== version : " << version << endl;
     logfile << "=== debug file opened on " << asctime(timeinfo);
     logfile << "=================================================" << endl;
 
