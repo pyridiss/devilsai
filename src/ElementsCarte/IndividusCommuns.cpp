@@ -170,7 +170,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         if (elemName == "addImageArchiveFile")
         {
             imagePrefix = elem->Attribute("file");
-            imageManager::addArchiveFile(INSTALL_DIR + imagePrefix);
+            imageManager::addArchiveFile(imagePrefix);
         }
         if (elemName == "shape")
         {
@@ -224,6 +224,6 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         elem = elem->NextSiblingElement();
     }
 
-    imageManager::removeArchiveFile(INSTALL_DIR + imagePrefix);
+    imageManager::removeArchiveFile(imagePrefix);
 
 }

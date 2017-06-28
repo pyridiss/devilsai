@@ -20,6 +20,8 @@
 #include <physfs.h>
 
 #include "tools/debug.h"
+#include "tools/filesystem.h"
+
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
@@ -75,11 +77,14 @@ void addImage(string container, string key, string file, Vector2i of, float scal
             ++j;
         }
         result.first->second.set(file, reference, of, scale);
+        tools::debug::message("Image " + container + "::" + key + " has been added.", "images");
     }
 }
 
 void addArchiveFile(string path)
 {
+    path = tools::filesystem::dataDirectory() + path;
+
     if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
     {
         tools::debug::error("Unable to load file: " + path, "images");
@@ -98,6 +103,7 @@ string getCurrentArchiveFile()
 
 void removeArchiveFile(string path)
 {
+    path = tools::filesystem::dataDirectory() + path;
     PHYSFS_removeFromSearchPath(path.c_str());
     currentArchiveFile = "";
 }

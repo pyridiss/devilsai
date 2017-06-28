@@ -21,8 +21,8 @@
 
 #include <physfs.h>
 
-#include "config.h"
 #include "tools/debug.h"
+#include "tools/filesystem.h"
 #include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
@@ -33,7 +33,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
     offset = of;
 
     //Images can be loaded from a file or from an archive.
-    ifstream f(file);
+    ifstream f(tools::filesystem::dataDirectory() + file);
     bool fromFile = f.good();
     bool fromArch = PHYSFS_exists(file.c_str());
     bool fromRef  = (reference != nullptr);
@@ -45,7 +45,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
     }
     else if (fromFile)
     {
-        texture.loadFromFile(file);
+        texture.loadFromFile(tools::filesystem::dataDirectory() + file);
         sprite.setTexture(texture);
         sourceFile = file;
     }
@@ -82,7 +82,7 @@ void Image::applyShader(string file)
     tex.create(texture.getSize().x, texture.getSize().y);
 
     Shader shader;
-    shader.loadFromFile(INSTALL_DIR + file, Shader::Type::Fragment);
+    shader.loadFromFile(tools::filesystem::dataDirectory() + file, Shader::Type::Fragment);
 
     tex.draw(sprite, &shader);
 

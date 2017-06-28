@@ -586,7 +586,7 @@ void Carte::setBackgroundImage(string path)
     backgroundImage = path;
 
     imageManager::addContainer("paysage");
-    imageManager::addImage("paysage", path, INSTALL_DIR + path);
+    imageManager::addImage("paysage", path, path);
 
     MESSAGE("Fond de la carte choisi", IMAGE)
 }

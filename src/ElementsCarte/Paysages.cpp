@@ -131,7 +131,7 @@ void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
         if (elemName == "addImageArchiveFile")
         {
             archive = elem->Attribute("file");
-            imageManager::addArchiveFile(INSTALL_DIR + archive);
+            imageManager::addArchiveFile(archive);
         }
         if (elemName == "shape")
         {
@@ -143,7 +143,7 @@ void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
             string path = elem->Attribute("imageFile");
             elem->QueryAttribute("xAlignment", &xAlignment);
             elem->QueryAttribute("yAlignment", &yAlignment);
-            imageManager::addImage("paysage", Type, INSTALL_DIR + path, Vector2i(xAlignment, yAlignment));
+            imageManager::addImage("paysage", Type, path, Vector2i(xAlignment, yAlignment));
         }
         if (elemName == "properties")
         {
@@ -153,5 +153,5 @@ void Classe_Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
         elem = elem->NextSiblingElement();
     }
 
-    imageManager::removeArchiveFile(INSTALL_DIR + archive);
+    imageManager::removeArchiveFile(archive);
 }

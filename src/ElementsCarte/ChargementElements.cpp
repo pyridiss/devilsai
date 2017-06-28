@@ -54,7 +54,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
         if (TypeDonnee == "addImageArchiveFile")
         {
             Fichier >> ind->imagePrefix;
-            imageManager::addArchiveFile(INSTALL_DIR + ind->imagePrefix);
+            imageManager::addArchiveFile(ind->imagePrefix);
         }
         if (TypeDonnee == "changeHSL")
             Fichier >> h >> s >> l;
@@ -245,7 +245,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 		TypeDonnee = "";
 	}
 
-	imageManager::removeArchiveFile(INSTALL_DIR + ind->imagePrefix);
+	imageManager::removeArchiveFile(ind->imagePrefix);
 
 	Fichier.close();
 }
@@ -283,7 +283,7 @@ void Load_ClasseCommune(string Type)
 		if (TypeDonnee == "addImageArchiveFile")
         {
             Fichier >> cl_com->imagePrefix;
-            imageManager::addArchiveFile(INSTALL_DIR + cl_com->imagePrefix);
+            imageManager::addArchiveFile(cl_com->imagePrefix);
         }
         if (TypeDonnee == "changeHSL")
             Fichier >> h >> s >> l;
@@ -409,7 +409,7 @@ void Load_ClasseCommune(string Type)
 		TypeDonnee = "";
 	}
 
-    imageManager::removeArchiveFile(INSTALL_DIR + cl_com->imagePrefix);
+    imageManager::removeArchiveFile(cl_com->imagePrefix);
 
 	Fichier.close();
 }
@@ -460,7 +460,6 @@ void Load_ClassePaysage(string Type)
         {
             string path;
             Fichier >> path;
-            path = INSTALL_DIR + path;
             imageManager::addContainer("paysage");
             imageManager::addImage("paysage", Type, path, Vector2i(ExX, ExY));
         }

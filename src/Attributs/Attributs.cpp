@@ -56,8 +56,8 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
     imageManager::addContainer("objects");
     imageManager::addContainer("objectsIcons");
 
-    imageManager::addImage("objects", newObject, INSTALL_DIR + getStringFromLUA(L, "getImageFile"));
-    imageManager::addImage("objectsIcons", newObject, INSTALL_DIR + getStringFromLUA(L, "getIconFile"));
+    imageManager::addImage("objects", newObject, getStringFromLUA(L, "getImageFile"));
+    imageManager::addImage("objectsIcons", newObject, getStringFromLUA(L, "getIconFile"));
 
 	pair<mapObjects::iterator, bool> result = objects.insert(mapObjects::value_type(key, L));
 
@@ -148,7 +148,7 @@ void Caracteristiques::addSkill(string newSkill, Individu* owner)
 	lua_call(L, 1, 0);
 
     string name = getStringFromLUA(L, "getName");
-    string file = INSTALL_DIR + getStringFromLUA(L, "getImageFile");
+    string file = getStringFromLUA(L, "getImageFile");
 
     imageManager::addContainer("skills");
     imageManager::addImage("skills", name, file);
@@ -350,7 +350,6 @@ void Activite::loadFromXML(XMLHandle &handle)
             if (elem->Attribute("imageFile"))
             {
                 string path = elem->Attribute("imageFile");
-                path = INSTALL_DIR + path;
                 string key = "activity" + Id + ":" + path; //TODO
                 imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
                 addImage(angle * M_PI / 180.0, 0, key);
