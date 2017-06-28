@@ -1,77 +1,64 @@
 
 set(individu
-    10304.pay
     20008.pay
     203.one
     2126.pay
     30203.pay
     315.com
-    10306.pay
     20009.pay
     204.one
     2127.pay
     30204.pay
     320.com
-    10307.pay
     20010.pay
     205.one
     2128.pay
     30205.pay
     400.one
-    10308.pay
     20011.pay
     21001.pay
     2129.pay
     302.com
-    10309.pay
     20012.pay
     21002.pay
     2.mvt
     303.com
     90001.pay
-    10201.pay
     2001.pay
     21004.pay
     304.com
-    10204.pay
     20001.pay
     2002.pay
     210.com
     305.com
     didact_bael.one
-    10206.pay
     20002.pay
     2003.pay
     2120.pay
     306.com
     didact_instructeur.one
-    10207.pay
     20003.pay
     2004.pay
     2121.pay
     307.com
     didact_joueur.one
-    10208.pay
     20004.pay
     2005.pay
     2122.pay
     301.com
     308.com
     didact_manneq1.com
-    10209.pay
     20005.pay
     200.one
     2123.pay
     30200.pay
     309.com
     didact_manneq2.com
-    10210.pay
     20006.pay
     201.one
     2124.pay
     30201.pay
     310.com
-    10301.pay
     20007.pay
     202.one
     2125.pay
