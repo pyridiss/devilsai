@@ -1,54 +1,40 @@
 
 set(individu
     203.one
-    2126.pay
     315.com
     204.one
-    2127.pay
     320.com
     205.one
-    2128.pay
     400.one
     21001.pay
-    2129.pay
     302.com
     21002.pay
     2.mvt
     303.com
-    2001.pay
     21004.pay
     304.com
-    2002.pay
     210.com
     305.com
     didact_bael.one
-    2003.pay
-    2120.pay
     306.com
     didact_instructeur.one
-    2004.pay
-    2121.pay
     307.com
     didact_joueur.one
-    2005.pay
-    2122.pay
     301.com
     308.com
     didact_manneq1.com
     200.one
-    2123.pay
     309.com
     didact_manneq2.com
     201.one
-    2124.pay
     310.com
     202.one
-    2125.pay
     300.com
     311.com
     ballista.xml
     buildings.xml
     fountainOfLife.xml
+    grounds.xml
     player.xml
     stones.xml
     trees.xml

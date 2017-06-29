@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <inertItemDesign name="2001">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtygrass01.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2002">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtygrass02.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2003">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtygrass03.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2004">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-tile02.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2005">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-tile03.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2120">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway01.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2121">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway02.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2122">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway03.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2123">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway04.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2124">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway05.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2125">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway06.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2126">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway07.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2127">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway08.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2128">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway09.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="2129">
+        <shape type="none"/>
+        <properties classement="0"/>
+        <image imageFile="img/ground-dirtyway10.png"/>
+    </inertItemDesign>
+</world>

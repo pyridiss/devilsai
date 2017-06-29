@@ -1,21 +1,5 @@
 
 set(img
-    00001.png
-    02001.png
-    02002.png
-    02003.png
-    02004.png
-    02005.png
-    02120.png
-    02121.png
-    02122.png
-    02123.png
-    02124.png
-    02125.png
-    02126.png
-    02127.png
-    02128.png
-    02129.png
     21001.png
     21002.png
     21003.png
@@ -49,6 +33,22 @@ set(img
     Gnome.img
     Gower.img
     Guerrier.img
+    ground-dirtygrass01.png
+    ground-dirtygrass02.png
+    ground-dirtygrass03.png
+    ground-dirtyway01.png
+    ground-dirtyway02.png
+    ground-dirtyway03.png
+    ground-dirtyway04.png
+    ground-dirtyway05.png
+    ground-dirtyway06.png
+    ground-dirtyway07.png
+    ground-dirtyway08.png
+    ground-dirtyway09.png
+    ground-dirtyway10.png
+    ground-tile01.png
+    ground-tile02.png
+    ground-tile03.png
     gui-button-background-156x46.png
     gui-dialog-background-488x308.png
     gui-input-field-background-356x46.png

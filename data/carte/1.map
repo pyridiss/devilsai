@@ -1,5 +1,6 @@
-backgroundImage img/00001.png
+backgroundImage img/ground-tile01.png
 AMBIENCE Spring_1
+loadXMLFile individu/grounds.xml
 loadXMLFile individu/player.xml
 loadXMLFile individu/trees.xml
 loadXMLFile individu/walls.xml
