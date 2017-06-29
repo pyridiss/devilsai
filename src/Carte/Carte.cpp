@@ -392,7 +392,6 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Type = Type;
 	ind->Set_Controle(AI);
 
-    Load_ClassePaysage(Type);
     copyInertItemFromTemplate(Type, ind);
 
     ind->move(x, y);

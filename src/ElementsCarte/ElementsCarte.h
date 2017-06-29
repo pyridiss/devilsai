@@ -473,7 +473,6 @@ void Gestion_Coffre(Event&);
 
 void Load_IndividuUnique(string, Individu_Unique*);
 void Load_ClasseCommune(string);
-void Load_ClassePaysage(string);
 void Disp_Personnage();
 void Disp_MiniaturesCompetences();
 
