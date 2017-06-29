@@ -112,18 +112,11 @@ void Door::Disp(RenderTarget& target)
 
 void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 {
-    string archive = "";
-
     XMLElement *elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
         string elemName = elem->Name();
 
-        if (elemName == "addImageArchiveFile")
-        {
-            archive = elem->Attribute("file");
-            imageManager::addArchiveFile(archive);
-        }
         if (elemName == "shape")
         {
             size.loadFromXML(elem);
@@ -131,10 +124,15 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
         if (elemName == "image")
         {
             int xAlignment = 0, yAlignment = 0;
+            string archive = "";
+            if (elem->Attribute("archive")) archive = elem->Attribute("archive");
             string path = elem->Attribute("imageFile");
             elem->QueryAttribute("xAlignment", &xAlignment);
             elem->QueryAttribute("yAlignment", &yAlignment);
+
+            if (!archive.empty()) imageManager::addArchiveFile(archive);
             imageManager::addImage("paysage", Type, path, Vector2i(xAlignment, yAlignment));
+            if (!archive.empty()) imageManager::removeArchiveFile(archive);
         }
         if (elemName == "properties")
         {
@@ -143,6 +141,4 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 
         elem = elem->NextSiblingElement();
     }
-
-    imageManager::removeArchiveFile(archive);
 }
