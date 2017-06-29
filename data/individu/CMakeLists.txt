@@ -2,15 +2,12 @@
 set(individu
     203.one
     2126.pay
-    30203.pay
     315.com
     204.one
     2127.pay
-    30204.pay
     320.com
     205.one
     2128.pay
-    30205.pay
     400.one
     21001.pay
     2129.pay
@@ -41,22 +38,20 @@ set(individu
     didact_manneq1.com
     200.one
     2123.pay
-    30200.pay
     309.com
     didact_manneq2.com
     201.one
     2124.pay
-    30201.pay
     310.com
     202.one
     2125.pay
     300.com
-    30202.pay
     311.com
     ballista.xml
     buildings.xml
     fountainOfLife.xml
     player.xml
+    stones.xml
     trees.xml
     walls.xml
 )

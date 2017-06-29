@@ -20,12 +20,6 @@ set(img
     21002.png
     21003.png
     21004.png
-    30200.png
-    30201.png
-    30202.png
-    30203.png
-    30204.png
-    30205.png
     90001.png
     10000200.png
     10010000.png
@@ -75,6 +69,12 @@ set(img
     inertitem-building10.png
     inertitem-building11.png
     inertitem-building12.png
+    inertitem-stone01.png
+    inertitem-stone02.png
+    inertitem-stone03.png
+    inertitem-stone04.png
+    inertitem-stone05.png
+    inertitem-stone06.png
     inertitem-tree01.png
     inertitem-tree02.png
     inertitem-tree03.png

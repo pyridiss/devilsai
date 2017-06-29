@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <inertItemDesign name="30200">
+        <shape type="rectangle" xSize="48" ySize="36"/>
+        <image imageFile="img/inertitem-stone01.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="30201">
+        <shape type="rectangle" xSize="40" ySize="32"/>
+        <image imageFile="img/inertitem-stone02.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="30202">
+        <shape type="rectangle" xSize="40" ySize="24"/>
+        <image imageFile="img/inertitem-stone03.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="30203">
+        <shape type="rectangle" xSize="40" ySize="32"/>
+        <image imageFile="img/inertitem-stone04.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="30204">
+        <shape type="none"/>
+        <image imageFile="img/inertitem-stone05.png"/>
+    </inertItemDesign>
+    <inertItemDesign name="30205">
+        <shape type="rectangle" xSize="60" ySize="100"/>
+        <image imageFile="img/inertitem-stone06.png"/>
+    </inertItemDesign>
+</world>
