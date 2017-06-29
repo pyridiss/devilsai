@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <inertItemDesign name="21001">
+        <shape type="rectangle" xSize="44" ySize="24"/>
+        <image imageFile="img/21001.png" xAlignment="4" yAlignment="8"/>
+    </inertItemDesign>
+    <inertItemDesign name="21002">
+        <shape type="rectangle" xSize="36" ySize="16"/>
+        <image imageFile="img/21002.png" xAlignment="6" yAlignment="4"/>
+    </inertItemDesign>
+    <inertItemDesign name="21004">
+        <shape type="none"/>
+        <properties classement="1"/>
+        <image imageFile="img/21004.png"/>
+    </inertItemDesign>
+</world>

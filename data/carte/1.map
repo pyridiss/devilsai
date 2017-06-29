@@ -6,6 +6,7 @@ loadXMLFile individu/trees.xml
 loadXMLFile individu/walls.xml
 loadXMLFile individu/buildings.xml
 loadXMLFile individu/stones.xml
+loadXMLFile individu/misc.xml
 PAYSAGE 2001 2570 -6198
 PAYSAGE 2001 446 -6124
 PAYSAGE 2001 287 -6119

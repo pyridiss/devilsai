@@ -6,12 +6,9 @@ set(individu
     320.com
     205.one
     400.one
-    21001.pay
     302.com
-    21002.pay
     2.mvt
     303.com
-    21004.pay
     304.com
     210.com
     305.com
@@ -35,6 +32,7 @@ set(individu
     buildings.xml
     fountainOfLife.xml
     grounds.xml
+    misc.xml
     player.xml
     stones.xml
     trees.xml
