@@ -20,7 +20,6 @@ set(img
     21002.png
     21003.png
     21004.png
-    90001.png
     10000200.png
     10010000.png
     Art.png

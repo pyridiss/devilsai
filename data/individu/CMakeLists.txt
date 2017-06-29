@@ -15,7 +15,6 @@ set(individu
     21002.pay
     2.mvt
     303.com
-    90001.pay
     2001.pay
     21004.pay
     304.com
