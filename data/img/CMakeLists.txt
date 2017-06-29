@@ -16,18 +16,6 @@ set(img
     02127.png
     02128.png
     02129.png
-    20001.png
-    20002.png
-    20003.png
-    20004.png
-    20005.png
-    20006.png
-    20007.png
-    20008.png
-    20009.png
-    20010.png
-    20011.png
-    20012.png
     21001.png
     21002.png
     21003.png
@@ -75,6 +63,18 @@ set(img
     gui-rest-button.png
     gui-top-border.png
     Horst.img
+    inertitem-building01.png
+    inertitem-building02.png
+    inertitem-building03.png
+    inertitem-building04.png
+    inertitem-building05.png
+    inertitem-building06.png
+    inertitem-building07.png
+    inertitem-building08.png
+    inertitem-building09.png
+    inertitem-building10.png
+    inertitem-building11.png
+    inertitem-building12.png
     inertitem-tree01.png
     inertitem-tree02.png
     inertitem-tree03.png

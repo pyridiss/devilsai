@@ -3,6 +3,7 @@ AMBIENCE Spring_1
 loadXMLFile individu/player.xml
 loadXMLFile individu/trees.xml
 loadXMLFile individu/walls.xml
+loadXMLFile individu/buildings.xml
 PAYSAGE 2001 2570 -6198
 PAYSAGE 2001 446 -6124
 PAYSAGE 2001 287 -6119

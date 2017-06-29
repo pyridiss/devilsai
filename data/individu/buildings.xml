@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <inertItemDesign name="20001">
+        <shape type="rectangle" xSize="152" ySize="120"/>
+        <image imageFile="img/inertitem-building01.png" xAlignment="8" yAlignment="-5"/>
+    </inertItemDesign>
+    <inertItemDesign name="20002">
+        <shape type="rectangle" xSize="80" ySize="60"/>
+        <image imageFile="img/inertitem-building02.png" xAlignment="10" yAlignment="-30"/>
+    </inertItemDesign>
+    <inertItemDesign name="20003">
+        <shape type="circle" radius="65"/>
+        <image imageFile="img/inertitem-building03.png" xAlignment="10" yAlignment="-10"/>
+    </inertItemDesign>
+    <inertItemDesign name="20004">
+        <shape type="rectangle" xSize="210" ySize="150"/>
+        <image imageFile="img/inertitem-building04.png" xAlignment="15" yAlignment="-15"/>
+    </inertItemDesign>
+    <inertItemDesign name="20005">
+        <shape type="rectangle" xSize="240" ySize="140"/>
+        <image imageFile="img/inertitem-building05.png" yAlignment="-10"/>
+    </inertItemDesign>
+    <inertItemDesign name="20006">
+        <shape type="rectangle" xSize="220" ySize="80"/>
+        <image imageFile="img/inertitem-building06.png" xAlignment="10" yAlignment="-15"/>
+    </inertItemDesign>
+    <inertItemDesign name="20007">
+        <shape type="circle" radius="55"/>
+        <image imageFile="img/inertitem-building07.png" xAlignment="5" yAlignment="-8"/>
+    </inertItemDesign>
+    <inertItemDesign name="20008">
+        <shape type="circle" radius="52"/>
+        <image imageFile="img/inertitem-building08.png" xAlignment="10" yAlignment="-30"/>
+    </inertItemDesign>
+    <inertItemDesign name="20009">
+        <shape type="circle" radius="150"/>
+        <image imageFile="img/inertitem-building09.png" xAlignment="5"/>
+    </inertItemDesign>
+    <inertItemDesign name="20010">
+        <shape type="rectangle" xSize="180" ySize="70"/>
+        <image imageFile="img/inertitem-building10.png" xAlignment="10" yAlignment="-10"/>
+    </inertItemDesign>
+    <inertItemDesign name="20011">
+        <shape type="rectangle" xSize="200" ySize="90"/>
+        <image imageFile="img/inertitem-building11.png" xAlignment="10" yAlignment="-10"/>
+    </inertItemDesign>
+    <inertItemDesign name="20012">
+        <shape type="circle" radius="100"/>
+        <image imageFile="img/inertitem-building12.png" xAlignment="5" yAlignment="-15"/>
+    </inertItemDesign>
+</world>
