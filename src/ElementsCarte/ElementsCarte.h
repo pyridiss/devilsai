@@ -391,8 +391,7 @@ class Joueur : public Individu_Unique
 class Paysage : public Element_Carte
 {
 	public:
-		int repeatX = 1;
-		int repeatY = 1;
+        Vector2i extent;
 
 	public:
 		Paysage();
@@ -401,7 +400,6 @@ class Paysage : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
-		void calculateCollisionRadius();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
 

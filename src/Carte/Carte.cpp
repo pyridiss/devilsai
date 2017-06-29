@@ -128,11 +128,8 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			lastElementLoaded = carte->AjouterPaysage(Ind, list, X, Y);
 			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
 			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->ignoreCollision = true;
-			Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
-			Fichier >> paysage->repeatX >> paysage->repeatY;
-			paysage->calculateCollisionRadius();
-			carte->setMaxRadius(paysage->RayX);
-			carte->setMaxRadius(paysage->RayY);
+            Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
+            Fichier >> paysage->extent.x >> paysage->extent.y;
 		}
 		if (TypeDonnee == "DOOR" && carte != NULL)
 		{

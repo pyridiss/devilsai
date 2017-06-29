@@ -38,6 +38,8 @@ Paysage::Paysage() : Element_Carte()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     inert = true;
+    extent.x = 1;
+    extent.y = 1;
 }
 
 Paysage::~Paysage()
@@ -59,20 +61,36 @@ int Paysage::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM;
 }
 
-void Paysage::calculateCollisionRadius()
-{
-	if (repeatX == 1 && repeatY == 1) return;
-}
-
 void Paysage::Disp(RenderTarget& target)
 {
-	if (repeatX == 1 && repeatY == 1)
-	{
-        if (Options.displayShapes)
-            size.display(target, Color(255, 255, 255, 50));
+    if (Options.displayShapes)
+        size.display(target, Color(255, 255, 255, 50));
 
+    if (extent.x == 1 && extent.y == 1)
         imageManager::display(target, "paysage", Type, position().x, position().y, true);
-	}
+
+    else
+    {
+        Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
+        if (extent.x > 1)
+        {
+            if (extent.x % 2 == 0)
+                for (float i = -extent.x/2 ; i < extent.x/2 ; ++i)
+                    imageManager::display(target, "paysage", Type, position().x + (i+0.5)*imageDimension.x, position().y, true);
+            else
+                for (float i = -(extent.x-1)/2 ; i <= (extent.x-1)/2 ; ++i)
+                    imageManager::display(target, "paysage", Type, position().x + i*imageDimension.x, position().y, true);
+        }
+        else if (extent.y > 1)
+        {
+            if (extent.y % 2 == 0)
+                for (float i = -extent.y/2 ; i < extent.y/2 ; ++i)
+                    imageManager::display(target, "paysage", Type, position().x, position().y + (i+0.5)*imageDimension.y, true);
+            else
+                for (float i = -(extent.y-1)/2 ; i <= (extent.y-1)/2 ; ++i)
+                    imageManager::display(target, "paysage", Type, position().x, position().y + i*imageDimension.y, true);
+        }
+    }
 }
 
 /** Class Door **/
@@ -151,6 +169,8 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
         if (elemName == "properties")
         {
             elem->QueryAttribute("classement", &TypeClassement);
+            elem->QueryAttribute("xExtent", &extent.x);
+            elem->QueryAttribute("yExtent", &extent.y);
         }
 
         elem = elem->NextSiblingElement();
