@@ -24,6 +24,7 @@
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Jeu/Jeu.h"
+#include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
 #include "imageManager/imageManager.h"
@@ -112,7 +113,20 @@ void Door::Disp(RenderTarget& target)
 
 void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 {
-    XMLElement *elem = handle.FirstChildElement().ToElement();
+    XMLElement *elem = handle.ToElement();
+
+    if (elem->Attribute("design"))
+    {
+        Type = elem->Attribute("design");
+        copyInertItemFromTemplate(Type, this);
+    }
+
+    double x = 0, y = 0;
+    elem->QueryAttribute("x", &x);
+    elem->QueryAttribute("y", &y);
+    move(x, y);
+
+    elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
         string elemName = elem->Name();

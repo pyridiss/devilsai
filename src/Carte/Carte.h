@@ -79,7 +79,7 @@ class Carte
 
 		void SupprimerListe(string num);
 
-        void loadFromFile(string path);
+        void loadFromFile(string path, string tag="ALL");
 
 	//Gestion :
 	public:

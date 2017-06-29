@@ -604,7 +604,7 @@ void Carte::displayBackground(RenderTarget& target)
 
 /** AUTRES FONCTIONS */
 
-void Carte::loadFromFile(string path)
+void Carte::loadFromFile(string path, string tag)
 {
     XMLDocument file;
     file.LoadFile(path.c_str());
@@ -640,7 +640,46 @@ void Carte::loadFromFile(string path)
                 set->loadFromXML(hdl2);
             }
         }
+        else if (elemName == "items")
+        {
+            string currentTag = "ALL";
+            bool Immuable = false;
+            bool ignoreCollision = false;
 
+            if (elem->Attribute("tag")) currentTag = elem->Attribute("tag");
+            elem->QueryAttribute("immuable", &Immuable);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
+
+            if (currentTag == tag || tag == "ALL")
+            {
+                XMLHandle hdl2(elem);
+                XMLElement *item = hdl2.FirstChildElement().ToElement();
+                while (item)
+                {
+                    string itemName = item->Name();
+
+                    if (itemName == "inertItem")
+                    {
+                        Paysage *p = new Paysage;
+
+                        p->Id = NouveauId();
+                        p->Set_Controle(AI);
+                        if (tag != "ALL") p->Liste = tag;
+                        if (ignoreCollision) p->ignoreCollision = true;
+
+                        XMLHandle hdl3(item);
+                        p->loadFromXML(hdl3);
+
+                        p->size.setOrigin(&p->position());
+                        if (Immuable) p->TypeClassement = CLASSEMENT_CADAVRE;
+
+                        AjouterElementEnListe(p);
+                    }
+
+                    item = item->NextSiblingElement();
+                }
+            }
+        }
         elem = elem->NextSiblingElement();
     }
 }
