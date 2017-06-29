@@ -69,6 +69,7 @@ set(individu
     fountainOfLife.xml
     player.xml
     trees.xml
+    walls.xml
 )
 
 install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)
