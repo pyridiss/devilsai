@@ -126,11 +126,13 @@ void Shape::line(const Vector2d& p, double length, double angle)
 
 void Shape::loadFromXML(XMLElement* elem)
 {
+    points.clear();
+
     string type = elem->Attribute("type");
 
     if (type == "none")
     {
-        tools::debug::warning("Shape::loadFromXML() received type == 'none', which is not implemented", "tools::math");
+        profile = Profiles::None;
     }
 
     else if (type == "point")

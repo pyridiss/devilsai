@@ -176,6 +176,10 @@ bool intersection_line_line(Shape& shape1, Shape& shape2)
 
 bool intersection(Shape& shape1, Shape& shape2)
 {
+    //Check if there is no 'none' profile
+    if (shape1.profile == Shape::Profiles::None || shape2.profile == Shape::Profiles::None)
+        return false;
+
     //Simplify the switches
     if (shape2.profile < shape1.profile)
         return intersection(shape2, shape1);
