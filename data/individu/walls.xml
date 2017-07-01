@@ -1,53 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
-    <inertItemDesign name="10000">
-        <shape type="rectangle" xSize="6" ySize="16"/>
-        <properties/>
+    <inertItemDesign name="wall01-Sx">
+        <shape type="rectangle" yCenter="6" xSize="6" ySize="20"/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-Sx.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10001">
-        <shape type="rectangle" xSize="6" ySize="32"/>
+    <inertItemDesign name="wall01-NS">
+        <shape type="rectangle" xSize="6" ySize="48"/>
         <properties classement="1"/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-NS.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10002">
-        <shape type="rectangle" xSize="6" ySize="16"/>
-        <properties/>
+    <inertItemDesign name="wall01-Nx">
+        <shape type="rectangle" yCenter="-10" xSize="6" ySize="28"/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-Nx.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10003">
-        <shape type="rectangle" xSize="32" ySize="16"/>
-        <properties/>
+    <inertItemDesign name="wall01-Wx">
+        <shape type="rectangle" xCenter="-6" xSize="32" ySize="6"/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-Wx.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10004">
+    <inertItemDesign name="wall01-EW">
         <shape type="rectangle" xSize="64" ySize="6"/>
-        <properties/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-EW.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10005">
-        <shape type="rectangle" xSize="32" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall01.img" imageFile="wall01-Wx.png"/>
+    <inertItemDesign name="wall01-Ex">
+        <shape type="rectangle" xCenter="6" xSize="32" ySize="6"/>
+        <image archive="img/inertitem-wall01.img" imageFile="wall01-Ex.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10006">
-        <shape type="rectangle" xSize="6" ySize="6"/>
-        <properties/>
+    <inertItemDesign name="wall01-EN">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="7" yCenter="4" xSize="34" ySize="6"/>
+            <shape type="rectangle" xCenter="-8" yCenter="-9" xSize="6" ySize="30"/>
+        </shape>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-EN.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10007">
-        <shape type="rectangle" xSize="6" ySize="6"/>
-        <properties/>
+    <inertItemDesign name="wall01-NW">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="-7" yCenter="4" xSize="34" ySize="6"/>
+            <shape type="rectangle" xCenter="8" yCenter="-9" xSize="6" ySize="30"/>
+        </shape>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-NW.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10008">
-        <shape type="rectangle" xSize="6" ySize="6"/>
-        <properties/>
+    <inertItemDesign name="wall01-ES">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="7" xSize="34" ySize="6"/>
+            <shape type="rectangle" xCenter="-8" yCenter="9" xSize="6" ySize="22"/>
+        </shape>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-ES.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10009">
-        <shape type="rectangle" xSize="6" ySize="6"/>
-        <properties/>
+    <inertItemDesign name="wall01-SW">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="-7" xSize="34" ySize="6"/>
+            <shape type="rectangle" xCenter="8" yCenter="9" xSize="6" ySize="22"/>
+        </shape>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-SW.png"/>
     </inertItemDesign>
     <inertItemDesign name="wall02-Sx">
