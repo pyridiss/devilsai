@@ -25,6 +25,7 @@ set(devilsai_SRCS
 	Carte/Carte.h
 	Carte/Collisions.cpp
 	Carte/Interactions.cpp
+	gamedata.cpp
 	Carte/ListesChainees.cpp
 	ElementsCarte/Actionneurs.cpp
 	ElementsCarte/ChargementElements.cpp
