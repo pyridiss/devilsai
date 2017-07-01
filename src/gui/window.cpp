@@ -132,7 +132,8 @@ void Window::display(RenderWindow& app)
         }
     }
 
-    imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
+    if (!backgroundImage.empty())
+        imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
 
     for (auto& widget : widgets)
     {
