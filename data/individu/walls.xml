@@ -50,55 +50,58 @@
         <properties/>
         <image archive="img/inertitem-wall01.img" imageFile="wall01-SW.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10100">
-        <shape type="rectangle" xSize="8" ySize="32"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-Sx.png" xAlignment="6" yAlignment="-12"/>
+    <inertItemDesign name="wall02-Sx">
+        <shape type="rectangle" yCenter="20" xSize="6" ySize="36"/>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-Sx.png" xAlignment="6"/>
     </inertItemDesign>
-    <inertItemDesign name="10101">
-        <shape type="rectangle" xSize="8" ySize="76"/>
+    <inertItemDesign name="wall02-NS">
+        <shape type="rectangle" xSize="6" ySize="96"/>
         <properties classement="1"/>
         <image archive="img/inertitem-wall02.img" imageFile="wall02-NS.png" xAlignment="6"/>
     </inertItemDesign>
-    <inertItemDesign name="10102">
-        <shape type="rectangle" xSize="8" ySize="10"/>
-        <properties/>
+    <inertItemDesign name="wall02-Nx">
+        <shape type="rectangle" yCenter="-5" xSize="6" ySize="20"/>
         <image archive="img/inertitem-wall02.img" imageFile="wall02-Nx.png" xAlignment="6" yAlignment="6"/>
     </inertItemDesign>
-    <inertItemDesign name="10103">
-        <shape type="rectangle" xSize="4" ySize="6"/>
-        <properties/>
+    <inertItemDesign name="wall02-Wx">
+        <shape type="rectangle" xCenter="-9" xSize="14" ySize="6"/>
         <image archive="img/inertitem-wall02.img" imageFile="wall02-Wx.png" yAlignment="-8"/>
     </inertItemDesign>
-    <inertItemDesign name="10104">
+    <inertItemDesign name="wall02-EW">
         <shape type="rectangle" xSize="76" ySize="6"/>
-        <properties/>
         <image archive="img/inertitem-wall02.img" imageFile="wall02-EW.png" yAlignment="-8"/>
     </inertItemDesign>
-    <inertItemDesign name="10105">
-        <shape type="rectangle" xSize="4" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-Wx.png" yAlignment="-8"/>
+    <inertItemDesign name="wall02-Ex">
+        <shape type="rectangle" xCenter="3" xSize="10" ySize="6"/>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-Ex.png" yAlignment="-8"/>
     </inertItemDesign>
-    <inertItemDesign name="10106">
-        <shape type="rectangle" xSize="30" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-EN.png" yAlignement="-20"/>
+    <inertItemDesign name="wall02-EN">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="3" yCenter="18" xSize="66" ySize="6"/>
+            <shape type="rectangle" xCenter="-28" yCenter="-13" xSize="6" ySize="60"/>
+        </shape>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-EN.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10107">
-        <shape type="rectangle" xSize="30" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-NW.png" yAlignement="-20"/>
+    <inertItemDesign name="wall02-NW">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="-9" yCenter="18" xSize="66" ySize="6"/>
+            <shape type="rectangle" xCenter="22" yCenter="-12" xSize="6" ySize="62"/>
+        </shape>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-NW.png"/>
     </inertItemDesign>
-    <inertItemDesign name="10108">
-        <shape type="rectangle" xSize="30" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-ES.png" yAlignement="-6"/>
+    <inertItemDesign name="wall02-ES">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="3" xSize="66" ySize="6"/>
+            <shape type="rectangle" xCenter="-28" yCenter="18" xSize="6" ySize="34"/>
+        </shape>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-ES.png" yAlignment="-3"/>
     </inertItemDesign>
-    <inertItemDesign name="10109">
-        <shape type="rectangle" xSize="30" ySize="6"/>
-        <properties/>
-        <image archive="img/inertitem-wall02.img" imageFile="wall02-SW.png" yAlignement="-6"/>
+    <inertItemDesign name="wall02-SW">
+        <shape type="complex">
+            <shape type="rectangle" xCenter="-9" xSize="66" ySize="6"/>
+            <shape type="rectangle" xCenter="22" yCenter="19" xSize="6" ySize="32"/>
+        </shape>
+        <image archive="img/inertitem-wall02.img" imageFile="wall02-SW.png" yAlignment="-3"/>
     </inertItemDesign>
     <inertItemDesign name="10201">
         <shape type="rectangle" xSize="16" ySize="80"/>
