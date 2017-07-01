@@ -45,6 +45,12 @@ void Load_Chapitre(int Id)
 
 		if		(TypeDonnee == "CARTE")	Load_Carte(bufferString, TYPE_CARTE);
 		else if	(TypeDonnee == "LISTE")	Load_Carte(bufferString, TYPE_LISTE);
+        else if (TypeDonnee == "loadXMLFile")
+        {
+            string b2;
+            fileStream >> b2;
+            Partie.maps.begin()->second.loadFromFile(tools::filesystem::dataDirectory() + bufferString, b2);
+        }
 		else if (TypeDonnee == "QUEST")	addQuest(bufferString, "true");
 
 		TypeDonnee = "";

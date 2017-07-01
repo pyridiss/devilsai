@@ -20,6 +20,7 @@ set(carte
 	1241.lst
 	101107.lst
 	101200.lst
+    birnam.xml
 	didact.map
 	didact_attaque.lst
 	didact_bael.lst

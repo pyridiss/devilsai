@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
-    <inertItemDesign name="20001">
+    <inertItemDesign name="building01">
         <shape type="rectangle" xSize="152" ySize="120"/>
         <image imageFile="img/inertitem-building01.png" xAlignment="8" yAlignment="-5"/>
     </inertItemDesign>
