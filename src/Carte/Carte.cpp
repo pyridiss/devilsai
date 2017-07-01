@@ -321,7 +321,6 @@ Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, 
     ind->size.setOrigin(&ind->position());
     ind->interactionField.setOrigin(&ind->position());
     ind->viewField.setOrigin(&ind->position());
-	ind->Set_Controle(AI);
 
 	MESSAGE("Un individu unique a été ajouté - Type = " + Type, FICHIER)
 
@@ -346,7 +345,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 		return NULL;
 	}
 
-	ind->Set_Controle(AI);
 	ind->Classe->Copie_Element(ind);
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
@@ -386,7 +384,6 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 
 	ind->Liste = liste;
 	ind->Type = Type;
-	ind->Set_Controle(AI);
 
     copyInertItemFromTemplate(Type, ind);
 
@@ -407,7 +404,6 @@ Door* Carte::addDoor(string liste, int x, int y)
 
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
-	ind->Set_Controle(AI);
 
 	MESSAGE("A door has been added.", FICHIER)
 
@@ -424,7 +420,6 @@ Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
-	ind->Set_Controle(AI);
 
 	MESSAGE("Un actionneur a été ajouté", FICHIER)
 
@@ -437,7 +432,6 @@ Trigger* Carte::addTrigger(string liste)
 	Trigger *ind = new Trigger;
 
 	ind->Liste = liste;
-	ind->Set_Controle(AI);
     ind->size.setOrigin(&ind->position());
 
 	MESSAGE("A trigger has been added", FICHIER)
@@ -455,7 +449,6 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
-	ind->Set_Controle(AI);
 
 	MESSAGE("Un coffre a été ajouté", FICHIER)
 
@@ -472,7 +465,6 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
-	ind->Set_Controle(AI);
     ind->size.circle(tools::math::Vector2d(0, 0), 1);
 	ind->Duree = 500;
 
@@ -649,7 +641,6 @@ void Carte::loadFromFile(string path, string tag)
                     {
                         Paysage *p = new Paysage;
 
-                        p->Set_Controle(AI);
                         if (tag != "ALL") p->Liste = tag;
                         if (ignoreCollision) p->ignoreCollision = true;
 
