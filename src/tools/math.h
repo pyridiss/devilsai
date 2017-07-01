@@ -29,6 +29,7 @@ namespace math{
 struct Shape;
 
 void initLibrary();
+int newUniqueIdentifier();
 double angle(double x, double y);
 double randomNumber(double min, double max);
 double randomNumber_BinomialLaw(double min, double max);

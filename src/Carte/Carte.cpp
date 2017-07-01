@@ -312,7 +312,6 @@ Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, 
 {
 	Individu_Unique *ind = new Individu_Unique;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = Type;
 
@@ -334,7 +333,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 {
 	Individu_Commun *ind = new Individu_Commun;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = Type;
 
@@ -365,7 +363,6 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 {
 	Joueur *ind = new Joueur;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = Type;
 
@@ -387,7 +384,6 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 {
 	Paysage *ind = new Paysage;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = Type;
 	ind->Set_Controle(AI);
@@ -407,7 +403,6 @@ Door* Carte::addDoor(string liste, int x, int y)
 {
 	Door *ind = new Door;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 
     ind->move(x, y);
@@ -424,7 +419,6 @@ Actionneur* Carte::AjouterActionneur(string liste, int x, int y)
 {
 	Actionneur *ind = new Actionneur;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = TYPE_ACTIONNEUR;
 
@@ -442,7 +436,6 @@ Trigger* Carte::addTrigger(string liste)
 {
 	Trigger *ind = new Trigger;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Set_Controle(AI);
     ind->size.setOrigin(&ind->position());
@@ -457,7 +450,6 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 {
 	Coffre *ind = new Coffre;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = "TYPE_COFFRE";
 
@@ -475,7 +467,6 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 {
 	Cadavre *ind = new Cadavre;
 
-	ind->Id = NouveauId();
 	ind->Liste = liste;
 	ind->Type = "TYPE_CADAVRE";
 
@@ -658,7 +649,6 @@ void Carte::loadFromFile(string path, string tag)
                     {
                         Paysage *p = new Paysage;
 
-                        p->Id = NouveauId();
                         p->Set_Controle(AI);
                         if (tag != "ALL") p->Liste = tag;
                         if (ignoreCollision) p->ignoreCollision = true;

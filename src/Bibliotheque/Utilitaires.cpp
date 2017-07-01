@@ -166,12 +166,6 @@ double ToSegment(double x, int min, int max)
 	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
 }
 
-int NouveauId()
-{
-	static int id = -1;
-	return ++id;
-}
-
 #ifdef DEBOGAGE
 void Verbose(const string &Message, const short &Type)
 {

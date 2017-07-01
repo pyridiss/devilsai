@@ -263,7 +263,6 @@ void setIntToLUA(lua_State*, string, int);
 void setDoubleToLUA(lua_State*, string, double);
 void setStringToLUA(lua_State*, string, string);
 double ToSegment(double, int, int);
-int NouveauId();
 void Verbose(const string&, const short&);
 void Erreur(const string&, const string&);
 void Erreur(const string&, const float&);

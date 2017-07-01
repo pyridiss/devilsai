@@ -38,6 +38,12 @@ void initLibrary()
     randomGenerator.seed(d.count());
 }
 
+int newUniqueIdentifier()
+{
+    static int id = -1;
+	return ++id;
+}
+
 double angle(double x, double y)
 {
     if (x > 0 && y >= 0)

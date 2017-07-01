@@ -19,6 +19,7 @@
 
 #include <cmath>
 
+#include "tools/math.h"
 #include "tools/timeManager.h"
 
 #include "../Bibliotheque/Constantes.h"
@@ -30,6 +31,7 @@
 
 Element_Carte::Element_Carte()
 {
+    Id = tools::math::newUniqueIdentifier();
     _position.x = 0;
     _position.y = 0;
     size.setOrigin(&_position);
