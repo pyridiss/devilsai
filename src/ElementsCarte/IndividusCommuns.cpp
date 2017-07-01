@@ -147,6 +147,11 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->size = size;
     elem->interactionField = interactionField;
     elem->viewField = viewField;
+    //Restore origins, as the copy breaks the link.
+    elem->size.setOrigin(&elem->position());
+    elem->interactionField.setOrigin(&elem->position());
+    elem->viewField.setOrigin(&elem->position());
+
 	elem->Diplomatie = Diplomatie;
 	(*(elem->Get_Stats()))["Recuperation"] = Caracs["RecuperationMoyenne"];
     elem->lifetime = lifetime;

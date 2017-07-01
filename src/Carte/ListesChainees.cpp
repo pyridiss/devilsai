@@ -114,6 +114,9 @@ void copyInertItemFromTemplate(string t, Paysage *elem)
     }
 
     elem->size = itemTemplate->size;
+    //Restore size origin, as the copy breaks the link.
+    elem->size.setOrigin(&elem->position());
+
 	elem->TypeClassement = itemTemplate->TypeClassement;
 	elem->Diplomatie = 0;
 }

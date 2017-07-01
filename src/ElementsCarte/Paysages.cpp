@@ -40,6 +40,7 @@ Paysage::Paysage() : Element_Carte()
     inert = true;
     extent.x = 1;
     extent.y = 1;
+    size.setOrigin(&position());
 }
 
 Paysage::~Paysage()

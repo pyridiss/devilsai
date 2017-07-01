@@ -318,9 +318,6 @@ Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, 
 	Load_IndividuUnique(Type, ind);
 
     ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
-    ind->interactionField.setOrigin(&ind->position());
-    ind->viewField.setOrigin(&ind->position());
 
 	MESSAGE("Un individu unique a été ajouté - Type = " + Type, FICHIER)
 
@@ -347,9 +344,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 
 	ind->Classe->Copie_Element(ind);
     ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
-    ind->interactionField.setOrigin(&ind->position());
-    ind->viewField.setOrigin(&ind->position());
 
 	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
 
@@ -367,9 +361,6 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 	Load_IndividuUnique(Type, ind);
 
     ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
-    ind->interactionField.setOrigin(&ind->position());
-    ind->viewField.setOrigin(&ind->position());
 	ind->Set_Controle(HUMAIN); /** NE DISTINGUE PAS LE JOUEUR PRINCIPAL D'UN JOUEUR EN RÉSEAU **/
 
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
@@ -388,7 +379,6 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
     copyInertItemFromTemplate(Type, ind);
 
     ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
 
 	MESSAGE("Un paysage a été ajouté - Classe = " + Type, FICHIER)
 
@@ -647,7 +637,6 @@ void Carte::loadFromFile(string path, string tag)
                         XMLHandle hdl3(item);
                         p->loadFromXML(hdl3);
 
-                        p->size.setOrigin(&p->position());
                         if (Immuable) p->TypeClassement = CLASSEMENT_CADAVRE;
 
                         AjouterElementEnListe(p);
