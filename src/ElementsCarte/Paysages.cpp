@@ -30,6 +30,8 @@
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 
+#include "gamedata.h"
+
 using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Paysage **/
@@ -137,7 +139,7 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
     if (elem->Attribute("design"))
     {
         Type = elem->Attribute("design");
-        copyInertItemFromTemplate(Type, this);
+        gamedata::copyInertItemFromDesign(Type, this);
     }
 
     double x = 0, y = 0;

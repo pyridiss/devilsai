@@ -406,6 +406,6 @@ void Clean_Partie()
 	SupprimerLignesConsoles();
 
     gamedata::clearWorlds();
-	deleteCommonClasses();
-	deleteLandsClasses();
+    gamedata::clearSpecies();
+    gamedata::clearInertItemDesigns();
 }

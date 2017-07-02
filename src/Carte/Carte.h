@@ -112,13 +112,4 @@ Individu_Unique* Get_IndividuUnique(string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 
-void addCommonClass(string);
-void deleteCommonClasses();
-Classe_Commune* getCommonClass(string);
-
-void addLandsClass(string);
-void deleteLandsClasses();
-Paysage* getLandsClass(string);
-void copyInertItemFromTemplate(string t, Paysage *elem);
-
 #endif

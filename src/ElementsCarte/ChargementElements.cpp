@@ -28,6 +28,7 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
 
 void Load_IndividuUnique(string Type, Individu_Unique *ind)
 {
@@ -254,10 +255,10 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 
 void Load_ClasseCommune(string Type)
 {
-	if (getCommonClass(Type) == NULL)
+	if (gamedata::species(Type) == nullptr)
 	{
-		addCommonClass(Type);
-		getCommonClass(Type)->Nom = getTranslatedNameOfElement(Type);
+		gamedata::addSpecies(Type);
+		gamedata::species(Type)->Nom = getTranslatedNameOfElement(Type);
 	}
 	else return;
 
@@ -268,7 +269,7 @@ void Load_ClasseCommune(string Type)
 	if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
 	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
 
-	Classe_Commune *cl_com = getCommonClass(Type);
+	Classe_Commune *cl_com = gamedata::species(Type);
 
 	Activite *act = NULL;
     string Act;

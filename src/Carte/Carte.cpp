@@ -335,9 +335,9 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Type = Type;
 
 	Load_ClasseCommune(Type);
-	ind->Classe = getCommonClass(Type);
+    ind->Classe = gamedata::species(Type);
 
-	if (ind->Classe == NULL)
+    if (ind->Classe == nullptr)
 	{
 		Erreur("La classe de l'élément commun suivant n'a pas pu être chargée", Type);
 		delete ind;
@@ -378,7 +378,7 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
 	ind->Liste = liste;
 	ind->Type = Type;
 
-    copyInertItemFromTemplate(Type, ind);
+    gamedata::copyInertItemFromDesign(Type, ind);
 
     ind->move(x, y);
 
@@ -591,10 +591,10 @@ void Carte::loadFromFile(string path, string tag)
         {
             string speciesName = elem->Attribute("name");
 
-            if (getCommonClass(speciesName) == NULL)
+            if (gamedata::species(speciesName) == nullptr)
             {
-                addCommonClass(speciesName);
-                Classe_Commune *species = getCommonClass(speciesName);
+                gamedata::addSpecies(speciesName);
+                Classe_Commune *species = gamedata::species(speciesName);
                 XMLHandle hdl2(elem);
                 species->loadFromXML(hdl2);
             }
@@ -603,10 +603,10 @@ void Carte::loadFromFile(string path, string tag)
         {
             string setName = elem->Attribute("name");
 
-            if (getLandsClass(setName) == NULL)
+            if (gamedata::inertItemDesign(setName) == nullptr)
             {
-                addLandsClass(setName);
-                Paysage* set = getLandsClass(setName);
+                gamedata::addInertItemDesign(setName);
+                Paysage* set = gamedata::inertItemDesign(setName);
                 XMLHandle hdl2(elem);
                 set->loadFromXML(hdl2);
             }

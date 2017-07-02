@@ -30,12 +30,9 @@
 using namespace std;
 using namespace sf;
 
-class Carte;
 class Joueur;
 class Coffre;
 class Individu_Unique;
-class Classe_Commune;
-class Paysage;
 
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 typedef map < int, int > MapDonneesInt;
@@ -64,9 +61,6 @@ struct Classe_Partie
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;
-
-	map<string, Classe_Commune> commonClasses;
-	map<string, Paysage> landsClasses;
 
 	bool loadFirstChapter   = false;
 
