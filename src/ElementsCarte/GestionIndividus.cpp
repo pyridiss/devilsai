@@ -75,7 +75,7 @@ int Individu::Gestion()
 	int Iteration = 0;
 	Element_Carte* tmp1 = NULL, *tmp2 = NULL;
 
-	Element_Carte *Elem = Get_Element(ElementVision);
+	Element_Carte *Elem = gamedata::findElement(ElementVision);
 
 	if (Elem == NULL)
 	{

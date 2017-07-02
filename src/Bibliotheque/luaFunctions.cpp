@@ -49,7 +49,7 @@ int LUA_getElementById(lua_State* L)
 {
     MESSAGE("LUA_getElementById() called", LUA)
 
-    Element_Carte* elem = Get_Element(lua_tonumber(L, 1));
+    Element_Carte* elem = gamedata::findElement(lua_tonumber(L, 1));
 
     if (elem != NULL)
         lua_pushlightuserdata(L, (void*)elem);
@@ -67,7 +67,7 @@ int LUA_getElementInteraction(lua_State* L)
     Element_Carte* elem = NULL;
 
     if (player != NULL && player->ElementInteraction != -1)
-        elem = Get_Element(player->ElementInteraction);
+        elem = gamedata::findElement(player->ElementInteraction);
 
     if (elem != NULL)
         lua_pushlightuserdata(L, (void*)elem);
@@ -255,7 +255,7 @@ int LUA_getElement(lua_State* L)
 {
     MESSAGE("LUA_getElement() called", LUA)
 
-	Individu_Unique* ind = Get_IndividuUnique(lua_tostring(L, 1));
+	Individu_Unique* ind = gamedata::findIndividuUnique(lua_tostring(L, 1));
 	//A quest can ask for an element already dead (KillStolas for example)
 //	if (ind == NULL) Erreur("Un élément non chargé ou non Individu_Unique a été demandé", "");
 

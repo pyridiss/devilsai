@@ -259,23 +259,6 @@ void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 	Cible->elements.push_back(elem);
 }
 
-Element_Carte* Get_Element(int id)
-{
-	for (auto& map : Partie.maps)
-		for (auto& element : map.second.elements)
-			if (element->Id == id) return element;
-
-	return NULL;
-}
-
-Individu_Unique* Get_IndividuUnique(string type)
-{
-	for (auto& map : Partie.maps)
-		for (auto& element : map.second.elements)
-			if (element->Type == type) return dynamic_cast<Individu_Unique*>(element);
-
-	return NULL;
-}
 
 /** FONCTIONS DE LA CLASSE Carte **/
 

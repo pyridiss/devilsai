@@ -74,7 +74,6 @@ class Carte
 		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		Cadavre* AjouterCadavre(string liste, float x, float y);
-
 		void SupprimerElement(Element_Carte* elem);
 
 		void SupprimerListe(string num);
@@ -107,8 +106,6 @@ class Carte
 void Load_Carte(string, bool);
 Element_Carte* loadElementsFromStream(istream&, Carte*, string);
 void ChangerCarte(Element_Carte*, string, string);
-Element_Carte* Get_Element(int);
-Individu_Unique* Get_IndividuUnique(string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 
