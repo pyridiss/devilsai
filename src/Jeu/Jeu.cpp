@@ -49,7 +49,7 @@ void Load_Chapitre(int Id)
         {
             string b2;
             fileStream >> b2;
-            Partie.maps.begin()->second.loadFromFile(tools::filesystem::dataDirectory() + bufferString, b2);
+            gamedata::world("1")->loadFromFile(tools::filesystem::dataDirectory() + bufferString, b2);
         }
 		else if (TypeDonnee == "QUEST")	addQuest(bufferString, "true");
 
@@ -463,8 +463,7 @@ void Clean_Partie()
 
 	SupprimerLignesConsoles();
 
-	SupprimerListe_Carte();
-
+    gamedata::clearWorlds();
 	deleteCommonClasses();
 	deleteLandsClasses();
 }

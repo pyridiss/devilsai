@@ -112,10 +112,6 @@ Individu_Unique* Get_IndividuUnique(string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 
-void Ajouter_Carte(string);
-void SupprimerListe_Carte();
-Carte* Get_Carte(string);
-
 void addCommonClass(string);
 void deleteCommonClasses();
 Classe_Commune* getCommonClass(string);

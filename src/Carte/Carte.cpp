@@ -30,6 +30,8 @@
 #include "Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "gamedata.h"
+
 using namespace tinyxml2;
 
 void Load_Carte(string Id, bool TypeCarte)
@@ -42,9 +44,9 @@ void Load_Carte(string Id, bool TypeCarte)
 
 	if (TypeCarte == TYPE_CARTE)
 	{
-		if (Get_Carte(Id) == NULL) Ajouter_Carte(Id);
+		if (gamedata::world(Id) == NULL) gamedata::addWorld(Id);
 		else return;
-		carte = Get_Carte(Id);
+		carte = gamedata::world(Id);
 	}
 
 	ifstream fileStream(fileName, ios_base::in);
@@ -76,7 +78,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 		if (TypeDonnee == "CARTE_MERE")
 		{
 			Fichier >> bufferString;
-			carte = Get_Carte(bufferString);
+			carte = gamedata::world(bufferString);
 		}
 		if (TypeDonnee == "AMBIENCE")
 		{
@@ -248,8 +250,8 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 
 void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 {
-	Carte *Orig = Get_Carte(IdOrig);
-	Carte *Cible = Get_Carte(IdCible);
+	Carte *Orig = gamedata::world(IdOrig);
+	Carte *Cible = gamedata::world(IdCible);
 
 	if (elem == NULL || Orig == NULL || Cible == NULL) return;
 

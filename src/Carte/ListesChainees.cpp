@@ -25,34 +25,6 @@
 #include "../ElementsCarte/ElementsCarte.h"
 
 
-/** LISTE CHAINEE EN Carte **/
-
-void Ajouter_Carte(string Id)
-{
-	Carte _new;
-	Partie.maps.insert(map<string, Carte>::value_type(Id, _new));
-
-	Partie.maps[Id].Id = Id;
-
-	MESSAGE("Carte " + Id + " ajoutée", LISTE)
-}
-
-void SupprimerListe_Carte()
-{
-	Partie.maps.clear();
-
-	MESSAGE("Liste des Cartes supprimée", LISTE)
-}
-
-Carte* Get_Carte(string Id)
-{
-	auto i = Partie.maps.find(Id);
-
-	if (i != Partie.maps.end()) return &(i->second);
-
-	return NULL;
-}
-
 
 void addCommonClass(string type)
 {

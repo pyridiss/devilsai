@@ -69,8 +69,6 @@ struct Classe_Partie
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;
 
-	map<string, Carte> maps;
-
 	map<string, Classe_Commune> commonClasses;
 	map<string, Paysage> landsClasses;
 
