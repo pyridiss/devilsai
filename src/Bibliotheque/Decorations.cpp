@@ -86,6 +86,7 @@ void Load_Decorations()
 	Partie.screenJournal.manageFunction = nullptr;
 
     tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
+    tools::textManager::loadFile("species", "lng/species_FR.xml");
 
 	Load_Decorations_Objets();
 

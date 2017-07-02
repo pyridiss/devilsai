@@ -36,6 +36,7 @@ set(lng
     noms_lieux.lng
     noms_objets.lng
     sauvegarde_incompatible.lng
+    species_FR.xml
     tutorial-01.lng
     tutorial-02.lng
     tutorial-03.lng

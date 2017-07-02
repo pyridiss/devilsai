@@ -23,6 +23,8 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "tools/textManager.h"
+
 #include "gamedata.h"
 
 using namespace tinyxml2;
@@ -169,6 +171,9 @@ void Classe_Commune::setAngleFixed(double angle)
 
 void Classe_Commune::loadFromXML(XMLHandle &handle)
 {
+    Type = handle.ToElement()->Attribute("name");
+    Nom = tools::textManager::getText("species", Type);
+
     XMLElement *elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
