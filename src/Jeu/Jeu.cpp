@@ -27,6 +27,7 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
+#include "gamedata.h"
 
 void Load_Chapitre(int Id)
 {
@@ -61,52 +62,6 @@ void Load_Chapitre(int Id)
 
 /** ÉTABLISSEMENT D'UN NOUVEAU JEU OU CHARGEMENT DU JEU ENREGISTRÉ */
 
-bool RechercheJoueur()
-{
-	auto carte = Partie.maps.begin();
-	bool PersonnageTrouve = false;
-	list<Element_Carte*>::iterator tmpj;
-
-	while (carte != Partie.maps.end() && !PersonnageTrouve)
-	{
-		//Recherche du personnage qui contrôlera le jeu
-		tmpj = carte->second.elements.begin();
-		while(tmpj != carte->second.elements.end() && !PersonnageTrouve)
-		{
-			if ((*tmpj)->Get_Controle() == HUMAIN)
-			{
-				PersonnageTrouve = true;
-				Partie.CarteCourante = &(carte->second); //CarteCourante est initialisée à la carte contenant le personnage
-			}
-			else ++tmpj;
-		}
-
-		++carte;
-	}
-
-	if (!PersonnageTrouve)
-	{
-		Erreur("Le jeu demandé ne contient pas de personnage" , "");
-		return false;
-	}
-
-	Partie.perso = dynamic_cast<Joueur*>((*tmpj));
-
-	if (Partie.perso == NULL)
-	{
-		Erreur("Le personnage trouvé n'est pas conforme" , "");
-		return false;
-	}
-
-	//Mise en place des éléments dans la liste de collisions :
-	for (auto& tmp : Partie.CarteCourante->elements)
-	{
-		if (tmp->Get_Controle() != HUMAIN) tmp->Set_Controle(AI);
-	}
-
-	return true;
-}
-
 bool PartieSauvegardee()
 {
 	Partie.SAVE = ChoixSauvegarde();
@@ -122,10 +77,7 @@ bool PartieSauvegardee()
 
 	MESSAGE(">> Chargement de la sauvegarde terminée <<", FICHIER)
 
-	bool joueur = RechercheJoueur();
-	if (!joueur) return false;
-
-    musicManager::playMusic(Partie.CarteCourante->ambience);
+    musicManager::playMusic(gamedata::currentWorld()->ambience);
 
 	MESSAGE(">> Mise en place du jeu sauvegardé terminée <<", FICHIER)
 
@@ -206,7 +158,7 @@ void mainLoop()
             {
                 managementActivated = false;
                 playerResting = true;
-                Partie.perso->Repos();
+                gamedata::player()->Repos();
             }
 
             if (signal.first == "player-dead")
@@ -225,9 +177,8 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 Load_Chapitre(1);
-                RechercheJoueur();
-                Partie.perso->Nom = signal.second.String32Data;
-                musicManager::playMusic(Partie.CarteCourante->ambience);
+                gamedata::player()->Nom = signal.second.String32Data;
+                musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
 
@@ -236,9 +187,8 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 Load_Chapitre(0);
-                RechercheJoueur();
-                Partie.perso->Nom = signal.second.String32Data;
-                musicManager::playMusic(Partie.CarteCourante->ambience);
+                gamedata::player()->Nom = signal.second.String32Data;
+                musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
 
@@ -295,7 +245,7 @@ void mainLoop()
             signal = tools::signals::getNextSignal();
         }
 
-        if (Partie.CarteCourante == NULL)
+        if (gamedata::currentWorld() == NULL)
         {
             managementActivated = false;
             continue;
@@ -304,9 +254,9 @@ void mainLoop()
         //2. Management
 
         if (managementActivated)
-            Partie.CarteCourante->GestionElements(worldView);
+            gamedata::currentWorld()->GestionElements(worldView);
 
-        worldView.setCenter(Partie.perso->position().x, Partie.perso->position().y);
+        worldView.setCenter(gamedata::player()->position().x, gamedata::player()->position().y);
 
         //Mouse cursor
         cursor.move(-cursor.position().x + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x,
@@ -319,17 +269,17 @@ void mainLoop()
             cursorIsInWorld = true;
         else cursorIsInWorld = false;
 
-        Partie.CarteCourante->resetCollisionManager();
+        gamedata::currentWorld()->resetCollisionManager();
         underCursor = NULL;
         int Resultat = COLL_OK;
 
         while(cursorIsInWorld && Resultat == COLL_OK)
         {
-            Resultat = Partie.CarteCourante->browseCollisionList(&cursor);
+            Resultat = gamedata::currentWorld()->browseCollisionList(&cursor);
 
             if (Resultat == COLL_PRIM_MVT)
             {
-                underCursor = dynamic_cast<Individu*>(Partie.CarteCourante->getCurrentCollider());
+                underCursor = dynamic_cast<Individu*>(gamedata::currentWorld()->getCurrentCollider());
                 break;
             }
         }
@@ -337,9 +287,9 @@ void mainLoop()
         //Mouse click
         if (cursorIsInWorld && Mouse::isButtonPressed(Mouse::Left))
         {
-            Partie.perso->automove = true;
-            Partie.perso->automoveEndpoint.x = cursor.position().x;
-            Partie.perso->automoveEndpoint.y = cursor.position().y;
+            gamedata::player()->automove = true;
+            gamedata::player()->automoveEndpoint.x = cursor.position().x;
+            gamedata::player()->automoveEndpoint.y = cursor.position().y;
         }
 
         //3. Display
@@ -347,8 +297,8 @@ void mainLoop()
         Jeu.App.clear();
         Jeu.App.setView(worldView);
 
-        Partie.CarteCourante->displayBackground(Jeu.App);
-        Partie.CarteCourante->display(Jeu.App);
+        gamedata::currentWorld()->displayBackground(Jeu.App);
+        gamedata::currentWorld()->display(Jeu.App);
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
@@ -388,16 +338,16 @@ void mainLoop()
 
 		//4. CHANGEMENTS DE LIEU
 
-		if (Partie.perso->IndiceLieu != Partie.perso->SauvegardeIndiceLieu)
+		if (gamedata::player()->IndiceLieu != gamedata::player()->SauvegardeIndiceLieu)
 		{
-            if (Partie.perso->LieuVillage != "village")
+            if (gamedata::player()->LieuVillage != "village")
                 tools::signals::addSignal("ingame-toolbar:disable-rest");
             else
                 tools::signals::addSignal("ingame-toolbar:enable-rest");
 
 			ChangementLieu = 254;
-			NomLieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
-			Partie.perso->SauvegardeIndiceLieu = Partie.perso->IndiceLieu;
+			NomLieu = getTranslatedNameOfPlace(gamedata::player()->IndiceLieu);
+			gamedata::player()->SauvegardeIndiceLieu = gamedata::player()->IndiceLieu;
 		}
 		if (ChangementLieu != 255)
 		{
@@ -429,16 +379,10 @@ void mainLoop()
 
 		if (Partie.loadFirstChapter)
 		{
-			String32 NomPersonnage = Partie.perso->Nom;
+			String32 NomPersonnage = gamedata::player()->Nom;
 			Clean_Partie();
 			Load_Chapitre(1);
-			bool joueur = RechercheJoueur();
-			if (!joueur)
-			{
-				Erreur("Le passage au chapitre 1 a échoué", "");
-				return;
-			}
-			Partie.perso->Nom = NomPersonnage;
+			gamedata::player()->Nom = NomPersonnage;
 			Partie.loadFirstChapter = false;
 		}
 
@@ -450,8 +394,6 @@ void mainLoop()
 
 void Clean_Partie()
 {
-	Partie.perso = NULL;
-	Partie.CarteCourante = NULL;
 	Partie.CoffreOuvert = NULL;
 	Partie.selectedObject = nullptr;
 	Partie.selectedSkill = nullptr;

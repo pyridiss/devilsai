@@ -23,6 +23,7 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "../Bibliotheque/Templates.h"
 
+#include "gamedata.h"
 
 void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 {
@@ -68,7 +69,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 			Degats = 0;
 			if (Blesse->Get_Controle() == HUMAIN)
 			{
-				Partie.perso->CoupEsquive(Attaquant);
+				gamedata::player()->CoupEsquive(Attaquant);
 				Ajouter_LignePerso(getTranslatedMessage(_ESQUIVE), Color(128, 255, 128, 255));
 			}
 		}
@@ -81,14 +82,14 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				Degats *= 1.5;
 				Attaquant->Lag_Energie(-10);
 				Blesse->Lag_Recuperation(-30);
-				if (Attaquant->Id == Partie.perso->Id)
+				if (Attaquant->Id == gamedata::player()->Id)
 				{
-					Partie.perso->CoupCritique(Blesse);
+					gamedata::player()->CoupCritique(Blesse);
 					Ajouter_LignePerso(getTranslatedMessage(_CRITIQUE), Color(240, 40, 40, 255));
 				}
-				if (Blesse->Id == Partie.perso->Id)
+				if (Blesse->Id == gamedata::player()->Id)
 				{
-					Partie.perso->BlessureGrave(Blesse);
+					gamedata::player()->BlessureGrave(Blesse);
 				}
 			}
 
@@ -101,19 +102,19 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
 		if (Attaquant->Get_Controle() == HUMAIN)
 		{
-			Partie.perso->GainExperience(Blesse, Degats);
+			gamedata::player()->GainExperience(Blesse, Degats);
 
 			String32 Infliges = getFormatedTranslatedMessage(_DEGATS_INFLIGES, (unsigned)Degats);
 			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}
-		if (Blesse->Id == Partie.perso->Id)
+		if (Blesse->Id == gamedata::player()->Id)
 		{
-			if (Partie.perso->Get_Act() == BLESSE) Partie.perso->BlessuresMultiples(Attaquant);
+			if (gamedata::player()->Get_Act() == BLESSE) gamedata::player()->BlessuresMultiples(Attaquant);
 			String32 Recus = getFormatedTranslatedMessage(_DEGATS_RECUS, (unsigned)Degats);
 			Ajouter_LignePerso(Recus, Color(0, 0, 0, 255));
 		}
 
 		if (Degats) Blesse->Set_Activite(BLESSE);
 	}
-	else if (Attaquant->Id == Partie.perso->Id) Ajouter_LignePerso(getTranslatedMessage(_ECHEC), Color(200, 10, 20, 255));
+	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(getTranslatedMessage(_ECHEC), Color(200, 10, 20, 255));
 }

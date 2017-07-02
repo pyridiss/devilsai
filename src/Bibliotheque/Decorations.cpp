@@ -31,6 +31,8 @@
 #include "gui/button.h"
 #include "musicManager/musicManager.h"
 
+#include "gamedata.h"
+
 /** VARIABLES GLOBALES **/
 
 LigneConsole ConsolePerso[10];
@@ -152,7 +154,7 @@ void Disp_Menu()
 
 void Disp_JaugesVie()
 {
-	static int PersoEnePrec = Partie.perso->get("Energie");
+	static int PersoEnePrec = gamedata::player()->get("Energie");
 
     static imageManager::Animation* playerLifeGauge = imageManager::getAnimation("playerLifeGauge");
     static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
@@ -160,23 +162,23 @@ void Disp_JaugesVie()
     static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
     static imageManager::Animation* playerRecoveryGauge = imageManager::getAnimation("playerRecoveryGauge");
 
-	Disp_TexteCentre(Partie.perso->Nom, 92, 60, Color(128, 255, 128, 255), 12.f);
+	Disp_TexteCentre(gamedata::player()->Nom, 92, 60, Color(128, 255, 128, 255), 12.f);
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 
-    playerLifeGauge->setSmoothRectangle(0, 0, Partie.perso->get("Vitalite") / 10, 7);
-    playerEnergyGauge->setSmoothRectangle(0, 0, Partie.perso->get("Energie") / 10, 7);
+    playerLifeGauge->setSmoothRectangle(0, 0, gamedata::player()->get("Vitalite") / 10, 7);
+    playerEnergyGauge->setSmoothRectangle(0, 0, gamedata::player()->get("Energie") / 10, 7);
 
-    if (Partie.perso->get("Vitalite") < 50) playerLifeGaugeBackground->setFlickering(0.5);
-    else if (Partie.perso->get("Vitalite") < 100) playerLifeGaugeBackground->setFlickering(0.25);
+    if (gamedata::player()->get("Vitalite") < 50) playerLifeGaugeBackground->setFlickering(0.5);
+    else if (gamedata::player()->get("Vitalite") < 100) playerLifeGaugeBackground->setFlickering(0.25);
     else
     {
         playerLifeGaugeBackground->setFlickering(0);
         playerLifeGaugeBackground->setColor(Color(0, 0, 0, 255));
     }
 
-    if (Partie.perso->get("Energie") < 50) playerEnergyGaugeBackground->setFlickering(0.5);
-    else if (Partie.perso->get("Energie") < 100) playerEnergyGaugeBackground->setFlickering(0.25);
+    if (gamedata::player()->get("Energie") < 50) playerEnergyGaugeBackground->setFlickering(0.5);
+    else if (gamedata::player()->get("Energie") < 100) playerEnergyGaugeBackground->setFlickering(0.25);
     else
     {
         playerEnergyGaugeBackground->setFlickering(0);
@@ -188,7 +190,7 @@ void Disp_JaugesVie()
     playerEnergyGaugeBackground->display(Jeu.App, 42, 79, false);
     playerEnergyGauge->display(Jeu.App, 42, 79, false);
 
-	int Recup = Partie.perso->get("Recuperation");
+	int Recup = gamedata::player()->get("Recuperation");
 
 	if (Recup > 0)
 	{
@@ -202,23 +204,23 @@ void Disp_JaugesVie()
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
-	if		(Partie.perso->get("Vitalite") == 0)				Disp_TexteCentre(_MORT, 92, 105, Color(168, 168, 168, 255), 11.f);
-	else if	(Partie.perso->get("Vitalite") + Recup * 10 >= 900)	Disp_TexteCentre(_SANTE1, 92, 105, Color(128, 255, 128, 255), 11.f);
-	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 650)	Disp_TexteCentre(_SANTE2, 92, 105, Color(255, 220, 30, 255), 11.f);
-	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 300)	Disp_TexteCentre(_SANTE3, 92, 105, Color(255, 190, 10, 255), 11.f);
-	else if (Partie.perso->get("Vitalite") + Recup * 10 >= 100)	Disp_TexteCentre(_SANTE4, 92, 105, Color(255, 80, 10, 255), 11.f);
+	if		(gamedata::player()->get("Vitalite") == 0)				Disp_TexteCentre(_MORT, 92, 105, Color(168, 168, 168, 255), 11.f);
+	else if	(gamedata::player()->get("Vitalite") + Recup * 10 >= 900)	Disp_TexteCentre(_SANTE1, 92, 105, Color(128, 255, 128, 255), 11.f);
+	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 650)	Disp_TexteCentre(_SANTE2, 92, 105, Color(255, 220, 30, 255), 11.f);
+	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 300)	Disp_TexteCentre(_SANTE3, 92, 105, Color(255, 190, 10, 255), 11.f);
+	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 100)	Disp_TexteCentre(_SANTE4, 92, 105, Color(255, 80, 10, 255), 11.f);
 	else 														Disp_TexteCentre(_SANTE5, 92, 105, Color(255, 0, 0, 255), 11.f);
 
-	if (Partie.perso->get("Energie") < 140)
+	if (gamedata::player()->get("Energie") < 140)
 	{
 		if (PersoEnePrec >= 140) Disp_Information(_FATIGUE, true);
 		Disp_TexteCentre(_SANTE_FATIGUE, 92, 120, Color(255, 255, 128, 255), 11.f);
 	}
-	PersoEnePrec = Partie.perso->get("Energie");
+	PersoEnePrec = gamedata::player()->get("Energie");
 
 	//Effets dûs aux objets temporaires
 	int y = 70;
-	for (mapObjects::iterator i = Partie.perso->Get_Caracs()->objects.objects.begin() ; i != Partie.perso->Get_Caracs()->objects.objects.end() ; ++i)
+	for (mapObjects::iterator i = gamedata::player()->Get_Caracs()->objects.objects.begin() ; i != gamedata::player()->Get_Caracs()->objects.objects.end() ; ++i)
 	{
 		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first)
 		{

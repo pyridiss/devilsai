@@ -53,10 +53,6 @@ struct Classe_Partie
 
 	bool ModeCinematiques   = false;
 
-	Carte *CarteCourante    = NULL;
-
-	Joueur *perso   = NULL;
-
 	Journal journal;
 
 	UserScreen screenCharacter;
@@ -135,7 +131,6 @@ extern Classe_Jeu::Classe_Options Options;
 //Fonctions définies dans les fichiers dépendants de Jeu
 void Load_Chapitre(int);
 
-bool RechercheJoueur();
 void LectureSauvegardes();
 bool PartieSauvegardee();
 void mainLoop();

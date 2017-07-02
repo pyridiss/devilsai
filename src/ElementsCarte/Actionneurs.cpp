@@ -30,6 +30,7 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
 
 /** FONCTIONS DE LA CLASSE Actionneur **/
 
@@ -119,7 +120,7 @@ Trigger::~Trigger()
 
 bool Trigger::activated()
 {
-    return tools::math::intersection(Partie.perso->size, size);
+    return tools::math::intersection(gamedata::player()->size, size);
 }
 
 int Trigger::Gestion()

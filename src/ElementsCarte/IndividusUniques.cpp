@@ -24,6 +24,8 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
+
 
 /** FONCTIONS DE LA CLASSE Individu_Unique **/
 
@@ -201,7 +203,7 @@ bool Individu_Unique::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, position().x, position().y);
+		Cadavre *corpse = gamedata::currentWorld()->AjouterCadavre(Liste, position().x, position().y);
         corpse->Set_Individu(Type, corpseImageKey);
 
 		TypeClassement = CLASSEMENT_CADAVRE;

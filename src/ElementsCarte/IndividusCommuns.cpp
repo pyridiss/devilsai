@@ -23,6 +23,8 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
+
 using namespace tinyxml2;
 
 
@@ -69,7 +71,7 @@ bool Individu_Commun::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-		Cadavre *corpse = Partie.CarteCourante->AjouterCadavre(Liste, position().x, position().y);
+		Cadavre *corpse = gamedata::currentWorld()->AjouterCadavre(Liste, position().x, position().y);
         corpse->Set_Individu(Type, Classe->corpseImageKey);
 
 		TypeClassement = CLASSEMENT_CADAVRE;

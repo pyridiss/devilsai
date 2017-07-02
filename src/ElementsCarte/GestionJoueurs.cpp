@@ -29,6 +29,8 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
+
 #define NORD 0
 #define SUD 1
 #define EST 2
@@ -207,12 +209,12 @@ int Joueur::Gestion()
 
 		//TESTS DE COLLISIONS
 		Resultat = COLL_OK;
-		Partie.CarteCourante->resetCollisionManager();
+		gamedata::currentWorld()->resetCollisionManager();
 		ElementInteraction = -1;
 
 		while(Resultat != COLL_END && Resultat != COLL_PRIM)
 		{
-			Resultat = Partie.CarteCourante->browseCollisionList(this);
+			Resultat = gamedata::currentWorld()->browseCollisionList(this);
 
 			if (Resultat == COLL_PRIM_MVT)
 			{
@@ -223,7 +225,7 @@ int Joueur::Gestion()
 			{
 				if (EnAttente != COLL_ATT)
 				{
-					tmp1 = Partie.CarteCourante->getCurrentCollider();
+					tmp1 = gamedata::currentWorld()->getCurrentCollider();
 					EnAttente = COLL_INTER;
 					if (tmp1 != NULL) ElementInteraction = tmp1->Id;
 				}
@@ -232,7 +234,7 @@ int Joueur::Gestion()
 
 			if (Resultat == COLL_ATT)
 			{
-				tmp1 = Partie.CarteCourante->getCurrentCollider();
+				tmp1 = gamedata::currentWorld()->getCurrentCollider();
 				EnAttente = COLL_ATT;
 				if (tmp1 != NULL) ElementInteraction = tmp1->Id;
 			}

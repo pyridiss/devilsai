@@ -27,6 +27,8 @@
 #include "../Bibliotheque/Templates.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "gamedata.h"
+
 
 void addQuest(string newQuest, string args)
 {
@@ -45,7 +47,7 @@ void addQuest(string newQuest, string args)
 	});
 
 	lua_register(L, "addQuest",			[](lua_State* L) { addQuest(lua_tostring(L, 1), "true"); return 0; });
-	lua_register(L, "addExperience",	[](lua_State* L) { Partie.perso->GainExperience(NULL, 0, lua_tonumber(L, 1)); return 0; });
+	lua_register(L, "addExperience",	[](lua_State* L) { gamedata::player()->GainExperience(NULL, 0, lua_tonumber(L, 1)); return 0; });
 	lua_register(L, "toBlack",			[](lua_State* L) { Disp_FonduNoir(lua_toboolean(L, 1) ? 1 : -1); return 0; });
 	lua_register(L, "loadFirstChapter",	[](lua_State* L) { Partie.loadFirstChapter = true; return 0; });
 	lua_register(L, "enableCinematics",	[](lua_State* L) { Partie.ModeCinematiques = lua_toboolean(L, 1); return 0; });
@@ -150,7 +152,7 @@ int Mission::Gestion()
 	int Retour = 0;
 
 	Element_Carte *tmp = NULL;
-	Individu_Unique* ind = Partie.perso;
+	Individu_Unique* ind = gamedata::player();
 	Individu_Unique* Donneur;
 	Individu_Unique* Receveur;
 	MapInventaire::iterator equ;
@@ -197,14 +199,14 @@ int Mission::Gestion()
 									}
 									break;
 
-		case OBJECTIF_SUIVRE_PERSO :	if (DonneesString[DONNEE_CARTE] != Partie.CarteCourante->Id) break;
-										tmp = Partie.CarteCourante->head;
+		case OBJECTIF_SUIVRE_PERSO :	if (DonneesString[DONNEE_CARTE] != gamedata::currentWorld()->Id) break;
+										tmp = gamedata::currentWorld()->head;
 										while (tmp != NULL)
 										{
 											if (tmp->Liste == DonneesString[DONNEE_LISTE])
 											{
-												tmp->PosX = Partie.perso->PosX;
-												tmp->PosY = Partie.perso->PosY;
+												tmp->PosX = gamedata::player()->PosX;
+												tmp->PosY = gamedata::player()->PosY;
 											}
 											tmp = tmp->next;
 										}

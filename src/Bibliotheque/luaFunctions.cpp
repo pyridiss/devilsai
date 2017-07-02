@@ -30,6 +30,7 @@
 #include "../Jeu/Jeu.h"
 #include "Bibliotheque.h"
 
+#include "gamedata.h"
 
 int LUA_panic(lua_State* L)
 {
@@ -243,7 +244,7 @@ int LUA_getNumberEnemiesInList(lua_State* L)
 
 	string list = lua_tostring(L, 1);
 	int qty = 0;
-	for (auto& tmp : Partie.CarteCourante->elements)
+	for (auto& tmp : gamedata::currentWorld()->elements)
 		if (tmp->Liste == list && tmp->Type != "TYPE_CADAVRE") ++qty;
 
 	lua_pushnumber(L, qty);
@@ -328,7 +329,7 @@ int LUA_deleteList(lua_State* L)
 {
     MESSAGE("LUA_deleteList() called", LUA)
 
-	Partie.CarteCourante->SupprimerListe(lua_tostring(L, 1));
+	gamedata::currentWorld()->SupprimerListe(lua_tostring(L, 1));
 	return 0;
 }
 
@@ -349,7 +350,7 @@ int LUA_addActionneur(lua_State* L)
 	int w = lua_tonumber(L, 3);
 	int h = lua_tonumber(L, 4);
 
-	Actionneur *newActionneur = Partie.CarteCourante->AjouterActionneur("NO_SAVE", x, y);
+	Actionneur *newActionneur = gamedata::currentWorld()->AjouterActionneur("NO_SAVE", x, y);
     newActionneur->size.rectangle(tools::math::Vector2d(-w, -h), tools::math::Vector2d(w, -h), tools::math::Vector2d(-w, h));
 	lua_pushlightuserdata(L, (void*)newActionneur);
 	return 1;
@@ -360,7 +361,7 @@ int LUA_deleteElement(lua_State* L)
     MESSAGE("LUA_deleteElement() called", LUA)
 
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
-	Partie.CarteCourante->SupprimerElement(elem);
+	gamedata::currentWorld()->SupprimerElement(elem);
 	return 0;
 }
 
@@ -484,7 +485,7 @@ int LUA_loadElement(lua_State* L)
 	stream << lua_tostring(L, 1);
 	string list = lua_tostring(L, 2);
 
-	Element_Carte* elem = loadElementsFromStream(stream, Partie.CarteCourante, list);
+	Element_Carte* elem = loadElementsFromStream(stream, gamedata::currentWorld(), list);
 
     lua_pushlightuserdata(L, (void*)elem);
 	return 1;
@@ -557,7 +558,7 @@ int LUA_triggerActivated(lua_State* L)
     MESSAGE("LUA_triggerActivated() called", LUA)
 
 	int id = lua_tonumber(L, 1);
-	for (Trigger* i : Partie.CarteCourante->triggers)
+	for (Trigger* i : gamedata::currentWorld()->triggers)
 	{
 		if (i->Id == id)
 		{
@@ -574,8 +575,8 @@ int LUA_changePlace(lua_State* L)
 
 	int indice = lua_tonumber(L, 1);
 	string type = lua_tostring(L, 2);
-	Partie.perso->IndiceLieu = indice;
-	Partie.perso->LieuVillage = type;
+	gamedata::player()->IndiceLieu = indice;
+	gamedata::player()->LieuVillage = type;
 	return 0;
 }
 
@@ -587,7 +588,7 @@ int LUA_createIndividual(lua_State* L)
     double x = lua_tonumber(L, 2);
     double y = lua_tonumber(L, 3);
 
-    Individu* i = Partie.CarteCourante->AjouterElement_Commun(type, "default", x, y);
+    Individu* i = gamedata::currentWorld()->AjouterElement_Commun(type, "default", x, y);
 
     lua_pushlightuserdata(L, (void*)i);
 

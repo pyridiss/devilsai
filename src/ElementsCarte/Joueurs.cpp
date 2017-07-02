@@ -30,6 +30,8 @@
 #include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 
+#include "gamedata.h"
+
 /** FONCTIONS DE LA CLASSE Joueur **/
 
 Joueur::Joueur() : Individu_Unique()
@@ -286,22 +288,22 @@ bool Joueur::ApplicationAmeliorations()
 
 void Disp_Personnage()
 {
-	Disp_Texte(Partie.perso->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
+	Disp_Texte(gamedata::player()->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
 
 	Disp_Texte(_PERSO_VITALITE, 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)Partie.perso->get("Vitalite")), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
+	Disp_Texte(intToString((int)gamedata::player()->get("Vitalite")), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
 
 	Disp_Texte(_PERSO_ENERGIE, 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)Partie.perso->get("Energie")), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
+	Disp_Texte(intToString((int)gamedata::player()->get("Energie")), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
 	Disp_Texte(_PERSO_RECUP, 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
-	if (Partie.perso->get("Recuperation") >= 0)
-		Disp_Texte(intToString((int)Partie.perso->get("Recuperation")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
-	if (Partie.perso->get("Recuperation") < 0)
-		Disp_Texte(intToString((int)Partie.perso->get("Recuperation")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
+	if (gamedata::player()->get("Recuperation") >= 0)
+		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
+	if (gamedata::player()->get("Recuperation") < 0)
+		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
 	Disp_Texte(_PERSO_EXP, 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)Partie.perso->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 
 	//Affichage des dégâts de la compétence Arme :
 	lua_State* weapon = NULL;
@@ -309,13 +311,13 @@ void Disp_Personnage()
 		if (Partie.perso->CompetencesRapides[i] != NULL && Partie.perso->CompetencesRapides[i]->Id/100 == TYPE_COMP_ARME)
  */ //			cpt_arme = dynamic_cast<Competence_Arme*>(Partie.perso->CompetencesRapides[/*i*/COMPETENCE_CTRL]);
 
-	weapon = Partie.perso->skillLinks[COMPETENCE_CTRL];
+	weapon = gamedata::player()->skillLinks[COMPETENCE_CTRL];
 
 	if (weapon != NULL)
 	{
 		Disp_Texte(_PERSO_DEGATS, 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)Partie.perso->get("Force")/2)
-						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)Partie.perso->get("Force")/2);
+		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2)
+						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2);
 		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 	}
 
@@ -324,8 +326,8 @@ void Disp_Personnage()
 	for (string characteristic : {	"Force", "Puissance", "Agilite", "Intelligence", "Constitution", "Esquive", "Charisme",
 									"RecuperationMoyenne"})
 	{
-		int absoluteQty = Partie.perso->Caracs[characteristic];
-		int diffQty = Partie.perso->get(characteristic) - absoluteQty;
+		int absoluteQty = gamedata::player()->Caracs[characteristic];
+		int diffQty = gamedata::player()->get(characteristic) - absoluteQty;
 
 		Disp_Texte(phrase, 280, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 
@@ -345,15 +347,15 @@ void Disp_MiniaturesCompetences()
 {
     imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
 
-    if (Partie.perso->skillLinks[0] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[0], "getName"), 5, Options.ScreenH - 55);
+    if (gamedata::player()->skillLinks[0] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[0], "getName"), 5, Options.ScreenH - 55);
 
-    if (Partie.perso->skillLinks[1] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[1], "getName"), 5, Options.ScreenH - 105);
+    if (gamedata::player()->skillLinks[1] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[1], "getName"), 5, Options.ScreenH - 105);
 
-    if (Partie.perso->skillLinks[2] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[2], "getName"), 5, Options.ScreenH - 171);
+    if (gamedata::player()->skillLinks[2] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[2], "getName"), 5, Options.ScreenH - 171);
 
-    if (Partie.perso->skillLinks[3] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.perso->skillLinks[3], "getName"), 71, Options.ScreenH - 55);
+    if (gamedata::player()->skillLinks[3] != nullptr)
+        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[3], "getName"), 71, Options.ScreenH - 55);
 }

@@ -24,6 +24,8 @@
 #include "imageManager/imageManager.h"
 #include "gui/button.h"
 
+#include "gamedata.h"
+
 gui::Button *BoutonsInventaire[24];
 gui::Button *BoutonsCoffre[8];
 gui::Button *BoutonsCompetences[4]; //Never displayed, but useful to test activation
@@ -100,12 +102,12 @@ void Disp_Competences()
 	imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
 	Disp_TexteCentre(_COMPETENCES, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
-	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
+	mapSkills::iterator skill = gamedata::player()->Get_Caracs()->skills.begin();
 
 	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
 	{
         BoutonsInventaire[cmpt]->display(Jeu.App);
-		if (skill != Partie.perso->Get_Caracs()->skills.end())
+		if (skill != gamedata::player()->Get_Caracs()->skills.end())
 		{
             string name = getStringFromLUA(skill->second, "getName");
             imageManager::display(Jeu.App, "skills", name, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
@@ -124,11 +126,11 @@ void Disp_Competences()
 
 void Gestion_Competences(Event &event)
 {
-	mapSkills::iterator skill = Partie.perso->Get_Caracs()->skills.begin();
+	mapSkills::iterator skill = gamedata::player()->Get_Caracs()->skills.begin();
 
 	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
 	{
-		if (skill != Partie.perso->Get_Caracs()->skills.end())
+		if (skill != gamedata::player()->Get_Caracs()->skills.end())
 		{
             if (BoutonsInventaire[cmpt]->activated(Jeu.App, event))
                 Partie.selectedSkill = skill->second;
@@ -142,12 +144,12 @@ void Gestion_Competences(Event &event)
 		for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
 		if (BoutonsCompetences[i]->activated(Jeu.App, event))
 		{
-			Partie.perso->skillLinks[i] = Partie.selectedSkill;
+			gamedata::player()->skillLinks[i] = Partie.selectedSkill;
 			//We must remove duplicates of this skill
 			for (int j : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
 			{
-				if (i != j && Partie.perso->skillLinks[j] == Partie.selectedSkill)
-                    Partie.perso->skillLinks[j] = nullptr;
+				if (i != j && gamedata::player()->skillLinks[j] == Partie.selectedSkill)
+                    gamedata::player()->skillLinks[j] = nullptr;
 			}
 			Partie.selectedSkill = nullptr;
 		}
@@ -230,10 +232,10 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 void Disp_Equipement()
 {
 	//Just a pointer to simplify source code
-	mapObjects* objects = &(Partie.perso->Get_Caracs()->objects.objects);
+	mapObjects* objects = &(gamedata::player()->Get_Caracs()->objects.objects);
 
 	//Affichage des emplacements et des objets s'y trouvant
-	for (auto& emp : Partie.perso->EmplacementsEquip)
+	for (auto& emp : gamedata::player()->EmplacementsEquip)
 	{
 		emp.BoutonEquipement->display(Jeu.App);
 		mapObjects::iterator obj = objects->find(emp.Get_IdEmplacement());
@@ -252,7 +254,7 @@ void Disp_Equipement()
 	}
 
 	//Si un des objets est survolé par la souris, affichage de ses caractéristiques
-	for (auto& emp : Partie.perso->EmplacementsEquip)
+	for (auto& emp : gamedata::player()->EmplacementsEquip)
 	{
 		if (emp.BoutonEquipement->mouseHovering(Jeu.App))
 		{
@@ -314,7 +316,7 @@ void Disp_Equipement()
 
 void Disp_Coffre()
 {
-	if (Get_Element(Partie.perso->ElementInteraction) == NULL) Partie.CoffreOuvert = NULL;
+	if (gamedata::findElement(gamedata::player()->ElementInteraction) == NULL) Partie.CoffreOuvert = NULL;
 
 	if (Partie.CoffreOuvert == NULL) return;
 
@@ -352,7 +354,7 @@ void Disp_Coffre()
 void Gestion_Coffre(Event &event)
 {
 	//Just a pointer to simplify source code
-	mapObjects* objects = &(Partie.perso->Get_Caracs()->objects.objects);
+	mapObjects* objects = &(gamedata::player()->Get_Caracs()->objects.objects);
 
 	//Contrôle des clics :
 	bool ClicGauche = !(event.mouseButton.button == Mouse::Right);
@@ -362,7 +364,7 @@ void Gestion_Coffre(Event &event)
 	ListEmplacementsEquipements::iterator emp;
 	bool EquipClic = false;
 
-	for (emp = Partie.perso->EmplacementsEquip.begin() ; emp != Partie.perso->EmplacementsEquip.end() ; ++emp)
+	for (emp = gamedata::player()->EmplacementsEquip.begin() ; emp != gamedata::player()->EmplacementsEquip.end() ; ++emp)
 	{
 		if (emp->BoutonEquipement->activated(Jeu.App, event))
 		{
@@ -392,7 +394,7 @@ void Gestion_Coffre(Event &event)
 			if (getBoolFromLUA(Partie.selectedObject, "getCumul") && getIntFromLUA(Partie.selectedObject, "getQuantite") > 1)
 			{
 				//We need to load a new object
-				result = Partie.perso->Get_Caracs()->objects.addObject(getStringFromLUA(Partie.selectedObject, "getFileName"), getStringFromLUA(Partie.selectedObject, "getIdEmplacement"));
+				result = gamedata::player()->Get_Caracs()->objects.addObject(getStringFromLUA(Partie.selectedObject, "getFileName"), getStringFromLUA(Partie.selectedObject, "getIdEmplacement"));
 				if (result.second)
 				{
 					setStringToLUA(result.first->second, "setKey", getStringFromLUA(result.first->second, "getIdEmplacement"));
@@ -440,7 +442,7 @@ void Gestion_Coffre(Event &event)
 							(getStringFromLUA(currentObject->second, "getCategorieObjet") == "temporaire" ||
 							getStringFromLUA(currentObject->second, "getCategorieObjet") == "amelioratif" ))
 						{
-							Partie.perso->Get_Caracs()->objects.deleteObject(currentObject->second);
+							gamedata::player()->Get_Caracs()->objects.deleteObject(currentObject->second);
 							objects->erase(currentObject);
 							sourceObject = objects->find(intToString(CLEF_INVENTAIRE + Case));
 						}
@@ -450,7 +452,7 @@ void Gestion_Coffre(Event &event)
 						if (getBoolFromLUA(sourceObject->second, "getCumul") && getIntFromLUA(sourceObject->second, "getQuantite") > 1)
 						{
 							//We need to load a new object
-							result = Partie.perso->Get_Caracs()->objects.addObject(getStringFromLUA(sourceObject->second, "getFileName"), getStringFromLUA(sourceObject->second, "getIdEmplacement"));
+							result = gamedata::player()->Get_Caracs()->objects.addObject(getStringFromLUA(sourceObject->second, "getFileName"), getStringFromLUA(sourceObject->second, "getIdEmplacement"));
 							sourceObject = objects->find(intToString(CLEF_INVENTAIRE + Case));
 							if (result.second)
 							{

@@ -27,6 +27,7 @@
 #include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
+#include "gamedata.h"
 
 /** FONCTIONS DE GESTION DE LA CLASSE Individu **/
 
@@ -120,10 +121,10 @@ int Individu::Gestion()
 
 		//Test de collision dans la nouvelle position de l'individu
 		NouveauComportement = -1;
-		Partie.CarteCourante->resetCollisionManager();
+		gamedata::currentWorld()->resetCollisionManager();
 		while(Resultat != COLL_END && Resultat != COLL_PRIM)
 		{
-			Resultat = Partie.CarteCourante->browseCollisionList(this);
+			Resultat = gamedata::currentWorld()->browseCollisionList(this);
 
 			if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
 
@@ -132,14 +133,14 @@ int Individu::Gestion()
 
 			if (Resultat == COLL_ATT)
 			{
-				tmp2 = Partie.CarteCourante->getCurrentCollider();
+				tmp2 = gamedata::currentWorld()->getCurrentCollider();
 				if (tmp1 == NULL || EnAttente == COLL_VIS) tmp1 = tmp2;
 				EnAttente = COLL_ATT;
 				NouveauComportement = COMPORTEMENT_ATTAQUE;
 			}
 			if (Resultat == COLL_VIS)
 			{
-				tmp2 = Partie.CarteCourante->getCurrentCollider();
+				tmp2 = gamedata::currentWorld()->getCurrentCollider();
 				if (tmp2 == NULL) break;
 
 				Resultat = tmp2->Collision(this, COLL_VIS); //Permet de définir, si nécessaire, le nouveau comportement
@@ -255,13 +256,13 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 
         //Tests de collision :
         int Resultat = COLL_OK;
-        Partie.CarteCourante->resetCollisionManager();
+        gamedata::currentWorld()->resetCollisionManager();
         while(Resultat != COLL_END && Resultat != COLL_PRIM)
         {
-            Resultat = Partie.CarteCourante->browseCollisionList(this);
+            Resultat = gamedata::currentWorld()->browseCollisionList(this);
 
             //Annihile COLL_PRIM_MVT si c'est l'élément chassé qui est détecté
-            if (Resultat == COLL_PRIM_MVT && Partie.CarteCourante->getCurrentCollider() == elem) Resultat = COLL_OK;
+            if (Resultat == COLL_PRIM_MVT && gamedata::currentWorld()->getCurrentCollider() == elem) Resultat = COLL_OK;
 
             //Les Collisions INTER sont pour le moment inutiles ici
             if (Resultat == COLL_INTER) Resultat = COLL_OK;

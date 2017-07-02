@@ -30,6 +30,7 @@
 #include "Constantes.h"
 #include "Templates.h"
 
+#include "gamedata.h"
 
 /** VARIABLES GLOBALES **/
 
@@ -250,9 +251,9 @@ void cutParagraph(Paragraph* paragraph)
 	//Before cutting, detect the presence of formatting characters
 	size_t formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
 
-	while (Partie.perso != NULL && formattingCharacterPosition != paragraph->characters.npos)
+	while (gamedata::player() != NULL && formattingCharacterPosition != paragraph->characters.npos)
 	{
-		paragraph->characters.replace(formattingCharacterPosition, Options.CharForm.size(), Partie.perso->Nom);
+		paragraph->characters.replace(formattingCharacterPosition, Options.CharForm.size(), gamedata::player()->Nom);
 		formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
 	}
 
