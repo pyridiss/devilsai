@@ -41,20 +41,8 @@ Element_Carte::~Element_Carte()
 {
 }
 
-short Element_Carte::Get_Controle()
-{
-	return Controle;
-}
-
-void Element_Carte::Set_Controle(short nv)
-{
-	Controle = nv;
-}
-
 int Element_Carte::Gestion()
 {
-	if (Get_Controle() == HUMAIN) return ETAT_CONTINUER;
-
     if (lifetime > 0)
     {
         lifetime -= tools::timeManager::I(1);

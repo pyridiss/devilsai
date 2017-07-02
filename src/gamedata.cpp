@@ -137,23 +137,8 @@ void copyInertItemFromDesign(string t, Paysage *elem)
 
 Joueur* player()
 {
-    if (_player != nullptr)
-        return _player;
-
-    for (auto& w : _worlds)
-    {
-        for (auto& e : w.second->elements)
-        {
-            if (e->Get_Controle() == HUMAIN)
-            {
-                _player = dynamic_cast<Joueur*>(e);
-                _currentWorld = w.second;
-            }
-        }
-    }
-
     if (_player == nullptr)
-        tools::debug::error("No player found", "gamedata");
+        tools::debug::error("No player loaded", "gamedata");
 
     return _player;
 }

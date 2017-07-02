@@ -119,7 +119,6 @@ int LUA_set(lua_State* L)
 	if (field == "energy")			if (ind != NULL) ind->Set_Energie(value);
 	if (field == "recuperation")	if (ind != NULL) ind->Set_Recuperation(value);
 	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
-	if (field == "Controle")		if (elem != NULL) elem->Set_Controle((int)value);
 	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
 	if (field == "Force")			if (ind != NULL) (*ind->Get_Caracs())["Force"] = value;
 	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;

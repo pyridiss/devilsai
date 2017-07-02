@@ -346,7 +346,6 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 	Load_IndividuUnique(Type, ind);
 
     ind->move(x, y);
-	ind->Set_Controle(HUMAIN); /** NE DISTINGUE PAS LE JOUEUR PRINCIPAL D'UN JOUEUR EN RÉSEAU **/
 
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
 

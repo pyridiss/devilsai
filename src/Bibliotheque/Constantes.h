@@ -59,12 +59,6 @@ using namespace std;
 
 /** CONSTANTES RELATIVES AUX ÉLÉMENTS **/
 
-//Controle de l'individu
-#define AUCUN		0
-#define HUMAIN		1
-#define AI			2
-//#define RESEAU	-1
-
 //Diplomaties
 #define DIPLOM_NEUTRE	0
 #define DIPLOM_ALLIE	1

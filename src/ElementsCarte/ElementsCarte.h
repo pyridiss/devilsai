@@ -114,9 +114,6 @@ class Element_Carte
 		short Diplomatie    = 0;
         double lifetime     = -1;
 
-	protected:
-		short Controle      = AUCUN;
-
 	private:
         tools::math::Vector2d _position;
 
@@ -134,13 +131,10 @@ class Element_Carte
 
 	//Getter :
 	public:
-		short Get_Controle();
         const tools::math::Vector2d& position();
 
 	//Gestion :
 	public:
-		void Set_Controle(short nv);
-
 		virtual int Gestion();
 
 		virtual int Collision(Individu *elem, int TypeCollision) =0;

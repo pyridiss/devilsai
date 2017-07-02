@@ -67,7 +67,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		if (Esquive)
 		{
 			Degats = 0;
-			if (Blesse->Get_Controle() == HUMAIN)
+			if (Blesse == gamedata::player())
 			{
 				gamedata::player()->CoupEsquive(Attaquant);
 				Ajouter_LignePerso(getTranslatedMessage(_ESQUIVE), Color(128, 255, 128, 255));
@@ -100,14 +100,14 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		Blesse->Lag_Vitalite(-Degats);
 		Blesse->Lag_Recuperation(-3-Degats/20);
 
-		if (Attaquant->Get_Controle() == HUMAIN)
+		if (Attaquant == gamedata::player())
 		{
 			gamedata::player()->GainExperience(Blesse, Degats);
 
 			String32 Infliges = getFormatedTranslatedMessage(_DEGATS_INFLIGES, (unsigned)Degats);
 			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}
-		if (Blesse->Id == gamedata::player()->Id)
+		if (Blesse == gamedata::player())
 		{
 			if (gamedata::player()->Get_Act() == BLESSE) gamedata::player()->BlessuresMultiples(Attaquant);
 			String32 Recus = getFormatedTranslatedMessage(_DEGATS_RECUS, (unsigned)Degats);
