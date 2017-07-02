@@ -350,6 +350,8 @@ Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
 
 	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
 
+    gamedata::setPlayer(ind, this);
+
 	AjouterElementEnListe(ind);
 	return ind;
 }

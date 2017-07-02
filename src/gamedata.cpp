@@ -158,6 +158,12 @@ Joueur* player()
     return _player;
 }
 
+void setPlayer(Joueur* p, Carte* w)
+{
+    _player = p;
+    _currentWorld = w;
+}
+
 Carte* currentWorld()
 {
     return _currentWorld;

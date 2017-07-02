@@ -42,6 +42,7 @@ void clearInertItemDesigns();
 Paysage* inertItemDesign(const string& type);
 void copyInertItemFromDesign(string t, Paysage *elem);
 Joueur* player();
+void setPlayer(Joueur* p, Carte *w);
 Carte* currentWorld();
 Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
