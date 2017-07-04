@@ -319,7 +319,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
             if (elem->Attribute("allText"))
             {
                 string t = elem->Attribute("allText");
-                widget->setAllText(tools::textManager::getText("devilsai", t));
+                widget->setAllText(tools::textManager::getText("gui", t));
             }
             int textSize = gui::style::defaultTextSize();
             elem->QueryAttribute("textSize", &textSize);
@@ -341,7 +341,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
                     if (elem2->Attribute("text"))
                     {
                         string t = elem2->Attribute("text");
-                        widget->setText(stateName, tools::textManager::getText("devilsai", t));
+                        widget->setText(stateName, tools::textManager::getText("gui", t));
                     }
 
                     if (elem2->Attribute("backgroundShader"))

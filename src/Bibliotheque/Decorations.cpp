@@ -73,7 +73,7 @@ void Load_Decorations()
     imageManager::addAnimation("playerEnergyGaugeBackground", "img/BarreEnergie.png");
     imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
-    tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
+    tools::textManager::loadFile("gui", "lng/gui_FR.xml");
     tools::textManager::loadFile("species", "lng/species_FR.xml");
 
 	Load_Decorations_Objets();
