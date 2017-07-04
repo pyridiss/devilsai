@@ -30,14 +30,7 @@
 using namespace std;
 using namespace sf;
 
-class Joueur;
 class Coffre;
-class Individu_Unique;
-
-typedef map < int, int > MapDonneesInt;
-typedef map < int, float > MapDonneesFloat;
-typedef map < int, string > MapDonneesString;
-
 
 /**
  * Contient les principales données concernant la partie en cours :
@@ -75,7 +68,6 @@ struct Classe_Jeu
 	struct Classe_Arguments
 	{
 		bool TabVerbose[6]      = {false};
-		bool SaveDisabled       = false;
 	};
 
 	struct Classe_Options
@@ -118,8 +110,6 @@ void LectureSauvegardes();
 bool PartieSauvegardee();
 void mainLoop();
 void Clean_Partie();
-
-int MenuPrincipal();
 
 void Save_Partie();
 bool Load_Partie(string);

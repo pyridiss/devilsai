@@ -24,8 +24,6 @@ using namespace std;
 
 /** CONSTANTES RELATIVES AU JEU **/
 
-#include "config.h"
-
 //Constantes de débogage
 #define DEBOGAGE 1
 
@@ -44,12 +42,6 @@ using namespace std;
 
 //Value used to say "not found"
 #define MAX_VALUE 2147483647
-
-//Constantes pour le choix du menu principal
-#define NOUVEAU 1
-#define CHARGER 2
-#define OPTIONS 3
-#define QUITTER 4
 
 //Touches
 #define HAUT		0
@@ -79,7 +71,6 @@ using namespace std;
 #define ATTAQUE		"4"
 #define BLESSE		"5"
 #define MORT		"6"
-#define ACTIVATION	"7"
 
 //Comportements des individus
 #define COMPORTEMENT_ALEATOIRE	10
@@ -89,7 +80,6 @@ using namespace std;
 #define COMPORTEMENT_REGEN		14
 
 //Numéros de classe pour les paysages, types pour les Elements spéciaux
-#define CLASSE_PAYSAGE	0
 #define TYPE_ACTIONNEUR	1001
 #define TYPE_COFFRE		1002
 #define TYPE_CADAVRE	1003

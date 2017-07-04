@@ -24,7 +24,7 @@
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
+#include "../Bibliotheque/Bibliotheque.h"
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 

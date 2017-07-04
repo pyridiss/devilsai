@@ -109,11 +109,6 @@ void GestionArguments(int n, char *params[])
 			Arguments.TabVerbose[MUSIC] = true;
             tools::debug::addDebugCategory("musics");
 		}
-		if (strcmp(params[i], "--no-save") == 0)
-		{
-			cout << "Mode SAVE DISABLED activé" << endl;
-			Arguments.SaveDisabled = true;
-		}
 		if (strcmp(params[i], "-m") == 0)
 		{
 			Options.displayShapes = true;

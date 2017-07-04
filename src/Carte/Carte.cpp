@@ -26,7 +26,7 @@
 #include "musicManager/musicManager.h"
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
+#include "../Bibliotheque/Bibliotheque.h"
 #include "Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 

@@ -24,7 +24,6 @@
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Templates.h"
-#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"

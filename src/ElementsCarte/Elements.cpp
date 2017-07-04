@@ -23,7 +23,6 @@
 #include "tools/timeManager.h"
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 

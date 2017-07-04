@@ -20,7 +20,6 @@
 #include <cmath>
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Carte.h"
 
