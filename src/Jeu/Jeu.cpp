@@ -29,6 +29,31 @@
 
 #include "gamedata.h"
 
+
+class UserScreen
+{
+	public:
+		void (*dispFunction)(void);
+		void (*manageFunction)(Event&);
+};
+
+UserScreen screenCharacter;
+UserScreen screenEquipment;
+UserScreen screenSkills;
+UserScreen screenJournal;
+UserScreen *currentUserScreen = nullptr;
+
+void changeCurrentUserScreen(UserScreen* _new)
+{
+	if (_new == nullptr) currentUserScreen = nullptr;
+	else
+	{
+		if (currentUserScreen != _new)
+			currentUserScreen = _new;
+		else currentUserScreen = nullptr;
+	}
+}
+
 void Load_Chapitre(int Id)
 {
 	string fileName = tools::filesystem::dataDirectory() + "chapitre/" + intToString(Id) + ".chp";
@@ -88,6 +113,18 @@ bool PartieSauvegardee()
 
 void mainLoop()
 {
+    screenCharacter.dispFunction = Disp_Personnage;
+    screenCharacter.manageFunction = nullptr;
+
+    screenEquipment.dispFunction = Disp_Equipement;
+    screenEquipment.manageFunction = Gestion_Coffre;
+
+    screenSkills.dispFunction = Disp_Competences;
+    screenSkills.manageFunction = Gestion_Competences;
+
+    screenJournal.dispFunction = displayJournal;
+    screenJournal.manageFunction = nullptr;
+
 	float ChangementLieu = 255;
 	float SauvegardeEffectuee = 255;
 
@@ -128,8 +165,8 @@ void mainLoop()
         {
             ingameToolbar.manage(Jeu.App, event);
 
-            if (Partie.currentUserScreen != nullptr && Partie.currentUserScreen->manageFunction != nullptr)
-                Partie.currentUserScreen->manageFunction(event);
+            if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
+                currentUserScreen->manageFunction(event);
 
             if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 return;
@@ -212,22 +249,22 @@ void mainLoop()
 
             if (signal.first == "screen-character")
             {
-                Partie.changeCurrentUserScreen(&Partie.screenCharacter);
+                changeCurrentUserScreen(&screenCharacter);
             }
 
             if (signal.first == "screen-equipment")
             {
-                Partie.changeCurrentUserScreen(&Partie.screenEquipment);
+                changeCurrentUserScreen(&screenEquipment);
             }
 
             if (signal.first == "screen-skills")
             {
-                Partie.changeCurrentUserScreen(&Partie.screenSkills);
+                changeCurrentUserScreen(&screenSkills);
             }
 
             if (signal.first == "screen-journal")
             {
-                Partie.changeCurrentUserScreen(&Partie.screenJournal);
+                changeCurrentUserScreen(&screenJournal);
                 tools::signals::addSignal("ingame-toolbar:remove-warn-journal");
             }
 
@@ -313,8 +350,8 @@ void mainLoop()
 
         ingameToolbar.display(Jeu.App);
 
-        if (Partie.currentUserScreen != NULL)
-            Partie.currentUserScreen->dispFunction();
+        if (currentUserScreen != NULL)
+            currentUserScreen->dispFunction();
         else
             Disp_MiniaturesCompetences();
 
@@ -398,7 +435,7 @@ void Clean_Partie()
 	Partie.selectedObject = nullptr;
 	Partie.selectedSkill = nullptr;
 	Partie.listDialogs.clear();
-	Partie.currentUserScreen = nullptr;
+	currentUserScreen = nullptr;
 	Partie.journal.entries.clear();
 
 	deleteQuests();

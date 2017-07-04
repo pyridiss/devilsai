@@ -52,12 +52,6 @@ struct Classe_Partie
 
 	Journal journal;
 
-	UserScreen screenCharacter;
-	UserScreen screenEquipment;
-	UserScreen screenSkills;
-	UserScreen screenJournal;
-	UserScreen *currentUserScreen = nullptr;
-
 	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 	lua_State* selectedSkill    = nullptr;
@@ -66,9 +60,6 @@ struct Classe_Partie
 
 	list<Dialog> listDialogs;
 	map<string, lua_State*> quests;
-
-	public:
-		void changeCurrentUserScreen(UserScreen* _new);
 };
 
 /**

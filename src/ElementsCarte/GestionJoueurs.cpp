@@ -261,12 +261,12 @@ int Joueur::Gestion()
 			{
 				if (Partie.CoffreOuvert == NULL) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
 				else if (Partie.CoffreOuvert->Id != tmp1->Id) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
-				if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = &(Partie.screenEquipment);
+				if (Partie.CoffreOuvert != NULL) tools::signals::addSignal("screen-equipment");
 			}
 		}
 		else
 		{
-			if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = nullptr;
+// 			if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = nullptr;
 			Partie.CoffreOuvert = NULL;
 		}
 

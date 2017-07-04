@@ -208,13 +208,6 @@ class Dialog
 		void unload();
 };
 
-class UserScreen
-{
-	public:
-		void (*dispFunction)(void);
-		void (*manageFunction)(Event&);
-};
-
 
 /** DÉCLARATION DES FONCTIONS **/
 

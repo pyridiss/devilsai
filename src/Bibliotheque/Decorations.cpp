@@ -73,18 +73,6 @@ void Load_Decorations()
     imageManager::addAnimation("playerEnergyGaugeBackground", "img/BarreEnergie.png");
     imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
-	Partie.screenCharacter.dispFunction = Disp_Personnage;
-	Partie.screenCharacter.manageFunction = nullptr;
-
-	Partie.screenEquipment.dispFunction = Disp_Equipement;
-	Partie.screenEquipment.manageFunction = Gestion_Coffre;
-
-	Partie.screenSkills.dispFunction = Disp_Competences;
-	Partie.screenSkills.manageFunction = Gestion_Competences;
-
-	Partie.screenJournal.dispFunction = displayJournal;
-	Partie.screenJournal.manageFunction = nullptr;
-
     tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
     tools::textManager::loadFile("species", "lng/species_FR.xml");
 
