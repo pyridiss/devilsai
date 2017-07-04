@@ -205,7 +205,7 @@ String32& getTranslatedMessage(enumPhrases msg)
 	if (i != Dico.end()) return i->second;
 
 	Erreur("La phrase suivante a été demandée sans avoir été chargée :", msg);
-	return Dico.find(_EQUIP_DUREE)->second;
+	return Dico.find(_NONE)->second;
 }
 
 //Cette fonction est définie de manière template dans Templates.h

@@ -17,7 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../Bibliotheque/Templates.h"
+#include "../Bibliotheque/Bibliotheque.h"
+#include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
@@ -190,41 +191,41 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	}
 	if (getDoubleFromLUA(obj, "getDuree") > 0)
 	{
-		Disp_TexteCentre(getFormatedTranslatedMessage(_EQUIP_DUREE, (int)(getDoubleFromLUA(obj, "getDuree")/60.f)), PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
+		Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "EQUIP_DUREE", (int)(getDoubleFromLUA(obj, "getDuree")/60.f)), PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
 		LigneCourante += 16;
 	}
 
 	if (getBoolFromLUA(obj, "getDescriptionAutomatique")) for (int Carac = 0 ; Carac < 19 ; ++Carac)
 	{
-		enumPhrases phrase; string functionLUA = "";
+		string phrase; string functionLUA = "";
 
 		switch(Carac)
 		{
-			case 0 :	functionLUA = "getAbsoluteForce";				phrase = _EQUIP_FORCE;			break;
-			case 1 :	functionLUA = "getAbsoluteMultForce";			phrase = _EQUIP_MULT_FORCE;		break;
-			case 2 :	functionLUA = "getAbsolutePuissance";			phrase = _EQUIP_PUISS;			break;
-			case 3 :	functionLUA = "getAbsoluteMultPuissance";		phrase = _EQUIP_MULT_PUISS;		break;
-			case 4 :	functionLUA = "getAbsoluteAgilite";				phrase = _EQUIP_AGILITE;		break;
-			case 5 :	functionLUA = "getAbsoluteMultAgilite";			phrase = _EQUIP_MULT_AGILITE;	break;
-			case 6 :	functionLUA = "getAbsoluteIntelligence";		phrase = _EQUIP_INTELLI;		break;
-			case 7 :	functionLUA = "getAbsoluteMultIntelligence";	phrase = _EQUIP_MULT_INTELLI;	break;
-			case 8 :	functionLUA = "getAbsoluteConstitution";		phrase = _EQUIP_CONSTIT;		break;
-			case 9 :	functionLUA = "getAbsoluteMultConstitution";	phrase = _EQUIP_MULT_CONSTIT;	break;
-			case 10 :	functionLUA = "getAbsoluteEsquive";				phrase = _EQUIP_ESQUIVE;		break;
-			case 11 :	functionLUA = "getAbsoluteMultEsquive";			phrase = _EQUIP_MULT_ESQUIVE;	break;
-			case 12 :	functionLUA = "getAbsoluteCharisme";			phrase = _EQUIP_CHARISM;		break;
-			case 13 :	functionLUA = "getAbsoluteMultCharisme";		phrase = _EQUIP_MULT_CHARISM;	break;
-			case 14 :	functionLUA = "getAbsoluteRecuperationMoyenne";		phrase = _EQUIP_RECUP;			break;
-			case 15 :	functionLUA = "getAbsoluteMultRecuperationMoyenne";	phrase = _EQUIP_MULT_RECUP;		break;
-			case 16 :	functionLUA = "getAbsoluteVitesseCourse";		phrase = _EQUIP_VIT_COURSE;		break;
-			case 17 :	functionLUA = "getAbsoluteVitesseAttaque";		phrase = _EQUIP_VIT_ATTAQUE;	break;
-			case 18 :	functionLUA = "getAbsoluteVitesseBlesse";		phrase = _EQUIP_VIT_BLESSE;		break;
+			case 0 :	functionLUA = "getAbsoluteForce";				phrase = "EQUIP_FORCE";			break;
+			case 1 :	functionLUA = "getAbsoluteMultForce";			phrase = "EQUIP_MULT_FORCE";		break;
+			case 2 :	functionLUA = "getAbsolutePuissance";			phrase = "EQUIP_PUISS";			break;
+			case 3 :	functionLUA = "getAbsoluteMultPuissance";		phrase = "EQUIP_MULT_PUISS";		break;
+			case 4 :	functionLUA = "getAbsoluteAgilite";				phrase = "EQUIP_AGILITE";		break;
+			case 5 :	functionLUA = "getAbsoluteMultAgilite";			phrase = "EQUIP_MULT_AGILITE";	break;
+			case 6 :	functionLUA = "getAbsoluteIntelligence";		phrase = "EQUIP_INTELLI";		break;
+			case 7 :	functionLUA = "getAbsoluteMultIntelligence";	phrase = "EQUIP_MULT_INTELLI";	break;
+			case 8 :	functionLUA = "getAbsoluteConstitution";		phrase = "EQUIP_CONSTIT";		break;
+			case 9 :	functionLUA = "getAbsoluteMultConstitution";	phrase = "EQUIP_MULT_CONSTIT";	break;
+			case 10 :	functionLUA = "getAbsoluteEsquive";				phrase = "EQUIP_ESQUIVE";		break;
+			case 11 :	functionLUA = "getAbsoluteMultEsquive";			phrase = "EQUIP_MULT_ESQUIVE";	break;
+			case 12 :	functionLUA = "getAbsoluteCharisme";			phrase = "EQUIP_CHARISM";		break;
+			case 13 :	functionLUA = "getAbsoluteMultCharisme";		phrase = "EQUIP_MULT_CHARISM";	break;
+			case 14 :	functionLUA = "getAbsoluteRecuperationMoyenne";		phrase = "EQUIP_RECUP";			break;
+			case 15 :	functionLUA = "getAbsoluteMultRecuperationMoyenne";	phrase = "EQUIP_MULT_RECUP";		break;
+			case 16 :	functionLUA = "getAbsoluteVitesseCourse";		phrase = "EQUIP_VIT_COURSE";		break;
+			case 17 :	functionLUA = "getAbsoluteVitesseAttaque";		phrase = "EQUIP_VIT_ATTAQUE";	break;
+			case 18 :	functionLUA = "getAbsoluteVitesseBlesse";		phrase = "EQUIP_VIT_BLESSE";		break;
 		}
 
 		int value = getIntFromLUA(obj, functionLUA);
 		if (value != 0)
 		{
-			Disp_TexteCentre(getFormatedTranslatedMessage(phrase, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
+			Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", phrase, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
 			LigneCourante += 14;
 		}
 	}
@@ -274,7 +275,7 @@ void Disp_Equipement()
 
 	//Inventaire :
     imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
-	Disp_TexteCentre(_INVENTAIRE, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
+	Disp_TexteCentre(tools::textManager::getText("devilsai", "INVENTAIRE"), 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
 	mapObjects::iterator inv;
 
