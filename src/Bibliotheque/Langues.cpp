@@ -34,6 +34,9 @@
 
 /** VARIABLES GLOBALES **/
 
+typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
+Dictionnaire Dico;
+
 const int numberOfMessages = 96;
 
 Language *languages;
@@ -106,7 +109,7 @@ void loadDevilsaiMessages()
 
 	int messageNumber;
 
-	Jeu.Dico.clear();
+	Dico.clear();
 
 	while (fileStream.rdstate() == 0)
 	{
@@ -124,7 +127,7 @@ void loadDevilsaiMessages()
 			}
 			fileStream.get();
 			fileStream >> message;
-			Jeu.Dico.insert(Dictionnaire::value_type((enumPhrases)messageNumber, message));
+			Dico.insert(Dictionnaire::value_type((enumPhrases)messageNumber, message));
 			++counter;
 		}
 		else getline(fileStream, buffer);
@@ -198,11 +201,11 @@ String32 getTranslatedDescriptionOfObject(int Indice)
 
 String32& getTranslatedMessage(enumPhrases msg)
 {
-	Dictionnaire::iterator i = Jeu.Dico.find(msg);
-	if (i != Jeu.Dico.end()) return i->second;
+	Dictionnaire::iterator i = Dico.find(msg);
+	if (i != Dico.end()) return i->second;
 
 	Erreur("La phrase suivante a été demandée sans avoir été chargée :", msg);
-	return Jeu.Dico.find(_ERREUR)->second;
+	return Dico.find(_ERREUR)->second;
 }
 
 //Cette fonction est définie de manière template dans Templates.h

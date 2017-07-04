@@ -34,7 +34,6 @@ class Joueur;
 class Coffre;
 class Individu_Unique;
 
-typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 typedef map < int, int > MapDonneesInt;
 typedef map < int, float > MapDonneesFloat;
 typedef map < int, string > MapDonneesString;
@@ -69,7 +68,6 @@ struct Classe_Jeu
 {
 	RenderWindow App;
 	Font DayRoman;
-	Dictionnaire Dico;
 
 	int intNotFound = MAX_VALUE;
 	float floatNotFound = MAX_VALUE;
