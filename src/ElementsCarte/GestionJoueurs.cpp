@@ -23,6 +23,7 @@
 
 #include "tools/signals.h"
 #include "tools/math.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
@@ -107,7 +108,7 @@ int Joueur::Gestion()
 			Competence = ChoixCompetence;
 			Temps = 1;
 		}
-		else Disp_Information(_ENERGIE_INSUFFISANTE, true);
+		else Disp_Information(tools::textManager::getText("devilsai", "ENERGIE_INSUFFISANTE"), true);
 	}
 
 		// 5. Modification de la position

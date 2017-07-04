@@ -27,6 +27,7 @@
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
+#include "tools/textManager.h"
 #include "imageManager/imageManager.h"
 
 #include "gamedata.h"
@@ -136,7 +137,7 @@ void Joueur::Gestion_Statistiques()
 
 		//Application
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
-			Disp_Information(_FATIGUE, true);
+			Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), true);
 	}
 }
 
@@ -152,7 +153,7 @@ void Joueur::CoupCritique(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
-		Disp_Information(_CRITIQUE, true);
+		Disp_Information(tools::textManager::getText("devilsai", "CRITIQUE"), true);
 }
 
 void Joueur::BlessureGrave(Individu* ennemi)
@@ -167,7 +168,7 @@ void Joueur::BlessureGrave(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(_BLESSURE, true);
+		Disp_Information(tools::textManager::getText("devilsai", "BLESSURE"), true);
 }
 
 void Joueur::CoupEsquive(Individu* ennemi)
@@ -178,7 +179,7 @@ void Joueur::CoupEsquive(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
-		Disp_Information(_ESQUIVE, true);
+		Disp_Information(tools::textManager::getText("devilsai", "ESQUIVE"), true);
 }
 
 void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
@@ -228,7 +229,7 @@ void Joueur::BlessuresMultiples(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(_BLESSURE, true);
+		Disp_Information(tools::textManager::getText("devilsai", "BLESSURE"), true);
 }
 
 bool Joueur::ApplicationAmeliorations()

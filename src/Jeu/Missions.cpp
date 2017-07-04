@@ -22,6 +22,7 @@
 #include <lua5.2/lua.hpp>
 
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Bibliotheque/Templates.h"
@@ -42,7 +43,7 @@ void addQuest(string newQuest, string args)
 	lua_atpanic(L, LUA_panic);
 
 	lua_register(L, "dispRemainingEnemies", [](lua_State* L) {
-		Ajouter_LigneAmelioration(getFormatedTranslatedMessage(_MONSTRES_RESTANTS, (unsigned)lua_tonumber(L,1)), Color(255, 255, 255, 255));
+		Ajouter_LigneAmelioration(tools::textManager::getFormattedText("devilsai", "MONSTRES_RESTANTS", (unsigned)lua_tonumber(L,1)), Color(255, 255, 255, 255));
 		return 0;
 	});
 

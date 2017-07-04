@@ -18,9 +18,9 @@
 */
 
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
-#include "../Bibliotheque/Templates.h"
+
+#include "tools/textManager.h"
 
 #include "gamedata.h"
 
@@ -69,7 +69,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 			if (Blesse == gamedata::player())
 			{
 				gamedata::player()->CoupEsquive(Attaquant);
-				Ajouter_LignePerso(getTranslatedMessage(_ESQUIVE), Color(128, 255, 128, 255));
+				Ajouter_LignePerso(tools::textManager::getText("devilsai", "ESQUIVE"), Color(128, 255, 128, 255));
 			}
 		}
 		else
@@ -84,7 +84,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				if (Attaquant->Id == gamedata::player()->Id)
 				{
 					gamedata::player()->CoupCritique(Blesse);
-					Ajouter_LignePerso(getTranslatedMessage(_CRITIQUE), Color(240, 40, 40, 255));
+					Ajouter_LignePerso(tools::textManager::getText("devilsai", "CRITIQUE"), Color(240, 40, 40, 255));
 				}
 				if (Blesse->Id == gamedata::player()->Id)
 				{
@@ -103,17 +103,17 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		{
 			gamedata::player()->GainExperience(Blesse, Degats);
 
-			String32 Infliges = getFormatedTranslatedMessage(_DEGATS_INFLIGES, (unsigned)Degats);
+			String32 Infliges = tools::textManager::getFormattedText("devilsai", "DEGATS_INFLIGES", (int)Degats);
 			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}
 		if (Blesse == gamedata::player())
 		{
 			if (gamedata::player()->Get_Act() == BLESSE) gamedata::player()->BlessuresMultiples(Attaquant);
-			String32 Recus = getFormatedTranslatedMessage(_DEGATS_RECUS, (unsigned)Degats);
+			String32 Recus = tools::textManager::getFormattedText("devilsai", "DEGATS_RECUS", (int)Degats);
 			Ajouter_LignePerso(Recus, Color(0, 0, 0, 255));
 		}
 
 		if (Degats) Blesse->Set_Activite(BLESSE);
 	}
-	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(getTranslatedMessage(_ECHEC), Color(200, 10, 20, 255));
+	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(tools::textManager::getText("devilsai", "ECHEC"), Color(200, 10, 20, 255));
 }

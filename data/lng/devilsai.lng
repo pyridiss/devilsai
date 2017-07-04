@@ -4,55 +4,6 @@
 # 
 # TYPE DE FICHIER	:	PHRASES
 # 
-# Catégorie : Écran de jeu
-# ########################
-* MONTRES_RESTANTS	408
-fr= Monstres restants : %%
-en= Remaining monsters: %%
-xx= ...
-* CADAVRE	409
-fr= Cadavre de %%
-en= %%'s corpse
-xx= ...
-* ENERGIE_INSUFFISANTE	410
-fr= Énergie insuffisante !
-en= Insufficient energy!
-xx= ...
-* SOUS_EFFET	411
-fr= Sous l'effet de : %%
-en= Under the effect of: %%
-#
-# Catégorie : Combat
-# ##################
-* ESQUIVE	500
-fr= Coup esquivé !
-en= Dodged strike!
-xx= ...
-* CRITIQUE	501
-fr= Coup Critique !
-en= Critical hit!
-xx= ...
-* BLESSURE 502
-fr= Blessure grave !
-en= Serious injury!
-xx= ...
-* FATIGUE	503
-fr= Fatigue extrême !
-en= Extremely tired!
-xx= ...
-* DEGATS_INFLIGES	504
-fr= Infligés : %%
-en= Done: %%
-xx= ...
-* DEGATS_RECUS	505
-fr= Reçus : %%
-en= Received: %%
-xx= ...
-* ECHEC	506
-fr= Échec !
-en= Failed!
-xx= ...
-# 
 # Catégorie : Améliorations personnage
 # ####################################
 * AMELIORATION_FORCE	600

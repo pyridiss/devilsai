@@ -37,7 +37,7 @@
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 Dictionnaire Dico;
 
-const int numberOfMessages = 61;
+const int numberOfMessages = 50;
 
 Language *languages;
 

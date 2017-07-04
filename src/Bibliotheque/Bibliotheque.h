@@ -42,17 +42,6 @@ typedef list<String32> ListString32;
 typedef list<Paragraph> ListParagraph;
 
 enum enumPhrases{
-	_MONSTRES_RESTANTS = 408,
-	_CADAVRE,
-	_ENERGIE_INSUFFISANTE,
-	_SOUS_EFFET,
-	_ESQUIVE = 500,
-	_CRITIQUE,
-	_BLESSURE,
-	_FATIGUE,
-	_DEGATS_INFLIGES,
-	_DEGATS_RECUS,
-	_ECHEC,
 	_AMELIORATION_FORCE = 600,
 	_AMELIORATION_PUISS,
 	_AMELIORATION_AGILITE,
@@ -188,7 +177,7 @@ void Ajouter_LignePerso(String32, Color);
 void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles();
 void SupprimerLignesConsoles();
-void Disp_Information(enumPhrases, bool);
+void Disp_Information(const String32&, bool);
 void Disp_FonduNoir(int);
 bool Disp_Repos();
 

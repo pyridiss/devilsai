@@ -23,6 +23,7 @@
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
+#include "tools/textManager.h"
 #include "imageManager/imageManager.h"
 
 /** FONCTIONS DE LA CLASSE Coffre **/
@@ -79,7 +80,7 @@ int Cadavre::Gestion()
 
 void Cadavre::Set_Individu()
 {
-	Nom = getFormatedTranslatedMessage(_CADAVRE, getTranslatedNameOfElement(Ind_Id));
+    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", getTranslatedNameOfElement(Ind_Id));
 }
 
 void Cadavre::Set_Individu(string type, string key)

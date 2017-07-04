@@ -2,13 +2,23 @@
 <texts>
     <text id="ACTIVE">Enabled</text>
     <text id="AFFICHAGE_DEGATS">Show done and received damage</text>
+    <text id="BLESSURE">Serious injury!</text>
+    <text id="CADAVRE">%%'s corpse</text>
+    <text id="CRITIQUE">Critical hit!</text>
+    <text id="DEGATS_INFLIGES">Done: %%</text>
+    <text id="DEGATS_RECUS">Received: %%</text>
     <text id="DEMANDE_REDEMARRAGE">Please restart the game to ensure that changes are properly saved</text>
     <text id="DESACTIVE">Disabled</text>
+    <text id="ECHEC">Failed!</text>
+    <text id="ENERGIE_INSUFFISANTE">Insufficient energy!</text>
     <text id="ERREUR">AN ERROR OCCURRED. SEE THE FILE "Devilsai_Errors".</text>
+    <text id="ESQUIVE">Dodged strike!</text>
+    <text id="FATIGUE">Extremely tired!</text>
     <text id="LANCER_PARTIE">Launch the game</text>
     <text id="LANGUE">Language</text>
     <text id="MENUPRINCIPAL_CHARGER">Load a Saved Game</text>
     <text id="MENUPRINCIPAL_OPTIONS">Options</text>
+    <text id="MONTRES_RESTANTS">Remaining monsters: %%</text>
     <text id="PAS_DE_SAUVEG">No saved game available</text>
     <text id="PLEINECRAN">Fullscreen</text>
     <text id="PRECEDENT">&lt; Previous</text>
@@ -17,6 +27,7 @@
     <text id="RETOUR_MENU">&lt; Main menu</text>
     <text id="SAUVEGARDE">Game saved</text>
     <text id="SAUVEGARDE_VERSION">Version: </text>
+    <text id="SOUS_EFFET">Under the effect of: %%</text>
     <text id="SUIVANT">Next &gt;</text>
     <text id="SUPPRIMER_SAUVEGARDE">Delete the game</text>
     <text id="VERSION_INCOMPATIBLE">This saved game is not compatible with this version of the program.</text>

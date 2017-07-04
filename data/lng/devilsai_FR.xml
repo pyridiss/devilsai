@@ -2,13 +2,23 @@
 <texts>
     <text id="ACTIVE">Activé</text>
     <text id="AFFICHAGE_DEGATS">Affichage des dégâts causés et reçus</text>
+    <text id="BLESSURE">Blessure grave !</text>
+    <text id="CADAVRE">Cadavre de %%</text>
+    <text id="CRITIQUE">Coup Critique !</text>
+    <text id="DEGATS_INFLIGES">Infligés : %%</text>
+    <text id="DEGATS_RECUS">Reçus : %%</text>
     <text id="DEMANDE_REDEMARRAGE">Redémarrez le programme pour que les changements soient correctement pris en compte</text>
     <text id="DESACTIVE">Désactivé</text>
+    <text id="ECHEC">Échec !</text>
+    <text id="ENERGIE_INSUFFISANTE">Énergie insuffisante !</text>
     <text id="ERREUR">UNE ERREUR S'EST PRODUITE. VOIR LE FICHIER "Devilsai_Errors".</text>
+    <text id="ESQUIVE">Coup esquivé !</text>
+    <text id="FATIGUE">Fatigue extrême !</text>
     <text id="LANCER_PARTIE">Lancer la partie</text>
     <text id="LANGUE">Langue</text>
     <text id="MENUPRINCIPAL_CHARGER">Charger une Partie Sauvegardée</text>
     <text id="MENUPRINCIPAL_OPTIONS">Options</text>
+    <text id="MONTRES_RESTANTS">Monstres restants : %%</text>
     <text id="PAS_DE_SAUVEG">Pas de sauvegarde disponible</text>
     <text id="PLEINECRAN">Plein Écran</text>
     <text id="PRECEDENT">&lt; Précédent</text>
@@ -17,6 +27,7 @@
     <text id="RETOUR_MENU">&lt; Menu principal</text>
     <text id="SAUVEGARDE">Sauvegarde effectuée</text>
     <text id="SAUVEGARDE_VERSION">Version : </text>
+    <text id="SOUS_EFFET">Sous l'effet de : %%</text>
     <text id="SUIVANT">Suivant &gt;</text>
     <text id="SUPPRIMER_SAUVEGARDE">Supprimer la partie</text>
     <text id="VERSION_INCOMPATIBLE">Cette sauvegarde n'est pas compatible avec cette version du jeu.</text>

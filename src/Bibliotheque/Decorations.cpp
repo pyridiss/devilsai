@@ -209,7 +209,7 @@ void Disp_JaugesVie()
 
 	if (gamedata::player()->get("Energie") < 140)
 	{
-		if (PersoEnePrec >= 140) Disp_Information(_FATIGUE, true);
+		if (PersoEnePrec >= 140) Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), true);
 		Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-tired"), 92, 120, Color(255, 255, 128, 255), 11.f);
 	}
 	PersoEnePrec = gamedata::player()->get("Energie");
@@ -223,13 +223,13 @@ void Disp_JaugesVie()
 			if (getStringFromLUA(i->second, "getCategorieObjet") == "temporaire")
 			{
 				String32 name = getTranslatedNameOfObject(getIntFromLUA(i->second, "getInternalNumber"));
-				Disp_Texte(getFormatedTranslatedMessage(_SOUS_EFFET, name), 160, y, Color(255, 255, 128, 255), 11.f);
+				Disp_Texte(tools::textManager::getFormattedText("devilsai", "SOUS_EFFET", name), 160, y, Color(255, 255, 128, 255), 11.f);
 				y += 12;
 			}
 		}
 	}
 
-	Disp_Information(_COMPETENCES, false);
+	Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), false);
 }
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)
@@ -342,10 +342,10 @@ void SupprimerLignesConsoles()
 
 /** SITUATIONS PARTICULIÈRES **/
 
-void Disp_Information(enumPhrases info, bool reactiver)
+void Disp_Information(const String32& info, bool reactiver)
 {
 	static float Temps = 0;
-	static enumPhrases Information;
+	static String32 Information;
 	if (reactiver)
 	{
 		Temps = 250;
