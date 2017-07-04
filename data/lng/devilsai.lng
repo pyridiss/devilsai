@@ -4,118 +4,8 @@
 # 
 # TYPE DE FICHIER	:	PHRASES
 # 
-# Catégorie : Améliorations personnage
-# ####################################
-* AMELIORATION_FORCE	600
-fr= Force %%
-en= Strength %%
-xx= ...
-* AMELIORATION_PUISS	601
-fr= Puissance %%
-en= Power %%
-xx= ...
-* AMELIORATION_AGILITE	602
-fr= Agilité %%
-en= Agility %%
-xx= ...
-* AMELIORATION_INTELLI	603
-fr= Intelligence %%
-en= Intellect %%
-xx= ...
-* AMELIORATION_CONSTIT	604
-fr= Constitution %%
-en= Constitution %%
-xx= ...
-* AMELIORATION_ESQUIVE	605
-fr= Esquive %%
-en= Dodge %%
-xx= ...
-* AMELIORATION_CHARISM	606
-fr= Charisme %%
-en= Charisma %%
-xx= ...
-* AMELIORATION_RECUP	607
-fr= Récupération %%
-en= Recovery %%
-xx= ...
-* AMELIORATION_VIT_COURSE	608
-fr= Vitesse de course %%
-en= Running speed %%
-xx= ...
-* AMELIORATION_VIT_ATTAQUE	609
-fr= Vitesse d'attaque %%
-en= Attack speed %%
-xx= ...
-* AMELIORATION_VIT_BLESSE	610
-fr= Vitesse de récupération après un coup %%
-en= Hit recovery speed %%
-xx= ...
-# 
-# Catégorie : Écran "Personnage"
-# ##############################
-* PERSO_NIVEAU	700
-fr= Niveau 
-en= Level 
-xx= ...
-* PERSO_VITALITE	701
-fr= Vitalité :
-en= Vitality:
-xx= ...
-* PERSO_ENERGIE	702
-fr= Énergie :
-en= Energy:
-xx= ...
-* PERSO_RECUP	703
-fr= Taux de récupération :
-en= Recovery rate:
-xx= ...
-* PERSO_EXP	704
-fr= Expérience :
-en= Experience:
-xx= ...
-* PERSO_DEGATS	705
-fr= Dégâts moyens :
-en= Average damages:
-xx= ...
-* PERSO_FORCE	706
-fr= Force :
-en= Strength:
-xx= ...
-* PERSO_PUISS	707
-fr= Puissance :
-en= Power:
-xx= ...
-* PERSO_AGILITE	708
-fr= Agilité :
-en= Agility:
-xx= ...
-* PERSO_INTELLI	709
-fr= Intelligence :
-en= Intellect:
-xx= ...
-* PERSO_CONSTIT	710
-fr= Constitution :
-en= Constitution:
-xx= ...
-* PERSO_ESQUIVE	711
-fr= Esquive :
-en= Dodge:
-xx= ...
-* PERSO_CHARISM	712
-fr= Charisme :
-en= Charisma:
-xx= ...
-* PERSO_RECUPMOY	713
-fr= Récupération moyenne :
-en= Average recovery:
-xx= ...
-# 
 # Catégorie : Écran "Équipement"
 # ##############################
-* EQUIP_VIDE	800
-fr= Emplacement vide (%%)
-en= Empty slot (%%)
-xx= ...
 * INVENTAIRE	807
 fr= Inventaire
 en= Inventory
@@ -199,10 +89,3 @@ xx= ..
 * EQUIP_DUREE	827
 fr= Durée : %%s
 en= Duration: %%s
-# 
-# Catégorie : Écran "Compétences"
-# ##############################
-* COMPETENCES	900
-fr= Compétences
-en= Skills
-xx= ...

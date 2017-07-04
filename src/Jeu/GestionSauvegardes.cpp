@@ -366,7 +366,7 @@ string ChoixSauvegarde()
 		Disp_Texte(save->second.Nom, Options.ScreenW/2 - 300, 240, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
 		Disp_Texte(tools::textManager::getText("devilsai", "SAUVEGARDE_VERSION") + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
 		Disp_Texte(save->second.Lieu, Options.ScreenW/2 - 280, 300, Color(255, 220, 220, 255), 14.);
-		Disp_Texte(_PERSO_VITALITE, Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
+		Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
 		Disp_Texte(Vitalite, Options.ScreenW/2 - 220, 320, Color(255, 64, 64, 255), 14.);
 
         tools::timeManager::frameDone();

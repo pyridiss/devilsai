@@ -21,6 +21,8 @@
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "tools/textManager.h"
+
 #include "imageManager/imageManager.h"
 #include "gui/button.h"
 
@@ -100,7 +102,7 @@ void Disp_Skill(lua_State* skill)
 void Disp_Competences()
 {
 	imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
-	Disp_TexteCentre(_COMPETENCES, 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
+	Disp_TexteCentre(tools::textManager::getText("devilsai", "COMPETENCES"), 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
 	mapSkills::iterator skill = gamedata::player()->Get_Caracs()->skills.begin();
 
@@ -158,7 +160,7 @@ void Gestion_Competences(Event &event)
 
 void Disp_EmplacementVide(string TypeObjet)
 {
-	Disp_TexteCentre(getFormatedTranslatedMessage(_EQUIP_VIDE, getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+	Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "EQUIP_VIDE", getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)

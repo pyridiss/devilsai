@@ -22,8 +22,7 @@
 #include <cmath>
 
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Templates.h"
+#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
@@ -242,43 +241,43 @@ bool Joueur::ApplicationAmeliorations()
 
 	if ((int)BufForce != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_FORCE, (int)BufForce);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_FORCE", (int)BufForce);
 		(BufForce > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Force"] += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
 	}
 	if ((int)BufPuissance != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_PUISS, (int)BufPuissance);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_PUISS", (int)BufPuissance);
 		(BufPuissance > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Puissance"] += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
 	}
 	if ((int)BufAgilite != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_AGILITE, (int)BufAgilite);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_AGILITE", (int)BufAgilite);
 		(BufAgilite > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Agilite"] += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
 	}
 	if ((int)BufIntelligence != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_INTELLI, (int)BufIntelligence);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_INTELLI", (int)BufIntelligence);
 		(BufIntelligence > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Intelligence"] += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
 	}
 	if ((int)BufConstitution != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_CONSTIT, (int)BufConstitution);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_CONSTIT", (int)BufConstitution);
 		(BufConstitution > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Constitution"] += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
 	}
 	if ((int)BufEsquive != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_ESQUIVE, (int)BufEsquive);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_ESQUIVE", (int)BufEsquive);
 		(BufEsquive > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Esquive"] += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
 	}
 	if ((int)BufCharisme != 0)
 	{
-		Final = getFormatedTranslatedMessage(_AMELIORATION_CHARISM, (int)BufCharisme);
+		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_CHARISM", (int)BufCharisme);
 		(BufCharisme > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
 		Caracs["Charisme"] += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
 	}
@@ -290,19 +289,19 @@ void Disp_Personnage()
 {
 	Disp_Texte(gamedata::player()->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
 
-	Disp_Texte(_PERSO_VITALITE, 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->get("Vitalite")), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
 
-	Disp_Texte(_PERSO_ENERGIE, 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ENERGIE"), 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->get("Energie")), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
-	Disp_Texte(_PERSO_RECUP, 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
 	if (gamedata::player()->get("Recuperation") >= 0)
 		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
 	if (gamedata::player()->get("Recuperation") < 0)
 		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
-	Disp_Texte(_PERSO_EXP, 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 
 	//Affichage des dégâts de la compétence Arme :
@@ -315,21 +314,27 @@ void Disp_Personnage()
 
 	if (weapon != NULL)
 	{
-		Disp_Texte(_PERSO_DEGATS, 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
+		Disp_Texte(tools::textManager::getText("devilsai", "PERSO_DEGATS"), 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2)
 						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2);
 		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 	}
 
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_INTELLI"), 280, Options.ScreenH - 180 + 45, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CONSTIT"), 280, Options.ScreenH - 180 + 60, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
+
 	int numberChar = 0;
-	enumPhrases phrase = _PERSO_FORCE;
 	for (string characteristic : {	"Force", "Puissance", "Agilite", "Intelligence", "Constitution", "Esquive", "Charisme",
 									"RecuperationMoyenne"})
 	{
 		int absoluteQty = gamedata::player()->Caracs[characteristic];
 		int diffQty = gamedata::player()->get(characteristic) - absoluteQty;
-
-		Disp_Texte(phrase, 280, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 
 		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 
@@ -339,7 +344,6 @@ void Disp_Personnage()
 			Disp_Texte(intToString(diffQty), 460, Options.ScreenH - 180 + 15*numberChar, Color(255, 64, 255, 255), 12.);
 
 		++numberChar;
-		phrase = (enumPhrases)(phrase + 1);
 	}
 }
 
