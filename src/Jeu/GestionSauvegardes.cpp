@@ -23,6 +23,7 @@
 #include "tools/signals.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
@@ -163,7 +164,7 @@ void PasDeSauvegarde()
     gui::Button mainMenuButton;
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);
-    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
+    mainMenuButton.setAllText(tools::textManager::getText("devilsai", "RETOUR_MENU"));
 
 	Event event;
 
@@ -196,8 +197,8 @@ void PasDeSauvegarde()
 		Jeu.App.clear();
 		Disp_FondMenus();
 
-		Disp_TitrePage(_MENUPRINCIPAL_CHARGER);
-		Disp_TexteCentre(_PAS_DE_SAUVEG, Options.ScreenW/2, Options.ScreenH/2, Color(50,128,128,255), 28, Jeu.DayRoman);
+		Disp_TitrePage(tools::textManager::getText("devilsai", "MENUPRINCIPAL_CHARGER"));
+		Disp_TexteCentre(tools::textManager::getText("devilsai", "PAS_DE_SAUVEG"), Options.ScreenW/2, Options.ScreenH/2, Color(50,128,128,255), 28, Jeu.DayRoman);
 
         mainMenuButton.display(Jeu.App);
 
@@ -242,23 +243,23 @@ string ChoixSauvegarde()
 
     startGameButton.setCenterCoordinates(Options.ScreenW/2, 188);
     startGameButton.setTextFont(Jeu.DayRoman, 24);
-    startGameButton.setAllText(getTranslatedMessage(_LANCER_PARTIE));
+    startGameButton.setAllText(tools::textManager::getText("devilsai", "LANCER_PARTIE"));
 
     previousButton.setCenterCoordinates(Options.ScreenW/2 - 180, 190);
     previousButton.setTextFont(Jeu.DayRoman, 14);
-    previousButton.setAllText(getTranslatedMessage(_PRECEDENT));
+    previousButton.setAllText(tools::textManager::getText("devilsai", "PRECEDENT"));
 
     nextButton.setCenterCoordinates(Options.ScreenW/2 + 180, 190);
     nextButton.setTextFont(Jeu.DayRoman, 14);
-    nextButton.setAllText(getTranslatedMessage(_SUIVANT));
+    nextButton.setAllText(tools::textManager::getText("devilsai", "SUIVANT"));
 
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);
-    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
+    mainMenuButton.setAllText(tools::textManager::getText("devilsai", "RETOUR_MENU"));
 
     deleteGameButton.setCenterCoordinates(Options.ScreenW/2 - 220, 370);
     deleteGameButton.setTextFont(Jeu.DayRoman, 14);
-    deleteGameButton.setAllText(getTranslatedMessage(_SUPPRIMER_SAUVEGARDE));
+    deleteGameButton.setAllText(tools::textManager::getText("devilsai", "SUPPRIMER_SAUVEGARDE"));
 
     if (NombreSauvegardesDisponibles() <= 1)
     {
@@ -350,7 +351,7 @@ string ChoixSauvegarde()
 		Jeu.App.clear();
 		Disp_FondMenus();
 
-		Disp_TitrePage(_MENUPRINCIPAL_CHARGER);
+		Disp_TitrePage(tools::textManager::getText("devilsai", "MENUPRINCIPAL_CHARGER"));
 
         startGameButton.display(Jeu.App);
         deleteGameButton.display(Jeu.App);
@@ -360,10 +361,10 @@ string ChoixSauvegarde()
 
 		Jeu.App.draw(Capture);
 
-		if (!SauvegardeCompatible) Disp_TexteCentre(_VERSION_INCOMPATIBLE, Options.ScreenW/2, 210, Color(255, 70, 70, 255), 10.);
+		if (!SauvegardeCompatible) Disp_TexteCentre(tools::textManager::getText("devilsai", "VERSION_INCOMPATIBLE"), Options.ScreenW/2, 210, Color(255, 70, 70, 255), 10.);
 
 		Disp_Texte(save->second.Nom, Options.ScreenW/2 - 300, 240, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
-		Disp_Texte(getTranslatedMessage(_SAUVEGARDE_VERSION) + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
+		Disp_Texte(tools::textManager::getText("devilsai", "SAUVEGARDE_VERSION") + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
 		Disp_Texte(save->second.Lieu, Options.ScreenW/2 - 280, 300, Color(255, 220, 220, 255), 14.);
 		Disp_Texte(_PERSO_VITALITE, Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
 		Disp_Texte(Vitalite, Options.ScreenW/2 - 220, 320, Color(255, 64, 64, 255), 14.);

@@ -4,100 +4,6 @@
 # 
 # TYPE DE FICHIER	:	PHRASES
 # 
-# Catégorie : Général
-# ###################
-* TITRE	100
-fr= DEVILSAI
-en= DEVILSAI
-xx= ...
-* ERREUR	101
-fr= UNE ERREUR S'EST PRODUITE. VOIR LE FICHIER "Devilsai_Errors".
-en= AN ERROR OCCURRED. SEE THE FILE "Devilsai_Errors".
-xx= ...
-* CHOIX_SAUVEGARDE	104
-fr= Choix de la sauvegarde
-en= Choice of the saved game
-xx= ...
-* LANCER_PARTIE 105
-fr= Lancer la partie
-en= Launch the game
-xx= ...
-* SUPPRIMER_SAUVEGARDE	106
-fr= Supprimer la partie
-en= Delete the game
-xx= ...
-* SAUVEGARDE_VERSION 107
-fr= Version : 
-en= Version: 
-xx= ...
-* VERSION_INCOMPATIBLE	108
-fr= Cette sauvegarde n'est pas compatible avec cette version du jeu.
-en= This saved game is not compatible with this version of the program.
-xx= ...
-* SAUVEGARDE	110
-fr= Sauvegarde effectuée
-en= Game saved
-xx= ...
-* RETOUR_MENU 114
-fr= < Menu principal
-en= < Main menu
-xx= ...
-# Catégorie : Menus
-# #################
-* MENUPRINCIPAL_CHARGER	201
-fr= Charger une Partie Sauvegardée
-en= Load a Saved Game
-xx= ...
-* MENUPRINCIPAL_OPTIONS	202
-fr= Options
-en= Options
-xx= ...
-* PAS_DE_SAUVEG	208
-fr= Pas de sauvegarde disponible
-en= No saved game available
-xx= ...
-# Catégorie : Options
-# ###################
-* ACTIVE	300
-fr= Activé
-en= Enabled
-xx= ...
-* DESACTIVE	301
-fr= Désactivé
-en= Disabled
-xx= ...
-* SUIVANT	302
-fr= Suivant >
-en= Next >
-xx= ...
-* PRECEDENT	303
-fr= < Précédent
-en= < Previous
-xx= ...
-* LANGUE	304
-fr= Langue
-en= Language
-xx= ...
-* PLEINECRAN	305
-fr= Plein Écran
-en= Fullscreen
-xx= ...
-* AFFICHAGE_DEGATS	306
-fr= Affichage des dégâts causés et reçus
-en= Show done and received damage
-xx= ...
-* RESOLUTION 307
-fr= Résolution de l'écran
-en= Screen resolution
-xx= ...
-* DEMANDE_REDEMARRAGE	308
-fr= Redémarrez le programme pour que les changements soient correctement pris en compte
-en= Please restart the game to ensure that changes are properly saved
-xx= ...
-* RESOLUTION_INCOMPATIBLE	309
-fr= La résolution demandée est incompatible avec votre ordinateur
-en= The resolution requested is incompatible with your computer
-xx= ...
 # Catégorie : Écran de jeu
 # ########################
 * MONTRES_RESTANTS	408
@@ -258,30 +164,6 @@ xx= ...
 * EQUIP_VIDE	800
 fr= Emplacement vide (%%)
 en= Empty slot (%%)
-xx= ...
-* EQUIP_ARME_VIDE	801
-fr= Emplacement vide (arme)
-en= Empty slot (weapon)
-xx= ...
-* EQUIP_BOUCLIER_VIDE	802
-fr= Emplacement vide (bouclier)
-en= Empty slot (shield)
-xx= ...
-* EQUIP_CASQUE_VIDE	803
-fr= Emplacement vide (casque)
-en= Empty slot (helmet)
-xx= ...
-* EQUIP_ARMURE_VIDE	804
-fr= Emplacement vide (armure)
-en= Empty slot (armor)
-xx= ...
-* EQUIP_BOTTES_VIDE	805
-fr= Emplacement vide (bottes)
-en= Empty slot (boots)
-xx= ...
-* EQUIP_BAGUE_VIDE	806
-fr= Emplacement vide (bague)
-en= Empty slot (bague)
 xx= ...
 * INVENTAIRE	807
 fr= Inventaire

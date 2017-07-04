@@ -21,6 +21,7 @@
 
 #include "tools/signals.h"
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
@@ -136,14 +137,14 @@ void EcranOptions()
 
     mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
     mainMenuButton.setTextFont(Jeu.DayRoman, 14);
-    mainMenuButton.setAllText(getTranslatedMessage(_RETOUR_MENU));
+    mainMenuButton.setAllText(tools::textManager::getText("devilsai", "RETOUR_MENU"));
 
     fullscreenButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 270);
     fullscreenButton.setAutoRelease(false);
     fullscreenButton.setTextFont(Jeu.DayRoman, 16);
-    fullscreenButton.setText("normal", getTranslatedMessage(_DESACTIVE));
-    fullscreenButton.setText("hover", getTranslatedMessage(_DESACTIVE));
-    fullscreenButton.setText("active", getTranslatedMessage(_ACTIVE));
+    fullscreenButton.setText("normal", tools::textManager::getText("devilsai", "DESACTIVE"));
+    fullscreenButton.setText("hover", tools::textManager::getText("devilsai", "DESACTIVE"));
+    fullscreenButton.setText("active", tools::textManager::getText("devilsai", "ACTIVE"));
 
     if (Options.PleinEcran_Save)
         fullscreenButton.setCurrentState("active");
@@ -151,9 +152,9 @@ void EcranOptions()
     showDamageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 310);
     showDamageButton.setAutoRelease(false);
     showDamageButton.setTextFont(Jeu.DayRoman, 16);
-    showDamageButton.setText("normal", getTranslatedMessage(_DESACTIVE));
-    showDamageButton.setText("hover", getTranslatedMessage(_DESACTIVE));
-    showDamageButton.setText("active", getTranslatedMessage(_ACTIVE));
+    showDamageButton.setText("normal", tools::textManager::getText("devilsai", "DESACTIVE"));
+    showDamageButton.setText("hover", tools::textManager::getText("devilsai", "DESACTIVE"));
+    showDamageButton.setText("active", tools::textManager::getText("devilsai", "ACTIVE"));
 
     if (Options.AffichageDegats)
         showDamageButton.setCurrentState("active");
@@ -215,12 +216,12 @@ void EcranOptions()
 
 		Disp_FondMenus();
 
-		Disp_TitrePage(_MENUPRINCIPAL_OPTIONS);
+		Disp_TitrePage(tools::textManager::getText("devilsai", "MENUPRINCIPAL_OPTIONS"));
 
-		Disp_Texte(_LANGUE, 1.f/4.f * Options.ScreenW, 220, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(_PLEINECRAN, 1.f/4.f * Options.ScreenW, 260, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(_AFFICHAGE_DEGATS, 1.f/4.f * Options.ScreenW, 300, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(_RESOLUTION, 1.f/4.f * Options.ScreenW, 340, Color(200,255,255,255), 16., Jeu.DayRoman);
+		Disp_Texte(tools::textManager::getText("devilsai", "LANGUE"), 1.f/4.f * Options.ScreenW, 220, Color(200,255,255,255), 16., Jeu.DayRoman);
+		Disp_Texte(tools::textManager::getText("devilsai", "PLEINECRAN"), 1.f/4.f * Options.ScreenW, 260, Color(200,255,255,255), 16., Jeu.DayRoman);
+		Disp_Texte(tools::textManager::getText("devilsai", "AFFICHAGE_DEGATS"), 1.f/4.f * Options.ScreenW, 300, Color(200,255,255,255), 16., Jeu.DayRoman);
+		Disp_Texte(tools::textManager::getText("devilsai", "RESOLUTION"), 1.f/4.f * Options.ScreenW, 340, Color(200,255,255,255), 16., Jeu.DayRoman);
 
         mainMenuButton.display(Jeu.App);
         languageButton.display(Jeu.App);
@@ -229,7 +230,7 @@ void EcranOptions()
         changeResolutionButton.display(Jeu.App);
 
 		if (AfficherDemandeRedemarrage)
-			Disp_TexteCentre(_DEMANDE_REDEMARRAGE, Options.ScreenW/2, Options.ScreenH - 210, Color(255,196,196,255), 12.);
+			Disp_TexteCentre(tools::textManager::getText("devilsai", "DEMANDE_REDEMARRAGE"), Options.ScreenW/2, Options.ScreenH - 210, Color(255,196,196,255), 12.);
 
 		//Licence :
 		Disp_Texte("Devilsai - A game written using the SFML library", 20, Options.ScreenH - 140, Color(255,255,255,128), 13);

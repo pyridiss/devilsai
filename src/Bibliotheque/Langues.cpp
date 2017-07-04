@@ -37,7 +37,7 @@
 typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
 Dictionnaire Dico;
 
-const int numberOfMessages = 89;
+const int numberOfMessages = 61;
 
 Language *languages;
 
@@ -205,7 +205,7 @@ String32& getTranslatedMessage(enumPhrases msg)
 	if (i != Dico.end()) return i->second;
 
 	Erreur("La phrase suivante a été demandée sans avoir été chargée :", msg);
-	return Dico.find(_ERREUR)->second;
+	return Dico.find(_COMPETENCES)->second;
 }
 
 //Cette fonction est définie de manière template dans Templates.h

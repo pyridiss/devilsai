@@ -136,7 +136,7 @@ void Disp_Menu()
 	//Erreur éventuelle
 	if (Jeu.ErreurDetectee)
 	{
-        Disp_Texte(_ERREUR, 350, 16, Color(255,0,0,255), 10.);
+        Disp_Texte(tools::textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
 	}
 }
 
@@ -229,7 +229,7 @@ void Disp_JaugesVie()
 		}
 	}
 
-	Disp_Information(_TITRE, false);
+	Disp_Information(_COMPETENCES, false);
 }
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)

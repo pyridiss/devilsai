@@ -42,28 +42,6 @@ typedef list<String32> ListString32;
 typedef list<Paragraph> ListParagraph;
 
 enum enumPhrases{
-	_TITRE = 100,
-	_ERREUR,
-	_CHOIX_SAUVEGARDE = 104,
-	_LANCER_PARTIE,
-	_SUPPRIMER_SAUVEGARDE,
-	_SAUVEGARDE_VERSION,
-	_VERSION_INCOMPATIBLE,
-	_SAUVEGARDE = 110,
-	_RETOUR_MENU = 114,
-	_MENUPRINCIPAL_CHARGER = 201,
-	_MENUPRINCIPAL_OPTIONS,
-	_PAS_DE_SAUVEG = 208,
-	_ACTIVE = 300,
-	_DESACTIVE,
-	_SUIVANT,
-	_PRECEDENT,
-	_LANGUE,
-	_PLEINECRAN,
-	_AFFICHAGE_DEGATS,
-	_RESOLUTION,
-	_DEMANDE_REDEMARRAGE,
-	_RESOLUTION_IMCOMPATIBLE,
 	_MONSTRES_RESTANTS = 408,
 	_CADAVRE,
 	_ENERGIE_INSUFFISANTE,
@@ -101,13 +79,7 @@ enum enumPhrases{
 	_PERSO_CHARISM,
 	_PERSO_RECUPMOY,
 	_EQUIP_VIDE = 800,
-	_EQUIP_ARME_VIDE,
-	_EQUIP_BOUCLIER_VIDE,
-	_EQUIP_CASQUE_VIDE,
-	_EQUIP_ARMURE_VIDE,
-	_EQUIP_BOTTES_VIDE,
-	_EQUIP_BAGUE_VIDE,
-	_INVENTAIRE,
+	_INVENTAIRE = 807,
 	_EQUIP_FORCE,
 	_EQUIP_PUISS,
 	_EQUIP_AGILITE,
@@ -257,7 +229,7 @@ void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), flo
 void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_TitrePage(enumPhrases);
+void Disp_TitrePage(const String32&);
 string intToString(double, int size = -1);
 
 #endif

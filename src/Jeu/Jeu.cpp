@@ -21,6 +21,7 @@
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
+#include "tools/textManager.h"
 #include "gui/window.h"
 #include "musicManager/musicManager.h"
 
@@ -405,8 +406,8 @@ void mainLoop()
 			if (SauvegardeEffectuee <= 0) SauvegardeEffectuee = 255;
 			else
 			{
-				Disp_TexteCentre(_SAUVEGARDE, Options.ScreenW/2 + 1, 161, Color(0, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
-				Disp_TexteCentre(_SAUVEGARDE, Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
+				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2 + 1, 161, Color(0, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
+				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
 
 			}
 		}
