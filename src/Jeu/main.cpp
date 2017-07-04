@@ -28,6 +28,7 @@
 #include "tools/timeManager.h"
 #include "tools/math.h"
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -128,6 +129,7 @@ int main(int n, char *params[])
     tools::debug::openDebugFile("devilsai", VERSION);
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
+    tools::textManager::initLibrary();
 
 	GestionArguments(n, params);
 

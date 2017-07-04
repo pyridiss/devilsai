@@ -37,6 +37,7 @@ typedef map < string, Container > Database;
 
 Database texts;
 String32 emptyString;
+String32 charForm;
 
 
 template <class charT, class Traits>
@@ -51,6 +52,12 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, St
 		Utf8::toUtf32(Buffer.begin(), Buffer.end(), back_inserter(str));
 	}
 	return flux;
+}
+
+void initLibrary()
+{
+    string form = "%%";
+    Utf8::toUtf32(form.begin(), form.end(), back_inserter(charForm));
 }
 
 void loadFile(string container, string path)
@@ -115,6 +122,32 @@ String32& getText(string file, string id)
     return i->second;
 }
 
+String32 getFormattedText(string file, string id, const String32& arg)
+{
+    String32 f = getText(file, id);
+
+    String32::size_type posForm = f.find(charForm);
+
+    if (posForm != String32::npos)
+    {
+        f.erase(posForm, charForm.size());
+        f.insert(posForm, arg);
+    }
+
+    return f;
+}
+
+String32 getFormattedText(string file, string id, double arg)
+{
+    String32 str;
+    stringstream out;
+
+    out << arg;
+    string tmp = out.str();
+    Utf8::toUtf32(tmp.begin(), tmp.end(), back_inserter(str));
+
+    return getFormattedText(file, id, str);
+}
 
 } //namespace textManager
 

@@ -31,8 +31,11 @@ namespace tools{
 
 namespace textManager{
 
+void initLibrary();
 void loadFile(string container, string path);
 String32& getText(string file, string id);
+String32 getFormattedText(string file, string id, const String32& arg);
+String32 getFormattedText(string file, string id, double arg);
 
 } //namespace textManager
 
