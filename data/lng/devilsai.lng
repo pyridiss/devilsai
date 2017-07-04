@@ -100,34 +100,6 @@ en= The resolution requested is incompatible with your computer
 xx= ...
 # Catégorie : Écran de jeu
 # ########################
-* SANTE1	401
-fr= Bonne santé
-en= Good health
-xx= ...
-* SANTE2	402
-fr= Légèrement blessé
-en= Slightly injured
-xx= ...
-* SANTE3	403
-fr= Blessé
-en= Injured
-xx= ...
-* SANTE4	404
-fr= Gravement blessé
-en= Seriously injured
-xx= ...
-* SANTE5	405
-fr= Agonisant
-en= Dying
-xx= ...
-* MORT		406
-fr= Mort
-en= Dead
-xx= ...
-* SANTE_FATIGUE	407
-fr= Fatigué
-en= Tired
-xx= ...
 * MONTRES_RESTANTS	408
 fr= Monstres restants : %%
 en= Remaining monsters: %%

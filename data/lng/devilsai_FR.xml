@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="player-health-1">Bonne santé</text>
+    <text id="player-health-2">Légèrement blessé</text>
+    <text id="player-health-3">Blessé</text>
+    <text id="player-health-4">Gravement blessé</text>
+    <text id="player-health-5">Agonisant</text>
+    <text id="player-health-6">Mort</text>
+    <text id="player-health-tired">Fatigué</text>
+</texts>

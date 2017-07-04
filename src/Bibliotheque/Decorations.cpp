@@ -74,6 +74,7 @@ void Load_Decorations()
     imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
     tools::textManager::loadFile("gui", "lng/gui_FR.xml");
+    tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
     tools::textManager::loadFile("species", "lng/species_FR.xml");
 
 	Load_Decorations_Objets();
@@ -193,17 +194,23 @@ void Disp_JaugesVie()
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
-	if		(gamedata::player()->get("Vitalite") == 0)				Disp_TexteCentre(_MORT, 92, 105, Color(168, 168, 168, 255), 11.f);
-	else if	(gamedata::player()->get("Vitalite") + Recup * 10 >= 900)	Disp_TexteCentre(_SANTE1, 92, 105, Color(128, 255, 128, 255), 11.f);
-	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 650)	Disp_TexteCentre(_SANTE2, 92, 105, Color(255, 220, 30, 255), 11.f);
-	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 300)	Disp_TexteCentre(_SANTE3, 92, 105, Color(255, 190, 10, 255), 11.f);
-	else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 100)	Disp_TexteCentre(_SANTE4, 92, 105, Color(255, 80, 10, 255), 11.f);
-	else 														Disp_TexteCentre(_SANTE5, 92, 105, Color(255, 0, 0, 255), 11.f);
+    if      (gamedata::player()->get("Vitalite") == 0)
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-6"), 92, 105, Color(168, 168, 168, 255), 11.f);
+    else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 900)
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-1"), 92, 105, Color(128, 255, 128, 255), 11.f);
+    else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 650)
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-2"), 92, 105, Color(255, 220, 30, 255), 11.f);
+    else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 300)
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-3"), 92, 105, Color(255, 190, 10, 255), 11.f);
+    else if (gamedata::player()->get("Vitalite") + Recup * 10 >= 100)
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-4"), 92, 105, Color(255, 80, 10, 255), 11.f);
+    else
+        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-5"), 92, 105, Color(255, 0, 0, 255), 11.f);
 
 	if (gamedata::player()->get("Energie") < 140)
 	{
 		if (PersoEnePrec >= 140) Disp_Information(_FATIGUE, true);
-		Disp_TexteCentre(_SANTE_FATIGUE, 92, 120, Color(255, 255, 128, 255), 11.f);
+		Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-tired"), 92, 120, Color(255, 255, 128, 255), 11.f);
 	}
 	PersoEnePrec = gamedata::player()->get("Energie");
 
