@@ -18,7 +18,8 @@
 */
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Templates.h"
+#include "../Bibliotheque/Bibliotheque.h"
+#include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 

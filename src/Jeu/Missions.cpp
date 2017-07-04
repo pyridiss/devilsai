@@ -25,7 +25,7 @@
 #include "tools/textManager.h"
 
 #include "../Bibliotheque/luaFunctions.h"
-#include "../Bibliotheque/Templates.h"
+#include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "gamedata.h"

@@ -231,24 +231,6 @@ void Disp_Texte(const string &str, int x, int y, Color couleur, float Size, cons
 	Jeu.App.draw(Texte);
 }
 
-void Disp_Texte(enumPhrases NumPhrase, int x, int y, Color couleur, float Size, const Font &CharFont)
-{
-	Text Texte(getTranslatedMessage(NumPhrase), CharFont, Size);
-	Texte.setPosition(x, y);
-	Texte.setFillColor(couleur);
-
-	Jeu.App.draw(Texte);
-}
-
-void Disp_TexteCentre(enumPhrases NumPhrase, int x, int y, Color couleur, float Size, const Font &CharFont)
-{
-	Text Texte(getTranslatedMessage(NumPhrase), CharFont, Size);
-	Texte.setPosition((int)(x - Texte.getGlobalBounds().width/2), (int)(y - Texte.getGlobalBounds().height/2));
-	Texte.setFillColor(couleur);
-
-	Jeu.App.draw(Texte);
-}
-
 void Disp_TexteCentre(const String32 &str, int x, int y, Color couleur, float Size, const Font &CharFont)
 {
 	Text Texte(str, CharFont, Size);

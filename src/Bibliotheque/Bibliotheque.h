@@ -41,10 +41,6 @@ typedef basic_string<Uint32> String32;
 typedef list<String32> ListString32;
 typedef list<Paragraph> ListParagraph;
 
-enum enumPhrases{
-	_NONE
-};
-
 
 /** CLASSES **/
 
@@ -138,15 +134,12 @@ bool Disp_Repos();
 
 void loadAvailableLanguages();
 void deleteLanguagesList();
-void loadDevilsaiMessages();
 String32 getTranslatedNameOfElement(string);
 String32 getTranslatedNameOfPlace(int);
 String32 getTranslatedNameOfObject(int);
 String32 getTranslatedNameOfObject(string);
 String32 getTranslatedNameOfSkill(string);
 String32 getTranslatedDescriptionOfObject(int);
-String32& getTranslatedMessage(enumPhrases);
-String32 getFormatedTranslatedMessage(enumPhrases, String32);
 void changeLanguage();
 String32& getNameOfLanguage();
 void cutParagraph(Paragraph*);
@@ -167,8 +160,6 @@ void Verbose(const string&, const short&);
 void Erreur(const string&, const string&);
 void Erreur(const string&, const float&);
 void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_Texte(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_TexteCentre(enumPhrases, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_TitrePage(const String32&);

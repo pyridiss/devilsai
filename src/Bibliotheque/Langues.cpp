@@ -34,11 +34,6 @@
 
 /** VARIABLES GLOBALES **/
 
-typedef map < enumPhrases, basic_string<Uint32> > Dictionnaire;
-Dictionnaire Dico;
-
-const int numberOfMessages = 23;
-
 Language *languages;
 
 short numberOfLanguages;
@@ -91,52 +86,6 @@ void deleteLanguagesList()
 	languages = NULL;
 
 	MESSAGE("Liste des Langues supprimée", LISTE)
-}
-
-void loadDevilsaiMessages()
-{
-	string fileName = tools::filesystem::dataDirectory() + "lng/devilsai.lng";
-
-	ifstream fileStream(fileName, ios_base::in);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
-
-	string dataType;
-	string buffer;
-	int counter = 0;
-	String32 message;
-
-	int messageNumber;
-
-	Dico.clear();
-
-	while (fileStream.rdstate() == 0)
-	{
-		fileStream >> dataType;
-
-		if (dataType == "#") getline(fileStream, buffer); //Comments
-
-		else if (dataType == "*") fileStream >> buffer >> messageNumber;
-		else if (dataType == Options.Langue)
-		{
-			if (counter >= numberOfMessages)
-			{
-				Erreur("Le fichier de langue contient plus de phrases que le programme n'en a", "");
-				break;
-			}
-			fileStream.get();
-			fileStream >> message;
-			Dico.insert(Dictionnaire::value_type((enumPhrases)messageNumber, message));
-			++counter;
-		}
-		else getline(fileStream, buffer);
-		dataType = ""; 
-        buffer = "";
-		message.clear();
-	}
-
-	fileStream.close();
 }
 
 template <class T>
@@ -199,31 +148,6 @@ String32 getTranslatedDescriptionOfObject(int Indice)
 	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/desc_objets.lng", Indice);
 }
 
-String32& getTranslatedMessage(enumPhrases msg)
-{
-	Dictionnaire::iterator i = Dico.find(msg);
-	if (i != Dico.end()) return i->second;
-
-	Erreur("La phrase suivante a été demandée sans avoir été chargée :", msg);
-	return Dico.find(_NONE)->second;
-}
-
-//Cette fonction est définie de manière template dans Templates.h
-//Redéfinition dans le cas où arg est une String32 : on peut alors éviter les multiples conversions
-String32 getFormatedTranslatedMessage(enumPhrases msg, String32 arg)
-{
-	String32 str32 = getTranslatedMessage(msg);
-
-	String32::size_type posForm = str32.find(Options.CharForm);
-
-	if (posForm != String32::npos)
-	{
-		str32.erase(posForm, Options.CharForm.size());
-		str32.insert(posForm, arg);
-	}
-	return str32;
-}
-
 void changeLanguage()
 {
 	int i = 0;
@@ -234,8 +158,6 @@ void changeLanguage()
 	else ++i;
 
 	Options.Langue = languages[i].shortName;
-
-	loadDevilsaiMessages();
 }
 
 String32& getNameOfLanguage()

@@ -153,7 +153,6 @@ int main(int n, char *params[])
 	srand(time(NULL));
 
 	loadAvailableLanguages();
-	loadDevilsaiMessages();
 	MESSAGE("Fichiers de langue chargés", FICHIER)
 
     gui::style::initStyle();

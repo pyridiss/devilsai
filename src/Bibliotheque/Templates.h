@@ -42,31 +42,6 @@ basic_ostream<charT, Traits> &operator<< (basic_ostream<charT, Traits> &flux, St
 	return flux;
 }
 
-//Gestion des phrases formatées
-template <class T>
-String32 getFormatedTranslatedMessage(enumPhrases phr, T arg)
-{
-	String32 str32 = getTranslatedMessage(phr);
-
-	String32::size_type posForm = str32.find(Options.CharForm);
-
-	if (posForm != String32::npos)
-	{
-		String32 strArg;
-		string strOut;
-		stringstream out;
-
-		out.precision(8);
-		out.setf(stringstream::showpos);
-		out << arg;
-		strOut = out.str();
-
-		str32.erase(posForm, Options.CharForm.size());
-		Utf8::toUtf32(strOut.begin(), strOut.end(), back_inserter(strArg));
-		str32.insert(posForm, strArg);
-	}
-	return str32;
-}
 
 //Opérateur de lecture sur String32 depuis un fichier
 template <class charT, class Traits>
