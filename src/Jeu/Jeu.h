@@ -104,7 +104,6 @@ extern Classe_Jeu::Classe_Options Options;
 
 
 //Fonctions définies dans les fichiers dépendants de Jeu
-void Load_Chapitre(int);
 
 void LectureSauvegardes();
 bool PartieSauvegardee();

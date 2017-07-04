@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
@@ -54,14 +55,12 @@ void changeCurrentUserScreen(UserScreen* _new)
 	}
 }
 
-void Load_Chapitre(int Id)
+void Load_Chapitre(string filename)
 {
-	string fileName = tools::filesystem::dataDirectory() + "chapitre/" + intToString(Id) + ".chp";
+    ifstream fileStream(tools::filesystem::dataDirectory() + filename, ios_base::in);
 
-	ifstream fileStream(fileName.c_str(), ios_base::in);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName.c_str());
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+    if (fileStream.good()) tools::debug::message("File open: " + filename, "files");
+    else tools::debug::error("File note found: " + filename, "files");
 
 	string TypeDonnee = "", bufferString = "";
 
@@ -213,7 +212,7 @@ void mainLoop()
             {
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
-                Load_Chapitre(1);
+                Load_Chapitre("chapitre/1.chp");
                 gamedata::player()->Nom = signal.second.String32Data;
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
@@ -223,7 +222,7 @@ void mainLoop()
             {
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
-                Load_Chapitre(0);
+                Load_Chapitre("chapitre/0.chp");
                 gamedata::player()->Nom = signal.second.String32Data;
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
@@ -418,7 +417,7 @@ void mainLoop()
 		{
 			String32 NomPersonnage = gamedata::player()->Nom;
 			Clean_Partie();
-			Load_Chapitre(1);
+			Load_Chapitre("chapitre/1.chp");
 			gamedata::player()->Nom = NomPersonnage;
 			Partie.loadFirstChapter = false;
 		}
