@@ -33,8 +33,9 @@ set(lng
     journal.lng
     langues
     noms_competences.lng
-    noms_lieux.lng
     noms_objets.lng
+    places_EN.xml
+    places_FR.xml
     species_EN.xml
     species_FR.xml
     tutorial-01.lng

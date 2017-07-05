@@ -134,7 +134,6 @@ bool Disp_Repos();
 
 void loadAvailableLanguages();
 void deleteLanguagesList();
-String32 getTranslatedNameOfPlace(int);
 String32 getTranslatedNameOfObject(int);
 String32 getTranslatedNameOfObject(string);
 String32 getTranslatedNameOfSkill(string);

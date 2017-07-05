@@ -383,7 +383,7 @@ void mainLoop()
                 tools::signals::addSignal("ingame-toolbar:enable-rest");
 
 			ChangementLieu = 254;
-			NomLieu = getTranslatedNameOfPlace(gamedata::player()->IndiceLieu);
+			NomLieu = tools::textManager::getText("places", intToString(gamedata::player()->IndiceLieu));
 			gamedata::player()->SauvegardeIndiceLieu = gamedata::player()->IndiceLieu;
 		}
 		if (ChangementLieu != 255)

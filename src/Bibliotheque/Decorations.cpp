@@ -76,6 +76,7 @@ void Load_Decorations()
     tools::textManager::loadFile("gui", "lng/gui_FR.xml");
     tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
     tools::textManager::loadFile("species", "lng/species_FR.xml");
+    tools::textManager::loadFile("places", "lng/places_FR.xml");
 
 	Load_Decorations_Objets();
 
