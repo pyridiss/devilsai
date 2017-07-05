@@ -111,7 +111,7 @@ class Element_Carte
 		int Id              = -1;
 		string Type         = "DEFAUT";
 		string Liste        = "DEFAUT";
-		short Diplomatie    = 0;
+        int Diplomatie    = 0;
         double lifetime     = -1;
 
 	private:

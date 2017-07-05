@@ -35,6 +35,8 @@ unordered_map<string, Paysage*> _inertItemDesigns;
 
 Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
+Element_Carte* _currentPlace = nullptr;
+
 
 void addWorld(const string& id)
 {
@@ -172,5 +174,24 @@ Individu_Unique* findIndividuUnique(string type)
     return nullptr;
 }
 
+void updateCurrentPlace()
+{
+    if (_currentPlace == nullptr || !intersection(_player->size, _currentPlace->size))
+    {
+        for (auto& p : _currentWorld->places)
+        {
+            if (intersection(p->size, _player->size))
+            {
+                _currentPlace = p;
+                if (p->Diplomatie != _player->Diplomatie)
+                    tools::signals::addSignal("ingame-toolbar:disable-rest");
+                else
+                    tools::signals::addSignal("ingame-toolbar:enable-rest");
+                break;
+            }
+        }
+    }
+
+}
 
 } //namespace gamedata

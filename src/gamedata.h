@@ -46,6 +46,7 @@ void setPlayer(Joueur* p, Carte *w);
 Carte* currentWorld();
 Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
+void updateCurrentPlace();
 
 } //namespace gamedata
 

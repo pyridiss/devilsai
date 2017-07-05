@@ -275,6 +275,9 @@ Carte::~Carte()
     for (auto& tmp : triggers)
         delete tmp;
 
+    for (auto& tmp : places)
+        delete tmp;
+
     for (auto& tmp : luaTriggers)
         lua_close(tmp.second);
 
@@ -595,6 +598,28 @@ void Carte::loadFromFile(string path, string tag)
                 XMLHandle hdl2(elem);
                 set->loadFromXML(hdl2);
             }
+        }
+        else if (elemName == "place")
+        {
+            Paysage *p = new Paysage;
+            if (elem->Attribute("name")) p->Type = elem->Attribute("name");
+            XMLHandle hdl2(elem);
+            XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
+            while (elem2)
+            {
+                string elem2Name = elem2->Name();
+                if (elem2Name == "properties")
+                {
+                    elem2->QueryAttribute("diplomacy", &p->Diplomatie);
+                }
+                if (elem2Name == "shape")
+                {
+                    p->size.loadFromXML(elem2);
+                }
+
+                elem2 = elem2->NextSiblingElement();
+            }
+            places.push_back(p);
         }
         else if (elemName == "items")
         {
