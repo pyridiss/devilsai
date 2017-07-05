@@ -517,13 +517,6 @@ ACTIONNEUR 4656 -700
 RECT_COL 100 1
 CHANGEMENT_CARTE 2
 FIN_ACTIONNEUR
-SHARED_TRIGGER
-type: change_place
-position: 342 1
-size: rectangle 1 100
-argument: 1010
-argument: village
-END_SHARED_TRIGGER
 DOOR 366 1 1 100 2
 SHARED_TRIGGER
 type: change_place
@@ -536,10 +529,3 @@ ACTIONNEUR -161 58
 RAY_COL 38
 RECUPERATION
 FIN_ACTIONNEUR
-SHARED_TRIGGER
-type: change_place
-position: 0 0
-size: rectangle 10 10
-argument: 1010
-argument: village
-END_SHARED_TRIGGER

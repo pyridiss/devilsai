@@ -3,7 +3,6 @@ CARTE 101
 LISTE 1-OutsideLands
 LISTE 1-GladeSaints-Lands1
 loadXMLFile carte/birnam.xml GowersCamp-TheGladeOfTheSaints-InertItems
-LISTE 1-GladeSaints-Lands2
 LISTE 1000
 LISTE 1-GladeSaints-Monsters
 LISTE 101200

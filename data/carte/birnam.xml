@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
+    <place name="camp-gower">
+        <properties diplomacy="1"/>
+        <shape type="complex">
+            <shape type="rectangle" xCenter="-85" yCenter="-222" xSize="846" ySize="192"/>
+            <shape type="rectangle" xCenter="-149" yCenter="114" xSize="974" ySize="480"/>
+            <shape type="rectangle" xCenter="-149" yCenter="585" xSize="718" ySize="462"/>
+        </shape>
+    </place>
     <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
         <inertItem design="wall01-NS" x="3504" y="-1894">
             <shape type="rectangle" xSize="6" ySize="288"/>
