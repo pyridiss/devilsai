@@ -21,6 +21,7 @@
 #include <tinyxml2.h>
 
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"
@@ -187,7 +188,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 				if (TypeDonnee2 == "NOM")
 				{
 					Fichier >> coffre->NumeroNom;
-					coffre->Nom = getTranslatedNameOfElement(coffre->NumeroNom);
+					coffre->Nom = tools::textManager::getText("species", coffre->NumeroNom);
 				}
 				if (TypeDonnee2 == "NOMBRE_OBJETS") Fichier >> NombreObjets;
 				if (TypeDonnee2 == "NOMBRE_OBJETS_ALEATOIRE")

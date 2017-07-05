@@ -81,7 +81,7 @@ int Cadavre::Gestion()
 
 void Cadavre::Set_Individu()
 {
-    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", getTranslatedNameOfElement(Ind_Id));
+    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", Ind_Id));
 }
 
 void Cadavre::Set_Individu(string type, string key)

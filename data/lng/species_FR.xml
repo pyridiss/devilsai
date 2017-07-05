@@ -1,4 +1,44 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
+    <text id="200">Joueur</text>
+    <text id="201">Gower</text>
+    <text id="202">Fluellen</text>
+    <text id="203">Owen Glendower</text>
+    <text id="204">Banquo</text>
+    <text id="205">Horst</text>
+    <text id="210">Guerrier</text>
+    <text id="300">Araignée Rouge</text>
+    <text id="301">Mygale Cobalt</text>
+    <text id="302">Araignée Lynx</text>
+    <text id="303">Arachnide Dorée</text>
+    <text id="304">Araignée de Sang</text>
+    <text id="305">Orque de la Lune</text>
+    <text id="306">Orque de la Nuit</text>
+    <text id="307">Orque des Neiges</text>
+    <text id="308">Orque des Brumes</text>
+    <text id="309">Orque de Sang</text>
+    <text id="310">Zombie</text>
+    <text id="311">Cadavre congelé</text>
+    <text id="312">Zombie 3</text>
+    <text id="313">Zombie 4</text>
+    <text id="314">Zombie de Sang</text>
+    <text id="315">Ogre d'Argile</text>
+    <text id="316">Ogre 2</text>
+    <text id="317">Ogre 3</text>
+    <text id="318">Ogre 4</text>
+    <text id="319">Ogre de Sang</text>
+    <text id="320">Troll 1</text>
+    <text id="321">Troll 2</text>
+    <text id="322">Troll 3</text>
+    <text id="323">Troll 4</text>
+    <text id="324">Troll de Sang</text>
+    <text id="400">Stolas</text>
+    <text id="611">Tonneaux</text>
+    <text id="612">Caisse en bois</text>
     <text id="ballista">Balliste</text>
+    <text id="didact_instructeur">Curtis</text>
+    <text id="didact_manneq1">Mannequin en bois</text>
+    <text id="didact_manneq2">Mannequin en bois</text>
+    <text id="didact_bael">Bael</text>
 </texts>

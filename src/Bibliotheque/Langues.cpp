@@ -123,10 +123,6 @@ String32 getTranslatedName(string fichier, T Indice)
 	return Nom;
 }
 
-String32 getTranslatedNameOfElement(string Indice)
-{
-	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_elements.lng", Indice);
-}
 String32 getTranslatedNameOfPlace(int Indice)
 {
 	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_lieux.lng", Indice);

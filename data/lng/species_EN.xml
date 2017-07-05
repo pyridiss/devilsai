@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="200">Player</text>
+    <text id="201">Gower</text>
+    <text id="202">Fluellen</text>
+    <text id="203">Owen Glendower</text>
+    <text id="204">Banquo</text>
+    <text id="205">Horst</text>
+    <text id="210">Warrior</text>
+    <text id="300">Red Spider</text>
+    <text id="301">Cobalt Mygale</text>
+    <text id="302">Lynx Spider</text>
+    <text id="303">Golden arachnid</text>
+    <text id="304">Bloody Spider</text>
+    <text id="305">Moon Orc</text>
+    <text id="306">Night Orc</text>
+    <text id="307">Snow Orc</text>
+    <text id="308">Orc from the Mists</text>
+    <text id="309">Bloody Orc</text>
+    <text id="310">Zombie</text>
+    <text id="311">Frozen Corpse</text>
+    <text id="312">Zombie 3</text>
+    <text id="313">Zombie 4</text>
+    <text id="314">Bloody Zombie</text>
+    <text id="315">Clay Ogre</text>
+    <text id="316">Ogre 2</text>
+    <text id="317">Ogre 3</text>
+    <text id="318">Ogre 4</text>
+    <text id="319">Bloody Ogre</text>
+    <text id="320">Troll 1</text>
+    <text id="321">Troll 2</text>
+    <text id="322">Troll 3</text>
+    <text id="323">Troll 4</text>
+    <text id="324">Bloody Troll</text>
+    <text id="400">Stolas</text>
+    <text id="611">Barrels</text>
+    <text id="612">Wooden box</text>
+    <text id="ballista">Ballista</text>
+    <text id="didact_instructeur">Curtis</text>
+    <text id="didact_manneq1">Wooden mannequin</text>
+    <text id="didact_manneq2">Wooden mannequin</text>
+    <text id="didact_bael">Bael</text>
+</texts>

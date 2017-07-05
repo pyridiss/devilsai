@@ -20,6 +20,7 @@
 #include <cmath>
 
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 
@@ -34,7 +35,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 {
 	string fichier = tools::filesystem::dataDirectory() + "individu/" + Type + ".one";
 
-	ind->Nom = getTranslatedNameOfObject(Type);
+	ind->Nom = tools::textManager::getText("species", Type);
 
 	Activite *act = NULL;
 
@@ -258,7 +259,7 @@ void Load_ClasseCommune(string Type)
 	if (gamedata::species(Type) == nullptr)
 	{
 		gamedata::addSpecies(Type);
-		gamedata::species(Type)->Nom = getTranslatedNameOfElement(Type);
+		gamedata::species(Type)->Nom = tools::textManager::getText("species", Type);
 	}
 	else return;
 

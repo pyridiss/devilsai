@@ -33,10 +33,10 @@ set(lng
     journal.lng
     langues
     noms_competences.lng
-    noms_elements.lng
     noms_lieux.lng
     noms_objets.lng
     sauvegarde_incompatible.lng
+    species_EN.xml
     species_FR.xml
     tutorial-01.lng
     tutorial-02.lng
