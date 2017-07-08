@@ -32,6 +32,7 @@
 #include "gui/textWidget.h"
 #include "gui/button.h"
 #include "gui/inputField.h"
+#include "gui/dropDownList.h"
 #include "gui/style.h"
 
 using namespace tinyxml2;
@@ -302,6 +303,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
             if (type == "text")         widget = new TextWidget();
             if (type == "button")       widget = new Button();
             if (type == "input-field")  widget = new InputField();
+            if (type == "drop-down-list") widget = new DropDownList();
 
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
@@ -374,6 +376,13 @@ void Window::loadFromFile(string path, RenderWindow& app)
                         string s = elem2->Attribute("foregroundShader");
                         widget->setForegroundShader(stateName, s);
                     }
+                }
+                if (elem2Name == "addEntry" && type == "drop-down-list")
+                {
+                    DropDownList* d = dynamic_cast<DropDownList*>(widget);
+                    string t = elem2->Attribute("text");
+                    string data = elem2->Attribute("data");
+                    d->addEntry(tools::textManager::getText("gui", t), data);
                 }
 
                 elem2 = elem2->NextSiblingElement();

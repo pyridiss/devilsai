@@ -1,4 +1,4 @@
-add_library(gui button.cpp inputField.cpp style.cpp textWidget.cpp widget.cpp window.cpp)
+add_library(gui button.cpp dropDownList.cpp inputField.cpp style.cpp textWidget.cpp widget.cpp window.cpp)
 
 target_link_libraries(gui tinyxml2)
 
