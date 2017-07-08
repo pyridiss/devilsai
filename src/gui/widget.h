@@ -30,7 +30,6 @@
 
 #include "tools/signals.h"
 
-#include "imageManager/imageManager.h"
 using namespace std;
 using namespace sf;
 
@@ -60,6 +59,8 @@ class Widget
         map < string, minimalistWidget> states;
 
         string currentState = "normal";
+
+        bool _needsFocus = false;
 
     public:
         virtual ~Widget() = default;
@@ -93,6 +94,8 @@ class Widget
 
         void updateTextPosition();
         void updateSize();
+
+        bool needsFocus();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event event) = 0;

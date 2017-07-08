@@ -18,8 +18,11 @@
 */
 
 #include "tools/debug.h"
+
 #include "gui/widget.h"
 #include "gui/style.h"
+
+#include "imageManager/imageManager.h"
 
 namespace gui{
 
@@ -193,6 +196,11 @@ void Widget::updateSize()
         width = max(width, (int)rect.width + 12);
         height = max(height, (int)rect.height + 6);
     }
+}
+
+bool Widget::needsFocus()
+{
+    return _needsFocus;
 }
 
 void Widget::display(RenderWindow& app)

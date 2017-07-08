@@ -135,10 +135,16 @@ void Window::display(RenderWindow& app)
     if (!backgroundImage.empty())
         imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
 
+    Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
     {
-        widget.second->display(app);
+        if (widget.second->needsFocus())
+            priorityWidget = widget.second;
+        else
+            widget.second->display(app);
     }
+    if (priorityWidget != nullptr)
+        priorityWidget->display(app);
 }
 
 void Window::manage(RenderWindow& app)
@@ -175,8 +181,21 @@ void Window::manage(RenderWindow& app)
 
 void Window::manage(RenderWindow& app, Event &event)
 {
+    Widget* priorityWidget = nullptr;
+
     for (auto& widget : widgets)
     {
+        if (widget.second->needsFocus())
+        {
+            priorityWidget = widget.second;
+        }
+    }
+
+    for (auto& widget : widgets)
+    {
+        if (priorityWidget != nullptr && widget.second != priorityWidget)
+            continue;
+
         if (widget.second->activated(app, event))
         {
             for (auto& signal : signals)
