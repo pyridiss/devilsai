@@ -27,12 +27,12 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "gui/widget.h"
-
 using namespace std;
 using namespace sf;
 
 namespace gui{
+
+class Widget;
 
 class Window
 {
