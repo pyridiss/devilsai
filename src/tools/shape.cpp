@@ -203,6 +203,7 @@ void Shape::loadFromXML(XMLElement* elem)
         {
             current->next = new Shape;
             current->next->loadFromXML(elem2);
+            current->next->setOrigin(origin);
             current = current->next;
 
             elem2 = elem2->NextSiblingElement();
