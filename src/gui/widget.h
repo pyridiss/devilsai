@@ -102,6 +102,8 @@ class Widget
 
         virtual void setData(tools::signals::SignalData& data) = 0;
 
+        virtual void setValue(const tools::signals::SignalData& d) = 0;
+
         virtual void display(RenderWindow& app);
 };
 

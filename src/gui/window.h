@@ -76,6 +76,7 @@ class Window
         void display(RenderWindow& app);
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
+        void setValue(string widget, const tools::signals::SignalData& d);
 
         void loadFromFile(string path, RenderWindow& app);
 };

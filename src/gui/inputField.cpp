@@ -68,6 +68,11 @@ void InputField::setData(tools::signals::SignalData& data)
     data.String32Data = input;
 }
 
+void InputField::setValue(const tools::signals::SignalData& d)
+{
+    input = d.String32Data;
+}
+
 void InputField::display(RenderWindow& app)
 {
     setAllText(input);

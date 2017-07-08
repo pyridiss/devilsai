@@ -103,6 +103,13 @@ void DropDownList::setData(tools::signals::SignalData& data)
     data.stringData = entries[index].second;
 }
 
+void DropDownList::setValue(const tools::signals::SignalData& d)
+{
+    index = 0;
+    while (index < entries.size() && entries[index].second != d.stringData)
+        ++index;
+}
+
 void DropDownList::display(RenderWindow& app)
 {
     setAllText(entries[index].first);

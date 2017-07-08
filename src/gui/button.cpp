@@ -120,4 +120,8 @@ void Button::setData(tools::signals::SignalData& data)
 {
 }
 
+void Button::setValue(const tools::signals::SignalData& d)
+{
+}
+
 } //namespace gui

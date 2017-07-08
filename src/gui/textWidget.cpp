@@ -51,4 +51,8 @@ void TextWidget::setData(tools::signals::SignalData& data)
 {
 }
 
+void TextWidget::setValue(const tools::signals::SignalData& d)
+{
+}
+
 } //namespace gui

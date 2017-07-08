@@ -228,6 +228,15 @@ void Window::manage(RenderWindow& app, Event &event)
         }
 }
 
+void Window::setValue(string widget, const tools::signals::SignalData& d)
+{
+    auto i = widgets.find(widget);
+    if (i != widgets.end())
+    {
+        i->second->setValue(d);
+    }
+}
+
 void Window::loadFromFile(string path, RenderWindow& app)
 {
     path = tools::filesystem::dataDirectory() + path;
