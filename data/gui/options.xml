@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="608" height="383" backgroundImage="gui-dialog-background-608x383" backgroundFullscreenShader="disable"/>
+    <widget name="title" type="text" xCenter="304" yCenter="50" allText="options-title" textSize="24" textFont="dayroman"/>
+    <widget name="question-language" type="text" xCenter="184" yCenter="100" allText="options-choose-language" textSize="14"/>
+    <widget name="question-resolution" type="text" xCenter="184" yCenter="150" allText="options-choose-resolution" textSize="14"/>
+    <widget name="question-fullscreen" type="text" xCenter="184" yCenter="200" allText="options-choose-fullscreen" textSize="14"/>
+    <widget name="question-console" type="text" xCenter="184" yCenter="250" allText="options-choose-console-display" textSize="14"/>
+    <widget name="chooser-language" type="drop-down-list" xCenter="424" yCenter="100" width="156" height="34" allBackground="gui-dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+        <addEntry text="options-language-en" data="EN"/>
+        <addEntry text="options-language-fr" data="FR"/>
+    </widget>
+    <widget name="chooser-resolution" type="drop-down-list" xCenter="424" yCenter="150" width="156" height="34" allBackground="gui-dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+        <addEntry text="options-resolution-1" data="800x600"/>
+        <addEntry text="options-resolution-2" data="1024x768"/>
+        <addEntry text="options-resolution-3" data="1280x800"/>
+    </widget>
+    <widget name="chooser-fullscreen" type="drop-down-list" xCenter="424" yCenter="200" width="156" height="34" allBackground="gui-dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+        <addEntry text="options-enabled" data="enabled"/>
+        <addEntry text="options-disabled" data="disabled"/>
+    </widget>
+    <widget name="chooser-console" type="drop-down-list" xCenter="424" yCenter="250" width="156" height="34" allBackground="gui-dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+        <addEntry text="options-enabled" data="enabled"/>
+        <addEntry text="options-disabled" data="disabled"/>
+    </widget>
+    <widget name="button-back" type="button" xTopLeft="20" yTopLeft="317" width="156" height="46" allBackground="gui-button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-apply" type="button" xTopLeft="432" yTopLeft="317" width="156" height="46" allBackground="gui-button-background-156x46" allText="options-apply" textSize="12" textFont="liberation-bold"/>
+    <signal emitter="button-back" signal="main-menu"/>
+    <signal emitter="button-apply" signal="option-change-language" dataProvider="chooser-language"/>
+    <signal emitter="button-apply" signal="option-change-resolution" dataProvider="chooser-resolution"/>
+    <signal emitter="button-apply" signal="option-change-fullscreen" dataProvider="chooser-fullscreen"/>
+    <signal emitter="button-apply" signal="option-change-console" dataProvider="chooser-console"/>
+    <signal emitter="button-apply" signal="main-menu"/>
+    <exitWindowSignal emitter="button-back"/>
+    <exitWindowSignal emitter="button-apply"/>
+</window>

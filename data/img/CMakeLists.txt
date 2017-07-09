@@ -51,6 +51,8 @@ set(img
     ground-tile03.png
     gui-button-background-156x46.png
     gui-dialog-background-488x308.png
+    gui-dialog-background-608x383.png
+    gui-dropdownlist-background-156x34.png
     gui-input-field-background-356x46.png
     gui-menu-button.png
     gui-rest-button.png

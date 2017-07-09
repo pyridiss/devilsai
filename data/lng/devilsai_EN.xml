@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="ACTIVE">Enabled</text>
-    <text id="AFFICHAGE_DEGATS">Show done and received damage</text>
     <text id="AMELIORATION_AGILITE">Agility %%</text>
     <text id="AMELIORATION_CHARISM">Charisma %%</text>
     <text id="AMELIORATION_CONSTIT">Constitution %%</text>
@@ -20,7 +18,6 @@
     <text id="DEGATS_INFLIGES">Done: %%</text>
     <text id="DEGATS_RECUS">Received: %%</text>
     <text id="DEMANDE_REDEMARRAGE">Please restart the game to ensure that changes are properly saved</text>
-    <text id="DESACTIVE">Disabled</text>
     <text id="ECHEC">Failed!</text>
     <text id="ENERGIE_INSUFFISANTE">Insufficient energy!</text>
     <text id="EQUIP_AGILITE">Agility %%</text>
@@ -51,7 +48,6 @@
     <text id="LANCER_PARTIE">Launch the game</text>
     <text id="LANGUE">Language</text>
     <text id="MENUPRINCIPAL_CHARGER">Load a Saved Game</text>
-    <text id="MENUPRINCIPAL_OPTIONS">Options</text>
     <text id="MONTRES_RESTANTS">Remaining monsters: %%</text>
     <text id="PAS_DE_SAUVEG">No saved game available</text>
     <text id="PERSO_AGILITE">Agility:</text>
@@ -67,9 +63,7 @@
     <text id="PERSO_RECUP">Recovery rate:</text>
     <text id="PERSO_RECUPMOY">Average recovery:</text>
     <text id="PERSO_VITALITE">Vitality:</text>
-    <text id="PLEINECRAN">Fullscreen</text>
     <text id="PRECEDENT">&lt; Previous</text>
-    <text id="RESOLUTION">Screen resolution</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
     <text id="RETOUR_MENU">&lt; Main menu</text>
     <text id="SAUVEGARDE">Game saved</text>

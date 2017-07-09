@@ -6,6 +6,7 @@ set(gui
     loading.xml
     main-menu.xml
     new-game.xml
+    options.xml
     player-dead.xml
 )
 

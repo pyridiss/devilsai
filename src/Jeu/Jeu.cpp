@@ -135,6 +135,7 @@ void mainLoop()
 
     gui::Window mainMenuWindow("gui/main-menu.xml", Jeu.App);
     gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
+    gui::Window optionsWindow("gui/options.xml", Jeu.App);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", Jeu.App);
@@ -143,6 +144,8 @@ void mainLoop()
 
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
+
+    initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
 
@@ -239,7 +242,12 @@ void mainLoop()
 
             if (signal.first == "options")
             {
-                EcranOptions();
+                optionsWindow.manage(Jeu.App);
+            }
+
+            if (signal.first.find("option-change") != string::npos)
+            {
+                changeOption(signal.first, signal.second.stringData);
             }
 
             if (signal.first == "ask-menu")

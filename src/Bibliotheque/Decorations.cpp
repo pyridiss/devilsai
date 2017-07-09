@@ -64,6 +64,8 @@ void Load_Decorations()
     imageManager::addImage("misc", "gui-rest-button", "img/gui-rest-button.png", Vector2i(0, 0), 0.38);
     imageManager::addImage("misc", "gui-button-background-156x46", "img/gui-button-background-156x46.png");
     imageManager::addImage("misc", "gui-dialog-background-488x308", "img/gui-dialog-background-488x308.png");
+    imageManager::addImage("misc", "gui-dialog-background-608x383", "img/gui-dialog-background-608x383.png");
+    imageManager::addImage("misc", "gui-dropdownlist-background-156x34", "img/gui-dropdownlist-background-156x34.png");
     imageManager::addImage("misc", "gui-input-field-background-356x46", "img/gui-input-field-background-356x46.png");
     imageManager::addImage("misc", "gui-top-border", "img/gui-top-border.png");
 

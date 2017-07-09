@@ -17,42 +17,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <fstream>
-
 #include "tools/signals.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "Jeu.h"
 
-
-void ChangerResolution()
-{
-	list < pair<unsigned,unsigned> > ResolutionsDisponibles;
-	ResolutionsDisponibles.push_back(pair<unsigned,unsigned>(800, 600));
-	ResolutionsDisponibles.push_back(pair<unsigned,unsigned>(1024, 768));
-	ResolutionsDisponibles.push_back(pair<unsigned,unsigned>(1280, 800));
-
-	bool Changement = false;
-
-	for (list< pair<unsigned,unsigned> >::iterator i = ResolutionsDisponibles.begin() ; i != ResolutionsDisponibles.end() ; ++i)
-	{
-		if (i->first == Options.ScreenW_Save && i->second == Options.ScreenH_Save)
-		{
-			++i; if (i == ResolutionsDisponibles.end()) i = ResolutionsDisponibles.begin();
-			Options.ScreenW_Save = i->first; Options.ScreenH_Save = i->second;
-			Changement = true;
-		}
-	}
-
-	if (!Changement)
-	{
-		Options.ScreenW_Save = ResolutionsDisponibles.begin()->first;
-		Options.ScreenH_Save = ResolutionsDisponibles.begin()->second;
-	}
-}
+#include "gui/window.h"
 
 void Load_Options()
 {
@@ -129,128 +101,43 @@ void Save_Options()
 	fileStream.close();
 }
 
-void EcranOptions()
+void changeOption(string option, string value)
 {
-	bool AfficherDemandeRedemarrage = false;
-
-    gui::Button mainMenuButton, languageButton, fullscreenButton, showDamageButton, changeResolutionButton;
-
-    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
-    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
-    mainMenuButton.setAllText(tools::textManager::getText("devilsai", "RETOUR_MENU"));
-
-    fullscreenButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 270);
-    fullscreenButton.setAutoRelease(false);
-    fullscreenButton.setTextFont(Jeu.DayRoman, 16);
-    fullscreenButton.setText("normal", tools::textManager::getText("devilsai", "DESACTIVE"));
-    fullscreenButton.setText("hover", tools::textManager::getText("devilsai", "DESACTIVE"));
-    fullscreenButton.setText("active", tools::textManager::getText("devilsai", "ACTIVE"));
-
-    if (Options.PleinEcran_Save)
-        fullscreenButton.setCurrentState("active");
-
-    showDamageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 310);
-    showDamageButton.setAutoRelease(false);
-    showDamageButton.setTextFont(Jeu.DayRoman, 16);
-    showDamageButton.setText("normal", tools::textManager::getText("devilsai", "DESACTIVE"));
-    showDamageButton.setText("hover", tools::textManager::getText("devilsai", "DESACTIVE"));
-    showDamageButton.setText("active", tools::textManager::getText("devilsai", "ACTIVE"));
-
-    if (Options.AffichageDegats)
-        showDamageButton.setCurrentState("active");
-
-    languageButton.setCenterCoordinates(3.f/4.f * Options.ScreenW , 230);
-    languageButton.setTextFont(Jeu.DayRoman, 16);
-
-    changeResolutionButton.setCenterCoordinates(3.f/4.f * Options.ScreenW, 350);
-    changeResolutionButton.setTextFont(Jeu.DayRoman, 16);
-
-    bool RetourMenu = false;
-    while (!RetourMenu)
+    if (option == "option-change-language")
     {
-        languageButton.setAllText(getNameOfLanguage());
+        if (value == "EN") Options.Langue = "en=";
+        if (value == "FR") Options.Langue = "fr=";
+    }
+    else if (option == "option-change-resolution")
+    {
+        size_t x = value.find("x");
+        Options.ScreenW_Save = stoi(value);
+        Options.ScreenH_Save = stoi(value.substr(x+1));
+    }
+    else if (option == "option-change-fullscreen")
+    {
+        Options.PleinEcran_Save = (value == "enabled" ? true : false);
+    }
+    else if (option == "option-change-console")
+    {
+        Options.AffichageDegats = (value == "enabled" ? true : false);
+    }
+}
 
-        string reso = intToString(Options.ScreenW_Save) + " x " + intToString(Options.ScreenH_Save);
-        String32 Reso;
-        Utf8::toUtf32(reso.begin(), reso.end(), back_inserter(Reso));
-        changeResolutionButton.setAllText(Reso);
+void initOptionsWindow(gui::Window& window)
+{
+    tools::signals::SignalData d;
 
-        Event event;
-        while (Jeu.App.pollEvent(event))
-        {
-            if (mainMenuButton.activated(Jeu.App, event)) RetourMenu = true;
-            if (languageButton.activated(Jeu.App, event))
-            {
-                changeLanguage();
-                AfficherDemandeRedemarrage = true;
-            }
-            if (fullscreenButton.activated(Jeu.App, event))
-            {
-                Options.PleinEcran_Save = true;
-                if (!Options.PleinEcran) AfficherDemandeRedemarrage = true;
-            }
-            else
-            {
-                Options.PleinEcran_Save = false;
-                if (Options.PleinEcran) AfficherDemandeRedemarrage = true;
-            }
-            if (showDamageButton.activated(Jeu.App, event))
-            {
-                Options.AffichageDegats = true;
-            }
-            else
-            {
-                Options.AffichageDegats = false;
-            }
-            if (changeResolutionButton.activated(Jeu.App, event))
-            {
-                ChangerResolution();
-                AfficherDemandeRedemarrage = true;
-            }
+    if (Options.Langue == "fr=") d.stringData = "FR";
+    else d.stringData = "EN";
+    window.setValue("chooser-language", d);
 
-            if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-                RetourMenu = true;
-        }
+    d.stringData = intToString(Options.ScreenW_Save) + "x" + intToString(Options.ScreenH_Save);
+    window.setValue("chooser-resolution", d);
 
-		/* Affichage */
+    d.stringData = (Options.PleinEcran ? "enabled" : "disabled");
+    window.setValue("chooser-fullscreen", d);
 
-		Disp_FondMenus();
-
-		Disp_TitrePage(tools::textManager::getText("devilsai", "MENUPRINCIPAL_OPTIONS"));
-
-		Disp_Texte(tools::textManager::getText("devilsai", "LANGUE"), 1.f/4.f * Options.ScreenW, 220, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(tools::textManager::getText("devilsai", "PLEINECRAN"), 1.f/4.f * Options.ScreenW, 260, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(tools::textManager::getText("devilsai", "AFFICHAGE_DEGATS"), 1.f/4.f * Options.ScreenW, 300, Color(200,255,255,255), 16., Jeu.DayRoman);
-		Disp_Texte(tools::textManager::getText("devilsai", "RESOLUTION"), 1.f/4.f * Options.ScreenW, 340, Color(200,255,255,255), 16., Jeu.DayRoman);
-
-        mainMenuButton.display(Jeu.App);
-        languageButton.display(Jeu.App);
-        fullscreenButton.display(Jeu.App);
-        showDamageButton.display(Jeu.App);
-        changeResolutionButton.display(Jeu.App);
-
-		if (AfficherDemandeRedemarrage)
-			Disp_TexteCentre(tools::textManager::getText("devilsai", "DEMANDE_REDEMARRAGE"), Options.ScreenW/2, Options.ScreenH - 210, Color(255,196,196,255), 12.);
-
-		//Licence :
-		Disp_Texte("Devilsai - A game written using the SFML library", 20, Options.ScreenH - 140, Color(255,255,255,128), 13);
-		Disp_Texte("Copyright (C) 2009-2014  Quentin Henriet", 20, Options.ScreenH - 125, Color(255,255,255,128), 13);
-
-		Disp_Texte("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by", 20, Options.ScreenH - 95, Color(255,255,255,128), 11);
-		Disp_Texte("the Free Software Foundation, either version 3 of the License, or (at your option) any later version.", 20, Options.ScreenH - 80, Color(255,255,255,128), 11);
-
-		Disp_Texte("This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of", 20, Options.ScreenH - 55, Color(255,255,255,128), 11);
-		Disp_Texte("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.", 20, Options.ScreenH - 40, Color(255,255,255,128), 11);
-
-		Disp_Texte("You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.", 20, Options.ScreenH - 20, Color(255,255,255,128), 11);
-
-		Jeu.App.display();
-		/* Fin animation */
-	}
-
-	Save_Options();
-
-    tools::signals::addSignal("main-menu");
-
-	return;
+    d.stringData = (Options.AffichageDegats ? "enabled" : "disabled");
+    window.setValue("chooser-console", d);
 }

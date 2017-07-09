@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="ACTIVE">Activé</text>
-    <text id="AFFICHAGE_DEGATS">Affichage des dégâts causés et reçus</text>
     <text id="AMELIORATION_AGILITE">Agilité %%</text>
     <text id="AMELIORATION_CHARISM"> Charisme %%</text>
     <text id="AMELIORATION_CONSTIT">Constitution %%</text>
@@ -20,7 +18,6 @@
     <text id="DEGATS_INFLIGES">Infligés : %%</text>
     <text id="DEGATS_RECUS">Reçus : %%</text>
     <text id="DEMANDE_REDEMARRAGE">Redémarrez le programme pour que les changements soient correctement pris en compte</text>
-    <text id="DESACTIVE">Désactivé</text>
     <text id="ECHEC">Échec !</text>
     <text id="ENERGIE_INSUFFISANTE">Énergie insuffisante !</text>
     <text id="EQUIP_AGILITE">Augmente l'agilité %%</text>
@@ -51,7 +48,6 @@
     <text id="LANCER_PARTIE">Lancer la partie</text>
     <text id="LANGUE">Langue</text>
     <text id="MENUPRINCIPAL_CHARGER">Charger une Partie Sauvegardée</text>
-    <text id="MENUPRINCIPAL_OPTIONS">Options</text>
     <text id="MONTRES_RESTANTS">Monstres restants : %%</text>
     <text id="PAS_DE_SAUVEG">Pas de sauvegarde disponible</text>
     <text id="PERSO_AGILITE">Agilité :</text>
@@ -67,9 +63,7 @@
     <text id="PERSO_RECUP">Taux de récupération :</text>
     <text id="PERSO_RECUPMOY">Récupération moyenne :</text>
     <text id="PERSO_VITALITE">Vitalité :</text>
-    <text id="PLEINECRAN">Plein Écran</text>
     <text id="PRECEDENT">&lt; Précédent</text>
-    <text id="RESOLUTION">Résolution de l'écran</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>
     <text id="RETOUR_MENU">&lt; Menu principal</text>
     <text id="SAUVEGARDE">Sauvegarde effectuée</text>
