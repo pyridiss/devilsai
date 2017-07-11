@@ -134,7 +134,7 @@ void Window::display(RenderWindow& app)
     }
 
     if (!backgroundImage.empty())
-        imageManager::display(app, "misc", backgroundImage, getXTopLeft(), getYTopLeft());
+        imageManager::display(app, "gui", backgroundImage, getXTopLeft(), getYTopLeft());
 
     Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
@@ -250,6 +250,16 @@ void Window::loadFromFile(string path, RenderWindow& app)
     while (elem)
     {
         string elemName = elem->Name();
+
+        if (elemName == "loadImage")
+        {
+            string key = elem->Attribute("key");
+            string path = elem->Attribute("path");
+            double scale = 1;
+            elem->QueryAttribute("scale", &scale);
+            imageManager::addContainer("gui");
+            imageManager::addImage("gui", key, path, Vector2i(0, 0), scale);
+        }
 
         if (elemName == "properties")
         {

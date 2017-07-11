@@ -208,7 +208,7 @@ void Widget::display(RenderWindow& app)
     const auto& state = states.find(currentState);
 
     if (!state->second.background.empty())
-        imageManager::display(app, "misc", state->second.background, getXTopLeft(), getYTopLeft());
+        imageManager::display(app, "gui", state->second.background, getXTopLeft(), getYTopLeft());
 
     if (state->second.backgroundShader != nullptr)
         state->second.backgroundShader(app, getXTopLeft(), getYTopLeft(), width, height);

@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+    <loadImage key="button-ingame-menu" path="img/gui-menu-button.png" scale="0.38"/>
+    <loadImage key="button-character" path="img/BoutonPersonnage.png" scale="0.38"/>
+    <loadImage key="button-equipment" path="img/BoutonEquipement.png" scale="0.38"/>
+    <loadImage key="button-skills" path="img/BoutonCompetences.png" scale="0.38"/>
+    <loadImage key="button-journal" path="img/BoutonJournal.png" scale="0.38"/>
+    <loadImage key="button-rest" path="img/gui-rest-button.png" scale="0.38"/>
     <properties xTopLeft="0" yTopLeft="0" width="800" height="50"/>
-    <widget name="button-ingame-menu" type="button" xTopLeft="10" yTopLeft="2" width="41" height="41" allBackground="gui-menu-button">
-        <state name="hover" foregroundShader="hightlight"/>
-    </widget>
-    <widget name="button-character" type="button" xTopLeft="60" yTopLeft="2" width="41" height="41" allBackground="BoutonPersonnage">
+    <widget name="button-ingame-menu" type="button" xTopLeft="10" yTopLeft="2" width="41" height="41" allBackground="button-ingame-menu">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-equipment" type="button" xTopLeft="110" yTopLeft="2" width="41" height="41" allBackground="BoutonEquipement">
+    <widget name="button-character" type="button" xTopLeft="60" yTopLeft="2" width="41" height="41" allBackground="button-character">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-skills" type="button" xTopLeft="160" yTopLeft="2" width="41" height="41" allBackground="BoutonCompetences">
+    <widget name="button-equipment" type="button" xTopLeft="110" yTopLeft="2" width="41" height="41" allBackground="button-equipment">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-journal" type="button" xTopLeft="210" yTopLeft="2" width="41" height="41" allBackground="BoutonJournal">
+    <widget name="button-skills" type="button" xTopLeft="160" yTopLeft="2" width="41" height="41" allBackground="button-skills">
+        <state name="hover" foregroundShader="highlight"/>
+    </widget>
+    <widget name="button-journal" type="button" xTopLeft="210" yTopLeft="2" width="41" height="41" allBackground="button-journal">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="warn-journal" type="text" xTopLeft="210" yTopLeft="2" width="41" height="41">
         <state name="warn" foregroundShader="warn"/>
     </widget>
-    <widget name="button-rest" type="button" xTopLeft="260" yTopLeft="2" width="41" height="41" allBackground="gui-rest-button">
+    <widget name="button-rest" type="button" xTopLeft="260" yTopLeft="2" width="41" height="41" allBackground="button-rest">
         <state name="hover" foregroundShader="highlight"/>
         <state name="disabled" foregroundShader="disable"/>
     </widget>

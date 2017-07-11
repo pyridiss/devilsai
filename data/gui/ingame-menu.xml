@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="gui-dialog-background-488x308" backgroundFullscreenShader="disable"/>
-    <widget name="button-return-to-game" type="button" xCenter="244" yCenter="65" width="156" height="46" allBackground="gui-button-background-156x46" allText="ingame-menu-return-to-game" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-savegame" type="button" xCenter="244" yCenter="154" width="156" height="46" allBackground="gui-button-background-156x46" allText="ingame-menu-savegame" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-exit" type="button" xCenter="244" yCenter="242" width="156" height="46" allBackground="gui-button-background-156x46" allText="ingame-menu-exit" textSize="12" textFont="liberation-bold"/>
+    <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
+    <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
+    <widget name="button-return-to-game" type="button" xCenter="244" yCenter="65" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-return-to-game" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-savegame" type="button" xCenter="244" yCenter="154" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-savegame" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-exit" type="button" xCenter="244" yCenter="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit" textSize="12" textFont="liberation-bold"/>
     <signal emitter="button-savegame" signal="savegame"/>
     <signal emitter="button-exit" signal="ask-exit"/>
     <exitWindowSignal emitter="button-return-to-game"/>
