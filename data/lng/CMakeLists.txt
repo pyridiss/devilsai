@@ -31,7 +31,6 @@ set(lng
     gui_FR.xml
     EndOfGame.lng
     journal.lng
-    langues
     noms_competences.lng
     noms_objets.lng
     places_EN.xml

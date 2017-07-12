@@ -131,14 +131,10 @@ bool Disp_Repos();
 
 /* Fonctions définies dans le fichier Langues.cpp */
 
-void loadAvailableLanguages();
-void deleteLanguagesList();
 String32 getTranslatedNameOfObject(int);
 String32 getTranslatedNameOfObject(string);
 String32 getTranslatedNameOfSkill(string);
 String32 getTranslatedDescriptionOfObject(int);
-void changeLanguage();
-String32& getNameOfLanguage();
 void cutParagraph(Paragraph*);
 void displayJournal();
 

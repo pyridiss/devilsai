@@ -32,61 +32,7 @@
 
 #include "gamedata.h"
 
-/** VARIABLES GLOBALES **/
-
-Language *languages;
-
-short numberOfLanguages;
-
-
 /** GESTION DES FICHIERS DE TYPE PHRASES **/
-
-void loadAvailableLanguages()
-{
-	string fileName = tools::filesystem::dataDirectory() + "lng/langues";
-
-	ifstream fileStream(fileName, ios_base::in);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
-
-	string dataType;
-	int counter = 0;
-
-	while (fileStream.rdstate() == 0)
-	{
-		fileStream >> dataType;
-
-		if (dataType == "NOMBRE_LANGUES")
-		{
-			fileStream >> numberOfLanguages;
-			languages = new Language[numberOfLanguages];
-		}
-		else if (dataType != "")
-		{
-			fileStream >> languages[counter].name;
-			languages[counter].shortName = dataType;
-			++counter;
-		}
-		      dataType = "";
-
-		if (counter > numberOfLanguages)
-		{
-			Erreur("Il n'y a pas autant de langues que le précise le fichier", fileName);
-			break;
-		}
-	}
-
-	fileStream.close();
-}
-
-void deleteLanguagesList()
-{
-	if (languages != NULL) delete[] languages;
-	languages = NULL;
-
-	MESSAGE("Liste des Langues supprimée", LISTE)
-}
 
 template <class T>
 String32 getTranslatedName(string fichier, T Indice)
@@ -138,27 +84,6 @@ String32 getTranslatedNameOfSkill(string Indice)
 String32 getTranslatedDescriptionOfObject(int Indice)
 {
 	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/desc_objets.lng", Indice);
-}
-
-void changeLanguage()
-{
-	int i = 0;
-	for ( ; i < numberOfLanguages ; ++i)
-		if (languages[i].shortName == Options.Langue) break;
-
-	if (i == numberOfLanguages -1) i = 0;
-	else ++i;
-
-	Options.Langue = languages[i].shortName;
-}
-
-String32& getNameOfLanguage()
-{
-	int i = 0;
-	for ( ; i < numberOfLanguages ; ++i)
-		if (languages[i].shortName == Options.Langue) break;
-
-	return languages[i].name;
 }
 
 void cutParagraph(Paragraph* paragraph)
