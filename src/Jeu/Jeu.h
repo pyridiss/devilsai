@@ -120,7 +120,6 @@ bool Load_Partie(string);
 void AjouterSauvegarde();
 string ChoixSauvegarde();
 void MaJ_Sauvegarde();
-void Save_Sauvegardes();
 
 void Load_Options();
 void Save_Options();

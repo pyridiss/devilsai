@@ -179,7 +179,6 @@ int main(int n, char *params[])
 	PHYSFS_deinit();
 
 	Save_Options();
-	Save_Sauvegardes();
 
 	return EXIT_SUCCESS;
 }

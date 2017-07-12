@@ -60,7 +60,6 @@ void AjouterSauvegarde()
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
 
-	Save_Sauvegardes();
 	Save_Options();
 }
 
@@ -310,30 +309,4 @@ void MaJ_Sauvegarde()
 		return;
 	}
 	i->second.Version = VERSION;
-}
-
-void Save_Sauvegardes()
-{
-	string fileName = tools::filesystem::getSaveDirectoryPath() + "sauvegardes.opt";
-
-	string bufferString;
-
-	ofstream fileStream(fileName.c_str(), ios_base::out);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName.c_str());
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
-
-	fileStream << "NOMBRE_SAUVEGARDES " << Sauvegardes.size() << endl;
-
-	for (auto& savedGame : Sauvegardes)
-	{
-		fileStream << "SAUVEGARDE " << savedGame.second.Dossier << endl;
-		sf::Utf32::toUtf8(savedGame.second.Nom.begin(), savedGame.second.Nom.end(), back_inserter(bufferString));
-		fileStream << "NOM " << bufferString << endl;
-		fileStream << "VERSION " << savedGame.second.Version << endl;
-		fileStream << "FIN_SAUVEGARDE" << endl;
-		bufferString = "";
-	}
-
-	fileStream.close();
 }
