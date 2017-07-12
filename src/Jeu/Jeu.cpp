@@ -155,6 +155,7 @@ void mainLoop()
     initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
+    tools::signals::addSignal("main-menu:disable-load-game");
 
     View worldView(FloatRect(0, 0, Options.ScreenW, Options.ScreenH));
     worldView.setViewport(sf::FloatRect(0, 0, 1, 1));

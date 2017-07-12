@@ -168,4 +168,7 @@ void initOptionsWindow(gui::Window& window)
 
     d.stringData = (Options.AffichageDegats ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
+
+    if (!savedGames.empty())
+        tools::signals::addSignal("main-menu:enable-load-game");
 }
