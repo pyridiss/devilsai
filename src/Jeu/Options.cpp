@@ -30,6 +30,7 @@
 #include "Jeu.h"
 
 #include "gui/window.h"
+#include "gui/scrollingList.h"
 
 #include "gamedata.h"
 
@@ -166,6 +167,22 @@ void updateCurrentSavedGamePack()
     currentSavedGame->version = "master";
 }
 
+void initLoadGameWindow(gui::Window& window)
+{
+    gui::ScrollingList* scrollingList = dynamic_cast<gui::ScrollingList*>(window.widget("savedgames-list"));
+
+    if (scrollingList != nullptr)
+    {
+        for (auto& s : savedGames)
+        {
+            scrollingList->addEntry(s.playerName, s.directory);
+        }
+    }
+
+    if (!savedGames.empty())
+        tools::signals::addSignal("main-menu:enable-load-game");
+}
+
 void initOptionsWindow(gui::Window& window)
 {
     tools::signals::SignalData d;
@@ -182,7 +199,4 @@ void initOptionsWindow(gui::Window& window)
 
     d.stringData = (Options.AffichageDegats ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
-
-    if (!savedGames.empty())
-        tools::signals::addSignal("main-menu:enable-load-game");
 }

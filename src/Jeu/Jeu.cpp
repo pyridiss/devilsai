@@ -90,9 +90,9 @@ void Load_Chapitre(string filename)
 
 /** ÉTABLISSEMENT D'UN NOUVEAU JEU OU CHARGEMENT DU JEU ENREGISTRÉ */
 
-bool PartieSauvegardee()
+bool PartieSauvegardee(string save)
 {
-	Partie.SAVE = ChoixSauvegarde();
+	Partie.SAVE = "ANNULER";
 
 	if (Partie.SAVE == "ANNULER")
 	{
@@ -136,6 +136,7 @@ void mainLoop()
 
     gui::Window mainMenuWindow("gui/main-menu.xml", Jeu.App);
     gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
+    gui::Window loadGameWindow("gui/load-game.xml", Jeu.App);
     gui::Window optionsWindow("gui/options.xml", Jeu.App);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
@@ -152,6 +153,7 @@ void mainLoop()
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
 
+    initLoadGameWindow(loadGameWindow);
     initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
@@ -238,7 +240,16 @@ void mainLoop()
 
             if (signal.first == "load-game")
             {
-                if (PartieSauvegardee())
+                loadGameWindow.manage(Jeu.App);
+//                 if (PartieSauvegardee())
+//                 {
+//                     managementActivated = true;
+//                 }
+            }
+
+            if (signal.first == "start-loaded-game")
+            {
+                if (PartieSauvegardee(signal.second.stringData))
                 {
                     managementActivated = true;
                 }

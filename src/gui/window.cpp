@@ -33,6 +33,7 @@
 #include "gui/button.h"
 #include "gui/inputField.h"
 #include "gui/dropDownList.h"
+#include "gui/scrollingList.h"
 #include "gui/style.h"
 
 using namespace tinyxml2;
@@ -228,6 +229,17 @@ void Window::manage(RenderWindow& app, Event &event)
         }
 }
 
+Widget* Window::widget(string name)
+{
+    auto i = widgets.find(name);
+    if (i != widgets.end())
+    {
+        return i->second;
+    }
+
+    return nullptr;
+}
+
 void Window::setValue(string widget, const tools::signals::SignalData& d)
 {
     auto i = widgets.find(widget);
@@ -323,6 +335,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
             if (type == "button")       widget = new Button();
             if (type == "input-field")  widget = new InputField();
             if (type == "drop-down-list") widget = new DropDownList();
+            if (type == "scrolling-list") widget = new ScrollingList();
 
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 

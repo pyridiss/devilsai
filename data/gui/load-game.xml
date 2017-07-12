@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <loadImage key="dialog-background-608x383" path="img/gui-dialog-background-608x383.png"/>
+    <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
+    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="608" height="383" backgroundImage="dialog-background-608x383" backgroundFullscreenShader="disable"/>
+    <widget name="question" type="text" xCenter="304" yCenter="50" allText="load-game-title" textSize="24" textFont="dayroman"/>
+    <widget name="savedgames-list" type="scrolling-list" xTopLeft="20" yTopLeft="100" width="284" height="263"/>
+    <widget name="button-back" type="button" xTopLeft="368" yTopLeft="310" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-start" type="button" xTopLeft="368" yTopLeft="110" width="156" height="46" allBackground="button-background-156x46" allText="load-game-start" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-delete" type="button" xTopLeft="368" yTopLeft="210" width="156" height="46" allBackground="button-background-156x46" allText="load-game-delete" textSize="12" textFont="liberation-bold"/>
+    <signal emitter="button-back" signal="main-menu"/>
+    <signal emitter="button-start" signal="start-loaded-game" dataProvider="savedgames"/>
+    <exitWindowSignal emitter="button-back"/>
+    <exitWindowSignal emitter="button-start"/>
+</window>
