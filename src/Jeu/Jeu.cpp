@@ -22,7 +22,10 @@
 #include "tools/timeManager.h"
 #include "tools/signals.h"
 #include "tools/textManager.h"
+
 #include "gui/window.h"
+#include "gui/textWidget.h"
+
 #include "musicManager/musicManager.h"
 
 #include "../Carte/Carte.h"
@@ -131,8 +134,6 @@ void mainLoop()
     bool managementActivated = false;
     bool playerResting = false;
 
-	String32 NomLieu;
-
     gui::Window mainMenuWindow("gui/main-menu.xml", Jeu.App);
     gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
     gui::Window optionsWindow("gui/options.xml", Jeu.App);
@@ -141,6 +142,12 @@ void mainLoop()
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", Jeu.App);
     gui::Window loadingWindow("gui/loading.xml", Jeu.App);
     gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
+
+    gui::TextWidget placeName;
+    placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
+    placeName.setTextFont(gui::style::fontFromString("dayroman"), 30);
+    placeName.setTextOutline(Color(0, 0, 0), 1);
+    placeName.setTextColor("normal", Color(192, 0, 0));
 
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
@@ -286,6 +293,13 @@ void mainLoop()
                 return;
             }
 
+            if (signal.first == "place-changed")
+            {
+                ChangementLieu = 254;
+                placeName.setAllText(tools::textManager::getText("places", signal.second.stringData));
+                placeName.updateTextPosition();
+            }
+
             tools::signals::removeSignal();
             signal = tools::signals::getNextSignal();
         }
@@ -383,26 +397,15 @@ void mainLoop()
 
 		//4. CHANGEMENTS DE LIEU
 
-		if (gamedata::player()->IndiceLieu != gamedata::player()->SauvegardeIndiceLieu)
-		{
-            if (gamedata::player()->LieuVillage != "village")
-                tools::signals::addSignal("ingame-toolbar:disable-rest");
-            else
-                tools::signals::addSignal("ingame-toolbar:enable-rest");
+        gamedata::updateCurrentPlace();
 
-			ChangementLieu = 254;
-			NomLieu = tools::textManager::getText("places", intToString(gamedata::player()->IndiceLieu));
-			gamedata::player()->SauvegardeIndiceLieu = gamedata::player()->IndiceLieu;
-		}
 		if (ChangementLieu != 255)
 		{
 			ChangementLieu -= tools::timeManager::I((256-ChangementLieu)/24);
 			if (ChangementLieu <= 0) ChangementLieu = 255;
 			else
 			{
-				Disp_TexteCentre(NomLieu, Options.ScreenW/2 + 1, 121, Color(0, 0, 0, ChangementLieu), 30., Jeu.DayRoman);
-				Disp_TexteCentre(NomLieu, Options.ScreenW/2, 120, Color(225, 0, 0, ChangementLieu), 30., Jeu.DayRoman);
-
+                placeName.display(Jeu.App);
 			}
 		}
 

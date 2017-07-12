@@ -183,15 +183,20 @@ void updateCurrentPlace()
             if (intersection(p->size, _player->size))
             {
                 _currentPlace = p;
+
                 if (p->Diplomatie != _player->Diplomatie)
                     tools::signals::addSignal("ingame-toolbar:disable-rest");
                 else
                     tools::signals::addSignal("ingame-toolbar:enable-rest");
+
+                tools::signals::SignalData d;
+                d.stringData = p->Type;
+                tools::signals::addSignal("place-changed", d);
+
                 break;
             }
         }
     }
-
 }
 
 } //namespace gamedata
