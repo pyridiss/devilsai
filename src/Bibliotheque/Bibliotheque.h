@@ -119,7 +119,6 @@ class Dialog
 void Load_Decorations();
 void Supprimer_Decorations();
 void Disp_FPS();
-void Disp_FondMenus();
 void Disp_Menu();
 void Disp_JaugesVie();
 void Ajouter_LignePerso(String32, Color);
@@ -160,7 +159,6 @@ void Erreur(const string&, const float&);
 void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
 void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_TitrePage(const String32&);
 string intToString(double, int size = -1);
 
 #endif

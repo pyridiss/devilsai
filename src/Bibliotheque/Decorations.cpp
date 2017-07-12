@@ -90,28 +90,6 @@ void Disp_FPS()
     Jeu.App.draw(FPS);
 }
 
-/** FOND POUR LES MENUS **/
-
-void Disp_FondMenus()
-{
-	static float Animation = 350;
-	static RectangleShape Masque(Vector2f(Options.ScreenW, Options.ScreenH));
-	Masque.setFillColor(Color(0,0,0,0));
-
-	imageManager::display(Jeu.App, "misc", "Fond", 0, 0);
-
-	Animation += tools::timeManager::I(0.75);
-
-	if (Animation < 250) Masque.setFillColor(Color((255-Animation)/2,0,0,Animation));
-	if (Animation >= 250 && Animation < 350) Masque.setFillColor(Color(0,0,0,250));
-	if (Animation >= 350 && Animation < 600) Masque.setFillColor(Color(0,0,(Animation-350)/1.5,600-Animation));
-	if (Animation >= 600 && Animation < 700) Masque.setFillColor(Color(0,0,165,0));
-	if (Animation >= 700) Animation = 0;
-
-	Jeu.App.draw(Masque);
-
-	Disp_FPS();
-}
 
 /** MENU SUPÉRIEUR **/
 

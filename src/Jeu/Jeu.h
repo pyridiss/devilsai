@@ -117,8 +117,6 @@ void Clean_Partie();
 void Save_Partie();
 bool Load_Partie(string);
 
-string ChoixSauvegarde();
-
 void Load_Options();
 void Save_Options();
 void changeOption(string option, string value);

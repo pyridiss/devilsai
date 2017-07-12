@@ -240,13 +240,6 @@ void Disp_TexteCentre(const String32 &str, int x, int y, Color couleur, float Si
 	Jeu.App.draw(Texte);
 }
 
-void Disp_TitrePage(const String32 &str)
-{
-	Disp_TexteCentre(str, Options.ScreenW/2 - 2, 118, Color(0,0,0,255), 45, Jeu.DayRoman);
-	Disp_TexteCentre(str, Options.ScreenW/2 + 2, 122, Color(0,0,0,255), 45, Jeu.DayRoman);
-	Disp_TexteCentre(str, Options.ScreenW/2, 120, Color(50,192,192,255), 45, Jeu.DayRoman);
-}
-
 string intToString(double number, int size)
 {
 	stringstream out;
