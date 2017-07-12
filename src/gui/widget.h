@@ -84,6 +84,7 @@ class Widget
 
         void setText(string state, String32& t);
         void setTextFont(const Font& f, float s);
+        void setTextOutline(Color c, float t);
         void setTextColor(string state, Color c);
         void addOffsetToText(string state, int x, int y);
         void setBackground(string state, string b);

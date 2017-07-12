@@ -140,6 +140,18 @@ void Widget::setTextFont(const Font& f, float s)
     updateSize();
 }
 
+void Widget::setTextOutline(Color c, float t)
+{
+    for (auto& state : states)
+    {
+        state.second.text.setOutlineColor(c);
+        state.second.text.setOutlineThickness(t);
+    }
+
+    updateTextPosition();
+    updateSize();
+}
+
 void Widget::setTextColor(string state, Color c)
 {
     states.find(state)->second.text.setFillColor(c);
