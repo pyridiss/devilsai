@@ -17,10 +17,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <list>
+
 #include <tinyxml2.h>
 
 #include "tools/signals.h"
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "Jeu.h"
@@ -28,6 +31,15 @@
 #include "gui/window.h"
 
 using namespace tinyxml2;
+
+struct SavedGame
+{
+    string directory;
+    String32 playerName;
+    string version;
+};
+
+list<SavedGame> savedGames;
 
 void Load_Options()
 {
@@ -64,6 +76,15 @@ void Load_Options()
         {
             elem->QueryAttribute("value", &Options.AffichageDegats);
         }
+        else if (elemName == "savedGame")
+        {
+            SavedGame s;
+            s.directory = elem->Attribute("directory");
+            s.version = elem->Attribute("version");
+            string n = elem->Attribute("playerName");
+            s.playerName = tools::textManager::fromStdString(n);
+            savedGames.push_back(std::move(s));
+        }
         elem = elem->NextSiblingElement();
     }
 
@@ -95,6 +116,15 @@ void Save_Options()
     XMLElement* console = file.NewElement("console");
     console->SetAttribute("value", Options.AffichageDegats);
     elem->InsertEndChild(console);
+
+    for (auto& s : savedGames)
+    {
+        XMLElement* savedGame = file.NewElement("savedGame");
+        savedGame->SetAttribute("directory", s.directory.c_str());
+        savedGame->SetAttribute("version", s.version.c_str());
+        savedGame->SetAttribute("playerName", tools::textManager::toStdString(s.playerName).c_str());
+        elem->InsertEndChild(savedGame);
+    }
 
     file.SaveFile((tools::filesystem::getSaveDirectoryPath() + "options.xml").c_str());
 }
