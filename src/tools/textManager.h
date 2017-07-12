@@ -36,6 +36,8 @@ void loadFile(string container, string path);
 String32& getText(string file, string id);
 String32 getFormattedText(string file, string id, const String32& arg);
 String32 getFormattedText(string file, string id, double arg);
+String32 fromStdString(const string& original);
+string toStdString(const String32& original);
 
 } //namespace textManager
 

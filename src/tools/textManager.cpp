@@ -149,6 +149,27 @@ String32 getFormattedText(string file, string id, double arg)
     return getFormattedText(file, id, str);
 }
 
+String32 fromStdString(const string& original)
+{
+    String32 str;
+    stringstream out;
+
+    out << original;
+    string tmp = out.str();
+    Utf8::toUtf32(tmp.begin(), tmp.end(), back_inserter(str));
+
+    return str;
+}
+
+string toStdString(const String32& original)
+{
+    string str;
+
+    Utf32::toUtf8(original.begin(), original.end(), back_inserter(str));
+
+    return str;
+}
+
 } //namespace textManager
 
 } //namespace tools
