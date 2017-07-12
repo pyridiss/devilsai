@@ -126,6 +126,8 @@ int main(int n, char *params[])
 	cout << "Compilé avec DEBOGAGE activé" << endl;
 	#endif
 
+    tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath());
+
     tools::debug::openDebugFile("devilsai", VERSION);
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();

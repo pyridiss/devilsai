@@ -17,88 +17,86 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "tools/signals.h"
 #include "tools/filesystem.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Bibliotheque/Constantes.h"
 #include "Jeu.h"
 
 #include "gui/window.h"
 
+using namespace tinyxml2;
+
 void Load_Options()
 {
-	bool ChargerDefaut = false;
+    string path = tools::filesystem::getSaveDirectoryPath() + "options.xml";
 
-	string fichier = tools::filesystem::getSaveDirectoryPath() + "options.opt";
+    ifstream Fichier(path);
+    if (!Fichier.good())
+        path = tools::filesystem::dataDirectory() + "defaut.opt";
 
-	ifstream Fichier(fichier, ios_base::in);
-	if (!Fichier.good())
-	{
-		ChargerDefaut = true;
-        tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath());
-	}
+    XMLDocument file;
+    file.LoadFile(path.c_str());
 
-	if (Fichier.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
+    XMLHandle hdl(file);
+    XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
 
-	string Test;
-	if (!ChargerDefaut)
-	{
-		Fichier >> Test;
-		if (Test != "FICHIER_OPTIONS")
-		{
-			ChargerDefaut = true;
-			Fichier.close();
-		}
-	}
+    while (elem)
+    {
+        string elemName = elem->Name();
 
-	if (ChargerDefaut)
-	{
-		string fichierDef = tools::filesystem::dataDirectory() + "defaut.opt";
-		Fichier.open(fichierDef, ios_base::in);
-
-		if (!Fichier.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichierDef);
-		if (Fichier.good()) MESSAGE(" Fichier \"" + fichierDef + "\" ouvert", FICHIER)
-	}
-	string TypeDonnee = "";
-
-	while (Fichier.rdstate() == 0)
-	{
-		Fichier >> TypeDonnee;
-
-		if (TypeDonnee == "LANGUE")			Fichier >> Options.Langue;
-		if (TypeDonnee == "PLEINECRAN")		Fichier >> Options.PleinEcran;
-		if (TypeDonnee == "SAUVEGARDE")		Fichier >> Options.SauvegardeDisponible;
-		if (TypeDonnee == "DEGATS")			Fichier >> Options.AffichageDegats;
-		if (TypeDonnee == "RESOLUTION")		Fichier >> Options.ScreenW >> Options.ScreenH;
-
-		TypeDonnee = "";
-	}
+        if (elemName == "language")
+        {
+            Options.Langue = elem->Attribute("value");
+        }
+        else if (elemName == "resolution")
+        {
+            elem->QueryAttribute("x", &Options.ScreenW);
+            elem->QueryAttribute("y", &Options.ScreenH);
+        }
+        else if (elemName == "fullscreen")
+        {
+            elem->QueryAttribute("value", &Options.PleinEcran);
+        }
+        else if (elemName == "console")
+        {
+            elem->QueryAttribute("value", &Options.AffichageDegats);
+        }
+        elem = elem->NextSiblingElement();
+    }
 
 	Options.PleinEcran_Save = Options.PleinEcran;
 	Options.ScreenW_Save = Options.ScreenW;
 	Options.ScreenH_Save = Options.ScreenH;
-
-	Fichier.close();
 }
 
 void Save_Options()
 {
-	string fileName = tools::filesystem::getSaveDirectoryPath() + "options.opt";
+    XMLDocument file;
 
-	ofstream fileStream(fileName, ios_base::out);
+    XMLElement* elem = file.NewElement("options");
+    file.InsertFirstChild(elem);
 
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être ouvert en écriture :", fileName);
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
+    XMLElement* language = file.NewElement("language");
+    language->SetAttribute("value", Options.Langue.c_str());
+    elem->InsertEndChild(language);
 
-	fileStream << "FICHIER_OPTIONS" << endl
-			   << "LANGUE " << Options.Langue << endl
-			   << "PLEINECRAN " << Options.PleinEcran_Save << endl
-			   << "SAUVEGARDE " << Options.SauvegardeDisponible << endl
-			   << "DEGATS " << Options.AffichageDegats << endl
-			   << "RESOLUTION " << Options.ScreenW_Save << " " << Options.ScreenH_Save << endl;
+    XMLElement* resolution = file.NewElement("resolution");
+    resolution->SetAttribute("x", Options.ScreenW_Save);
+    resolution->SetAttribute("y", Options.ScreenH_Save);
+    elem->InsertEndChild(resolution);
 
-	fileStream.close();
+    XMLElement* fullscreen = file.NewElement("fullscreen");
+    fullscreen->SetAttribute("value", Options.PleinEcran_Save);
+    elem->InsertEndChild(fullscreen);
+
+    XMLElement* console = file.NewElement("console");
+    console->SetAttribute("value", Options.AffichageDegats);
+    elem->InsertEndChild(console);
+
+    file.SaveFile((tools::filesystem::getSaveDirectoryPath() + "options.xml").c_str());
 }
 
 void changeOption(string option, string value)
