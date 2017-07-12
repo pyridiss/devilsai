@@ -107,7 +107,7 @@ void Joueur::Gestion_Statistiques()
 
 	//4. Gain & Perte d'énergie par activité
 	if (Get_Act() == PAUSE)
-		Lag_Energie(tools::timeManager::I(get("Vitalite")/25000) + (LieuVillage == "village")*tools::timeManager::I(get("Vitalite")/10000));
+		Lag_Energie(tools::timeManager::I(get("Vitalite")/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(get("Vitalite")/10000)*/);
 	if (Get_Act() == COURSE)
 		Lag_Energie(-tools::timeManager::I(0.05/get("Constitution")));
 

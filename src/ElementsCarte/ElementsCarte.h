@@ -214,9 +214,6 @@ class Individu : public Element_Carte
 		Statistiques Stats;
 
 	public:
-		int IndiceLieu      = 0;
-		string LieuVillage  = "village";
-
 		float DureeCadavre  = 0.5;
 
 		float buf_rec       = 0;
@@ -352,7 +349,6 @@ class Joueur : public Individu_Unique
 	public:
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
-		int SauvegardeIndiceLieu       = 0;
 // 		bool GestionCoffresActivee     = false;
 // 		bool GestionCompetencesActivee = false;
         bool automove                  = false;

@@ -31,14 +31,14 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
+#include "gamedata.h"
+
 
 struct Sauvegarde
 {
 	string Dossier = "";
 	String32 Nom;
 	string Version = "";
-	String32 Lieu;
-	int Vitalite = 1000;
 };
 
 
@@ -55,10 +55,8 @@ void AjouterSauvegarde()
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
 
 	Save.Dossier = Partie.SAVE;
-	Save.Nom = Partie.perso->Nom;
 	Save.Version = VERSION;
-	Save.Lieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
-	Save.Vitalite = Partie.perso->get("Vitalite");
+	Save.Nom = gamedata::player()->Nom;
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
 	Options.SauvegardeDisponible = true;
@@ -91,8 +89,6 @@ void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 		}
 		TypeDonnee = "";
 	}
-
-    tools::filesystem::removeFile(path + "capture.png");
 
 	//Fermeture du fichier principal pour suppression
 	FichierPrincipal.close();
@@ -148,8 +144,6 @@ void LectureSauvegardes()
 			}
 			if (TypeDonnee == "NOM")		Fichier >> i->second.Nom;
 			if (TypeDonnee == "VERSION")	Fichier >> i->second.Version;
-			if (TypeDonnee == "LIEU")		Fichier >> i->second.Lieu;
-			if (TypeDonnee == "VITALITE")	Fichier >> i->second.Vitalite;
 			if (TypeDonnee == "FIN_SAUVEGARDE");
 
 			TypeDonnee = "";
@@ -236,8 +230,6 @@ string ChoixSauvegarde()
 
 	string Vitalite;
 	bool SauvegardeCompatible = false;
-	Texture TexCapture;
-	Sprite Capture;
 
 	gui::Button startGameButton, previousButton, nextButton, mainMenuButton, deleteGameButton;
 
@@ -333,16 +325,10 @@ string ChoixSauvegarde()
 		//Chargement des infos de la sauvegarde :
 		if (ChangementSauvegarde)
 		{
-			Vitalite = intToString(save->second.Vitalite);
 			if (save->second.Version == VERSION) SauvegardeCompatible = true;
 			else SauvegardeCompatible = false;
 			//Anciennes versions de sauvegarde toujours compatibles :
 			//if (save->second.Version == "0.2.svn66") SauvegardeCompatible = true;
-
-			TexCapture.loadFromFile(PATH + save->second.Dossier + "/capture.png");
-			Capture.setTexture(TexCapture);
-			Capture.setPosition(Options.ScreenW/2 - 50, 240);
-			Capture.setScale(0.5, 0.5);
 
 			ChangementSauvegarde = false;
 		}
@@ -359,15 +345,10 @@ string ChoixSauvegarde()
         previousButton.display(Jeu.App);
         nextButton.display(Jeu.App);
 
-		Jeu.App.draw(Capture);
-
 		if (!SauvegardeCompatible) Disp_TexteCentre(tools::textManager::getText("devilsai", "VERSION_INCOMPATIBLE"), Options.ScreenW/2, 210, Color(255, 70, 70, 255), 10.);
 
 		Disp_Texte(save->second.Nom, Options.ScreenW/2 - 300, 240, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
 		Disp_Texte(tools::textManager::getText("devilsai", "SAUVEGARDE_VERSION") + save->second.Version, Options.ScreenW/2 - 280, 280, Color(200, 255, 200, 255), 14.);
-		Disp_Texte(save->second.Lieu, Options.ScreenW/2 - 280, 300, Color(255, 220, 220, 255), 14.);
-		Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), Options.ScreenW/2 - 280, 320, Color(255, 255, 255, 255), 14.);
-		Disp_Texte(Vitalite, Options.ScreenW/2 - 220, 320, Color(255, 64, 64, 255), 14.);
 
         tools::timeManager::frameDone();
 		Jeu.App.display();
@@ -386,9 +367,6 @@ void MaJ_Sauvegarde()
 		return;
 	}
 	i->second.Version = VERSION;
-	i->second.Lieu.clear();
-	i->second.Lieu = getTranslatedNameOfPlace(Partie.perso->IndiceLieu);
-	i->second.Vitalite = Partie.perso->get("Vitalite");
 }
 
 void Save_Sauvegardes()
@@ -410,10 +388,6 @@ void Save_Sauvegardes()
 		sf::Utf32::toUtf8(savedGame.second.Nom.begin(), savedGame.second.Nom.end(), back_inserter(bufferString));
 		fileStream << "NOM " << bufferString << endl;
 		fileStream << "VERSION " << savedGame.second.Version << endl;
-		bufferString = "";
-		sf::Utf32::toUtf8(savedGame.second.Lieu.begin(), savedGame.second.Lieu.end(), back_inserter(bufferString));
-		fileStream << "LIEU " << bufferString << endl;
-		fileStream << "VITALITE " << savedGame.second.Vitalite << endl;
 		fileStream << "FIN_SAUVEGARDE" << endl;
 		bufferString = "";
 	}

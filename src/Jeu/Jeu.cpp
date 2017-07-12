@@ -193,10 +193,6 @@ void mainLoop()
 
             if (signal.first == "savegame")
             {
-                Partie.currentUserScreen = nullptr;
-                Disp_Menu();
-                Disp_JaugesVie();
-                Disp_Consoles();
                 SauvegardeEffectuee = 254;
                 Save_Partie();
             }

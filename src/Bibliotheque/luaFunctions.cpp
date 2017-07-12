@@ -22,6 +22,7 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/debug.h"
 #include "tools/timeManager.h"
 #include "musicManager/musicManager.h"
 
@@ -574,8 +575,9 @@ int LUA_changePlace(lua_State* L)
 
 	int indice = lua_tonumber(L, 1);
 	string type = lua_tostring(L, 2);
-	gamedata::player()->IndiceLieu = indice;
-	gamedata::player()->LieuVillage = type;
+
+    tools::debug::error("LUA_changePlace() is not implemented", "lua");
+
 	return 0;
 }
 

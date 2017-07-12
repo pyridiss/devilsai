@@ -38,9 +38,6 @@
 LigneConsole ConsolePerso[10];
 LigneConsole ConsoleAmeliorations[10];
 
-void displayMenu();
-void manageMenu(Event &event);
-
 
 /** GESTION DES DÉCORATIONS **/
 

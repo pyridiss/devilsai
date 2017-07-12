@@ -178,16 +178,6 @@ void Save_Partie()
 		fileStream.close();
 	}
 
-	/* 3. CAPTURE D'ÉCRAN */
-
-	Texture Capture;
-	Capture.create(Options.ScreenW, Options.ScreenH);
-	Capture.setSmooth(true);
-	Capture.update(Jeu.App);
-
-	Image CaptureImg = Capture.copyToImage();
-	CaptureImg.saveToFile(PATH + "capture.png");
-
 	MaJ_Sauvegarde();
 
 	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
