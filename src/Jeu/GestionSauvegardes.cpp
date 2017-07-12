@@ -59,7 +59,6 @@ void AjouterSauvegarde()
 	Save.Nom = gamedata::player()->Nom;
 
 	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
-	Options.SauvegardeDisponible = true;
 
 	Save_Sauvegardes();
 	Save_Options();
@@ -153,54 +152,6 @@ void LectureSauvegardes()
 	}
 }
 
-void PasDeSauvegarde()
-{
-    gui::Button mainMenuButton;
-    mainMenuButton.setCenterCoordinates(100, Options.ScreenH - 170);
-    mainMenuButton.setTextFont(Jeu.DayRoman, 14);
-    mainMenuButton.setAllText(tools::textManager::getText("devilsai", "RETOUR_MENU"));
-
-	Event event;
-
-	while (true)
-	{
-		while (Jeu.App.pollEvent(event))
-		{
-            if (mainMenuButton.activated(Jeu.App, event))
-            {
-                return;
-            }
-
-			if (event.type == Event::KeyPressed)
-			{
-				switch (event.key.code)
-				{
-					case Keyboard::Escape :
-                        return;
-					default: break;
-				}
-			}
-			if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-            {
-                tools::signals::addSignal("exit");
-				return;
-            }
-		}
-
-		//Affichage :
-		Jeu.App.clear();
-		Disp_FondMenus();
-
-		Disp_TitrePage(tools::textManager::getText("devilsai", "MENUPRINCIPAL_CHARGER"));
-		Disp_TexteCentre(tools::textManager::getText("devilsai", "PAS_DE_SAUVEG"), Options.ScreenW/2, Options.ScreenH/2, Color(50,128,128,255), 28, Jeu.DayRoman);
-
-        mainMenuButton.display(Jeu.App);
-
-        tools::timeManager::frameDone();
-		Jeu.App.display();
-	}
-}
-
 int NombreSauvegardesDisponibles()
 {
 	return Sauvegardes.size();
@@ -220,12 +171,6 @@ void SauvegardePrecedente(DicoSauvegardes::iterator &i)
 
 string ChoixSauvegarde()
 {
-	if (!Options.SauvegardeDisponible)
-	{
-		PasDeSauvegarde();
-		return "ANNULER";
-	}
-
 	DicoSauvegardes::iterator save = Sauvegardes.begin();
 
 	string Vitalite;
@@ -300,8 +245,6 @@ string ChoixSauvegarde()
                 }
                 else
                 {
-                    Options.SauvegardeDisponible = false;
-                    PasDeSauvegarde();
                     return "ANNULER";
                 }
             }
