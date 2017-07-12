@@ -178,9 +178,9 @@ void Save_Partie()
 		fileStream.close();
 	}
 
-	MaJ_Sauvegarde();
 
 	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
+    updateCurrentSavedGamePack();
 }
 
 bool Load_Partie(string path)

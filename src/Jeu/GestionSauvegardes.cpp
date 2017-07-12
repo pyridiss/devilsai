@@ -18,7 +18,6 @@
 */
 
 #include <map>
-#include <sstream>
 
 #include "tools/signals.h"
 #include "tools/filesystem.h"
@@ -30,8 +29,6 @@
 #include "../Bibliotheque/Templates.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
-
-#include "gamedata.h"
 
 
 struct Sauvegarde
@@ -45,23 +42,6 @@ struct Sauvegarde
 typedef map<string, Sauvegarde> DicoSauvegardes;
 
 DicoSauvegardes Sauvegardes;
-
-void AjouterSauvegarde()
-{
-	Sauvegarde Save;
-
-    stringstream stream; stream << time(NULL);
-    Partie.SAVE = stream.str();
-    tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + Partie.SAVE);
-
-	Save.Dossier = Partie.SAVE;
-	Save.Version = VERSION;
-	Save.Nom = gamedata::player()->Nom;
-
-	Sauvegardes.insert(DicoSauvegardes::value_type(Partie.SAVE, Save));
-
-	Save_Options();
-}
 
 void SupprimerSauvegarde(DicoSauvegardes::iterator save)
 {
@@ -297,16 +277,4 @@ string ChoixSauvegarde()
 	}
 
 	return path;
-}
-
-void MaJ_Sauvegarde()
-{
-	DicoSauvegardes::iterator i = Sauvegardes.find(Partie.SAVE);
-	if (i == Sauvegardes.end())
-	{
-        AjouterSauvegarde();
-        MaJ_Sauvegarde();
-		return;
-	}
-	i->second.Version = VERSION;
 }

@@ -117,13 +117,12 @@ void Clean_Partie();
 void Save_Partie();
 bool Load_Partie(string);
 
-void AjouterSauvegarde();
 string ChoixSauvegarde();
-void MaJ_Sauvegarde();
 
 void Load_Options();
 void Save_Options();
 void changeOption(string option, string value);
+void updateCurrentSavedGamePack();
 void initOptionsWindow(gui::Window& window);
 
 void addQuest(string, string);

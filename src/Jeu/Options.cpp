@@ -26,9 +26,12 @@
 #include "tools/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
+#include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
 #include "gui/window.h"
+
+#include "gamedata.h"
 
 using namespace tinyxml2;
 
@@ -40,6 +43,8 @@ struct SavedGame
 };
 
 list<SavedGame> savedGames;
+SavedGame* currentSavedGame = nullptr;
+int nextGameNumber = 1;
 
 void Load_Options()
 {
@@ -66,6 +71,7 @@ void Load_Options()
             elem->QueryAttribute("resolution-y", &Options.ScreenH);
             elem->QueryAttribute("fullscreen", &Options.PleinEcran);
             elem->QueryAttribute("console", &Options.AffichageDegats);
+            elem->QueryAttribute("next-game-number", &nextGameNumber);
         }
         else if (elemName == "savedGame")
         {
@@ -97,6 +103,7 @@ void Save_Options()
     config->SetAttribute("resolution-y", Options.ScreenH_Save);
     config->SetAttribute("fullscreen", Options.PleinEcran_Save);
     config->SetAttribute("console", Options.AffichageDegats);
+    config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
 
     for (auto& s : savedGames)
@@ -132,6 +139,31 @@ void changeOption(string option, string value)
     {
         Options.AffichageDegats = (value == "enabled" ? true : false);
     }
+}
+
+void createNewSavedGamePack()
+{
+    SavedGame s;
+
+    s.directory = intToString(nextGameNumber, 4);
+    s.playerName = gamedata::player()->Nom;
+    s.version = "master";
+
+    tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);
+
+    savedGames.push_back(std::move(s));
+    ++nextGameNumber;
+
+    currentSavedGame = &savedGames.back();
+    Save_Options();
+}
+
+void updateCurrentSavedGamePack()
+{
+    if (currentSavedGame == nullptr)
+        createNewSavedGamePack();
+
+    currentSavedGame->version = "master";
 }
 
 void initOptionsWindow(gui::Window& window)
