@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <options>
-    <language value="en="/>
-    <resolution x="800" y="600"/>
-    <fullscreen value="0"/>
-    <console value="0"/>
+    <configuration language="en=" resolution-x="800" resolution-y="600" fullscreen="0" console="0" next-game-number="1"/>
 </options>

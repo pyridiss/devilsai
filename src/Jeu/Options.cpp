@@ -59,22 +59,13 @@ void Load_Options()
     {
         string elemName = elem->Name();
 
-        if (elemName == "language")
+        if (elemName == "configuration")
         {
-            Options.Langue = elem->Attribute("value");
-        }
-        else if (elemName == "resolution")
-        {
-            elem->QueryAttribute("x", &Options.ScreenW);
-            elem->QueryAttribute("y", &Options.ScreenH);
-        }
-        else if (elemName == "fullscreen")
-        {
-            elem->QueryAttribute("value", &Options.PleinEcran);
-        }
-        else if (elemName == "console")
-        {
-            elem->QueryAttribute("value", &Options.AffichageDegats);
+            Options.Langue = elem->Attribute("language");
+            elem->QueryAttribute("resolution-x", &Options.ScreenW);
+            elem->QueryAttribute("resolution-y", &Options.ScreenH);
+            elem->QueryAttribute("fullscreen", &Options.PleinEcran);
+            elem->QueryAttribute("console", &Options.AffichageDegats);
         }
         else if (elemName == "savedGame")
         {
@@ -100,22 +91,13 @@ void Save_Options()
     XMLElement* elem = file.NewElement("options");
     file.InsertFirstChild(elem);
 
-    XMLElement* language = file.NewElement("language");
-    language->SetAttribute("value", Options.Langue.c_str());
-    elem->InsertEndChild(language);
-
-    XMLElement* resolution = file.NewElement("resolution");
-    resolution->SetAttribute("x", Options.ScreenW_Save);
-    resolution->SetAttribute("y", Options.ScreenH_Save);
-    elem->InsertEndChild(resolution);
-
-    XMLElement* fullscreen = file.NewElement("fullscreen");
-    fullscreen->SetAttribute("value", Options.PleinEcran_Save);
-    elem->InsertEndChild(fullscreen);
-
-    XMLElement* console = file.NewElement("console");
-    console->SetAttribute("value", Options.AffichageDegats);
-    elem->InsertEndChild(console);
+    XMLElement* config = file.NewElement("configuration");
+    config->SetAttribute("language", Options.Langue.c_str());
+    config->SetAttribute("resolution-x", Options.ScreenW_Save);
+    config->SetAttribute("resolution-y", Options.ScreenH_Save);
+    config->SetAttribute("fullscreen", Options.PleinEcran_Save);
+    config->SetAttribute("console", Options.AffichageDegats);
+    elem->InsertEndChild(config);
 
     for (auto& s : savedGames)
     {
