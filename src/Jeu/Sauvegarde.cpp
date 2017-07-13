@@ -19,6 +19,8 @@
 
 #include <typeinfo>
 
+#include <tinyxml2.h>
+
 #include "tools/filesystem.h"
 #include "musicManager/musicManager.h"
 
@@ -30,6 +32,8 @@
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "options.h"
+
+using namespace tinyxml2;
 
 void Save_Partie()
 {
@@ -152,6 +156,27 @@ void Save_Partie()
 
 	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
     options::updateCurrentSavedGamePack();
+
+    string path = tools::filesystem::getSaveDirectoryPath() + options::getCurrentSavedGameDirectory() + "/";
+
+    //'files' will store the filenames to create index.xml
+    list<string> files;
+
+
+    //index.xml
+    XMLDocument index_xml;
+
+    XMLElement* index_xml_root = index_xml.NewElement("files");
+    index_xml.InsertFirstChild(index_xml_root);
+
+    for (auto& f : files)
+    {
+        XMLElement* fileName = index_xml.NewElement("file");
+        fileName->SetAttribute("path", f.c_str());
+        index_xml_root->InsertEndChild(fileName);
+    }
+
+    index_xml.SaveFile((path + "index.xml").c_str());
 }
 
 bool Load_Partie(string path)
