@@ -38,6 +38,7 @@
 
 #include "imageManager/imageManager.h"
 
+#include "options.h"
 
 /** VARIABLES GLOBALES **/
 
@@ -137,7 +138,7 @@ int main(int n, char *params[])
 
 	PHYSFS_init(params[0]);
 
-	Load_Options();
+    options::Load_Options();
     tools::timeManager::setSpeed(Options.VitesseJeu);
 
 	if (!Options.PleinEcran) Jeu.App.create(VideoMode(Options.ScreenW, Options.ScreenH, VideoMode::getDesktopMode().bitsPerPixel), "Devilsai");
@@ -171,7 +172,7 @@ int main(int n, char *params[])
 
 	PHYSFS_deinit();
 
-	Save_Options();
+    options::Save_Options();
 
 	return EXIT_SUCCESS;
 }

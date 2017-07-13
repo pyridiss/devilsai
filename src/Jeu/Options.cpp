@@ -34,7 +34,11 @@
 
 #include "gamedata.h"
 
+#include "options.h"
+
 using namespace tinyxml2;
+
+namespace options{
 
 struct SavedGame
 {
@@ -246,3 +250,5 @@ void initOptionsWindow(gui::Window& window)
     d.stringData = (Options.AffichageDegats ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
 }
+
+} //namespace options

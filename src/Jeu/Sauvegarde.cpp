@@ -29,6 +29,7 @@
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "options.h"
 
 void Save_Partie()
 {
@@ -180,7 +181,7 @@ void Save_Partie()
 
 
 	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
-    updateCurrentSavedGamePack();
+    options::updateCurrentSavedGamePack();
 }
 
 bool Load_Partie(string path)

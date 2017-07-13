@@ -33,6 +33,7 @@
 #include "Jeu.h"
 
 #include "gamedata.h"
+#include "options.h"
 
 
 class UserScreen
@@ -153,8 +154,8 @@ void mainLoop()
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
 
-    initLoadGameWindow(loadGameWindow);
-    initOptionsWindow(optionsWindow);
+    options::initLoadGameWindow(loadGameWindow);
+    options::initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
     tools::signals::addSignal("main-menu:disable-load-game");
@@ -249,8 +250,8 @@ void mainLoop()
 
             if (signal.first == "delete-game")
             {
-                deleteSavedGamePack(signal.second.stringData);
-                initLoadGameWindow(loadGameWindow);
+                options::deleteSavedGamePack(signal.second.stringData);
+                options::initLoadGameWindow(loadGameWindow);
             }
 
             if (signal.first == "start-loaded-game")
@@ -268,7 +269,7 @@ void mainLoop()
 
             if (signal.first.find("option-change") != string::npos)
             {
-                changeOption(signal.first, signal.second.stringData);
+                options::changeOption(signal.first, signal.second.stringData);
             }
 
             if (signal.first == "ask-menu")
