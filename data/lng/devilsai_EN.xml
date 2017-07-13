@@ -45,9 +45,6 @@
     <text id="ESQUIVE">Dodged strike!</text>
     <text id="FATIGUE">Extremely tired!</text>
     <text id="INVENTAIRE">Inventory</text>
-    <text id="LANCER_PARTIE">Launch the game</text>
-    <text id="LANGUE">Language</text>
-    <text id="MENUPRINCIPAL_CHARGER">Load a Saved Game</text>
     <text id="MONTRES_RESTANTS">Remaining monsters: %%</text>
     <text id="PERSO_AGILITE">Agility:</text>
     <text id="PERSO_CHARISM">Charisma:</text>
@@ -62,14 +59,9 @@
     <text id="PERSO_RECUP">Recovery rate:</text>
     <text id="PERSO_RECUPMOY">Average recovery:</text>
     <text id="PERSO_VITALITE">Vitality:</text>
-    <text id="PRECEDENT">&lt; Previous</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
-    <text id="RETOUR_MENU">&lt; Main menu</text>
     <text id="SAUVEGARDE">Game saved</text>
-    <text id="SAUVEGARDE_VERSION">Version: </text>
     <text id="SOUS_EFFET">Under the effect of: %%</text>
-    <text id="SUIVANT">Next &gt;</text>
-    <text id="SUPPRIMER_SAUVEGARDE">Delete the game</text>
     <text id="VERSION_INCOMPATIBLE">This saved game is not compatible with this version of the program.</text>
     <text id="player-health-1">Good health</text>
     <text id="player-health-2">Slightly injured</text>

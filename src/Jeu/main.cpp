@@ -154,17 +154,11 @@ int main(int n, char *params[])
 
 	srand(time(NULL));
 
-	loadAvailableLanguages();
-	MESSAGE("Fichiers de langue chargés", FICHIER)
-
     gui::style::initStyle();
 
 	Jeu.DayRoman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
 	Load_Decorations();
 	MESSAGE("Décorations chargées", FICHIER)
-
-	LectureSauvegardes();
-	MESSAGE("Sauvegardes chargées", FICHIER)
 
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");
@@ -174,7 +168,6 @@ int main(int n, char *params[])
     Clean_Partie();
 
 	Supprimer_Decorations();
-	deleteLanguagesList();
 
 	PHYSFS_deinit();
 

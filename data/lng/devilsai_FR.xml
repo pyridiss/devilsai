@@ -45,9 +45,6 @@
     <text id="ESQUIVE">Coup esquivé !</text>
     <text id="FATIGUE">Fatigue extrême !</text>
     <text id="INVENTAIRE">Inventaire</text>
-    <text id="LANCER_PARTIE">Lancer la partie</text>
-    <text id="LANGUE">Langue</text>
-    <text id="MENUPRINCIPAL_CHARGER">Charger une Partie Sauvegardée</text>
     <text id="MONTRES_RESTANTS">Monstres restants : %%</text>
     <text id="PERSO_AGILITE">Agilité :</text>
     <text id="PERSO_CHARISM">Charisme :</text>
@@ -62,14 +59,9 @@
     <text id="PERSO_RECUP">Taux de récupération :</text>
     <text id="PERSO_RECUPMOY">Récupération moyenne :</text>
     <text id="PERSO_VITALITE">Vitalité :</text>
-    <text id="PRECEDENT">&lt; Précédent</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>
-    <text id="RETOUR_MENU">&lt; Menu principal</text>
     <text id="SAUVEGARDE">Sauvegarde effectuée</text>
-    <text id="SAUVEGARDE_VERSION">Version : </text>
     <text id="SOUS_EFFET">Sous l'effet de : %%</text>
-    <text id="SUIVANT">Suivant &gt;</text>
-    <text id="SUPPRIMER_SAUVEGARDE">Supprimer la partie</text>
     <text id="VERSION_INCOMPATIBLE">Cette sauvegarde n'est pas compatible avec cette version du jeu.</text>
     <text id="player-health-1">Bonne santé</text>
     <text id="player-health-2">Légèrement blessé</text>

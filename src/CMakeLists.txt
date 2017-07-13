@@ -26,7 +26,6 @@ set(devilsai_SRCS
 	Carte/Collisions.cpp
 	Carte/Interactions.cpp
 	gamedata.cpp
-	Carte/ListesChainees.cpp
 	ElementsCarte/Actionneurs.cpp
 	ElementsCarte/ChargementElements.cpp
 	ElementsCarte/Coffres.cpp
@@ -40,7 +39,6 @@ set(devilsai_SRCS
 	ElementsCarte/Joueurs.cpp
 	ElementsCarte/Paysages.cpp
 	ElementsCarte/Projectiles.cpp
-	Jeu/GestionSauvegardes.cpp
 	Jeu/Jeu.cpp
 	Jeu/Jeu.h
 	Jeu/main.cpp

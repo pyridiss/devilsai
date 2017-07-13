@@ -17,11 +17,3 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tools/debug.h"
-
-#include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
-#include "Carte.h"
-#include "../ElementsCarte/ElementsCarte.h"
-
-

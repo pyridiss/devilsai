@@ -25,6 +25,7 @@
 class Carte;
 class Classe_Commune;
 class Paysage;
+class Individu_Unique;
 class Joueur;
 
 using namespace std;

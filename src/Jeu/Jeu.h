@@ -109,7 +109,6 @@ extern Classe_Jeu::Classe_Options Options;
 
 //Fonctions définies dans les fichiers dépendants de Jeu
 
-void LectureSauvegardes();
 bool PartieSauvegardee();
 void mainLoop();
 void Clean_Partie();

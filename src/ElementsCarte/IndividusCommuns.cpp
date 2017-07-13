@@ -25,6 +25,8 @@
 
 #include "tools/textManager.h"
 
+#include "imageManager/imageManager.h"
+
 #include "gamedata.h"
 
 using namespace tinyxml2;
