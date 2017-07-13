@@ -33,36 +33,6 @@
 
 void Save_Partie()
 {
-	/* 1. FICHIER PRINCIPAL DE LA SAUVEGARDE */
-
-	string PATH = tools::filesystem::getSaveDirectoryPath() + Partie.SAVE + "/";
-
-	string mainFileName = PATH + "save.sav";
-
-	ofstream mainFileStream(mainFileName, ios_base::in|ios_base::trunc);
-
-	if (!mainFileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", mainFileName);
-	if (mainFileStream.good()) MESSAGE(" Fichier \"" + mainFileName + "\" ouvert ; Sauvegarde en cours", FICHIER)
-
-	//Liste des cartes et carte courante :
-	for (auto& tmp : Partie.maps)
-		mainFileStream << "CARTE " << tmp.second.Id << endl;
-
-	mainFileStream << "CARTE_COURANTE " << Partie.CarteCourante->Id << endl;
-
-	//ID du prochain élément qui sera chargé :
-	mainFileStream << "ID_SUIVANT " << NouveauId() << endl;
-
-	//Missions :
-	saveQuests(mainFileStream);
-
-	//Journal entries:
-	for (auto i : Partie.journal.entries)
-		mainFileStream << "JOURNAL " << i.reference << " " << i.done << endl;
-
-	mainFileStream.close();
-
-
 	/* 2. FICHIERS DE CARTE */
 
 	//Création d'éléments pour récupérer le type et le comparer aux Elements de la liste
