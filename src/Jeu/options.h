@@ -35,6 +35,7 @@ void Save_Options();
 void changeOption(string option, string value);
 void updateCurrentSavedGamePack();
 void deleteSavedGamePack(string directory);
+string getCurrentSavedGameDirectory();
 void initLoadGameWindow(gui::Window& window);
 void initOptionsWindow(gui::Window& window);
 

@@ -215,6 +215,14 @@ void deleteSavedGamePack(string directory)
     }
 }
 
+string getCurrentSavedGameDirectory()
+{
+    if (currentSavedGame != nullptr)
+        return currentSavedGame->directory;
+
+    return "";
+}
+
 void initLoadGameWindow(gui::Window& window)
 {
     gui::ScrollingList* scrollingList = dynamic_cast<gui::ScrollingList*>(window.widget("savedgames-list"));
