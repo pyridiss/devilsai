@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
 #include <lua5.2/lua.hpp>
 
 #include <cmath>
@@ -30,6 +31,8 @@
 #include "imageManager/imageManager.h"
 
 #include "gamedata.h"
+
+using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
@@ -283,6 +286,10 @@ bool Joueur::ApplicationAmeliorations()
 	}
 
 	return Retour;
+}
+
+void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }
 
 void Disp_Personnage()

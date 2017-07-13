@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "tools/timeManager.h"
 
 #include "../Bibliotheque/Constantes.h"
@@ -26,6 +28,7 @@
 
 #include "gamedata.h"
 
+using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Unique **/
 
@@ -230,4 +233,8 @@ bool Individu_Unique::Set_Activite(string nv)
 bool Individu_Unique::angleFixed()
 {
     return false;
+}
+
+void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }

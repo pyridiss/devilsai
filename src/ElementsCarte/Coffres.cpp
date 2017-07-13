@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Jeu/Jeu.h"
@@ -26,6 +28,8 @@
 #include "tools/timeManager.h"
 #include "tools/textManager.h"
 #include "imageManager/imageManager.h"
+
+using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Coffre **/
 
@@ -43,6 +47,10 @@ int Coffre::Collision(Individu* elem, int TypeCollision)
 {
     if (TypeCollision == COLL_PRIM) return COLL_PRIM;
     return COMPORTEMENT_ALEATOIRE;
+}
+
+void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }
 
 void Coffre::Disp(RenderTarget& target)

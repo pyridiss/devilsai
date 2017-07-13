@@ -20,6 +20,8 @@
 #include <typeinfo>
 #include <cmath>
 
+#include <tinyxml2.h>
+
 #include <lua5.2/lua.hpp>
 
 #include "tools/filesystem.h"
@@ -31,6 +33,8 @@
 #include "ElementsCarte.h"
 
 #include "gamedata.h"
+
+using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Actionneur **/
 
@@ -98,6 +102,10 @@ void Actionneur::Load(istream &Fichier)
 		if (TypeDonnee == "FIN_ACTIONNEUR") FinActionneur = true;
 		TypeDonnee = "";
 	}
+}
+
+void Actionneur::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }
 
 void Actionneur::Disp(RenderTarget& target)
@@ -253,6 +261,10 @@ END_SHARED_TRIGGER
 // 	string chemin = "actionneur_" + Partie.CarteCourante->Id + "_" + intToString(DonneeInt) + ".lng";
 // 	dialogue->load(chemin);
 // }
+
+void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
+}
 
 void Trigger::Disp(RenderTarget& target)
 {

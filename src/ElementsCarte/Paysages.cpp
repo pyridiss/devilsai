@@ -64,6 +64,10 @@ int Paysage::Collision(Individu *elem, int TypeCollision)
 	return COLL_PRIM;
 }
 
+void Paysage::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+{
+}
+
 void Paysage::Disp(RenderTarget& target)
 {
     if (Options.displayShapes)
@@ -121,6 +125,10 @@ int Door::Collision(Individu *elem, int TypeCollision)
 	if (deniedDiplomacy == elem->Diplomatie) return COLL_PRIM;
 
 	return COLL_OK;
+}
+
+void Door::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }
 
 void Door::Disp(RenderTarget& target)

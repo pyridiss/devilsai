@@ -120,6 +120,10 @@ bool Individu_Commun::angleFixed()
     return Classe->angleFixed;
 }
 
+void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
+}
+
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
 
 Classe_Commune::Classe_Commune()

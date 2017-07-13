@@ -43,6 +43,7 @@ class Dialog;
 
 namespace tinyxml2{
     class XMLHandle;
+    class XMLDocument;
 };
 
 struct Point
@@ -141,6 +142,8 @@ class Element_Carte
 
         void move(double x, double y);
 
+        virtual void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle) =0;
+
 	//Affichage :
 	public:
 		virtual void Disp(RenderTarget& target) =0;
@@ -161,6 +164,7 @@ class Coffre : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu* elem, int TypeCollision);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	//Affichage :
 	public:
@@ -319,6 +323,8 @@ class Individu_Unique : public Individu
 		void Lag_Recuperation(float lag);
 
 		bool Set_Activite(string nv);
+
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
 class Individu_Commun : public Individu
@@ -342,6 +348,8 @@ class Individu_Commun : public Individu
         bool angleFixed();
 
 		bool Set_Activite(string nv);
+
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
 class Joueur : public Individu_Unique
@@ -376,6 +384,8 @@ class Joueur : public Individu_Unique
 		void BlessuresMultiples(Individu* ennemi);
 
 		bool ApplicationAmeliorations();
+
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
 class Paysage : public Element_Carte
@@ -392,6 +402,7 @@ class Paysage : public Element_Carte
 		int Collision(Individu *elem, int TypeCollision);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:
 		void Disp(RenderTarget& target);
@@ -410,6 +421,7 @@ class Door : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:
 		void Disp(RenderTarget& target);
@@ -433,6 +445,8 @@ class Actionneur : public Element_Carte
 		void Load(istream &Fichier);
 		void Load_Dialogue();
 
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target);
@@ -453,6 +467,8 @@ class Trigger : public Element_Carte
 		int Collision(Individu *elem, int TypeCollision);
 		void load(istream& Fichier, Carte* carte);
 		bool activated();
+
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:
 		void Disp(RenderTarget& target);
