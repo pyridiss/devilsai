@@ -28,6 +28,8 @@ using namespace std;
 
 namespace tinyxml2{
     class XMLElement;
+    class XMLHandle;
+    class XMLDocument;
 };
 
 namespace sf{
@@ -123,6 +125,7 @@ struct Shape
     void line(const Vector2d& p, double length, double angle);
 
     void loadFromXML(tinyxml2::XMLElement* elem);
+    void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
     void display(sf::RenderTarget& target, const sf::Color& color);
 };

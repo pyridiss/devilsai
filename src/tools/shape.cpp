@@ -222,6 +222,36 @@ void Shape::loadFromXML(XMLElement* elem)
     }
 }
 
+void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
+    XMLElement* root = handle.ToElement();
+
+    switch(profile)
+    {
+        case Profiles::None:
+            root->SetAttribute("type", "none");
+            break;
+        case Profiles::Point:
+            root->SetAttribute("type", "point");
+            break;
+        case Profiles::Circle:
+            root->SetAttribute("type", "circle");
+            root->SetAttribute("xCenter", points[0].x);
+            root->SetAttribute("yCenter", points[0].y);
+            root->SetAttribute("radius", radius1);
+            break;
+        case Profiles::Rectangle:
+            root->SetAttribute("type", "rectangle");
+            break;
+        case Profiles::Line:
+            root->SetAttribute("type", "line");
+            break;
+        case Profiles::Complex:
+            root->SetAttribute("type", "complex");
+            break;
+    }
+}
+
 void Shape::display(RenderTarget& target, const Color& color)
 {
     if (origin == nullptr)
