@@ -66,6 +66,29 @@ int Paysage::Collision(Individu *elem, int TypeCollision)
 
 void Paysage::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* inertItem = doc.NewElement("inertItem");
+    inertItem->SetAttribute("design", Type.c_str());
+    inertItem->SetAttribute("x", position().x);
+    inertItem->SetAttribute("y", position().y);
+    inertItem->SetAttribute("tag", Liste.c_str());
+
+    XMLElement* shape = doc.NewElement("shape");
+    inertItem->InsertEndChild(shape);
+    XMLHandle shapeHandle(shape);
+    size.saveToXML(doc, shapeHandle);
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("id", Id);
+    properties->SetAttribute("lifetime", lifetime);
+    properties->SetAttribute("ignoreCollision", ignoreCollision);
+    properties->SetAttribute("classement", TypeClassement);
+    properties->SetAttribute("xExtent", extent.x);
+    properties->SetAttribute("yExtent", extent.y);
+    inertItem->InsertEndChild(properties);
+
+    root->InsertEndChild(inertItem);
 }
 
 void Paysage::Disp(RenderTarget& target)

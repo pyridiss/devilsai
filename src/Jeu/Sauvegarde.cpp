@@ -44,7 +44,6 @@ void Save_Partie()
 	Individu_Unique	ExempleUnique;			const type_info &TypeUnique = typeid(ExempleUnique);
 	Individu_Commun	ExempleCommun;			const type_info &TypeCommun = typeid(ExempleCommun);
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
-	Paysage			ExemplePaysage;			const type_info &TypePaysage = typeid(ExemplePaysage);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
 	Cadavre			ExempleCadavre;			const type_info &TypeCadavre = typeid(ExempleCadavre);
@@ -67,12 +66,6 @@ void Save_Partie()
 			if (TypeTmp == TypeUnique)		fileStream << "IND_UNIQUE ";
 			if (TypeTmp == TypeCommun)		fileStream << "IND_COMMUN ";
 			if (TypeTmp == TypeJoueur)		fileStream << "JOUEUR ";
-			if (TypeTmp == TypePaysage)
-			{
-				Paysage* pay = dynamic_cast<Paysage*>(tmp);
-				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << "PAYSAGE-REPEAT ";
-				else fileStream << "PAYSAGE ";
-			}
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
 			if (TypeTmp == TypeCadavre)		fileStream << "CADAVRE ";
@@ -111,12 +104,6 @@ void Save_Partie()
  				ind->Get_Caracs()->objects.saveObjects(fileStream);
 
 				fileStream << endl;
-			}
-
-			if (TypeTmp == TypePaysage)
-			{
-				Paysage *pay = dynamic_cast<Paysage*>(tmp);
-				if (pay->repeatX > 1 || pay->repeatY > 1) fileStream << pay->repeatX << " " << pay->repeatY;
 			}
 
 			if (TypeTmp == TypeActionneur)
