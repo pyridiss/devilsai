@@ -9,7 +9,10 @@
     <widget name="button-start" type="button" xTopLeft="368" yTopLeft="110" width="156" height="46" allBackground="button-background-156x46" allText="load-game-start" textSize="12" textFont="liberation-bold"/>
     <widget name="button-delete" type="button" xTopLeft="368" yTopLeft="210" width="156" height="46" allBackground="button-background-156x46" allText="load-game-delete" textSize="12" textFont="liberation-bold"/>
     <signal emitter="button-back" signal="main-menu"/>
-    <signal emitter="button-start" signal="start-loaded-game" dataProvider="savedgames"/>
+    <signal emitter="button-start" signal="start-loaded-game" dataProvider="savedgames-list"/>
+    <signal emitter="button-delete" signal="delete-game" dataProvider="savedgames-list"/>
+    <signal emitter="button-delete" signal="load-game"/>
     <exitWindowSignal emitter="button-back"/>
     <exitWindowSignal emitter="button-start"/>
+    <exitWindowSignal emitter="button-delete"/>
 </window>

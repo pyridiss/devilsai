@@ -38,6 +38,11 @@ void ScrollingList::addEntry(String32& entry, string data)
     entries.push_back(pair<String32, string>(entry, data));
 }
 
+void ScrollingList::removeAllEntries()
+{
+    entries.clear();
+}
+
 bool ScrollingList::mouseHovering(RenderWindow& app)
 {
     if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&

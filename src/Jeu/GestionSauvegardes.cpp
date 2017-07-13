@@ -40,41 +40,6 @@ typedef map<string, Sauvegarde> DicoSauvegardes;
 
 DicoSauvegardes Sauvegardes;
 
-void SupprimerSauvegarde(DicoSauvegardes::iterator save)
-{
-	//Ouverture du fichier principal pour déterminer les fichiers présents dans le dossier
-	string path = tools::filesystem::getSaveDirectoryPath() + save->second.Dossier + "/";
-	string strFichierPrincipal = path + "save.sav";
-
-	ifstream FichierPrincipal(strFichierPrincipal.c_str(), ios_base::in);
-	if (!FichierPrincipal.good()) Erreur("Le fichier suivant n'a pu être chargé :", strFichierPrincipal.c_str());
-
-	if (FichierPrincipal.good()) MESSAGE(" Fichier \"" + strFichierPrincipal + "\" ouvert", FICHIER)
-
-	string TypeDonnee;
-	string DonneeStr;
-
-	while(FichierPrincipal.rdstate() == 0)
-	{
-		FichierPrincipal >> TypeDonnee;
-		if (TypeDonnee == "CARTE")
-		{
-			FichierPrincipal >> DonneeStr;
-            tools::filesystem::removeFile(path + DonneeStr + ".map");
-		}
-		TypeDonnee = "";
-	}
-
-	//Fermeture du fichier principal pour suppression
-	FichierPrincipal.close();
-    tools::filesystem::removeFile(path + "save.sav");
-
-	//Suppression du dossier
-    tools::filesystem::removeDirectory(tools::filesystem::getSaveDirectoryPath() + save->second.Dossier);
-
-	//Suppression de la sauvegarde
-	Sauvegardes.erase(save);
-}
 
 void LectureSauvegardes()
 {

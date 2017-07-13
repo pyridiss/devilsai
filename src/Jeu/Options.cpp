@@ -41,6 +41,13 @@ struct SavedGame
     string directory;
     String32 playerName;
     string version;
+
+    bool operator==(const SavedGame& right)
+    {
+        if (directory == right.directory)
+            return true;
+        return false;
+    }
 };
 
 list<SavedGame> savedGames;
@@ -167,9 +174,48 @@ void updateCurrentSavedGamePack()
     currentSavedGame->version = "master";
 }
 
+void deleteSavedGamePack(string directory)
+{
+    string path = tools::filesystem::getSaveDirectoryPath() + directory + "/";
+
+    XMLDocument file;
+    file.LoadFile((path + "index.xml").c_str());
+
+    XMLHandle hdl(file);
+    XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
+
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "file")
+        {
+            string file = elem->Attribute("path");
+            tools::filesystem::removeFile(path + file);
+        }
+
+        elem = elem->NextSiblingElement();
+    }
+
+    tools::filesystem::removeFile(path + "index.xml");
+
+    tools::filesystem::removeDirectory(path);
+
+    for (auto& s : savedGames)
+    {
+        if (directory == s.directory)
+        {
+            savedGames.remove(s);
+            break;
+        }
+    }
+}
+
 void initLoadGameWindow(gui::Window& window)
 {
     gui::ScrollingList* scrollingList = dynamic_cast<gui::ScrollingList*>(window.widget("savedgames-list"));
+
+    scrollingList->removeAllEntries();
 
     if (scrollingList != nullptr)
     {

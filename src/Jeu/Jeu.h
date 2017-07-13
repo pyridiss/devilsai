@@ -121,6 +121,7 @@ void Load_Options();
 void Save_Options();
 void changeOption(string option, string value);
 void updateCurrentSavedGamePack();
+void deleteSavedGamePack(string directory);
 void initLoadGameWindow(gui::Window& window);
 void initOptionsWindow(gui::Window& window);
 

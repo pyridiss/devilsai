@@ -44,6 +44,7 @@ class ScrollingList : public Widget
 
     public:
         void addEntry(String32& entry, string data);
+        void removeAllEntries();
 
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);

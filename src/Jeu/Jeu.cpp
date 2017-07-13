@@ -247,6 +247,12 @@ void mainLoop()
 //                 }
             }
 
+            if (signal.first == "delete-game")
+            {
+                deleteSavedGamePack(signal.second.stringData);
+                initLoadGameWindow(loadGameWindow);
+            }
+
             if (signal.first == "start-loaded-game")
             {
                 if (PartieSauvegardee(signal.second.stringData))
