@@ -28,6 +28,11 @@ class Paysage;
 class Individu_Unique;
 class Joueur;
 
+namespace tinyxml2{
+    class XMLHandle;
+    class XMLDocument;
+}
+
 using namespace std;
 
 namespace gamedata{
@@ -48,6 +53,7 @@ Carte* currentWorld();
 Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
 void updateCurrentPlace();
+void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 } //namespace gamedata
 

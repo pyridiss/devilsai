@@ -19,6 +19,8 @@
 
 #include <unordered_map>
 
+#include <tinyxml2.h>
+
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 
@@ -26,6 +28,8 @@
 #include "ElementsCarte/ElementsCarte.h"
 
 #include "gamedata.h"
+
+using namespace tinyxml2;
 
 namespace gamedata{
 
@@ -197,6 +201,10 @@ void updateCurrentPlace()
             }
         }
     }
+}
+
+void saveToXML(XMLDocument& doc, XMLHandle& handle)
+{
 }
 
 } //namespace gamedata

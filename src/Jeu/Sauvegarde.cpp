@@ -31,6 +31,7 @@
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
+#include "gamedata.h"
 #include "options.h"
 
 using namespace tinyxml2;
@@ -161,6 +162,19 @@ void Save_Partie()
 
     //'files' will store the filenames to create index.xml
     list<string> files;
+
+
+    //gamedata.xml
+    XMLDocument gamedata_xml;
+
+    XMLElement* gamedata_xml_root = gamedata_xml.NewElement("gamedata");
+    gamedata_xml.InsertFirstChild(gamedata_xml_root);
+
+    XMLHandle gamedata_xml_handle(gamedata_xml_root);
+    gamedata::saveToXML(gamedata_xml, gamedata_xml_handle);
+
+    gamedata_xml.SaveFile((path + "gamedata.xml").c_str());
+    files.push_back("gamedata.xml");
 
 
     //index.xml
