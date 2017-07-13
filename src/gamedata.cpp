@@ -70,6 +70,11 @@ Carte* world(const string& id)
     return nullptr;
 }
 
+const unordered_map<string, Carte*>& worlds()
+{
+    return _worlds;
+}
+
 void addSpecies(const string& s)
 {
     _species.emplace(s, new Classe_Commune);

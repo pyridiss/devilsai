@@ -177,6 +177,24 @@ void Save_Partie()
     files.push_back("gamedata.xml");
 
 
+    //worlds xml files
+    const auto& worlds = gamedata::worlds();
+
+    for (const auto& w : worlds)
+    {
+        XMLDocument world_xml;
+
+        XMLElement* world_xml_root = world_xml.NewElement("world");
+        world_xml.InsertFirstChild(world_xml_root);
+
+        XMLHandle world_xml_handle(world_xml_root);
+        w.second->saveToXML(world_xml, world_xml_handle);
+
+        world_xml.SaveFile((path + w.second->Id + ".xml").c_str());
+        files.push_back(w.second->Id + ".xml");
+    }
+
+
     //index.xml
     XMLDocument index_xml;
 

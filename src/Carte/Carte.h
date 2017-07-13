@@ -29,6 +29,11 @@
 using namespace std;
 using namespace sf;
 
+namespace tinyxml2{
+    class XMLHandle;
+    class XMLDocument;
+}
+
 class lua_State;
 
 class Classe_Commune;
@@ -80,6 +85,7 @@ class Carte
 		void SupprimerListe(string num);
 
         void loadFromFile(string path, string tag="ALL");
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	//Gestion :
 	public:

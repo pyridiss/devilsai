@@ -21,6 +21,7 @@
 #define GAMEDATA_H
 
 #include <string>
+#include <unordered_map>
 
 class Carte;
 class Classe_Commune;
@@ -40,6 +41,7 @@ namespace gamedata{
 void addWorld(const string& id);
 void clearWorlds();
 Carte* world(const string& id);
+const unordered_map<string, Carte*>& worlds();
 void addSpecies(const string& s);
 void clearSpecies();
 Classe_Commune* species(const string& s);

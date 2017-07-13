@@ -661,3 +661,7 @@ void Carte::loadFromFile(string path, string tag)
         elem = elem->NextSiblingElement();
     }
 }
+
+void Carte::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+{
+}
