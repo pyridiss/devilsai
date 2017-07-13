@@ -89,29 +89,6 @@ void Load_Chapitre(string filename)
 	fileStream.close();
 }
 
-/** ÉTABLISSEMENT D'UN NOUVEAU JEU OU CHARGEMENT DU JEU ENREGISTRÉ */
-
-bool PartieSauvegardee(string save)
-{
-	Partie.SAVE = "ANNULER";
-
-	if (Partie.SAVE == "ANNULER")
-	{
-		Partie.SAVE = "";
-        tools::signals::addSignal("main-menu");
-		return false;
-	}
-
-    Load_Partie(Partie.SAVE);
-
-	MESSAGE(">> Chargement de la sauvegarde terminée <<", FICHIER)
-
-    musicManager::playMusic(gamedata::currentWorld()->ambience);
-
-	MESSAGE(">> Mise en place du jeu sauvegardé terminée <<", FICHIER)
-
-	return true;
-}
 
 /** FONCTIONS DE GESTION DE LA PARTIE **/
 
@@ -242,10 +219,6 @@ void mainLoop()
             if (signal.first == "load-game")
             {
                 loadGameWindow.manage(Jeu.App);
-//                 if (PartieSauvegardee())
-//                 {
-//                     managementActivated = true;
-//                 }
             }
 
             if (signal.first == "delete-game")
@@ -256,10 +229,9 @@ void mainLoop()
 
             if (signal.first == "start-loaded-game")
             {
-                if (PartieSauvegardee(signal.second.stringData))
-                {
-                    managementActivated = true;
-                }
+                Load_Partie(signal.second.stringData);
+                managementActivated = true;
+                musicManager::playMusic(gamedata::currentWorld()->ambience);
             }
 
             if (signal.first == "options")

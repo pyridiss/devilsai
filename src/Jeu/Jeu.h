@@ -43,8 +43,6 @@ namespace gui
 */
 struct Classe_Partie
 {
-	string SAVE = "";
-
 	bool ModeCinematiques   = false;
 
 	Journal journal;
@@ -109,7 +107,6 @@ extern Classe_Jeu::Classe_Options Options;
 
 //Fonctions définies dans les fichiers dépendants de Jeu
 
-bool PartieSauvegardee();
 void mainLoop();
 void Clean_Partie();
 
