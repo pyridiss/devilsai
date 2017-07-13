@@ -664,4 +664,32 @@ void Carte::loadFromFile(string path, string tag)
 
 void Carte::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("ambience", ambience.c_str());
+    if (!backgroundImage.empty())
+        properties->SetAttribute("backgroundImage", backgroundImage.c_str());
+    root->InsertEndChild(properties);
+
+    XMLElement* _items = doc.NewElement("items");
+    root->InsertEndChild(_items);
+    XMLHandle itemsHandle(_items);
+
+    XMLElement* _triggers = doc.NewElement("triggers");
+    root->InsertEndChild(_triggers);
+    XMLHandle triggersHandle(_triggers);
+
+    XMLElement* _places = doc.NewElement("places");
+    root->InsertEndChild(_places);
+    XMLHandle placesHandle(_places);
+
+    for (auto& tmp : elements)
+        tmp->saveToXML(doc, itemsHandle);
+
+    for (auto& tmp : triggers)
+        tmp->saveToXML(doc, triggersHandle);
+
+    for (auto& tmp : places)
+        tmp->saveToXML(doc, placesHandle);
 }

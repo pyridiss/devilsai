@@ -57,9 +57,6 @@ void Save_Partie()
 
 		if (!fileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
 
-		if (carte.second.backgroundImage != "") fileStream << "backgroundImage " << carte.second.backgroundImage << endl;
-		fileStream << "AMBIENCE " << carte.second.ambience << endl;
-
 		//Parcours de la liste des Elements :
 		for (auto& tmp : carte.second.elements)
 		{
