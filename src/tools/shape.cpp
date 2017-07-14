@@ -157,12 +157,24 @@ void Shape::loadFromXML(XMLElement* elem)
         Vector2d p2(0, 0);
         Vector2d p3(0, 0);
 
-        if (elem->Attribute("points"))
+        if (elem->Attribute("x1"))
         {
-            tools::debug::warning("Shape::loadFromXML() received rectangle defined with points, which is not implemented", "tools::math");
+            elem->QueryAttribute("x1", &p1.x);
+            elem->QueryAttribute("y1", &p1.y);
+            elem->QueryAttribute("x2", &p2.x);
+            elem->QueryAttribute("y2", &p2.y);
+            elem->QueryAttribute("p3", &p3.x);
+            double l = 0;
+            elem->QueryAttribute("l", &l);
+            if (p1.y == p2.y)
+            {
+                p3.y = p3.x;
+                p3.x = p1.x;
+            }
+            else
+                p3.y = (p2.x - p1.x) * (p3.x - p1.x) / (p1.y - p2.y) - p1.y;
         }
-
-        if (elem->Attribute("xSize"))
+        else if (elem->Attribute("xSize"))
         {
             double xCenter = 0, yCenter = 0, xSize = 0, ySize = 0;
             elem->QueryAttribute("xCenter", &xCenter);
@@ -242,9 +254,21 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             break;
         case Profiles::Rectangle:
             root->SetAttribute("type", "rectangle");
+            root->SetAttribute("x1", points[0].x);
+            root->SetAttribute("y1", points[0].y);
+            root->SetAttribute("x2", points[1].x);
+            root->SetAttribute("y2", points[1].y);
+            if (points[0].y == points[1].y)
+                root->SetAttribute("p3", points[2].y);
+            else
+                root->SetAttribute("p3", points[2].x);
             break;
         case Profiles::Line:
             root->SetAttribute("type", "line");
+            root->SetAttribute("xOrigin", points[0].x);
+            root->SetAttribute("yOrigin", points[0].y);
+            root->SetAttribute("length", length1);
+            root->SetAttribute("angle", angle1);
             break;
         case Profiles::Complex:
             root->SetAttribute("type", "complex");
