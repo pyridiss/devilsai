@@ -39,7 +39,9 @@ class Individu_Unique;
 class EmplacementEquipement;
 
 namespace tinyxml2{
+    class XMLElement;
     class XMLHandle;
+    class XMLDocument;
 };
 
 typedef map < int, int > MapVitesses;
@@ -110,6 +112,9 @@ class Caracteristiques
 		void saveSkills(ofstream& stream);
 		void loadSkillFromSavedGame(string skill, string data);
 		void deleteSkills();
+
+        void loadFromXML(tinyxml2::XMLElement* elem);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:
 		pair<int, int> getFromObjectsAndSkills(string characteristic);

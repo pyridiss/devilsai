@@ -186,6 +186,32 @@ void Caracteristiques::deleteSkills()
 	}
 }
 
+void Caracteristiques::loadFromXML(tinyxml2::XMLElement* elem)
+{
+    elem->QueryAttribute("strength", &Force);
+    elem->QueryAttribute("power", &Puissance);
+    elem->QueryAttribute("agility", &Agilite);
+    elem->QueryAttribute("intellect", &Intelligence);
+    elem->QueryAttribute("constitution", &Constitution);
+    elem->QueryAttribute("charisma", &Charisme);
+    elem->QueryAttribute("dodge", &Esquive);
+    elem->QueryAttribute("recovery", &RecuperationMoyenne);
+}
+
+void Caracteristiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+{
+    XMLElement* root = handle.ToElement();
+
+    root->SetAttribute("strength", Force);
+    root->SetAttribute("power", Puissance);
+    root->SetAttribute("agility", Agilite);
+    root->SetAttribute("intellect", Intelligence);
+    root->SetAttribute("constitution", Constitution);
+    root->SetAttribute("charisma", Charisme);
+    root->SetAttribute("dodge", Esquive);
+    root->SetAttribute("recovery", RecuperationMoyenne);
+}
+
 pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 {
 	pair<int, int> addedCharacteristic;
