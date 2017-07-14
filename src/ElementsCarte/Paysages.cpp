@@ -178,6 +178,9 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
     elem->QueryAttribute("y", &y);
     move(x, y);
 
+    if (elem->Attribute("tag"))
+        Liste = elem->Attribute("tag");
+
     elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
@@ -202,6 +205,9 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
         }
         if (elemName == "properties")
         {
+            elem->QueryAttribute("id", &Id);
+            elem->QueryAttribute("lifetime", &lifetime);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
             elem->QueryAttribute("classement", &TypeClassement);
             elem->QueryAttribute("xExtent", &extent.x);
             elem->QueryAttribute("yExtent", &extent.y);
