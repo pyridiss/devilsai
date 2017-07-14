@@ -98,15 +98,15 @@ bool DropDownList::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void DropDownList::setData(tools::signals::SignalData& data)
+void DropDownList::setData(string& data)
 {
-    data.stringData = entries[index].second;
+    data = entries[index].second;
 }
 
-void DropDownList::setValue(const tools::signals::SignalData& d)
+void DropDownList::setValue(const string& d)
 {
     index = 0;
-    while (index < entries.size() && entries[index].second != d.stringData)
+    while (index < entries.size() && entries[index].second != d)
         ++index;
 }
 

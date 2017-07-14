@@ -201,7 +201,7 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 Load_Chapitre("chapitre/1.chp");
-                gamedata::player()->Nom = signal.second.String32Data;
+                gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
@@ -211,7 +211,7 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 Load_Chapitre("chapitre/0.chp");
-                gamedata::player()->Nom = signal.second.String32Data;
+                gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
@@ -223,13 +223,13 @@ void mainLoop()
 
             if (signal.first == "delete-game")
             {
-                options::deleteSavedGamePack(signal.second.stringData);
+                options::deleteSavedGamePack(signal.second);
                 options::initLoadGameWindow(loadGameWindow);
             }
 
             if (signal.first == "start-loaded-game")
             {
-                Load_Partie(signal.second.stringData);
+                Load_Partie(signal.second);
                 managementActivated = true;
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
             }
@@ -241,7 +241,7 @@ void mainLoop()
 
             if (signal.first.find("option-change") != string::npos)
             {
-                options::changeOption(signal.first, signal.second.stringData);
+                options::changeOption(signal.first, signal.second);
             }
 
             if (signal.first == "ask-menu")
@@ -283,7 +283,7 @@ void mainLoop()
             if (signal.first == "place-changed")
             {
                 ChangementLieu = 254;
-                placeName.setAllText(tools::textManager::getText("places", signal.second.stringData));
+                placeName.setAllText(tools::textManager::getText("places", signal.second));
                 placeName.updateTextPosition();
             }
 

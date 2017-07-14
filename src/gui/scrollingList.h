@@ -49,8 +49,8 @@ class ScrollingList : public Widget
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);
 
-        void setData(tools::signals::SignalData& data);
-        void setValue(const tools::signals::SignalData& d);
+        void setData(string& data);
+        void setValue(const string& d);
 
         void display(RenderWindow& app);
 };

@@ -204,7 +204,7 @@ void Window::manage(RenderWindow& app, Event &event)
             {
                 if (get<0>(signal) == widget.first)
                 {
-                    tools::signals::SignalData d;
+                    string d;
 
                     if (!get<2>(signal).empty() && widgets.find(get<2>(signal)) != widgets.end())
                         widgets.find(get<2>(signal))->second->setData(d);
@@ -240,7 +240,7 @@ Widget* Window::widget(string name)
     return nullptr;
 }
 
-void Window::setValue(string widget, const tools::signals::SignalData& d)
+void Window::setValue(const string& widget, const string& d)
 {
     auto i = widgets.find(widget);
     if (i != widgets.end())

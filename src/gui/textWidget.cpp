@@ -47,11 +47,11 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void TextWidget::setData(tools::signals::SignalData& data)
+void TextWidget::setData(string& data)
 {
 }
 
-void TextWidget::setValue(const tools::signals::SignalData& d)
+void TextWidget::setValue(const string& d)
 {
 }
 

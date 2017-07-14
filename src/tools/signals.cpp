@@ -28,21 +28,13 @@ list<SignalListener*> listeners;
 
 Signal emptySignal;
 
-SignalData::SignalData()
-{
-    intData = 0;
-    doubleData = 0;
-    boolData = false;
-    stringData.clear();
-    String32Data.clear();
-}
 
 void registerListener(SignalListener* l)
 {
     listeners.push_back(l);
 }
 
-void addSignal(string s, SignalData d)
+void addSignal(string s, string d)
 {
     for (auto& l : listeners)
     {

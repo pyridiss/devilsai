@@ -198,9 +198,7 @@ void updateCurrentPlace()
                 else
                     tools::signals::addSignal("ingame-toolbar:enable-rest");
 
-                tools::signals::SignalData d;
-                d.stringData = p->Type;
-                tools::signals::addSignal("place-changed", d);
+                tools::signals::addSignal("place-changed", p->Type);
 
                 break;
             }

@@ -243,19 +243,19 @@ void initLoadGameWindow(gui::Window& window)
 
 void initOptionsWindow(gui::Window& window)
 {
-    tools::signals::SignalData d;
+    string d;
 
-    if (Options.Langue == "fr=") d.stringData = "FR";
-    else d.stringData = "EN";
+    if (Options.Langue == "fr=") d = "FR";
+    else d = "EN";
     window.setValue("chooser-language", d);
 
-    d.stringData = intToString(Options.ScreenW_Save) + "x" + intToString(Options.ScreenH_Save);
+    d = intToString(Options.ScreenW_Save) + "x" + intToString(Options.ScreenH_Save);
     window.setValue("chooser-resolution", d);
 
-    d.stringData = (Options.PleinEcran ? "enabled" : "disabled");
+    d = (Options.PleinEcran ? "enabled" : "disabled");
     window.setValue("chooser-fullscreen", d);
 
-    d.stringData = (Options.AffichageDegats ? "enabled" : "disabled");
+    d = (Options.AffichageDegats ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
 }
 

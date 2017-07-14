@@ -91,15 +91,15 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void ScrollingList::setData(tools::signals::SignalData& data)
+void ScrollingList::setData(string& data)
 {
-    data.stringData = entries[index].second;
+    data = entries[index].second;
 }
 
-void ScrollingList::setValue(const tools::signals::SignalData& d)
+void ScrollingList::setValue(const string& d)
 {
     index = 0;
-    while (index < entries.size() && entries[index].second != d.stringData)
+    while (index < entries.size() && entries[index].second != d)
         ++index;
 }
 

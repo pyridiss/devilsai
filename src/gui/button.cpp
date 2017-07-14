@@ -116,11 +116,11 @@ bool Button::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void Button::setData(tools::signals::SignalData& data)
+void Button::setData(string& data)
 {
 }
 
-void Button::setValue(const tools::signals::SignalData& d)
+void Button::setValue(const string& d)
 {
 }
 

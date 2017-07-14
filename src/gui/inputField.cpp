@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/textManager.h"
+
 #include "gui/inputField.h"
 #include "gui/style.h"
 
@@ -63,14 +65,14 @@ bool InputField::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void InputField::setData(tools::signals::SignalData& data)
+void InputField::setData(string& data)
 {
-    data.String32Data = input;
+    data = tools::textManager::toStdString(input);
 }
 
-void InputField::setValue(const tools::signals::SignalData& d)
+void InputField::setValue(const string& d)
 {
-    input = d.String32Data;
+    input = tools::textManager::fromStdString(d);
 }
 
 void InputField::display(RenderWindow& app)

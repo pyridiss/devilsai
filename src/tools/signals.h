@@ -34,30 +34,16 @@ namespace tools{
 
 namespace signals{
 
-struct SignalData
-{
-    int intData;
-    double doubleData;
-    bool boolData;
-    string stringData;
-    String32 String32Data;
-
-    SignalData();
-    SignalData(const SignalData&) = default;
-    SignalData(SignalData&&) noexcept = default;
-    SignalData& operator=(const SignalData&) = default;
-};
-
 struct SignalListener
 {
     string signal;
     bool signalSent = false;
 };
 
-typedef pair < string , SignalData > Signal;
+typedef pair < string , string > Signal;
 
 void registerListener(SignalListener* l);
-void addSignal(string s, SignalData d = SignalData());
+void addSignal(string s, string d = string());
 Signal& getNextSignal();
 void removeSignal();
 
