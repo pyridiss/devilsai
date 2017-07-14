@@ -87,10 +87,10 @@ void Shape::rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3
     points.emplace_back(p3.x, p3.y);
     points.emplace_back(p2 + p3 - p1);
 
-    box.first.x = min(p1.x, min(p2.x, p3.x));
-    box.first.y = min(p1.y, min(p2.y, p3.y));
-    box.second.x = max(p1.x, max(p2.x, p3.x));
-    box.second.y = max(p1.y, max(p2.y, p3.y));
+    box.first.x = min({p1.x, p2.x, p3.x, points[3].x});
+    box.first.y = min({p1.y, p2.y, p3.y, points[3].y});
+    box.second.x = max({p1.x, p2.x, p3.x, points[3].x});
+    box.second.y = max({p1.y, p2.y, p3.y, points[3].y});
 }
 
 void Shape::line(const Vector2d& p1, const Vector2d& p2)
@@ -172,7 +172,7 @@ void Shape::loadFromXML(XMLElement* elem)
                 p3.x = p1.x;
             }
             else
-                p3.y = (p2.x - p1.x) * (p3.x - p1.x) / (p1.y - p2.y) - p1.y;
+                p3.y = p1.y + (p2.x - p1.x) * (p3.x - p1.x) / (p1.y - p2.y);
         }
         else if (elem->Attribute("xSize"))
         {
