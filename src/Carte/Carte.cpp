@@ -98,9 +98,9 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 		}
         if (TypeDonnee == "loadXMLFile")
         {
-            string file;
-            Fichier >> file;
-            carte->loadFromFile(tools::filesystem::dataDirectory() + file);
+            string file, b2;
+            Fichier >> file >> b2;
+            carte->loadFromFile(tools::filesystem::dataDirectory() + file, b2);
         }
 
 		if (TypeDonnee == "IND_UNIQUE" && carte != NULL)
@@ -575,31 +575,7 @@ void Carte::loadFromFile(string path, string tag)
     {
         string elemName = elem->Name();
 
-        if (elemName == "species")
-        {
-            string speciesName = elem->Attribute("name");
-
-            if (gamedata::species(speciesName) == nullptr)
-            {
-                gamedata::addSpecies(speciesName);
-                Classe_Commune *species = gamedata::species(speciesName);
-                XMLHandle hdl2(elem);
-                species->loadFromXML(hdl2);
-            }
-        }
-        else if (elemName == "inertItemDesign")
-        {
-            string setName = elem->Attribute("name");
-
-            if (gamedata::inertItemDesign(setName) == nullptr)
-            {
-                gamedata::addInertItemDesign(setName);
-                Paysage* set = gamedata::inertItemDesign(setName);
-                XMLHandle hdl2(elem);
-                set->loadFromXML(hdl2);
-            }
-        }
-        else if (elemName == "place")
+        if (elemName == "place")
         {
             Paysage *p = new Paysage;
             if (elem->Attribute("name")) p->Type = elem->Attribute("name");
@@ -650,6 +626,8 @@ void Carte::loadFromFile(string path, string tag)
 
                     if (newItem != nullptr)
                     {
+                        elements.push_back(newItem);
+
                         if (tag != "ALL") newItem->Liste = tag;
                         if (ignoreCollision) newItem->ignoreCollision = true;
 
@@ -657,8 +635,6 @@ void Carte::loadFromFile(string path, string tag)
                         newItem->loadFromXML(hdl3);
 
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
-
-                        AjouterElementEnListe(newItem);
                     }
 
                     item = item->NextSiblingElement();
@@ -669,7 +645,7 @@ void Carte::loadFromFile(string path, string tag)
     }
 }
 
-void Carte::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 

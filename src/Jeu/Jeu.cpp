@@ -77,9 +77,7 @@ void Load_Chapitre(string filename)
 		else if	(TypeDonnee == "LISTE")	Load_Carte(bufferString, TYPE_LISTE);
         else if (TypeDonnee == "loadXMLFile")
         {
-            string b2;
-            fileStream >> b2;
-            gamedata::world("1")->loadFromFile(tools::filesystem::dataDirectory() + bufferString, b2);
+            gamedata::loadFromXML(tools::filesystem::dataDirectory() + bufferString);
         }
 		else if (TypeDonnee == "QUEST")	addQuest(bufferString, "true");
 

@@ -1,6 +1,4 @@
 CARTE_MERE 1
-loadXMLFile individu/ballista.xml
-loadXMLFile individu/fountainOfLife.xml
 COFFRE -232 -202
 RAY_COL 1
 PAYSAGE 21001

@@ -9,7 +9,7 @@
         </shape>
     </place>
     <items tag="Uniques">
-        <unique loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
+        <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
     </items>
     <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
         <inertItem design="wall01-NS" x="3504" y="-1894">

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<unique name="gower">
+<gamedata>
+    <uniqueData name="gower">
         <addImageArchiveFile file="img/Gower.img"/>
         <shape type="circle" radius="20"/>
         <attackField type="circle" radius="50"/>
         <viewField type="circle" radius="500"/>
-        <properties diplomacy="1" corpseImageKey="201:6/1/08.png"/>
+        <properties diplomacy="1" corpseImageKey="gower:6/6/1/08.png"/>
         <characteristics strength="400" power="500" agility="65" intellect="8" constitution="30" dodge="5" charisma="10" recovery="40"/>
         <skill name="4" owner="gower">
             <properties priority="1" speed="22" step="0" numberOfImages="12"/>
@@ -45,4 +46,5 @@
             <addObject location="100" design="sapphirering" quality="10"/>
             <addObject location="101" design="healpotion" quality="5"/>
         </inventory>
-</unique>
+    </uniqueData>
+</gamedata>

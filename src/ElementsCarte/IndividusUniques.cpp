@@ -243,14 +243,17 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
 
+    if (elem->Attribute("name"))
+    {
+        Type = elem->Attribute("name");
+        Nom = tools::textManager::getText("species", Type);
+    }
+
     if (elem->Attribute("loadFromDataFile"))
     {
-        string path = tools::filesystem::dataDirectory() + elem->Attribute("loadFromDataFile");
-        XMLDocument file;
-        file.LoadFile(path.c_str());
-        XMLHandle hdl(file);
-        hdl = hdl.FirstChildElement();
-        loadFromXML(hdl);
+        dataFile = elem->Attribute("loadFromDataFile");
+        string path = tools::filesystem::dataDirectory() + dataFile;
+        gamedata::loadFromXML(path);
     }
 
     double x = 0, y = 0;
@@ -260,12 +263,6 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 
     if (elem->Attribute("tag"))
         Liste = elem->Attribute("tag");
-
-    if (elem->Attribute("name"))
-    {
-        Type = elem->Attribute("name");
-        Nom = tools::textManager::getText("species", Type);
-    }
 
     elem = handle.FirstChildElement().ToElement();
     while (elem)

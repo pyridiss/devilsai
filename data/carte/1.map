@@ -1,12 +1,7 @@
 backgroundImage img/ground-tile01.png
 AMBIENCE Spring_1
-loadXMLFile individu/grounds.xml
-loadXMLFile individu/player.xml
-loadXMLFile individu/trees.xml
-loadXMLFile individu/walls.xml
-loadXMLFile individu/buildings.xml
-loadXMLFile individu/stones.xml
-loadXMLFile individu/misc.xml
+loadXMLFile carte/birnam.xml GowersCamp-TheGladeOfTheSaints-InertItems
+loadXMLFile carte/birnam.xml Uniques
 PAYSAGE 2001 2570 -6198
 PAYSAGE 2001 446 -6124
 PAYSAGE 2001 287 -6119

@@ -281,6 +281,7 @@ class Individu_Unique : public Individu
 		unsigned int Experience = 0;
 		bool RecuperationFixe   = false;
 		bool EnergieMax         = false;
+        string dataFile;
 
     public:
         string imagePrefix = "";

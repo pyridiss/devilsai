@@ -132,9 +132,9 @@ Paysage* inertItemDesign(const string& type)
 void copyInertItemFromDesign(string t, Paysage *elem)
 {
     Paysage* design = inertItemDesign(t);
-    if (design == NULL)
+    if (design == nullptr)
     {
-        tools::debug::error("Cannot initiate inertItem: design does not exist.", "gamedata");
+        tools::debug::error("Cannot initiate inertItem '" + t + "': design does not exist.", "gamedata");
         return;
     }
 
@@ -208,6 +208,60 @@ void updateCurrentPlace()
 
 void saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+}
+
+void loadFromXML(string path)
+{
+    XMLDocument file;
+    file.LoadFile(path.c_str());
+
+    XMLHandle hdl(file);
+    XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
+
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "species")
+        {
+            string speciesName = elem->Attribute("name");
+
+            if (species(speciesName) == nullptr)
+            {
+                addSpecies(speciesName);
+                Classe_Commune *s = species(speciesName);
+                XMLHandle hdl2(elem);
+                s->loadFromXML(hdl2);
+            }
+        }
+
+        if (elemName == "inertItemDesign")
+        {
+            string designName = elem->Attribute("name");
+
+            if (inertItemDesign(designName) == nullptr)
+            {
+                addInertItemDesign(designName);
+                Paysage* design = inertItemDesign(designName);
+                XMLHandle hdl2(elem);
+                design->loadFromXML(hdl2);
+            }
+        }
+
+        if (elemName == "uniqueData")
+        {
+            string uniqueName = elem->Attribute("name");
+
+            Individu_Unique* u = findIndividuUnique(uniqueName);
+            if (u != nullptr)
+            {
+                XMLHandle hdl2(elem);
+                u->loadFromXML(hdl2);
+            }
+        }
+
+        elem = elem->NextSiblingElement();
+    }
 }
 
 } //namespace gamedata
