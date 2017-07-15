@@ -342,6 +342,8 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 
         elem = elem->NextSiblingElement();
     }
+
+    imageManager::removeArchiveFile(imagePrefix);
 }
 
 void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)

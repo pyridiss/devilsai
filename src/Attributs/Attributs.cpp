@@ -374,6 +374,8 @@ string Activite::getImageKey(double angle, int num)
 
 void Activite::loadFromXML(XMLHandle &handle)
 {
+    string owner = handle.ToElement()->Attribute("owner");
+
     XMLElement *elem = handle.FirstChildElement().ToElement();
 
     int h = 0, s = 0, l = 0;
@@ -411,7 +413,7 @@ void Activite::loadFromXML(XMLHandle &handle)
                     string path = pathPattern;
                     string number = intToString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
-                    string key = "activity" + Id + ":" + path; //TODO
+                    string key = owner + ":" + Id + "/" + path;
                     imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
                     if (h + s + l != 0)
                         imageManager::changeHSL("individuals", key, h, s, l);
@@ -423,7 +425,7 @@ void Activite::loadFromXML(XMLHandle &handle)
             if (elem->Attribute("imageFile"))
             {
                 string path = elem->Attribute("imageFile");
-                string key = "activity" + Id + ":" + path; //TODO
+                string key = owner + ":" + Id + "/" + path;
                 imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
                 addImage(angle * M_PI / 180.0, 0, key);
             }
