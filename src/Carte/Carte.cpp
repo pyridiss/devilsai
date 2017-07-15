@@ -653,6 +653,20 @@ void Carte::loadFromFile(string path, string tag)
 
                         AjouterElementEnListe(p);
                     }
+                    if (itemName == "individual")
+                    {
+                        Individu_Commun *i = new Individu_Commun;
+
+                        if (tag != "ALL") i->Liste = tag;
+                        if (ignoreCollision) i->ignoreCollision = true;
+
+                        XMLHandle hdl3(item);
+                        i->loadFromXML(hdl3);
+
+                        if (Immuable) i->TypeClassement = CLASSEMENT_CADAVRE;
+
+                        AjouterElementEnListe(i);
+                    }
 
                     item = item->NextSiblingElement();
                 }

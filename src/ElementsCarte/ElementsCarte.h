@@ -349,6 +349,7 @@ class Individu_Commun : public Individu
 
 		bool Set_Activite(string nv);
 
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 

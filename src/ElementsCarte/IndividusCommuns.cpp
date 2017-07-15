@@ -120,8 +120,70 @@ bool Individu_Commun::angleFixed()
     return Classe->angleFixed;
 }
 
+void Individu_Commun::loadFromXML(XMLHandle &handle)
+{
+    XMLElement *elem = handle.ToElement();
+
+    if (elem->Attribute("species"))
+    {
+        Type = elem->Attribute("species");
+        Load_ClasseCommune(Type);
+        Classe = gamedata::species(Type);
+        Classe->Copie_Element(this);
+    }
+
+    double x = 0, y = 0;
+    elem->QueryAttribute("x", &x);
+    elem->QueryAttribute("y", &y);
+    move(x, y);
+
+    if (elem->Attribute("tag"))
+        Liste = elem->Attribute("tag");
+
+    elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "properties")
+        {
+            elem->QueryAttribute("id", &Id);
+            elem->QueryAttribute("lifetime", &lifetime);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
+            elem->QueryAttribute("classement", &TypeClassement);
+        }
+        if (elemName == "statistics")
+        {
+            Stats.loadFromXML(elem);
+        }
+
+        elem = elem->NextSiblingElement();
+    }
+}
+
 void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* individual = doc.NewElement("individual");
+    individual->SetAttribute("species", Type.c_str());
+    individual->SetAttribute("x", position().x);
+    individual->SetAttribute("y", position().y);
+    individual->SetAttribute("tag", Liste.c_str());
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("id", Id);
+    properties->SetAttribute("lifetime", lifetime);
+    properties->SetAttribute("ignoreCollision", ignoreCollision);
+    properties->SetAttribute("classement", TypeClassement);
+    individual->InsertEndChild(properties);
+
+    XMLElement* stats = doc.NewElement("statistics");
+    individual->InsertEndChild(stats);
+    XMLHandle statsHandle(stats);
+    Stats.saveToXML(doc, statsHandle);
+
+    root->InsertEndChild(individual);
 }
 
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
@@ -204,11 +266,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "characteristics")
         {
-            elem->QueryAttribute("strength", &Caracs["Force"]);
-            elem->QueryAttribute("power", &Caracs["Puissance"]);
-            elem->QueryAttribute("agility", &Caracs["Agilite"]);
-            elem->QueryAttribute("intellect", &Caracs["Intelligence"]);
-            //TODO
+            Caracs.loadFromXML(elem);
         }
         if (elemName == "properties")
         {

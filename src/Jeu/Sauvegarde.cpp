@@ -42,7 +42,6 @@ void Save_Partie()
 
 	//Création d'éléments pour récupérer le type et le comparer aux Elements de la liste
 	Individu_Unique	ExempleUnique;			const type_info &TypeUnique = typeid(ExempleUnique);
-	Individu_Commun	ExempleCommun;			const type_info &TypeCommun = typeid(ExempleCommun);
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
@@ -64,7 +63,6 @@ void Save_Partie()
 			const type_info &TypeTmp = typeid(*tmp);
 
 			if (TypeTmp == TypeUnique)		fileStream << "IND_UNIQUE ";
-			if (TypeTmp == TypeCommun)		fileStream << "IND_COMMUN ";
 			if (TypeTmp == TypeJoueur)		fileStream << "JOUEUR ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
@@ -74,12 +72,6 @@ void Save_Partie()
 					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
 					   << tmp->Id << " "
 					   << tmp->collisionType << " " << tmp->TypeClassement << " ";
-
-			if (TypeTmp == TypeCommun)
-			{
-				Individu_Commun* ind = dynamic_cast<Individu_Commun*>(tmp);
-				fileStream << *(ind->Get_Stats()) << endl;
-			}
 
 			if (TypeTmp == TypeUnique || TypeTmp == TypeJoueur)
 			{
