@@ -155,15 +155,17 @@ class Activite
 class EmplacementEquipement
 {
 	public:
-        gui::Button* BoutonEquipement = nullptr;
+        gui::Button* BoutonEquipement;
 
 	public:
-		string CategorieObjet		= "";
-		string TypeObjet			= "";
-		string ClasseObjet			= "";
+		string CategorieObjet;
+		string TypeObjet;
+		string ClasseObjet;
 
 	public:
+        EmplacementEquipement();
 		~EmplacementEquipement();
+        EmplacementEquipement(EmplacementEquipement&& e);
 
 	public:
 		void Set(int x, int y, int w, int h);

@@ -475,10 +475,25 @@ Caracteristiques::~Caracteristiques()
 
 /** FONCTIONS DE LA CLASSE EmplacementEquipement **/
 
+EmplacementEquipement::EmplacementEquipement()
+{
+    BoutonEquipement = nullptr;
+}
+
 EmplacementEquipement::~EmplacementEquipement()
 {
-	delete BoutonEquipement;
+    if (BoutonEquipement != nullptr)
+        delete BoutonEquipement;
 	BoutonEquipement = nullptr;
+}
+
+EmplacementEquipement::EmplacementEquipement(EmplacementEquipement&& e) :
+    CategorieObjet(std::move(e.CategorieObjet)),
+    TypeObjet(std::move(e.TypeObjet)),
+    ClasseObjet(std::move(e.ClasseObjet))
+{
+    BoutonEquipement = e.BoutonEquipement;
+    e.BoutonEquipement = nullptr;
 }
 
 void EmplacementEquipement::Set(int x, int y, int w, int h)

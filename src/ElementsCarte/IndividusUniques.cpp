@@ -58,7 +58,7 @@ void Individu_Unique::Ajouter_Activite(string Id)
 void Individu_Unique::Ajouter_EmplacementEquip(int x, int y, int w, int h, string Categorie, string Type, string Classe)
 {
 	EmplacementEquipement emp;
-	EmplacementsEquip.push_back(emp);
+	EmplacementsEquip.push_back(std::move(emp));
 	EmplacementsEquip.back().Set(x, y, w, h);
 	EmplacementsEquip.back().CategorieObjet = Categorie;
 	EmplacementsEquip.back().TypeObjet = Type;
