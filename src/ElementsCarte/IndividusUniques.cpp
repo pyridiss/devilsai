@@ -19,7 +19,11 @@
 
 #include <tinyxml2.h>
 
+#include "tools/filesystem.h"
 #include "tools/timeManager.h"
+#include "tools/textManager.h"
+
+#include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
@@ -233,6 +237,111 @@ bool Individu_Unique::Set_Activite(string nv)
 bool Individu_Unique::angleFixed()
 {
     return false;
+}
+
+void Individu_Unique::loadFromXML(XMLHandle &handle)
+{
+    XMLElement *elem = handle.ToElement();
+
+    if (elem->Attribute("loadFromDataFile"))
+    {
+        string path = tools::filesystem::dataDirectory() + elem->Attribute("loadFromDataFile");
+        XMLDocument file;
+        file.LoadFile(path.c_str());
+        XMLHandle hdl(file);
+        hdl = hdl.FirstChildElement();
+        loadFromXML(hdl);
+    }
+
+    double x = 0, y = 0;
+    elem->QueryAttribute("x", &x);
+    elem->QueryAttribute("y", &y);
+    move(x, y);
+
+    if (elem->Attribute("tag"))
+        Liste = elem->Attribute("tag");
+
+    if (elem->Attribute("name"))
+    {
+        Type = elem->Attribute("name");
+        Nom = tools::textManager::getText("species", Type);
+    }
+
+    elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "addImageArchiveFile")
+        {
+            imagePrefix = elem->Attribute("file");
+            imageManager::addArchiveFile(imagePrefix);
+        }
+
+        if (elemName == "shape")            size.loadFromXML(elem);
+        if (elemName == "viewField")        viewField.loadFromXML(elem);
+        if (elemName == "attackField")      interactionField.loadFromXML(elem);
+
+        if (elemName == "characteristics")  Caracs.loadFromXML(elem);
+        if (elemName == "statistics")       Stats.loadFromXML(elem);
+
+        if (elemName == "properties")
+        {
+            elem->QueryAttribute("id", &Id);
+            elem->QueryAttribute("lifetime", &lifetime);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
+            elem->QueryAttribute("classement", &TypeClassement);
+            elem->QueryAttribute("diplomacy", &Diplomatie);
+            if (elem->Attribute("corpseImageKey"))
+                corpseImageKey = elem->Attribute("corpseImageKey");
+        }
+        if (elemName == "skill")
+        {
+            string skillName = elem->Attribute("name");
+            Ajouter_Activite(skillName);
+            Activite *skill = Get_Activite(skillName);
+
+            XMLHandle hdl2(elem);
+            skill->loadFromXML(hdl2);
+        }
+        if (elemName == "skillsManagement")
+        {
+            ActDefaut = elem->Attribute("default");
+            Set_Activite(ActDefaut);
+
+            if (elem->Attribute("onAttack"))
+            {
+                //TODO
+            }
+        }
+        if (elemName == "EmplacementEquipement") //TODO: update this!
+        {
+            EmplacementEquipement emp;
+            int x = 0, y = 0, w = 0, h= 0;
+            elem->QueryAttribute("x", &x);
+            elem->QueryAttribute("y", &y);
+            elem->QueryAttribute("w", &w);
+            elem->QueryAttribute("h", &h);
+            emp.Set(x, y, w, h);
+            emp.CategorieObjet = elem->Attribute("category");
+            emp.TypeObjet = elem->Attribute("type");
+            emp.ClasseObjet = elem->Attribute("class");
+            EmplacementsEquip.push_back(std::move(emp));
+        }
+        if (elemName == "Equipement") //TODO: Update this!
+        {
+            string numero = elem->Attribute("number");
+            string IdEmplacement = elem->Attribute("IdEmplacement");
+
+            Get_Caracs()->objects.addObject(numero, IdEmplacement);
+        }
+        if (elemName == "inventory")
+        {
+            Get_Caracs()->objects.loadFromXML(elem);
+        }
+
+        elem = elem->NextSiblingElement();
+    }
 }
 
 void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
