@@ -23,7 +23,6 @@ set(individu
     200.one
     309.com
     didact_manneq2.com
-    201.one
     310.com
     202.one
     300.com
@@ -31,6 +30,7 @@ set(individu
     ballista.xml
     buildings.xml
     fountainOfLife.xml
+    gower.xml
     grounds.xml
     misc.xml
     player.xml

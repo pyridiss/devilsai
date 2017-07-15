@@ -33,7 +33,7 @@ function questBegin(addNewElements)
 	if questStep == "0" then
 
 		player_ptr   = getElement("200")
-		gower_ptr    = getElement("201")
+		gower_ptr    = getElement("gower")
 		fluellen_ptr = getElement("202")
 
 		act_ptr = addActionneur(3710, -880, 10, 100)

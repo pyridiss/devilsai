@@ -8,6 +8,9 @@
             <shape type="rectangle" xCenter="-149" yCenter="585" xSize="718" ySize="462"/>
         </shape>
     </place>
+    <items tag="Uniques">
+        <unique loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
+    </items>
     <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
         <inertItem design="wall01-NS" x="3504" y="-1894">
             <shape type="rectangle" xSize="6" ySize="288"/>

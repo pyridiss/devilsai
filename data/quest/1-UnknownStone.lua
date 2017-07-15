@@ -27,7 +27,7 @@ function questBegin(addNewElements)
 	if questStep == "0" then
 		-- Find Player and Gower
 		player_ptr = getElement("200") -- 200 = player
-		gower_ptr  = getElement("201") -- 201 = gower
+		gower_ptr  = getElement("gower")
 
 		act_ptr = addActionneur(153, 125, 10, 10)
 
