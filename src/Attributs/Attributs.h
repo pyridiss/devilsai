@@ -61,6 +61,9 @@ class Statistiques
 	public:
 		float& operator[](string stat);
 		const float& operator[](string stat) const;
+
+        void loadFromXML(tinyxml2::XMLElement* elem);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
 class Objects

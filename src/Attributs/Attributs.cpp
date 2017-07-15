@@ -299,6 +299,22 @@ const float& Statistiques::operator[](string stat) const
 	return Jeu.floatNotFound;
 }
 
+void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
+{
+    elem->QueryAttribute("vitality", &Vitalite);
+    elem->QueryAttribute("energy", &Energie);
+    elem->QueryAttribute("recovery", &Recuperation);
+}
+
+void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+{
+    XMLElement* root = handle.ToElement();
+
+    root->SetAttribute("vitality", Vitalite);
+    root->SetAttribute("energy", Energie);
+    root->SetAttribute("recovery", Recuperation);
+}
+
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
