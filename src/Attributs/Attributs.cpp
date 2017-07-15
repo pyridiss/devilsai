@@ -111,6 +111,27 @@ void Objects::deleteObjects()
 	}
 }
 
+void Objects::loadFromXML(XMLElement* elem)
+{
+    XMLHandle hdl(elem);
+    XMLElement *object = hdl.FirstChildElement().ToElement();
+    while (object)
+    {
+        string objectName = object->Name();
+
+        if (objectName == "addObject")
+        {
+            string location = object->Attribute("location");
+            string design = object->Attribute("design");
+            int q = 0;
+            object->QueryAttribute("quality", &q);
+            addObject(design, location, q);
+        }
+
+        object = object->NextSiblingElement();
+    }
+
+}
 
 /* Manager for skills */
 

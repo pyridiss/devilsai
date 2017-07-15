@@ -80,6 +80,8 @@ class Objects
 		void saveObjects(ostream& stream);
 		void loadObjectFromSavedGame(string object, string key, string data);
 		void deleteObjects();
+
+        void loadFromXML(tinyxml2::XMLElement* elem);
 };
 
 class Caracteristiques
