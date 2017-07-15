@@ -150,6 +150,10 @@ int Door::Collision(Individu *elem, int TypeCollision)
 	return COLL_OK;
 }
 
+void Door::loadFromXML(tinyxml2::XMLHandle &handle)
+{
+}
+
 void Door::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
 }

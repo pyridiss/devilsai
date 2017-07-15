@@ -637,35 +637,28 @@ void Carte::loadFromFile(string path, string tag)
                 XMLElement *item = hdl2.FirstChildElement().ToElement();
                 while (item)
                 {
+                    Element_Carte* newItem = nullptr;
+
                     string itemName = item->Name();
 
                     if (itemName == "inertItem")
-                    {
-                        Paysage *p = new Paysage;
+                        newItem = new Paysage;
+                    else if (itemName == "individual")
+                        newItem = new Individu_Commun;
+                    else if (itemName == "unique")
+                        newItem = new Individu_Unique;
 
-                        if (tag != "ALL") p->Liste = tag;
-                        if (ignoreCollision) p->ignoreCollision = true;
+                    if (newItem != nullptr)
+                    {
+                        if (tag != "ALL") newItem->Liste = tag;
+                        if (ignoreCollision) newItem->ignoreCollision = true;
 
                         XMLHandle hdl3(item);
-                        p->loadFromXML(hdl3);
+                        newItem->loadFromXML(hdl3);
 
-                        if (Immuable) p->TypeClassement = CLASSEMENT_CADAVRE;
+                        if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
 
-                        AjouterElementEnListe(p);
-                    }
-                    if (itemName == "individual")
-                    {
-                        Individu_Commun *i = new Individu_Commun;
-
-                        if (tag != "ALL") i->Liste = tag;
-                        if (ignoreCollision) i->ignoreCollision = true;
-
-                        XMLHandle hdl3(item);
-                        i->loadFromXML(hdl3);
-
-                        if (Immuable) i->TypeClassement = CLASSEMENT_CADAVRE;
-
-                        AjouterElementEnListe(i);
+                        AjouterElementEnListe(newItem);
                     }
 
                     item = item->NextSiblingElement();

@@ -104,6 +104,10 @@ void Actionneur::Load(istream &Fichier)
 	}
 }
 
+void Actionneur::loadFromXML(tinyxml2::XMLHandle &handle)
+{
+}
+
 void Actionneur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
 }
@@ -261,6 +265,10 @@ END_SHARED_TRIGGER
 // 	string chemin = "actionneur_" + Partie.CarteCourante->Id + "_" + intToString(DonneeInt) + ".lng";
 // 	dialogue->load(chemin);
 // }
+
+void Trigger::loadFromXML(tinyxml2::XMLHandle &handle)
+{
+}
 
 void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {

@@ -142,6 +142,7 @@ class Element_Carte
 
         void move(double x, double y);
 
+        virtual void loadFromXML(tinyxml2::XMLHandle &handle) =0;
         virtual void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle) =0;
 
 	//Affichage :
@@ -164,6 +165,7 @@ class Coffre : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu* elem, int TypeCollision);
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	//Affichage :
@@ -423,6 +425,7 @@ class Door : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:
@@ -447,6 +450,7 @@ class Actionneur : public Element_Carte
 		void Load(istream &Fichier);
 		void Load_Dialogue();
 
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	//Affichage :
@@ -470,6 +474,7 @@ class Trigger : public Element_Carte
 		void load(istream& Fichier, Carte* carte);
 		bool activated();
 
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
 	public:

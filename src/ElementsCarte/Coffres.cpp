@@ -49,6 +49,10 @@ int Coffre::Collision(Individu* elem, int TypeCollision)
     return COMPORTEMENT_ALEATOIRE;
 }
 
+void Coffre::loadFromXML(tinyxml2::XMLHandle &handle)
+{
+}
+
 void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
 }
