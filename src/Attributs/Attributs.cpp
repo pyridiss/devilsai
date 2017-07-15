@@ -375,6 +375,9 @@ string Activite::getImageKey(double angle, int num)
 void Activite::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.FirstChildElement().ToElement();
+
+    int h = 0, s = 0, l = 0;
+
     while (elem)
     {
         string elemName = elem->Name();
@@ -386,6 +389,9 @@ void Activite::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("step", &step);
             elem->QueryAttribute("fightAtEnd", &fightAtEnd); //TODO
             elem->QueryAttribute("numberOfImages", &numberOfImages);
+            elem->QueryAttribute("hue", &h);
+            elem->QueryAttribute("saturation", &s);
+            elem->QueryAttribute("luminance", &l);
         }
         if (elemName == "images")
         {
@@ -407,6 +413,8 @@ void Activite::loadFromXML(XMLHandle &handle)
                     path.replace(path.find_first_of('%'), 2, number);
                     string key = "activity" + Id + ":" + path; //TODO
                     imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
+                    if (h + s + l != 0)
+                        imageManager::changeHSL("individuals", key, h, s, l);
 
                     addImage(angle * M_PI / 180.0, i, key);
                 }
