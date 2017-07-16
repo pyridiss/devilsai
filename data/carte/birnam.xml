@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
+    <loadDataFile file="individu/grounds.xml"/>
+    <loadDataFile file="individu/trees.xml"/>
+    <loadDataFile file="individu/walls.xml"/>
+    <loadDataFile file="individu/buildings.xml"/>
+    <loadDataFile file="individu/stones.xml"/>
+    <loadDataFile file="individu/misc.xml"/>
+    <loadDataFile file="individu/ballista.xml"/>
+    <loadDataFile file="individu/fountainOfLife.xml"/>
     <place name="camp-gower">
         <properties diplomacy="1"/>
         <shape type="complex">

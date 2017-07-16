@@ -60,6 +60,8 @@ class Carte
 		string Id = "";
 		string ambience = "";
 		string backgroundImage = "";
+        set <string> dataFiles;
+        bool commonDataLoaded;
 
 	//Constructeurs / Destructeurs :
 	public:

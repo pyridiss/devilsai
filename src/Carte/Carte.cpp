@@ -265,6 +265,7 @@ void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 
 Carte::Carte()
 {
+    commonDataLoaded = false;
 }
 
 Carte::~Carte()
@@ -575,7 +576,13 @@ void Carte::loadFromFile(string path, string tag)
     {
         string elemName = elem->Name();
 
-        if (elemName == "place")
+        if (elemName == "loadDataFile" && !commonDataLoaded)
+        {
+            string dataFile = elem->Attribute("file");
+            gamedata::loadFromXML(tools::filesystem::dataDirectory() + dataFile);
+            dataFiles.insert(std::move(dataFile));
+        }
+        if (elemName == "place" && !commonDataLoaded)
         {
             Paysage *p = new Paysage;
             if (elem->Attribute("name")) p->Type = elem->Attribute("name");
@@ -643,6 +650,8 @@ void Carte::loadFromFile(string path, string tag)
         }
         elem = elem->NextSiblingElement();
     }
+
+    commonDataLoaded = true;
 }
 
 void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
@@ -655,6 +664,30 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
         properties->SetAttribute("backgroundImage", backgroundImage.c_str());
     root->InsertEndChild(properties);
 
+    for (auto& tmp : dataFiles)
+    {
+        XMLElement* dataFile = doc.NewElement("loadDataFile");
+        dataFile->SetAttribute("file", tmp.c_str());
+        root->InsertEndChild(dataFile);
+    }
+
+    for (auto& tmp : places)
+    {
+        XMLElement* place = doc.NewElement("place");
+        place->SetAttribute("name", tmp->Type.c_str());
+
+        XMLElement* placeProperties = doc.NewElement("properties");
+        placeProperties->SetAttribute("diplomacy", tmp->Diplomatie);
+        place->InsertEndChild(placeProperties);
+
+        XMLElement* placeShape = doc.NewElement("shape");
+        place->InsertEndChild(placeShape);
+        XMLHandle shapeHandle(placeShape);
+        tmp->size.saveToXML(doc, shapeHandle);
+
+        root->InsertEndChild(place);
+    }
+
     XMLElement* _items = doc.NewElement("items");
     root->InsertEndChild(_items);
     XMLHandle itemsHandle(_items);
@@ -663,16 +696,10 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
     root->InsertEndChild(_triggers);
     XMLHandle triggersHandle(_triggers);
 
-    XMLElement* _places = doc.NewElement("places");
-    root->InsertEndChild(_places);
-    XMLHandle placesHandle(_places);
-
     for (auto& tmp : elements)
         tmp->saveToXML(doc, itemsHandle);
 
     for (auto& tmp : triggers)
         tmp->saveToXML(doc, triggersHandle);
 
-    for (auto& tmp : places)
-        tmp->saveToXML(doc, placesHandle);
 }
