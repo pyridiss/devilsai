@@ -1,5 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
+    <uniqueData name="player">
+        <addImageArchiveFile file="img/Joueur.img"/>
+        <shape type="circle" radius="20"/>
+        <attackField type="circle" radius="45"/>
+        <properties diplomacy="1" corpseImageKey="player:6/6/1/08.png"/>
+        <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" recovery="15"/>
+        <skill name="2" owner="player">
+            <properties priority="0" speed="3" step="0" numberOfImages="8"/>
+            <images angle="0" pathToImages="2/2/%%.png"/>
+            <images angle="45" pathToImages="2/6/%%.png"/>
+            <images angle="90" pathToImages="2/1/%%.png"/>
+            <images angle="135" pathToImages="2/7/%%.png"/>
+            <images angle="180" pathToImages="2/3/%%.png"/>
+            <images angle="225" pathToImages="2/5/%%.png"/>
+            <images angle="270" pathToImages="2/0/%%.png"/>
+            <images angle="315" pathToImages="2/4/%%.png"/>
+        </skill>
+        <skill name="3" owner="player">
+            <properties priority="0" speed="13" step="13" numberOfImages="8"/>
+            <images angle="0" pathToImages="3/2/%%.png"/>
+            <images angle="45" pathToImages="3/6/%%.png"/>
+            <images angle="90" pathToImages="3/1/%%.png"/>
+            <images angle="135" pathToImages="3/7/%%.png"/>
+            <images angle="180" pathToImages="3/3/%%.png"/>
+            <images angle="225" pathToImages="3/5/%%.png"/>
+            <images angle="270" pathToImages="3/0/%%.png"/>
+            <images angle="315" pathToImages="3/4/%%.png"/>
+        </skill>
+        <skill name="5" owner="player">
+            <properties priority="2" speed="15" step="0" numberOfImages="8"/>
+            <images angle="0" pathToImages="5/2/%%.png"/>
+            <images angle="45" pathToImages="5/6/%%.png"/>
+            <images angle="90" pathToImages="5/1/%%.png"/>
+            <images angle="135" pathToImages="5/7/%%.png"/>
+            <images angle="180" pathToImages="5/3/%%.png"/>
+            <images angle="225" pathToImages="5/5/%%.png"/>
+            <images angle="270" pathToImages="5/0/%%.png"/>
+            <images angle="315" pathToImages="5/4/%%.png"/>
+        </skill>
+        <skill name="6" owner="player">
+            <properties priority="4" speed="6" step="0" numberOfImages="9"/>
+            <images angle="0" pathToImages="6/1/%%.png"/>
+        </skill>
+        <skill name="101" owner="player">
+            <properties priority="1" speed="14" step="0" numberOfImages="12"/>
+            <images angle="0" pathToImages="101/2/%%.png"/>
+            <images angle="45" pathToImages="101/6/%%.png"/>
+            <images angle="90" pathToImages="101/1/%%.png"/>
+            <images angle="135" pathToImages="101/7/%%.png"/>
+            <images angle="180" pathToImages="101/3/%%.png"/>
+            <images angle="225" pathToImages="101/5/%%.png"/>
+            <images angle="270" pathToImages="101/0/%%.png"/>
+            <images angle="315" pathToImages="101/4/%%.png"/>
+        </skill>
+        <skill name="102" owner="player">
+            <properties priority="1" speed="30" step="26" numberOfImages="10"/>
+            <images angle="0" pathToImages="102/2/%%.png"/>
+            <images angle="45" pathToImages="102/6/%%.png"/>
+            <images angle="90" pathToImages="102/1/%%.png"/>
+            <images angle="135" pathToImages="102/7/%%.png"/>
+            <images angle="180" pathToImages="102/3/%%.png"/>
+            <images angle="225" pathToImages="102/5/%%.png"/>
+            <images angle="270" pathToImages="102/0/%%.png"/>
+            <images angle="315" pathToImages="102/4/%%.png"/>
+        </skill>
+        <skill name="301" owner="player">
+            <properties priority="1" speed="14" step="0" numberOfImages="9"/>
+            <images angle="0" pathToImages="301/2/%%.png"/>
+            <images angle="45" pathToImages="301/6/%%.png"/>
+            <images angle="90" pathToImages="301/1/%%.png"/>
+            <images angle="135" pathToImages="301/7/%%.png"/>
+            <images angle="180" pathToImages="301/3/%%.png"/>
+            <images angle="225" pathToImages="301/5/%%.png"/>
+            <images angle="270" pathToImages="301/0/%%.png"/>
+            <images angle="315" pathToImages="301/4/%%.png"/>
+        </skill>
+        <skill name="401" owner="player">
+            <properties priority="3" speed="5" step="0" numberOfImages="1"/>
+            <images angle="0" pathToImages="401/2/%%.png"/>
+            <images angle="45" pathToImages="401/6/%%.png"/>
+            <images angle="90" pathToImages="401/1/%%.png"/>
+            <images angle="135" pathToImages="401/7/%%.png"/>
+            <images angle="180" pathToImages="401/3/%%.png"/>
+            <images angle="225" pathToImages="401/5/%%.png"/>
+            <images angle="270" pathToImages="401/0/%%.png"/>
+            <images angle="315" pathToImages="401/4/%%.png"/>
+        </skill>
+        <skillsManagement default="2" onAttack="4"/>
+        <EmplacementEquipement x="10" y="240" w="75" h="100" category="regulier" type="arme" class="epee"/>
+        <EmplacementEquipement x="170" y="240" w="75" h="100" category="regulier" type="bouclier" class="bouclier"/>
+        <EmplacementEquipement x="90" y="160" w="75" h="75" category="regulier" type="casque" class="casque"/>
+        <EmplacementEquipement x="90" y="240" w="75" h="100" category="regulier" type="armure" class="armure"/>
+        <EmplacementEquipement x="90" y="345" w="75" h="100" category="regulier" type="bottes" class="bottes"/>
+        <EmplacementEquipement x="182" y="345" w="50" h="50" category="regulier" type="bague" class="bague"/>
+        <Equipement number="gladius0" IdEmplacement="regulier-arme"/>
+        <Equipement number="shield0" IdEmplacement="regulier-bouclier"/>
+        <Equipement number="greathelm0" IdEmplacement="regulier-casque"/>
+        <Equipement number="cuirass0" IdEmplacement="regulier-armure"/>
+        <Equipement number="sabaton0" IdEmplacement="regulier-bottes"/>
+        <inventory>
+            <addObject location="100" design="healpotion" quality="3"/>
+        </inventory>
+        <SKILL SKILL="attack"/>
+        <SKILL SKILL="fireball"/>
+        <SKILL SKILL="healpotion"/>
+        <DEFAUT_CTRL DEFAUT_CTRL="attack"/>
+        <DEFAUT_SHIFT DEFAUT_SHIFT="fireball"/>
+        <DEFAUT_TAB DEFAUT_TAB="healpotion"/>
+    </uniqueData>
     <species name="player_fireball_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>
         <viewField type="circle" radius = "80"/>

@@ -20,7 +20,6 @@ set(individu
     301.com
     308.com
     didact_manneq1.com
-    200.one
     309.com
     didact_manneq2.com
     310.com

@@ -336,6 +336,35 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         {
             Get_Caracs()->objects.loadFromXML(elem);
         }
+        if (elemName == "SKILL") //TODO: Remove this!
+        {
+            string numero = elem->Attribute("SKILL");
+            Get_Caracs()->addSkill(numero, this);
+        }
+        if (elemName == "DEFAUT_CTRL") //TODO: Remove this!
+        {
+            string numero = elem->Attribute("DEFAUT_CTRL");
+            mapSkills::iterator i = Get_Caracs()->skills.find(numero);
+            if (i != Get_Caracs()->skills.end()) skillLinks[COMPETENCE_CTRL] = i->second;
+        }
+        if (elemName == "DEFAUT_SHIFT") //TODO: Remove this!
+        {
+            string numero = elem->Attribute("DEFAUT_SHIFT");
+            mapSkills::iterator i = Get_Caracs()->skills.find(numero);
+            if (i != Get_Caracs()->skills.end()) skillLinks[COMPETENCE_SHIFT] = i->second;
+        }
+        if (elemName == "DEFAUT_TAB") //TODO: Remove this!
+        {
+            string numero = elem->Attribute("DEFAUT_TAB");
+            mapSkills::iterator i = Get_Caracs()->skills.find(numero);
+            if (i != Get_Caracs()->skills.end()) skillLinks[COMPETENCE_TAB] = i->second;
+        }
+        if (elemName == "DEFAUT_SPACE") //TODO: Remove this!
+        {
+            string numero = elem->Attribute("DEFAUT_SPACE");
+            mapSkills::iterator i = Get_Caracs()->skills.find(numero);
+            if (i != Get_Caracs()->skills.end()) skillLinks[COMPETENCE_SPACE] = i->second;
+        }
 
         elem = elem->NextSiblingElement();
     }

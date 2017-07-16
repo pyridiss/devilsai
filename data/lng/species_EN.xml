@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="200">Player</text>
     <text id="202">Fluellen</text>
     <text id="203">Owen Glendower</text>
     <text id="204">Banquo</text>
@@ -40,4 +39,5 @@
     <text id="didact_manneq2">Wooden mannequin</text>
     <text id="didact_bael">Bael</text>
     <text id="gower">Gower</text>
+    <text id="player">Player</text>
 </texts>

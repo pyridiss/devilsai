@@ -29,7 +29,7 @@ function questBegin(addNewElements)
 		end
 
 		-- Find Player and Gower
-		player_ptr = getElement("200") -- 200 = player
+		player_ptr = getElement("player")
 		wizard_ptr = getElement("205") -- 205 = wizard
 
 		act_ptr_1 = addActionneur(1820, -5301, 10, 100)

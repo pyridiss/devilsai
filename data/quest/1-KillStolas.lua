@@ -32,7 +32,7 @@ function questBegin(addNewElements)
 			loadList("1-Birnam-Monsters")
 		end
 
-		player_ptr   = getElement("200")
+		player_ptr   = getElement("player")
 		fluellen_ptr = getElement("202")
 		stolas_ptr   = getElement("400")
 

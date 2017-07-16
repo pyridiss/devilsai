@@ -32,7 +32,7 @@ function questBegin(addNewElements)
 
 	if questStep == "0" then
 		-- Find Player, Gower and Fluellen
-		player_ptr   = getElement("200") -- 200 = player
+		player_ptr   = getElement("player")
 		gower_ptr    = getElement("gower")
 		fluellen_ptr = getElement("202") -- 202 = fluellen
 

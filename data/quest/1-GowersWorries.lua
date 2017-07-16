@@ -32,7 +32,7 @@ function questBegin(addNewElements)
 
 	if questStep == "0" then
 
-		player_ptr   = getElement("200")
+		player_ptr   = getElement("player")
 		gower_ptr    = getElement("gower")
 		fluellen_ptr = getElement("202")
 

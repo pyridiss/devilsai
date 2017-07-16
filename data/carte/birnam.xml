@@ -18,6 +18,7 @@
     </place>
     <items tag="Uniques">
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
+        <player name="player" loadFromDataFile="individu/player.xml" x="0" y="0"/>
     </items>
     <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
         <inertItem design="wall01-NS" x="3504" y="-1894">

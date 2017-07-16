@@ -630,6 +630,8 @@ void Carte::loadFromFile(string path, string tag)
                         newItem = new Individu_Commun;
                     else if (itemName == "unique")
                         newItem = new Individu_Unique;
+                    else if (itemName == "player")
+                        newItem = new Joueur;
 
                     if (newItem != nullptr)
                     {
@@ -642,6 +644,9 @@ void Carte::loadFromFile(string path, string tag)
                         newItem->loadFromXML(hdl3);
 
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
+
+                        if (itemName == "player")
+                            gamedata::setPlayer(dynamic_cast<Joueur*>(newItem), this);
                     }
 
                     item = item->NextSiblingElement();
