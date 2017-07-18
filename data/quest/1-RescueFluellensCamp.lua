@@ -34,7 +34,7 @@ function questBegin(addNewElements)
 		-- Find Player, Gower and Fluellen
 		player_ptr   = getElement("player")
 		gower_ptr    = getElement("gower")
-		fluellen_ptr = getElement("202") -- 202 = fluellen
+		fluellen_ptr = getElement("fluellen")
 
 		-- Add new elements and monsters
 		act_ptr_1  = addActionneur(2222, -5304, 35, 100)

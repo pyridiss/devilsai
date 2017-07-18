@@ -24,7 +24,7 @@ function questBegin(addNewElements)
 		-- Find Player and Gower
 		player_ptr   = getElement("player")
 		gower_ptr    = getElement("gower")
-		fluellen_ptr = getElement("202") -- 202 = fluellen
+		fluellen_ptr = getElement("fluellen")
 		pushDialog("1-FreeIceRoad-Advice")
 
 		questStep = "1"

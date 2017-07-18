@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="202">Fluellen</text>
     <text id="203">Owen Glendower</text>
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
@@ -38,6 +37,7 @@
     <text id="didact_manneq1">Mannequin en bois</text>
     <text id="didact_manneq2">Mannequin en bois</text>
     <text id="didact_bael">Bael</text>
+    <text id="fluellen">Fluellen</text>
     <text id="gower">Gower</text>
     <text id="player">Joueur</text>
 </texts>

@@ -13,7 +13,6 @@ set(carte
     1-OutsideLands.lst
 	1.map
     101.map
-	1000.lst
 	1004.lst
 	1105.lst
 	1241.lst

@@ -33,7 +33,7 @@ function questBegin(addNewElements)
 		end
 
 		player_ptr   = getElement("player")
-		fluellen_ptr = getElement("202")
+		fluellen_ptr = getElement("fluellen")
 		stolas_ptr   = getElement("400")
 
 		questStep = "1"

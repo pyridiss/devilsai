@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata>
+    <uniqueData name="fluellen">
+        <addImageArchiveFile file="img/Fluellen.img"/>
+        <shape type="circle" radius="20"/>
+        <properties diplomacy="1" corpseImageKey="fluellen:2/2/1/00.png"/>
+        <characteristics strength="350" power="1000" agility="60" intellect="5" constitution="20" dodge="5" charisma="5" recovery="40"/>
+        <skill name="2" owner="fluellen">
+            <properties priority="0" speed="2" step="0" numberOfImages="8"/>
+            <images angle="0" pathToImages="2/1/%%.png"/>
+        </skill>
+        <skillsManagement default="2" onAttack="2"/>
+    </uniqueData>
+</gamedata>
