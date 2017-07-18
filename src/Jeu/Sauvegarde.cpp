@@ -134,7 +134,7 @@ void Save_Partie()
 	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
     options::updateCurrentSavedGamePack();
 
-    string path = tools::filesystem::getSaveDirectoryPath() + options::getCurrentSavedGameDirectory() + "/";
+    string path = tools::filesystem::getSaveDirectoryPath() + options::getCurrentSavedGameDirectory();
 
     //'files' will store the filenames to create index.xml
     list<string> files;

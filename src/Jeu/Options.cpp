@@ -157,7 +157,7 @@ void createNewSavedGamePack()
 {
     SavedGame s;
 
-    s.directory = intToString(nextGameNumber, 4);
+    s.directory = intToString(nextGameNumber, 4) + "/";
     s.playerName = gamedata::player()->Nom;
     s.version = "master";
 
@@ -180,7 +180,7 @@ void updateCurrentSavedGamePack()
 
 void deleteSavedGamePack(string directory)
 {
-    string path = tools::filesystem::getSaveDirectoryPath() + directory + "/";
+    string path = tools::filesystem::getSaveDirectoryPath() + directory;
 
     XMLDocument file;
     file.LoadFile((path + "index.xml").c_str());
