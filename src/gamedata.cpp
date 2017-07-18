@@ -210,10 +210,10 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
 }
 
-void loadFromXML(string path)
+void loadFromXML(const string& dataDirectory, const string& mainFile)
 {
     XMLDocument file;
-    file.LoadFile(path.c_str());
+    file.LoadFile((dataDirectory + mainFile).c_str());
 
     XMLHandle hdl(file);
     XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
@@ -257,6 +257,20 @@ void loadFromXML(string path)
             {
                 XMLHandle hdl2(elem);
                 u->loadFromXML(hdl2);
+            }
+        }
+
+        if (elemName == "player" || elemName == "unique")
+        {
+            string w = elem->Attribute("world");
+
+            if (_player == nullptr)
+            {
+                _player = new Joueur;
+                _currentWorld = world(w);
+                _currentWorld->elements.push_back(_player);
+                XMLHandle playerHandle(elem);
+                _player->loadFromXML(playerHandle);
             }
         }
 

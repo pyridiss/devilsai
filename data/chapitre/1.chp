@@ -7,4 +7,5 @@ LISTE 1000
 LISTE 1-GladeSaints-Monsters
 LISTE 101200
 LISTE 101107
+loadXMLFile chapitre/devilsai.xml
 QUEST 1-InvasionGladeSaints

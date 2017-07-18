@@ -252,8 +252,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("loadFromDataFile"))
     {
         dataFile = elem->Attribute("loadFromDataFile");
-        string path = tools::filesystem::dataDirectory() + dataFile;
-        gamedata::loadFromXML(path);
+        gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
     }
 
     double x = 0, y = 0;

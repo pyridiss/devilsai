@@ -579,7 +579,7 @@ void Carte::loadFromFile(string path, string tag)
         if (elemName == "loadDataFile" && !commonDataLoaded)
         {
             string dataFile = elem->Attribute("file");
-            gamedata::loadFromXML(tools::filesystem::dataDirectory() + dataFile);
+            gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
             dataFiles.insert(std::move(dataFile));
         }
         if (elemName == "place" && !commonDataLoaded)
@@ -630,8 +630,6 @@ void Carte::loadFromFile(string path, string tag)
                         newItem = new Individu_Commun;
                     else if (itemName == "unique")
                         newItem = new Individu_Unique;
-                    else if (itemName == "player")
-                        newItem = new Joueur;
 
                     if (newItem != nullptr)
                     {
@@ -644,9 +642,6 @@ void Carte::loadFromFile(string path, string tag)
                         newItem->loadFromXML(hdl3);
 
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
-
-                        if (itemName == "player")
-                            gamedata::setPlayer(dynamic_cast<Joueur*>(newItem), this);
                     }
 
                     item = item->NextSiblingElement();
@@ -702,7 +697,10 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
     XMLHandle triggersHandle(_triggers);
 
     for (auto& tmp : elements)
-        tmp->saveToXML(doc, itemsHandle);
+    {
+        if (tmp != gamedata::player())
+            tmp->saveToXML(doc, itemsHandle);
+    }
 
     for (auto& tmp : triggers)
         tmp->saveToXML(doc, triggersHandle);

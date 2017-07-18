@@ -56,7 +56,7 @@ Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
 void updateCurrentPlace();
 void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-void loadFromXML(string path);
+void loadFromXML(const string& dataDirectory, const string& mainFile);
 
 } //namespace gamedata
 
