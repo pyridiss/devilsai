@@ -278,6 +278,25 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             }
         }
 
+        if (elemName == "loadWorld")
+        {
+            string worldFile = elem->Attribute("file");
+            string worldName = elem->Attribute("name");
+            string tag = "ALL";
+            if (elem->Attribute("tag")) tag = elem->Attribute("tag");
+            bool localFile = false;
+            elem->QueryAttribute("localFile", &localFile);
+
+            Carte* w = world(worldName);
+            if (w == nullptr)
+            {
+                addWorld(worldName);
+                w = world(worldName);
+            }
+
+            w->loadFromFile(dataDirectory + worldFile, tag);
+        }
+
         if (elemName == "player" || elemName == "unique")
         {
             string w = elem->Attribute("world");
