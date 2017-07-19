@@ -33,7 +33,7 @@ namespace options{
 void Load_Options();
 void Save_Options();
 void changeOption(string option, string value);
-void updateCurrentSavedGamePack();
+void updateCurrentSavedGamePack(string directory = string());
 void deleteSavedGamePack(string directory);
 string getCurrentSavedGameDirectory();
 void initLoadGameWindow(gui::Window& window);

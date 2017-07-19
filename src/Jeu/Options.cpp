@@ -170,8 +170,17 @@ void createNewSavedGamePack()
     Save_Options();
 }
 
-void updateCurrentSavedGamePack()
+void updateCurrentSavedGamePack(string directory)
 {
+    if (!directory.empty())
+    {
+        for (auto& s : savedGames)
+        {
+            if (s.directory == directory)
+                currentSavedGame = &s;
+        }
+    }
+
     if (currentSavedGame == nullptr)
         createNewSavedGamePack();
 
