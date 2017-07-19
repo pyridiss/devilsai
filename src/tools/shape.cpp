@@ -272,6 +272,13 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             break;
         case Profiles::Complex:
             root->SetAttribute("type", "complex");
+            for (Shape* s = next ; s != nullptr ; s = s->next)
+            {
+                XMLElement* elem = doc.NewElement("shape");
+                XMLHandle hdl(elem);
+                s->saveToXML(doc, hdl);
+                root->InsertEndChild(elem);
+            }
             break;
     }
 }
