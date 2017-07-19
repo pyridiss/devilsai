@@ -208,6 +208,24 @@ void updateCurrentPlace()
 
 void saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    for (auto& w : _worlds)
+    {
+        XMLElement* worldElem = doc.NewElement("loadWorld");
+        worldElem->SetAttribute("file", (w.second->Id + ".xml").c_str());
+        worldElem->SetAttribute("name", (w.second->Id).c_str());
+        worldElem->SetAttribute("localFile", true);
+        root->InsertEndChild(worldElem);
+    }
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("nextUniqueIdentifier", tools::math::newUniqueIdentifier());
+    root->InsertEndChild(properties);
+
+    _player->saveToXML(doc, handle);
+    root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
+
 }
 
 void loadFromXML(const string& dataDirectory, const string& mainFile)
