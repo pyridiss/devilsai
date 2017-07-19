@@ -438,7 +438,5 @@ void Clean_Partie()
 
 	SupprimerLignesConsoles();
 
-    gamedata::clearWorlds();
-    gamedata::clearSpecies();
-    gamedata::clearInertItemDesigns();
+    gamedata::clear();
 }

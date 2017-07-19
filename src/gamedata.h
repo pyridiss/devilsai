@@ -39,19 +39,17 @@ using namespace std;
 namespace gamedata{
 
 void addWorld(const string& id);
-void clearWorlds();
 Carte* world(const string& id);
 const unordered_map<string, Carte*>& worlds();
 void addSpecies(const string& s);
-void clearSpecies();
 Classe_Commune* species(const string& s);
 void addInertItemDesign(const string& design);
-void clearInertItemDesigns();
 Paysage* inertItemDesign(const string& type);
 void copyInertItemFromDesign(string t, Paysage *elem);
 Joueur* player();
 void setPlayer(Joueur* p, Carte *w);
 Carte* currentWorld();
+void clear();
 Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
 void updateCurrentPlace();

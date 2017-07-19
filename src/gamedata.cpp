@@ -51,16 +51,6 @@ void addWorld(const string& id)
     tools::debug::message("A world has been added: " + id, "gamedata");
 }
 
-void clearWorlds()
-{
-    for (auto& w : _worlds)
-        delete w.second;
-
-    _worlds.clear();
-
-    tools::debug::message("Worlds list has been cleared.", "gamedata");
-}
-
 Carte* world(const string& id)
 {
     auto i = _worlds.find(id);
@@ -82,16 +72,6 @@ void addSpecies(const string& s)
     tools::debug::message("A species has been added: " + s, "gamedata");
 }
 
-void clearSpecies()
-{
-    for (auto& s : _species)
-        delete s.second;
-
-    _species.clear();
-
-    tools::debug::message("Species list has been cleared.", "gamedata");
-}
-
 Classe_Commune* species(const string& s)
 {
     auto i = _species.find(s);
@@ -108,16 +88,6 @@ void addInertItemDesign(const string& design)
     d.first->second->Type = design;
 
     tools::debug::message("An inertItemDesign has been added: " + design, "gamedata");
-}
-
-void clearInertItemDesigns()
-{
-    for (auto& s : _inertItemDesigns)
-        delete s.second;
-
-    _inertItemDesigns.clear();
-
-    tools::debug::message("inertItemDesigns list has been cleared.", "gamedata");
 }
 
 Paysage* inertItemDesign(const string& type)
@@ -163,6 +133,25 @@ void setPlayer(Joueur* p, Carte* w)
 Carte* currentWorld()
 {
     return _currentWorld;
+}
+
+void clear()
+{
+    for (auto& w : _worlds)
+        delete w.second;
+    _worlds.clear();
+
+    for (auto& s : _species)
+        delete s.second;
+    _species.clear();
+
+    for (auto& s : _inertItemDesigns)
+        delete s.second;
+    _inertItemDesigns.clear();
+
+    _player = nullptr;
+    _currentWorld = nullptr;
+    _currentPlace = nullptr;
 }
 
 Element_Carte* findElement(int id)
