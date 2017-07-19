@@ -23,6 +23,7 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/textManager.h"
 
 #include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"
@@ -214,6 +215,7 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 
     _player->saveToXML(doc, handle);
     root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
+    root->LastChildElement()->SetAttribute("playerName", tools::textManager::toStdString(_player->Nom).c_str());
 
 }
 
@@ -297,6 +299,8 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
                 _currentWorld->elements.push_back(_player);
                 XMLHandle playerHandle(elem);
                 _player->loadFromXML(playerHandle);
+                if (elem->Attribute("playerName"))
+                    _player->Nom = tools::textManager::fromStdString(elem->Attribute("playerName"));
             }
         }
 
