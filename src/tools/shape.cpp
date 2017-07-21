@@ -156,38 +156,20 @@ void Shape::loadFromXML(XMLElement* elem)
         Vector2d p1(0, 0);
         Vector2d p2(0, 0);
         Vector2d p3(0, 0);
+        double xCenter = 0, yCenter = 0, xSize = 0, ySize = 0, angle = 0;
 
-        if (elem->Attribute("x1"))
-        {
-            elem->QueryAttribute("x1", &p1.x);
-            elem->QueryAttribute("y1", &p1.y);
-            elem->QueryAttribute("x2", &p2.x);
-            elem->QueryAttribute("y2", &p2.y);
-            elem->QueryAttribute("p3", &p3.x);
-            double l = 0;
-            elem->QueryAttribute("l", &l);
-            if (p1.y == p2.y)
-            {
-                p3.y = p3.x;
-                p3.x = p1.x;
-            }
-            else
-                p3.y = p1.y + (p2.x - p1.x) * (p3.x - p1.x) / (p1.y - p2.y);
-        }
-        else if (elem->Attribute("xSize"))
-        {
-            double xCenter = 0, yCenter = 0, xSize = 0, ySize = 0;
-            elem->QueryAttribute("xCenter", &xCenter);
-            elem->QueryAttribute("yCenter", &yCenter);
-            elem->QueryAttribute("xSize", &xSize);
-            elem->QueryAttribute("ySize", &ySize);
-            p1.x = xCenter - xSize/2.0;
-            p1.y = yCenter - ySize/2.0;
-            p2.x = xCenter + xSize/2.0;
-            p2.y = yCenter - ySize/2.0;
-            p3.x = xCenter - xSize/2.0;
-            p3.y = yCenter + ySize/2.0;
-        }
+        elem->QueryAttribute("xCenter", &xCenter);
+        elem->QueryAttribute("yCenter", &yCenter);
+        elem->QueryAttribute("xSize", &xSize);
+        elem->QueryAttribute("ySize", &ySize);
+        elem->QueryAttribute("angle", &angle);
+
+        p1.x = xCenter + ((-xSize/2.0) * cos(angle) - (-ySize/2.0) * sin(angle));
+        p1.y = yCenter + ((-xSize/2.0) * sin(angle) + (-ySize/2.0) * cos(angle));
+        p2.x = xCenter + (xSize/2.0 * cos(angle) - (-ySize/2.0) * sin(angle));
+        p2.y = yCenter + (xSize/2.0 * sin(angle) + (-ySize/2.0) * cos(angle));
+        p3.x = xCenter + ((-xSize/2.0) * cos(angle) - ySize/2.0 * sin(angle));
+        p3.y = yCenter + ((-xSize/2.0) * sin(angle) + ySize/2.0 * cos(angle));
 
         rectangle(p1, p2, p3);
     }
@@ -254,14 +236,11 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             break;
         case Profiles::Rectangle:
             root->SetAttribute("type", "rectangle");
-            root->SetAttribute("x1", points[0].x);
-            root->SetAttribute("y1", points[0].y);
-            root->SetAttribute("x2", points[1].x);
-            root->SetAttribute("y2", points[1].y);
-            if (points[0].y == points[1].y)
-                root->SetAttribute("p3", points[2].y);
-            else
-                root->SetAttribute("p3", points[2].x);
+            root->SetAttribute("xCenter", (points[1].x + points[2].x) / 2.0);
+            root->SetAttribute("yCenter", (points[1].y + points[2].y) / 2.0);
+            root->SetAttribute("xSize", Vector2d::distance(points[0], points[1]));
+            root->SetAttribute("ySize", Vector2d::distance(points[0], points[2]));
+            root->SetAttribute("angle", atan((points[1].y - points[0].y) / (points[1].x - points[0].x)));
             break;
         case Profiles::Line:
             root->SetAttribute("type", "line");
