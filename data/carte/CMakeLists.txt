@@ -26,8 +26,8 @@ set(carte
 	didact_manneq1.lst
 	didact_manneq2.lst
 	didact_manneq3.lst
-	didact_pay.lst
 	didact_perso.lst
+    tutorial.xml
 )
 
 install(FILES ${carte} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/carte)
