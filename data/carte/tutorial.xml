@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
+    <loadDataFile file="individu/tutorial-species.xml"/>
     <loadDataFile file="individu/grounds.xml"/>
     <loadDataFile file="individu/walls.xml"/>
     <place name="tutorial-military-academy" music="Crowd">
@@ -50,5 +51,14 @@
         <inertItem design="10304" x="-100" y="387"/>
         <inertItem design="10304" x="28" y="387"/>
         <inertItem design="10304" x="156" y="387"/>
+    </items>
+    <items tag="tutorial-training-1">
+        <individual species="tutorial-training-mannequin-1" x="-61" y="-102"/>
+    </items>
+    <items tag="tutorial-training-2">
+        <individual species="tutorial-training-mannequin-1" x="59" y="-102"/>
+    </items>
+    <items tag="tutorial-training-3">
+        <individual species="tutorial-training-mannequin-2" x="179" y="-102"/>
     </items>
 </world>

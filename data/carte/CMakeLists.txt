@@ -22,9 +22,6 @@ set(carte
 	didact_attaque.lst
 	didact_bael.lst
 	didact_coffre.lst
-	didact_manneq1.lst
-	didact_manneq2.lst
-	didact_manneq3.lst
     tutorial.xml
 )
 

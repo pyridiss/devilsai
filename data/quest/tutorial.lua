@@ -52,29 +52,29 @@ function questManage()
 
 	elseif questStep == "2" then
 		if dialogDisplayed("tutorial-01") then
-			loadList("didact_manneq1")
+            loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-1")
 			pushDialog("tutorial-02")
 			questStep = "3"
 		end
 
 	elseif questStep == "3" then
-		if getNumberEnemiesInList("didact_manneq1") == 0 and dialogDisplayed("tutorial-02") then
-			loadList("didact_manneq2")
+		if getNumberEnemiesInList("tutorial-training-1") == 0 and dialogDisplayed("tutorial-02") then
+            loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-2")
 			pushDialog("tutorial-03")
 			pushDialog("tutorial-04")
 			questStep = "4"
 		end
 
 	elseif questStep == "4" then
-		if getNumberEnemiesInList("didact_manneq2") == 0 and dialogDisplayed("tutorial-04") then
-			loadList("didact_manneq3")
+		if getNumberEnemiesInList("tutorial-training-2") == 0 and dialogDisplayed("tutorial-04") then
+            loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-3")
 			pushDialog("tutorial-05")
 			pushDialog("tutorial-06")
 			questStep = "5"
 		end
 
 	elseif questStep == "5" then
-		if getNumberEnemiesInList("didact_manneq3") == 0 and dialogDisplayed("tutorial-06") then
+		if getNumberEnemiesInList("tutorial-training-3") == 0 and dialogDisplayed("tutorial-06") then
 			pushDialog("tutorial-07")
 			pushDialog("tutorial-08")
 			questStep = "6"
