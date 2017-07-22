@@ -2,7 +2,7 @@
 <world>
     <loadDataFile file="individu/grounds.xml"/>
     <loadDataFile file="individu/walls.xml"/>
-    <place name="tutorial-military-academy">
+    <place name="tutorial-military-academy" music="Crowd">
         <properties diplomacy="1"/>
         <shape type="rectangle" xCenter="0" yCenter="0" xSize="500" ySize="500"/>
     </place>

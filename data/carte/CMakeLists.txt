@@ -19,7 +19,6 @@ set(carte
 	101107.lst
 	101200.lst
     birnam.xml
-	didact.map
 	didact_attaque.lst
 	didact_bael.lst
 	didact_coffre.lst
