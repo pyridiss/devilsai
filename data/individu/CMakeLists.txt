@@ -17,9 +17,7 @@ set(individu
     307.com
     301.com
     308.com
-    didact_manneq1.com
     309.com
-    didact_manneq2.com
     310.com
     300.com
     311.com
@@ -35,6 +33,7 @@ set(individu
     trees.xml
     tutorial-curtis.xml
     tutorial-player.xml
+    tutorial-species.xml
     walls.xml
 )
 
