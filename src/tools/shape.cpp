@@ -164,6 +164,19 @@ void Shape::loadFromXML(XMLElement* elem)
         elem->QueryAttribute("ySize", &ySize);
         elem->QueryAttribute("angle", &angle);
 
+        if (xSize == 0 || ySize == 0)
+        {
+            double x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+            elem->QueryAttribute("x1", &x1);
+            elem->QueryAttribute("y1", &y1);
+            elem->QueryAttribute("x2", &x2);
+            elem->QueryAttribute("y2", &y2);
+            xCenter = (x1 + x2) / 2.0;
+            yCenter = (y1 + y2) / 2.0;
+            xSize = x2 - x1;
+            ySize = y2 - y1;
+        }
+
         p1.x = xCenter + ((-xSize/2.0) * cos(angle) - (-ySize/2.0) * sin(angle));
         p1.y = yCenter + ((-xSize/2.0) * sin(angle) + (-ySize/2.0) * cos(angle));
         p2.x = xCenter + (xSize/2.0 * cos(angle) - (-ySize/2.0) * sin(angle));
