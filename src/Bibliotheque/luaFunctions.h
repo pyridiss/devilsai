@@ -43,6 +43,7 @@ int LUA_popDialog(lua_State*);
 int LUA_dialogDisplayed(lua_State*);
 int LUA_interact(lua_State*);
 int LUA_loadList(lua_State*);
+int LUA_loadWorld(lua_State* L);
 int LUA_deleteList(lua_State*);
 int LUA_I(lua_State*);
 int LUA_addActionneur(lua_State*);

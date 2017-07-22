@@ -24,6 +24,7 @@
 
 #include "tools/debug.h"
 #include "tools/timeManager.h"
+#include "tools/filesystem.h"
 #include "musicManager/musicManager.h"
 
 #include "../Carte/Carte.h"
@@ -323,6 +324,26 @@ int LUA_loadList(lua_State* L)
 	string idList = lua_tostring(L, 1);
 	Load_Carte(idList, TYPE_LISTE);
 	return 0;
+}
+
+int LUA_loadWorld(lua_State* L)
+{
+    tools::debug::message("LUA_loadWorld() called", "lua");
+
+    string world = lua_tostring(L, 1);
+    string file = lua_tostring(L, 2);
+    string tag = lua_tostring(L, 3);
+
+    Carte* w = gamedata::world(world);
+    if (w != nullptr)
+    {
+        gamedata::addWorld(world);
+        w = gamedata::world(world);
+    }
+
+    w->loadFromFile(tools::filesystem::dataDirectory() + file, tag);
+
+    return 0;
 }
 
 int LUA_deleteList(lua_State* L)
