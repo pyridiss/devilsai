@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
+    <CARTE number="1"/>
+    <CARTE number="101"/>
+    <LISTE number="1-OutsideLands"/>
+    <LISTE number="1-GladeSaints-Lands1"/>
+    <LISTE number="1-GladeSaints-Monsters"/>
+    <LISTE number="101200"/>
+    <LISTE number="101107"/>
     <player name="player" world="1" loadFromDataFile="individu/player.xml" x="0" y="0"/>
+    <QUEST number="1-InvasionGladeSaints"/>
 </gamedata>

@@ -198,7 +198,7 @@ void mainLoop()
             {
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
-                Load_Chapitre("chapitre/1.chp");
+                gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
                 gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
@@ -414,7 +414,7 @@ void mainLoop()
 		{
 			String32 NomPersonnage = gamedata::player()->Nom;
 			Clean_Partie();
-			Load_Chapitre("chapitre/1.chp");
+			gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
 			gamedata::player()->Nom = NomPersonnage;
 			Partie.loadFirstChapter = false;
 		}

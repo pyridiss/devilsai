@@ -32,6 +32,9 @@
 
 using namespace tinyxml2;
 
+//Declared in Jeu.h, but will be removed later.
+void addQuest(string, string);
+
 namespace gamedata{
 
 unordered_map<string, Carte*> _worlds;
@@ -302,6 +305,24 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
                 if (elem->Attribute("playerName"))
                     _player->Nom = tools::textManager::fromStdString(elem->Attribute("playerName"));
             }
+        }
+
+        //Just to make old maps work, will be removed later
+
+        if (elemName == "CARTE")
+        {
+            string n = elem->Attribute("number");
+            Load_Carte(n, TYPE_CARTE);
+        }
+        if (elemName == "LISTE")
+        {
+            string n = elem->Attribute("number");
+            Load_Carte(n, TYPE_LISTE);
+        }
+        if (elemName == "QUEST")
+        {
+            string n = elem->Attribute("number");
+            addQuest(n, "true");
         }
 
         elem = elem->NextSiblingElement();
