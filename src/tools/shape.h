@@ -53,7 +53,7 @@ struct Shape
         Complex
     };
 
-    Profiles profile;
+    Profiles profile = Profiles::None;
     const Vector2d* origin = nullptr;
     std::vector<Vector2d> points;
 

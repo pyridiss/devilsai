@@ -128,6 +128,7 @@ void Paysage::Disp(RenderTarget& target)
 Door::Door() : Element_Carte()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
+    inert = true;
 }
 Door::~Door()
 {

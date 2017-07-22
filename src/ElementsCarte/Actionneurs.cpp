@@ -41,6 +41,7 @@ using namespace tinyxml2;
 Actionneur::Actionneur() : Element_Carte()
 {
 	Element_Carte::Type = "ACTIONNEUR";
+    inert = true;
 }
 
 int Actionneur::Gestion()
@@ -125,6 +126,7 @@ void Actionneur::Disp(RenderTarget& target)
 Trigger::Trigger() : Element_Carte()
 {
 	Element_Carte::Type = "ACTIONNEUR";
+    inert = true;
 }
 Trigger::~Trigger()
 {
