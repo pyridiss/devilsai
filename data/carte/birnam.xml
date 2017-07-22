@@ -8,12 +8,28 @@
     <loadDataFile file="individu/misc.xml"/>
     <loadDataFile file="individu/ballista.xml"/>
     <loadDataFile file="individu/fountainOfLife.xml"/>
-    <place name="camp-gower">
+    <place name="birnam-camp-gower" music="Spring_1">
         <properties diplomacy="1"/>
         <shape type="complex">
-            <shape type="rectangle" xCenter="-85" yCenter="-222" xSize="846" ySize="192"/>
-            <shape type="rectangle" xCenter="-149" yCenter="114" xSize="974" ySize="480"/>
-            <shape type="rectangle" xCenter="-149" yCenter="585" xSize="718" ySize="462"/>
+            <shape type="rectangle" x1="-508" y1="-293" x2="338" y2="-101"/>
+            <shape type="rectangle" x1="-636" y1="-101" x2="338" y2="329"/>
+            <shape type="rectangle" x1="-508" y1="329" x2="210" y2="816"/>
+        </shape>
+    </place>
+    <place name="birnam-glade-saints" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="-375" y1="-881" x2="388" y2="-343"/>
+            <shape type="rectangle" x1="388" y1="-881" x2="1103" y2="379"/>
+            <shape type="rectangle" x1="260" y1="379" x2="1103" y2="866"/>
+            <shape type="rectangle" x1="81" y1="866" x2="1103" y2="985"/>
+            <shape type="rectangle" x1="1103" y1="-881" x2="3615" y2="-455"/>
+            <shape type="rectangle" x1="1103" y1="-455" x2="2895" y2="-167"/>
+            <shape type="rectangle" x1="1103" y1="-167" x2="1999" y2="265"/>
+            <shape type="rectangle" x1="1103" y1="265" x2="1679" y2="601"/>
+            <shape type="rectangle" x1="1041" y1="-1265" x2="3039" y2="-881"/>
+            <shape type="rectangle" x1="3039" y1="-1317" x2="3615" y2="-881"/>
+            <shape type="rectangle" x1="1553" y1="-1553" x2="3039" y2="-1265"/>
         </shape>
     </place>
     <items tag="Uniques">

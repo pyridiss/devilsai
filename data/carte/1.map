@@ -492,13 +492,6 @@ argument: hostile
 END_SHARED_TRIGGER
 SHARED_TRIGGER
 type: change_place
-position: 3686 -880
-size: rectangle 10 100
-argument: 1101
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 4227 -880
 size: rectangle 10 100
 argument: 1102
@@ -513,13 +506,6 @@ RECT_COL 100 1
 CHANGEMENT_CARTE 2
 FIN_ACTIONNEUR
 DOOR 366 1 1 100 2
-SHARED_TRIGGER
-type: change_place
-position: 390 1
-size: rectangle 1 100
-argument: 1101
-argument: hostile
-END_SHARED_TRIGGER
 ACTIONNEUR -161 58
 RAY_COL 38
 RECUPERATION

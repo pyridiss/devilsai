@@ -4,12 +4,12 @@
     <text id="1002">Refuge</text>
     <text id="1020">Fluellen's Camp</text>
     <text id="1030">Forres</text>
-    <text id="1101">The Glade of the Saints</text>
     <text id="1102">The Ice Road</text>
     <text id="1103">The Ancient Lands</text>
     <text id="1104">The Birnam Forest</text>
     <text id="1105">Forres Lands</text>
     <text id="1106">The hills of Noirefontaine</text>
-    <text id="camp-gower">Gower's Camp</text>
+    <text id="birnam-glade-saints">The Glade of the Saints</text>
+    <text id="birnam-camp-gower">Gower's Camp</text>
     <text id="tutorial-military-academy">Military Academy</text>
 </texts>
