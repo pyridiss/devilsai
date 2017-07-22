@@ -60,33 +60,6 @@ void changeCurrentUserScreen(UserScreen* _new)
 	}
 }
 
-void Load_Chapitre(string filename)
-{
-    ifstream fileStream(tools::filesystem::dataDirectory() + filename, ios_base::in);
-
-    if (fileStream.good()) tools::debug::message("File open: " + filename, "files");
-    else tools::debug::error("File note found: " + filename, "files");
-
-	string TypeDonnee = "", bufferString = "";
-
-	while (fileStream.rdstate() == 0)
-	{
-		fileStream >> TypeDonnee >> bufferString;
-
-		if		(TypeDonnee == "CARTE")	Load_Carte(bufferString, TYPE_CARTE);
-		else if	(TypeDonnee == "LISTE")	Load_Carte(bufferString, TYPE_LISTE);
-        else if (TypeDonnee == "loadXMLFile")
-        {
-            gamedata::loadFromXML(tools::filesystem::dataDirectory(), bufferString);
-        }
-		else if (TypeDonnee == "QUEST")	addQuest(bufferString, "true");
-
-		TypeDonnee = "";
-	}
-
-	fileStream.close();
-}
-
 
 /** FONCTIONS DE GESTION DE LA PARTIE **/
 
