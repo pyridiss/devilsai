@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <uniqueData name="tutorial-bael">
+        <addImageArchiveFile file="img/Gnome.img"/>
+        <shape type="circle" radius="14"/>
+        <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-bael:6/6/1/09.png"/>
+        <skill name="6" owner="tutorial-bael">
+            <properties priority="3" speed="3" step="0" numberOfImages="10"/>
+            <images angle="0" pathToImages="6/1/%%.png"/>
+        </skill>
+        <skill name="4" owner="tutorial-bael">
+            <properties priority="1" speed="8" step="0" numberOfImages="10"/>
+            <images angle="0" pathToImages="4/5/%%.png"/>
+        </skill>
+        <skill name="pause" owner="tutorial-bael">
+            <properties priority="0" speed="3" step="0" numberOfImages="6"/>
+            <images angle="0" pathToImages="2/5/%%.png"/>
+        </skill>
+        <skillsManagement default="pause"/>
+    </uniqueData>
+</world>

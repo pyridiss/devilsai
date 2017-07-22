@@ -99,8 +99,8 @@ function questManage()
 		remainingTime2 = remainingTime2 - I()
 		if remainingTime2 <= 0 then
 			deleteList("didact_attaque")
-			loadList("didact_bael")
-			bael_ptr = getElement("didact_bael")
+            loadWorld("tutorial", "carte/tutorial.xml", "tutorial-bael")
+			bael_ptr = getElement("tutorial-bael")
 			set(curtis_ptr, "vitality", 0)
 			questStep = "9"
 			pushDialog("tutorial-11")

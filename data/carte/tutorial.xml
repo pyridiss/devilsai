@@ -61,4 +61,7 @@
     <items tag="tutorial-training-3">
         <individual species="tutorial-training-mannequin-2" x="179" y="-102"/>
     </items>
+    <items tag="tutorial-bael">
+        <unique name="tutorial-bael" loadFromDataFile="individu/tutorial-bael.xml" x="127" y="147"/>
+    </items>
 </world>
