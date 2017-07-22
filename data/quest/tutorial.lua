@@ -130,11 +130,12 @@ function questManage()
 	elseif questStep == "12" then
 		remainingTime4 = remainingTime4 - I()
 		if remainingTime4 <= 0 then
-			setActivity(player_ptr, 6)
+			setActivity(player_ptr, "falling")
 			questStep = "13"
 		end
 
 	elseif questStep == "13" then
+        setActivity(player_ptr, "lying-down")
 		remainingTime5 = remainingTime5 - I()
 		if remainingTime5 <= 0 then
 			toBlack(true)

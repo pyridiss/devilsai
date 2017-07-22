@@ -39,9 +39,13 @@
             <images angle="270" pathToImages="5/0/%%.png"/>
             <images angle="315" pathToImages="5/4/%%.png"/>
         </skill>
-        <skill name="6" owner="tutorial-player">
+        <skill name="falling" owner="tutorial-player">
             <properties priority="4" speed="6" step="0" numberOfImages="9"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
+        </skill>
+        <skill name="lying-down" owner="tutorial-player">
+            <properties priority="3" speed="0" step="0" numberOfImages="1"/>
+            <images angle="0" imageFile="6/1/08.png"/>
         </skill>
         <skill name="101" owner="tutorial-player">
             <properties priority="1" speed="14" step="0" numberOfImages="12"/>
