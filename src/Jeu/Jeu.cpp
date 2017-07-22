@@ -207,7 +207,7 @@ void mainLoop()
             {
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
-                Load_Chapitre("chapitre/0.chp");
+                gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/tutorial.xml");
                 gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 managementActivated = true;
             }
