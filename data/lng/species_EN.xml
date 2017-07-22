@@ -33,12 +33,12 @@
     <text id="611">Barrels</text>
     <text id="612">Wooden box</text>
     <text id="ballista">Ballista</text>
-    <text id="didact_instructeur">Curtis</text>
     <text id="didact_manneq1">Wooden mannequin</text>
     <text id="didact_manneq2">Wooden mannequin</text>
     <text id="didact_bael">Bael</text>
     <text id="fluellen">Fluellen</text>
     <text id="gower">Gower</text>
     <text id="player">Player</text>
+    <text id="tutorial-curtis">Curtis</text>
     <text id="tutorial-player">Player</text>
 </texts>

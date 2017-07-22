@@ -1,2 +1,3 @@
 AMBIENCE Crowd
 loadXMLFile carte/tutorial.xml didact_pay
+loadXMLFile carte/tutorial.xml uniques

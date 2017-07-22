@@ -6,6 +6,9 @@
         <properties diplomacy="1"/>
         <shape type="rectangle" xCenter="0" yCenter="0" xSize="500" ySize="500"/>
     </place>
+    <items tag="uniques">
+        <unique name="tutorial-curtis" loadFromDataFile="individu/tutorial-curtis.xml" x="125" y="34"/>
+    </items>
     <items tag="didact_pay">
         <inertItem design="2005" x="-288" y="-102"/>
         <inertItem design="2005" x="-160" y="-102"/>

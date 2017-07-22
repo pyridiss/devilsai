@@ -26,7 +26,6 @@ set(carte
 	didact_manneq1.lst
 	didact_manneq2.lst
 	didact_manneq3.lst
-	didact_perso.lst
     tutorial.xml
 )
 

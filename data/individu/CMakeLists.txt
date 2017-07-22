@@ -14,7 +14,6 @@ set(individu
     305.com
     didact_bael.one
     306.com
-    didact_instructeur.one
     307.com
     301.com
     308.com
@@ -34,6 +33,7 @@ set(individu
     player.xml
     stones.xml
     trees.xml
+    tutorial-curtis.xml
     tutorial-player.xml
     walls.xml
 )
