@@ -81,12 +81,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			Fichier >> bufferString;
 			carte = gamedata::world(bufferString);
 		}
-		if (TypeDonnee == "AMBIENCE")
-		{
-			Fichier >> bufferString;
-            musicManager::addMusic(bufferString);
-			if (carte != NULL) carte->ambience = bufferString;
-		}
 		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;
 		if (TypeDonnee == "SANS_COLLISION") SansCollision = true;
 
@@ -277,7 +271,7 @@ Carte::~Carte()
         delete tmp;
 
     for (auto& tmp : places)
-        delete tmp;
+        delete tmp.first;
 
     for (auto& tmp : luaTriggers)
         lua_close(tmp.second);
@@ -585,7 +579,14 @@ void Carte::loadFromFile(string path, string tag)
         if (elemName == "place" && !commonDataLoaded)
         {
             Paysage *p = new Paysage;
+            string music;
             if (elem->Attribute("name")) p->Type = elem->Attribute("name");
+            if (elem->Attribute("music"))
+            {
+                music = elem->Attribute("music");
+                musicManager::addMusic(music);
+            }
+
             XMLHandle hdl2(elem);
             XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
             while (elem2)
@@ -602,7 +603,7 @@ void Carte::loadFromFile(string path, string tag)
 
                 elem2 = elem2->NextSiblingElement();
             }
-            places.push_back(p);
+            places.push_back(pair<Element_Carte*, string>(p, music));
         }
         else if (elemName == "items")
         {
@@ -659,7 +660,6 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
     XMLElement* root = handle.ToElement();
 
     XMLElement* properties = doc.NewElement("properties");
-    properties->SetAttribute("ambience", ambience.c_str());
     if (!backgroundImage.empty())
         properties->SetAttribute("backgroundImage", backgroundImage.c_str());
     root->InsertEndChild(properties);
@@ -674,16 +674,17 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
     for (auto& tmp : places)
     {
         XMLElement* place = doc.NewElement("place");
-        place->SetAttribute("name", tmp->Type.c_str());
+        place->SetAttribute("name", tmp.first->Type.c_str());
+        place->SetAttribute("music", tmp.second.c_str());
 
         XMLElement* placeProperties = doc.NewElement("properties");
-        placeProperties->SetAttribute("diplomacy", tmp->Diplomatie);
+        placeProperties->SetAttribute("diplomacy", tmp.first->Diplomatie);
         place->InsertEndChild(placeProperties);
 
         XMLElement* placeShape = doc.NewElement("shape");
         place->InsertEndChild(placeShape);
         XMLHandle shapeHandle(placeShape);
-        tmp->size.saveToXML(doc, shapeHandle);
+        tmp.first->size.saveToXML(doc, shapeHandle);
 
         root->InsertEndChild(place);
     }

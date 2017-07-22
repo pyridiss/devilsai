@@ -55,10 +55,9 @@ class Carte
 	public:
 		list <Element_Carte*> elements;
 		list <Trigger*> triggers;
-        list <Element_Carte*> places;
+        list <pair<Element_Carte*, string>> places;
 		map <string, lua_State*> luaTriggers;
 		string Id = "";
-		string ambience = "";
 		string backgroundImage = "";
         set <string> dataFiles;
         bool commonDataLoaded;

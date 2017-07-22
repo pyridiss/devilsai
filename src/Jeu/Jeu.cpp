@@ -200,7 +200,6 @@ void mainLoop()
                 Jeu.App.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
                 gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
-                musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
 
@@ -210,7 +209,6 @@ void mainLoop()
                 Jeu.App.display();
                 Load_Chapitre("chapitre/0.chp");
                 gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
-                musicManager::playMusic(gamedata::currentWorld()->ambience);
                 managementActivated = true;
             }
 
@@ -229,7 +227,6 @@ void mainLoop()
             {
                 Load_Partie(signal.second);
                 managementActivated = true;
-                musicManager::playMusic(gamedata::currentWorld()->ambience);
             }
 
             if (signal.first == "options")

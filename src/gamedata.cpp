@@ -25,6 +25,8 @@
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
+#include "musicManager/musicManager.h"
+
 #include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"
 
@@ -43,7 +45,7 @@ unordered_map<string, Paysage*> _inertItemDesigns;
 
 Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
-Element_Carte* _currentPlace = nullptr;
+pair<Element_Carte*, string>* _currentPlace = nullptr;
 
 
 void addWorld(const string& id)
@@ -178,20 +180,22 @@ Individu_Unique* findIndividuUnique(string type)
 
 void updateCurrentPlace()
 {
-    if (_currentPlace == nullptr || !intersection(_player->size, _currentPlace->size))
+    if (_currentPlace == nullptr || !intersection(_player->size, _currentPlace->first->size))
     {
         for (auto& p : _currentWorld->places)
         {
-            if (intersection(p->size, _player->size))
+            if (intersection(p.first->size, _player->size))
             {
-                _currentPlace = p;
+                _currentPlace = &p;
 
-                if (p->Diplomatie != _player->Diplomatie)
+                if (p.first->Diplomatie != _player->Diplomatie)
                     tools::signals::addSignal("ingame-toolbar:disable-rest");
                 else
                     tools::signals::addSignal("ingame-toolbar:enable-rest");
 
-                tools::signals::addSignal("place-changed", p->Type);
+                tools::signals::addSignal("place-changed", p.first->Type);
+                if (!p.second.empty())
+                    musicManager::playMusic(p.second);
 
                 break;
             }
