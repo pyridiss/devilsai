@@ -2,5 +2,6 @@
 <gamedata>
     <CARTE number="didact"/>
     <LISTE number="didact_perso"/>
+    <player name="tutorial-player" world="didact" loadFromDataFile="individu/tutorial-player.xml" x="0" y="0"/>
     <QUEST number="tutorial"/>
 </gamedata>

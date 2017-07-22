@@ -34,7 +34,7 @@ questStep = "0"
 function questBegin(addNewElements)
 
 	if questStep == "0" then
-		player_ptr = getElement("didact_joueur")
+		player_ptr = getElement("tutorial-player")
 		curtis_ptr = getElement("didact_instructeur")
 		questStep = "1"
 	end
