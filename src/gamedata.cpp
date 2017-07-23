@@ -287,8 +287,6 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             string worldName = elem->Attribute("name");
             string tag = "ALL";
             if (elem->Attribute("tag")) tag = elem->Attribute("tag");
-            bool localFile = false;
-            elem->QueryAttribute("localFile", &localFile);
 
             Carte* w = world(worldName);
             if (w == nullptr)

@@ -113,8 +113,6 @@ void mainLoop()
 
     Individu_Unique cursor;
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
-    cursor.interactionField.profile = tools::math::Shape::Profiles::None;
-    cursor.viewField.profile = tools::math::Shape::Profiles::None;
     Individu* underCursor = nullptr;
     bool cursorIsInWorld = false;
 
