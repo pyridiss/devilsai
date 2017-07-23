@@ -130,6 +130,7 @@ int main(int n, char *params[])
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath());
 
     tools::debug::openDebugFile("devilsai", VERSION);
+    tools::debug::addDebugCategory("devilsai");
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
     tools::textManager::initLibrary();
@@ -173,6 +174,8 @@ int main(int n, char *params[])
 	PHYSFS_deinit();
 
     options::Save_Options();
+
+    tools::debug::message("Closing devilsai debug file.", "devilsai");
 
 	return EXIT_SUCCESS;
 }
