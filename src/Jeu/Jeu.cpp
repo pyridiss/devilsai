@@ -268,7 +268,7 @@ void mainLoop()
         if (managementActivated)
             gamedata::currentWorld()->GestionElements(worldView);
 
-        worldView.setCenter(gamedata::player()->position().x, gamedata::player()->position().y);
+        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y);
 
         //Mouse cursor
         cursor.move(-cursor.position().x + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x,
@@ -316,7 +316,7 @@ void mainLoop()
         {
             Element_Carte* elem = gamedata::findElement(gamedata::player()->ElementInteraction);
             Individu* ind = dynamic_cast<Individu*>(elem);
-            if (ind != nullptr) ind->displayLifeGauge();
+            if (ind != nullptr && ind != underCursor) ind->displayLifeGauge();
         }
 
         Jeu.App.setView(Jeu.App.getDefaultView());
