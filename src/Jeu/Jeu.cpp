@@ -314,6 +314,12 @@ void mainLoop()
         gamedata::currentWorld()->displayBackground(Jeu.App);
         gamedata::currentWorld()->display(Jeu.App);
         if (underCursor != nullptr) underCursor->displayLifeGauge();
+        if (gamedata::player()->ElementInteraction != -1)
+        {
+            Element_Carte* elem = gamedata::findElement(gamedata::player()->ElementInteraction);
+            Individu* ind = dynamic_cast<Individu*>(elem);
+            if (ind != nullptr) ind->displayLifeGauge();
+        }
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
