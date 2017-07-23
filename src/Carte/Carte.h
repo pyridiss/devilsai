@@ -95,7 +95,6 @@ class Carte
 
 	//Fond de la carte :
 	public:
-		void setBackgroundImage(string path);
 		void displayBackground(RenderTarget& target);
 
 	//Collisions manager

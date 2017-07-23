@@ -84,12 +84,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;
 		if (TypeDonnee == "SANS_COLLISION") SansCollision = true;
 
-		if (TypeDonnee == "backgroundImage")
-		{
-			Fichier >> bufferString;
-			if (carte != NULL) carte->setBackgroundImage(bufferString);
-			else Erreur("Load_Carte() :", "FOND_CARTE demandé alors que la carte n'est pas initialisée");
-		}
         if (TypeDonnee == "loadXMLFile")
         {
             string file, b2;
@@ -529,16 +523,6 @@ void Carte::display(RenderTarget& target)
     }
 }
 
-void Carte::setBackgroundImage(string path)
-{
-    backgroundImage = path;
-
-    imageManager::addContainer("paysage");
-    imageManager::addImage("paysage", path, path);
-
-    MESSAGE("Fond de la carte choisi", IMAGE)
-}
-
 void Carte::displayBackground(RenderTarget& target)
 {
 	if (backgroundImage.empty()) return;
@@ -570,6 +554,14 @@ void Carte::loadFromFile(string path, string tag)
     {
         string elemName = elem->Name();
 
+        if (elemName == "properties")
+        {
+            if (elem->Attribute("backgroundImage"))
+            {
+                backgroundImage = elem->Attribute("backgroundImage");
+                imageManager::addImage("paysage", backgroundImage, backgroundImage);
+            }
+        }
         if (elemName == "loadDataFile" && !commonDataLoaded)
         {
             string dataFile = elem->Attribute("file");
