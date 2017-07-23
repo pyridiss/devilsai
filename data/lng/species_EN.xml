@@ -33,9 +33,12 @@
     <text id="611">Barrels</text>
     <text id="612">Wooden box</text>
     <text id="ballista">Ballista</text>
+    <text id="ballista_bullet">ballista_bullet</text>
     <text id="fluellen">Fluellen</text>
+    <text id="fountainOfLife_animation">fountainOfLife_animation</text>
     <text id="gower">Gower</text>
     <text id="player">Player</text>
+    <text id="player_fireball_bullet">player_fireball_bullet</text>
     <text id="tutorial-bael">Bael</text>
     <text id="tutorial-curtis">Curtis</text>
     <text id="tutorial-player">Player</text>
