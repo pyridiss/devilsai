@@ -182,6 +182,8 @@ void Individu::Disp(RenderTarget& target)
 
 void Individu::displayLifeGauge()
 {
+    if (Diplomatie == DIPLOM_NEUTRE) return;
+
     //x and y are used to convert position to integers; otherwise, the text may be blurred
     int x = position().x;
     int y = position().y;

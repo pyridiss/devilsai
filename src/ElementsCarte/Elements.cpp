@@ -102,7 +102,7 @@ int Individu::Collision(Individu *elem, int TypeCollision)
 {
 	if (TypeCollision == COLL_VIS)
 	{
-		if (elem->Diplomatie != DIPLOM_NEUTRE && elem->Diplomatie != Diplomatie)
+		if (Diplomatie != DIPLOM_NEUTRE && elem->Diplomatie != DIPLOM_NEUTRE && elem->Diplomatie != Diplomatie)
 		{
 			if (elem->Comportement <= COMPORTEMENT_CHASSE) return COMPORTEMENT_CHASSE;
 		}
