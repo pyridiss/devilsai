@@ -136,6 +136,11 @@ void setPlayer(Joueur* p, Carte* w)
     _currentWorld = w;
 }
 
+void setPlayerName(string s)
+{
+    _player->Nom = tools::textManager::fromStdString(s);
+}
+
 Carte* currentWorld()
 {
     return _currentWorld;

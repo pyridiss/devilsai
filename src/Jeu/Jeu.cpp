@@ -172,7 +172,6 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
-                gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 managementActivated = true;
             }
 
@@ -181,10 +180,11 @@ void mainLoop()
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/tutorial.xml");
-                gamedata::player()->Nom = tools::textManager::fromStdString(signal.second);
                 managementActivated = true;
             }
-
+            if (signal.first == "change-player-name") {
+                gamedata::setPlayerName(signal.second);
+            }
             if (signal.first == "load-game")
             {
                 loadGameWindow.manage(Jeu.App);
