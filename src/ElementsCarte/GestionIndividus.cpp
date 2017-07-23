@@ -245,6 +245,8 @@ bool Individu::MouvementChasse(Element_Carte *elem)
     if (!angleFixed())
         angle = tools::math::angle(elem->position().x - position().x, elem->position().y - position().y);
 
+    Set_Activite(COURSE);
+
     while(Iteration < 10)
     {
         angle += (double)Iteration * M_PI / 4.0;
@@ -287,9 +289,6 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 		Set_Activite(PAUSE);
 		return false;
 	}
-
-	//Mouvement correct trouvé :
-	Set_Activite(COURSE);
 
 	return true;
 }
