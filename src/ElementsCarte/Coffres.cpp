@@ -45,7 +45,6 @@ int Coffre::Gestion()
 
 int Coffre::Collision(Individu* elem, int TypeCollision)
 {
-    if (TypeCollision == COLL_PRIM) return COLL_PRIM;
     return COMPORTEMENT_ALEATOIRE;
 }
 
