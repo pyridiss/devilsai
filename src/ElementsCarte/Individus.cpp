@@ -180,8 +180,12 @@ void Individu::Disp(RenderTarget& target)
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
 }
 
-void Individu::displayLifeGauge(int x, int y)
+void Individu::displayLifeGauge()
 {
+    //x and y are used to convert position to integers; otherwise, the text may be blurred
+    int x = position().x;
+    int y = position().y;
+
     Color color;
     if (Diplomatie == DIPLOM_ALLIE) color = Color(128, 255, 128, 255);
     if (Diplomatie == DIPLOM_ENNEMI) color = Color(255, 255, 255, 255);

@@ -115,7 +115,7 @@ void mainLoop()
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
     cursor.interactionField.profile = tools::math::Shape::Profiles::None;
     cursor.viewField.profile = tools::math::Shape::Profiles::None;
-    Individu* underCursor = NULL;
+    Individu* underCursor = nullptr;
     bool cursorIsInWorld = false;
 
 	while (true)
@@ -284,7 +284,7 @@ void mainLoop()
         else cursorIsInWorld = false;
 
         gamedata::currentWorld()->resetCollisionManager();
-        underCursor = NULL;
+        underCursor = nullptr;
         int Resultat = COLL_OK;
 
         while(cursorIsInWorld && Resultat == COLL_OK)
@@ -313,6 +313,7 @@ void mainLoop()
 
         gamedata::currentWorld()->displayBackground(Jeu.App);
         gamedata::currentWorld()->display(Jeu.App);
+        if (underCursor != nullptr) underCursor->displayLifeGauge();
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
@@ -320,8 +321,6 @@ void mainLoop()
         {
             Disp_Menu();
             Disp_JaugesVie();
-            if (underCursor != NULL)
-                underCursor->displayLifeGauge(Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
             Disp_Consoles();
         }
 
