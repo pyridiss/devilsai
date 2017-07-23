@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
-    <CARTE number="1"/>
+    <loadWorld name="1" file="carte/birnam.xml" tag="GowersCamp-TheGladeOfTheSaints-InertItems"/>
+    <loadWorld name="1" file="carte/birnam.xml" tag="Uniques"/>
+    <LISTE number="1-ways"/>
     <CARTE number="101"/>
     <LISTE number="1-OutsideLands"/>
     <LISTE number="1-GladeSaints-Lands1"/>

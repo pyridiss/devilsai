@@ -11,7 +11,7 @@ set(carte
     1-IceRoad-Monsters.lst
     1-Noirefontaine-Monsters.lst
     1-OutsideLands.lst
-	1.map
+    1-ways.lst
     101.map
 	1004.lst
 	1105.lst

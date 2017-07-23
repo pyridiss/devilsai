@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
+    <properties backgroundImage="img/ground-tile01.png"/>
     <loadDataFile file="individu/grounds.xml"/>
     <loadDataFile file="individu/trees.xml"/>
     <loadDataFile file="individu/walls.xml"/>
