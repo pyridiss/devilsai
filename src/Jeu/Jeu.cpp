@@ -116,6 +116,7 @@ void mainLoop()
     cursor.interactionField.circle(tools::math::Vector2d(0, 0), 5);
     Individu* underCursor = nullptr;
     Coffre* cofferUnderCursor = nullptr;
+    bool cofferClicked = false;
     bool cursorIsInWorld = false;
 
 	while (true)
@@ -132,6 +133,13 @@ void mainLoop()
 
             if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 return;
+
+            if (event.type != Event::MouseButtonPressed && event.type != Event::MouseButtonReleased && event.type != Event::MouseMoved)
+            {
+                cofferUnderCursor = nullptr;
+                Partie.CoffreOuvert = nullptr;
+                currentUserScreen = nullptr;
+            }
         }
 
         tools::signals::Signal signal = tools::signals::getNextSignal();
@@ -285,6 +293,10 @@ void mainLoop()
 
         gamedata::currentWorld()->resetCollisionManager();
         underCursor = nullptr;
+
+        if (!cofferClicked)
+            cofferUnderCursor = nullptr;
+
         int Resultat = COLL_OK;
 
         while(cursorIsInWorld && Resultat == COLL_OK)
@@ -296,8 +308,14 @@ void mainLoop()
                 underCursor = dynamic_cast<Individu*>(gamedata::currentWorld()->getCurrentCollider());
                 break;
             }
-            if (Resultat == COLL_INTER)
+            if (!cofferClicked && Resultat == COLL_INTER)
                 cofferUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
+        }
+
+        if (cofferClicked && cofferUnderCursor != nullptr && tools::math::intersection(gamedata::player()->interactionField, cofferUnderCursor->size))
+        {
+            Partie.CoffreOuvert = cofferUnderCursor;
+            currentUserScreen = &screenEquipment;
         }
 
         //Mouse click
@@ -306,6 +324,18 @@ void mainLoop()
             gamedata::player()->automove = true;
             gamedata::player()->automoveEndpoint.x = cursor.position().x;
             gamedata::player()->automoveEndpoint.y = cursor.position().y;
+
+            if (cofferUnderCursor != nullptr)
+            {
+                cofferClicked = true;
+                if (!tools::math::intersection(cursor.interactionField, cofferUnderCursor->size))
+                {
+                    cofferUnderCursor = nullptr;
+                    Partie.CoffreOuvert = nullptr;
+                    currentUserScreen = nullptr;
+                }
+            }
+            else cofferClicked = false;
         }
 
         //3. Display

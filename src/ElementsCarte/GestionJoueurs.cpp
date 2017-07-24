@@ -256,21 +256,6 @@ int Joueur::Gestion()
 					setBoolToLUA(skillLinks[c], "setActiviteFinished", true);
 		}
 
-		if (EnAttente == COLL_INTER)
-		{
-			if (tmp1 != NULL && (tmp1->Type == "TYPE_COFFRE" || tmp1->Type == "TYPE_CADAVRE"))
-			{
-				if (Partie.CoffreOuvert == NULL) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
-				else if (Partie.CoffreOuvert->Id != tmp1->Id) Partie.CoffreOuvert = dynamic_cast<Coffre*>(tmp1);
-				if (Partie.CoffreOuvert != NULL) tools::signals::addSignal("screen-equipment");
-			}
-		}
-		else
-		{
-// 			if (Partie.CoffreOuvert != NULL) Partie.currentUserScreen = nullptr;
-			Partie.CoffreOuvert = NULL;
-		}
-
 		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
             if (skillLinks[c] != nullptr)
 			{
