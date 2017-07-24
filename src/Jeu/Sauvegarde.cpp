@@ -45,7 +45,6 @@ void Save_Partie()
 	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
 	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
-	Cadavre			ExempleCadavre;			const type_info &TypeCadavre = typeid(ExempleCadavre);
 
 	for (auto& carte : Partie.maps)
 	{
@@ -66,7 +65,6 @@ void Save_Partie()
 			if (TypeTmp == TypeJoueur)		fileStream << "JOUEUR ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
-			if (TypeTmp == TypeCadavre)		fileStream << "CADAVRE ";
 
 			fileStream << tmp->Type << " "
 					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
@@ -114,14 +112,6 @@ void Save_Partie()
 				Coffre *cof = dynamic_cast<Coffre*>(tmp);
 				fileStream << cof->NumeroNom << " ";
 				cof->objects.saveObjects(fileStream);
-
-				fileStream << endl;
-			}
-			if (TypeTmp == TypeCadavre)
-			{
-				Cadavre *cad = dynamic_cast<Cadavre*>(tmp);
-                fileStream << cad->Ind_Id << " " << cad->Duree << " " << cad->imageKey << " ";
-				cad->objects.saveObjects(fileStream);
 
 				fileStream << endl;
 			}
@@ -365,17 +355,6 @@ bool Load_Partie(string path)
 				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
 				fileStream >> ind->RayonCollision >> ind->RayX >> ind->RayY >> ind->NumeroNom;
 				ind->Nom = getTranslatedNameOfElement(ind->NumeroNom);
-
-				fileStream >> ind->objects;
-			}
-
-			if (TypeDonnee == "CADAVRE")
-			{
-				fileStream >> StrType >> StrListe >> FloatX >> FloatY;
-				Cadavre* ind = carte.second.AjouterCadavre(StrListe, FloatX, FloatY);
-				fileStream >> ind->Id >> ind->collisionType >> ind->TypeClassement;
-                fileStream >> ind->Ind_Id >> ind->Duree >> ind->imageKey;
-				ind->Set_Individu();
 
 				fileStream >> ind->objects;
 			}

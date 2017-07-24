@@ -39,7 +39,6 @@ class lua_State;
 class Classe_Commune;
 class Element_Carte;
 class Coffre;
-class Cadavre;
 class Individu;
 class Individu_Unique;
 class Individu_Commun;
@@ -80,7 +79,6 @@ class Carte
 		Actionneur* AjouterActionneur(string liste, int x, int y);
 		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
-		Cadavre* AjouterCadavre(string liste, float x, float y);
 		void SupprimerElement(Element_Carte* elem);
 
 		void SupprimerListe(string num);

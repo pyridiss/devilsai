@@ -83,8 +83,7 @@ bool Coffre::empty()
     return objects.objects.empty();
 }
 
-
-void Cadavre::Set_Individu(string species, string key)
+void Coffre::Set_Individu(string species, string key)
 {
     Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", species));
     imageContainer = "individuals";

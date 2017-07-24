@@ -210,8 +210,10 @@ bool Individu_Unique::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-		Cadavre *corpse = gamedata::currentWorld()->AjouterCadavre(Liste, position().x, position().y);
+        Coffre *corpse = gamedata::currentWorld()->AjouterCoffre(Liste, position().x, position().y);
         corpse->Set_Individu(Type, corpseImageKey);
+        corpse->size.circle(tools::math::Vector2d(0, 0), 20);
+        corpse->size.setOrigin(&corpse->position());
 
 		TypeClassement = CLASSEMENT_CADAVRE;
 		Diplomatie = DIPLOM_NEUTRE;

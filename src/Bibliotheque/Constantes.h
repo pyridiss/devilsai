@@ -81,8 +81,6 @@ using namespace std;
 
 //Numéros de classe pour les paysages, types pour les Elements spéciaux
 #define TYPE_ACTIONNEUR	1001
-#define TYPE_COFFRE		1002
-#define TYPE_CADAVRE	1003
 
 //Types des Actionneurs
 #define ACTION_RECUP		2

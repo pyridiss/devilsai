@@ -172,19 +172,12 @@ class Coffre : public Element_Carte
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
         bool empty();
+        void Set_Individu(string species, string key);
 
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target);
         void highlight(RenderTarget& target);
-};
-
-class Cadavre : public Coffre
-{
-
-	//Gestion :
-	public:
-        void Set_Individu(string species, string key);
 };
 
 class Individu : public Element_Carte
