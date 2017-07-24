@@ -39,7 +39,7 @@ string getCurrentArchiveFile();
 void removeArchiveFile(string path);
 imageManager::Image* getImage(string container, string key);
 void changeHSL(string container, string key, double h, double s, double l);
-void display(RenderTarget& target, string container, string key, float x, float y, bool atCenter = false);
+void display(RenderTarget& target, string container, string key, float x, float y, bool atCenter = false, const Shader* shader = nullptr);
 void addAnimation(string name, string file);
 imageManager::Animation* getAnimation(string name);
 

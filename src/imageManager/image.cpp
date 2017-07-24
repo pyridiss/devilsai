@@ -94,11 +94,12 @@ const Vector2u Image::getSize()
     return texture.getSize();
 }
 
-void Image::display(RenderTarget& target, float x, float y, bool atCenter)
+void Image::display(RenderTarget& target, float x, float y, bool atCenter, const Shader* shader)
 {
     if (!atCenter) sprite.setPosition(x + offset.x, y + offset.y);
     else sprite.setPosition((int)(x - sprite.getLocalBounds().width/2) + offset.x, (int)(y - sprite.getLocalBounds().height/2) + offset.y);
-    target.draw(sprite);
+
+    target.draw(sprite, shader);
 }
 
 } //namespace imageManager
