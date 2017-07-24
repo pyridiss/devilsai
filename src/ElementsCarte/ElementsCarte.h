@@ -159,6 +159,9 @@ class Coffre : public Element_Carte
 		string NumeroNom = "";
 		String32 Nom;
 
+    private:
+        bool _highlight;
+
 	public:
 		Coffre();
 
@@ -172,6 +175,7 @@ class Coffre : public Element_Carte
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target);
+        void highlight(RenderTarget& target);
 };
 
 class Cadavre : public Coffre

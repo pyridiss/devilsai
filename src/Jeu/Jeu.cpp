@@ -113,7 +113,9 @@ void mainLoop()
 
     Individu_Unique cursor;
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
+    cursor.interactionField.circle(tools::math::Vector2d(0, 0), 5);
     Individu* underCursor = nullptr;
+    Coffre* cofferUnderCursor = nullptr;
     bool cursorIsInWorld = false;
 
 	while (true)
@@ -294,6 +296,8 @@ void mainLoop()
                 underCursor = dynamic_cast<Individu*>(gamedata::currentWorld()->getCurrentCollider());
                 break;
             }
+            if (Resultat == COLL_INTER)
+                cofferUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
         }
 
         //Mouse click
@@ -311,7 +315,11 @@ void mainLoop()
 
         gamedata::currentWorld()->displayBackground(Jeu.App);
         gamedata::currentWorld()->display(Jeu.App);
+
         if (underCursor != nullptr) underCursor->displayLifeGauge();
+
+        if (cofferUnderCursor != nullptr) cofferUnderCursor->highlight(Jeu.App);
+
         if (gamedata::player()->ElementInteraction != -1)
         {
             Element_Carte* elem = gamedata::findElement(gamedata::player()->ElementInteraction);

@@ -36,6 +36,7 @@ using namespace tinyxml2;
 Coffre::Coffre() : Element_Carte()
 {
     inert = false;
+    _highlight = false;
 }
 
 int Coffre::Gestion()
@@ -62,7 +63,19 @@ void Coffre::Disp(RenderTarget& target)
         size.display(target, Color(0, 0, 255, 50));
 
     if (!imageContainer.empty() && !Type.empty())
-        imageManager::display(target, imageContainer, Type, position().x, position().y, true);
+    {
+        if (!_highlight)
+            imageManager::display(target, imageContainer, Type, position().x, position().y, true);
+        else
+            imageManager::display(target, imageContainer, Type, position().x, position().y, true, gui::style::getContrastShader(1.8, 1.8, 1.8));
+    }
+
+    _highlight = false;
+}
+
+void Coffre::highlight(RenderTarget& target)
+{
+    _highlight = true;
 }
 
 /** FONCTIONS DE LA CLASSE Cadavre **/
