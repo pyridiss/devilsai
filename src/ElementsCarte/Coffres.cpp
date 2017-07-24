@@ -73,19 +73,19 @@ Cadavre::Cadavre() : Coffre()
 int Cadavre::Gestion()
 {
 	if (objects.objects.empty()) Vide = true;
-	if (Vide && Duree > 5) Duree = 5;
+	if (Vide && lifetime > 5) lifetime = 5;
 
 	if (Vide && !objects.objects.empty()) //Un objet a été reposé alors que le cadavre venait d'être vidé…
 	{
 		Vide = false;
-		Duree += 100;
+		lifetime += 100;
 	}
 
-	if (Duree <= 0)
+	if (lifetime <= 0)
 		return ETAT_MORT;
 	else
 	{
-		Duree -= tools::timeManager::I(1/60.);
+		lifetime -= tools::timeManager::I(1/60.);
 		return ETAT_NORMAL;
 	}
 }

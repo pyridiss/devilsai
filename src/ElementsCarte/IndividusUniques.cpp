@@ -224,7 +224,7 @@ bool Individu_Unique::Set_Activite(string nv)
 
 		//If no object has been put, we can remove the corpse faster
 		if (corpse->objects.objects.empty())
-			corpse->Duree = 2;
+			corpse->lifetime = 2;
 
 		IncrementNum();
 	}

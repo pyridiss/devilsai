@@ -177,7 +177,6 @@ class Cadavre : public Coffre
 {
 	public:
 		string Ind_Id	= "";
-		float Duree		= 0;
 		bool Vide		= false;
 
         string imageKey = "";
