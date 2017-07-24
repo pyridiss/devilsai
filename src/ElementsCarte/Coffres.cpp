@@ -78,36 +78,16 @@ void Coffre::highlight(RenderTarget& target)
     _highlight = true;
 }
 
-/** FONCTIONS DE LA CLASSE Cadavre **/
-
-Cadavre::Cadavre() : Coffre()
+bool Coffre::empty()
 {
-	TypeClassement = CLASSEMENT_CADAVRE;
+    return objects.objects.empty();
 }
 
-int Cadavre::Gestion()
-{
-	if (objects.objects.empty()) Vide = true;
-	if (Vide && lifetime > 5) lifetime = 5;
-
-	if (Vide && !objects.objects.empty()) //Un objet a été reposé alors que le cadavre venait d'être vidé…
-	{
-		Vide = false;
-		lifetime += 100;
-	}
-
-	if (lifetime <= 0)
-		return ETAT_MORT;
-	else
-	{
-		lifetime -= tools::timeManager::I(1/60.);
-		return ETAT_NORMAL;
-	}
-}
 
 void Cadavre::Set_Individu(string species, string key)
 {
     Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", species));
     imageContainer = "individuals";
     Type = key;
+    TypeClassement = CLASSEMENT_CADAVRE;
 }

@@ -319,8 +319,6 @@ void Disp_Equipement()
 
 void Disp_Coffre()
 {
-	if (gamedata::findElement(gamedata::player()->ElementInteraction) == NULL) Partie.CoffreOuvert = NULL;
-
 	if (Partie.CoffreOuvert == NULL) return;
 
 	imageManager::display(Jeu.App, "misc", "FondCoffre", PosCoffreX, PosCoffreY);

@@ -429,12 +429,10 @@ Cadavre* Carte::AjouterCadavre(string liste, float x, float y)
 	Cadavre *ind = new Cadavre;
 
 	ind->Liste = liste;
-	ind->Type = "TYPE_CADAVRE";
 
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
     ind->size.circle(tools::math::Vector2d(0, 0), 1);
-	ind->lifetime = 500;
 
 	MESSAGE("Un cadavre a été ajouté", FICHIER)
 

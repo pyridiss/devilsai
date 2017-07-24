@@ -171,6 +171,7 @@ class Coffre : public Element_Carte
 		int Collision(Individu* elem, int TypeCollision);
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+        bool empty();
 
 	//Affichage :
 	public:
@@ -180,15 +181,9 @@ class Coffre : public Element_Carte
 
 class Cadavre : public Coffre
 {
-	public:
-		bool Vide		= false;
-
-	public:
-		Cadavre();
 
 	//Gestion :
 	public:
-		int Gestion();
         void Set_Individu(string species, string key);
 };
 
