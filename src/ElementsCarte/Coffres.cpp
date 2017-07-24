@@ -92,21 +92,9 @@ int Cadavre::Gestion()
 	}
 }
 
-void Cadavre::Set_Individu()
+void Cadavre::Set_Individu(string species, string key)
 {
-    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", Ind_Id));
+    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", species));
+    imageContainer = "individuals";
+    Type = key;
 }
-
-void Cadavre::Set_Individu(string type, string key)
-{
-	Ind_Id = type;
-    imageKey = key;
-
-	Set_Individu();
-}
-
-void Cadavre::Disp(RenderTarget& target)
-{
-    imageManager::display(target, "individuals", imageKey, position().x, position().y, true);
-}
-

@@ -177,10 +177,7 @@ class Coffre : public Element_Carte
 class Cadavre : public Coffre
 {
 	public:
-		string Ind_Id	= "";
 		bool Vide		= false;
-
-        string imageKey = "";
 
 	public:
 		Cadavre();
@@ -188,12 +185,7 @@ class Cadavre : public Coffre
 	//Gestion :
 	public:
 		int Gestion();
-		void Set_Individu();
-        void Set_Individu(string type, string key);
-
-	//Affichage :
-	public:
-		void Disp(RenderTarget& target);
+        void Set_Individu(string species, string key);
 };
 
 class Individu : public Element_Carte
