@@ -42,6 +42,7 @@ Color normalButtonTextColor();
 Color activeButtonTextColor();
 Color hoverButtonTextColor();
 Color disabledButtonTextColor();
+const Shader* getContrastShader(float r, float g, float b);
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
 void highlightShader(RenderWindow& app, int x, int y, int w, int h);
 void disableShader(RenderWindow& app, int x, int y, int w, int h);

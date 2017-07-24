@@ -105,6 +105,11 @@ Color disabledButtonTextColor()
     return Color(100, 100, 100, 192);
 }
 
+const Shader* getContrastShader(float r, float g, float b)
+{
+    contrastShader.setUniform("luminosity", Glsl::Vec3(r, g, b));
+    return &contrastShader;
+}
 
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
 {
