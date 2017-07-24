@@ -60,7 +60,9 @@ void Coffre::Disp(RenderTarget& target)
 {
     if (Options.displayShapes)
         size.display(target, Color(0, 0, 255, 50));
-	return;
+
+    if (!imageContainer.empty() && !Type.empty())
+        imageManager::display(target, imageContainer, Type, position().x, position().y, true);
 }
 
 /** FONCTIONS DE LA CLASSE Cadavre **/

@@ -153,6 +153,7 @@ class Element_Carte
 class Coffre : public Element_Carte
 {
 	public:
+        string imageContainer;
 		Objects objects;
 
 		string NumeroNom = "";
