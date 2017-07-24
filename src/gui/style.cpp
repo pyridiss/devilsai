@@ -48,6 +48,9 @@ void initStyle()
     dayroman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
     blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
+
+    blurShader.setUniform("texture", Shader::CurrentTexture);
+    contrastShader.setUniform("texture", Shader::CurrentTexture);
 }
 
 const Font& defaultTextFont()
@@ -115,7 +118,6 @@ void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
     rect.setPosition(x, y);
     RenderStates states;
     states.shader = &blurShader;
-    blurShader.setUniform("texture", tex);
     blurShader.setUniform("textureSize", Glsl::Vec2(tex.getSize().x, tex.getSize().y));
     app.draw(rect, states);
 }
@@ -132,7 +134,6 @@ void useContrastShader(RenderWindow& app, int x, int y, int w, int h, float r, f
     rect.setPosition(x, y);
     RenderStates states;
     states.shader = &contrastShader;
-    contrastShader.setUniform("texture", tex);
     contrastShader.setUniform("luminosity", Glsl::Vec3(r, g, b));
     app.draw(rect, states);
 }
