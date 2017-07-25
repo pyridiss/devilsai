@@ -112,10 +112,12 @@ void mainLoop()
     worldView.setViewport(sf::FloatRect(0, 0, 1, 1));
 
     Individu_Unique cursor;
+    cursor.Type = "intern";
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
     cursor.interactionField.circle(tools::math::Vector2d(0, 0), 5);
 
     Individu_Unique screen;
+    screen.Type = "intern";
     screen.interactionField.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
 
     Individu* underCursor = nullptr;

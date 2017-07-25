@@ -51,6 +51,14 @@ int Coffre::Gestion()
 
 int Coffre::Collision(Individu* elem, int TypeCollision)
 {
+    if (elem->Type == "intern") return COMPORTEMENT_ALEATOIRE;
+
+    if (TypeClassement == CLASSEMENT_NORMAL)
+    {
+        if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
+        return COLL_PRIM;
+    }
+
     return COMPORTEMENT_ALEATOIRE;
 }
 
