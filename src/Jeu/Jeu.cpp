@@ -114,6 +114,10 @@ void mainLoop()
     Individu_Unique cursor;
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
     cursor.interactionField.circle(tools::math::Vector2d(0, 0), 5);
+
+    Individu_Unique screen;
+    screen.interactionField.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
+
     Individu* underCursor = nullptr;
     Coffre* cofferUnderCursor = nullptr;
     bool cofferClicked = false;
@@ -282,7 +286,10 @@ void mainLoop()
         if (managementActivated)
             gamedata::currentWorld()->GestionElements(worldView);
 
+        //Screen position update
         worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y);
+        screen.move(-screen.position().x + gamedata::player()->position().x,
+                    -screen.position().y + gamedata::player()->position().y);
 
         //Mouse cursor
         cursor.move(-cursor.position().x + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x,
@@ -356,6 +363,19 @@ void mainLoop()
         if (underCursor != nullptr) underCursor->displayLifeGauge();
 
         if (cofferUnderCursor != nullptr) cofferUnderCursor->highlight(Jeu.App);
+
+        if (Keyboard::isKeyPressed(Keyboard::LAlt))
+        {
+            gamedata::currentWorld()->resetCollisionManager();
+            for (int Resultat = COLL_OK ; Resultat != COLL_END ; Resultat = gamedata::currentWorld()->browseCollisionList(&screen))
+            {
+                if (Resultat == COLL_INTER)
+                {
+                    Coffre* c = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
+                    if (c != nullptr) c->highlight(Jeu.App);
+                }
+            }
+        }
 
         if (gamedata::player()->ElementInteraction != -1)
         {
