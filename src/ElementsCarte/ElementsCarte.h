@@ -161,6 +161,7 @@ class Coffre : public Element_Carte
 
     private:
         bool _highlight;
+        bool _closeWhenEmpty;
 
 	public:
 		Coffre();
@@ -172,6 +173,7 @@ class Coffre : public Element_Carte
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
         bool empty();
+        void close();
         void Set_Individu(string species, string key);
 
 	//Affichage :

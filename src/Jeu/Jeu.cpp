@@ -136,13 +136,13 @@ void mainLoop()
 
             if (event.type != Event::MouseButtonPressed && event.type != Event::MouseButtonReleased && event.type != Event::MouseMoved)
             {
-                if (Partie.CoffreOuvert != nullptr && Partie.CoffreOuvert->empty())
-                        Partie.CoffreOuvert->inert = true;
-
                 if (Partie.CoffreOuvert != nullptr)
+                {
+                    Partie.CoffreOuvert->close();
                     currentUserScreen = nullptr;
+                    Partie.CoffreOuvert = nullptr;
+                }
                 cofferUnderCursor = nullptr;
-                Partie.CoffreOuvert = nullptr;
             }
         }
 
@@ -334,8 +334,8 @@ void mainLoop()
                 cofferClicked = true;
                 if (!tools::math::intersection(cursor.interactionField, cofferUnderCursor->size))
                 {
-                    if (Partie.CoffreOuvert != nullptr && Partie.CoffreOuvert->empty())
-                        Partie.CoffreOuvert->inert = true;
+                    if (Partie.CoffreOuvert != nullptr)
+                        Partie.CoffreOuvert->close();
 
                     cofferUnderCursor = nullptr;
                     Partie.CoffreOuvert = nullptr;

@@ -37,10 +37,15 @@ Coffre::Coffre() : Element_Carte()
 {
     inert = false;
     _highlight = false;
+    _closeWhenEmpty = false;
 }
 
 int Coffre::Gestion()
 {
+    Element_Carte::Gestion();
+
+    if (lifetime == 0) return ETAT_MORT;
+
 	return ETAT_NORMAL;
 }
 
@@ -83,10 +88,21 @@ bool Coffre::empty()
     return objects.objects.empty();
 }
 
+void Coffre::close()
+{
+    if (_closeWhenEmpty && empty())
+    {
+        inert = true;
+        if (imageContainer == "individuals")
+            lifetime = 10000;
+    }
+}
+
 void Coffre::Set_Individu(string species, string key)
 {
     Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", species));
     imageContainer = "individuals";
     Type = key;
     TypeClassement = CLASSEMENT_CADAVRE;
+    _closeWhenEmpty = true;
 }

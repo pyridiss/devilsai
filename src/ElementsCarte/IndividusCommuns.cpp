@@ -75,7 +75,7 @@ bool Individu_Commun::Set_Activite(string nv)
 	{
 		int key = CLEF_COFFRE;
 
-        Coffre *corpse = gamedata::currentWorld()->AjouterCoffre(Liste, position().x, position().y);
+        Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
         corpse->Set_Individu(Type, Classe->corpseImageKey);
         corpse->size.circle(tools::math::Vector2d(0, 0), 20);
         corpse->size.setOrigin(&corpse->position());
@@ -107,9 +107,7 @@ bool Individu_Commun::Set_Activite(string nv)
 			}
 		}
 
-		//If no object has been put, we can remove the corpse faster
-		if (corpse->objects.objects.empty())
-            corpse->inert = true;
+        corpse->close();
 
 		IncrementNum();
 	}
