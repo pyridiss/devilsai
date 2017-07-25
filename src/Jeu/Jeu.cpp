@@ -122,6 +122,7 @@ void mainLoop()
     Coffre* cofferUnderCursor = nullptr;
     bool cofferClicked = false;
     bool cursorIsInWorld = false;
+    bool move = false;
 
 	while (true)
 	{
@@ -130,6 +131,9 @@ void mainLoop()
         Event event;
         while (Jeu.App.pollEvent(event))
         {
+            if (event.type == Event::MouseButtonPressed && cursorIsInWorld)
+                move = true;
+
             ingameToolbar.manage(Jeu.App, event);
 
             if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
@@ -138,7 +142,7 @@ void mainLoop()
             if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 return;
 
-            if (event.type != Event::MouseButtonPressed && event.type != Event::MouseButtonReleased && event.type != Event::MouseMoved)
+            if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
             {
                 if (Partie.CoffreOuvert != nullptr)
                 {
@@ -330,11 +334,16 @@ void mainLoop()
         }
 
         //Mouse click
-        if (cursorIsInWorld && Mouse::isButtonPressed(Mouse::Left))
+        if (move || (cursorIsInWorld && Mouse::isButtonPressed(Mouse::Left)))
         {
             gamedata::player()->automove = true;
             gamedata::player()->automoveEndpoint.x = cursor.position().x;
             gamedata::player()->automoveEndpoint.y = cursor.position().y;
+            if (move)
+            {
+                move = false;
+                gamedata::player()->Temps = 1;
+            }
 
             if (cofferUnderCursor != nullptr)
             {
