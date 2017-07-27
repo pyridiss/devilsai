@@ -47,7 +47,6 @@ class UserScreen
 };
 
 UserScreen screenCharacter;
-UserScreen screenEquipment;
 UserScreen screenSkills;
 UserScreen screenJournal;
 UserScreen *currentUserScreen = nullptr;
@@ -70,9 +69,6 @@ void mainLoop()
 {
     screenCharacter.dispFunction = Disp_Personnage;
     screenCharacter.manageFunction = nullptr;
-
-    screenEquipment.dispFunction = Disp_Equipement;
-    screenEquipment.manageFunction = Gestion_Coffre;
 
     screenSkills.dispFunction = Disp_Competences;
     screenSkills.manageFunction = Gestion_Competences;

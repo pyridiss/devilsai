@@ -36,7 +36,6 @@ class Activite;
 class Individu;
 class Joueur;
 class Individu_Unique;
-class EmplacementEquipement;
 
 namespace tinyxml2{
     class XMLElement;
@@ -49,7 +48,6 @@ typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
 typedef map < string, lua_State* > mapSkills;
-typedef list <EmplacementEquipement> ListEmplacementsEquipements;
 
 class Statistiques
 {
@@ -152,25 +150,6 @@ class Activite
         void atEnd(Individu* owner);
 };
 
-class EmplacementEquipement
-{
-	public:
-        gui::Button* BoutonEquipement;
-
-	public:
-		string CategorieObjet;
-		string TypeObjet;
-		string ClasseObjet;
-
-	public:
-        EmplacementEquipement();
-		~EmplacementEquipement();
-        EmplacementEquipement(EmplacementEquipement&& e);
-
-	public:
-		void Set(int x, int y, int w, int h);
-		string Get_IdEmplacement();
-};
 
 void Disp_Competences();
 void Gestion_Competences(Event&);

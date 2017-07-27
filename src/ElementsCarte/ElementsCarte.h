@@ -279,10 +279,6 @@ class Individu_Unique : public Individu
 
 		Caracteristiques Caracs;
 
-//		MapEquipement Equips;
-//		mapObjects Inventaire;
-		ListEmplacementsEquipements EmplacementsEquip;
-
 	public:
         lua_State* skillLinks[4]    = {nullptr, nullptr, nullptr, nullptr};
 
@@ -293,7 +289,6 @@ class Individu_Unique : public Individu
 
 	public:
 		void Ajouter_Activite(string Id);
-		void Ajouter_EmplacementEquip(int x, int y, int w, int h, string Categorie, string Type, string Classe);
 
 	//Getter :
 	public:
@@ -467,9 +462,6 @@ class Trigger : public Element_Carte
 	public:
 		void Disp(RenderTarget& target);
 };
-
-void Disp_Coffre();
-void Gestion_Coffre(Event&);
 
 void Load_IndividuUnique(string, Individu_Unique*);
 void Load_ClasseCommune(string);

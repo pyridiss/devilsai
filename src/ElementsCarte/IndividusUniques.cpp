@@ -59,16 +59,6 @@ void Individu_Unique::Ajouter_Activite(string Id)
 	i->second.Id = Id;
 }
 
-void Individu_Unique::Ajouter_EmplacementEquip(int x, int y, int w, int h, string Categorie, string Type, string Classe)
-{
-	EmplacementEquipement emp;
-	EmplacementsEquip.push_back(std::move(emp));
-	EmplacementsEquip.back().Set(x, y, w, h);
-	EmplacementsEquip.back().CategorieObjet = Categorie;
-	EmplacementsEquip.back().TypeObjet = Type;
-	EmplacementsEquip.back().ClasseObjet = Classe;
-}
-
 String32& Individu_Unique::Get_Nom()
 {
 	return Nom;
@@ -309,27 +299,6 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             {
                 //TODO
             }
-        }
-        if (elemName == "EmplacementEquipement") //TODO: update this!
-        {
-            EmplacementEquipement emp;
-            int x = 0, y = 0, w = 0, h= 0;
-            elem->QueryAttribute("x", &x);
-            elem->QueryAttribute("y", &y);
-            elem->QueryAttribute("w", &w);
-            elem->QueryAttribute("h", &h);
-            emp.Set(x, y, w, h);
-            emp.CategorieObjet = elem->Attribute("category");
-            emp.TypeObjet = elem->Attribute("type");
-            emp.ClasseObjet = elem->Attribute("class");
-            EmplacementsEquip.push_back(std::move(emp));
-        }
-        if (elemName == "Equipement") //TODO: Update this!
-        {
-            string numero = elem->Attribute("number");
-            string IdEmplacement = elem->Attribute("IdEmplacement");
-
-            Get_Caracs()->objects.addObject(numero, IdEmplacement);
         }
         if (elemName == "inventory")
         {

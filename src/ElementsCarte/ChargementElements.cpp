@@ -65,13 +65,6 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
         if (TypeDonnee == "corpseImageKey")
             Fichier >> ind->corpseImageKey;
 
-		if (TypeDonnee == "EMPLACEMENT_EQUIP")
-		{
-			int x, y, w, h;
-			string cat, type, classe;
-			Fichier >> x >> y >> w >> h >> cat >> type >> classe;
-			ind->Ajouter_EmplacementEquip(x, y, w, h, cat, type, classe);
-		}
 		if (TypeDonnee == "EQUIPEMENT")
 		{
 			string numero = "", IdEmplacement = "";
