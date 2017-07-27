@@ -149,7 +149,7 @@ float Individu_Unique::get(string field)
 	int valueInt = (*Get_Caracs())[field];
 	if (valueInt != Jeu.intNotFound)
 	{
-		if (field != "RecuperationMoyenne") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
+		if (field != "recovery") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
 
 		pair<int, int> addedChar = Get_Caracs()->getFromObjectsAndSkills(field);
 		valueInt += addedChar.first;

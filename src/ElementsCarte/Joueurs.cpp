@@ -99,29 +99,29 @@ void Joueur::Gestion_Statistiques()
 	}
 
 	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
-	if (abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("Constitution"), 0, 100))
+	if (abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("constitution"), 0, 100))
 	{
 		if (get("Recuperation") > 0) Lag_Energie(tools::timeManager::I(0.5));
 		else Lag_Energie(-tools::timeManager::I(0.25));
 	}
 
 	//3. Perte d'énergie selon durée depuis repos
-	if (DureeEveil > get("Constitution")) Lag_Energie(-tools::timeManager::I(DureeEveil-get("Constitution"))/10000);
+	if (DureeEveil > get("constitution")) Lag_Energie(-tools::timeManager::I(DureeEveil-get("constitution"))/10000);
 
 	//4. Gain & Perte d'énergie par activité
 	if (Get_Act() == PAUSE)
 		Lag_Energie(tools::timeManager::I(get("Vitalite")/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(get("Vitalite")/10000)*/);
 	if (Get_Act() == COURSE)
-		Lag_Energie(-tools::timeManager::I(0.05/get("Constitution")));
+		Lag_Energie(-tools::timeManager::I(0.05/get("constitution")));
 
 	//5. Évolution du taux de récupération
-	float RecupCible = get("RecuperationMoyenne") * ((get("Vitalite")-200)/740.f);
+	float RecupCible = get("recovery") * ((get("Vitalite")-200)/740.f);
 	if (RecupCible > 0) RecupCible *= max(0.f, (get("Energie")-70.f)/1000.f);
 
 	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(tools::timeManager::I(0.1));
 	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-tools::timeManager::I(0.1));
 
-	if (abs(get("RecuperationMoyenne")) >= 95) Set_Recuperation(get("RecuperationMoyenne"));
+	if (abs(get("recovery")) >= 95) Set_Recuperation(get("recovery"));
 
 	//6. Durée d'éveil
 	DureeEveil += tools::timeManager::I(0.0005);
@@ -130,11 +130,11 @@ void Joueur::Gestion_Statistiques()
 	if (get("Energie") < 70 && get("Energie") > 10)
 	{
 		//Agilite-
-		if (Caracs["Agilite"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
+		if (Caracs["agility"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
 			--BufAgilite;
 
 		//Intelligence-
-		if (Caracs["Intelligence"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
+		if (Caracs["intellect"] > 1 && !(rand()%(int)(get("Energie")*100)+1))
 			--BufIntelligence;
 
 		//Application
@@ -146,12 +146,12 @@ void Joueur::Gestion_Statistiques()
 void Joueur::CoupCritique(Individu* ennemi)
 {
 	//Agilité+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Agilite") - ennemi->get("Agilite"), 0, 10) + 1)))
-		BufAgilite += ToSegment(1.1*ennemi->get("Agilite")/get("Agilite"), 0, 10);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("agility") - ennemi->get("agility"), 0, 10) + 1)))
+		BufAgilite += ToSegment(1.1*ennemi->get("agility")/get("agility"), 0, 10);
 
 	//Charisme+, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Charisme") - ennemi->get("Charisme"), 0, 10) + 1)))
-		BufCharisme += ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("charisma") - ennemi->get("charisma"), 0, 10) + 1)))
+		BufCharisme += ToSegment(1.1*ennemi->get("charisma")/get("charisma"), 0, 10);
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
@@ -161,12 +161,12 @@ void Joueur::CoupCritique(Individu* ennemi)
 void Joueur::BlessureGrave(Individu* ennemi)
 {
 	//Constitution-, selon Puissance de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufConstitution -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("constitution") - ennemi->get("power"), 0, 10) + 1)))
+		BufConstitution -= min(2.0, ToSegment(1.1*ennemi->get("power")/get("constitution"), 0, 10));
 
 	//Charisme-, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Charisme") - ennemi->get("Charisme"), 0, 10) + 1)))
-		BufCharisme -= min(2.0, ToSegment(1.1*ennemi->get("Charisme")/get("Charisme"), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("charisma") - ennemi->get("charisma"), 0, 10) + 1)))
+		BufCharisme -= min(2.0, ToSegment(1.1*ennemi->get("charisma")/get("charisma"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -176,8 +176,8 @@ void Joueur::BlessureGrave(Individu* ennemi)
 void Joueur::CoupEsquive(Individu* ennemi)
 {
 	//Esquive+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Esquive") - ennemi->get("Agilite"), 0, 10) + 1)))
-		BufEsquive += ToSegment(1.1*ennemi->get("Agilite")/get("Esquive"), 0, 3);
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("dodge") - ennemi->get("agility"), 0, 10) + 1)))
+		BufEsquive += ToSegment(1.1*ennemi->get("agility")/get("dodge"), 0, 3);
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
@@ -200,10 +200,10 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 				short carac = rand()%4;
 				switch(carac)
 				{
-					case 0 : BufIntelligence += ToSegment(2*get("Intelligence"), 0, 100)/100; break;
-					case 1 : BufForce += ToSegment(10*get("Intelligence"), 0, 100)/100; break;
-					case 2 : BufPuissance += ToSegment(10*get("Intelligence"), 0, 100)/100; break;
-					case 3 : BufConstitution += ToSegment(5*get("Intelligence"), 0, 100)/100; break;
+					case 0 : BufIntelligence += ToSegment(2*get("intellect"), 0, 100)/100; break;
+					case 1 : BufForce += ToSegment(10*get("intellect"), 0, 100)/100; break;
+					case 2 : BufPuissance += ToSegment(10*get("intellect"), 0, 100)/100; break;
+					case 3 : BufConstitution += ToSegment(5*get("intellect"), 0, 100)/100; break;
 				}
 			}
 		}
@@ -218,16 +218,16 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 void Joueur::BlessuresMultiples(Individu* ennemi)
 {
 	//Force-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufForce -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("constitution") - ennemi->get("power"), 0, 10) + 1)))
+		BufForce -= min(2.0, ToSegment(1.1*ennemi->get("power")/get("constitution"), 0, 10));
 
 	//Puissance-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufPuissance -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("constitution") - ennemi->get("power"), 0, 10) + 1)))
+		BufPuissance -= min(2.0, ToSegment(1.1*ennemi->get("power")/get("constitution"), 0, 10));
 
 	//Esquive-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(get("Constitution") - ennemi->get("Puissance"), 0, 10) + 1)))
-		BufEsquive -= min(2.0, ToSegment(1.1*ennemi->get("Puissance")/get("Constitution"), 0, 10));
+	if (!(rand()%(int)(5 + 10 + ToSegment(get("constitution") - ennemi->get("power"), 0, 10) + 1)))
+		BufEsquive -= min(2.0, ToSegment(1.1*ennemi->get("power")/get("constitution"), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -246,43 +246,43 @@ bool Joueur::ApplicationAmeliorations()
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_FORCE", (int)BufForce);
 		(BufForce > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Force"] += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
+		Caracs["strength"] += (int)BufForce; BufForce -= (int)BufForce; Retour = true;
 	}
 	if ((int)BufPuissance != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_PUISS", (int)BufPuissance);
 		(BufPuissance > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Puissance"] += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
+		Caracs["power"] += (int)BufPuissance; BufPuissance -= (int)BufPuissance; Retour = true;
 	}
 	if ((int)BufAgilite != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_AGILITE", (int)BufAgilite);
 		(BufAgilite > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Agilite"] += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
+		Caracs["agility"] += (int)BufAgilite; BufAgilite -= (int)BufAgilite; Retour = true;
 	}
 	if ((int)BufIntelligence != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_INTELLI", (int)BufIntelligence);
 		(BufIntelligence > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Intelligence"] += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
+		Caracs["intellect"] += (int)BufIntelligence; BufIntelligence -= (int)BufIntelligence; Retour = true;
 	}
 	if ((int)BufConstitution != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_CONSTIT", (int)BufConstitution);
 		(BufConstitution > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Constitution"] += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
+		Caracs["constitution"] += (int)BufConstitution; BufConstitution -= (int)BufConstitution; Retour = true;
 	}
 	if ((int)BufEsquive != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_ESQUIVE", (int)BufEsquive);
 		(BufEsquive > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Esquive"] += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
+		Caracs["dodge"] += (int)BufEsquive; BufEsquive -= (int)BufEsquive; Retour = true;
 	}
 	if ((int)BufCharisme != 0)
 	{
 		Final = tools::textManager::getFormattedText("devilsai", "AMELIORATION_CHARISM", (int)BufCharisme);
 		(BufCharisme > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
-		Caracs["Charisme"] += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
+		Caracs["charisma"] += (int)BufCharisme; BufCharisme -= (int)BufCharisme; Retour = true;
 	}
 
 	return Retour;
@@ -322,8 +322,8 @@ void Disp_Personnage()
 	if (weapon != NULL)
 	{
 		Disp_Texte(tools::textManager::getText("devilsai", "PERSO_DEGATS"), 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2)
-						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("Force")/2);
+		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("strength")/2)
+						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->get("strength")/2);
 		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
 	}
 
@@ -337,8 +337,8 @@ void Disp_Personnage()
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
 
 	int numberChar = 0;
-	for (string characteristic : {	"Force", "Puissance", "Agilite", "Intelligence", "Constitution", "Esquive", "Charisme",
-									"RecuperationMoyenne"})
+	for (string characteristic : {	"strength", "power", "agility", "intellect", "constitution", "dodge", "charisma",
+									"recovery"})
 	{
 		int absoluteQty = gamedata::player()->Caracs[characteristic];
 		int diffQty = gamedata::player()->get(characteristic) - absoluteQty;

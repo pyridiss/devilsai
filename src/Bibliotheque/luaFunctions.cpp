@@ -122,10 +122,10 @@ int LUA_set(lua_State* L)
 	if (field == "recuperation")	if (ind != NULL) ind->Set_Recuperation(value);
 	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
 	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
-	if (field == "Force")			if (ind != NULL) (*ind->Get_Caracs())["Force"] = value;
-	if (field == "Puissance")		if (ind != NULL) (*ind->Get_Caracs())["Puissance"] = value;
-	if (field == "Agilite")			if (ind != NULL) (*ind->Get_Caracs())["Agilite"] = value;
-	if (field == "Intelligence")	if (ind != NULL) (*ind->Get_Caracs())["Intelligence"] = value;
+	if (field == "strength")			if (ind != NULL) (*ind->Get_Caracs())["strength"] = value;
+	if (field == "power")		if (ind != NULL) (*ind->Get_Caracs())["power"] = value;
+	if (field == "agility")			if (ind != NULL) (*ind->Get_Caracs())["agility"] = value;
+	if (field == "intellect")	if (ind != NULL) (*ind->Get_Caracs())["intellect"] = value;
 
 	return 0;
 }

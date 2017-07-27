@@ -222,17 +222,17 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			act = NULL;
 		}
 
-		if (TypeDonnee == "FORCE")		Fichier >> ind->Caracs["Force"];
-		if (TypeDonnee == "PUISS")		Fichier >> ind->Caracs["Puissance"];
-		if (TypeDonnee == "AGILITE")	Fichier >> ind->Caracs["Agilite"];
-		if (TypeDonnee == "INTELLI")	Fichier >> ind->Caracs["Intelligence"];
-		if (TypeDonnee == "CONSTIT")	Fichier >> ind->Caracs["Constitution"];
-		if (TypeDonnee == "ESQUIVE")	Fichier >> ind->Caracs["Esquive"];
-		if (TypeDonnee == "CHARISM")	Fichier >> ind->Caracs["Charisme"];
+		if (TypeDonnee == "FORCE")		Fichier >> ind->Caracs["strength"];
+		if (TypeDonnee == "PUISS")		Fichier >> ind->Caracs["power"];
+		if (TypeDonnee == "AGILITE")	Fichier >> ind->Caracs["agility"];
+		if (TypeDonnee == "INTELLI")	Fichier >> ind->Caracs["intellect"];
+		if (TypeDonnee == "CONSTIT")	Fichier >> ind->Caracs["constitution"];
+		if (TypeDonnee == "ESQUIVE")	Fichier >> ind->Caracs["dodge"];
+		if (TypeDonnee == "CHARISM")	Fichier >> ind->Caracs["charisma"];
 		if (TypeDonnee == "RECUP")
 		{
-			Fichier >> ind->Caracs["RecuperationMoyenne"];
-			ind->Set_Recuperation(ind->Caracs["RecuperationMoyenne"]);
+			Fichier >> ind->Caracs["recovery"];
+			ind->Set_Recuperation(ind->Caracs["recovery"]);
 		}
 		if (TypeDonnee == "EXP")		Fichier >> ind->Experience;
 		if (TypeDonnee == "CADAVRE")	Fichier >> ind->DureeCadavre;
@@ -393,14 +393,14 @@ void Load_ClasseCommune(string Type)
 			act = NULL;
 		}
 
-		if (TypeDonnee == "FORCE")		Fichier >> cl_com->Caracs["Force"];
-		if (TypeDonnee == "PUISS")		Fichier >> cl_com->Caracs["Puissance"];
-		if (TypeDonnee == "AGILITE")	Fichier >> cl_com->Caracs["Agilite"];
-		if (TypeDonnee == "INTELLI")	Fichier >> cl_com->Caracs["Intelligence"];
-		if (TypeDonnee == "CONSTIT")	Fichier >> cl_com->Caracs["Constitution"];
-		if (TypeDonnee == "ESQUIVE")	Fichier >> cl_com->Caracs["Esquive"];
-		if (TypeDonnee == "CHARISM")	Fichier >> cl_com->Caracs["Charisme"];
-		if (TypeDonnee == "RECUP")		Fichier >> cl_com->Caracs["RecuperationMoyenne"];
+		if (TypeDonnee == "FORCE")		Fichier >> cl_com->Caracs["strength"];
+		if (TypeDonnee == "PUISS")		Fichier >> cl_com->Caracs["power"];
+		if (TypeDonnee == "AGILITE")	Fichier >> cl_com->Caracs["agility"];
+		if (TypeDonnee == "INTELLI")	Fichier >> cl_com->Caracs["intellect"];
+		if (TypeDonnee == "CONSTIT")	Fichier >> cl_com->Caracs["constitution"];
+		if (TypeDonnee == "ESQUIVE")	Fichier >> cl_com->Caracs["dodge"];
+		if (TypeDonnee == "CHARISM")	Fichier >> cl_com->Caracs["charisma"];
+		if (TypeDonnee == "RECUP")		Fichier >> cl_com->Caracs["recovery"];
 		if (TypeDonnee == "EXP")		Fichier >> cl_com->Experience;
 
 		TypeDonnee = "";

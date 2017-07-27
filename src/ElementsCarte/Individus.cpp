@@ -73,15 +73,15 @@ void Individu::Gestion_Recuperation()
 	//Évolution de la récupération :
 
 	//Test de récupération forcée (potion, …)
-	if (get("RecuperationMoyenne") >= 95 || get("RecuperationMoyenne") <= -95) Set_Recuperation(get("RecuperationMoyenne"));
+	if (get("recovery") >= 95 || get("recovery") <= -95) Set_Recuperation(get("recovery"));
 
 	//Évolution spontanée
 	if (buf_rec >= 10)
 	{
 		//Récuperation trop faible par rapport à la vitalité :
-		if (get("Recuperation") < get("RecuperationMoyenne") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
+		if (get("Recuperation") < get("recovery") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
 		//Récupération trop importante par rapport à la vitalité :
-		if (get("Recuperation") > get("RecuperationMoyenne") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
+		if (get("Recuperation") > get("recovery") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
 
 		//Augmentation de la Récupération automatique en fonction du niveau d'énergie
 		if (get("Energie") > 200) if (!rand()%20) Lag_Recuperation(1);
@@ -100,7 +100,7 @@ float Individu::get(string field)
 	if (valueFloat == Jeu.floatNotFound)
 	{
 		int valueInt = (*Get_Caracs())[field];
-		if (valueInt != Jeu.intNotFound && field != "RecuperationMoyenne")
+		if (valueInt != Jeu.intNotFound && field != "recovery")
 			valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
 		if (valueInt != Jeu.intNotFound)
 			return (float)valueInt;

@@ -252,22 +252,22 @@ pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 
 int& Caracteristiques::operator[](string characteristic)
 {
-	if (characteristic == "Force")
+	if (characteristic == "strength")
 		return Force;
-	if (characteristic == "Puissance")
+	if (characteristic == "power")
 		return Puissance;
-	if (characteristic == "Agilite")
+	if (characteristic == "agility")
 		return Agilite;
-	if (characteristic == "Intelligence")
+	if (characteristic == "intellect")
 		return Intelligence;
 
-	if (characteristic == "Constitution")
+	if (characteristic == "constitution")
 		return Constitution;
-	if (characteristic == "Charisme")
+	if (characteristic == "charisma")
 		return Charisme;
-	if (characteristic == "Esquive")
+	if (characteristic == "dodge")
 		return Esquive;
-	if (characteristic == "RecuperationMoyenne")
+	if (characteristic == "recovery")
 		return RecuperationMoyenne;
 
 	return Jeu.intNotFound;
@@ -275,22 +275,22 @@ int& Caracteristiques::operator[](string characteristic)
 
 const int& Caracteristiques::operator[](string characteristic) const
 {
-	if (characteristic == "Force")
+	if (characteristic == "strength")
 		return Force;
-	if (characteristic == "Puissance")
+	if (characteristic == "power")
 		return Puissance;
-	if (characteristic == "Agilite")
+	if (characteristic == "agility")
 		return Agilite;
-	if (characteristic == "Intelligence")
+	if (characteristic == "intellect")
 		return Intelligence;
 
-	if (characteristic == "Constitution")
+	if (characteristic == "constitution")
 		return Constitution;
-	if (characteristic == "Charisme")
+	if (characteristic == "charisma")
 		return Charisme;
-	if (characteristic == "Esquive")
+	if (characteristic == "dodge")
 		return Esquive;
-	if (characteristic == "RecuperationMoyenne")
+	if (characteristic == "recovery")
 		return RecuperationMoyenne;
 
 	return Jeu.intNotFound;

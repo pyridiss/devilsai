@@ -225,7 +225,7 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->viewField.setOrigin(&elem->position());
 
 	elem->Diplomatie = Diplomatie;
-	(*(elem->Get_Stats()))["Recuperation"] = Caracs["RecuperationMoyenne"];
+	(*(elem->Get_Stats()))["Recuperation"] = Caracs["recovery"];
     elem->lifetime = lifetime;
 
     if (angleFixed) elem->angle = fixedAngle;
