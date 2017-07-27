@@ -158,4 +158,26 @@ void Disp_Equipement();
 void Load_Decorations_Objets();
 void Supprimer_Decorations_Objets();
 
+static const string ObjectProperties[19] = {
+    "strength",
+    "power",
+    "agility",
+    "intellect",
+    "constitution",
+    "charisma",
+    "dodge",
+    "recovery",
+    "strengthFactor",
+    "powerFactor",
+    "agilityFactor",
+    "intellectFactor",
+    "constitutionFactor",
+    "charismaFactor",
+    "dodgeFactor",
+    "recoveryFactor",
+    "attackSpeed",
+    "runSpeed",
+    "injurySpeed"
+};
+
 #endif

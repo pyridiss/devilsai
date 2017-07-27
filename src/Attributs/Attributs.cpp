@@ -239,8 +239,12 @@ pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 
 	for (auto& i : objects.objects)
 	{
-		addedCharacteristic.first += getIntFromLUA(i.second, "get" + characteristic);
-		addedCharacteristic.second += getIntFromLUA(i.second, "getMult" + characteristic);
+        lua_getglobal(i.second, "getCurrentObjectEffect");
+        lua_pushstring(i.second, characteristic.c_str());
+        lua_call(i.second, 1, 1);
+        addedCharacteristic.first += lua_tonumber(i.second, -1);
+        lua_pushstring(i.second, (characteristic + "Factor").c_str());
+        addedCharacteristic.second += lua_tonumber(i.second, -1);
 	}
 	for (auto& i : skills)
 	{

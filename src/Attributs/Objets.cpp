@@ -195,39 +195,21 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 		LigneCourante += 16;
 	}
 
-	if (getBoolFromLUA(obj, "getDescriptionAutomatique")) for (int Carac = 0 ; Carac < 19 ; ++Carac)
-	{
-		string phrase; string functionLUA = "";
+    if (getBoolFromLUA(obj, "getDescriptionAutomatique"))
+    {
+        for (auto& p : ObjectProperties)
+        {
+            lua_getglobal(obj, "getCurrentObjectEffect");
+            lua_pushstring(obj, p.c_str());
+            lua_call(obj, 1, 1);
+            int value = lua_tonumber(obj, -1);
+            if (value != 0)
+            {
+                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "object-property-" + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
+                LigneCourante += 14;
+            }
+        }
+    }
 
-		switch(Carac)
-		{
-			case 0 :	functionLUA = "getAbsoluteForce";				phrase = "EQUIP_FORCE";			break;
-			case 1 :	functionLUA = "getAbsoluteMultForce";			phrase = "EQUIP_MULT_FORCE";		break;
-			case 2 :	functionLUA = "getAbsolutePuissance";			phrase = "EQUIP_PUISS";			break;
-			case 3 :	functionLUA = "getAbsoluteMultPuissance";		phrase = "EQUIP_MULT_PUISS";		break;
-			case 4 :	functionLUA = "getAbsoluteAgilite";				phrase = "EQUIP_AGILITE";		break;
-			case 5 :	functionLUA = "getAbsoluteMultAgilite";			phrase = "EQUIP_MULT_AGILITE";	break;
-			case 6 :	functionLUA = "getAbsoluteIntelligence";		phrase = "EQUIP_INTELLI";		break;
-			case 7 :	functionLUA = "getAbsoluteMultIntelligence";	phrase = "EQUIP_MULT_INTELLI";	break;
-			case 8 :	functionLUA = "getAbsoluteConstitution";		phrase = "EQUIP_CONSTIT";		break;
-			case 9 :	functionLUA = "getAbsoluteMultConstitution";	phrase = "EQUIP_MULT_CONSTIT";	break;
-			case 10 :	functionLUA = "getAbsoluteEsquive";				phrase = "EQUIP_ESQUIVE";		break;
-			case 11 :	functionLUA = "getAbsoluteMultEsquive";			phrase = "EQUIP_MULT_ESQUIVE";	break;
-			case 12 :	functionLUA = "getAbsoluteCharisme";			phrase = "EQUIP_CHARISM";		break;
-			case 13 :	functionLUA = "getAbsoluteMultCharisme";		phrase = "EQUIP_MULT_CHARISM";	break;
-			case 14 :	functionLUA = "getAbsoluteRecuperationMoyenne";		phrase = "EQUIP_RECUP";			break;
-			case 15 :	functionLUA = "getAbsoluteMultRecuperationMoyenne";	phrase = "EQUIP_MULT_RECUP";		break;
-			case 16 :	functionLUA = "getAbsoluteVitesseCourse";		phrase = "EQUIP_VIT_COURSE";		break;
-			case 17 :	functionLUA = "getAbsoluteVitesseAttaque";		phrase = "EQUIP_VIT_ATTAQUE";	break;
-			case 18 :	functionLUA = "getAbsoluteVitesseBlesse";		phrase = "EQUIP_VIT_BLESSE";		break;
-		}
-
-		int value = getIntFromLUA(obj, functionLUA);
-		if (value != 0)
-		{
-			Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", phrase, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
-			LigneCourante += 14;
-		}
-	}
 	LigneCourante += 26;
 }
