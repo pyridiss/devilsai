@@ -14,16 +14,18 @@ categoryObject = "regulier"
 typeObject     = "bottes"
 classObject    = "bottes"
 
-key = 0
+currentSlot = 0
+slotForUse = "equipment-boots"
 
-puissance     = 5
-agilite       = 12
-constitution  = 8
-esquive       = 0
-vitesseCourse = 1
-
-multConstitution = 0
-multEsquive      = 0
+properties = {
+    ["power"]              = 5,
+    ["agility"]            = 12,
+    ["constitution"]       = 8,
+    ["dodge"]              = 0,
+    ["constitutionFactor"] = 0,
+    ["dodgeFactor"]        = 0,
+    ["runSpeed"]           = 1,
+}
 
 duree    = -1
 cumul    = false
@@ -60,7 +62,7 @@ function getTypeObject()
 end
 
 function getIdEmplacement()
-	return categoryObject .. "-" .. typeObject
+	return slotForUse
 end
 
 function getInternalNumber()
@@ -80,7 +82,7 @@ function getIconFile()
 end
 
 function setKey(value)
-	key = value
+	currentSlot = value
 end
 
 function getDuree()
@@ -99,177 +101,18 @@ function getDescriptionAutomatique()
 	return descriptionAutomatique
 end
 
-function getForce()
-	return 0
+function getObjectProperty(key)
+    if properties[key] == nil then
+        return 0
+    end
+    return properties[key]
 end
 
-function getAbsoluteForce()
-	return 0
-end
-
-function getPuissance()
-	if key == getIdEmplacement() then
-		return puissance
-	end
-	return 0
-end
-
-function getAbsolutePuissance()
-	return puissance
-end
-
-function getAgilite()
-	if key == getIdEmplacement() then
-		return agilite
-	end
-	return 0
-end
-
-function getAbsoluteAgilite()
-	return agilite
-end
-
-function getIntelligence()
-	return 0
-end
-
-function getAbsoluteIntelligence()
-	return 0
-end
-
-function getConstitution()
-	if key == getIdEmplacement() then
-		return constitution
-	end
-	return 0
-end
-
-function getAbsoluteConstitution()
-	return constitution
-end
-
-function getCharisme()
-	return 0
-end
-
-function getAbsoluteCharisme()
-	return 0
-end
-
-function getEsquive()
-	if key == getIdEmplacement() then
-		return esquive
-	end
-	return 0
-end
-
-function getAbsoluteEsquive()
-	return esquive
-end
-
-function getRecuperationMoyenne()
-	return 0
-end
-
-function getAbsoluteRecuperationMoyenne()
-	return 0
-end
-
-function getMultForce()
-	return 0
-end
-
-function getAbsoluteMultForce()
-	return 0
-end
-
-function getMultPuissance()
-	return 0
-end
-
-function getAbsoluteMultPuissance()
-	return 0
-end
-
-function getMultAgilite()
-	return 0
-end
-
-function getAbsoluteMultAgilite()
-	return 0
-end
-
-function getMultIntelligence()
-	return 0
-end
-
-function getAbsoluteMultIntelligence()
-	return 0
-end
-
-function getMultConstitution()
-	if key == getIdEmplacement() then
-		return multConstitution
-	end
-	return 0
-end
-
-function getAbsoluteMultConstitution()
-	return multConstitution
-end
-
-function getMultCharisme()
-	return 0
-end
-
-function getAbsoluteMultCharisme()
-	return 0
-end
-
-function getMultEsquive()
-	if key == getIdEmplacement() then
-		return multEsquive
-	end
-	return 0
-end
-
-function getAbsoluteMultEsquive()
-	return multEsquive
-end
-
-function getMultRecuperationMoyenne()
-	return 0
-end
-
-function getAbsoluteMultRecuperationMoyenne()
-	return 0
-end
-
-function getVitesseCourse()
-	if key == getIdEmplacement() then
-		return vitesseCourse
-	end
-	return 0
-end
-
-function getAbsoluteVitesseCourse()
-	return vitesseCourse
-end
-
-function getVitesseAttaque()
-	return 0
-end
-
-function getAbsoluteVitesseAttaque()
-	return 0
-end
-
-function getVitesseBlesse()
-	return 0
-end
-
-function getAbsoluteVitesseBlesse()
-	return 0
+function getCurrentObjectEffect(key)
+    if currentSlot == slotForUse then
+        return getObjectProperty(key)
+    end
+    return 0
 end
 
 function getCumul()
@@ -292,37 +135,37 @@ function generateRandomObject(quality)
 		Choix = math.random()*100 + 1
 
 		if Choix <= ameliorationAgiliteProba then
-			agilite = agilite + 1
+			properties["agility"] = properties["agility"] + 1
 			quality = quality - ameliorationAgiliteQte
 		else
 			Choix = Choix - ameliorationAgiliteProba
 
 			if Choix <= ameliorationConstitutionProba then
-				constitution = constitution + 1
+				properties["constitution"] = properties["constitution"] + 1
 				quality = quality - ameliorationConstitutionQte
 			else
 				Choix = Choix - ameliorationConstitutionProba
 
 				if Choix <= ameliorationEsquiveProba then
-					esquive = esquive + 1
+					properties["dodge"] = properties["dodge"] + 1
 					quality = quality - ameliorationEsquiveQte
 				else
 					Choix = Choix - ameliorationEsquiveProba
 
 					if Choix <= ameliorationVitesseCourseProba then
-						vitesseCourse = vitesseCourse + 1
+						properties["runSpeed"] = properties["runSpeed"] + 1
 						quality = quality - ameliorationVitesseCourseQte
 					else
 						Choix = Choix - ameliorationVitesseCourseProba
 
 						if Choix <= ameliorationMultConstitutionProba then
-							multConstitution = multConstitution + 5
+							properties["constitutionFactor"] = properties["constitutionFactor"] + 5
 							quality = quality - ameliorationMultConstitutionQte
 						else
 							Choix = Choix - ameliorationMultConstitutionProba
 
 							if Choix <= ameliorationMultEsquiveProba then
-								multEsquive = multEsquive + 5
+								properties["dodgeFactor"] = properties["dodgeFactor"] + 5
 								quality = quality - ameliorationMultEsquiveQte
 							end
 						end
@@ -334,9 +177,9 @@ function generateRandomObject(quality)
 end
 
 function objectSave()
-	return puissance .. " " .. agilite .. " " .. constitution .. " " .. esquive .. " " .. vitesseCourse .. " " .. multConstitution .. " " .. multEsquive
+	return properties["power"] .. " " .. properties["agility"] .. " " .. properties["constitution"] .. " " .. properties["dodge"] .. " " .. properties["runSpeed"] .. " " .. properties["constitutionFactor"] .. " " .. properties["dodgeFactor"]
 end
 
 function objectRecoverState(data)
-	_, _, puissance, agilite, constitution, esquive, vitesseCourse, multConstitution, multEsquive = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
+	_, _, properties["power"], properties["agility"], properties["constitution"], properties["dodge"], properties["runSpeed"], properties["constitutionFactor"], properties["dodgeFactor"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
 end

@@ -14,9 +14,12 @@ categoryObject = "temporaire"
 typeObject     = "potion"
 classObject    = "potion"
 
-key = 0
+currentSlot = 0
+slotForUse = "equipment-potion"
 
-recuperation = 100
+properties = {
+    ["recovery"]           = 100
+}
 
 duree    = 600
 cumul    = true
@@ -38,7 +41,7 @@ function getTypeObject()
 end
 
 function getIdEmplacement()
-	return categoryObject .. "-" .. typeObject
+	return slotForUse
 end
 
 function getInternalNumber()
@@ -58,7 +61,7 @@ function getIconFile()
 end
 
 function setKey(value)
-	key = value
+	currentSlot = value
 end
 
 function getDuree()
@@ -77,159 +80,18 @@ function getDescriptionAutomatique()
 	return descriptionAutomatique
 end
 
-function getForce()
-	return 0
+function getObjectProperty(key)
+    if properties[key] == nil then
+        return 0
+    end
+    return properties[key]
 end
 
-function getAbsoluteForce()
-	return 0
-end
-
-function getPuissance()
-	return 0
-end
-
-function getAbsolutePuissance()
-	return 0
-end
-
-function getAgilite()
-	return 0
-end
-
-function getAbsoluteAgilite()
-	return 0
-end
-
-function getIntelligence()
-	return 0
-end
-
-function getAbsoluteIntelligence()
-	return 0
-end
-
-function getConstitution()
-	return 0
-end
-
-function getAbsoluteConstitution()
-	return 0
-end
-
-function getCharisme()
-	return 0
-end
-
-function getAbsoluteCharisme()
-	return 0
-end
-
-function getEsquive()
-	return 0
-end
-
-function getAbsoluteEsquive()
-	return 0
-end
-
-function getRecuperationMoyenne()
-	if key == getIdEmplacement() then
-		return recuperation
-	end
-	return 0
-end
-
-function getAbsoluteRecuperationMoyenne()
-	return recuperation
-end
-
-function getMultForce()
-	return 0
-end
-
-function getAbsoluteMultForce()
-	return 0
-end
-
-function getMultPuissance()
-	return 0
-end
-
-function getAbsoluteMultPuissance()
-	return 0
-end
-
-function getMultAgilite()
-	return 0
-end
-
-function getAbsoluteMultAgilite()
-	return 0
-end
-
-function getMultIntelligence()
-	return 0
-end
-
-function getAbsoluteMultIntelligence()
-	return 0
-end
-
-function getMultConstitution()
-	return 0
-end
-
-function getAbsoluteMultConstitution()
-	return 0
-end
-
-function getMultCharisme()
-	return 0
-end
-
-function getAbsoluteMultCharisme()
-	return 0
-end
-
-function getMultEsquive()
-	return 0
-end
-
-function getAbsoluteMultEsquive()
-	return 0
-end
-
-function getMultRecuperationMoyenne()
-	return 0
-end
-
-function getAbsoluteMultRecuperationMoyenne()
-	return 0
-end
-
-function getVitesseCourse()
-	return 0
-end
-
-function getAbsoluteVitesseCourse()
-	return 0
-end
-
-function getVitesseAttaque()
-	return 0
-end
-
-function getAbsoluteVitesseAttaque()
-	return 0
-end
-
-function getVitesseBlesse()
-	return 0
-end
-
-function getAbsoluteVitesseBlesse()
-	return 0
+function getCurrentObjectEffect(key)
+    if currentSlot == slotForUse then
+        return getObjectProperty(key)
+    end
+    return 0
 end
 
 function getCumul()

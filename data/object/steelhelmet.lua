@@ -14,15 +14,17 @@ categoryObject = "regulier"
 typeObject     = "casque"
 classObject    = "casque"
 
-key = 0
+currentSlot = 0
+slotForUse = "equipment-helmet"
 
-intelligence  = 0
-constitution  = 10
-charisme      = 1
-esquive       = 0
-vitesseBlesse = 1
-
-multConstitution = 0
+properties = {
+    ["intellect"]          = 0,
+    ["constitution"]       = 10,
+    ["charisma"]           = 1,
+    ["dodge"]              = 0,
+    ["constitutionFactor"] = 0,
+    ["injurySpeed"]        = 1
+}
 
 duree    = -1
 cumul    = false
@@ -59,7 +61,7 @@ function getTypeObject()
 end
 
 function getIdEmplacement()
-	return categoryObject .. "-" .. typeObject
+	return slotForUse
 end
 
 function getInternalNumber()
@@ -79,7 +81,7 @@ function getIconFile()
 end
 
 function setKey(value)
-	key = value
+	currentSlot = value
 end
 
 function getDuree()
@@ -98,174 +100,18 @@ function getDescriptionAutomatique()
 	return descriptionAutomatique
 end
 
-function getForce()
-	return 0
+function getObjectProperty(key)
+    if properties[key] == nil then
+        return 0
+    end
+    return properties[key]
 end
 
-function getAbsoluteForce()
-	return 0
-end
-
-function getPuissance()
-	return 0
-end
-
-function getAbsolutePuissance()
-	return 0
-end
-
-function getAgilite()
-	return 0
-end
-
-function getAbsoluteAgilite()
-	return 0
-end
-
-function getIntelligence()
-	if key == getIdEmplacement() then
-		return intelligence
-	end
-	return 0
-end
-
-function getAbsoluteIntelligence()
-	return intelligence
-end
-
-function getConstitution()
-	if key == getIdEmplacement() then
-		return constitution
-	end
-	return 0
-end
-
-function getAbsoluteConstitution()
-	return constitution
-end
-
-function getCharisme()
-	if key == getIdEmplacement() then
-		return charisme
-	end
-	return 0
-end
-
-function getAbsoluteCharisme()
-	return charisme
-end
-
-function getEsquive()
-	if key == getIdEmplacement() then
-		return esquive
-	end
-	return 0
-end
-
-function getAbsoluteEsquive()
-	return esquive
-end
-
-function getRecuperationMoyenne()
-	return 0
-end
-
-function getAbsoluteRecuperationMoyenne()
-	return 0
-end
-
-function getMultForce()
-	return 0
-end
-
-function getAbsoluteMultForce()
-	return 0
-end
-
-function getMultPuissance()
-	return 0
-end
-
-function getAbsoluteMultPuissance()
-	return 0
-end
-
-function getMultAgilite()
-	return 0
-end
-
-function getAbsoluteMultAgilite()
-	return 0
-end
-
-function getMultIntelligence()
-	return 0
-end
-
-function getAbsoluteMultIntelligence()
-	return 0
-end
-
-function getMultConstitution()
-	if key == getIdEmplacement() then
-		return multConstitution
-	end
-	return 0
-end
-
-function getAbsoluteMultConstitution()
-	return multConstitution
-end
-
-function getMultCharisme()
-	return 0
-end
-
-function getAbsoluteMultCharisme()
-	return 0
-end
-
-function getMultEsquive()
-	return 0
-end
-
-function getAbsoluteMultEsquive()
-	return 0
-end
-
-function getMultRecuperationMoyenne()
-	return 0
-end
-
-function getAbsoluteMultRecuperationMoyenne()
-	return 0
-end
-
-function getVitesseCourse()
-	return 0
-end
-
-function getAbsoluteVitesseCourse()
-	return 0
-end
-
-function getVitesseAttaque()
-	return 0
-end
-
-function getAbsoluteVitesseAttaque()
-	return 0
-end
-
-function getVitesseBlesse()
-	if key == getIdEmplacement() then
-		return vitesseBlesse
-	end
-	return 0
-end
-
-function getAbsoluteVitesseBlesse()
-	return vitesseBlesse
+function getCurrentObjectEffect(key)
+    if currentSlot == slotForUse then
+        return getObjectProperty(key)
+    end
+    return 0
 end
 
 function getCumul()
@@ -288,37 +134,37 @@ function generateRandomObject(quality)
 		Choix = math.random()*100 + 1
 
 		if Choix <= ameliorationIntelligenceProba then
-			intelligence = intelligence + 1
+			properties["intellect"] = properties["intellect"] + 1
 			quality = quality - ameliorationIntelligenceQte
 		else
 			Choix = Choix - ameliorationIntelligenceProba
 
 			if Choix <= ameliorationConstitutionProba then
-				constitution = constitution + 1
+				properties["constitution"] = properties["constitution"] + 1
 				quality = quality - ameliorationConstitutionQte
 			else
 				Choix = Choix - ameliorationConstitutionProba
 
 				if Choix <= ameliorationCharismeProba then
-					charisme = charisme + 1
+					properties["charisma"] = properties["charisma"] + 1
 					quality = quality - ameliorationCharismeQte
 				else
 					Choix = Choix - ameliorationCharismeProba
 
 					if Choix <= ameliorationEsquiveProba then
-						esquive = esquive + 1
+						properties["dodge"] = properties["dodge"] + 1
 						quality = quality - ameliorationEsquiveQte
 					else
 						Choix = Choix - ameliorationEsquiveProba
 
 						if Choix <= ameliorationVitesseBlesseProba then
-							vitesseBlesse = vitesseBlesse + 1
+							properties["injurySpeed"] = properties["injurySpeed"] + 1
 							quality = quality - ameliorationVitesseBlesseQte
 						else
 							Choix = Choix - ameliorationVitesseBlesseProba
 
 							if Choix <= ameliorationMultConstitutionProba then
-								multConstitution = multConstitution + 5
+								properties["constitutionFactor"] = properties["constitutionFactor"] + 5
 								quality = quality - ameliorationMultConstitutionQte
 							end
 						end
@@ -330,9 +176,9 @@ function generateRandomObject(quality)
 end
 
 function objectSave()
-	return intelligence .. " " .. constitution .. " " .. charisme .. " " .. esquive .. " " .. vitesseBlesse .. " " .. multConstitution
+	return properties["intellect"] .. " " .. properties["constitution"] .. " " .. properties["charisma"] .. " " .. properties["dodge"] .. " " .. properties["injurySpeed"] .. " " .. properties["constitutionFactor"]
 end
 
 function objectRecoverState(data)
-	_, _, intelligence, constitution, charisme, esquive, vitesseBlesse = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
+	_, _, properties["intellect"], properties["constitution"], properties["charisma"], properties["dodge"], properties["injurySpeed"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
 end
