@@ -32,6 +32,7 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
+#include "inventoryScreenManager.h"
 #include "gamedata.h"
 #include "options.h"
 
@@ -92,6 +93,7 @@ void mainLoop()
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", Jeu.App);
     gui::Window loadingWindow("gui/loading.xml", Jeu.App);
     gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
+    gui::Window inventoryWindow("gui/inventory.xml", Jeu.App);
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
@@ -101,6 +103,7 @@ void mainLoop()
 
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
+    inventoryWindow.startWindow(Jeu.App);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -126,6 +129,9 @@ void mainLoop()
     bool cursorIsInWorld = false;
     bool move = false;
 
+    enum LeftScreens { None, Inventory };
+    LeftScreens currentLeftScreen = LeftScreens::None;
+
 	while (true)
 	{
         //1. Events & Signals
@@ -137,6 +143,14 @@ void mainLoop()
                 move = true;
 
             ingameToolbar.manage(Jeu.App, event);
+
+            switch (currentLeftScreen)
+            {
+                case LeftScreens::Inventory :
+                    manageInventoryScreen(inventoryWindow, Jeu.App, event);
+                default:
+                    break;
+            }
 
             if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
                 currentUserScreen->manageFunction(event);
@@ -156,6 +170,14 @@ void mainLoop()
             }
         }
 
+        worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 100));
+        worldView.setViewport(FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH-100)/(float)Options.ScreenH));
+
+        if (currentLeftScreen != LeftScreens::None)
+        {
+            worldView.reset(FloatRect(0, 0, Options.ScreenW/2.f, Options.ScreenH - 100));
+            worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)Options.ScreenH, 0.5f, (float)(Options.ScreenH-100)/(float)Options.ScreenH));
+        }
         tools::signals::Signal signal = tools::signals::getNextSignal();
         while (signal.first != "")
         {
@@ -246,7 +268,10 @@ void mainLoop()
 
             if (signal.first == "screen-equipment")
             {
-                changeCurrentUserScreen(&screenEquipment);
+                if (currentLeftScreen == LeftScreens::Inventory)
+                    currentLeftScreen = LeftScreens::None;
+                else
+                    currentLeftScreen = LeftScreens::Inventory;
             }
 
             if (signal.first == "screen-skills")
@@ -405,6 +430,14 @@ void mainLoop()
         }
 
         ingameToolbar.display(Jeu.App);
+
+        switch (currentLeftScreen)
+        {
+            case LeftScreens::Inventory :
+                displayInventoryScreen(inventoryWindow, Jeu.App);
+            default:
+                break;
+        }
 
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();

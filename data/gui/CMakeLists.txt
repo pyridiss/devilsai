@@ -3,6 +3,7 @@ set(gui
     confirm-exit-game.xml
     ingame-menu.xml
     ingame-toolbar.xml
+    inventory.xml
     load-game.xml
     loading.xml
     main-menu.xml

@@ -26,6 +26,7 @@ set(devilsai_SRCS
 	Carte/Collisions.cpp
 	Carte/Interactions.cpp
 	gamedata.cpp
+    inventoryScreenManager.cpp
 	ElementsCarte/Actionneurs.cpp
 	ElementsCarte/ChargementElements.cpp
 	ElementsCarte/Coffres.cpp

@@ -54,6 +54,7 @@ set(img
     gui-dialog-background-608x383.png
     gui-dropdownlist-background-156x34.png
     gui-input-field-background-356x46.png
+    gui-left-screen-background-512x668.png
     gui-menu-button.png
     gui-rest-button.png
     gui-top-border.png
