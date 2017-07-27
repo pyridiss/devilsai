@@ -10,6 +10,7 @@ set(gui
     new-game.xml
     options.xml
     player-dead.xml
+    storage-box.xml
 )
 
 install(FILES ${gui} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/gui)

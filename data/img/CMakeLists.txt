@@ -49,6 +49,7 @@ set(img
     ground-tile01.png
     ground-tile02.png
     ground-tile03.png
+    gui-bottom-screen-background-1024x200.png
     gui-button-background-156x46.png
     gui-dialog-background-488x308.png
     gui-dialog-background-608x383.png

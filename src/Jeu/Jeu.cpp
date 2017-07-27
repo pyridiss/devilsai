@@ -33,6 +33,8 @@
 #include "Jeu.h"
 
 #include "inventoryScreenManager.h"
+#include "storageBoxScreenManager.h"
+
 #include "gamedata.h"
 #include "options.h"
 
@@ -94,6 +96,7 @@ void mainLoop()
     gui::Window loadingWindow("gui/loading.xml", Jeu.App);
     gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
     gui::Window inventoryWindow("gui/inventory.xml", Jeu.App);
+    gui::Window storageBoxWindow("gui/storage-box.xml", Jeu.App);
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
@@ -104,6 +107,7 @@ void mainLoop()
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
     inventoryWindow.startWindow(Jeu.App);
+    storageBoxWindow.startWindow(Jeu.App);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -132,6 +136,9 @@ void mainLoop()
     enum LeftScreens { None, Inventory };
     LeftScreens currentLeftScreen = LeftScreens::None;
 
+    enum BottomScreens { NoBottomScreen, StorageBox };
+    BottomScreens currentBottomScreen = BottomScreens::NoBottomScreen;
+
 	while (true)
 	{
         //1. Events & Signals
@@ -152,6 +159,14 @@ void mainLoop()
                     break;
             }
 
+            switch (currentBottomScreen)
+            {
+                case BottomScreens::StorageBox :
+                    manageStorageBoxScreen(storageBoxWindow, Jeu.App, event);
+                default:
+                    break;
+            }
+
             if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
                 currentUserScreen->manageFunction(event);
 
@@ -163,7 +178,7 @@ void mainLoop()
                 if (Partie.CoffreOuvert != nullptr)
                 {
                     Partie.CoffreOuvert->close();
-                    currentUserScreen = nullptr;
+                    currentBottomScreen = BottomScreens::NoBottomScreen;
                     Partie.CoffreOuvert = nullptr;
                 }
                 cofferUnderCursor = nullptr;
@@ -178,6 +193,12 @@ void mainLoop()
             worldView.reset(FloatRect(0, 0, Options.ScreenW/2.f, Options.ScreenH - 100));
             worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)Options.ScreenH, 0.5f, (float)(Options.ScreenH-100)/(float)Options.ScreenH));
         }
+        if (currentBottomScreen != BottomScreens::NoBottomScreen)
+        {
+            worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 300));
+            worldView.setViewport(sf::FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH - 300)/(float)Options.ScreenH));
+        }
+
         tools::signals::Signal signal = tools::signals::getNextSignal();
         while (signal.first != "")
         {
@@ -318,7 +339,7 @@ void mainLoop()
             gamedata::currentWorld()->GestionElements(worldView);
 
         //Screen position update
-        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y);
+        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * (currentBottomScreen != NoBottomScreen));
         screen.move(-screen.position().x + gamedata::player()->position().x,
                     -screen.position().y + gamedata::player()->position().y);
 
@@ -357,7 +378,8 @@ void mainLoop()
         if (cofferClicked && cofferUnderCursor != nullptr && tools::math::intersection(gamedata::player()->interactionField, cofferUnderCursor->size))
         {
             Partie.CoffreOuvert = cofferUnderCursor;
-            currentUserScreen = &screenEquipment;
+            currentBottomScreen = BottomScreens::StorageBox;
+            currentLeftScreen = LeftScreens::None;
         }
 
         //Mouse click
@@ -382,7 +404,7 @@ void mainLoop()
 
                     cofferUnderCursor = nullptr;
                     Partie.CoffreOuvert = nullptr;
-                    currentUserScreen = nullptr;
+                    currentBottomScreen = BottomScreens::NoBottomScreen;
                 }
             }
             else cofferClicked = false;
@@ -435,6 +457,14 @@ void mainLoop()
         {
             case LeftScreens::Inventory :
                 displayInventoryScreen(inventoryWindow, Jeu.App);
+            default:
+                break;
+        }
+
+        switch (currentBottomScreen)
+        {
+            case BottomScreens::StorageBox :
+                displayStorageBoxScreen(storageBoxWindow, Jeu.App);
             default:
                 break;
         }

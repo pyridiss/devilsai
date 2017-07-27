@@ -35,4 +35,5 @@
     <text id="player-dead-text">Vous êtes mort !</text>
     <text id="player-dead-main-menu">Menu principal</text>
     <text id="player-dead-load-game">Charger une partie</text>
+    <text id="storage-box-screen-inventory-name">Inventaire</text>
 </texts>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <loadImage key="gui-bottom-screen-background-1024x200" path="img/gui-bottom-screen-background-1024x200.png"/>
+    <loadImage key="gui-object-background-50x50" path="img/FondObjet_50_50.png"/>
+    <properties xTopLeft="0" yTopLeft="518" width="1024" height="200" backgroundImage="gui-bottom-screen-background-1024x200"/>
+    <widget name="inventory-name" type="text" xCenter="256" yCenter="12" allText="storage-box-screen-inventory-name" textSize="12" textFont="liberation-bold"/>
+    <widget name="storagebox-name" type="text" xCenter="768" yCenter="12" allText="storage-box-screen-inventory-name" textSize="12" textFont="liberation-bold"/>
+    <widget name="inventory01" type="button" xCenter="50" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory02" type="button" xCenter="101" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory03" type="button" xCenter="152" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory04" type="button" xCenter="203" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory05" type="button" xCenter="254" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory06" type="button" xCenter="305" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory07" type="button" xCenter="356" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory08" type="button" xCenter="407" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory09" type="button" xCenter="458" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory10" type="button" xCenter="50" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory11" type="button" xCenter="101" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory12" type="button" xCenter="152" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory13" type="button" xCenter="203" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory14" type="button" xCenter="254" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory15" type="button" xCenter="305" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory16" type="button" xCenter="356" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory17" type="button" xCenter="407" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory18" type="button" xCenter="458" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory19" type="button" xCenter="50" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory20" type="button" xCenter="101" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory21" type="button" xCenter="152" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory22" type="button" xCenter="203" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory23" type="button" xCenter="254" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory24" type="button" xCenter="305" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory25" type="button" xCenter="356" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory26" type="button" xCenter="407" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="inventory27" type="button" xCenter="458" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="player"/>
+    </widget>
+    <widget name="storagebox01" type="button" xCenter="562" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox02" type="button" xCenter="613" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox03" type="button" xCenter="664" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox04" type="button" xCenter="715" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox05" type="button" xCenter="766" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox06" type="button" xCenter="817" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox07" type="button" xCenter="868" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox08" type="button" xCenter="919" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox09" type="button" xCenter="970" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox10" type="button" xCenter="562" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox11" type="button" xCenter="613" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox12" type="button" xCenter="664" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox13" type="button" xCenter="715" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox14" type="button" xCenter="766" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox15" type="button" xCenter="817" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox16" type="button" xCenter="868" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox17" type="button" xCenter="919" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox18" type="button" xCenter="970" yCenter="101" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox19" type="button" xCenter="562" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox20" type="button" xCenter="613" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox21" type="button" xCenter="664" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox22" type="button" xCenter="715" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox23" type="button" xCenter="766" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox24" type="button" xCenter="817" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox25" type="button" xCenter="868" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox26" type="button" xCenter="919" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+    <widget name="storagebox27" type="button" xCenter="970" yCenter="152" width="50" height="50" allBackground="gui-object-background-50x50">
+        <state name="hover" foregroundShader="highlight"/>
+        <addEmbeddedData name="owner" value="storage-box"/>
+    </widget>
+</window>
