@@ -25,6 +25,7 @@
 
 class Carte;
 class Classe_Commune;
+class Element_Carte;
 class Paysage;
 class Individu_Unique;
 class Joueur;

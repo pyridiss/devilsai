@@ -23,6 +23,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include <set>
 
 #include <SFML/Graphics.hpp>
 
