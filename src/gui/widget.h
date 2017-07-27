@@ -60,6 +60,8 @@ class Widget
 
         string currentState = "normal";
 
+        map<string, string> _embeddedData;
+
         bool _needsFocus = false;
 
     public:
@@ -95,6 +97,9 @@ class Widget
 
         void updateTextPosition();
         void updateSize();
+
+        void addEmbeddedData(string name, string value);
+        string embeddedData(string name);
 
         bool needsFocus();
 

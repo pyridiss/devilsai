@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/textManager.h"
 #include "gui/textWidget.h"
 #include "gui/style.h"
 
@@ -53,6 +54,8 @@ void TextWidget::setData(string& data)
 
 void TextWidget::setValue(const string& d)
 {
+    String32 text = tools::textManager::fromStdString(d);
+    setAllText(text);
 }
 
 } //namespace gui

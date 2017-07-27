@@ -240,6 +240,11 @@ Widget* Window::widget(string name)
     return nullptr;
 }
 
+const map<string,Widget*>& Window::getWidgets()
+{
+    return widgets;
+}
+
 void Window::setValue(const string& widget, const string& d)
 {
     auto i = widgets.find(widget);
@@ -408,6 +413,13 @@ void Window::loadFromFile(string path, RenderWindow& app)
                         string s = elem2->Attribute("foregroundShader");
                         widget->setForegroundShader(stateName, s);
                     }
+                }
+                if (elem2Name == "addEmbeddedData")
+                {
+                    string name, value;
+                    if (elem2->Attribute("name")) name = elem2->Attribute("name");
+                    if (elem2->Attribute("value")) value = elem2->Attribute("value");
+                    widget->addEmbeddedData(name, value);
                 }
                 if (elem2Name == "addEntry" && type == "drop-down-list")
                 {

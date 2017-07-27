@@ -210,6 +210,18 @@ void Widget::updateSize()
     }
 }
 
+void Widget::addEmbeddedData(string name, string value)
+{
+    _embeddedData.emplace(std::move(name), std::move(value));
+}
+
+string Widget::embeddedData(string name)
+{
+    if (_embeddedData.find(name) != _embeddedData.end())
+        return _embeddedData.find(name)->second;
+    return string();
+}
+
 bool Widget::needsFocus()
 {
     return _needsFocus;

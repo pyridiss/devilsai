@@ -27,6 +27,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include <tools/signals.h>
+
 using namespace std;
 using namespace sf;
 
@@ -77,6 +79,7 @@ class Window
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
         Widget* widget(string name);
+        const map<string,Widget*>& getWidgets();
         void setValue(const string& widget, const string& d);
 
         void loadFromFile(string path, RenderWindow& app);
