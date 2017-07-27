@@ -121,11 +121,11 @@ void Objects::loadFromXML(XMLElement* elem)
 
         if (objectName == "addObject")
         {
-            string location = object->Attribute("location");
+            string slot = object->Attribute("slot");
             string design = object->Attribute("design");
             int q = 0;
             object->QueryAttribute("quality", &q);
-            addObject(design, location, q);
+            addObject(design, slot, q);
         }
 
         object = object->NextSiblingElement();

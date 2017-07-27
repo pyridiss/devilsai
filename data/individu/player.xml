@@ -88,19 +88,13 @@
             <images angle="315" pathToImages="401/4/%%.png"/>
         </skill>
         <skillsManagement default="2" onAttack="4"/>
-        <EmplacementEquipement x="10" y="240" w="75" h="100" category="regulier" type="arme" class="epee"/>
-        <EmplacementEquipement x="170" y="240" w="75" h="100" category="regulier" type="bouclier" class="bouclier"/>
-        <EmplacementEquipement x="90" y="160" w="75" h="75" category="regulier" type="casque" class="casque"/>
-        <EmplacementEquipement x="90" y="240" w="75" h="100" category="regulier" type="armure" class="armure"/>
-        <EmplacementEquipement x="90" y="345" w="75" h="100" category="regulier" type="bottes" class="bottes"/>
-        <EmplacementEquipement x="182" y="345" w="50" h="50" category="regulier" type="bague" class="bague"/>
-        <Equipement number="gladius0" IdEmplacement="regulier-arme"/>
-        <Equipement number="shield0" IdEmplacement="regulier-bouclier"/>
-        <Equipement number="greathelm0" IdEmplacement="regulier-casque"/>
-        <Equipement number="cuirass0" IdEmplacement="regulier-armure"/>
-        <Equipement number="sabaton0" IdEmplacement="regulier-bottes"/>
         <inventory>
-            <addObject location="100" design="healpotion" quality="3"/>
+            <addObject slot="equipment-helmet" design="greathelm0"/>
+            <addObject slot="equipment-weapon" design="gladius0"/>
+            <addObject slot="equipment-armor" design="cuirass0"/>
+            <addObject slot="equipment-shield" design="shield0"/>
+            <addObject slot="equipment-boots" design="sabaton0"/>
+            <addObject slot="inventory01" design="healpotion" quality="3"/>
         </inventory>
         <SKILL SKILL="attack"/>
         <SKILL SKILL="fireball"/>

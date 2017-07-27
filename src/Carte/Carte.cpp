@@ -153,7 +153,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 			string TypeDonnee2;
 			bool FinCoffre = false;
 			int NombreObjets = 1;
-			int NumeroObjet = 0;
+			int NumeroObjet = 1;
 			while (!FinCoffre)
 			{
 				Fichier >> TypeDonnee2;
@@ -166,12 +166,9 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 				}
 				if (TypeDonnee2 == "PAYSAGE")
 				{
-					string PaysageCoffre;
-					Fichier >> PaysageCoffre;
-
-					lastElementLoaded = carte->AjouterPaysage(PaysageCoffre, list, X, Y);
-					if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
-					if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->ignoreCollision = true;
+                    Fichier >> coffre->Type;
+                    coffre->imageContainer = "paysage";
+                    coffre->TypeClassement = CLASSEMENT_NORMAL;
 				}
 				if (TypeDonnee2 == "NOM")
 				{
@@ -211,7 +208,7 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
 						{
 							--NombreObjets;
 							NombreTypesAleatoires = 1;
-							coffre->objects.addObject(IdObjet, intToString(CLEF_COFFRE + NumeroObjet), Qualite);
+							coffre->objects.addObject(IdObjet, "storagebox" + intToString(NumeroObjet, 2), Qualite);
 							++NumeroObjet;
 							if (NombreObjets <= 0)
 							{
