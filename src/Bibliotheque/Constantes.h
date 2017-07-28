@@ -83,7 +83,6 @@ using namespace std;
 #define TYPE_ACTIONNEUR	1001
 
 //Types des Actionneurs
-#define ACTION_RECUP		2
 #define ACTION_LIEU			7	//	class Trigger
 #define ACTION_VILLAGE		8	//	class Trigger
 #define ACTION_DEFENSE		9

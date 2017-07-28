@@ -53,14 +53,6 @@ int Actionneur::Collision(Individu* elem, int TypeCollision)
 {
 	switch(Type)
 	{
-		case ACTION_RECUP :			if (TypeCollision == COLL_PRIM)
-										elem->Set_Recuperation(100);
-									if (TypeCollision == COLL_VIS)
-									{
-										if (elem->Comportement <= COMPORTEMENT_REGEN && elem->get("Vitalite") < 140)
-											return COMPORTEMENT_REGEN;
-									}
-									break;
 		case ACTION_DEFENSE :		if (elem->Comportement <= COMPORTEMENT_DEFENSE)
 										return COMPORTEMENT_DEFENSE;
 									break;
@@ -91,10 +83,6 @@ void Actionneur::Load(istream &Fichier)
             Fichier >> a >> b;
             size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
             size.setOrigin(&position());
-		}
-		if (TypeDonnee == "RECUPERATION")
-		{
-			Type = ACTION_RECUP;
 		}
 		if (TypeDonnee == "DEFENSE")
 		{
