@@ -1,5 +1,6 @@
 
 set(shared_trigger
+    door.lua
     heal.lua
 )
 

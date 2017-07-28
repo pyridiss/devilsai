@@ -151,6 +151,7 @@ int LUA_get(lua_State* L)
 		if (field == "PosX")	if (ind != NULL) result = ind->position().x;
 		if (field == "PosY")	if (ind != NULL) result = ind->position().y;
         if (field == "angle")   if (ind != NULL) result = ind->angle;
+        if (field == "diplomacy") if (ind != NULL) result = ind->Diplomatie;
 	}
 
 	lua_pushnumber(L, result);

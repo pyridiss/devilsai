@@ -138,6 +138,7 @@ lua_State* sharedTrigger(string name)
         lua_atpanic(L, LUA_panic);
         lua_register(L, "cout", LUA_cout);
         lua_register(L, "set", LUA_set);
+        lua_register(L, "get", LUA_get);
 
         return L;
     }
