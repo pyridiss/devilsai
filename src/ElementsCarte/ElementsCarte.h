@@ -392,26 +392,6 @@ class Paysage : public Element_Carte
 		void Disp(RenderTarget& target);
 };
 
-class Door : public Element_Carte
-{
-	//Doors are open for some Individu's and closed for others
-	public:
-		int deniedDiplomacy;
-
-	public:
-		Door();
-		~Door();
-
-	public:
-		int Gestion();
-		int Collision(Individu *elem, int TypeCollision);
-        void loadFromXML(tinyxml2::XMLHandle &handle);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-
-	public:
-		void Disp(RenderTarget& target);
-};
-
 class Actionneur : public Element_Carte
 {
 	public:

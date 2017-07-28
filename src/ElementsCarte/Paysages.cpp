@@ -123,51 +123,6 @@ void Paysage::Disp(RenderTarget& target)
     }
 }
 
-/** Class Door **/
-
-Door::Door() : Element_Carte()
-{
-	TypeClassement = CLASSEMENT_NORMAL;
-    inert = true;
-}
-Door::~Door()
-{
-}
-
-int Door::Gestion()
-{
-	//Test de proximité au joueur
-	int Retour = Element_Carte::Gestion();
-	if (Retour != ETAT_CONTINUER) return Retour;
-
-	return ETAT_NORMAL;
-}
-
-int Door::Collision(Individu *elem, int TypeCollision)
-{
-	if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
-	if (deniedDiplomacy == elem->Diplomatie) return COLL_PRIM;
-
-	return COLL_OK;
-}
-
-void Door::loadFromXML(tinyxml2::XMLHandle &handle)
-{
-}
-
-void Door::saveToXML(XMLDocument& doc, XMLHandle& handle)
-{
-}
-
-void Door::Disp(RenderTarget& target)
-{
-    if (Options.displayShapes)
-        size.display(target, Color(0, 255, 255, 50));
-
-	return;
-}
-
-
 void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();

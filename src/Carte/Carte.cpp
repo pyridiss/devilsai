@@ -122,16 +122,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
             Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
             Fichier >> paysage->extent.x >> paysage->extent.y;
 		}
-		if (TypeDonnee == "DOOR" && carte != NULL)
-		{
-			Fichier >> X >> Y;
-			lastElementLoaded = carte->addDoor(list, X, Y);
-			Door* door = dynamic_cast<Door*>(lastElementLoaded);
-            int a, b;
-            Fichier >> a >> b >> door->deniedDiplomacy;
-            door->size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
-            door->size.setOrigin(&door->position());
-		}
 		if (TypeDonnee == "ACTIONNEUR" && carte != NULL)
 		{
 			Fichier >> X >> Y;
@@ -349,21 +339,6 @@ Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
     ind->move(x, y);
 
 	MESSAGE("Un paysage a été ajouté - Classe = " + Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Door* Carte::addDoor(string liste, int x, int y)
-{
-	Door *ind = new Door;
-
-	ind->Liste = liste;
-
-    ind->move(x, y);
-    ind->size.setOrigin(&ind->position());
-
-	MESSAGE("A door has been added.", FICHIER)
 
 	AjouterElementEnListe(ind);
 	return ind;
