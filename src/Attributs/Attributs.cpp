@@ -40,7 +40,7 @@ Objects::~Objects()
 	deleteObjects();
 }
 
-pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key, int qualityRandomObject)
+lua_State* Objects::addObject(string newObject, string key, int qualityRandomObject)
 {
 	MESSAGE("Chargement du l'objet " + newObject + "…", FICHIER)
 
@@ -72,7 +72,7 @@ pair<mapObjects::iterator, bool> Objects::addObject(string newObject, string key
 	}
 
 	MESSAGE("… OK", FICHIER)
-	return result;
+    return result.first->second;
 }
 
 void Objects::deleteObject(lua_State* obj)
@@ -96,9 +96,9 @@ void Objects::saveObjects(ostream& stream)
 void Objects::loadObjectFromSavedGame(string object, string key, string data)
 {
 	const auto& result = addObject(object, key);
-	lua_getglobal(result.first->second, "objectRecoverState");
-	lua_pushstring(result.first->second, data.c_str());
-	lua_call(result.first->second, 1, 0);
+	lua_getglobal(result, "objectRecoverState");
+	lua_pushstring(result, data.c_str());
+	lua_call(result, 1, 0);
 }
 
 void Objects::deleteObjects()

@@ -73,7 +73,7 @@ class Objects
 		~Objects();
 
 	public:
-		pair<mapObjects::iterator, bool> addObject(string newObject, string key, int qualityRandomObject = 0);
+		lua_State* addObject(string newObject, string key, int qualityRandomObject = 0);
 		void deleteObject(lua_State* obj);
 		void saveObjects(ostream& stream);
 		void loadObjectFromSavedGame(string object, string key, string data);
