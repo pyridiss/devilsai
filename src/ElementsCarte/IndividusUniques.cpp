@@ -198,7 +198,7 @@ bool Individu_Unique::Set_Activite(string nv)
 	}
 	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{
-		int key = CLEF_COFFRE;
+		int key = 1;
 
         Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
         corpse->Set_Individu(Type, corpseImageKey);
@@ -210,7 +210,7 @@ bool Individu_Unique::Set_Activite(string nv)
 
 		for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
 		{
-			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), intToString(key));
+			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
 			++key;
 		}
 

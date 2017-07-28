@@ -73,7 +73,7 @@ bool Individu_Commun::Set_Activite(string nv)
 
 	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{
-		int key = CLEF_COFFRE;
+		int key = 1;
 
         Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
         corpse->Set_Individu(Type, Classe->corpseImageKey);
@@ -86,14 +86,14 @@ bool Individu_Commun::Set_Activite(string nv)
 		//First, we add equipment:
 		for (mapObjects::iterator i = Classe->Caracs.objects.objects.begin() ; i != Classe->Caracs.objects.objects.end() ; ++i)
 		{
-			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), intToString(key));
+			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
 			++key;
 		}
 
 		//Then, we create inventory and add it:
 		for (list<TemplateObject>::iterator obj = Classe->inventory.begin() ; obj != Classe->inventory.end() ; ++obj)
 		{
-			corpse->objects.addObject(obj->fileName, intToString(key), obj->quality);
+			corpse->objects.addObject(obj->fileName, "storagebox" + intToString(key, 2), obj->quality);
 			++key;
 		}
 
@@ -102,7 +102,7 @@ bool Individu_Commun::Set_Activite(string nv)
 		{
 			if (rand()%100 < obj->probability)
 			{
-				corpse->objects.addObject(obj->fileName, intToString(key), obj->quality);
+				corpse->objects.addObject(obj->fileName, "storagebox" + intToString(key, 2), obj->quality);
 				++key;
 			}
 		}
