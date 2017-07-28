@@ -35,6 +35,10 @@
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="bague"/>
     </widget>
+    <widget name="equipment-weapon-improver" type="button" xCenter="159" yCenter="200" width="50" height="50">
+        <addEmbeddedData name="image-container" value="objectsIcons"/>
+        <addEmbeddedData name="allowed-object" value="none"/>
+    </widget>
     <widget name="inventory01" type="button" xCenter="50" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
