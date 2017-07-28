@@ -28,6 +28,8 @@
 #include "tools/math.h"
 #include "imageManager/imageManager.h"
 
+#include "Jeu/options.h"
+
 /** FONCTIONS DE LA CLASSE Individu **/
 
 /* CONSTRUCTEURS / DESTRUCTEURS */
@@ -169,7 +171,7 @@ void Individu::Lag_Recuperation(float lag)
 
 void Individu::Disp(RenderTarget& target)
 {
-    if (Options.displayShapes)
+    if (options::displayShapes())
     {
         viewField.display(target, Color(255, 255, 0, 20));
         interactionField.display(target, Color(255, 0, 0, 30));

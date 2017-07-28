@@ -19,15 +19,14 @@
 
 #include <tinyxml2.h>
 
-#include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Bibliotheque.h"
-#include "../Jeu/Jeu.h"
-#include "../Carte/Carte.h"
-#include "ElementsCarte.h"
-
 #include "tools/timeManager.h"
 #include "tools/textManager.h"
 #include "imageManager/imageManager.h"
+#include "gui/style.h"
+
+#include "Jeu/options.h"
+
+#include "ElementsCarte.h"
 
 using namespace tinyxml2;
 
@@ -142,7 +141,7 @@ void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Coffre::Disp(RenderTarget& target)
 {
-    if (Options.displayShapes)
+    if (options::displayShapes())
         size.display(target, Color(0, 0, 255, 50));
 
     if (!imageContainer.empty() && !Type.empty())

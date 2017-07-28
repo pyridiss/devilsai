@@ -268,4 +268,9 @@ void initOptionsWindow(gui::Window& window)
     window.setValue("chooser-console", d);
 }
 
+bool displayShapes()
+{
+    return Options.displayShapes;
+}
+
 } //namespace options

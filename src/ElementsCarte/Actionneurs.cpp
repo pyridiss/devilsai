@@ -17,22 +17,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <typeinfo>
-#include <cmath>
-
 #include <tinyxml2.h>
-
 #include <lua5.2/lua.hpp>
 
 #include "tools/filesystem.h"
 
-#include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/luaFunctions.h"
-#include "../Jeu/Jeu.h"
-#include "../Carte/Carte.h"
-#include "ElementsCarte.h"
+#include "Bibliotheque/luaFunctions.h"
 
 #include "gamedata.h"
+#include "Jeu/options.h"
+
+#include "ElementsCarte.h"
 
 using namespace tinyxml2;
 
@@ -103,7 +98,7 @@ void Actionneur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Actionneur::Disp(RenderTarget& target)
 {
-    if (Options.displayShapes)
+    if (options::displayShapes())
         size.display(target, Color(255, 0, 0, 50));
 	return;
 }
@@ -192,7 +187,7 @@ void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Trigger::Disp(RenderTarget& target)
 {
-    if (Options.displayShapes)
+    if (options::displayShapes())
         size.display(target, Color(0, 255, 0, 50));
 	return;
 }

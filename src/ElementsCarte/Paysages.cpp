@@ -17,20 +17,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cmath>
-
 #include <tinyxml2.h>
-
-#include "../Bibliotheque/Bibliotheque.h"
-#include "../Bibliotheque/Constantes.h"
-#include "../Jeu/Jeu.h"
-#include "../Carte/Carte.h"
-#include "ElementsCarte.h"
 
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 
 #include "gamedata.h"
+#include "Jeu/options.h"
+
+#include "ElementsCarte.h"
 
 using namespace tinyxml2;
 
@@ -93,7 +88,7 @@ void Paysage::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 
 void Paysage::Disp(RenderTarget& target)
 {
-    if (Options.displayShapes)
+    if (options::displayShapes())
         size.display(target, Color(255, 255, 255, 50));
 
     if (extent.x == 1 && extent.y == 1)
