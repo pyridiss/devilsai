@@ -244,10 +244,54 @@ void Trigger::load(istream &Fichier, Carte *carte)
 
 void Trigger::loadFromXML(tinyxml2::XMLHandle &handle)
 {
+    XMLElement *elem = handle.ToElement();
+
+    if (elem->Attribute("script"))
+    {
+        triggerScript = elem->Attribute("script");
+        script = gamedata::sharedTrigger(triggerScript);
+    }
+
+    double x = 0, y = 0;
+    elem->QueryAttribute("x", &x);
+    elem->QueryAttribute("y", &y);
+    move(x, y);
+
+    if (elem->Attribute("tag"))
+        Liste = elem->Attribute("tag");
+
+    if (elem->Attribute("data"))
+        data = elem->Attribute("data");
+
+    elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "shape")
+            size.loadFromXML(elem);
+
+        elem = elem->NextSiblingElement();
+    }
 }
 
 void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* trigger = doc.NewElement("trigger");
+    trigger->SetAttribute("script", triggerScript.c_str());
+    trigger->SetAttribute("x", position().x);
+    trigger->SetAttribute("y", position().y);
+    trigger->SetAttribute("tag", Liste.c_str());
+    trigger->SetAttribute("data", data.c_str());
+
+    XMLElement* shape = doc.NewElement("shape");
+    trigger->InsertEndChild(shape);
+    XMLHandle shapeHandle(shape);
+    size.saveToXML(doc, shapeHandle);
+
+    root->InsertEndChild(trigger);
 }
 
 void Trigger::Disp(RenderTarget& target)
