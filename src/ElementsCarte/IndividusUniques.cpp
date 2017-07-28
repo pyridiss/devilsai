@@ -163,23 +163,18 @@ float Individu_Unique::get(string field)
 int Individu_Unique::Get_Vitesse(string act)
 {
 	int Total = Get_Activite(act)->speed;
+    pair<int, int> addedSpeed;
 
-	//Workaround to make 'speedpotion' work. To be changed!
+    //TODO: Fix this workaround!
 
-	string speedType = "";
+    if (act == "3")
+        addedSpeed = Caracs.getFromObjectsAndSkills("runSpeed");
+    if (act == "6")
+        addedSpeed = Caracs.getFromObjectsAndSkills("injurySpeed");
+    if (act == "101" || act == "301")
+        addedSpeed = Caracs.getFromObjectsAndSkills("attackSpeed");
 
-    if (act == "3") speedType = "getVitesseCourse";
-    else if (act == "6") speedType = "getVitesseBlesse";
-    else if (act == "101" || act == "301") speedType = "getVitesseAttaque";
-
-	if (speedType != "")
-	{
-		for (auto& i : Get_Caracs()->objects.objects)
-			Total += getIntFromLUA(i.second, speedType);
-
-		for (auto& i : Get_Caracs()->skills)
-			Total += getIntFromLUA(i.second, speedType);
-	}
+    Total += addedSpeed.first + Total * addedSpeed.second;
 
 	return Total;
 }
