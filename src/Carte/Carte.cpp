@@ -261,11 +261,7 @@ Carte::~Carte()
     for (auto& tmp : places)
         delete tmp.first;
 
-    for (auto& tmp : triggersScripts)
-        lua_close(tmp.second);
-
     elements.clear();
-    triggersScripts.clear();
 }
 
 void Carte::AjouterElementEnListe(Element_Carte *elem)

@@ -19,6 +19,7 @@
 
 #include <unordered_map>
 
+#include <lua5.2/lua.hpp>
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
@@ -29,6 +30,8 @@
 
 #include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"
+
+#include "Bibliotheque/luaFunctions.h"
 
 #include "gamedata.h"
 
@@ -42,6 +45,7 @@ namespace gamedata{
 unordered_map<string, Carte*> _worlds;
 unordered_map<string, Classe_Commune*> _species;
 unordered_map<string, Paysage*> _inertItemDesigns;
+unordered_map<string, lua_State*> _triggersScripts;
 
 Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
@@ -122,6 +126,24 @@ void copyInertItemFromDesign(string t, Paysage *elem)
 	elem->Diplomatie = 0;
 }
 
+lua_State* sharedTrigger(string name)
+{
+    if (_triggersScripts.find(name) == _triggersScripts.end())
+    {
+        lua_State* L = luaL_newstate();
+        luaL_openlibs(L);
+        luaL_dofile(L, (tools::filesystem::dataDirectory() + name).c_str());
+        _triggersScripts.emplace(name, L);
+
+        lua_atpanic(L, LUA_panic);
+        lua_register(L, "cout", LUA_cout);
+        lua_register(L, "set", LUA_set);
+
+        return L;
+    }
+    else return _triggersScripts.at(name);
+}
+
 Joueur* player()
 {
     if (_player == nullptr)
@@ -159,6 +181,10 @@ void clear()
     for (auto& s : _inertItemDesigns)
         delete s.second;
     _inertItemDesigns.clear();
+
+    for (auto& t : _triggersScripts)
+        lua_close(t.second);
+    _triggersScripts.clear();
 
     _player = nullptr;
     _currentWorld = nullptr;

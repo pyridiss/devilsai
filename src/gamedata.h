@@ -30,6 +30,8 @@ class Paysage;
 class Individu_Unique;
 class Joueur;
 
+class lua_State;
+
 namespace tinyxml2{
     class XMLHandle;
     class XMLDocument;
@@ -47,6 +49,7 @@ Classe_Commune* species(const string& s);
 void addInertItemDesign(const string& design);
 Paysage* inertItemDesign(const string& type);
 void copyInertItemFromDesign(string t, Paysage *elem);
+lua_State* sharedTrigger(string name);
 Joueur* player();
 void setPlayer(Joueur* p, Carte *w);
 void setPlayerName(string s);
