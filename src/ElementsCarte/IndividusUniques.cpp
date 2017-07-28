@@ -273,6 +273,9 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("ignoreCollision", &ignoreCollision);
             elem->QueryAttribute("classement", &TypeClassement);
             elem->QueryAttribute("diplomacy", &Diplomatie);
+            elem->QueryAttribute("fixedRecovery", &RecuperationFixe);
+            elem->QueryAttribute("maximumEnergy", &EnergieMax);
+            elem->QueryAttribute("experience", &Experience);
             if (elem->Attribute("corpseImageKey"))
                 corpseImageKey = elem->Attribute("corpseImageKey");
         }
@@ -364,6 +367,7 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("diplomacy", Diplomatie);
     properties->SetAttribute("fixedRecovery", RecuperationFixe);
     properties->SetAttribute("maximumEnergy", EnergieMax);
+    properties->SetAttribute("experience", Experience);
     properties->SetAttribute("corpseImageKey", corpseImageKey.c_str());
     unique->InsertEndChild(properties);
 
