@@ -77,7 +77,7 @@ function getAmplitude()
 end
 
 function getNeededEnergy()
-	return get(owner, "Puissance") / get(owner, "Constitution");
+	return get(owner, "power") / get(owner, "constitution");
 end
 
 function testEnoughEnergy()
