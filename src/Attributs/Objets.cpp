@@ -201,7 +201,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
     {
         for (auto& p : ObjectProperties)
         {
-            lua_getglobal(obj, "getCurrentObjectEffect");
+            lua_getglobal(obj, "getObjectProperty");
             lua_pushstring(obj, p.c_str());
             lua_call(obj, 1, 1);
             int value = lua_tonumber(obj, -1);
