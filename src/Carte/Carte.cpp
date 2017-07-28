@@ -589,6 +589,8 @@ void Carte::loadFromFile(string path, string tag)
                         newItem = new Individu_Unique;
                     else if (itemName == "storageBox")
                         newItem = new Coffre;
+                    else if (itemName == "trigger")
+                        newItem = new Trigger;
 
                     if (newItem != nullptr)
                     {

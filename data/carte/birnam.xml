@@ -37,6 +37,23 @@
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
     </items>
+    <items tag="SharedTriggers">
+        <trigger script="shared_trigger/heal.lua" x="2219" y="-4185" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <trigger script="shared_trigger/heal.lua" x="6984" y="-2896" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <trigger script="shared_trigger/heal.lua" x="2845" y="-2827" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <trigger script="shared_trigger/heal.lua" x="11630" y="-2293" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <trigger script="shared_trigger/heal.lua" x="-161" y="58" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+    </items>
     <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
         <inertItem design="wall01-NS" x="3504" y="-1894">
             <shape type="rectangle" xSize="6" ySize="288"/>
