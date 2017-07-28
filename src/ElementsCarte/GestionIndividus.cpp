@@ -41,13 +41,7 @@ int Individu::Gestion()
 
 	if (Get_Act() == MORT && Get_Num() == Get_Activite(Get_Act())->numberOfImages-1)
 	{
-		if (DureeCadavre <= 0)
 			return ETAT_MORT;
-		else
-		{
-            DureeCadavre -= tools::timeManager::I(1/60.);
-			return ETAT_NORMAL;
-		}
 	}
 	if (Get_Act() != MORT && (get("Vitalite") == 0 || lifetime == 0))
 	{

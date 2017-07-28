@@ -206,8 +206,6 @@ class Individu : public Element_Carte
 		Statistiques Stats;
 
 	public:
-		float DureeCadavre  = 0.5;
-
 		float buf_rec       = 0;
 
         tools::math::Shape interactionField;

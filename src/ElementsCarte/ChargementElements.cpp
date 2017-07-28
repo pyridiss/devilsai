@@ -235,7 +235,6 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			ind->Set_Recuperation(ind->Caracs["recovery"]);
 		}
 		if (TypeDonnee == "EXP")		Fichier >> ind->Experience;
-		if (TypeDonnee == "CADAVRE")	Fichier >> ind->DureeCadavre;
 		if (TypeDonnee == "RECUP_FIXE")		ind->RecuperationFixe = true;
 		if (TypeDonnee == "ENERGIE_MAX")	ind->EnergieMax = true;
 
