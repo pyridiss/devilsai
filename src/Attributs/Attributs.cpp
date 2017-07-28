@@ -113,6 +113,8 @@ void Objects::deleteObjects()
 
 void Objects::loadFromXML(XMLElement* elem)
 {
+    deleteObjects();
+
     XMLHandle hdl(elem);
     XMLElement *object = hdl.FirstChildElement().ToElement();
     while (object)
@@ -125,12 +127,45 @@ void Objects::loadFromXML(XMLElement* elem)
             string design = object->Attribute("design");
             int q = 0;
             object->QueryAttribute("quality", &q);
-            addObject(design, slot, q);
+            lua_State* L = addObject(design, slot, q);
+
+            if (object->Attribute("data"))
+            {
+                lua_getglobal(L, "objectRecoverState");
+                lua_pushstring(L, object->Attribute("data"));
+                lua_call(L, 1, 0);
+            }
         }
 
         object = object->NextSiblingElement();
     }
 
+}
+
+void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+{
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* inventory = doc.NewElement("inventory");
+
+    for (auto& o : objects)
+    {
+        XMLElement* object = doc.NewElement("addObject");
+
+        object->SetAttribute("slot", o.first.c_str());
+
+        lua_getglobal(o.second, "getFileName");
+        lua_call(o.second, 0, 1);
+        object->SetAttribute("design", lua_tostring(o.second, -1));
+
+        lua_getglobal(o.second, "objectSave");
+        lua_call(o.second, 0, 1);
+        object->SetAttribute("data", lua_tostring(o.second, -1));
+
+        inventory->InsertEndChild(object);
+    }
+
+    root->InsertEndChild(inventory);
 }
 
 /* Manager for skills */

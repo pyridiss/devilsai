@@ -80,6 +80,7 @@ class Objects
 		void deleteObjects();
 
         void loadFromXML(tinyxml2::XMLElement* elem);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
 class Caracteristiques
