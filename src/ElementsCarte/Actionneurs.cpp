@@ -176,43 +176,42 @@ int Trigger::Gestion()
 
 int Trigger::Collision(Individu* elem, int TypeCollision)
 {
-	return COLL_OK;
+    lua_getglobal(script, "collision");
+    lua_pushlightuserdata(script, (void*)elem);
+    lua_pushnumber(script, TypeCollision);
+    lua_pushstring(script, data.c_str());
+    lua_call(script, 3, 1);
+
+    int value = lua_tonumber(script, -1);
+
+    return value;
 }
 
 void Trigger::load(istream &Fichier, Carte *carte)
 {
-	/**
-SHARED_TRIGGER
-type: change_place
-position: 342 1
-size: rectangle 1 100
-argument: 1010
-argument: village
-END_SHARED_TRIGGER
-**/
 	bool endTrigger = false;
 	string TypeDonnee = "";
-
-	lua_State* L = NULL;// = luaL_newstate();
-	//luaL_openlibs(L);
 
 	while (!endTrigger)
 	{
 		Fichier >> TypeDonnee;
 		if (TypeDonnee == "type:")
 		{
-			Fichier >> triggerFunction;
-			if (carte->luaTriggers.find(triggerFunction) == carte->luaTriggers.end())
+			Fichier >> triggerScript;
+			if (carte->triggersScripts.find(triggerScript) == carte->triggersScripts.end())
 			{
-				L = luaL_newstate();
+				lua_State* L = luaL_newstate();
 				luaL_openlibs(L);
-				luaL_dofile(L, (tools::filesystem::dataDirectory() + "shared_trigger/" + triggerFunction + ".lua").c_str());
-				carte->luaTriggers.insert(map<string, lua_State*>::value_type(triggerFunction, L));
+				luaL_dofile(L, (tools::filesystem::dataDirectory() + "shared_trigger/" + triggerScript + ".lua").c_str());
+                carte->triggersScripts.emplace(triggerScript, L);
+
+                lua_atpanic(L, LUA_panic);
+                lua_register(L, "cout", LUA_cout);
+                lua_register(L, "set", LUA_set);
+
+                script = L;
 			}
-			else L = carte->luaTriggers.at(triggerFunction);
-			lua_getglobal(L, "newTriggerSetId");
-			lua_pushnumber(L, Id);
-			lua_call(L, 1, 0);
+            else script = carte->triggersScripts.at(triggerScript);
 		}
 		if (TypeDonnee == "position:")
         {
@@ -239,26 +238,13 @@ END_SHARED_TRIGGER
 		}
 		if (TypeDonnee == "argument:")
 		{
-			string arg;
-			Fichier >> arg;
-			lua_getglobal(L, "newTriggerSetArgument");
-			lua_pushstring(L, arg.c_str());
-			lua_call(L, 1, 0);
+			Fichier >> data;
 		}
 		if (TypeDonnee == "END_SHARED_TRIGGER")
 			endTrigger = true;
 
 		TypeDonnee = "";
 	}
-
-	lua_getglobal(L, "newTriggerEnd");
-	lua_call(L, 0, 0);
-
-	lua_atpanic(L, LUA_panic);
-
-	lua_register(L, "cout", LUA_cout);
-	lua_register(L, "triggerActivated", LUA_triggerActivated);
-	lua_register(L, "changePlace", LUA_changePlace);
 }
 
 // void Trigger::Load_Dialogue()

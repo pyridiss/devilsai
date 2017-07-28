@@ -440,9 +440,10 @@ class Actionneur : public Element_Carte
 
 class Trigger : public Element_Carte
 {
-	//Triggers can be activated by the player
 	public:
-		string triggerFunction = "";
+        string triggerScript;
+        string data;
+        lua_State* script;
 
 	public:
 		Trigger();

@@ -258,18 +258,14 @@ Carte::~Carte()
 	for (auto& element : elements)
 		delete element;
 
-    for (auto& tmp : triggers)
-        delete tmp;
-
     for (auto& tmp : places)
         delete tmp.first;
 
-    for (auto& tmp : luaTriggers)
+    for (auto& tmp : triggersScripts)
         lua_close(tmp.second);
 
     elements.clear();
-    triggers.clear();
-    luaTriggers.clear();
+    triggersScripts.clear();
 }
 
 void Carte::AjouterElementEnListe(Element_Carte *elem)
@@ -402,7 +398,7 @@ Trigger* Carte::addTrigger(string liste)
 
 	MESSAGE("A trigger has been added", FICHIER)
 
-	triggers.push_back(ind);
+    elements.push_back(ind);
 	return ind;
 }
 
@@ -482,12 +478,6 @@ void Carte::GestionElements(const View& worldView)
 	elements.sort(comparisonBetweenElements);
 
 	if (ASupprimer != NULL) SupprimerElement(ASupprimer);
-
-	for (map<string, lua_State*>::reference L : luaTriggers)
-	{
-		lua_getglobal(L.second, "triggerManage");
-		lua_call(L.second, 0, 0);
-	}
 }
 
 void Carte::display(RenderTarget& target)
@@ -665,17 +655,9 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
     root->InsertEndChild(_items);
     XMLHandle itemsHandle(_items);
 
-    XMLElement* _triggers = doc.NewElement("triggers");
-    root->InsertEndChild(_triggers);
-    XMLHandle triggersHandle(_triggers);
-
     for (auto& tmp : elements)
     {
         if (tmp != gamedata::player())
             tmp->saveToXML(doc, itemsHandle);
     }
-
-    for (auto& tmp : triggers)
-        tmp->saveToXML(doc, triggersHandle);
-
 }

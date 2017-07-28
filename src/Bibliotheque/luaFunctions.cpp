@@ -574,34 +574,6 @@ int LUA_playSound(lua_State* L)
 	return 0;
 }
 
-int LUA_triggerActivated(lua_State* L)
-{
-    MESSAGE("LUA_triggerActivated() called", LUA)
-
-	int id = lua_tonumber(L, 1);
-	for (Trigger* i : gamedata::currentWorld()->triggers)
-	{
-		if (i->Id == id)
-		{
-			lua_pushboolean(L, i->activated());
-			return 1;
-		}
-	}
-	return 0;
-}
-
-int LUA_changePlace(lua_State* L)
-{
-    MESSAGE("LUA_changePlace() called", LUA)
-
-	int indice = lua_tonumber(L, 1);
-	string type = lua_tostring(L, 2);
-
-    tools::debug::error("LUA_changePlace() is not implemented", "lua");
-
-	return 0;
-}
-
 int LUA_createIndividual(lua_State* L)
 {
     MESSAGE("LUA_createIndividual() called", LUA)

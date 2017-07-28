@@ -58,8 +58,6 @@ int LUA_activiteSet(lua_State*);
 int LUA_activiteAddImage(lua_State*);
 int LUA_addSound(lua_State*);
 int LUA_playSound(lua_State*);
-int LUA_triggerActivated(lua_State*);
-int LUA_changePlace(lua_State*);
 int LUA_createIndividual(lua_State* L);
 
 #endif

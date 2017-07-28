@@ -54,9 +54,8 @@ class Carte
 {
 	public:
 		list <Element_Carte*> elements;
-		list <Trigger*> triggers;
         list <pair<Element_Carte*, string>> places;
-		map <string, lua_State*> luaTriggers;
+		map <string, lua_State*> triggersScripts;
 		string Id = "";
 		string backgroundImage = "";
         set <string> dataFiles;
