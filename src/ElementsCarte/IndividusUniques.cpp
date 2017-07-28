@@ -342,4 +342,38 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 
 void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* unique = doc.NewElement("unique");
+    unique->SetAttribute("loadFromDataFile", dataFile.c_str());
+    unique->SetAttribute("name", Type.c_str());
+    unique->SetAttribute("x", position().x);
+    unique->SetAttribute("y", position().y);
+    unique->SetAttribute("tag", Liste.c_str());
+
+    XMLElement* characteristicsElem = doc.NewElement("characteristics");
+    unique->InsertEndChild(characteristicsElem);
+    XMLHandle characteristicsHandle(characteristicsElem);
+    Caracs.saveToXML(doc, characteristicsHandle);
+
+    XMLElement* statisticsElem = doc.NewElement("statistics");
+    unique->InsertEndChild(statisticsElem);
+    XMLHandle statisticsHandle(statisticsElem);
+    Stats.saveToXML(doc, statisticsHandle);
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("id", Id);
+    properties->SetAttribute("lifetime", lifetime);
+    properties->SetAttribute("ignoreCollision", ignoreCollision);
+    properties->SetAttribute("classement", TypeClassement);
+    properties->SetAttribute("diplomacy", Diplomatie);
+    properties->SetAttribute("fixedRecovery", RecuperationFixe);
+    properties->SetAttribute("maximumEnergy", EnergieMax);
+    properties->SetAttribute("corpseImageKey", corpseImageKey.c_str());
+    unique->InsertEndChild(properties);
+
+    XMLHandle hdl(unique);
+    Caracs.objects.saveToXML(doc, hdl);
+
+    root->InsertEndChild(unique);
 }

@@ -61,8 +61,6 @@ void Save_Partie()
 
 			const type_info &TypeTmp = typeid(*tmp);
 
-			if (TypeTmp == TypeUnique)		fileStream << "IND_UNIQUE ";
-			if (TypeTmp == TypeJoueur)		fileStream << "JOUEUR ";
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
 			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
 
@@ -70,31 +68,6 @@ void Save_Partie()
 					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
 					   << tmp->Id << " "
 					   << tmp->collisionType << " " << tmp->TypeClassement << " ";
-
-			if (TypeTmp == TypeUnique || TypeTmp == TypeJoueur)
-			{
-				Individu_Unique* ind = dynamic_cast<Individu_Unique*>(tmp);
-				fileStream << *(ind->Get_Stats()) << " " << *(ind->Get_Caracs()) << " ";
-
-				if (TypeTmp == TypeJoueur)
-				{
-					Joueur* ind2 = dynamic_cast<Joueur*>(tmp);
-					fileStream << ind2->Experience << " " << ind2->IndiceLieu << " " << ind2->LieuVillage << " "
-							   << ind2->DureeEveil << " ";
-					fileStream << ind2->BufForce << " " << ind2->BufPuissance << " " << ind2->BufAgilite << " " << ind2->BufIntelligence << " "
-							   << ind2->BufConstitution << " " << ind2->BufEsquive << " " << ind2->BufCharisme << " ";
-
-					//Nom du joueur :
-					string nom = "";
-					sf::Utf32::toUtf8(Partie.perso->Nom.begin(), Partie.perso->Nom.end(), back_inserter(nom));
-					fileStream << nom << " ";
-				}
-
-				//Équipement & Inventaire :
- 				ind->Get_Caracs()->objects.saveObjects(fileStream);
-
-				fileStream << endl;
-			}
 
 			if (TypeTmp == TypeActionneur)
 			{

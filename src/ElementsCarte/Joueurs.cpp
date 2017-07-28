@@ -279,6 +279,7 @@ bool Joueur::ApplicationAmeliorations()
 
 void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    Individu_Unique::saveToXML(doc, handle);
 }
 
 void Disp_Personnage()
