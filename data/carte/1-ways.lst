@@ -437,7 +437,6 @@ size: rectangle 100 10
 argument: 1102
 argument: hostile
 END_SHARED_TRIGGER
-DOOR 2838 -3015 100 10 2
 SHARED_TRIGGER
 type: change_place
 position: 11643 -2645
@@ -445,7 +444,6 @@ size: rectangle 100 10
 argument: 1104
 argument: hostile
 END_SHARED_TRIGGER
-DOOR 11643 -2645 100 10 2
 SHARED_TRIGGER
 type: change_place
 position: 11643 -2605
@@ -486,4 +484,3 @@ ACTIONNEUR 4656 -700
 RECT_COL 100 1
 CHANGEMENT_CARTE 2
 FIN_ACTIONNEUR
-DOOR 366 1 1 100 2

@@ -38,6 +38,15 @@
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
     </items>
     <items tag="SharedTriggers">
+        <trigger script="shared_trigger/door.lua" x="2838" y="-3015" data="2">
+            <shape type="rectangle" xSize="100" ySize="10"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="11643" y="-2645" data="2">
+            <shape type="rectangle" xSize="100" ySize="10"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="366" y="1" data="2">
+            <shape type="rectangle" xSize="1" ySize="100"/>
+        </trigger>
         <trigger script="shared_trigger/heal.lua" x="2219" y="-4185" data="none">
             <shape type="circle" radius="38"/>
         </trigger>
