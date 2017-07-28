@@ -21,8 +21,6 @@ properties = {
     ["strength"]           = 15
 }
 
-properties["strength"]    = 15
-
 duree    = 1800
 cumul    = true
 quantite = 1
@@ -97,6 +95,9 @@ function getCurrentObjectEffect(key)
 end
 
 function getCumul()
+    if currentSlot == slotForUse then
+        return false
+    end
 	return cumul
 end
 

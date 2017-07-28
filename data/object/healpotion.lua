@@ -95,6 +95,9 @@ function getCurrentObjectEffect(key)
 end
 
 function getCumul()
+    if currentSlot == slotForUse then
+        return false
+    end
 	return cumul
 end
 
