@@ -74,17 +74,6 @@ void Joueur::Gestion_Equipement()
 				Get_Caracs()->objects.deleteObject(j);
 				continue;
 			}
-			if (getStringFromLUA(i->second, "getCategorieObjet") == "amelioratif")
-			{
-				if (Get_Caracs()->objects.objects.find("regulier-" + getStringFromLUA(i->second, "getTypeObject")) == Get_Caracs()->objects.objects.end())
-				{
-					//L'équipement amélioré n'est plus présent ; on efface l'amélioration.
-					lua_State *j = i->second;
-					i = Get_Caracs()->objects.objects.erase(i);
-					Get_Caracs()->objects.deleteObject(j);
-					continue;
-				}
-			}
 		}
 	}
 }
