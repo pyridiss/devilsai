@@ -452,8 +452,6 @@ class Trigger : public Element_Carte
 	public:
 		int Gestion();
 		int Collision(Individu *elem, int TypeCollision);
-		void load(istream& Fichier, Carte* carte);
-		bool activated();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
