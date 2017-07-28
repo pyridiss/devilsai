@@ -81,26 +81,6 @@ void Objects::deleteObject(lua_State* obj)
 	obj = NULL;
 }
 
-void Objects::saveObjects(ostream& stream)
-{
-	stream << objects.size() << endl;
-	for (mapObjects::iterator i = objects.begin() ; i != objects.end() ; ++i)
-	{
-		lua_getglobal(i->second, "objectSave");
-		lua_call(i->second, 0, 1);
-		string data = lua_tostring(i->second, -1);
-		stream << getStringFromLUA(i->second, "getFileName") << " " << i->first << " " << data << endl;
-	}
-}
-
-void Objects::loadObjectFromSavedGame(string object, string key, string data)
-{
-	const auto& result = addObject(object, key);
-	lua_getglobal(result, "objectRecoverState");
-	lua_pushstring(result, data.c_str());
-	lua_call(result, 1, 0);
-}
-
 void Objects::deleteObjects()
 {
 	for (mapObjects::iterator i = objects.begin() ; i != objects.end() ; )

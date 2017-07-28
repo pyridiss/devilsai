@@ -601,6 +601,8 @@ void Carte::loadFromFile(string path, string tag)
                         newItem = new Individu_Commun;
                     else if (itemName == "unique")
                         newItem = new Individu_Unique;
+                    else if (itemName == "storageBox")
+                        newItem = new Coffre;
 
                     if (newItem != nullptr)
                     {

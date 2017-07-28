@@ -71,27 +71,4 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, T&
     return flux;
 }
 
-//Définition des opérateurs d'insertion et d'extraction sur flux fichier pour les classes les plus utilisées
-
-//3. Classe Objects
-
-template <class charT, class Traits>
-basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, Objects &obj)
-{
-	typename basic_istream<charT, Traits>::sentry init(flux);
-	if (init)
-	{
-		int numberOfObjects = 0;
-		flux >> numberOfObjects;
-		string fileName = "", key = "", data = "";
-		for (int i = 0 ; i < numberOfObjects ; ++i)
-		{
-			flux >> fileName >> key;
-			getline(flux, data);
-			obj.loadObjectFromSavedGame(fileName, key, data);
-		}
-	}
-	return flux;
-}
-
 #endif

@@ -75,8 +75,6 @@ class Objects
 	public:
 		lua_State* addObject(string newObject, string key, int qualityRandomObject = 0);
 		void deleteObject(lua_State* obj);
-		void saveObjects(ostream& stream);
-		void loadObjectFromSavedGame(string object, string key, string data);
 		void deleteObjects();
 
         void loadFromXML(tinyxml2::XMLElement* elem);

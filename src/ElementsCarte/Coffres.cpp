@@ -64,10 +64,80 @@ int Coffre::Collision(Individu* elem, int TypeCollision)
 
 void Coffre::loadFromXML(tinyxml2::XMLHandle &handle)
 {
+    XMLElement *elem = handle.ToElement();
+
+    if (elem->Attribute("design"))
+        Type = elem->Attribute("design");
+
+    double x = 0, y = 0;
+    elem->QueryAttribute("x", &x);
+    elem->QueryAttribute("y", &y);
+    move(x, y);
+
+    if (elem->Attribute("tag"))
+        Liste = elem->Attribute("tag");
+
+    elem = handle.FirstChildElement().ToElement();
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "shape")
+        {
+            size.loadFromXML(elem);
+        }
+        if (elemName == "properties")
+        {
+            elem->QueryAttribute("id", &Id);
+            elem->QueryAttribute("lifetime", &lifetime);
+            elem->QueryAttribute("inert", &inert);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
+            elem->QueryAttribute("classement", &TypeClassement);
+            if (elem->Attribute("imageContainer"))
+                imageContainer = elem->Attribute("imageContainer");
+            if (elem->Attribute("name"))
+                Nom = tools::textManager::fromStdString(elem->Attribute("name"));
+            elem->QueryAttribute("closeWhenEmpty", &_closeWhenEmpty);
+        }
+        if (elemName == "inventory")
+        {
+            objects.loadFromXML(elem);
+        }
+
+        elem = elem->NextSiblingElement();
+    }
 }
 
 void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
+    XMLElement* root = handle.ToElement();
+
+    XMLElement* storageBox = doc.NewElement("storageBox");
+    storageBox->SetAttribute("design", Type.c_str());
+    storageBox->SetAttribute("x", position().x);
+    storageBox->SetAttribute("y", position().y);
+    storageBox->SetAttribute("tag", Liste.c_str());
+
+    XMLElement* shape = doc.NewElement("shape");
+    storageBox->InsertEndChild(shape);
+    XMLHandle shapeHandle(shape);
+    size.saveToXML(doc, shapeHandle);
+
+    XMLElement* properties = doc.NewElement("properties");
+    properties->SetAttribute("id", Id);
+    properties->SetAttribute("lifetime", lifetime);
+    properties->SetAttribute("inert", inert);
+    properties->SetAttribute("ignoreCollision", ignoreCollision);
+    properties->SetAttribute("classement", TypeClassement);
+    properties->SetAttribute("imageContainer", imageContainer.c_str());
+    properties->SetAttribute("name", tools::textManager::toStdString(Nom).c_str());
+    properties->SetAttribute("closeWhenEmpty", _closeWhenEmpty);
+    storageBox->InsertEndChild(properties);
+
+    XMLHandle hdl(storageBox);
+    objects.saveToXML(doc, hdl);
+
+    root->InsertEndChild(storageBox);
 }
 
 void Coffre::Disp(RenderTarget& target)

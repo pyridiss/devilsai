@@ -41,10 +41,7 @@ void Save_Partie()
 	/* 2. FICHIERS DE CARTE */
 
 	//Création d'éléments pour récupérer le type et le comparer aux Elements de la liste
-	Individu_Unique	ExempleUnique;			const type_info &TypeUnique = typeid(ExempleUnique);
-	Joueur			ExempleJoueur;			const type_info &TypeJoueur = typeid(ExempleJoueur);
 	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
-	Coffre			ExempleCoffre;			const type_info &TypeCoffre = typeid(ExempleCoffre);
 
 	for (auto& carte : Partie.maps)
 	{
@@ -62,7 +59,6 @@ void Save_Partie()
 			const type_info &TypeTmp = typeid(*tmp);
 
 			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
-			if (TypeTmp == TypeCoffre)		fileStream << "COFFRE ";
 
 			fileStream << tmp->Type << " "
 					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
@@ -75,17 +71,6 @@ void Save_Partie()
 				fileStream << act->RayonCollision << " " << act->RayX << " " << act->RayY << " ";
 				if (act->Type == ACTION_CGMT_CARTE) fileStream << act->Type << " " << act->DonneeString;
 				else fileStream << act->Type << " " << act->DonneeInt;
-				fileStream << endl;
-			}
-
-			if (TypeTmp == TypeCoffre)
-			{
-				fileStream << tmp->RayonCollision << " " << tmp->RayX << " " << tmp->RayY << " ";
-
-				Coffre *cof = dynamic_cast<Coffre*>(tmp);
-				fileStream << cof->NumeroNom << " ";
-				cof->objects.saveObjects(fileStream);
-
 				fileStream << endl;
 			}
 		}
