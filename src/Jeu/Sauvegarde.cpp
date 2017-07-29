@@ -38,48 +38,6 @@ using namespace tinyxml2;
 
 void Save_Partie()
 {
-	/* 2. FICHIERS DE CARTE */
-
-	//Création d'éléments pour récupérer le type et le comparer aux Elements de la liste
-	Actionneur		ExempleActionneur;		const type_info &TypeActionneur = typeid(ExempleActionneur);
-
-	for (auto& carte : Partie.maps)
-	{
-		string fileName = PATH + carte.second.Id + ".map";
-
-		ofstream fileStream(fileName, ios_base::in|ios_base::trunc);
-
-		if (!fileStream.good()) Erreur("Erreur de sauvegarde : Le fichier suivant n'a pu être ouvert :", fileName);
-
-		//Parcours de la liste des Elements :
-		for (auto& tmp : carte.second.elements)
-		{
-			if (tmp->Liste == "NO_SAVE") continue;
-
-			const type_info &TypeTmp = typeid(*tmp);
-
-			if (TypeTmp == TypeActionneur)	fileStream << "ACTIONNEUR ";
-
-			fileStream << tmp->Type << " "
-					   << tmp->Liste << " " << tmp->PosX << " " << tmp->PosY << " "
-					   << tmp->Id << " "
-					   << tmp->collisionType << " " << tmp->TypeClassement << " ";
-
-			if (TypeTmp == TypeActionneur)
-			{
-				Actionneur *act = dynamic_cast<Actionneur*>(tmp);
-				fileStream << act->RayonCollision << " " << act->RayX << " " << act->RayY << " ";
-				if (act->Type == ACTION_CGMT_CARTE) fileStream << act->Type << " " << act->DonneeString;
-				else fileStream << act->Type << " " << act->DonneeInt;
-				fileStream << endl;
-			}
-		}
-
-		fileStream.close();
-	}
-
-
-	MESSAGE(">> Sauvegarde du jeu terminée <<", FICHIER)
     options::updateCurrentSavedGamePack();
 
     string path = tools::filesystem::getSaveDirectoryPath() + options::getCurrentSavedGameDirectory();
