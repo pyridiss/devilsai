@@ -51,7 +51,7 @@
     <text id="object-property-constitution">Augmente la constitution %%</text>
     <text id="object-property-charisma">Augmente le charisme %%</text>
     <text id="object-property-dodge">Augmente l'esquive %%</text>
-    <text id="object-property-recovery">Augmente la récupération %%</text>
+    <text id="object-property-healingPower">Augmente la récupération %%</text>
     <text id="object-property-strengthFactor">%%% ajoutés à la force</text>
     <text id="object-property-powerFactor">%%% ajoutés à la puissance</text>
     <text id="object-property-agilityFactor">%%% ajoutés à l'agilité</text>
@@ -59,7 +59,7 @@
     <text id="object-property-constitutionFactor">%%% ajoutés à la constitution</text>
     <text id="object-property-charismaFactor">%%% ajoutés au charisme</text>
     <text id="object-property-dodgeFactor">%%% ajoutés à l'esquive</text>
-    <text id="object-property-recoveryFactor">%%% ajoutés à la récupération</text>
+    <text id="object-property-healingPowerFactor">%%% ajoutés à la récupération</text>
     <text id="object-property-attackSpeed">Augmente la vitesse d'attaque %%</text>
     <text id="object-property-runSpeed">Augmente la vitesse de course %%</text>
     <text id="object-property-injurySpeed">Augmente la vitesse de récupération après une blessure %%</text>

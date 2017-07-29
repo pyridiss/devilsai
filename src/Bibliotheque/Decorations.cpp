@@ -147,7 +147,7 @@ void Disp_JaugesVie()
     playerEnergyGaugeBackground->display(Jeu.App, 42, 79, false);
     playerEnergyGauge->display(Jeu.App, 42, 79, false);
 
-	int Recup = gamedata::player()->get("Recuperation");
+	int Recup = gamedata::player()->get("healing");
 
 	if (Recup > 0)
 	{

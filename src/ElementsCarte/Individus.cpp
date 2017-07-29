@@ -52,20 +52,20 @@ Individu::Individu() : Element_Carte()
 
 void Individu::Gestion_Recuperation()
 {
-	if (get("Recuperation") > 0)
+	if (get("healing") > 0)
 	{
-		if (100*buf_rec <= 2*get("Recuperation"))
+		if (100*buf_rec <= 2*get("healing"))
 		{
 			Lag_Vitalite(1);
-			if (get("Recuperation") > 80) Lag_Vitalite(3);
-			if (get("Recuperation") > 90) Lag_Vitalite(6);
-			if (get("Recuperation") > 95) Lag_Vitalite(6);
+			if (get("healing") > 80) Lag_Vitalite(3);
+			if (get("healing") > 90) Lag_Vitalite(6);
+			if (get("healing") > 95) Lag_Vitalite(6);
 			Lag_Energie(1);
 		}
 	}
-	if (get("Recuperation") < 0)
+	if (get("healing") < 0)
 	{
-		if (100*buf_rec <= -2*get("Recuperation"))
+		if (100*buf_rec <= -2*get("healing"))
 		{
 			Lag_Vitalite(-1);
 			Lag_Energie(-1);
@@ -75,15 +75,15 @@ void Individu::Gestion_Recuperation()
 	//Évolution de la récupération :
 
 	//Test de récupération forcée (potion, …)
-	if (get("recovery") >= 95 || get("recovery") <= -95) Set_Recuperation(get("recovery"));
+	if (get("healingPower") >= 95 || get("healingPower") <= -95) Set_Recuperation(get("healingPower"));
 
 	//Évolution spontanée
 	if (buf_rec >= 10)
 	{
 		//Récuperation trop faible par rapport à la vitalité :
-		if (get("Recuperation") < get("recovery") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
+		if (get("healing") < get("healingPower") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
 		//Récupération trop importante par rapport à la vitalité :
-		if (get("Recuperation") > get("recovery") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
+		if (get("healing") > get("healingPower") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
 
 		//Augmentation de la Récupération automatique en fonction du niveau d'énergie
 		if (get("Energie") > 200) if (!rand()%20) Lag_Recuperation(1);
@@ -102,7 +102,7 @@ float Individu::get(string field)
 	if (valueFloat == Jeu.floatNotFound)
 	{
 		int valueInt = (*Get_Caracs())[field];
-		if (valueInt != Jeu.intNotFound && field != "recovery")
+		if (valueInt != Jeu.intNotFound && field != "healingPower")
 			valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
 		if (valueInt != Jeu.intNotFound)
 			return (float)valueInt;
@@ -157,16 +157,16 @@ void Individu::Lag_Energie(float lag)
 
 void Individu::Set_Recuperation(float rec)
 {
-	if (rec <= -100) Stats["Recuperation"] = -100;
-	else if (rec >= 100) Stats["Recuperation"] = 100;
-	else Stats["Recuperation"] = rec;
+	if (rec <= -100) Stats["healing"] = -100;
+	else if (rec >= 100) Stats["healing"] = 100;
+	else Stats["healing"] = rec;
 }
 
 void Individu::Lag_Recuperation(float lag)
 {
-	Stats["Recuperation"] += lag;
-	if (get("Recuperation") < -100) Set_Recuperation(-100);
-	if (get("Recuperation") > 100) Set_Recuperation(100);
+	Stats["healing"] += lag;
+	if (get("healing") < -100) Set_Recuperation(-100);
+	if (get("healing") > 100) Set_Recuperation(100);
 }
 
 void Individu::Disp(RenderTarget& target)

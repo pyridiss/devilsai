@@ -21,7 +21,7 @@ properties = {
     ["power"]              = 8,
     ["intellect"]          = 4,
     ["charisma"]           = 5,
-    ["recovery"]           = 1,
+    ["healingPower"]       = 1,
     ["powerFactor"]        = 0,
     ["charismaFactor"]     = 0
 }
@@ -152,7 +152,7 @@ function generateRandomObject(quality)
 					Choix = Choix - ameliorationCharismeProba
 
 					if Choix <= ameliorationRecuperationProba then
-						properties["recovery"] = properties["recovery"] + 1
+						properties["healingPower"] = properties["healingPower"] + 1
 						quality = quality - ameliorationRecuperationQte
 					else
 						Choix = Choix - ameliorationRecuperationProba
@@ -176,9 +176,9 @@ function generateRandomObject(quality)
 end
 
 function objectSave()
-	return properties["power"] .. " " .. properties["intellect"] .. " " .. properties["charisma"] .. " " .. properties["recovery"] .. " " .. properties["powerFactor"] .. " " .. properties["charismaFactor"]
+	return properties["power"] .. " " .. properties["intellect"] .. " " .. properties["charisma"] .. " " .. properties["healingPower"] .. " " .. properties["powerFactor"] .. " " .. properties["charismaFactor"]
 end
 
 function objectRecoverState(data)
-	_, _, properties["power"], properties["intellect"], properties["charisma"], properties["recovery"], properties["powerFactor"], properties["charismaFactor"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
+	_, _, properties["power"], properties["intellect"], properties["charisma"], properties["healingPower"], properties["powerFactor"], properties["charismaFactor"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
 end

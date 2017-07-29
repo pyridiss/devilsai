@@ -321,7 +321,7 @@ float& Statistiques::operator[](string stat)
 		return Vitalite;
 	if (stat == "Energie" || stat == "energy")
 		return Energie;
-	if (stat == "Recuperation" || stat == "recuperation")
+	if (stat == "healing")
 		return Recuperation;
 
 	return Jeu.floatNotFound;
@@ -333,7 +333,7 @@ const float& Statistiques::operator[](string stat) const
 		return Vitalite;
 	if (stat == "Energie" || stat == "energy")
 		return Energie;
-	if (stat == "Recuperation" || stat == "recuperation")
+	if (stat == "healing")
 		return Recuperation;
 
 	return Jeu.floatNotFound;
@@ -343,7 +343,7 @@ void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
 {
     elem->QueryAttribute("vitality", &Vitalite);
     elem->QueryAttribute("energy", &Energie);
-    elem->QueryAttribute("recovery", &Recuperation);
+    elem->QueryAttribute("healing", &Recuperation);
 }
 
 void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
@@ -352,7 +352,7 @@ void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& ha
 
     root->SetAttribute("vitality", Vitalite);
     root->SetAttribute("energy", Energie);
-    root->SetAttribute("recovery", Recuperation);
+    root->SetAttribute("healing", Recuperation);
 }
 
 

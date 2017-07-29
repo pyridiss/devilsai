@@ -92,20 +92,20 @@ void Individu_Unique::Gestion_Recuperation()
 	if (!RecuperationFixe) Individu::Gestion_Recuperation();
 	else
 	{
-		if (get("Recuperation") > 0)
+		if (get("healing") > 0)
 		{
-			if (100*buf_rec <= 3*get("Recuperation"))
+			if (100*buf_rec <= 3*get("healing"))
 			{
 				Lag_Vitalite(1);
-				if (get("Recuperation") > 80) Lag_Vitalite(3);
-				if (get("Recuperation") > 90) Lag_Vitalite(6);
-				if (get("Recuperation") > 95) Lag_Vitalite(6);
+				if (get("healing") > 80) Lag_Vitalite(3);
+				if (get("healing") > 90) Lag_Vitalite(6);
+				if (get("healing") > 95) Lag_Vitalite(6);
 				Lag_Energie(1);
 			}
 		}
-		if (get("Recuperation") < 0)
+		if (get("healing") < 0)
 		{
-			if (100*buf_rec <= -3*get("Recuperation"))
+			if (100*buf_rec <= -3*get("healing"))
 			{
 				Lag_Vitalite(-1);
 				Lag_Energie(-1);
@@ -149,7 +149,7 @@ float Individu_Unique::get(string field)
 	int valueInt = (*Get_Caracs())[field];
 	if (valueInt != Jeu.intNotFound)
 	{
-		if (field != "recovery") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
+		if (field != "healingPower") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
 
 		pair<int, int> addedChar = Get_Caracs()->getFromObjectsAndSkills(field);
 		valueInt += addedChar.first;
@@ -273,7 +273,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("ignoreCollision", &ignoreCollision);
             elem->QueryAttribute("classement", &TypeClassement);
             elem->QueryAttribute("diplomacy", &Diplomatie);
-            elem->QueryAttribute("fixedRecovery", &RecuperationFixe);
+            elem->QueryAttribute("fixedHealing", &RecuperationFixe);
             elem->QueryAttribute("maximumEnergy", &EnergieMax);
             elem->QueryAttribute("experience", &Experience);
             if (elem->Attribute("corpseImageKey"))
@@ -365,7 +365,7 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("ignoreCollision", ignoreCollision);
     properties->SetAttribute("classement", TypeClassement);
     properties->SetAttribute("diplomacy", Diplomatie);
-    properties->SetAttribute("fixedRecovery", RecuperationFixe);
+    properties->SetAttribute("fixedHealing", RecuperationFixe);
     properties->SetAttribute("maximumEnergy", EnergieMax);
     properties->SetAttribute("experience", Experience);
     properties->SetAttribute("corpseImageKey", corpseImageKey.c_str());

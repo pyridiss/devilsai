@@ -119,7 +119,7 @@ int LUA_set(lua_State* L)
 
 	if (field == "vitality")		if (ind != NULL) ind->Set_Vitalite(value);
 	if (field == "energy")			if (ind != NULL) ind->Set_Energie(value);
-	if (field == "recuperation")	if (ind != NULL) ind->Set_Recuperation(value);
+	if (field == "healing")	if (ind != NULL) ind->Set_Recuperation(value);
 	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
 	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
 	if (field == "strength")			if (ind != NULL) (*ind->Get_Caracs())["strength"] = value;

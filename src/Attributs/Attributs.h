@@ -165,7 +165,7 @@ static const string ObjectProperties[19] = {
     "constitution",
     "charisma",
     "dodge",
-    "recovery",
+    "healingPower",
     "strengthFactor",
     "powerFactor",
     "agilityFactor",
@@ -173,7 +173,7 @@ static const string ObjectProperties[19] = {
     "constitutionFactor",
     "charismaFactor",
     "dodgeFactor",
-    "recoveryFactor",
+    "healingPowerFactor",
     "attackSpeed",
     "runSpeed",
     "injurySpeed"

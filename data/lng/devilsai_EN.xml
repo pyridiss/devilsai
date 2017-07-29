@@ -7,7 +7,7 @@
     <text id="AMELIORATION_FORCE">Strength %%</text>
     <text id="AMELIORATION_INTELLI">Intellect %%</text>
     <text id="AMELIORATION_PUISS">Power %%</text>
-    <text id="AMELIORATION_RECUP">Recovery %%</text>
+    <text id="AMELIORATION_RECUP">Healing power %%</text>
     <text id="AMELIORATION_VIT_ATTAQUE">Attack speed %%</text>
     <text id="AMELIORATION_VIT_BLESSE">Hit recovery speed %%</text>
     <text id="AMELIORATION_VIT_COURSE">Running speed %%</text>
@@ -37,8 +37,8 @@
     <text id="PERSO_FORCE">Strength:</text>
     <text id="PERSO_INTELLI">Intellect:</text>
     <text id="PERSO_PUISS">Power:</text>
-    <text id="PERSO_RECUP">Recovery rate:</text>
-    <text id="PERSO_RECUPMOY">Average recovery:</text>
+    <text id="PERSO_RECUP">Healing:</text>
+    <text id="PERSO_RECUPMOY">Healing power:</text>
     <text id="PERSO_VITALITE">Vitality:</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
     <text id="SAUVEGARDE">Game saved</text>
@@ -51,7 +51,7 @@
     <text id="object-property-constitution">Constitution %%</text>
     <text id="object-property-charisma">Charisma %%</text>
     <text id="object-property-dodge">Dodge %%</text>
-    <text id="object-property-recovery">Recovery %%</text>
+    <text id="object-property-healingPower">Healing power %%</text>
     <text id="object-property-strengthFactor">Strength %%</text>
     <text id="object-property-powerFactor">Power %%%</text>
     <text id="object-property-agilityFactor">Agility %%%</text>
@@ -59,7 +59,7 @@
     <text id="object-property-constitutionFactor">Constitution %%%</text>
     <text id="object-property-charismaFactor">Charisma %%%</text>
     <text id="object-property-dodgeFactor">Dodge %%%</text>
-    <text id="object-property-recoveryFactor">Recovery %%%</text>
+    <text id="object-property-healingPowerFactor">Healing power %%%</text>
     <text id="object-property-attackSpeed">Increase attack speed %%</text>
     <text id="object-property-runSpeed">Increase running speed %%</text>
     <text id="object-property-injurySpeed">Increase recovery speed after injury %%</text>

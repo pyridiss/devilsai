@@ -4,7 +4,7 @@
         <addImageArchiveFile file="img/Mannequin.img"/>
         <shape type="circle" radius="14"/>
         <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-1:6/6/1/11.png"/>
-        <characteristics strength="1" power="1" agility="1" intellect="1" constitution="0" dodge="1" charisma="50" recovery="0"/>
+        <characteristics strength="1" power="1" agility="1" intellect="1" constitution="0" dodge="1" charisma="50" healingPower="0"/>
         <skill name="6" owner="tutorial-training-mannequin-1">
             <properties priority="3" speed="9" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
@@ -23,7 +23,7 @@
         <addImageArchiveFile file="img/Mannequin.img"/>
         <shape type="circle" radius="14"/>
         <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-2:6/6/1/11.png"/>
-        <characteristics strength="1" power="1" agility="1" intellect="1" constitution="150" dodge="1" charisma="50" recovery="0"/>
+        <characteristics strength="1" power="1" agility="1" intellect="1" constitution="150" dodge="1" charisma="50" healingPower="0"/>
         <skill name="6" owner="tutorial-training-mannequin-2">
             <properties priority="3" speed="9" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="6/1/%%.png"/>

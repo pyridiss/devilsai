@@ -18,7 +18,7 @@ currentSlot = 0
 slotForUse = "equipment-potion"
 
 properties = {
-    ["recovery"]           = 100
+    ["healingPower"]       = 100
 }
 
 duree    = 600

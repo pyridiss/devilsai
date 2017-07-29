@@ -83,14 +83,14 @@ void Joueur::Gestion_Statistiques()
 	//1. Régénération de la vitalité
 	if (get("Vitalite") < 1000)
 	{
-		Lag_Vitalite(tools::timeManager::I(1/4.f*tan(get("Recuperation")/70.f)));
-		if (abs(get("Recuperation")) <= 95) Lag_Energie(-abs(tools::timeManager::I(get("Recuperation")/25.f*(1000-get("Vitalite"))/1000.f)));
+		Lag_Vitalite(tools::timeManager::I(1/4.f*tan(get("healing")/70.f)));
+		if (abs(get("healing")) <= 95) Lag_Energie(-abs(tools::timeManager::I(get("healing")/25.f*(1000-get("Vitalite"))/1000.f)));
 	}
 
 	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
-	if (abs(get("Recuperation")) > 95 && get("Energie") < ToSegment(get("constitution"), 0, 100))
+	if (abs(get("healing")) > 95 && get("Energie") < ToSegment(get("constitution"), 0, 100))
 	{
-		if (get("Recuperation") > 0) Lag_Energie(tools::timeManager::I(0.5));
+		if (get("healing") > 0) Lag_Energie(tools::timeManager::I(0.5));
 		else Lag_Energie(-tools::timeManager::I(0.25));
 	}
 
@@ -104,13 +104,13 @@ void Joueur::Gestion_Statistiques()
 		Lag_Energie(-tools::timeManager::I(0.05/get("constitution")));
 
 	//5. Évolution du taux de récupération
-	float RecupCible = get("recovery") * ((get("Vitalite")-200)/740.f);
+	float RecupCible = get("healingPower") * ((get("Vitalite")-200)/740.f);
 	if (RecupCible > 0) RecupCible *= max(0.f, (get("Energie")-70.f)/1000.f);
 
-	if (1.05*get("Recuperation") < RecupCible) Lag_Recuperation(tools::timeManager::I(0.1));
-	if (0.95*get("Recuperation") > RecupCible) Lag_Recuperation(-tools::timeManager::I(0.1));
+	if (1.05*get("healing") < RecupCible) Lag_Recuperation(tools::timeManager::I(0.1));
+	if (0.95*get("healing") > RecupCible) Lag_Recuperation(-tools::timeManager::I(0.1));
 
-	if (abs(get("recovery")) >= 95) Set_Recuperation(get("recovery"));
+	if (abs(get("healingPower")) >= 95) Set_Recuperation(get("healingPower"));
 
 	//6. Durée d'éveil
 	DureeEveil += tools::timeManager::I(0.0005);
@@ -293,10 +293,10 @@ void Disp_Personnage()
 	Disp_Texte(intToString((int)gamedata::player()->get("Energie")), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
-	if (gamedata::player()->get("Recuperation") >= 0)
-		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
-	if (gamedata::player()->get("Recuperation") < 0)
-		Disp_Texte(intToString((int)gamedata::player()->get("Recuperation")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
+	if (gamedata::player()->get("healing") >= 0)
+		Disp_Texte(intToString((int)gamedata::player()->get("healing")), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
+	if (gamedata::player()->get("healing") < 0)
+		Disp_Texte(intToString((int)gamedata::player()->get("healing")), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
@@ -328,7 +328,7 @@ void Disp_Personnage()
 
 	int numberChar = 0;
 	for (string characteristic : {	"strength", "power", "agility", "intellect", "constitution", "dodge", "charisma",
-									"recovery"})
+									"healingPower"})
 	{
 		int absoluteQty = gamedata::player()->Caracs[characteristic];
 		int diffQty = gamedata::player()->get(characteristic) - absoluteQty;
