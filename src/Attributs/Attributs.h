@@ -43,7 +43,6 @@ namespace tinyxml2{
     class XMLDocument;
 };
 
-typedef map < int, int > MapVitesses;
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
@@ -52,14 +51,24 @@ typedef map < string, lua_State* > mapSkills;
 class Statistiques
 {
 	private:
-		float Vitalite		= 1000;
-		float Energie		= 1000;
-		float Recuperation	= 0;
+		double Vitalite		= 1000;
+		double Energie		= 1000;
+		double Recuperation	= 0;
 
 	public:
-		float& operator[](string stat);
-		const float& operator[](string stat) const;
+        enum Attribute { Life, Energy, Healing,
+                         enumSize };
 
+        double operator[](string stat) const;
+        double operator[](Attribute a);
+        void add(Attribute a, double value);
+        void set(Attribute a, double value);
+        static string toString(Attribute a);
+
+    private:
+        double& get(Attribute a);
+
+    public:
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
@@ -84,29 +93,30 @@ class Objects
 class Caracteristiques
 {
 	private:
-		int Force				= 0;
-		int Puissance			= 0;
-		int Agilite				= 0;
-		int Intelligence		= 0;
-
-		int Constitution		= 0;
-		int Charisme			= 0;
-		int Esquive				= 0;
-		int RecuperationMoyenne	= 0;
+        double strength, power, agility, intellect;
+        double constitution, charisma, dodge, healingPower;
+        double runSpeed, attackSpeed, injurySpeed;
 
 	public:
-		MapVitesses Vitesses;
-
-	public:
-		Objects objects;
 		mapSkills skills;
 
 	public:
+        Caracteristiques();
 		~Caracteristiques();
 
 	public:
-		int& operator[](string characteristic);
-		const int& operator[](string characteristic) const;
+        enum Attribute { Strength, Power, Agility, Intellect,
+                         Constitution, Charisma, Dodge, HealingPower,
+                         RunSpeed, AttackSpeed, InjurySpeed,
+                         enumSize };
+
+        double operator[](string characteristic) const;
+        double operator[](Attribute a);
+        void add(Attribute a, double value);
+        void set(Attribute a, double value);
+
+    private:
+        double& get(Attribute a);
 
 	public:
 		void addSkill(string newSkill, Individu* owner);
@@ -114,6 +124,7 @@ class Caracteristiques
 		void saveSkills(ofstream& stream);
 		void loadSkillFromSavedGame(string skill, string data);
 		void deleteSkills();
+        static string toString(Attribute a);
 
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);

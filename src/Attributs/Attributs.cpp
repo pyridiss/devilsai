@@ -148,7 +148,12 @@ void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
     root->InsertEndChild(inventory);
 }
 
-/* Manager for skills */
+Caracteristiques::Caracteristiques() :
+    strength(0), power(0), agility(0), intellect(0),
+    constitution(0), charisma(0), dodge(0), healingPower(0),
+    runSpeed(0), attackSpeed(0), injurySpeed(0)
+{
+}
 
 void Caracteristiques::addSkill(string newSkill, Individu* owner)
 {
@@ -224,43 +229,40 @@ void Caracteristiques::deleteSkills()
 
 void Caracteristiques::loadFromXML(tinyxml2::XMLElement* elem)
 {
-    elem->QueryAttribute("strength", &Force);
-    elem->QueryAttribute("power", &Puissance);
-    elem->QueryAttribute("agility", &Agilite);
-    elem->QueryAttribute("intellect", &Intelligence);
-    elem->QueryAttribute("constitution", &Constitution);
-    elem->QueryAttribute("charisma", &Charisme);
-    elem->QueryAttribute("dodge", &Esquive);
-    elem->QueryAttribute("recovery", &RecuperationMoyenne);
+    elem->QueryAttribute("strength", &strength);
+    elem->QueryAttribute("power", &power);
+    elem->QueryAttribute("agility", &agility);
+    elem->QueryAttribute("intellect", &intellect);
+    elem->QueryAttribute("constitution", &constitution);
+    elem->QueryAttribute("charisma", &charisma);
+    elem->QueryAttribute("dodge", &dodge);
+    elem->QueryAttribute("healingPower", &healingPower);
+    elem->QueryAttribute("runSpeed", &runSpeed);
+    elem->QueryAttribute("attackSpeed", &attackSpeed);
+    elem->QueryAttribute("injurySpeed", &injurySpeed);
 }
 
 void Caracteristiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 
-    root->SetAttribute("strength", Force);
-    root->SetAttribute("power", Puissance);
-    root->SetAttribute("agility", Agilite);
-    root->SetAttribute("intellect", Intelligence);
-    root->SetAttribute("constitution", Constitution);
-    root->SetAttribute("charisma", Charisme);
-    root->SetAttribute("dodge", Esquive);
-    root->SetAttribute("recovery", RecuperationMoyenne);
+    root->SetAttribute("strength", strength);
+    root->SetAttribute("power", power);
+    root->SetAttribute("agility", agility);
+    root->SetAttribute("intellect", intellect);
+    root->SetAttribute("constitution", constitution);
+    root->SetAttribute("charisma", charisma);
+    root->SetAttribute("dodge", dodge);
+    root->SetAttribute("healingPower", healingPower);
+    root->SetAttribute("runSpeed", runSpeed);
+    root->SetAttribute("attackSpeed", attackSpeed);
+    root->SetAttribute("injurySpeed", injurySpeed);
 }
 
 pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 {
 	pair<int, int> addedCharacteristic;
 
-	for (auto& i : objects.objects)
-	{
-        lua_getglobal(i.second, "getCurrentObjectEffect");
-        lua_pushstring(i.second, characteristic.c_str());
-        lua_call(i.second, 1, 1);
-        addedCharacteristic.first += lua_tonumber(i.second, -1);
-        lua_pushstring(i.second, (characteristic + "Factor").c_str());
-        addedCharacteristic.second += lua_tonumber(i.second, -1);
-	}
 	for (auto& i : skills)
 	{
 		addedCharacteristic.first += getIntFromLUA(i.second, "get" + characteristic);
@@ -269,74 +271,123 @@ pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 	return addedCharacteristic;
 }
 
-int& Caracteristiques::operator[](string characteristic)
+double Caracteristiques::operator[](string characteristic) const
 {
 	if (characteristic == "strength")
-		return Force;
+        return strength;
 	if (characteristic == "power")
-		return Puissance;
+        return power;
 	if (characteristic == "agility")
-		return Agilite;
+        return agility;
 	if (characteristic == "intellect")
-		return Intelligence;
+        return intellect;
 
 	if (characteristic == "constitution")
-		return Constitution;
+        return constitution;
 	if (characteristic == "charisma")
-		return Charisme;
+        return charisma;
 	if (characteristic == "dodge")
-		return Esquive;
-	if (characteristic == "recovery")
-		return RecuperationMoyenne;
+        return dodge;
+	if (characteristic == "healingPower")
+        return healingPower;
 
 	return Jeu.intNotFound;
 }
 
-const int& Caracteristiques::operator[](string characteristic) const
+double Caracteristiques::operator[](Attribute a)
 {
-	if (characteristic == "strength")
-		return Force;
-	if (characteristic == "power")
-		return Puissance;
-	if (characteristic == "agility")
-		return Agilite;
-	if (characteristic == "intellect")
-		return Intelligence;
-
-	if (characteristic == "constitution")
-		return Constitution;
-	if (characteristic == "charisma")
-		return Charisme;
-	if (characteristic == "dodge")
-		return Esquive;
-	if (characteristic == "recovery")
-		return RecuperationMoyenne;
-
-	return Jeu.intNotFound;
+    return get(a);
 }
 
-float& Statistiques::operator[](string stat)
+void Caracteristiques::add(Attribute a, double value)
 {
-	if (stat == "Vitalite" || stat == "vitality")
-		return Vitalite;
-	if (stat == "Energie" || stat == "energy")
-		return Energie;
-	if (stat == "healing")
-		return Recuperation;
-
-	return Jeu.floatNotFound;
+    get(a) += value;
 }
 
-const float& Statistiques::operator[](string stat) const
+void Caracteristiques::set(Attribute a, double value)
 {
-	if (stat == "Vitalite" || stat == "vitality")
-		return Vitalite;
-	if (stat == "Energie" || stat == "energy")
-		return Energie;
-	if (stat == "healing")
-		return Recuperation;
+    get(a) = value;
+}
 
-	return Jeu.floatNotFound;
+double& Caracteristiques::get(Attribute a)
+{
+    switch (a)
+    {
+        case Strength: return strength;
+        case Power: return power;
+        case Agility: return agility;
+        case Intellect: return intellect;
+        case Constitution: return constitution;
+        case Charisma: return charisma;
+        case Dodge: return dodge;
+        case HealingPower: return healingPower;
+        case RunSpeed: return runSpeed;
+        case AttackSpeed: return attackSpeed;
+        case InjurySpeed: return injurySpeed;
+    }
+}
+
+string Caracteristiques::toString(Attribute a)
+{
+    switch (a)
+    {
+        case Strength: return "strength";
+        case Power: return "power";
+        case Agility: return "agility";
+        case Intellect: return "intellect";
+        case Constitution: return "constitution";
+        case Charisma: return "charisma";
+        case Dodge: return "dodge";
+        case HealingPower: return "healingPower";
+        case RunSpeed: return "runSpeed";
+        case AttackSpeed: return "attackSpeed";
+        case InjurySpeed: return "injurySpeed";
+    }
+}
+
+double Statistiques::operator[](string stat) const
+{
+	if (stat == "life" || stat == "vitality" || stat == "Vitalite")
+        return Vitalite;
+	if (stat == "energy" || stat == "Energie")
+        return Energie;
+	if (stat == "healing")
+        return Recuperation;
+}
+
+double Statistiques::operator[](Attribute a)
+{
+    return get(a);
+}
+
+void Statistiques::add(Attribute a, double value)
+{
+    get(a) += value;
+}
+
+void Statistiques::set(Attribute a, double value)
+{
+    get(a) = value;
+}
+
+double& Statistiques::get(Attribute a)
+{
+    switch (a)
+    {
+        case Life: return Vitalite;
+        case Energy: return Energie;
+        case Healing: return Recuperation;
+    }
+}
+
+string Statistiques::toString(Attribute a)
+{
+    switch (a)
+    {
+        case Life: return "life";
+        case Energy: return "energy";
+        case Healing: return "healing";
+    }
 }
 
 void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
