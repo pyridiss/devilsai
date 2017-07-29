@@ -31,72 +31,32 @@
 
 using namespace tinyxml2;
 
-/** FONCTIONS DE LA CLASSE Actionneur **/
 
-Actionneur::Actionneur() : Element_Carte()
+CheckPoint::CheckPoint() : Element_Carte()
 {
-	Element_Carte::Type = "ACTIONNEUR";
     inert = true;
+    ignoreCollision = true;
 }
 
-int Actionneur::Gestion()
+int CheckPoint::Gestion()
 {
 	return ETAT_NORMAL;
 }
 
-int Actionneur::Collision(Individu* elem, int TypeCollision)
+int CheckPoint::Collision(Individu* elem, int TypeCollision)
 {
-	switch(Type)
-	{
-		case ACTION_DEFENSE :		if (elem->Comportement <= COMPORTEMENT_DEFENSE)
-										return COMPORTEMENT_DEFENSE;
-									break;
-	}
-
-	if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
-
 	return COLL_OK;
 }
 
-void Actionneur::Load(istream &Fichier)
-{
-	bool FinActionneur = false;
-	string TypeDonnee;
-	while (!FinActionneur)
-	{
-		Fichier >> TypeDonnee;
-		if (TypeDonnee == "RAY_COL")
-		{
-            int a;
-            Fichier >> a;
-            size.circle(tools::math::Vector2d(0, 0), a);
-            size.setOrigin(&position());
-		}
-		if (TypeDonnee == "RECT_COL")
-		{
-            int a, b;
-            Fichier >> a >> b;
-            size.rectangle(tools::math::Vector2d(-a, -b), tools::math::Vector2d(a, -b), tools::math::Vector2d(-a, b));
-            size.setOrigin(&position());
-		}
-		if (TypeDonnee == "DEFENSE")
-		{
-			Type = ACTION_DEFENSE;		Fichier >> DonneeInt;
-		}
-		if (TypeDonnee == "FIN_ACTIONNEUR") FinActionneur = true;
-		TypeDonnee = "";
-	}
-}
-
-void Actionneur::loadFromXML(tinyxml2::XMLHandle &handle)
+void CheckPoint::loadFromXML(tinyxml2::XMLHandle &handle)
 {
 }
 
-void Actionneur::saveToXML(XMLDocument& doc, XMLHandle& handle)
+void CheckPoint::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
 }
 
-void Actionneur::Disp(RenderTarget& target)
+void CheckPoint::Disp(RenderTarget& target)
 {
     if (options::displayShapes())
         size.display(target, Color(255, 0, 0, 50));

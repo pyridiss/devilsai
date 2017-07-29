@@ -3,7 +3,7 @@
 Map 1 - Quest "Gower's Worries"
 
 Steps:
-1 - Fluellen says that the player should go talk to Gower. The player reaches the Actionneur. Enemies are loaded.
+1 - Fluellen says that the player should go talk to Gower. The player reaches the check point. Enemies are loaded.
 2 - Either Gower is killed (jump to Step 10), or all enemies are killed (jump to Step 20)
 10 - Gower says the player must go to Forres. Next quest.
 20 - The player must go talk to Fluellen.
@@ -20,7 +20,7 @@ player_ptr   = 0
 gower_ptr    = 0
 fluellen_ptr = 0
 
-act_ptr = 0
+checkPoint1 = 0
 
 questStep = "0"
 
@@ -36,7 +36,7 @@ function questBegin(addNewElements)
 		gower_ptr    = getElement("gower")
 		fluellen_ptr = getElement("fluellen")
 
-		act_ptr = addActionneur(3710, -880, 10, 100)
+		checkPoint1 = addCheckPoint("birnam", 3710, -880, 10, 100)
 
 		pushDialog("mis_1.10_intro") -- TODO Find a better name
 
@@ -48,7 +48,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if interact(player_ptr, act_ptr) then
+		if interact(player_ptr, checkPoint1) then
 			loadList("1004")
 			loadList("1105")
 			questStep = "2"
@@ -100,6 +100,5 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	deleteElement(act_ptr)
 	addExperience(1000)
 end

@@ -79,21 +79,6 @@ using namespace std;
 #define COMPORTEMENT_ATTAQUE	13
 #define COMPORTEMENT_REGEN		14
 
-//Numéros de classe pour les paysages, types pour les Elements spéciaux
-#define TYPE_ACTIONNEUR	1001
-
-//Types des Actionneurs
-#define ACTION_LIEU			7	//	class Trigger
-#define ACTION_VILLAGE		8	//	class Trigger
-#define ACTION_DEFENSE		9
-#define ACTION_CGMT_CARTE	10	//	class Trigger
-#define ACTION_CHAPITRE		11	//	class Trigger
-#define ACTION_TEXTE_PERSO	17	//	class Trigger
-#define ACTION_TEXTE_P_N	18	//	class Trigger
-#define ACTION_TEXTE_P_S	19	//	class Trigger
-#define ACTION_TEXTE_P_E	20	//	class Trigger
-#define ACTION_TEXTE_P_O	21	//	class Trigger
-
 
 /** CONSTANTES RELATIVES AUX OBJETS **/
 

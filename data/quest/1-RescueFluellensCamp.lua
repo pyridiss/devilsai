@@ -4,7 +4,7 @@ Map 1 - Quest "Rescue of Fluellen's Camp"
 
 Steps:
 1 - Texts are displayed.
-2 - The player must reach one of the two Actionneurs.
+2 - The player must reach one of the two check points.
 3 - The player must kill monsters of the list "1-AncientLands-Monsters". If less than five monsters, this number is displayed.
 4 - The player must talk to Fluellen. The next quest is launched.
 
@@ -18,8 +18,8 @@ player_ptr   = 0
 gower_ptr    = 0
 fluellen_ptr = 0
 
-act_ptr_1 = 0
-act_ptr_2 = 0
+checkPoint1 = 0
+checkPoint2 = 0
 
 questStep = "0"
 
@@ -37,8 +37,8 @@ function questBegin(addNewElements)
 		fluellen_ptr = getElement("fluellen")
 
 		-- Add new elements and monsters
-		act_ptr_1  = addActionneur(2222, -5304, 35, 100)
-		act_ptr_2  = addActionneur(2440, -3359, 100, 35)
+        checkPoint1 = addCheckPoint("birnam", 2222, -5304, 35, 100)
+        checkPoint2 = addCheckPoint("birnam", 2440, -3359, 100, 35)
 
 		deleteList("Obstacle-GladeSaints-IceRoad")
 
@@ -77,7 +77,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if interact(player_ptr, act_ptr_1) or interact(player_ptr, act_ptr_2) then
+		if interact(player_ptr, checkPoint1) or interact(player_ptr, checkPoint2) then
 			deleteList("Warriors-GladeSaints")
 			questStep = "2"
 			pushDialog("1-RescueFluellensCamp-Reminder")
@@ -135,8 +135,6 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	deleteElement(act_ptr_1)
-	deleteElement(act_ptr_2)
 	deleteList("Obstacle-AncientLands-Birnam")
 	addQuest("1-KillStolas")
 	addQuest("1-FreeIceRoad")

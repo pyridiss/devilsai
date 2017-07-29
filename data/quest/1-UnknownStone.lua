@@ -11,7 +11,7 @@ Map 1 - Quest "Unknown Stone"
 player_ptr = 0
 gower_ptr  = 0
 
-act_ptr = 0
+checkPoint1 = 0
 
 questStep = "0"
 hasTheStone = false
@@ -29,7 +29,7 @@ function questBegin(addNewElements)
 		player_ptr = getElement("player")
 		gower_ptr  = getElement("gower")
 
-		act_ptr = addActionneur(153, 125, 10, 10)
+        checkPoint1 = addCheckPoint("birnam", 153, 125, 10, 10)
 
 		questStep = "1"
 	end
@@ -72,7 +72,7 @@ function questManage()
 		end
 
 	elseif questStep == "10" then
-		if interact(player_ptr, act_ptr) == true then
+		if interact(player_ptr, checkPoint1) == true then
 			deleteList("UnknownStone-Scroll")
 			pushDialog("1-UnknownStone-Scroll")
 			questStep = "11"
@@ -150,6 +150,5 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	deleteElement(act_ptr)
 	addExperience(2000)
 end

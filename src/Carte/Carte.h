@@ -45,7 +45,7 @@ class Individu_Unique;
 class Individu_Commun;
 class Joueur;
 class Paysage;
-class Actionneur;
+class CheckPoint;
 class Trigger;
 
 
@@ -73,7 +73,7 @@ class Carte
 		Individu_Commun* AjouterElement_Commun(string Type, string liste, int x, int y);
 		Joueur* AjouterJoueur(string Type, string liste, int x, int y);
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
-		Actionneur* AjouterActionneur(string liste, int x, int y);
+        CheckPoint* addCheckPoint(string liste, int x, int y);
 		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		void SupprimerElement(Element_Carte* elem);

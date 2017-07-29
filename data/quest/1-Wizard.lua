@@ -11,8 +11,8 @@ Map 1 - Quest "Wizard"
 player_ptr = 0
 wizard_ptr = 0
 
-act_ptr_1 = 0
-act_ptr_2 = 0
+checkPoint1 = 0
+checkPoint2 = 0
 
 questStep = "0"
 
@@ -32,8 +32,8 @@ function questBegin(addNewElements)
 		player_ptr = getElement("player")
 		wizard_ptr = getElement("205") -- 205 = wizard
 
-		act_ptr_1 = addActionneur(1820, -5301, 10, 100)
-		act_ptr_2 = addActionneur(1480, -2281, 10, 200)
+        checkPoint1 = addCheckPoint("birnam", 1820, -5301, 10, 100)
+        checkPoint2 = addCheckPoint("birnam", 1480, -2281, 10, 200)
 
 		questStep = "1"
 	end
@@ -43,7 +43,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if interact(player_ptr, act_ptr_1) == true or interact(player_ptr, act_ptr_2) == true then
+		if interact(player_ptr, checkPoint1) == true or interact(player_ptr, checkPoint2) == true then
 			deleteList("Actionneurs-Noirefontaine")
 			pushDialog("1-Wizard-Beginning")
 			questStep = "2"
@@ -82,7 +82,5 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	deleteElement(act_ptr_1)
-	deleteElement(act_ptr_2)
 	addExperience(1500)
 end

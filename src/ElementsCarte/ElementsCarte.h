@@ -392,29 +392,17 @@ class Paysage : public Element_Carte
 		void Disp(RenderTarget& target);
 };
 
-class Actionneur : public Element_Carte
+class CheckPoint : public Element_Carte
 {
-	public:
-		int Type            = 0;
-		int DonneeInt       = 0;
-		string DonneeString = "";
-		Dialog *dialogue    = NULL;
+    public:
+        CheckPoint();
 
-	public:
-		Actionneur();
-
-	//Gestion :
-	public:
 		int Gestion();
 		int Collision(Individu* elem, int TypeCollision);
-		void Load(istream &Fichier);
-		void Load_Dialogue();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
-	//Affichage :
-	public:
 		void Disp(RenderTarget& target);
 };
 

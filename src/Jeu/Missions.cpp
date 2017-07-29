@@ -66,7 +66,7 @@ void addQuest(string newQuest, string args)
     lua_register(L, "loadWorld", LUA_loadWorld);
 	lua_register(L, "deleteList", LUA_deleteList);
 	lua_register(L, "I", LUA_I);
-	lua_register(L, "addActionneur", LUA_addActionneur);
+	lua_register(L, "addCheckPoint", LUA_addCheckPoint);
 	lua_register(L, "deleteElement", LUA_deleteElement);
 	lua_register(L, "setActivity", LUA_setActivity);
 	lua_register(L, "possess", LUA_possess);

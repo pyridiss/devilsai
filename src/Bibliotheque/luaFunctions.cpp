@@ -363,19 +363,21 @@ int LUA_I(lua_State* L)
 	return 1;
 }
 
-int LUA_addActionneur(lua_State* L)
+int LUA_addCheckPoint(lua_State* L)
 {
-    MESSAGE("LUA_addActionneur() called", LUA)
+    MESSAGE("LUA_addCheckPoint() called", LUA)
 
-	int x = lua_tonumber(L, 1);
-	int y = lua_tonumber(L, 2);
-	int w = lua_tonumber(L, 3);
-	int h = lua_tonumber(L, 4);
+    string world = lua_tostring(L, 1);
+    int x = lua_tonumber(L, 2);
+    int y = lua_tonumber(L, 3);
+    int w = lua_tonumber(L, 4);
+    int h = lua_tonumber(L, 5);
 
-	Actionneur *newActionneur = gamedata::currentWorld()->AjouterActionneur("NO_SAVE", x, y);
-    newActionneur->size.rectangle(tools::math::Vector2d(-w, -h), tools::math::Vector2d(w, -h), tools::math::Vector2d(-w, h));
-	lua_pushlightuserdata(L, (void*)newActionneur);
-	return 1;
+    CheckPoint *c = gamedata::world(world)->addCheckPoint("CheckPoints", x, y);
+    c->size.rectangle(tools::math::Vector2d(-w, -h), tools::math::Vector2d(w, -h), tools::math::Vector2d(-w, h));
+    lua_pushlightuserdata(L, (void*)c);
+
+    return 1;
 }
 
 int LUA_deleteElement(lua_State* L)

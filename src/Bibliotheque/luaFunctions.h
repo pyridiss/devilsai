@@ -46,7 +46,7 @@ int LUA_loadList(lua_State*);
 int LUA_loadWorld(lua_State* L);
 int LUA_deleteList(lua_State*);
 int LUA_I(lua_State*);
-int LUA_addActionneur(lua_State*);
+int LUA_addCheckPoint(lua_State*);
 int LUA_deleteElement(lua_State*);
 int LUA_setActivity(lua_State*);
 int LUA_possess(lua_State*);
