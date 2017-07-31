@@ -115,17 +115,19 @@ int LUA_set(lua_State* L)
 	string field = lua_tostring(L, 2);
 	double value = lua_tonumber(L, 3);
 
-	Individu*		ind  = dynamic_cast<Individu*>(elem);
+    Individu* ind  = dynamic_cast<Individu*>(elem);
 
-	if (field == "vitality")		if (ind != NULL) ind->Set_Vitalite(value);
-	if (field == "energy")			if (ind != NULL) ind->Set_Energie(value);
-	if (field == "healing")	if (ind != NULL) ind->Set_Recuperation(value);
-	if (field == "Diplomatie")		if (elem != NULL) elem->Diplomatie = (int)value;
-	if (field == "Num_Max")		if (ind != NULL) ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
-	if (field == "strength")			if (ind != NULL) (*ind->Get_Caracs())["strength"] = value;
-	if (field == "power")		if (ind != NULL) (*ind->Get_Caracs())["power"] = value;
-	if (field == "agility")			if (ind != NULL) (*ind->Get_Caracs())["agility"] = value;
-	if (field == "intellect")	if (ind != NULL) (*ind->Get_Caracs())["intellect"] = value;
+    if (ind == NULL)
+    {
+        tools::debug::error("LUA_set() has been called with a non-individual pointer.", "lua");
+        return 0;
+    }
+
+    if (field == "Diplomatie") elem->Diplomatie = (int)value;
+    else if (field == "Num_Max") ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
+    else if (field == "vitality") ind->setHealthStatus(Statistiques::Life, value);
+    else if (field == "energy") ind->setHealthStatus(Statistiques::Energy, value);
+    else if (field == "healing") ind->setHealthStatus(Statistiques::Healing, value);
 
 	return 0;
 }
@@ -134,25 +136,38 @@ int LUA_get(lua_State* L)
 {
     MESSAGE("LUA_get() called", LUA)
 
-	float result = 0;
+    double result = 0;
 
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 
 	Individu* ind = dynamic_cast<Individu*>(elem);
-	Individu_Unique* ind_unique = dynamic_cast<Individu_Unique*>(elem);
 
-	//First, we get statistics and characteristics
-	if (ind_unique != NULL)	result = ind_unique->get(field);
-	else if (ind != NULL)	result = ind->get(field);
+    if (ind == NULL)
+    {
+        tools::debug::error("LUA_get() has been called with a non-individual pointer.", "lua");
+        lua_pushnumber(L, 1);
+        return 1;
+    }
 
-	if (result == Jeu.floatNotFound)
-	{
-		if (field == "PosX")	if (ind != NULL) result = ind->position().x;
-		if (field == "PosY")	if (ind != NULL) result = ind->position().y;
-        if (field == "angle")   if (ind != NULL) result = ind->angle;
-        if (field == "diplomacy") if (ind != NULL) result = ind->Diplomatie;
-	}
+    if (field == "PosX") result = ind->position().x;
+    else if (field == "PosY") result = ind->position().y;
+    else if (field == "angle") result = ind->angle;
+    else if (field == "diplomacy") result = ind->Diplomatie;
+    else if (field == "vitality") result = ind->currentHealthStatus(Statistiques::Life);
+    else if (field == "energy") result = ind->currentHealthStatus(Statistiques::Energy);
+    else if (field == "healing") result = ind->currentHealthStatus(Statistiques::Healing);
+    else if (field == "strength") result = ind->currentHealthStatus(Caracteristiques::Strength);
+    else if (field == "power") result = ind->currentHealthStatus(Caracteristiques::Power);
+    else if (field == "agility") result = ind->currentHealthStatus(Caracteristiques::Agility);
+    else if (field == "intellect") result = ind->currentHealthStatus(Caracteristiques::Intellect);
+    else if (field == "constitution") result = ind->currentHealthStatus(Caracteristiques::Constitution);
+    else if (field == "charisma") result = ind->currentHealthStatus(Caracteristiques::Charisma);
+    else if (field == "dodge") result = ind->currentHealthStatus(Caracteristiques::Dodge);
+    else if (field == "healingPower") result = ind->currentHealthStatus(Caracteristiques::HealingPower);
+    else if (field == "runSpeed") result = ind->currentHealthStatus(Caracteristiques::RunSpeed);
+    else if (field == "attackSpeed") result = ind->currentHealthStatus(Caracteristiques::AttackSpeed);
+    else if (field == "injurySpeed") result = ind->currentHealthStatus(Caracteristiques::InjurySpeed);
 
 	lua_pushnumber(L, result);
 	return 1;

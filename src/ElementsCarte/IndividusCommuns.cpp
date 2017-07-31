@@ -16,6 +16,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#include <cmath>
+
 #include <tinyxml2.h>
 
 #include "../Bibliotheque/Constantes.h"
@@ -50,14 +53,9 @@ int Individu_Commun::Get_Experience()
 	return Classe->Experience;
 }
 
-Caracteristiques* Individu_Commun::Get_Caracs()
+Caracteristiques& Individu_Commun::attributes()
 {
-	return &(Classe->Caracs);
-}
-
-Statistiques* Individu_Commun::Get_Stats()
-{
-	return &Stats;
+	return Classe->Caracs;
 }
 
 Activite* Individu_Commun::Get_Activite(string act)
@@ -225,7 +223,7 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->viewField.setOrigin(&elem->position());
 
 	elem->Diplomatie = Diplomatie;
-	(*(elem->Get_Stats()))["healing"] = Caracs["healingPower"];
+    elem->setHealthStatus(Statistiques::Healing, Caracs[Caracteristiques::HealingPower]);
     elem->lifetime = lifetime;
 
     if (angleFixed) elem->angle = fixedAngle;

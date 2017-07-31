@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include <tinyxml2.h>
 
 #include "tools/filesystem.h"
@@ -69,14 +71,9 @@ int Individu_Unique::Get_Experience()
 	return Experience;
 }
 
-Caracteristiques* Individu_Unique::Get_Caracs()
+Caracteristiques& Individu_Unique::attributes()
 {
-	return &Caracs;
-}
-
-Statistiques* Individu_Unique::Get_Stats()
-{
-	return &Stats;
+	return Caracs;
 }
 
 Activite* Individu_Unique::Get_Activite(string act)
@@ -92,31 +89,31 @@ void Individu_Unique::Gestion_Recuperation()
 	if (!RecuperationFixe) Individu::Gestion_Recuperation();
 	else
 	{
-		if (get("healing") > 0)
+		if (currentHealthStatus(Statistiques::Healing) > 0)
 		{
-			if (100*buf_rec <= 3*get("healing"))
+			if (100*buf_rec <= 3*currentHealthStatus(Statistiques::Healing))
 			{
-				Lag_Vitalite(1);
-				if (get("healing") > 80) Lag_Vitalite(3);
-				if (get("healing") > 90) Lag_Vitalite(6);
-				if (get("healing") > 95) Lag_Vitalite(6);
-				Lag_Energie(1);
+				modifyHealthStatus(Statistiques::Life, 1);
+				if (currentHealthStatus(Statistiques::Healing) > 80) modifyHealthStatus(Statistiques::Life, 3);
+				if (currentHealthStatus(Statistiques::Healing) > 90) modifyHealthStatus(Statistiques::Life, 6);
+				if (currentHealthStatus(Statistiques::Healing) > 95) modifyHealthStatus(Statistiques::Life, 6);
+				modifyHealthStatus(Statistiques::Energy, 1);
 			}
 		}
-		if (get("healing") < 0)
+		if (currentHealthStatus(Statistiques::Healing) < 0)
 		{
-			if (100*buf_rec <= -3*get("healing"))
+			if (100*buf_rec <= -3*currentHealthStatus(Statistiques::Healing))
 			{
-				Lag_Vitalite(-1);
-				Lag_Energie(-1);
+				modifyHealthStatus(Statistiques::Life, -1);
+				modifyHealthStatus(Statistiques::Energy, -1);
 			}
 		}
 	}
 
-	if (EnergieMax) Stats["Energie"] = 1000;
+	if (EnergieMax) setHealthStatus(Statistiques::Energy, 1000);
 
 	//Diminue la durée de vie des objets utilisés -- Should maybe be placed in LUA scripts
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
+	for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
 	{
 		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first)
 		{
@@ -126,8 +123,8 @@ void Individu_Unique::Gestion_Recuperation()
 				if (getDoubleFromLUA(i->second, "getDuree") <= 0)
 				{
 					lua_State *j = i->second;
-					i = Get_Caracs()->objects.objects.erase(i);
-					Get_Caracs()->objects.deleteObject(j);
+					i = inventory.objects.erase(i);
+					inventory.deleteObject(j);
 					continue;
 				}
 			}
@@ -135,29 +132,11 @@ void Individu_Unique::Gestion_Recuperation()
 	}
 }
 
-void Individu_Unique::Lag_Recuperation(float lag)
+void Individu_Unique::modifyHealthStatus(Statistiques::Attribute a, double value)
 {
-	if (!RecuperationFixe) Individu::Lag_Recuperation(lag);
-}
+    if (RecuperationFixe && a == Statistiques::Healing) return;
 
-float Individu_Unique::get(string field)
-{
-	float& valueFloat = (*Get_Stats())[field];
-	if (valueFloat != Jeu.floatNotFound)
-		return valueFloat;
-
-	int valueInt = (*Get_Caracs())[field];
-	if (valueInt != Jeu.intNotFound)
-	{
-		if (field != "healingPower") valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
-
-		pair<int, int> addedChar = Get_Caracs()->getFromObjectsAndSkills(field);
-		valueInt += addedChar.first;
-
-		return valueInt + addedChar.second*valueInt/100.;
-	}
-
-	return Jeu.floatNotFound;
+    Individu::modifyHealthStatus(a, value);
 }
 
 int Individu_Unique::Get_Vitesse(string act)
@@ -187,9 +166,9 @@ bool Individu_Unique::Set_Activite(string nv)
 
 	if (Get_Act() == MORT)
 	{
-		Set_Vitalite(0);
-		Set_Energie(0);
-		Set_Recuperation(0);
+		setHealthStatus(Statistiques::Life, 0);
+		setHealthStatus(Statistiques::Energy, 0);
+		setHealthStatus(Statistiques::Healing, 0);
 	}
 	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
 	{
@@ -216,8 +195,6 @@ bool Individu_Unique::Set_Activite(string nv)
 
 	return Resultat;
 }
-
-/* La fonction Individu_Unique::Load() est développée dans le fichier ChargementElements.cpp */
 
 bool Individu_Unique::angleFixed()
 {

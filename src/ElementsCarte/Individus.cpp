@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#include <lua5.2/lua.hpp>
+
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Jeu/Jeu.h"
@@ -30,9 +32,6 @@
 
 #include "Jeu/options.h"
 
-/** FONCTIONS DE LA CLASSE Individu **/
-
-/* CONSTRUCTEURS / DESTRUCTEURS */
 
 Individu::Individu() : Element_Carte()
 {
@@ -43,130 +42,107 @@ Individu::Individu() : Element_Carte()
     viewField.setOrigin(&position());
 }
 
-
-/* GESTION */
-
-/* La fonction Individu::Gestion() est développée dans le fichier AI.cpp */
-/* La fonction Individu::MouvementAleatoire() est développée dans le fichier AI.cpp */
-/* La fonction Individu::MouvementChasse() est développée dans le fichier AI.cpp */
-
 void Individu::Gestion_Recuperation()
 {
-	if (get("healing") > 0)
+	if (currentHealthStatus(Statistiques::Healing) > 0)
 	{
-		if (100*buf_rec <= 2*get("healing"))
+		if (100*buf_rec <= 2*currentHealthStatus(Statistiques::Healing))
 		{
-			Lag_Vitalite(1);
-			if (get("healing") > 80) Lag_Vitalite(3);
-			if (get("healing") > 90) Lag_Vitalite(6);
-			if (get("healing") > 95) Lag_Vitalite(6);
-			Lag_Energie(1);
+			modifyHealthStatus(Statistiques::Life, 1);
+			if (currentHealthStatus(Statistiques::Healing) > 80) modifyHealthStatus(Statistiques::Life, 3);
+			if (currentHealthStatus(Statistiques::Healing) > 90) modifyHealthStatus(Statistiques::Life, 6);
+			if (currentHealthStatus(Statistiques::Healing) > 95) modifyHealthStatus(Statistiques::Life, 6);
+			modifyHealthStatus(Statistiques::Energy, 1);
 		}
 	}
-	if (get("healing") < 0)
+	if (currentHealthStatus(Statistiques::Healing) < 0)
 	{
-		if (100*buf_rec <= -2*get("healing"))
+		if (100*buf_rec <= -2*currentHealthStatus(Statistiques::Healing))
 		{
-			Lag_Vitalite(-1);
-			Lag_Energie(-1);
+			modifyHealthStatus(Statistiques::Life, -1);
+			modifyHealthStatus(Statistiques::Energy, -1);
 		}
 	}
 
 	//Évolution de la récupération :
 
 	//Test de récupération forcée (potion, …)
-	if (get("healingPower") >= 95 || get("healingPower") <= -95) Set_Recuperation(get("healingPower"));
+	if (abs(currentHealthStatus(Caracteristiques::HealingPower)) >= 95)
+        setHealthStatus(Statistiques::Healing, currentHealthStatus(Caracteristiques::HealingPower));
 
 	//Évolution spontanée
 	if (buf_rec >= 10)
 	{
 		//Récuperation trop faible par rapport à la vitalité :
-		if (get("healing") < get("healingPower") + (get("Vitalite")-800)/20) Lag_Recuperation(1);
+		if (currentHealthStatus(Statistiques::Healing) < currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800)/20)
+            modifyHealthStatus(Statistiques::Healing, 1);
+
 		//Récupération trop importante par rapport à la vitalité :
-		if (get("healing") > get("healingPower") + (get("Vitalite")-800)/20) Lag_Recuperation(-1);
+		if (currentHealthStatus(Statistiques::Healing) > currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800)/20)
+            modifyHealthStatus(Statistiques::Healing, -1);
 
 		//Augmentation de la Récupération automatique en fonction du niveau d'énergie
-		if (get("Energie") > 200) if (!rand()%20) Lag_Recuperation(1);
-		if (get("Energie") > 900) if (!rand()%15) Lag_Recuperation(1);
+		if (currentHealthStatus(Statistiques::Energy) > 200) if (!rand()%20)
+            modifyHealthStatus(Statistiques::Healing, 1);
+		if (currentHealthStatus(Statistiques::Energy) > 900) if (!rand()%15)
+            modifyHealthStatus(Statistiques::Healing, 1);
 		buf_rec = 0;
 	}
     else buf_rec += tools::timeManager::I(1);
 }
 
-/* GETTER STATS AND CHARACTERISTICS */
-
-float Individu::get(string field)
+int Individu::currentHealthStatus(Statistiques::Attribute a)
 {
-	float& valueFloat = (*Get_Stats())[field];
-
-	if (valueFloat == Jeu.floatNotFound)
-	{
-		int valueInt = (*Get_Caracs())[field];
-		if (valueInt != Jeu.intNotFound && field != "healingPower")
-			valueInt *= 1./2. * (1. + 1.2*get("Vitalite")/1000.);
-		if (valueInt != Jeu.intNotFound)
-			return (float)valueInt;
-		else
-			return Jeu.floatNotFound;
-	}
-
-	return valueFloat;
+    return Stats[a];
 }
 
-/* SETTERS DE VITALITÉ, ÉNERGIE ET RÉCUPÉRATION */
-
-void Individu::Set_Vitalite(float vit)
+int Individu::currentHealthStatus(Caracteristiques::Attribute a)
 {
-	if (vit >= 0 && vit <= 1000) Stats["Vitalite"] = vit;
-	if (vit > 1000) Stats["Vitalite"] = 1000;
-	if (vit < 0) Stats["Vitalite"] = 0;
+    //Update values
+    {
+        _currentHealthStatus = attributes();
+
+        for (int i = 0 ; i != Caracteristiques::Attribute::enumSize ; ++i)
+        {
+            Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(i);
+
+            if (att != Caracteristiques::HealingPower)
+                _currentHealthStatus.set(att, _currentHealthStatus[att] / 2.0 * (1 + 1.2*currentHealthStatus(Statistiques::Life)/1000.0));
+
+            for (auto& o : inventory.objects)
+            {
+                lua_getglobal(o.second, "getCurrentObjectEffect");
+                lua_pushstring(o.second, Caracteristiques::toString(att).c_str());
+                lua_call(o.second, 1, 1);
+                _currentHealthStatus.add(att, lua_tonumber(o.second, -1));
+                lua_pushstring(o.second, (Caracteristiques::toString(att) + "Factor").c_str());
+                _currentHealthStatus.add(att, attributes()[att] * lua_tonumber(o.second, -1) / 100.0);
+            }
+        }
+    }
+
+    //Return asked value
+    return floor(_currentHealthStatus[a]);
 }
 
-void Individu::Lag_Vitalite(float lag)
+void Individu::setHealthStatus(Statistiques::Attribute a, double value)
 {
-	if (lag < 0)
-	{
-		if (get("Vitalite") >= -lag) Stats["Vitalite"] += lag;
-		else
-		{
-			Set_Vitalite(0);
-			Set_Activite(MORT);
-		}
-	}
-	if (lag > 0) Stats["Vitalite"] += lag;
+    if (a == Statistiques::Life || a == Statistiques::Energy)
+        value = min(max(0.0, value), 1000.0);
+    else //Healing
+        value = min(max(-100.0, value), 100.0);
 
-	if (get("Vitalite") > 1000) Set_Vitalite(1000);
+    Stats.set(a, value);
 }
 
-void Individu::Set_Energie(float ene)
+void Individu::modifyHealthStatus(Statistiques::Attribute a, double value)
 {
-	if (ene >= 0 && ene <= 1000) Stats["Energie"] = ene;
-}
+    if (a == Statistiques::Life || a == Statistiques::Energy)
+        value = min(max(-Stats[a], value), 1000.0 - Stats[a]);
+    else //Healing
+        value = min(max(-100.0 - Stats[a], value), 100.0 - Stats[a]);
 
-void Individu::Lag_Energie(float lag)
-{
-	if (lag < 0)
-	{
-		if (get("Energie") >= (unsigned)(-lag)) Stats["Energie"] += lag;
-		else Set_Energie(0);
-	}
-	if (lag > 0) Stats["Energie"] += lag;
-
-	if (get("Energie") > 1000) Set_Energie(1000);
-}
-
-void Individu::Set_Recuperation(float rec)
-{
-	if (rec <= -100) Stats["healing"] = -100;
-	else if (rec >= 100) Stats["healing"] = 100;
-	else Stats["healing"] = rec;
-}
-
-void Individu::Lag_Recuperation(float lag)
-{
-	Stats["healing"] += lag;
-	if (get("healing") < -100) Set_Recuperation(-100);
-	if (get("healing") > 100) Set_Recuperation(100);
+    Stats.add(a, value);
 }
 
 void Individu::Disp(RenderTarget& target)
@@ -200,7 +176,7 @@ void Individu::displayLifeGauge()
     background.setFillColor(Color(0, 0, 0, 175));
     Jeu.App.draw(background);
 
-    RectangleShape foreground(Vector2f(get("Vitalite")/20, 4));
+    RectangleShape foreground(Vector2f(currentHealthStatus(Statistiques::Life)/20, 4));
     foreground.setPosition(x - 25, y + 35);
     foreground.setFillColor(Color(228, 0, 0, 255));
     Jeu.App.draw(foreground);

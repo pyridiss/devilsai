@@ -205,6 +205,7 @@ class Individu : public Element_Carte
 
 	protected:
 		Statistiques Stats;
+        Caracteristiques _currentHealthStatus;
 
 	public:
 		float buf_rec       = 0;
@@ -223,8 +224,7 @@ class Individu : public Element_Carte
 	public:
 		virtual String32& Get_Nom() = 0;
 		virtual int Get_Experience() = 0;
-		virtual Caracteristiques* Get_Caracs() =0;
-		virtual Statistiques* Get_Stats() =0;
+		virtual Caracteristiques& attributes() =0;
         virtual bool angleFixed() =0;
         string Get_Act();
 		short Get_Num();
@@ -242,18 +242,11 @@ class Individu : public Element_Carte
 		int Collision(Individu *elem, int TypeCollision);
 		void IncrementNum(bool RaZ = false);
 
-	//Getter stats and characteristics
 	public:
-		virtual float get(string field);
-
-	//Setters de vitalité, énergie et récupération
-	public:
-		void Set_Vitalite(float vit);
-		void Lag_Vitalite(float lag);
-		void Set_Energie(float ene);
-		void Lag_Energie(float lag);
-		void Set_Recuperation(float rec);
-		virtual void Lag_Recuperation(float lag);
+        int currentHealthStatus(Statistiques::Attribute a);
+        int currentHealthStatus(Caracteristiques::Attribute a);
+        void setHealthStatus(Statistiques::Attribute a, double value);
+        virtual void modifyHealthStatus(Statistiques::Attribute a, double value);
 
 	//Affichage
 	public:
@@ -295,17 +288,15 @@ class Individu_Unique : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques* Get_Caracs();
-		Statistiques* Get_Stats();
+		Caracteristiques& attributes();
 		virtual Activite* Get_Activite(string act);
         bool angleFixed();
 
-		float get(string field);
+        void modifyHealthStatus(Statistiques::Attribute a, double value);
 
 		int Get_Vitesse(string act);
 
 		void Gestion_Recuperation();
-		void Lag_Recuperation(float lag);
 
 		bool Set_Activite(string nv);
 
@@ -328,8 +319,7 @@ class Individu_Commun : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques* Get_Caracs();
-		Statistiques* Get_Stats();
+		Caracteristiques& attributes();
 		Activite* Get_Activite(string act);
         bool angleFixed();
 

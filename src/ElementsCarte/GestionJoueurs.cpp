@@ -53,7 +53,7 @@ int Joueur::Gestion()
 
 		// 2. Vérifie que le personnage est toujours en vie !
 
-	if (get("Vitalite") <= 0)
+	if (currentHealthStatus(Statistiques::Life) <= 0)
 	{
 		Set_Activite(MORT);
 		for (int a = 0 ; a < 4 ; ++a)
@@ -73,7 +73,7 @@ int Joueur::Gestion()
 
 		// 4. Gestion des événements
 
-	if (get("Vitalite") > 0 && Jeu.App.hasFocus())
+	if (currentHealthStatus(Statistiques::Life) > 0 && Jeu.App.hasFocus())
 	{
         Appui[HAUT]   = Keyboard::isKeyPressed(Keyboard::Up);
         Appui[BAS]    = Keyboard::isKeyPressed(Keyboard::Down);
