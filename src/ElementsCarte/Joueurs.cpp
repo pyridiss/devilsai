@@ -61,7 +61,7 @@ void Joueur::Repos()
 void Joueur::Gestion_Equipement()
 {
 	//Diminue la durée de vie des objets utilisés
-	for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
+	for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
 	{
 		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first && getDoubleFromLUA(i->second, "getDuree") > 0)
 		{
@@ -70,8 +70,8 @@ void Joueur::Gestion_Equipement()
 			if (getDoubleFromLUA(i->second, "getDuree") <= 0)
 			{
 				lua_State *j = i->second;
-				i = Get_Caracs()->objects.objects.erase(i);
-				Get_Caracs()->objects.deleteObject(j);
+				i = inventory.objects.erase(i);
+				inventory.deleteObject(j);
 				continue;
 			}
 		}

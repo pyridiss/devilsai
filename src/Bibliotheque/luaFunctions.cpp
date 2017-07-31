@@ -179,7 +179,7 @@ int LUA_useObject(lua_State* L)
     Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
 	string object = lua_tostring(L, 2);
 
-	mapObjects* objects = &(ind->Get_Caracs()->objects.objects);
+	mapObjects* objects = &(ind->inventory.objects);
 
 	mapObjects::iterator i = objects->begin();
 	string key = intToString(CLEF_INVENTAIRE);
@@ -191,7 +191,7 @@ int LUA_useObject(lua_State* L)
 		//On vérifie que l'emplacement correspondant dans l'Équipement est vide
 		if (j == objects->end())
 		{
-			ind->Get_Caracs()->objects.addObject(getStringFromLUA(i->second, "getFileName"), getStringFromLUA(i->second, "getIdEmplacement"));
+			ind->inventory.addObject(getStringFromLUA(i->second, "getFileName"), getStringFromLUA(i->second, "getIdEmplacement"));
 
 			j = objects->find(getStringFromLUA(i->second, "getIdEmplacement"));
 			setIntToLUA(j->second, "setQuantite", 1);
@@ -203,7 +203,7 @@ int LUA_useObject(lua_State* L)
 				setIntToLUA(i->second, "setQuantite", getIntFromLUA(i->second, "getQuantite") - 1);
 			else
 			{
-				ind->Get_Caracs()->objects.deleteObject(i->second);
+				ind->inventory.deleteObject(i->second);
 				objects->erase(i);
 			}
 		}
@@ -227,7 +227,7 @@ int LUA_getQuantityOf(lua_State* L)
 	string object = lua_tostring(L, 2);
 	int result = 0;
 
-	mapObjects* objects = &(ind->Get_Caracs()->objects.objects);
+	mapObjects* objects = &(ind->inventory.objects);
 
 	mapObjects::iterator i = objects->begin();
 	string key = intToString(CLEF_INVENTAIRE);
@@ -409,7 +409,7 @@ int LUA_possess(lua_State* L)
 	int object = lua_tonumber(L, 2);
 
 	bool result = false;
-	for (auto& i : ind->Get_Caracs()->objects.objects)
+	for (auto& i : ind->inventory.objects)
 	{
 		if (getIntFromLUA(i.second, "getInternalNumber") == object)
 		{
@@ -431,26 +431,26 @@ int LUA_transferObject(lua_State* L)
 
 	int object = lua_tonumber(L, 3);
 
-	mapObjects::iterator iObj = indA->Get_Caracs()->objects.objects.begin();
+	mapObjects::iterator iObj = indA->inventory.objects.begin();
 
 	//1. On place l'objet en question dans Partie.ObjetSelectionne
-	while (iObj != indA->Get_Caracs()->objects.objects.end() && getIntFromLUA(iObj->second, "getInternalNumber") != object)
+	while (iObj != indA->inventory.objects.end() && getIntFromLUA(iObj->second, "getInternalNumber") != object)
 		++iObj;
-	if (iObj == indA->Get_Caracs()->objects.objects.end()) return 0;
+	if (iObj == indA->inventory.objects.end()) return 0;
 
 	Partie.selectedObject = iObj->second;
 	setStringToLUA(iObj->second, "setKey", "0");
-	indA->Get_Caracs()->objects.objects.erase(iObj);
+	indA->inventory.objects.erase(iObj);
 
 	//2. On place l'objet dans l'inventaire du receveur
-	iObj = indB->Get_Caracs()->objects.objects.begin();
+	iObj = indB->inventory.objects.begin();
 
 	bool cumulate = false;
 
 	if (getBoolFromLUA(Partie.selectedObject, "getCumul"))
 	{
 		string key = intToString(CLEF_INVENTAIRE);
-		for (mapObjects::iterator k = indB->Get_Caracs()->objects.objects.begin() ; k != indB->Get_Caracs()->objects.objects.end() ; ++k)
+		for (mapObjects::iterator k = indB->inventory.objects.begin() ; k != indB->inventory.objects.end() ; ++k)
 			if (k->first[0] == key[0] && 
 				getIntFromLUA(k->second, "getInternalNumber") == getIntFromLUA(Partie.selectedObject, "getInternalNumber"))
 			{
@@ -469,12 +469,12 @@ int LUA_transferObject(lua_State* L)
 	{
 		int cell = 0;
 		string key = intToString(CLEF_INVENTAIRE);
-		while (indB->Get_Caracs()->objects.objects.find(key) != indB->Get_Caracs()->objects.objects.end())
+		while (indB->inventory.objects.find(key) != indB->inventory.objects.end())
 		{
 			++cell;
 			key = intToString(CLEF_INVENTAIRE + cell);
 		}
-		pair<mapObjects::iterator, bool> result = indB->Get_Caracs()->objects.objects.insert(mapObjects::value_type(key, Partie.selectedObject));
+		pair<mapObjects::iterator, bool> result = indB->inventory.objects.insert(mapObjects::value_type(key, Partie.selectedObject));
 		if (result.second)
 		{
 			setStringToLUA(result.first->second, "setKey",key);

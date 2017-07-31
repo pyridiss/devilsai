@@ -203,7 +203,7 @@ bool Individu_Unique::Set_Activite(string nv)
 		TypeClassement = CLASSEMENT_CADAVRE;
 		Diplomatie = DIPLOM_NEUTRE;
 
-		for (mapObjects::iterator i = Get_Caracs()->objects.objects.begin() ; i != Get_Caracs()->objects.objects.end() ; ++i)
+		for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
 		{
 			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
 			++key;
@@ -300,7 +300,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "inventory")
         {
-            Get_Caracs()->objects.loadFromXML(elem);
+            inventory.loadFromXML(elem);
         }
         if (elemName == "SKILL") //TODO: Remove this!
         {
@@ -372,7 +372,7 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     unique->InsertEndChild(properties);
 
     XMLHandle hdl(unique);
-    Caracs.objects.saveToXML(doc, hdl);
+    inventory.saveToXML(doc, hdl);
 
     root->InsertEndChild(unique);
 }

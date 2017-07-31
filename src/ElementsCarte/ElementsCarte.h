@@ -81,7 +81,8 @@ class Classe_Commune
 
 	public:
 		Caracteristiques Caracs;
-		list<TemplateObject> inventory;	//These objects are always put on corpses, whatever probability
+        Objects inventory;
+		list<TemplateObject> inventoryTemplate;	//These objects are always put on corpses, whatever probability
 		list<TemplateObject> stuff;
 
     public:
@@ -210,6 +211,8 @@ class Individu : public Element_Carte
 
         tools::math::Shape interactionField;
         tools::math::Shape viewField;
+
+        Objects inventory;
 
 	//Constructeurs / Destructeurs :
 	public:

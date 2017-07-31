@@ -84,14 +84,14 @@ bool Individu_Commun::Set_Activite(string nv)
 		Diplomatie = DIPLOM_NEUTRE;
 
 		//First, we add equipment:
-		for (mapObjects::iterator i = Classe->Caracs.objects.objects.begin() ; i != Classe->Caracs.objects.objects.end() ; ++i)
+		for (mapObjects::iterator i = Classe->inventory.objects.begin() ; i != Classe->inventory.objects.end() ; ++i)
 		{
 			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
 			++key;
 		}
 
 		//Then, we create inventory and add it:
-		for (list<TemplateObject>::iterator obj = Classe->inventory.begin() ; obj != Classe->inventory.end() ; ++obj)
+		for (list<TemplateObject>::iterator obj = Classe->inventoryTemplate.begin() ; obj != Classe->inventoryTemplate.end() ; ++obj)
 		{
 			corpse->objects.addObject(obj->fileName, "storagebox" + intToString(key, 2), obj->quality);
 			++key;

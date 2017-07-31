@@ -36,7 +36,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
 
 void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& event)
 {
-    mapObjects* playerInventory = &(gamedata::player()->Get_Caracs()->objects.objects);
+    mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
     mapObjects* storageBox = &(Partie.CoffreOuvert->objects.objects);
 
     mapObjects::iterator currentObject;
@@ -59,7 +59,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
                 if (getBoolFromLUA(i.second, "getCumul") && getIntFromLUA(i.second, "getInternalNumber") == getIntFromLUA(currentObject->second, "getInternalNumber"))
                 {
                     setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") + getIntFromLUA(currentObject->second, "getQuantite"));
-                    gamedata::player()->Get_Caracs()->objects.deleteObject(currentObject->second);
+                    gamedata::player()->inventory.deleteObject(currentObject->second);
                     playerInventory->erase(currentObject);
                     currentObject = playerInventory->end();
                     break;
@@ -125,7 +125,7 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target)
 
     window.display(target);
 
-    mapObjects* playerInventory = &(gamedata::player()->Get_Caracs()->objects.objects);
+    mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
     mapObjects* storageBox = &(Partie.CoffreOuvert->objects.objects);
 
     const auto& slots = window.getWidgets();

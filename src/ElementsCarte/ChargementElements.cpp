@@ -70,7 +70,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			string numero = "", IdEmplacement = "";
 			Fichier >> IdEmplacement >> numero;
 
-			ind->Get_Caracs()->objects.addObject(numero, IdEmplacement);
+			ind->inventory.addObject(numero, IdEmplacement);
 		}
 		if (TypeDonnee == "INVENTAIRE")
 		{
@@ -113,7 +113,7 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 						if (TypeDonnee3 == "FIN_OBJET")
 						{
 							--NombreObjets;
-							ind->Get_Caracs()->objects.addObject(IdObjet, intToString(CLEF_INVENTAIRE + NumeroObjet), Qualite);
+							ind->inventory.addObject(IdObjet, intToString(CLEF_INVENTAIRE + NumeroObjet), Qualite);
 							++NumeroObjet;
 							if (NombreObjets <= 0) FinObjet = true;
 							else Fichier.seekg(PosObjet);
@@ -315,7 +315,7 @@ void Load_ClasseCommune(string Type)
 			TemplateObject object;
 			Fichier >> object.fileName >> object.quality;
 
-			cl_com->inventory.push_back(object);
+			cl_com->inventoryTemplate.push_back(object);
 //			cl_com->Get_Caracs()->addObject(id, clef, qualite);
 // 			Objet obj;
 // 			MapInventaire::iterator i;

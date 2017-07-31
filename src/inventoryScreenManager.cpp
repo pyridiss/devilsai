@@ -34,7 +34,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
 
 void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event)
 {
-    mapObjects* objects = &(gamedata::player()->Get_Caracs()->objects.objects);
+    mapObjects* objects = &(gamedata::player()->inventory.objects);
     mapObjects::iterator currentObject = objects->end();
 
     const auto& slots = window.getWidgets();
@@ -61,7 +61,7 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
 
                         if (getBoolFromLUA(currentObject->second, "getCumul") && getIntFromLUA(currentObject->second, "getQuantite") > 1)
                         {
-                            gamedata::player()->Get_Caracs()->objects.addObject(getStringFromLUA(currentObject->second, "getFileName"), getStringFromLUA(currentObject->second, "getIdEmplacement"));
+                            gamedata::player()->inventory.addObject(getStringFromLUA(currentObject->second, "getFileName"), getStringFromLUA(currentObject->second, "getIdEmplacement"));
                             setIntToLUA(currentObject->second, "setQuantite", getIntFromLUA(currentObject->second, "getQuantite") - 1);
                         }
                         else
@@ -90,7 +90,7 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target)
 {
     window.display(target);
 
-    mapObjects* objects = &(gamedata::player()->Get_Caracs()->objects.objects);
+    mapObjects* objects = &(gamedata::player()->inventory.objects);
 
     const auto& slots = window.getWidgets();
 
