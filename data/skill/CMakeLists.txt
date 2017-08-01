@@ -1,6 +1,5 @@
 
 set(skill
-    attack.lua
     finishoff.lua
     healpotion.lua
 )

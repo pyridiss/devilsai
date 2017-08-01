@@ -82,7 +82,7 @@ int Joueur::Gestion()
 
 				//Activité (pas de touche) ou Compétence :
         ChoixCompetence = COMPETENCE_AUCUNE;
-        if (Keyboard::isKeyPressed(Keyboard::LControl)) ChoixCompetence = COMPETENCE_CTRL;
+        if (Keyboard::isKeyPressed(Keyboard::LControl)) Set_Activite("skill-sword-handling");
         if (Keyboard::isKeyPressed(Keyboard::LShift)) Set_Activite("skill-fireball");
         if (Keyboard::isKeyPressed(Keyboard::Tab))      ChoixCompetence = COMPETENCE_TAB;
         if (Keyboard::isKeyPressed(Keyboard::Space))    ChoixCompetence = COMPETENCE_SPACE;

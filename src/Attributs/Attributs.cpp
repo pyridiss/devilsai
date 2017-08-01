@@ -517,12 +517,15 @@ void Activite::loadScript()
 
     lua_atpanic(script, LUA_panic);
 
+    lua_register(script, "addSound", LUA_addSound);
     lua_register(script, "cout", LUA_cout);
+    lua_register(script, "createIndividual", LUA_createIndividual);
+    lua_register(script, "fight", LUA_combat);
+    lua_register(script, "getElementInteraction", LUA_getElementInteraction);
+    lua_register(script, "individual_copy", LUA_individual_copy);
     lua_register(script, "individual_get", LUA_get);
     lua_register(script, "individual_set", LUA_set);
-    lua_register(script, "individual_copy", LUA_individual_copy);
-    lua_register(script, "createIndividual", LUA_createIndividual);
-    lua_register(script, "addSound", LUA_addSound);
+    lua_register(script, "isIndividu", LUA_isIndividu);
     lua_register(script, "playSound", LUA_playSound);
 
     luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());

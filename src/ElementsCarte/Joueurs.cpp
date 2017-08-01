@@ -245,22 +245,6 @@ void Disp_Personnage()
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 
-	//Affichage des dégâts de la compétence Arme :
-	lua_State* weapon = NULL;
-/*	for (int i = 0 ; i < NOMBRE_COMPETENCES ; ++i)
-		if (Partie.perso->CompetencesRapides[i] != NULL && Partie.perso->CompetencesRapides[i]->Id/100 == TYPE_COMP_ARME)
- */ //			cpt_arme = dynamic_cast<Competence_Arme*>(Partie.perso->CompetencesRapides[/*i*/COMPETENCE_CTRL]);
-
-	weapon = gamedata::player()->skillLinks[COMPETENCE_CTRL];
-
-	if (weapon != NULL)
-	{
-		Disp_Texte(tools::textManager::getText("devilsai", "PERSO_DEGATS"), 50, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-		string StrNombre = intToString(getDoubleFromLUA(weapon, "getDegats") - getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->currentHealthStatus(Caracteristiques::Strength)/2)
-						+ " - " + intToString(getDoubleFromLUA(weapon, "getDegats") + getDoubleFromLUA(weapon, "getAmplitude") + (int)gamedata::player()->currentHealthStatus(Caracteristiques::Strength)/2);
-		Disp_Texte(StrNombre, 180, Options.ScreenH - 110, Color(255, 255, 255, 255), 12.);
-	}
-
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
