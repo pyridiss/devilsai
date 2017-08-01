@@ -331,6 +331,8 @@ void mainLoop()
 
         //2. Management
 
+        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * (currentBottomScreen != NoBottomScreen));
+
         if (managementActivated)
             gamedata::currentWorld()->GestionElements(worldView);
 
