@@ -83,7 +83,7 @@ int Joueur::Gestion()
 				//Activité (pas de touche) ou Compétence :
         ChoixCompetence = COMPETENCE_AUCUNE;
         if (Keyboard::isKeyPressed(Keyboard::LControl)) ChoixCompetence = COMPETENCE_CTRL;
-        if (Keyboard::isKeyPressed(Keyboard::LShift))   ChoixCompetence = COMPETENCE_SHIFT;
+        if (Keyboard::isKeyPressed(Keyboard::LShift)) Set_Activite("skill-fireball");
         if (Keyboard::isKeyPressed(Keyboard::Tab))      ChoixCompetence = COMPETENCE_TAB;
         if (Keyboard::isKeyPressed(Keyboard::Space))    ChoixCompetence = COMPETENCE_SPACE;
 	}
@@ -254,6 +254,8 @@ int Joueur::Gestion()
 			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
                 if (skillLinks[c] != nullptr && Get_Act() == getStringFromLUA(skillLinks[c], "getActivite"))
 					setBoolToLUA(skillLinks[c], "setActiviteFinished", true);
+
+            Get_Activite(Act)->atEnd(this);
 		}
 
 		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
