@@ -46,6 +46,7 @@ unordered_map<string, Carte*> _worlds;
 unordered_map<string, Classe_Commune*> _species;
 unordered_map<string, Paysage*> _inertItemDesigns;
 unordered_map<string, lua_State*> _triggersScripts;
+unordered_map<string, lua_State*> _quests;
 
 Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
@@ -145,6 +146,11 @@ lua_State* sharedTrigger(string name)
     else return _triggersScripts.at(name);
 }
 
+unordered_map<string, lua_State*>& quests()
+{
+    return _quests;
+}
+
 Joueur* player()
 {
     if (_player == nullptr)
@@ -186,6 +192,10 @@ void clear()
     for (auto& t : _triggersScripts)
         lua_close(t.second);
     _triggersScripts.clear();
+
+    for (auto& q : _quests)
+        lua_close(q.second);
+    _quests.clear();
 
     _player = nullptr;
     _currentWorld = nullptr;
@@ -256,6 +266,18 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
     root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
     root->LastChildElement()->SetAttribute("playerName", tools::textManager::toStdString(_player->Nom).c_str());
 
+    for (auto& i : _quests)
+    {
+        XMLElement* quest = doc.NewElement("quest");
+        quest->SetAttribute("file", i.first.c_str());
+        quest->SetAttribute("initialData", "false");
+
+        lua_getglobal(i.second, "questSave");
+        lua_call(i.second, 0, 1);
+        quest->SetAttribute("currentState", lua_tostring(i.second, -1));
+
+        root->InsertEndChild(quest);
+    }
 }
 
 void loadFromXML(const string& dataDirectory, const string& mainFile)
@@ -341,6 +363,34 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             }
         }
 
+        if (elemName == "quest")
+        {
+            string questFile = elem->Attribute("file");
+            string initialData, currentState;
+            if (elem->Attribute("initialData"))
+            {
+                initialData = elem->Attribute("initialData");
+            }
+            if (elem->Attribute("currentState"))
+            {
+                currentState = elem->Attribute("currentState");
+            }
+
+            addQuest(questFile, initialData);
+
+            if (!currentState.empty())
+            {
+                auto i = _quests.find(questFile);
+                if (i != _quests.end())
+                {
+                    lua_getglobal(i->second, "questRecoverState");
+                    lua_pushstring(i->second, currentState.c_str());
+                    lua_call(i->second, 1, 0);
+                }
+                else tools::debug::error("Error while loading quest " + questFile, "files");
+            }
+        }
+
         //Just to make old maps work, will be removed later
 
         if (elemName == "CARTE")
@@ -352,11 +402,6 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
         {
             string n = elem->Attribute("number");
             Load_Carte(n, TYPE_LISTE);
-        }
-        if (elemName == "QUEST")
-        {
-            string n = elem->Attribute("number");
-            addQuest(n, "true");
         }
 
         elem = elem->NextSiblingElement();

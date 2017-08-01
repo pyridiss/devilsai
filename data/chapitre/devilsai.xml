@@ -11,5 +11,5 @@
     <LISTE number="101200"/>
     <LISTE number="101107"/>
     <player name="player" world="1" loadFromDataFile="individu/player.xml" x="0" y="0"/>
-    <QUEST number="1-InvasionGladeSaints"/>
+    <quest file="quest/1-InvasionGladeSaints.lua" initialData="true"/>
 </gamedata>

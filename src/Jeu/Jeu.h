@@ -54,7 +54,6 @@ struct Classe_Partie
 	bool loadFirstChapter   = false;
 
 	list<Dialog> listDialogs;
-	map<string, lua_State*> quests;
 };
 
 /**
@@ -115,8 +114,5 @@ bool Load_Partie(string);
 
 void addQuest(string, string);
 void manageQuests();
-void saveQuests(ofstream&);
-void loadQuestFromSavedGame(string, string);
-void deleteQuests();
 
 #endif

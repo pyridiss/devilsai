@@ -508,7 +508,7 @@ int LUA_questRunning(lua_State* L)
 
 	bool result = false;
 
-	if (Partie.quests.find(quest) != Partie.quests.end())
+	if (gamedata::quests().find(quest) != gamedata::quests().end())
 		result = true;
 
 	lua_pushboolean(L, result);

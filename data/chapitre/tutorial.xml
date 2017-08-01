@@ -3,5 +3,5 @@
     <loadWorld name="tutorial" file="carte/tutorial.xml" tag="didact_pay"/>
     <loadWorld name="tutorial" file="carte/tutorial.xml" tag="uniques"/>
     <player name="tutorial-player" world="tutorial" loadFromDataFile="individu/tutorial-player.xml" x="0" y="0"/>
-    <QUEST number="tutorial"/>
+    <quest file="quest/tutorial.lua" initialData="true"/>
 </gamedata>

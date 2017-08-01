@@ -542,8 +542,6 @@ void Clean_Partie()
 	currentUserScreen = nullptr;
 	Partie.journal.entries.clear();
 
-	deleteQuests();
-
 	SupprimerLignesConsoles();
 
     gamedata::clear();

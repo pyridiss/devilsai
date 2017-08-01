@@ -38,7 +38,7 @@ void addQuest(string newQuest, string args)
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luaL_dofile(L, (tools::filesystem::dataDirectory() + "quest/" + newQuest + ".lua").c_str());
+	luaL_dofile(L, (tools::filesystem::dataDirectory() + newQuest).c_str());
 
 	lua_atpanic(L, LUA_panic);
 
@@ -80,14 +80,14 @@ void addQuest(string newQuest, string args)
 	lua_pushstring(L, args.c_str());
 	lua_call(L, 1, 0);
 
-	Partie.quests.insert(map<string, lua_State*>::value_type(newQuest, L));
+	gamedata::quests().insert(map<string, lua_State*>::value_type(newQuest, L));
 
 	MESSAGE("Quête " + newQuest + " ajoutée.", FICHIER)
 }
 
 void manageQuests()
 {
-	for (map<string, lua_State*>::iterator i = Partie.quests.begin() ; i != Partie.quests.end() ; )
+	for (auto i = gamedata::quests().begin() ; i != gamedata::quests().end() ; )
 	{
 		lua_getglobal(i->second, "questManage");
 		lua_call(i->second, 0, 0);
@@ -103,7 +103,7 @@ void manageQuests()
 			lua_getglobal(j, "questEnd");
 			lua_call(j, 0, 0);
 
-			i = Partie.quests.erase(i);
+			i = gamedata::quests().erase(i);
 
 			lua_close(j);
 		}
@@ -114,36 +114,6 @@ void manageQuests()
 	{
 		bool done = Partie.listDialogs.begin()->display();
 		if (done) Partie.listDialogs.pop_front();
-	}
-}
-
-void saveQuests(ofstream& stream)
-{
-	for (map<string, lua_State*>::iterator i = Partie.quests.begin() ; i != Partie.quests.end() ; ++i)
-	{
-		lua_getglobal(i->second, "questSave");
-		lua_call(i->second, 0, 1);
-		string data = lua_tostring(i->second, -1);
-		stream << "QUEST " << i->first << " " << data << endl;
-	}
-}
-
-void loadQuestFromSavedGame(string quest, string data)
-{
-	addQuest(quest, "false");
-	map<string, lua_State*>::iterator i = Partie.quests.find(quest);
-	lua_getglobal(i->second, "questRecoverState");
-	lua_pushstring(i->second, data.c_str());
-	lua_call(i->second, 1, 0);
-}
-
-void deleteQuests()
-{
-	for (map<string, lua_State*>::iterator i = Partie.quests.begin() ; i != Partie.quests.end() ; )
-	{
-		lua_State *j = i->second;
-		i = Partie.quests.erase(i);
-		lua_close(j);
 	}
 }
 
