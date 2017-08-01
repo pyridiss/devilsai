@@ -339,9 +339,8 @@ class Joueur : public Individu_Unique
         bool automove                  = false;
         Point automoveEndpoint;
 
-	public:
-		float BufForce = 0, BufPuissance = 0, BufAgilite = 0, BufIntelligence = 0;
-		float BufConstitution = 0, BufEsquive = 0, BufCharisme = 0;
+    private:
+        Caracteristiques _displayedAttributes;
 
 	public:
 		Joueur();
@@ -361,7 +360,9 @@ class Joueur : public Individu_Unique
 		void BlessuresMultiples(Individu* ennemi);
 
 		bool ApplicationAmeliorations();
+        void resetDisplayedAttributes();
 
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 

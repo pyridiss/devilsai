@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="AMELIORATION_AGILITE">Agility %%</text>
-    <text id="AMELIORATION_CHARISM">Charisma %%</text>
-    <text id="AMELIORATION_CONSTIT">Constitution %%</text>
-    <text id="AMELIORATION_ESQUIVE">Dodge %%</text>
-    <text id="AMELIORATION_FORCE">Strength %%</text>
-    <text id="AMELIORATION_INTELLI">Intellect %%</text>
-    <text id="AMELIORATION_PUISS">Power %%</text>
-    <text id="AMELIORATION_RECUP">Healing power %%</text>
     <text id="AMELIORATION_VIT_ATTAQUE">Attack speed %%</text>
     <text id="AMELIORATION_VIT_BLESSE">Hit recovery speed %%</text>
     <text id="AMELIORATION_VIT_COURSE">Running speed %%</text>
@@ -44,6 +36,14 @@
     <text id="SAUVEGARDE">Game saved</text>
     <text id="SOUS_EFFET">Under the effect of: %%</text>
     <text id="VERSION_INCOMPATIBLE">This saved game is not compatible with this version of the program.</text>
+    <text id="console-attributeImprovement-strength">Strength %%</text>
+    <text id="console-attributeImprovement-power">Power %%</text>
+    <text id="console-attributeImprovement-agility">Agility %%</text>
+    <text id="console-attributeImprovement-intellect">Intellect %%</text>
+    <text id="console-attributeImprovement-constitution">Constitution %%</text>
+    <text id="console-attributeImprovement-charisma">Charisma %%</text>
+    <text id="console-attributeImprovement-dodge">Dodge %%</text>
+    <text id="console-attributeImprovement-healingPower">Healing power %%</text>
     <text id="object-property-strength">Strength %%</text>
     <text id="object-property-power">Power %%</text>
     <text id="object-property-agility">Agility %%</text>
