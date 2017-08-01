@@ -58,42 +58,8 @@ void Joueur::Repos()
 	DureeEveil = 0;
 }
 
-void Joueur::Gestion_Equipement()
-{
-	//Diminue la durée de vie des objets utilisés
-	for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
-	{
-		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first && getDoubleFromLUA(i->second, "getDuree") > 0)
-		{
-			setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
-
-			if (getDoubleFromLUA(i->second, "getDuree") <= 0)
-			{
-				lua_State *j = i->second;
-				i = inventory.objects.erase(i);
-				inventory.deleteObject(j);
-				continue;
-			}
-		}
-	}
-}
-
 void Joueur::Gestion_Statistiques()
 {
-	//1. Régénération de la vitalité
-	if (currentHealthStatus(Statistiques::Life) < 1000)
-	{
-		modifyHealthStatus(Statistiques::Life, tools::timeManager::I(1/4.f*tan(currentHealthStatus(Statistiques::Healing)/70.f)));
-		if (abs(currentHealthStatus(Statistiques::Healing)) <= 95) modifyHealthStatus(Statistiques::Energy, -abs(tools::timeManager::I(currentHealthStatus(Statistiques::Healing)/25.f*(1000-currentHealthStatus(Statistiques::Life))/1000.f)));
-	}
-
-	//2. Régénération ou Perte d'Énergie lors d'une Récupération forcée
-	if (abs(currentHealthStatus(Statistiques::Healing)) > 95 && currentHealthStatus(Statistiques::Energy) < ToSegment(currentHealthStatus(Caracteristiques::Constitution), 0, 100))
-	{
-		if (currentHealthStatus(Statistiques::Healing) > 0) modifyHealthStatus(Statistiques::Energy, tools::timeManager::I(0.5));
-		else modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(0.25));
-	}
-
 	//3. Perte d'énergie selon durée depuis repos
 	if (DureeEveil > currentHealthStatus(Caracteristiques::Constitution)) modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Caracteristiques::Constitution))/10000);
 
@@ -103,15 +69,6 @@ void Joueur::Gestion_Statistiques()
 	if (Get_Act() == COURSE)
 		modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(0.05/currentHealthStatus(Caracteristiques::Constitution)));
 
-	//5. Évolution du taux de récupération
-	float RecupCible = currentHealthStatus(Caracteristiques::HealingPower) * ((currentHealthStatus(Statistiques::Life)-200)/740.f);
-	if (RecupCible > 0) RecupCible *= max(0.f, (currentHealthStatus(Statistiques::Energy)-70.f)/1000.f);
-
-	if (1.05*currentHealthStatus(Statistiques::Healing) < RecupCible) modifyHealthStatus(Statistiques::Healing, tools::timeManager::I(0.1));
-	if (0.95*currentHealthStatus(Statistiques::Healing) > RecupCible) modifyHealthStatus(Statistiques::Healing, -tools::timeManager::I(0.1));
-
-	if (abs(currentHealthStatus(Caracteristiques::HealingPower)) >= 95) modifyHealthStatus(Statistiques::Healing, currentHealthStatus(Caracteristiques::HealingPower));
-
 	//6. Durée d'éveil
 	DureeEveil += tools::timeManager::I(0.0005);
 
@@ -119,12 +76,12 @@ void Joueur::Gestion_Statistiques()
 	if (currentHealthStatus(Statistiques::Energy) < 70 && currentHealthStatus(Statistiques::Energy) > 10)
 	{
 		//Agilite-
-		if (Caracs["agility"] > 1 && !(rand()%(int)(currentHealthStatus(Statistiques::Energy)*100)+1))
-            attributes().add(Caracteristiques::Agility, -1);
+        if (Caracs[Caracteristiques::Agility] > 1)
+            attributes().add(Caracteristiques::Agility, -(70.0-currentHealthStatus(Statistiques::Energy))/100000.0*tools::timeManager::I(1));
 
 		//Intelligence-
-		if (Caracs["intellect"] > 1 && !(rand()%(int)(currentHealthStatus(Statistiques::Energy)*100)+1))
-            attributes().add(Caracteristiques::Intellect, -1);;
+        if (Caracs[Caracteristiques::Intellect] > 1)
+            attributes().add(Caracteristiques::Intellect, -(70.0-currentHealthStatus(Statistiques::Energy))/100000.0*tools::timeManager::I(1));
 
 		//Application
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));

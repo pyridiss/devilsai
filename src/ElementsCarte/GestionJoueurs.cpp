@@ -63,7 +63,7 @@ int Joueur::Gestion()
         if (Get_Num() == 8) tools::signals::addSignal("player-dead");
 	}
 
-	Gestion_Equipement();
+    Gestion_Recuperation();
 	Gestion_Statistiques();
 
 		// 3. Gestion du temps : Mouvement ou pas

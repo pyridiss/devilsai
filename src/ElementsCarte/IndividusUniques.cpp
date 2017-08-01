@@ -83,55 +83,6 @@ Activite* Individu_Unique::Get_Activite(string act)
 	return &i->second;
 }
 
-void Individu_Unique::Gestion_Recuperation()
-{
-	//Cette fonction s'occupe de la récupération, de l'énergie, et de la durée de vie des objets
-	if (!RecuperationFixe) Individu::Gestion_Recuperation();
-	else
-	{
-		if (currentHealthStatus(Statistiques::Healing) > 0)
-		{
-			if (100*buf_rec <= 3*currentHealthStatus(Statistiques::Healing))
-			{
-				modifyHealthStatus(Statistiques::Life, 1);
-				if (currentHealthStatus(Statistiques::Healing) > 80) modifyHealthStatus(Statistiques::Life, 3);
-				if (currentHealthStatus(Statistiques::Healing) > 90) modifyHealthStatus(Statistiques::Life, 6);
-				if (currentHealthStatus(Statistiques::Healing) > 95) modifyHealthStatus(Statistiques::Life, 6);
-				modifyHealthStatus(Statistiques::Energy, 1);
-			}
-		}
-		if (currentHealthStatus(Statistiques::Healing) < 0)
-		{
-			if (100*buf_rec <= -3*currentHealthStatus(Statistiques::Healing))
-			{
-				modifyHealthStatus(Statistiques::Life, -1);
-				modifyHealthStatus(Statistiques::Energy, -1);
-			}
-		}
-	}
-
-	if (EnergieMax) setHealthStatus(Statistiques::Energy, 1000);
-
-	//Diminue la durée de vie des objets utilisés -- Should maybe be placed in LUA scripts
-	for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
-	{
-		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first)
-		{
-			if (getDoubleFromLUA(i->second, "getDuree") > 0)
-			{
-                setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
-				if (getDoubleFromLUA(i->second, "getDuree") <= 0)
-				{
-					lua_State *j = i->second;
-					i = inventory.objects.erase(i);
-					inventory.deleteObject(j);
-					continue;
-				}
-			}
-		}
-	}
-}
-
 void Individu_Unique::modifyHealthStatus(Statistiques::Attribute a, double value)
 {
     if (RecuperationFixe && a == Statistiques::Healing) return;

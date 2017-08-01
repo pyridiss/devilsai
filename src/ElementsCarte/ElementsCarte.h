@@ -208,7 +208,8 @@ class Individu : public Element_Carte
         Caracteristiques _currentHealthStatus;
 
 	public:
-		float buf_rec       = 0;
+        bool RecuperationFixe   = false;
+        bool EnergieMax         = false;
 
         tools::math::Shape interactionField;
         tools::math::Shape viewField;
@@ -259,8 +260,6 @@ class Individu_Unique : public Individu
 	public:
 		String32 Nom;
 		unsigned int Experience = 0;
-		bool RecuperationFixe   = false;
-		bool EnergieMax         = false;
         string dataFile;
 
     public:
@@ -295,8 +294,6 @@ class Individu_Unique : public Individu
         void modifyHealthStatus(Statistiques::Attribute a, double value);
 
 		int Get_Vitesse(string act);
-
-		void Gestion_Recuperation();
 
 		bool Set_Activite(string nv);
 
@@ -348,7 +345,6 @@ class Joueur : public Individu_Unique
 
 	public:
 		int Gestion();
-		void Gestion_Equipement();
 		void Gestion_Statistiques();
 		void Repos();
 

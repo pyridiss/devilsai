@@ -44,51 +44,40 @@ Individu::Individu() : Element_Carte()
 
 void Individu::Gestion_Recuperation()
 {
-	if (currentHealthStatus(Statistiques::Healing) > 0)
-	{
-		if (100*buf_rec <= 2*currentHealthStatus(Statistiques::Healing))
-		{
-			modifyHealthStatus(Statistiques::Life, 1);
-			if (currentHealthStatus(Statistiques::Healing) > 80) modifyHealthStatus(Statistiques::Life, 3);
-			if (currentHealthStatus(Statistiques::Healing) > 90) modifyHealthStatus(Statistiques::Life, 6);
-			if (currentHealthStatus(Statistiques::Healing) > 95) modifyHealthStatus(Statistiques::Life, 6);
-			modifyHealthStatus(Statistiques::Energy, 1);
-		}
-	}
-	if (currentHealthStatus(Statistiques::Healing) < 0)
-	{
-		if (100*buf_rec <= -2*currentHealthStatus(Statistiques::Healing))
-		{
-			modifyHealthStatus(Statistiques::Life, -1);
-			modifyHealthStatus(Statistiques::Energy, -1);
-		}
-	}
+    modifyHealthStatus(Statistiques::Life, currentHealthStatus(Statistiques::Healing)/1000.0 * tools::timeManager::I(1.0));
+    modifyHealthStatus(Statistiques::Energy, currentHealthStatus(Statistiques::Healing)/1000.0 * tools::timeManager::I(1.0));
 
-	//Évolution de la récupération :
+    if (currentHealthStatus(Statistiques::Healing) > 95)
+    {
+        modifyHealthStatus(Statistiques::Life, tools::timeManager::I(1.0));
+        modifyHealthStatus(Statistiques::Energy, tools::timeManager::I(1.0));
+    }
 
-	//Test de récupération forcée (potion, …)
-	if (abs(currentHealthStatus(Caracteristiques::HealingPower)) >= 95)
+    double diff = currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800.0)/100.0 - currentHealthStatus(Statistiques::Healing);
+    modifyHealthStatus(Statistiques::Healing, diff / 1000.0 * tools::timeManager::I(1.0));
+
+    //Test de récupération forcée (potion, …)
+    if (RecuperationFixe || abs(currentHealthStatus(Caracteristiques::HealingPower)) >= 95)
         setHealthStatus(Statistiques::Healing, currentHealthStatus(Caracteristiques::HealingPower));
 
-	//Évolution spontanée
-	if (buf_rec >= 10)
-	{
-		//Récuperation trop faible par rapport à la vitalité :
-		if (currentHealthStatus(Statistiques::Healing) < currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800)/20)
-            modifyHealthStatus(Statistiques::Healing, 1);
+    if (EnergieMax) setHealthStatus(Statistiques::Energy, 1000);
 
-		//Récupération trop importante par rapport à la vitalité :
-		if (currentHealthStatus(Statistiques::Healing) > currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800)/20)
-            modifyHealthStatus(Statistiques::Healing, -1);
+    //Diminue la durée de vie des objets utilisés
+    for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
+    {
+        if (getStringFromLUA(i->second, "getIdEmplacement") == i->first && getDoubleFromLUA(i->second, "getDuree") > 0)
+        {
+            setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
 
-		//Augmentation de la Récupération automatique en fonction du niveau d'énergie
-		if (currentHealthStatus(Statistiques::Energy) > 200) if (!rand()%20)
-            modifyHealthStatus(Statistiques::Healing, 1);
-		if (currentHealthStatus(Statistiques::Energy) > 900) if (!rand()%15)
-            modifyHealthStatus(Statistiques::Healing, 1);
-		buf_rec = 0;
-	}
-    else buf_rec += tools::timeManager::I(1);
+            if (getDoubleFromLUA(i->second, "getDuree") <= 0)
+            {
+                lua_State *j = i->second;
+                i = inventory.objects.erase(i);
+                inventory.deleteObject(j);
+                continue;
+            }
+        }
+    }
 }
 
 int Individu::currentHealthStatus(Statistiques::Attribute a)
