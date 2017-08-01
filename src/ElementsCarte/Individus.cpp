@@ -104,8 +104,12 @@ int Individu::currentHealthStatus(Caracteristiques::Attribute a)
                 lua_pushstring(o.second, Caracteristiques::toString(att).c_str());
                 lua_call(o.second, 1, 1);
                 _currentHealthStatus.add(att, lua_tonumber(o.second, -1));
+                lua_pop(o.second, 1);
+                lua_getglobal(o.second, "getCurrentObjectEffect");
                 lua_pushstring(o.second, (Caracteristiques::toString(att) + "Factor").c_str());
+                lua_call(o.second, 1, 1);
                 _currentHealthStatus.add(att, attributes()[att] * lua_tonumber(o.second, -1) / 100.0);
+                lua_pop(o.second, 1);
             }
         }
     }
