@@ -74,7 +74,6 @@ class Carte
 		Joueur* AjouterJoueur(string Type, string liste, int x, int y);
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
         CheckPoint* addCheckPoint(string liste, int x, int y);
-		Trigger* addTrigger(string liste);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		void SupprimerElement(Element_Carte* elem);
 

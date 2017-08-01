@@ -122,12 +122,6 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
             Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
             Fichier >> paysage->extent.x >> paysage->extent.y;
 		}
-		if (TypeDonnee == "SHARED_TRIGGER" && carte != NULL)
-		{
-			Trigger *trigger = carte->addTrigger(list);
-			trigger->load(Fichier, carte);
-			lastElementLoaded = trigger;
-		}
 		if (TypeDonnee == "COFFRE" && carte != NULL)
 		{
 			Fichier >> X >> Y;
@@ -349,19 +343,6 @@ CheckPoint* Carte::addCheckPoint(string liste, int x, int y)
 	MESSAGE("Un actionneur a été ajouté", FICHIER)
 
 	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Trigger* Carte::addTrigger(string liste)
-{
-	Trigger *ind = new Trigger;
-
-	ind->Liste = liste;
-    ind->size.setOrigin(&ind->position());
-
-	MESSAGE("A trigger has been added", FICHIER)
-
-    elements.push_back(ind);
 	return ind;
 }
 
