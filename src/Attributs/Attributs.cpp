@@ -187,13 +187,6 @@ void Caracteristiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle
     root->SetAttribute("injurySpeed", injurySpeed);
 }
 
-pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
-{
-	pair<int, int> addedCharacteristic;
-
-	return addedCharacteristic;
-}
-
 double Caracteristiques::operator[](string characteristic) const
 {
 	if (characteristic == "strength")
@@ -219,16 +212,19 @@ double Caracteristiques::operator[](string characteristic) const
 
 double Caracteristiques::operator[](Attribute a)
 {
+    if (a == Attribute::enumSize) return 0;
     return get(a);
 }
 
 void Caracteristiques::add(Attribute a, double value)
 {
+    if (a == Attribute::enumSize) return;
     get(a) += value;
 }
 
 void Caracteristiques::set(Attribute a, double value)
 {
+    if (a == Attribute::enumSize) return;
     get(a) = value;
 }
 

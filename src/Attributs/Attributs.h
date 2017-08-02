@@ -119,9 +119,6 @@ class Caracteristiques
 
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-
-	public:
-		pair<int, int> getFromObjectsAndSkills(string characteristic);
 };
 
 class Activite
