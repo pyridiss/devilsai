@@ -76,21 +76,23 @@ short Individu::Get_Num()
 
 bool Individu::Set_Activite(string nv)
 {
+    if (Get_Activite(nv) == NULL) return false;
+
 	if (Get_Activite(Act) == NULL)
 	{
 		Act = nv;
+        Get_Activite(Act)->atBegin(this);
 		Num = 0;
 	}
 
 	if (Act == MORT) return false;
-
-	if (Get_Activite(nv) == NULL) return false;
 
 	if (Get_Activite(Act)->priority > Get_Activite(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
 	if (Act == nv) return true;
 
 	Act = nv;
+    Get_Activite(Act)->atBegin(this);
 
 	if (Act == MORT) size.circle(tools::math::Vector2d(0, 0), 0);
 

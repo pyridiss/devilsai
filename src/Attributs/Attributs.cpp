@@ -533,6 +533,16 @@ void Activite::loadScript()
     lua_pcall(script, 0, 0, 0);
 }
 
+void Activite::atBegin(Individu* owner)
+{
+    if (script == nullptr)
+        return;
+
+    lua_getglobal(script, "atBegin");
+    lua_pushlightuserdata(script, (void*)owner);
+    lua_call(script, 1, 0);
+}
+
 void Activite::atEnd(Individu* owner)
 {
     if (script == nullptr)

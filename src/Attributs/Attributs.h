@@ -157,6 +157,7 @@ class Activite
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void loadScript();
 
+        void atBegin(Individu* owner);
         void atEnd(Individu* owner);
 };
 
