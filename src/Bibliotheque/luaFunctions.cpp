@@ -196,33 +196,28 @@ int LUA_useObject(lua_State* L)
 
 	mapObjects* objects = &(ind->inventory.objects);
 
-	mapObjects::iterator i = objects->begin();
-	string key = intToString(CLEF_INVENTAIRE);
-	while (i != objects->end() && (getStringFromLUA(i->second, "getFileName") != object || i->first[0] != key[0])) ++i;
+    for (auto& i : *objects)
+    {
+        if (getBoolFromLUA(i.second, "getCumul") && getStringFromLUA(i.second, "getFileName") == object)
+        {
+            //TODO: Erase temporary objects instead of refusing the use of the object.
+            if (objects->find(getStringFromLUA(i.second, "getIdEmplacement")) != objects->end())
+                break;
 
-	if (i != objects->end())
-	{
-		mapObjects::iterator j = objects->find(getStringFromLUA(i->second, "getIdEmplacement"));
-		//On vérifie que l'emplacement correspondant dans l'Équipement est vide
-		if (j == objects->end())
-		{
-			ind->inventory.addObject(getStringFromLUA(i->second, "getFileName"), getStringFromLUA(i->second, "getIdEmplacement"));
+            if (getIntFromLUA(i.second, "getQuantite") > 1)
+            {
+                ind->inventory.addObject(getStringFromLUA(i.second, "getFileName"), getStringFromLUA(i.second, "getIdEmplacement"));
+                setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") - 1);
+            }
+            else
+            {
+                setStringToLUA(i.second, "setKey", getStringFromLUA(i.second, "getIdEmplacement"));
+                objects->emplace(getStringFromLUA(i.second, "getIdEmplacement"), i.second);
+                objects->erase(i.first);
+            }
+        }
+    }
 
-			j = objects->find(getStringFromLUA(i->second, "getIdEmplacement"));
-			setIntToLUA(j->second, "setQuantite", 1);
-
- 			mapObjects::iterator i = objects->begin();
-			while (i != objects->end() && getStringFromLUA(i->second, "getFileName") != object) ++i;
-
-			if (getIntFromLUA(i->second, "getQuantite") > 1)
-				setIntToLUA(i->second, "setQuantite", getIntFromLUA(i->second, "getQuantite") - 1);
-			else
-			{
-				ind->inventory.deleteObject(i->second);
-				objects->erase(i);
-			}
-		}
-	}
 	return 0;
 }
 
