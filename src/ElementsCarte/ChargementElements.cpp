@@ -129,30 +129,6 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 			string numero = ""; Fichier >> numero;
 			ind->Get_Caracs()->addSkill(numero, ind);
 		}
-		if (TypeDonnee == "DEFAUT_CTRL")
-		{
-			string numero = ""; Fichier >> numero;
-			mapSkills::iterator i = ind->Get_Caracs()->skills.find(numero);
-			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_CTRL] = i->second;
-		}
-		if (TypeDonnee == "DEFAUT_SHIFT")
-		{
-			string numero = ""; Fichier >> numero;
-			mapSkills::iterator i = ind->Get_Caracs()->skills.find(numero);
-			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_SHIFT] = i->second;
-		}
-		if (TypeDonnee == "DEFAUT_TAB")
-		{
-			string numero = ""; Fichier >> numero;
-			mapSkills::iterator i = ind->Get_Caracs()->skills.find(numero);
-			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_TAB] = i->second;
-		}
-		if (TypeDonnee == "DEFAUT_SPACE")
-		{
-			string numero = ""; Fichier >> numero;
-			mapSkills::iterator i = ind->Get_Caracs()->skills.find(numero);
-			if (i != ind->Get_Caracs()->skills.end()) ind->skillLinks[COMPETENCE_SPACE] = i->second;
-		}
 		if (TypeDonnee == "DIPLOM")		Fichier >> ind->Diplomatie;
 		if (TypeDonnee == "CMP_VIS")
         {

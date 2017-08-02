@@ -272,9 +272,6 @@ class Individu_Unique : public Individu
 
 		Caracteristiques Caracs;
 
-	public:
-        lua_State* skillLinks[4]    = {nullptr, nullptr, nullptr, nullptr};
-
 	//Constructeurs / Destructeurs :
 	public:
 		Individu_Unique();

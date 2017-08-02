@@ -45,9 +45,6 @@ string Joueur::TabToAct(int TabAppui)
 	if (TabAppui == 0)		return PAUSE;
 	if (TabAppui < 10000)	return COURSE;
 
-	for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-        if (TabAppui/10000 == c+1 && skillLinks[c] != nullptr) return getStringFromLUA(skillLinks[c], "getActivite");
-
 	return PAUSE;
 }
 
@@ -274,16 +271,4 @@ void Disp_Personnage()
 void Disp_MiniaturesCompetences()
 {
     imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
-
-    if (gamedata::player()->skillLinks[0] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[0], "getName"), 5, Options.ScreenH - 55);
-
-    if (gamedata::player()->skillLinks[1] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[1], "getName"), 5, Options.ScreenH - 105);
-
-    if (gamedata::player()->skillLinks[2] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[2], "getName"), 5, Options.ScreenH - 171);
-
-    if (gamedata::player()->skillLinks[3] != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(gamedata::player()->skillLinks[3], "getName"), 71, Options.ScreenH - 55);
 }

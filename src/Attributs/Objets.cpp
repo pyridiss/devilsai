@@ -144,21 +144,6 @@ void Gestion_Competences(Event &event)
 		}
 	}
 
-	if (Partie.selectedSkill != nullptr)
-	{
-		for (int i : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
-		if (BoutonsCompetences[i]->activated(Jeu.App, event))
-		{
-			gamedata::player()->skillLinks[i] = Partie.selectedSkill;
-			//We must remove duplicates of this skill
-			for (int j : {COMPETENCE_CTRL, COMPETENCE_SHIFT, COMPETENCE_TAB, COMPETENCE_SPACE})
-			{
-				if (i != j && gamedata::player()->skillLinks[j] == Partie.selectedSkill)
-                    gamedata::player()->skillLinks[j] = nullptr;
-			}
-			Partie.selectedSkill = nullptr;
-		}
-	}
 }
 
 void Disp_EmplacementVide(string TypeObjet)

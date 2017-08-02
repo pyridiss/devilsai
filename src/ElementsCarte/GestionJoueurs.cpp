@@ -48,8 +48,6 @@ int Joueur::Gestion()
 	bool MouvementAutorise = true;
 	static bool Appui[4] = {false};
 	static bool Old[4] = {false};
-	static short Competence = COMPETENCE_AUCUNE;
-	static short ChoixCompetence = COMPETENCE_AUCUNE;
 
 		// 2. Vérifie que le personnage est toujours en vie !
 
@@ -81,18 +79,17 @@ int Joueur::Gestion()
         Appui[GAUCHE] = Keyboard::isKeyPressed(Keyboard::Left);
 
 				//Activité (pas de touche) ou Compétence :
-        ChoixCompetence = COMPETENCE_AUCUNE;
+
         if (Keyboard::isKeyPressed(Keyboard::LControl)) Set_Activite("skill-sword-handling");
         if (Keyboard::isKeyPressed(Keyboard::LShift)) Set_Activite("skill-fireball");
-        if (Keyboard::isKeyPressed(Keyboard::Tab))      ChoixCompetence = COMPETENCE_TAB;
-        if (Keyboard::isKeyPressed(Keyboard::Space))    ChoixCompetence = COMPETENCE_SPACE;
+        if (Keyboard::isKeyPressed(Keyboard::Tab)) Set_Activite("use-healpotion");
+        if (Keyboard::isKeyPressed(Keyboard::Space)) Set_Activite("skill-charge-part1");
 	}
 
 	//Désactivation de (presque) tout si on est en mode cinématiques
 	if (Partie.ModeCinematiques)
 	{
 		Appui[HAUT] = false; Appui[BAS] = false; Appui[DROITE] = false; Appui[GAUCHE] = false;
-		ChoixCompetence = COMPETENCE_AUCUNE;
 	}
 
 	//Enchaîne les activités sans attendre que la précédente soit terminée et détermine la compétence à activer
@@ -101,21 +98,12 @@ int Joueur::Gestion()
 		if (Appui[a] != Old[a]) Temps = 1;
 		Old[a] = Appui[a];
 	}
-    if (ChoixCompetence != COMPETENCE_AUCUNE && skillLinks[ChoixCompetence] != nullptr && Competence != ChoixCompetence)
-	{
-		if (getBoolFromLUA(skillLinks[ChoixCompetence], "testEnoughEnergy") == true)
-		{
-			Competence = ChoixCompetence;
-			Temps = 1;
-		}
-		else Disp_Information(tools::textManager::getText("devilsai", "ENERGIE_INSUFFISANTE"), true);
-	}
 
 		// 5. Modification de la position
 
 	float modif_maj = 1;
 
-	int TabAppui = 10000*(Competence+1) + 1000*Appui[NORD] + 100*Appui[SUD] + 10*Appui[EST] + Appui[OUEST];
+	int TabAppui = 1000*Appui[NORD] + 100*Appui[SUD] + 10*Appui[EST] + Appui[OUEST];
 
     //Be careful: the Y axis is inversed
 	switch (TabAppui%10000)
@@ -191,16 +179,6 @@ int Joueur::Gestion()
 		if (Iteration < 8)
 		{
 			Set_Activite(TabToAct(TabAppui));
-			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-			{
-                if (skillLinks[c] != nullptr)
-				{
-					if (Competence == c)
-						setBoolToLUA(skillLinks[c], "setActivated", true);
-					else
-						setBoolToLUA(skillLinks[c], "setActivated", false);
-				}
-			}
 		}
 
 		//Nouveau mouvement
@@ -251,23 +229,8 @@ int Joueur::Gestion()
 
 		if (Get_Num() == 0)
 		{
-			for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-                if (skillLinks[c] != nullptr && Get_Act() == getStringFromLUA(skillLinks[c], "getActivite"))
-					setBoolToLUA(skillLinks[c], "setActiviteFinished", true);
-
             Get_Activite(Act)->atEnd(this);
 		}
-
-		for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-            if (skillLinks[c] != nullptr)
-			{
-				lua_getglobal(skillLinks[c], "use");
-				lua_call(skillLinks[c], 0, 0);
-			}
-
-		//Stop using skills if the current one is finished
-		if (Competence != COMPETENCE_AUCUNE && getBoolFromLUA(skillLinks[Competence], "getActivated") == false)
-			Competence = COMPETENCE_AUCUNE;
 	}
 
 	return 0;
