@@ -387,6 +387,13 @@ void Activite::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("hue", &h);
             elem->QueryAttribute("saturation", &s);
             elem->QueryAttribute("luminance", &l);
+
+            if (elem->Attribute("speedImprover", "runSpeed"))
+                speedImprover = Caracteristiques::RunSpeed;
+            else if (elem->Attribute("speedImprover", "attackSpeed"))
+                speedImprover = Caracteristiques::AttackSpeed;
+            else if (elem->Attribute("speedImprover", "injurySpeed"))
+                speedImprover = Caracteristiques::InjurySpeed;
         }
         if (elemName == "images")
         {

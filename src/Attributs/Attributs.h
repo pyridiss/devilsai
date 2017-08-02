@@ -134,6 +134,7 @@ class Activite
         bool fightAtEnd    = false;
         string scriptString;
         lua_State* script  = nullptr;
+        Caracteristiques::Attribute speedImprover = Caracteristiques::Attribute::enumSize;
 
         int priority       = 0;
 
