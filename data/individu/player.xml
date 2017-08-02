@@ -127,7 +127,7 @@
                 end
             </script>
         </skill>
-        <skill name="401" owner="player">
+        <skill name="use-healpotion" owner="player">
             <properties priority="3" speed="5" step="0" numberOfImages="1"/>
             <images angle="0" pathToImages="401/2/%%.png"/>
             <images angle="45" pathToImages="401/6/%%.png"/>
@@ -137,6 +137,14 @@
             <images angle="225" pathToImages="401/5/%%.png"/>
             <images angle="270" pathToImages="401/0/%%.png"/>
             <images angle="315" pathToImages="401/4/%%.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    useObject(owner, "healpotion")
+                end
+            </script>
         </skill>
         <skillsManagement default="2" onAttack="4"/>
         <inventory>
@@ -147,8 +155,6 @@
             <addObject slot="equipment-boots" design="sabaton0"/>
             <addObject slot="inventory01" design="healpotion" quality="3"/>
         </inventory>
-        <SKILL SKILL="healpotion"/>
-        <DEFAUT_TAB DEFAUT_TAB="healpotion"/>
     </uniqueData>
     <species name="player_fireball_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>

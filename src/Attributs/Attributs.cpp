@@ -527,6 +527,7 @@ void Activite::loadScript()
     lua_register(script, "individual_set", LUA_set);
     lua_register(script, "isIndividu", LUA_isIndividu);
     lua_register(script, "playSound", LUA_playSound);
+    lua_register(script, "useObject", LUA_useObject);
 
     luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
     lua_pcall(script, 0, 0, 0);
