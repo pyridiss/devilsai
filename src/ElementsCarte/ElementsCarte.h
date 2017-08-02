@@ -268,7 +268,6 @@ class Individu_Unique : public Individu
 
 	public:
 		MapActivites Activites;
-// 		MapPointeursCompetences Competences;
 
 		Caracteristiques Caracs;
 
@@ -326,8 +325,6 @@ class Joueur : public Individu_Unique
 	public:
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
-// 		bool GestionCoffresActivee     = false;
-// 		bool GestionCompetencesActivee = false;
         bool automove                  = false;
         Point automoveEndpoint;
 

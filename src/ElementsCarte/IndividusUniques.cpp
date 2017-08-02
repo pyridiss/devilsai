@@ -45,12 +45,7 @@ Individu_Unique::Individu_Unique() : Individu()
 
 Individu_Unique::~Individu_Unique()
 {
-// 	Equips.clear();
-// 	for (int c = 0 ; c < NOMBRE_COMPETENCES ; ++c)
-// 		CompetencesRapides[c] = NULL;
 	Activites.clear();
-// 	for (MapPointeursCompetences::iterator i = Competences.begin() ; i != Competences.end() ; ++i)
-// 		delete i->second;
 }
 
 void Individu_Unique::Ajouter_Activite(string Id)
