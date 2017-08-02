@@ -109,12 +109,4 @@ using namespace std;
 #define ETAT_MORT		8
 #define ETAT_CONTINUER	9
 
-//Compétences
-#define NOMBRE_COMPETENCES	4
-#define COMPETENCE_AUCUNE	-1
-#define COMPETENCE_CTRL		0
-#define COMPETENCE_SHIFT	1
-#define COMPETENCE_TAB		2
-#define COMPETENCE_SPACE	3
-
 #endif

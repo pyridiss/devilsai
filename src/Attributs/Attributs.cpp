@@ -155,78 +155,6 @@ Caracteristiques::Caracteristiques() :
 {
 }
 
-void Caracteristiques::addSkill(string newSkill, Individu* owner)
-{
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-
-	luaL_dofile(L, (tools::filesystem::dataDirectory() + "skill/" + newSkill + ".lua").c_str());
-
-	lua_atpanic(L, LUA_panic);
-
-	lua_register(L, "getElementById", LUA_getElementById);
-	lua_register(L, "getElementInteraction", LUA_getElementInteraction);
-	lua_register(L, "isIndividu", LUA_isIndividu);
-	lua_register(L, "interact", LUA_interact);
-	lua_register(L, "combat", LUA_combat);
-	lua_register(L, "set", LUA_set);
-	lua_register(L, "get", LUA_get);
-	lua_register(L, "useObject", LUA_useObject);
-	lua_register(L, "dispText", LUA_dispText);
-	lua_register(L, "getQuantityOf", LUA_getQuantityOf);
-	lua_register(L, "I", LUA_I);
-	lua_register(L, "cout", LUA_cout);
-	lua_register(L, "createActivite", LUA_createActivite);
-	lua_register(L, "activiteSet", LUA_activiteSet);
-	lua_register(L, "activiteAddImage", LUA_activiteAddImage);
-	lua_register(L, "addSound", LUA_addSound);
-	lua_register(L, "playSound", LUA_playSound);
-    lua_register(L, "individual_get", LUA_get);
-    lua_register(L, "individual_set", LUA_set);
-    lua_register(L, "individual_copy", LUA_individual_copy);
-    lua_register(L, "createIndividual", LUA_createIndividual);
-
-	lua_getglobal(L, "skillBegin");
-    lua_pushlightuserdata(L, (void*)owner);
-	lua_call(L, 1, 0);
-
-    string name = getStringFromLUA(L, "getName");
-    string file = getStringFromLUA(L, "getImageFile");
-
-    imageManager::addContainer("skills");
-    imageManager::addImage("skills", name, file);
-
-	skills.insert(map<string, lua_State*>::value_type(newSkill, L));
-}
-
-void Caracteristiques::manageSkills()
-{
-	for (map<string, lua_State*>::iterator i = skills.begin() ; i != skills.end() ; ++i)
-	{
-	}
-}
-
-void Caracteristiques::saveSkills(ofstream& stream)
-{
-	for (map<string, lua_State*>::iterator i = skills.begin() ; i != skills.end() ; ++i)
-	{
-	}
-}
-
-void Caracteristiques::loadSkillFromSavedGame(string skill, string data)
-{
-}
-
-void Caracteristiques::deleteSkills()
-{
-	for (map<string, lua_State*>::iterator i = skills.begin() ; i != skills.end() ; )
-	{
-		lua_State *j = i->second;
-		i = skills.erase(i);
-		lua_close(j);
-	}
-}
-
 void Caracteristiques::loadFromXML(tinyxml2::XMLElement* elem)
 {
     elem->QueryAttribute("strength", &strength);
@@ -263,11 +191,6 @@ pair<int, int> Caracteristiques::getFromObjectsAndSkills(string characteristic)
 {
 	pair<int, int> addedCharacteristic;
 
-	for (auto& i : skills)
-	{
-		addedCharacteristic.first += getIntFromLUA(i.second, "get" + characteristic);
-		addedCharacteristic.second += getIntFromLUA(i.second, "getMult" + characteristic);
-	}
 	return addedCharacteristic;
 }
 
@@ -558,5 +481,4 @@ void Activite::atEnd(Individu* owner)
 
 Caracteristiques::~Caracteristiques()
 {
-	deleteSkills();
 }

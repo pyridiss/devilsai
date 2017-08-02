@@ -46,7 +46,6 @@ namespace tinyxml2{
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
-typedef map < string, lua_State* > mapSkills;
 
 class Statistiques
 {
@@ -98,9 +97,6 @@ class Caracteristiques
         double runSpeed, attackSpeed, injurySpeed;
 
 	public:
-		mapSkills skills;
-
-	public:
         Caracteristiques();
 		~Caracteristiques();
 
@@ -119,11 +115,6 @@ class Caracteristiques
         double& get(Attribute a);
 
 	public:
-		void addSkill(string newSkill, Individu* owner);
-		void manageSkills();
-		void saveSkills(ofstream& stream);
-		void loadSkillFromSavedGame(string skill, string data);
-		void deleteSkills();
         static string toString(Attribute a);
 
         void loadFromXML(tinyxml2::XMLElement* elem);

@@ -230,11 +230,6 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         {
             inventory.loadFromXML(elem);
         }
-        if (elemName == "SKILL") //TODO: Remove this!
-        {
-            string numero = elem->Attribute("SKILL");
-            Get_Caracs()->addSkill(numero, this);
-        }
 
         elem = elem->NextSiblingElement();
     }

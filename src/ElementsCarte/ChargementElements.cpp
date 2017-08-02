@@ -124,11 +124,6 @@ void Load_IndividuUnique(string Type, Individu_Unique *ind)
 				TypeDonnee2 = "";
 			}
 		}
-		if (TypeDonnee == "SKILL")
-		{
-			string numero = ""; Fichier >> numero;
-			ind->Get_Caracs()->addSkill(numero, ind);
-		}
 		if (TypeDonnee == "DIPLOM")		Fichier >> ind->Diplomatie;
 		if (TypeDonnee == "CMP_VIS")
         {

@@ -107,43 +107,12 @@ void Disp_Competences()
 	imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
 	Disp_TexteCentre(tools::textManager::getText("devilsai", "COMPETENCES"), 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
 
-	mapSkills::iterator skill = gamedata::player()->Get_Caracs()->skills.begin();
-
-	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
-	{
-        BoutonsInventaire[cmpt]->display(Jeu.App);
-		if (skill != gamedata::player()->Get_Caracs()->skills.end())
-		{
-            string name = getStringFromLUA(skill->second, "getName");
-            imageManager::display(Jeu.App, "skills", name, BoutonsInventaire[cmpt]->getXTopLeft(), BoutonsInventaire[cmpt]->getYTopLeft());
-            if (BoutonsInventaire[cmpt]->mouseHovering(Jeu.App))
-                Disp_Skill(skill->second);
-
-			++skill;
-		}
-	}
-
 	Disp_MiniaturesCompetences();
 
-	if (Partie.selectedSkill != nullptr)
-        imageManager::display(Jeu.App, "skills", getStringFromLUA(Partie.selectedSkill, "getName"), Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y);
 }
 
 void Gestion_Competences(Event &event)
 {
-	mapSkills::iterator skill = gamedata::player()->Get_Caracs()->skills.begin();
-
-	for (int cmpt = 0 ; cmpt < 24 ; ++cmpt)
-	{
-		if (skill != gamedata::player()->Get_Caracs()->skills.end())
-		{
-            if (BoutonsInventaire[cmpt]->activated(Jeu.App, event))
-                Partie.selectedSkill = skill->second;
-
-			++skill;
-		}
-	}
-
 }
 
 void Disp_EmplacementVide(string TypeObjet)

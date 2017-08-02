@@ -539,7 +539,6 @@ void Clean_Partie()
 {
 	Partie.CoffreOuvert = NULL;
 	Partie.selectedObject = nullptr;
-	Partie.selectedSkill = nullptr;
 	Partie.listDialogs.clear();
 	currentUserScreen = nullptr;
 	Partie.journal.entries.clear();
