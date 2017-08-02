@@ -90,25 +90,6 @@ void Individu_Unique::modifyHealthStatus(Statistiques::Attribute a, double value
     Individu::modifyHealthStatus(a, value);
 }
 
-int Individu_Unique::Get_Vitesse(string act)
-{
-	int Total = Get_Activite(act)->speed;
-    pair<int, int> addedSpeed;
-
-    //TODO: Fix this workaround!
-
-    if (act == "3")
-        addedSpeed = Caracs.getFromObjectsAndSkills("runSpeed");
-    if (act == "6")
-        addedSpeed = Caracs.getFromObjectsAndSkills("injurySpeed");
-    if (act == "101" || act == "301")
-        addedSpeed = Caracs.getFromObjectsAndSkills("attackSpeed");
-
-    Total += addedSpeed.first + Total * addedSpeed.second;
-
-	return Total;
-}
-
 bool Individu_Unique::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort

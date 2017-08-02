@@ -239,7 +239,7 @@ class Individu : public Element_Carte
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
 		virtual bool Set_Activite(string nv);
-		virtual int Get_Vitesse(string act);
+        int Get_Vitesse(const string& act);
 		int Collision(Individu *elem, int TypeCollision);
 		void IncrementNum(bool RaZ = false);
 
@@ -289,8 +289,6 @@ class Individu_Unique : public Individu
         bool angleFixed();
 
         void modifyHealthStatus(Statistiques::Attribute a, double value);
-
-		int Get_Vitesse(string act);
 
 		bool Set_Activite(string nv);
 

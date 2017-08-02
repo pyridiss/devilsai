@@ -142,7 +142,7 @@ int Individu::GestionElementMouvant()
 	return ETAT_CONTINUER;
 }
 
-int Individu::Get_Vitesse(string act)
+int Individu::Get_Vitesse(const string& act)
 {
-	return Get_Activite(act)->speed;
+    return Get_Activite(act)->speed + currentHealthStatus(Get_Activite(act)->speedImprover);
 }
