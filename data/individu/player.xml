@@ -7,7 +7,7 @@
         <properties diplomacy="1" corpseImageKey="player:6/6/1/08.png"/>
         <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
         <skill name="2" owner="player">
-            <properties priority="0" speed="3" step="0" numberOfImages="8"/>
+            <properties priority="0" speed="3" speedImprover="runSpeed" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/2/%%.png"/>
             <images angle="45" pathToImages="2/6/%%.png"/>
             <images angle="90" pathToImages="2/1/%%.png"/>
@@ -18,7 +18,7 @@
             <images angle="315" pathToImages="2/4/%%.png"/>
         </skill>
         <skill name="3" owner="player">
-            <properties priority="0" speed="13" step="13" numberOfImages="8"/>
+            <properties priority="0" speed="13" speedImprover="runSpeed" step="13" numberOfImages="8"/>
             <images angle="0" pathToImages="3/2/%%.png"/>
             <images angle="45" pathToImages="3/6/%%.png"/>
             <images angle="90" pathToImages="3/1/%%.png"/>
@@ -29,7 +29,7 @@
             <images angle="315" pathToImages="3/4/%%.png"/>
         </skill>
         <skill name="5" owner="player">
-            <properties priority="2" speed="15" step="0" numberOfImages="8"/>
+            <properties priority="2" speed="15" speedImprover="injurySpeed" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="5/2/%%.png"/>
             <images angle="45" pathToImages="5/6/%%.png"/>
             <images angle="90" pathToImages="5/1/%%.png"/>
@@ -44,7 +44,7 @@
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
         <skill name="skill-sword-handling" owner="player">
-            <properties priority="1" speed="14" step="0" numberOfImages="12"/>
+            <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="101/2/%%.png"/>
             <images angle="45" pathToImages="101/6/%%.png"/>
             <images angle="90" pathToImages="101/1/%%.png"/>
@@ -163,7 +163,7 @@
             </script>
         </skill>
         <skill name="skill-fireball" owner="player">
-            <properties priority="1" speed="14" step="0" numberOfImages="9"/>
+            <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="9"/>
             <images angle="0" pathToImages="301/2/%%.png"/>
             <images angle="45" pathToImages="301/6/%%.png"/>
             <images angle="90" pathToImages="301/1/%%.png"/>
