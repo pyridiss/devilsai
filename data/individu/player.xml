@@ -87,16 +87,80 @@
                 end
             </script>
         </skill>
-        <skill name="102" owner="player">
-            <properties priority="1" speed="30" step="26" numberOfImages="10"/>
-            <images angle="0" pathToImages="102/2/%%.png"/>
-            <images angle="45" pathToImages="102/6/%%.png"/>
-            <images angle="90" pathToImages="102/1/%%.png"/>
-            <images angle="135" pathToImages="102/7/%%.png"/>
-            <images angle="180" pathToImages="102/3/%%.png"/>
-            <images angle="225" pathToImages="102/5/%%.png"/>
-            <images angle="270" pathToImages="102/0/%%.png"/>
-            <images angle="315" pathToImages="102/4/%%.png"/>
+        <skill name="skill-charge-part1" owner="player">
+            <properties priority="1" speed="30" step="36" numberOfImages="4"/>
+            <images angle="0" pathToImages="charge-part1/2/%%.png"/>
+            <images angle="45" pathToImages="charge-part1/6/%%.png"/>
+            <images angle="90" pathToImages="charge-part1/1/%%.png"/>
+            <images angle="135" pathToImages="charge-part1/7/%%.png"/>
+            <images angle="180" pathToImages="charge-part1/3/%%.png"/>
+            <images angle="225" pathToImages="charge-part1/5/%%.png"/>
+            <images angle="270" pathToImages="charge-part1/0/%%.png"/>
+            <images angle="315" pathToImages="charge-part1/4/%%.png"/>
+            <script>
+                n = 0
+                function atBegin(owner)
+                    enemy = getElementInteraction(owner)
+                    if isIndividu(enemy) then
+                        individual_changeCurrentSkill(owner, "skill-sword-handling")
+                    end
+                end
+
+                function atEnd(owner)
+                    individual_set(owner, "energy", individual_get(owner, "energy") - 10)
+                    enemy = getElementInteraction(owner)
+                    if isIndividu(enemy) then
+                        individual_changeCurrentSkill(owner, "skill-charge-part2")
+                        n = 0
+                    else
+                        if n &lt; 3 then
+                            n = n + 1
+                            individual_changeCurrentSkill(owner, "skill-charge-part1")
+                        else
+                            n = 0
+                        end
+                    end
+                end
+            </script>
+        </skill>
+        <skill name="skill-charge-part2" owner="player">
+            <properties priority="2" speed="30" step="0" numberOfImages="5"/>
+            <images angle="0" pathToImages="charge-part2/2/%%.png"/>
+            <images angle="45" pathToImages="charge-part2/6/%%.png"/>
+            <images angle="90" pathToImages="charge-part2/1/%%.png"/>
+            <images angle="135" pathToImages="charge-part2/7/%%.png"/>
+            <images angle="180" pathToImages="charge-part2/3/%%.png"/>
+            <images angle="225" pathToImages="charge-part2/5/%%.png"/>
+            <images angle="270" pathToImages="charge-part2/0/%%.png"/>
+            <images angle="315" pathToImages="charge-part2/4/%%.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    if individual_get(owner, "energy") > 20 then
+                        enemy = getElementInteraction(owner)
+                        if isIndividu(enemy) then
+                        randomNumber = math.random(1, 4)
+                        playSound("Sword_" .. randomNumber)
+                        fight(owner, enemy)
+                    end
+                    individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
+                    end
+                end
+
+                function getNeededEnergy(owner)
+                    return individual_get(owner, "power") / individual_get(owner, "constitution")
+                end
+
+                function getDegats()
+                    return 250
+                end
+
+                function getAmplitude()
+                    return 5
+                end
+            </script>
         </skill>
         <skill name="skill-fireball" owner="player">
             <properties priority="1" speed="14" step="0" numberOfImages="9"/>

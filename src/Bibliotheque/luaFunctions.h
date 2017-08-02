@@ -59,5 +59,6 @@ int LUA_activiteAddImage(lua_State*);
 int LUA_addSound(lua_State*);
 int LUA_playSound(lua_State*);
 int LUA_createIndividual(lua_State* L);
+int LUA_changeCurrentSkill(lua_State* L);
 
 #endif

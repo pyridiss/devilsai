@@ -601,3 +601,16 @@ int LUA_createIndividual(lua_State* L)
 
     return 1;
 }
+
+int LUA_changeCurrentSkill(lua_State* L)
+{
+    tools::debug::message("LUA_changeCurrentSkill() called", "lua");
+
+    Individu* ind = (Individu*)lua_touserdata(L, 1);
+    string newSkill = lua_tostring(L, 2);
+
+    ind->Set_Activite(newSkill);
+    ind->ActEffectue = false;
+
+    return 0;
+}
