@@ -193,14 +193,14 @@
         </skill>
         <skill name="use-healpotion" owner="player">
             <properties priority="3" speed="5" step="0" numberOfImages="1"/>
-            <images angle="0" pathToImages="401/2/%%.png"/>
-            <images angle="45" pathToImages="401/6/%%.png"/>
-            <images angle="90" pathToImages="401/1/%%.png"/>
-            <images angle="135" pathToImages="401/7/%%.png"/>
-            <images angle="180" pathToImages="401/3/%%.png"/>
-            <images angle="225" pathToImages="401/5/%%.png"/>
-            <images angle="270" pathToImages="401/0/%%.png"/>
-            <images angle="315" pathToImages="401/4/%%.png"/>
+            <images angle="0" pathToImages="2/2/%%.png"/>
+            <images angle="45" pathToImages="2/6/%%.png"/>
+            <images angle="90" pathToImages="2/1/%%.png"/>
+            <images angle="135" pathToImages="2/7/%%.png"/>
+            <images angle="180" pathToImages="2/3/%%.png"/>
+            <images angle="225" pathToImages="2/5/%%.png"/>
+            <images angle="270" pathToImages="2/0/%%.png"/>
+            <images angle="315" pathToImages="2/4/%%.png"/>
             <script>
                 function atBegin(owner)
                 end

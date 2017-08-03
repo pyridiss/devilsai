@@ -47,8 +47,8 @@
             <properties priority="3" speed="0" step="0" numberOfImages="1"/>
             <images angle="0" imageFile="6/1/08.png"/>
         </skill>
-        <skill name="101" owner="tutorial-player">
-            <properties priority="1" speed="14" step="0" numberOfImages="12"/>
+        <skill name="skill-sword-handling" owner="tutorial-player">
+            <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="101/2/%%.png"/>
             <images angle="45" pathToImages="101/6/%%.png"/>
             <images angle="90" pathToImages="101/1/%%.png"/>
@@ -57,9 +57,42 @@
             <images angle="225" pathToImages="101/5/%%.png"/>
             <images angle="270" pathToImages="101/0/%%.png"/>
             <images angle="315" pathToImages="101/4/%%.png"/>
+            <script>
+                function atBegin(owner)
+                    math.randomseed(os.time())
+                    addSound("Sword_1")
+                    addSound("Sword_2")
+                    addSound("Sword_3")
+                    addSound("Sword_4")
+                end
+
+                function atEnd(owner)
+                    if individual_get(owner, "energy") > 20 then
+                        enemy = getElementInteraction(owner)
+                        if isIndividu(enemy) then
+                        randomNumber = math.random(1, 4)
+                        playSound("Sword_" .. randomNumber)
+                        fight(owner, enemy)
+                    end
+                    individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
+                    end
+                end
+
+                function getNeededEnergy(owner)
+                    return individual_get(owner, "power") / individual_get(owner, "constitution")
+                end
+
+                function getDegats()
+                    return 180
+                end
+
+                function getAmplitude()
+                    return 20
+                end
+            </script>
         </skill>
-        <skill name="301" owner="tutorial-player">
-            <properties priority="1" speed="14" step="0" numberOfImages="9"/>
+        <skill name="skill-fireball" owner="tutorial-player">
+            <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="9"/>
             <images angle="0" pathToImages="301/2/%%.png"/>
             <images angle="45" pathToImages="301/6/%%.png"/>
             <images angle="90" pathToImages="301/1/%%.png"/>
@@ -68,17 +101,43 @@
             <images angle="225" pathToImages="301/5/%%.png"/>
             <images angle="270" pathToImages="301/0/%%.png"/>
             <images angle="315" pathToImages="301/4/%%.png"/>
+            <script>
+                function atBegin(owner)
+                    addSound("Fireball")
+                end
+
+                function atEnd(owner)
+                    if individual_get(owner, "energy") > 20 then
+                        angle = individual_get(owner, "angle")
+                        x = individual_get(owner, "PosX") + 20 * math.cos(angle)
+                        y = individual_get(owner, "PosY") + 20 * math.sin(angle)
+                        bullet = createIndividual("player_fireball_bullet", x, y)
+                        individual_copy(owner, bullet, "diplomacy")
+                        individual_copy(owner, bullet, "angle")
+                        individual_set(owner, "energy", individual_get(owner, "energy") - 10)
+                        playSound("Fireball")
+                    end
+                end
+            </script>
         </skill>
-        <skill name="401" owner="tutorial-player">
+        <skill name="use-healpotion" owner="tutorial-player">
             <properties priority="3" speed="5" step="0" numberOfImages="1"/>
-            <images angle="0" pathToImages="401/2/%%.png"/>
-            <images angle="45" pathToImages="401/6/%%.png"/>
-            <images angle="90" pathToImages="401/1/%%.png"/>
-            <images angle="135" pathToImages="401/7/%%.png"/>
-            <images angle="180" pathToImages="401/3/%%.png"/>
-            <images angle="225" pathToImages="401/5/%%.png"/>
-            <images angle="270" pathToImages="401/0/%%.png"/>
-            <images angle="315" pathToImages="401/4/%%.png"/>
+            <images angle="0" pathToImages="2/2/%%.png"/>
+            <images angle="45" pathToImages="2/6/%%.png"/>
+            <images angle="90" pathToImages="2/1/%%.png"/>
+            <images angle="135" pathToImages="2/7/%%.png"/>
+            <images angle="180" pathToImages="2/3/%%.png"/>
+            <images angle="225" pathToImages="2/5/%%.png"/>
+            <images angle="270" pathToImages="2/0/%%.png"/>
+            <images angle="315" pathToImages="2/4/%%.png"/>
+            <script>
+                function atBegin(owner)
+                end
+
+                function atEnd(owner)
+                    useObject(owner, "healpotion")
+                end
+            </script>
         </skill>
         <skillsManagement default="2" onAttack="4"/>
         <inventory>
@@ -87,12 +146,6 @@
             <addObject slot="equipment-shield" design="shield0"/>
             <addObject slot="inventory01" design="healpotion" quality="1"/>
         </inventory>
-        <SKILL SKILL="attack"/>
-        <SKILL SKILL="fireball"/>
-        <SKILL SKILL="healpotion"/>
-        <DEFAUT_CTRL DEFAUT_CTRL="attack"/>
-        <DEFAUT_SHIFT DEFAUT_SHIFT="fireball"/>
-        <DEFAUT_TAB DEFAUT_TAB="healpotion"/>
     </uniqueData>
     <species name="player_fireball_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>
