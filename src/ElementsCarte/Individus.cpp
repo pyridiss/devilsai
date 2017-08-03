@@ -88,6 +88,7 @@ int Individu::currentHealthStatus(Statistiques::Attribute a)
 int Individu::currentHealthStatus(Caracteristiques::Attribute a)
 {
     //Update values
+    if (_clock.getElapsedTime().asSeconds() > 1)
     {
         _currentHealthStatus = attributes();
 
@@ -112,6 +113,7 @@ int Individu::currentHealthStatus(Caracteristiques::Attribute a)
                 lua_pop(o.second, 1);
             }
         }
+        _clock.restart();
     }
 
     //Return asked value

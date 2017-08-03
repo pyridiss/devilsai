@@ -206,6 +206,7 @@ class Individu : public Element_Carte
 	protected:
 		Statistiques Stats;
         Caracteristiques _currentHealthStatus;
+        Clock _clock;
 
 	public:
         bool RecuperationFixe   = false;
