@@ -115,6 +115,18 @@ bool intersection_point_line(Shape& shape1, Shape& shape2)
     return false;
 }
 
+bool intersection_point_arc(Shape& shape1, Shape& shape2)
+{
+    if (Vector2d::distanceSquare(*shape1.origin + shape1.points[0], *shape2.origin + shape2.points[0]) > square(shape2.radius1))
+        return false;
+
+    Vector2d vec_AB = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+    if (angle(vec_AB.x, vec_AB.y) >= shape2.angle1 - shape2.angle2 && angle(vec_AB.x, vec_AB.y) <= shape2.angle1 + shape2.angle2)
+        return true;
+
+    return false;
+}
+
 bool intersection_circle_circle(Shape& shape1, Shape& shape2)
 {
     if (Vector2d::distanceSquare(*shape1.origin + shape1.points[0], *shape2.origin + shape2.points[0]) <= square(shape1.radius1 + shape2.radius1)) return true;
@@ -152,14 +164,40 @@ bool intersection_circle_line(Shape& shape1, Shape& shape2)
     return false;
 }
 
+bool intersection_circle_arc(Shape& shape1, Shape& shape2)
+{
+    if (!intersection_circle_circle(shape1, shape2))
+        return false;
+
+    Vector2d vec_AB = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+    if (angle(vec_AB.x, vec_AB.y) >= shape2.angle1 - shape2.angle2 && angle(vec_AB.x, vec_AB.y) <= shape2.angle1 + shape2.angle2)
+        return true;
+
+    Shape line1;
+    line1.line(shape2.points[0], shape2.radius1, shape2.angle1 - shape2.angle2);
+    line1.setOrigin(shape2.origin);
+    if (intersection_circle_line(shape1, line1))
+        return true;
+
+    Shape line2;
+    line2.line(shape2.points[0], shape2.radius1, shape2.angle1 + shape2.angle2);
+    line2.setOrigin(shape2.origin);
+    if (intersection_circle_line(shape1, line2))
+        return true;
+
+    return false;
+}
+
 bool intersection_rectangle_rectangle(Shape& shape1, Shape& shape2)
 {
     Shape p;
     for (int i = 0 ; i < 4 ; ++i)
     {
+        p.points.clear();
         p.point(shape1.points[i]);
         p.setOrigin(shape1.origin);
         if (intersection_point_rectangle(p, shape2)) return true;
+        p.points.clear();
         p.point(shape2.points[i]);
         p.setOrigin(shape2.origin);
         if (intersection_point_rectangle(p, shape1)) return true;
@@ -174,9 +212,55 @@ bool intersection_rectangle_line(Shape& shape1, Shape& shape2)
     return false;
 }
 
+bool intersection_rectangle_arc(Shape& shape1, Shape& shape2)
+{
+    Shape p;
+    for (int i = 0 ; i < 4 ; ++i)
+    {
+        p.points.clear();
+        p.point(shape1.points[i]);
+        p.setOrigin(shape1.origin);
+        if (intersection_point_arc(p, shape2)) return true;
+    }
+
+    p.points.clear();
+    p.point(shape2.points[0]);
+    p.setOrigin(shape2.origin);
+    if (intersection_point_rectangle(p, shape1)) return true;
+
+    p.points.clear();
+    p.point(shape2.points[0] + Vector2d(shape2.radius1 + cos(shape2.angle1 - shape2.angle2), shape2.radius1 + sin(shape2.angle1 - shape2.angle2)));
+    p.setOrigin(shape2.origin);
+    if (intersection_point_rectangle(p, shape1)) return true;
+
+    p.points.clear();
+    p.point(shape2.points[0] + Vector2d(shape2.radius1 + cos(shape2.angle1), shape2.radius1 + sin(shape2.angle1)));
+    p.setOrigin(shape2.origin);
+    if (intersection_point_rectangle(p, shape1)) return true;
+
+    p.points.clear();
+    p.point(shape2.points[0] + Vector2d(shape2.radius1 + cos(shape2.angle1 + shape2.angle2), shape2.radius1 + sin(shape2.angle1 + shape2.angle2)));
+    p.setOrigin(shape2.origin);
+    if (intersection_point_rectangle(p, shape1)) return true;
+
+    return false;
+}
+
 bool intersection_line_line(Shape& shape1, Shape& shape2)
 {
     tools::debug::warning("intersection_line_line() is not implemented", "tools::math");
+    return false;
+}
+
+bool intersection_line_arc(Shape& shape1, Shape& shape2)
+{
+    tools::debug::warning("intersection_line_arc() is not implemented", "tools::math");
+    return false;
+}
+
+bool intersection_arc_arc(Shape& shape1, Shape& shape2)
+{
+    tools::debug::warning("intersection_arc_arc() is not implemented", "tools::math");
     return false;
 }
 
@@ -230,6 +314,8 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_point_rectangle(shape1, shape2);
                 case Shape::Profiles::Line:
                     return intersection_point_line(shape1, shape2);
+                case Shape::Profiles::Arc:
+                    return intersection_point_arc(shape1, shape2);
             }
             break;
         case Shape::Profiles::Circle:
@@ -241,6 +327,8 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_circle_rectangle(shape1, shape2);
                 case Shape::Profiles::Line:
                     return intersection_circle_line(shape1, shape2);
+                case Shape::Profiles::Arc:
+                    return intersection_circle_arc(shape1, shape2);
             }
             break;
         case Shape::Profiles::Rectangle:
@@ -250,6 +338,8 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_rectangle_rectangle(shape1, shape2);
                 case Shape::Profiles::Line:
                     return intersection_rectangle_line(shape1, shape2);
+                case Shape::Profiles::Arc:
+                    return intersection_rectangle_arc(shape1, shape2);
             }
             break;
         case Shape::Profiles::Line:
@@ -257,8 +347,16 @@ bool intersection(Shape& shape1, Shape& shape2)
             {
                 case Shape::Profiles::Line:
                     return intersection_line_line(shape1, shape2);
+                case Shape::Profiles::Arc:
+                    return intersection_line_arc(shape1, shape2);
             }
             break;
+        case Shape::Profiles::Arc:
+            switch(shape2.profile)
+            {
+                case Shape::Profiles::Arc:
+                    return intersection_arc_arc(shape1, shape2);
+            }
     }
 
     return false;

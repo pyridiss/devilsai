@@ -50,6 +50,7 @@ struct Shape
         Circle,
         Rectangle,
         Line,
+        Arc,
         Complex
     };
 
@@ -123,6 +124,9 @@ struct Shape
     void rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
     void line(const Vector2d& p1, const Vector2d& p2);
     void line(const Vector2d& p, double length, double angle);
+    void arc(const Vector2d& p, double radius, double direction, double opening);
+
+    void updateDirection(double direction);
 
     void loadFromXML(tinyxml2::XMLElement* elem);
     void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);

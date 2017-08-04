@@ -124,6 +124,33 @@ void Shape::line(const Vector2d& p, double length, double angle)
     box.second.y = max(points[0].y, points[1].y);
 }
 
+void Shape::arc(const Vector2d& p, double radius, double direction, double opening)
+{
+    profile = Profiles::Arc;
+
+    points.emplace_back(p.x, p.y);
+    radius1 = radius;
+    angle1 = direction;
+    angle2 = opening;
+
+    box.first.x = p.x - radius;
+    box.first.y = p.y - radius;
+    box.second.x = p.x + radius;
+    box.second.y = p.y + radius;
+}
+
+void Shape::updateDirection(double direction)
+{
+    if (profile == Profiles::Line)
+    {
+        //TODO
+    }
+    else if (profile == Profiles::Arc)
+    {
+        angle1 = direction;
+    }
+}
+
 void Shape::loadFromXML(XMLElement* elem)
 {
     points.clear();
@@ -199,6 +226,19 @@ void Shape::loadFromXML(XMLElement* elem)
         line(p, length, angle);
     }
 
+    else if (type == "arc")
+    {
+        Vector2d p(0, 0);
+        double radius = 0, direction = 0, opening = 0;
+        elem->QueryAttribute("xCenter", &p.x);
+        elem->QueryAttribute("yCenter", &p.y);
+        elem->QueryAttribute("radius", &radius);
+        elem->QueryAttribute("direction", &direction);
+        elem->QueryAttribute("opening", &opening);
+
+        arc(p, radius, direction, opening);
+    }
+
     else if (type == "complex")
     {
         profile = Profiles::Complex;
@@ -262,6 +302,14 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             root->SetAttribute("length", length1);
             root->SetAttribute("angle", angle1);
             break;
+        case Profiles::Arc:
+            root->SetAttribute("type", "arc");
+            root->SetAttribute("xCenter", points[0].x);
+            root->SetAttribute("yCenter", points[0].y);
+            root->SetAttribute("radius", radius1);
+            root->SetAttribute("direction", angle1);
+            root->SetAttribute("opening", angle2);
+            break;
         case Profiles::Complex:
             root->SetAttribute("type", "complex");
             for (Shape* s = next ; s != nullptr ; s = s->next)
@@ -319,6 +367,20 @@ void Shape::display(RenderTarget& target, const Color& color)
                 drawing.setPoint(3, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
                 drawing.setOutlineColor(color);
                 drawing.setOutlineThickness(1);
+                target.draw(drawing);
+            }
+            break;
+        case Profiles::Arc:
+            {
+                ConvexShape drawing;
+                drawing.setPointCount(6);
+                drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
+                drawing.setPoint(1, Vector2f(origin->x + points[0].x + radius1 * cos(angle1 - angle2), origin->y + points[0].y + radius1 * sin(angle1 - angle2)));
+                drawing.setPoint(2, Vector2f(origin->x + points[0].x + radius1 * cos(angle1 - 0.5 * angle2), origin->y + points[0].y + radius1 * sin(angle1 - 0.5 * angle2)));
+                drawing.setPoint(3, Vector2f(origin->x + points[0].x + radius1 * cos(angle1), origin->y + points[0].y + radius1 * sin(angle1)));
+                drawing.setPoint(4, Vector2f(origin->x + points[0].x + radius1 * cos(angle1 + 0.5 * angle2), origin->y + points[0].y + radius1 * sin(angle1 + 0.5 * angle2)));
+                drawing.setPoint(5, Vector2f(origin->x + points[0].x + radius1 * cos(angle1 + angle2), origin->y + points[0].y + radius1 * sin(angle1 + angle2)));
+                drawing.setFillColor(color);
                 target.draw(drawing);
             }
             break;
