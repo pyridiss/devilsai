@@ -35,6 +35,7 @@ void initStyle();
 
 const Font& defaultTextFont();
 const Font& fontFromString(string f);
+Color colorFromString(string s);
 int defaultTextSize();
 const Font& buttonTextFont();
 int buttonTextSize();

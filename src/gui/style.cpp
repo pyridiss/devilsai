@@ -67,6 +67,13 @@ const Font& fontFromString(string s)
     return defaultTextFont();
 }
 
+Color colorFromString(string s)
+{
+    if (s == "white") return Color(255, 255, 255, 255);
+
+    return Color(0, 0, 0, 255);
+}
+
 int defaultTextSize()
 {
     return 10;
