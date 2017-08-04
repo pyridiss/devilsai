@@ -91,16 +91,16 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void ScrollingList::setData(string& data)
-{
-    data = entries[index].second;
-}
-
 void ScrollingList::setValue(const string& d)
 {
     index = 0;
     while (index < entries.size() && entries[index].second != d)
         ++index;
+}
+
+string ScrollingList::value()
+{
+    return entries[index].second;
 }
 
 void ScrollingList::display(RenderWindow& app)

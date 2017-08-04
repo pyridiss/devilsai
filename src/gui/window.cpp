@@ -207,7 +207,7 @@ void Window::manage(RenderWindow& app, Event &event)
                     string d;
 
                     if (!get<2>(signal).empty() && widgets.find(get<2>(signal)) != widgets.end())
-                        widgets.find(get<2>(signal))->second->setData(d);
+                        d = widgets.find(get<2>(signal))->second->value();
 
                     tools::signals::addSignal(get<1>(signal), d);
                 }

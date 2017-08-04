@@ -47,8 +47,8 @@ class DropDownList : public Widget
         bool mouseHoveringDeveloped(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);
 
-        void setData(string& data);
         void setValue(const string& d);
+        string value();
 
         void display(RenderWindow& app);
 };

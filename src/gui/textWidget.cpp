@@ -48,14 +48,16 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void TextWidget::setData(string& data)
-{
-}
-
 void TextWidget::setValue(const string& d)
 {
+    addEmbeddedData("value", d);
     String32 text = tools::textManager::fromStdString(d);
     setAllText(text);
+}
+
+string TextWidget::value()
+{
+    return embeddedData("value");
 }
 
 } //namespace gui

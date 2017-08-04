@@ -65,14 +65,14 @@ bool InputField::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void InputField::setData(string& data)
-{
-    data = tools::textManager::toStdString(input);
-}
-
 void InputField::setValue(const string& d)
 {
     input = tools::textManager::fromStdString(d);
+}
+
+string InputField::value()
+{
+    return tools::textManager::toStdString(input);
 }
 
 void InputField::display(RenderWindow& app)
