@@ -190,7 +190,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             Activite *skill = Get_Activite(skillName);
 
             XMLHandle hdl2(elem);
-            skill->loadFromXML(hdl2);
+            skill->loadFromXML(hdl2, this);
         }
         if (elemName == "skillsManagement")
         {

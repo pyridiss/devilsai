@@ -24,6 +24,7 @@
 #include <map>
 #include <list>
 
+#include "tools/shape.h"
 #include "gui/button.h"
 
 using namespace std;
@@ -132,6 +133,7 @@ class Activite
         string scriptString;
         lua_State* script  = nullptr;
         Caracteristiques::Attribute speedImprover = Caracteristiques::Attribute::enumSize;
+        tools::math::Shape interactionField;
 
         int priority       = 0;
 
@@ -143,7 +145,7 @@ class Activite
         void addImage(double angle, int num, string imageKey);
         string getImageKey(double angle, int num);
 
-        void loadFromXML(tinyxml2::XMLHandle &handle);
+        void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
         void loadScript();
 
         void atBegin(Individu* owner);

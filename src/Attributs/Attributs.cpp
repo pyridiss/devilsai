@@ -25,6 +25,7 @@
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Jeu/Jeu.h"
+#include "../ElementsCarte/ElementsCarte.h"
 #include "Attributs.h"
 
 #include "tools/filesystem.h"
@@ -361,9 +362,9 @@ string Activite::getImageKey(double angle, int num)
     return key;
 }
 
-void Activite::loadFromXML(XMLHandle &handle)
+void Activite::loadFromXML(XMLHandle &handle, Individu* owner)
 {
-    string owner = handle.ToElement()->Attribute("owner");
+    string ownerName = handle.ToElement()->Attribute("owner");
 
     XMLElement *elem = handle.FirstChildElement().ToElement();
 
@@ -391,6 +392,12 @@ void Activite::loadFromXML(XMLHandle &handle)
             else if (elem->Attribute("speedImprover", "injurySpeed"))
                 speedImprover = Caracteristiques::InjurySpeed;
         }
+        if (elemName == "interactionField")
+        {
+            interactionField.loadFromXML(elem);
+            if (owner != nullptr)
+                interactionField.setOrigin(&owner->position());
+        }
         if (elemName == "images")
         {
             double angle = 0;
@@ -409,7 +416,7 @@ void Activite::loadFromXML(XMLHandle &handle)
                     string path = pathPattern;
                     string number = intToString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
-                    string key = owner + ":" + Id + "/" + path;
+                    string key = ownerName + ":" + Id + "/" + path;
                     imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
                     if (h + s + l != 0)
                         imageManager::changeHSL("individuals", key, h, s, l);
@@ -421,7 +428,7 @@ void Activite::loadFromXML(XMLHandle &handle)
             if (elem->Attribute("imageFile"))
             {
                 string path = elem->Attribute("imageFile");
-                string key = owner + ":" + Id + "/" + path;
+                string key = ownerName + ":" + Id + "/" + path;
                 imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
                 addImage(angle * M_PI / 180.0, 0, key);
             }
