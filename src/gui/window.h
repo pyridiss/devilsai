@@ -39,9 +39,12 @@ class Widget;
 class Window
 {
     private:
+        enum keyboardEvents { onKeyPressed, onKeyReleased, whileKeyPressed };
+
+    private:
         map < string, Widget* > widgets;
         list < tuple<string, string, string> > signals;
-        list < pair<int, string> > keyboardSignals;
+        list < tuple<int, keyboardEvents, string, string> > keyboardSignals;
         list < string > exitWindowSignals;
         list < tuple<tools::signals::SignalListener, string, string> > signalListeners;
 
@@ -78,6 +81,7 @@ class Window
         void display(RenderWindow& app);
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
+        void checkKeyboardState();
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
         void setValue(const string& widget, const string& d);

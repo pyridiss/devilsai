@@ -170,6 +170,8 @@ void Window::manage(RenderWindow& app)
             manage(app, event);
         }
 
+        checkKeyboardState();
+
         display(app);
 
         if (!foregroundShader.empty())
@@ -222,11 +224,37 @@ void Window::manage(RenderWindow& app, Event &event)
         }
     }
 
-    if (event.type == Event::KeyReleased)
-        for (auto& k : keyboardSignals)
-        {
-            if (event.key.code == k.first) tools::signals::addSignal(k.second);
-        }
+    for (auto& k : keyboardSignals)
+    {
+        if (get<1>(k) == Window::whileKeyPressed) continue; //Managed in checkKeyboardState()
+        if (get<1>(k) == Window::onKeyPressed && event.type != Event::KeyPressed) continue;
+        if (get<1>(k) == Window::onKeyReleased && event.type != Event::KeyReleased) continue;
+
+        if (event.key.code != get<0>(k)) continue;
+
+        string d;
+
+        if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
+            d = widgets.find(get<3>(k))->second->value();
+
+        tools::signals::addSignal(get<2>(k), d);
+    }
+}
+
+void Window::checkKeyboardState()
+{
+    for (auto& k : keyboardSignals)
+    {
+        if (get<1>(k) != Window::whileKeyPressed) continue;
+        if (!Keyboard::isKeyPressed(static_cast<Keyboard::Key>(get<0>(k)))) continue;
+
+        string d;
+
+        if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
+            d = widgets.find(get<3>(k))->second->value();
+
+        tools::signals::addSignal(get<2>(k), d);
+    }
 }
 
 Widget* Window::widget(string name)
@@ -456,7 +484,19 @@ void Window::loadFromFile(string path, RenderWindow& app)
             elem->QueryAttribute("key", &key);
             string signal = elem->Attribute("signal");
 
-            keyboardSignals.push_back(pair<int, string>(key, signal));
+            Window::keyboardEvents e = Window::onKeyReleased;
+            if (elem->Attribute("event", "onKeyPressed"))
+                e = Window::onKeyPressed;
+            else if (elem->Attribute("event", "onKeyReleased"))
+                e = Window::onKeyReleased;
+            else if (elem->Attribute("event", "whileKeyPressed"))
+                e = Window::whileKeyPressed;
+
+            string dataProvider = "";
+            if (elem->Attribute("dataProvider"))
+                dataProvider = elem->Attribute("dataProvider");
+
+            keyboardSignals.emplace_back(key, e, signal, dataProvider);
         }
 
         if (elemName == "signalListener")
