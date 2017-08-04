@@ -46,12 +46,6 @@ namespace tinyxml2{
     class XMLDocument;
 };
 
-struct Point
-{
-    double x;
-    double y;
-};
-
 /** INDIVIDUS **/
 
 struct TemplateObject
@@ -327,7 +321,7 @@ class Joueur : public Individu_Unique
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
         bool automove                  = false;
-        Point automoveEndpoint;
+        tools::math::Vector2d automoveEndpoint;
 
     private:
         Caracteristiques _displayedAttributes;
