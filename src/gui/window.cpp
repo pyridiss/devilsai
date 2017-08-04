@@ -384,6 +384,10 @@ void Window::loadFromFile(string path, RenderWindow& app)
             string font;
             if (elem->Attribute("textFont")) font = elem->Attribute("textFont");
             widget->setTextFont(gui::style::fontFromString(font), textSize);
+            if (elem->Attribute("allTextColor"))
+            {
+                widget->setAllTextColor(gui::style::colorFromString(elem->Attribute("allTextColor")));
+            }
 
             XMLHandle hdl2(elem);
             XMLElement *elem2 = hdl2.FirstChildElement().ToElement();

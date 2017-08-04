@@ -118,6 +118,12 @@ void Widget::setAllBackground(string b)
     }
 }
 
+void Widget::setAllTextColor(const Color& c)
+{
+    for (auto& state : states)
+        setTextColor(state.first, c);
+}
+
 void Widget::setText(string state, String32& t)
 {
     const auto& s = states.find(state);
@@ -152,7 +158,7 @@ void Widget::setTextOutline(Color c, float t)
     updateSize();
 }
 
-void Widget::setTextColor(string state, Color c)
+void Widget::setTextColor(string state, const Color& c)
 {
     states.find(state)->second.text.setFillColor(c);
 }
