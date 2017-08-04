@@ -51,7 +51,6 @@ void Load_Decorations()
     imageManager::addImage("gui", "FondObjet_50_50", "img/FondObjet_50_50.png");
     imageManager::addImage("misc", "FondCoffre", "img/FondCoffre.png");
     imageManager::addImage("misc", "FondInventaire", "img/FondInventaire.png");
-    imageManager::addImage("misc", "FondMiniaturesCompetences", "img/FondMiniaturesCompetences.png");
     imageManager::addImage("misc", "Repos", "img/Repos.png");
     imageManager::addImage("misc", "gui-top-border", "img/gui-top-border.png");
 

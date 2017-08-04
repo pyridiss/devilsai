@@ -267,8 +267,3 @@ void Disp_Personnage()
 		++numberChar;
 	}
 }
-
-void Disp_MiniaturesCompetences()
-{
-    imageManager::display(Jeu.App, "misc", "FondMiniaturesCompetences", 5, Options.ScreenH - 171);
-}

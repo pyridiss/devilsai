@@ -414,6 +414,5 @@ class Trigger : public Element_Carte
 void Load_IndividuUnique(string, Individu_Unique*);
 void Load_ClasseCommune(string);
 void Disp_Personnage();
-void Disp_MiniaturesCompetences();
 
 #endif

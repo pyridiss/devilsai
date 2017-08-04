@@ -469,8 +469,6 @@ void mainLoop()
 
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();
-        else
-            Disp_MiniaturesCompetences();
 
         Disp_FonduNoir(0);
 

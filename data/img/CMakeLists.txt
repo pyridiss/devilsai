@@ -25,7 +25,6 @@ set(img
     Fond.png
     FondCoffre.png
     FondInventaire.png
-    FondMiniaturesCompetences.png
     FondObjet_50_50.png
     FondObjet_75_75.png
     FondObjet_75_100.png
