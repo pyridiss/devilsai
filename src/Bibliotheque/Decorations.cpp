@@ -74,7 +74,6 @@ void Load_Decorations()
 
 void Supprimer_Decorations()
 {
-	Supprimer_Decorations_Objets();
     musicManager::deleteMusics();
 }
 

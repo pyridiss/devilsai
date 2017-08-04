@@ -47,7 +47,6 @@ class UserScreen
 };
 
 UserScreen screenCharacter;
-UserScreen screenSkills;
 UserScreen screenJournal;
 UserScreen *currentUserScreen = nullptr;
 
@@ -69,9 +68,6 @@ void mainLoop()
 {
     screenCharacter.dispFunction = Disp_Personnage;
     screenCharacter.manageFunction = nullptr;
-
-    screenSkills.dispFunction = Disp_Competences;
-    screenSkills.manageFunction = Gestion_Competences;
 
     screenJournal.dispFunction = displayJournal;
     screenJournal.manageFunction = nullptr;
@@ -293,7 +289,6 @@ void mainLoop()
 
             if (signal.first == "screen-skills")
             {
-                changeCurrentUserScreen(&screenSkills);
             }
 
             if (signal.first == "screen-journal")

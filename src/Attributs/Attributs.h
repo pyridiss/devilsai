@@ -151,12 +151,8 @@ class Activite
 };
 
 
-void Disp_Competences();
-void Gestion_Competences(Event&);
-void Disp_EmplacementVide(string);
 void Disp_Equipement();
 void Load_Decorations_Objets();
-void Supprimer_Decorations_Objets();
 
 static const string ObjectProperties[19] = {
     "strength",

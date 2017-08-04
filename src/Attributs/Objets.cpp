@@ -31,65 +31,19 @@
 
 #include "gamedata.h"
 
-gui::Button *BoutonsInventaire[24];
-gui::Button *BoutonsCoffre[8];
-gui::Button *BoutonsCompetences[4]; //Never displayed, but useful to test activation
-
 int PosDescX = 0, PosDescY = 0;
-int PosCoffreX = 0, PosCoffreY = 0;
 
 void Load_Decorations_Objets()
 {
-    for (int a = 0 ; a < 24 ; ++a)
-    {
-        BoutonsInventaire[a] = new gui::Button;
-        BoutonsInventaire[a]->setTopLeftCoordinates(150 + 5 + 50*(a%12), Options.ScreenH - 110 + 50*(a/12));
-        BoutonsInventaire[a]->setSize(50, 50);
-        BoutonsInventaire[a]->setAllBackground("FondObjet_50_50");
-        BoutonsInventaire[a]->setForegroundShader("hover", gui::style::highlightShader);
-    }
 
 	if (Options.ScreenW > 150 + 610 + 250) //Assez de place à droite de l'inventaire
 	{
-		PosCoffreX = 790; PosCoffreY = Options.ScreenH - 130;
 		PosDescX = Options.ScreenW - 145; PosDescY = Options.ScreenH - 290;
 	}
 	else
 	{
-		PosCoffreX = 550; PosCoffreY = Options.ScreenH - 260;
 		PosDescX = Options.ScreenW - 145; PosDescY = 100;
 	}
-
-    for (int a = 0 ; a < 8 ; ++a)
-    {
-        BoutonsCoffre[a] = new gui::Button;
-        BoutonsCoffre[a]->setTopLeftCoordinates(PosCoffreX + 5 + 50*(a%4), PosCoffreY + 20 + 50*(a/4));
-        BoutonsCoffre[a]->setSize(50, 50);
-        BoutonsCoffre[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCoffre[a]->setForegroundShader("hover", gui::style::highlightShader);
-    }
-
-    unsigned yCompetences[] = {Options.ScreenH - 55, Options.ScreenH - 105, Options.ScreenH - 171, Options.ScreenH - 55};
-    for (int a = 0 ; a < 4 ; ++a)
-    {
-        BoutonsCompetences[a] = new gui::Button;
-        BoutonsCompetences[a]->setTopLeftCoordinates(5 + 66*(a/3), yCompetences[a]);
-        BoutonsCompetences[a]->setSize(50, 50);
-        BoutonsCompetences[a]->setAllBackground("FondObjet_50_50");
-        BoutonsCompetences[a]->setForegroundShader("hover", gui::style::highlightShader);
-    }
-}
-
-void Supprimer_Decorations_Objets()
-{
-	for (int a = 0 ; a < 24 ; ++a)
-		delete BoutonsInventaire[a];
-
-	for (int a = 0 ; a < 8 ; ++a)
-		delete BoutonsCoffre[a];
-
-	for (int a = 0 ; a < 4 ; ++a)
-		delete BoutonsCompetences[a];
 }
 
 void Disp_Skill(lua_State* skill)
@@ -100,24 +54,6 @@ void Disp_Skill(lua_State* skill)
 
 	String32 nom = getTranslatedNameOfSkill(internalNumber);
 	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
-}
-
-void Disp_Competences()
-{
-	imageManager::display(Jeu.App, "misc", "FondInventaire", 150, Options.ScreenH - 130);
-	Disp_TexteCentre(tools::textManager::getText("devilsai", "COMPETENCES"), 455, Options.ScreenH - 120, Color(255, 255, 255, 255), 13.);
-
-	Disp_MiniaturesCompetences();
-
-}
-
-void Gestion_Competences(Event &event)
-{
-}
-
-void Disp_EmplacementVide(string TypeObjet)
-{
-	Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "EQUIP_VIDE", getTranslatedNameOfObject(TypeObjet)), PosDescX, PosDescY, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
 }
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
