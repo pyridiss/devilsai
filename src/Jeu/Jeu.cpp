@@ -181,18 +181,18 @@ void mainLoop()
             }
         }
 
-        worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 100));
-        worldView.setViewport(FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH-100)/(float)Options.ScreenH));
+        worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 106));
+        worldView.setViewport(FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH-106)/(float)Options.ScreenH));
 
         if (currentLeftScreen != LeftScreens::None)
         {
-            worldView.reset(FloatRect(0, 0, Options.ScreenW/2.f, Options.ScreenH - 100));
-            worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)Options.ScreenH, 0.5f, (float)(Options.ScreenH-100)/(float)Options.ScreenH));
+            worldView.reset(FloatRect(0, 0, Options.ScreenW/2.f, Options.ScreenH - 106));
+            worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)Options.ScreenH, 0.5f, (float)(Options.ScreenH-106)/(float)Options.ScreenH));
         }
         if (currentBottomScreen != BottomScreens::NoBottomScreen)
         {
-            worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 300));
-            worldView.setViewport(sf::FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH - 300)/(float)Options.ScreenH));
+            worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 306));
+            worldView.setViewport(sf::FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH - 306)/(float)Options.ScreenH));
         }
 
         tools::signals::Signal signal = tools::signals::getNextSignal();
