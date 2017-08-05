@@ -84,6 +84,12 @@ void Joueur::Gestion_Statistiques()
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
 			Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), true);
 	}
+
+    //Update interactionField of skills
+    for (auto& s : Activites)
+    {
+        s.second.interactionField.updateDirection(angle);
+    }
 }
 
 void Joueur::CoupCritique(Individu* ennemi)

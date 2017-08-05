@@ -248,6 +248,8 @@ int Joueur::Gestion()
 	{
 		IncrementNum();
 
+        interactionField.updateDirection(angle);
+
 		if (Get_Num() == 0)
 		{
             Get_Activite(Act)->atEnd(this);

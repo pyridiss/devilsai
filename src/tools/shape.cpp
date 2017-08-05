@@ -143,7 +143,13 @@ void Shape::updateDirection(double direction)
 {
     if (profile == Profiles::Line)
     {
-        //TODO
+        angle1 = direction;
+        points.pop_back();
+        points.emplace_back(points[0].x + length1 * cos(angle1), points[0].y + length1 * sin(angle1));
+        box.first.x = min(points[0].x, points[1].x);
+        box.first.y = min(points[0].y, points[1].y);
+        box.second.x = max(points[0].x, points[1].x);
+        box.second.y = max(points[0].y, points[1].y);
     }
     else if (profile == Profiles::Arc)
     {
