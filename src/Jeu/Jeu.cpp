@@ -120,8 +120,8 @@ void mainLoop()
     screen.interactionField.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
 
     Individu* underCursor = nullptr;
-    Coffre* cofferUnderCursor = nullptr;
-    bool cofferClicked = false;
+    Coffre* storageBoxUnderCursor = nullptr;
+    int selectedStorageBox = -1;
     bool cursorIsInWorld = false;
     bool move = false;
 
@@ -139,8 +139,24 @@ void mainLoop()
         while (Jeu.App.pollEvent(event))
         {
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld)
+            {
                 move = true;
 
+                //Retrieve the current storage box under the cursor
+                if (storageBoxUnderCursor != nullptr && event.mouseButton.button == Mouse::Button::Left)
+                    selectedStorageBox = storageBoxUnderCursor->Id;
+                else
+                {
+                    selectedStorageBox = -1;
+
+                    if (Partie.CoffreOuvert != nullptr)
+                    {
+                        Partie.CoffreOuvert->close();
+                        currentBottomScreen = BottomScreens::NoBottomScreen;
+                        Partie.CoffreOuvert = nullptr;
+                    }
+                }
+            }
             ingameToolbar.manage(Jeu.App, event);
 
             switch (currentLeftScreen)
@@ -173,7 +189,7 @@ void mainLoop()
                     currentBottomScreen = BottomScreens::NoBottomScreen;
                     Partie.CoffreOuvert = nullptr;
                 }
-                cofferUnderCursor = nullptr;
+                selectedStorageBox = -1;
             }
         }
 
@@ -349,9 +365,7 @@ void mainLoop()
 
         gamedata::currentWorld()->resetCollisionManager();
         underCursor = nullptr;
-
-        if (!cofferClicked)
-            cofferUnderCursor = nullptr;
+        storageBoxUnderCursor = nullptr;
 
         int Resultat = COLL_OK;
 
@@ -368,11 +382,31 @@ void mainLoop()
                 cofferUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
         }
 
-        if (cofferClicked && cofferUnderCursor != nullptr && tools::math::intersection(gamedata::player()->interactionField, cofferUnderCursor->size))
+        if (selectedStorageBox != -1 && gamedata::findElement(selectedStorageBox) == nullptr)
+            selectedStorageBox = -1;
+
+        if (selectedStorageBox != -1)
         {
-            Partie.CoffreOuvert = cofferUnderCursor;
-            currentBottomScreen = BottomScreens::StorageBox;
-            currentLeftScreen = LeftScreens::None;
+            Element_Carte* c = gamedata::findElement(selectedStorageBox);
+            if (tools::math::intersection(gamedata::player()->interactionField, c->size))
+            {
+                gamedata::player()->stopAutomoving();
+                Partie.CoffreOuvert = dynamic_cast<Coffre*>(c);
+                currentBottomScreen = BottomScreens::StorageBox;
+                currentLeftScreen = LeftScreens::None;
+            }
+            else
+            {
+                if (Partie.CoffreOuvert == nullptr)
+                    gamedata::player()->automove(c->position());
+                else
+                {
+                    Partie.CoffreOuvert->close();
+                    currentBottomScreen = BottomScreens::NoBottomScreen;
+                    Partie.CoffreOuvert = nullptr;
+                    selectedStorageBox = -1;
+                }
+            }
         }
 
         //Mouse click
@@ -387,20 +421,10 @@ void mainLoop()
                 gamedata::player()->Temps = 1;
             }
 
-            if (cofferUnderCursor != nullptr)
             {
-                cofferClicked = true;
-                if (!tools::math::intersection(cursor.interactionField, cofferUnderCursor->size))
                 {
-                    if (Partie.CoffreOuvert != nullptr)
-                        Partie.CoffreOuvert->close();
-
-                    cofferUnderCursor = nullptr;
-                    Partie.CoffreOuvert = nullptr;
-                    currentBottomScreen = BottomScreens::NoBottomScreen;
                 }
             }
-            else cofferClicked = false;
         }
 
         //3. Display
@@ -413,7 +437,7 @@ void mainLoop()
 
         if (underCursor != nullptr) underCursor->displayLifeGauge();
 
-        if (cofferUnderCursor != nullptr) cofferUnderCursor->highlight(Jeu.App);
+        if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(Jeu.App);
 
         if (Keyboard::isKeyPressed(Keyboard::LAlt))
         {
