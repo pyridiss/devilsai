@@ -3,7 +3,7 @@
     <uniqueData name="player">
         <addImageArchiveFile file="img/Joueur.img"/>
         <shape type="circle" radius="20"/>
-        <attackField type="circle" radius="45"/>
+        <attackField type="arc" radius="45" direction="0" opening="0.5"/>
         <properties diplomacy="1" corpseImageKey="player:6/6/1/08.png"/>
         <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
         <skill name="2" owner="player">
@@ -167,6 +167,7 @@
         <skill name="skill-fireball" owner="player">
             <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="9"/>
             <loadImage key="skill-fireball" path="img/C301.png"/>
+            <interactionField type="line" length="300"/>
             <images angle="0" pathToImages="301/2/%%.png"/>
             <images angle="45" pathToImages="301/6/%%.png"/>
             <images angle="90" pathToImages="301/1/%%.png"/>

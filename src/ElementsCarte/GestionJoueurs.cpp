@@ -237,6 +237,10 @@ int Joueur::Gestion()
 
 	} //Fin du while d'AI
 
+    //The individual selected by the used is more important than the one found by the collision manager
+    if (selectedIndividual != -1 && selectedIndividual != Id)
+        ElementInteraction = selectedIndividual;
+
 	if (MouvementAutorise)
 	{
 		IncrementNum();

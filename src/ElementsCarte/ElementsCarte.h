@@ -328,8 +328,7 @@ class Joueur : public Individu_Unique
 	public:
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
-        bool automove                  = false;
-        tools::math::Vector2d automoveEndpoint;
+        int selectedIndividual = -1;
 
     private:
         Caracteristiques _displayedAttributes;
