@@ -220,6 +220,24 @@ void Joueur::automove(const tools::math::Vector2d& p)
     angle = tools::math::angle(p.x - position().x, p.y - position().y);
 }
 
+void Joueur::hunt(int id, const string& skill)
+{
+    Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(id));
+
+    if (ind != nullptr)
+    {
+        _hunting = true;
+        _hunted = id;
+        _skillForHunted = skill;
+        angle = tools::math::angle(ind->position().x - position().x, ind->position().y - position().y);
+    }
+}
+
+void Joueur::stopHunting()
+{
+    _hunting = false;
+}
+
 void Joueur::stopAutomoving()
 {
     _automove = false;

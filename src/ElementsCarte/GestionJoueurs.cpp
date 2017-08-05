@@ -99,6 +99,29 @@ int Joueur::Gestion()
 		Old[a] = Appui[a];
 	}
 
+    if (Act != "3") _automove = false;
+
+    if (_hunting)
+    {
+        Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(_hunted));
+        if (ind != nullptr && ind->Act != MORT)
+        {
+            tools::math::Shape& s = Get_Activite(_skillForHunted)->interactionField;
+            tools::math::Shape& s2 = (s.profile != tools::math::Shape::None) ? s : interactionField;
+
+            if (tools::math::intersection(s2, ind->size))
+            {
+                _hunting = false;
+                Set_Activite(_skillForHunted);
+            }
+            else
+            {
+                automove(ind->position());
+            }
+        }
+        else _hunting = false;
+    }
+
 		// 5. Modification de la position
 
 	float modif_maj = 1;

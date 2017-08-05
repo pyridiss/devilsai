@@ -321,6 +321,9 @@ class Joueur : public Individu_Unique
     private:
         bool _automove = false;
         tools::math::Vector2d _automoveEndpoint;
+        bool _hunting = false;
+        int _hunted;
+        string _skillForHunted;
 
 	public:
 		float DureeEveil               = 0;
@@ -351,7 +354,10 @@ class Joueur : public Individu_Unique
         void resetDisplayedAttributes();
 
         void automove(const tools::math::Vector2d& p);
+        void hunt(int id, const string& skill);
         void stopAutomoving();
+        void stopHunting();
+
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
