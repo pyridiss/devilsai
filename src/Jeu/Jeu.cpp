@@ -378,8 +378,11 @@ void mainLoop()
                 underCursor = dynamic_cast<Individu*>(gamedata::currentWorld()->getCurrentCollider());
                 break;
             }
-            if (!cofferClicked && Resultat == COLL_INTER)
-                cofferUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
+            if (Resultat == COLL_INTER)
+            {
+                storageBoxUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
+                break;
+            }
         }
 
         if (selectedStorageBox != -1 && gamedata::findElement(selectedStorageBox) == nullptr)
