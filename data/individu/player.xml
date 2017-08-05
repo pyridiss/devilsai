@@ -45,6 +45,7 @@
         </skill>
         <skill name="skill-sword-handling" owner="player">
             <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="12"/>
+            <loadImage key="skill-sword-handling" path="img/C101.png"/>
             <images angle="0" pathToImages="101/2/%%.png"/>
             <images angle="45" pathToImages="101/6/%%.png"/>
             <images angle="90" pathToImages="101/1/%%.png"/>
@@ -89,6 +90,7 @@
         </skill>
         <skill name="skill-charge-part1" owner="player">
             <properties priority="1" speed="30" step="36" numberOfImages="4"/>
+            <loadImage key="skill-charge-part1" path="img/C102.png"/>
             <images angle="0" pathToImages="charge-part1/2/%%.png"/>
             <images angle="45" pathToImages="charge-part1/6/%%.png"/>
             <images angle="90" pathToImages="charge-part1/1/%%.png"/>
@@ -164,6 +166,7 @@
         </skill>
         <skill name="skill-fireball" owner="player">
             <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="9"/>
+            <loadImage key="skill-fireball" path="img/C301.png"/>
             <images angle="0" pathToImages="301/2/%%.png"/>
             <images angle="45" pathToImages="301/6/%%.png"/>
             <images angle="90" pathToImages="301/1/%%.png"/>
@@ -193,6 +196,7 @@
         </skill>
         <skill name="use-healpotion" owner="player">
             <properties priority="3" speed="5" step="0" numberOfImages="1"/>
+            <loadImage key="use-healpotion" path="img/C401.png"/>
             <images angle="0" pathToImages="2/2/%%.png"/>
             <images angle="45" pathToImages="2/6/%%.png"/>
             <images angle="90" pathToImages="2/1/%%.png"/>

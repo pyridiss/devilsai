@@ -77,13 +77,6 @@ int Joueur::Gestion()
         Appui[BAS]    = Keyboard::isKeyPressed(Keyboard::Down);
         Appui[DROITE] = Keyboard::isKeyPressed(Keyboard::Right);
         Appui[GAUCHE] = Keyboard::isKeyPressed(Keyboard::Left);
-
-				//Activité (pas de touche) ou Compétence :
-
-        if (Keyboard::isKeyPressed(Keyboard::LControl)) Set_Activite("skill-sword-handling");
-        if (Keyboard::isKeyPressed(Keyboard::LShift)) Set_Activite("skill-fireball");
-        if (Keyboard::isKeyPressed(Keyboard::Tab)) Set_Activite("use-healpotion");
-        if (Keyboard::isKeyPressed(Keyboard::Space)) Set_Activite("skill-charge-part1");
 	}
 
 	//Désactivation de (presque) tout si on est en mode cinématiques

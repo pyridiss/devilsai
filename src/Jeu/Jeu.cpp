@@ -34,6 +34,7 @@
 
 #include "inventoryScreenManager.h"
 #include "storageBoxScreenManager.h"
+#include "skillbarManager.h"
 
 #include "gamedata.h"
 #include "options.h"
@@ -89,6 +90,7 @@ void mainLoop()
     gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
     gui::Window inventoryWindow("gui/inventory.xml", Jeu.App);
     gui::Window storageBoxWindow("gui/storage-box.xml", Jeu.App);
+    gui::Window ingameSkillbar("gui/ingame-skillbar.xml", Jeu.App);
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
@@ -100,6 +102,7 @@ void mainLoop()
     loadingWindow.startWindow(Jeu.App);
     inventoryWindow.startWindow(Jeu.App);
     storageBoxWindow.startWindow(Jeu.App);
+    ingameSkillbar.startWindow(Jeu.App);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -157,7 +160,9 @@ void mainLoop()
                     }
                 }
             }
+
             ingameToolbar.manage(Jeu.App, event);
+            ingameSkillbar.manage(Jeu.App, event);
 
             switch (currentLeftScreen)
             {
@@ -192,6 +197,8 @@ void mainLoop()
                 selectedStorageBox = -1;
             }
         }
+
+        ingameSkillbar.checkKeyboardState();
 
         worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH-106)/(float)Options.ScreenH));
@@ -328,6 +335,10 @@ void mainLoop()
                 ChangementLieu = 254;
                 placeName.setAllText(tools::textManager::getText("places", signal.second));
                 placeName.updateTextPosition();
+            }
+
+            if (signal.first == "player-skill") {
+                gamedata::player()->Set_Activite(signal.second);
             }
 
             tools::signals::removeSignal();
@@ -472,6 +483,7 @@ void mainLoop()
         }
 
         ingameToolbar.display(Jeu.App);
+        displaySkillbar(ingameSkillbar, Jeu.App);
 
         switch (currentLeftScreen)
         {

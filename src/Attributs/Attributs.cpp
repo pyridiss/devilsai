@@ -398,6 +398,12 @@ void Activite::loadFromXML(XMLHandle &handle, Individu* owner)
             if (owner != nullptr)
                 interactionField.setOrigin(&owner->position());
         }
+        if (elemName == "loadImage")
+        {
+            string key = elem->Attribute("key");
+            string path = elem->Attribute("path");
+            imageManager::addImage("skills", key, path);
+        }
         if (elemName == "images")
         {
             double angle = 0;
