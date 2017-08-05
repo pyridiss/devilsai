@@ -237,6 +237,7 @@ class Individu : public Element_Carte
         int Get_Vitesse(const string& act);
 		int Collision(Individu *elem, int TypeCollision);
 		void IncrementNum(bool RaZ = false);
+        void updateAngle(const tools::math::Vector2d& p);
 
 	public:
         int currentHealthStatus(Statistiques::Attribute a);

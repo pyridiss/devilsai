@@ -140,6 +140,11 @@ void Individu::modifyHealthStatus(Statistiques::Attribute a, double value)
     Stats.add(a, value);
 }
 
+void Individu::updateAngle(const tools::math::Vector2d& p)
+{
+    angle = tools::math::angle(p.x - position().x, p.y - position().y);
+}
+
 void Individu::Disp(RenderTarget& target)
 {
     if (options::displayShapes())
