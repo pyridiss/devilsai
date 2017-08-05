@@ -212,6 +212,19 @@ void Joueur::resetDisplayedAttributes()
     }
 }
 
+void Joueur::automove(const tools::math::Vector2d& p)
+{
+    _automove = true;
+    _automoveEndpoint = p;
+    Set_Activite("3");
+    angle = tools::math::angle(p.x - position().x, p.y - position().y);
+}
+
+void Joueur::stopAutomoving()
+{
+    _automove = false;
+}
+
 void Joueur::loadFromXML(tinyxml2::XMLHandle &handle)
 {
     Individu_Unique::loadFromXML(handle);

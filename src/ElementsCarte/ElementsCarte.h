@@ -317,6 +317,10 @@ class Individu_Commun : public Individu
 
 class Joueur : public Individu_Unique
 {
+    private:
+        bool _automove = false;
+        tools::math::Vector2d _automoveEndpoint;
+
 	public:
 		float DureeEveil               = 0;
 		int ElementInteraction         = -1;
@@ -345,6 +349,8 @@ class Joueur : public Individu_Unique
 		bool ApplicationAmeliorations();
         void resetDisplayedAttributes();
 
+        void automove(const tools::math::Vector2d& p);
+        void stopAutomoving();
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };

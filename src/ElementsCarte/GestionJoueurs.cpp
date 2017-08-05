@@ -106,7 +106,7 @@ int Joueur::Gestion()
 	int TabAppui = 1000*Appui[NORD] + 100*Appui[SUD] + 10*Appui[EST] + Appui[OUEST];
 
     //Be careful: the Y axis is inversed
-	switch (TabAppui%10000)
+	switch (TabAppui)
 	{
 		case 1		: angle = M_PI; break;
 		case 10		: angle = 0; break;
@@ -116,22 +116,20 @@ int Joueur::Gestion()
 		case 1000	: angle = 3 * M_PI / 2; break;
 		case 1001	: angle = 5 * M_PI / 4; break;
 		case 1010	: angle = 7 * M_PI / 4; break;
-		default :	break; //Aucune touche, Competence seule, ou touches superflues (prend l'ancienne config)
+		default :	break; //Aucune touche ou touches superflues (prend l'ancienne config)
 	}
 	if (Get_Act() == MORT) angle = 3 * M_PI / 2;
 
-    if (TabAppui%10000 == 0 && automove)
+    if (TabAppui == 0 && _automove)
     {
-        angle = tools::math::angle(automoveEndpoint.x - position().x, automoveEndpoint.y - position().y);
+        angle = tools::math::angle(_automoveEndpoint.x - position().x, _automoveEndpoint.y - position().y);
         TabAppui += 1; //TabToAct() will think we are holding an arrow key.
 
         //Check if we are close enough to the endPoint
-        if (abs(automoveEndpoint.x - position().x) + abs(automoveEndpoint.y - position().y) < 15)
-            modif_maj = 0.25; //Last step will be divided by four
-        if (abs(automoveEndpoint.x - position().x) + abs(automoveEndpoint.y - position().y) < 5)
-            automove = false;
+        if (tools::math::Vector2d::distance(_automoveEndpoint, position()) < 1.2 * Get_Activite(Act)->step)
+            _automove = false;
     }
-    else automove = false;
+    else _automove = false;
 
 
 	int Resultat = COLL_OK;
@@ -168,7 +166,7 @@ int Joueur::Gestion()
 				Resultat = COLL_END;
 				Set_Activite(PAUSE);
 				modif_maj = 0;
-                automove = false;
+                _automove = false;
 			}
 		}
 
