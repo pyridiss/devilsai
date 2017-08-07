@@ -241,7 +241,7 @@ class Individu : public Element_Carte
 
 	public:
         int currentHealthStatus(Statistiques::Attribute a);
-        int currentHealthStatus(Caracteristiques::Attribute a);
+        int currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate = false);
         void setHealthStatus(Statistiques::Attribute a, double value);
         virtual void modifyHealthStatus(Statistiques::Attribute a, double value);
 

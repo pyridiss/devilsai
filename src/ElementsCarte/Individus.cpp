@@ -85,10 +85,10 @@ int Individu::currentHealthStatus(Statistiques::Attribute a)
     return Stats[a];
 }
 
-int Individu::currentHealthStatus(Caracteristiques::Attribute a)
+int Individu::currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate)
 {
     //Update values
-    if (_clock.getElapsedTime().asSeconds() > 1)
+    if (forceUpdate || _clock.getElapsedTime().asSeconds() > 1)
     {
         _currentHealthStatus = attributes();
 

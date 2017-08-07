@@ -42,6 +42,10 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 	// On empêche (pour le moment) d'attaquer les alliés
 	if (Attaquant->Diplomatie == Blesse->Diplomatie) return;
 
+    //Force the updating of attributes
+    Attaquant->currentHealthStatus(Caracteristiques::Strength, true);
+    Blesse->currentHealthStatus(Caracteristiques::Strength, true);
+
 	double Att_Agilite = Attaquant->currentHealthStatus(Caracteristiques::Agility);
 	double Att_Intelli = Attaquant->currentHealthStatus(Caracteristiques::Intellect);
 	double Att_Puissance = Attaquant->currentHealthStatus(Caracteristiques::Power);

@@ -167,7 +167,12 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         if (elemName == "viewField")        viewField.loadFromXML(elem);
         if (elemName == "attackField")      interactionField.loadFromXML(elem);
 
-        if (elemName == "characteristics")  Caracs.loadFromXML(elem);
+        if (elemName == "characteristics")
+        {
+            Caracs.loadFromXML(elem);
+            //Force the updating of attributes
+            currentHealthStatus(Caracteristiques::Strength, true);
+        }
         if (elemName == "statistics")       Stats.loadFromXML(elem);
 
         if (elemName == "properties")
