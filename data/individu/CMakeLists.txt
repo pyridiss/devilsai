@@ -2,7 +2,6 @@
 set(individu
     203.one
     204.one
-    320.com
     205.one
     400.one
     allies.xml
@@ -19,6 +18,7 @@ set(individu
     spiders.xml
     stones.xml
     trees.xml
+    trolls.xml
     tutorial-bael.xml
     tutorial-curtis.xml
     tutorial-player.xml

@@ -10,7 +10,6 @@
     <text id="317">Ogre 3</text>
     <text id="318">Ogre 4</text>
     <text id="319">Ogre de Sang</text>
-    <text id="320">Troll 1</text>
     <text id="321">Troll 2</text>
     <text id="322">Troll 3</text>
     <text id="323">Troll 4</text>
@@ -36,6 +35,7 @@
     <text id="spider3">Araignée Lynx</text>
     <text id="spider4">Arachnide Dorée</text>
     <text id="spider5">Araignée de Sang</text>
+    <text id="troll">Troll 1</text>
     <text id="tutorial-bael">Bael</text>
     <text id="tutorial-curtis">Curtis</text>
     <text id="tutorial-player">Joueur</text>
