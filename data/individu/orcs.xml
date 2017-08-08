@@ -5,7 +5,7 @@
         <shape type="circle" radius="24"/>
         <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="400"/>
-        <properties diplomacy="2" experience="40" corpseImageKey="orc1:6/1/12.png"/>
+        <properties diplomacy="2" experience="40" corpseImageKey="orc1:6/6/1/12.png"/>
         <characteristics strength="175" power="70" agility="38" intellect="14" constitution="26" dodge="3" charisma="35" healingPower="15"/>
         <skill name="6" owner="orc1">
             <properties priority="3" speed="8" step="0" numberOfImages="13"/>
@@ -46,7 +46,7 @@
         <shape type="circle" radius="24"/>
         <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="400"/>
-        <properties diplomacy="2" experience="60" corpseImageKey="orc2:6/1/12.png"/>
+        <properties diplomacy="2" experience="60" corpseImageKey="orc2:6/6/1/12.png"/>
         <characteristics strength="215" power="75" agility="46" intellect="15" constitution="44" dodge="8" charisma="38" healingPower="22"/>
         <skill name="6" owner="orc2">
             <properties priority="3" speed="8" step="0" numberOfImages="13"/>
@@ -90,7 +90,7 @@
         <shape type="circle" radius="24"/>
         <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="400"/>
-        <properties diplomacy="2" experience="105" corpseImageKey="orc3:6/1/12.png"/>
+        <properties diplomacy="2" experience="105" corpseImageKey="orc3:6/6/1/12.png"/>
         <characteristics strength="245" power="85" agility="60" intellect="22" constitution="60" dodge="18" charisma="50" healingPower="25"/>
         <skill name="6" owner="orc3">
             <properties priority="3" speed="8" step="0" numberOfImages="13"/>
@@ -134,7 +134,7 @@
         <shape type="circle" radius="24"/>
         <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="400"/>
-        <properties diplomacy="2" experience="130" corpseImageKey="orc4:6/1/12.png"/>
+        <properties diplomacy="2" experience="130" corpseImageKey="orc4:6/6/1/12.png"/>
         <characteristics strength="320" power="120" agility="80" intellect="28" constitution="90" dodge="15" charisma="70" healingPower="30"/>
         <skill name="6" owner="orc4">
             <properties priority="3" speed="8" step="0" numberOfImages="13"/>
@@ -178,7 +178,7 @@
         <shape type="circle" radius="24"/>
         <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="400"/>
-        <properties diplomacy="2" experience="240" corpseImageKey="orc5:6/1/12.png"/>
+        <properties diplomacy="2" experience="240" corpseImageKey="orc5:6/6/1/12.png"/>
         <characteristics strength="400" power="150" agility="120" intellect="38" constitution="130" dodge="23" charisma="100" healingPower="40"/>
         <skill name="6" owner="orc5">
             <properties priority="3" speed="8" step="0" numberOfImages="13"/>

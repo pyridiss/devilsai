@@ -5,7 +5,7 @@
         <shape type="circle" radius="14"/>
         <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="30" corpseImageKey="spider1:6/1/09.png"/>
+        <properties diplomacy="2" experience="30" corpseImageKey="spider1:6/6/1/09.png"/>
         <characteristics strength="100" power="50" agility="40" intellect="18" constitution="20" dodge="15" charisma="30" healingPower="50"/>
         <skill name="6" owner="spider1">
             <properties priority="3" speed="9" step="0" numberOfImages="10"/>
@@ -46,7 +46,7 @@
         <shape type="circle" radius="14"/>
         <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="55" corpseImageKey="spider2:death/south/09.png"/>
+        <properties diplomacy="2" experience="55" corpseImageKey="spider2:6/death/south/09.png"/>
         <characteristics strength="125" power="60" agility="46" intellect="24" constitution="30" dodge="20" charisma="32" healingPower="55"/>
         <skill name="6" owner="spider2">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="220" saturation="100" luminance="50"/>
@@ -87,7 +87,7 @@
         <shape type="circle" radius="14"/>
         <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="95" corpseImageKey="spider3:death/south/09.png"/>
+        <properties diplomacy="2" experience="95" corpseImageKey="spider3:6/death/south/09.png"/>
         <characteristics strength="165" power="70" agility="58" intellect="28" constitution="40" dodge="25" charisma="33" healingPower="60"/>
         <skill name="6" owner="spider3">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="125" saturation="90" luminance="40"/>
@@ -128,7 +128,7 @@
         <shape type="circle" radius="14"/>
         <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="135" corpseImageKey="spider4:death/south/09.png"/>
+        <properties diplomacy="2" experience="135" corpseImageKey="spider4:6/death/south/09.png"/>
         <characteristics strength="195" power="90" agility="70" intellect="38" constitution="55" dodge="30" charisma="38" healingPower="60"/>
         <skill name="6" owner="spider4">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="40" saturation="100" luminance="50"/>
@@ -169,7 +169,7 @@
         <shape type="circle" radius="14"/>
         <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="200" corpseImageKey="spider5:death/south/09.png"/>
+        <properties diplomacy="2" experience="200" corpseImageKey="spider5:6/death/south/09.png"/>
         <characteristics strength="265" power="140" agility="105" intellect="50" constitution="80" dodge="45" charisma="45" healingPower="72"/>
         <skill name="6" owner="spider5">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="0" saturation="100" luminance="50"/>

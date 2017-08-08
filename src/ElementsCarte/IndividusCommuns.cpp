@@ -279,6 +279,9 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
             }
             elem->QueryAttribute("diplomacy", &Diplomatie);
             elem->QueryAttribute("lifetime", &lifetime);
+            elem->QueryAttribute("experience", &Experience);
+            if (elem->Attribute("corpseImageKey"))
+                corpseImageKey = elem->Attribute("corpseImageKey");
         }
         if (elemName == "skill")
         {
