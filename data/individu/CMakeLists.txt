@@ -6,8 +6,6 @@ set(individu
     320.com
     205.one
     400.one
-    310.com
-    311.com
     allies.xml
     ballista.xml
     buildings.xml
@@ -26,6 +24,7 @@ set(individu
     tutorial-player.xml
     tutorial-species.xml
     walls.xml
+    zombies.xml
 )
 
 install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)

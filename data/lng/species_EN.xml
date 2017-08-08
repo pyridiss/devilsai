@@ -3,8 +3,6 @@
     <text id="203">Owen Glendower</text>
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
-    <text id="310">Zombie</text>
-    <text id="311">Frozen Corpse</text>
     <text id="312">Zombie 3</text>
     <text id="313">Zombie 4</text>
     <text id="314">Bloody Zombie</text>
@@ -44,4 +42,6 @@
     <text id="tutorial-training-mannequin-1">Training mannequin</text>
     <text id="tutorial-training-mannequin-2">Training mannequin</text>
     <text id="warrior1">Warrior</text>
+    <text id="zombie1">Zombie</text>
+    <text id="zombie2">Frozen Corpse</text>
 </texts>
