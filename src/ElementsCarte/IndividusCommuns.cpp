@@ -26,6 +26,7 @@
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
+#include "tools/debug.h"
 #include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
@@ -118,8 +119,12 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("species"))
     {
         Type = elem->Attribute("species");
-        Load_ClasseCommune(Type);
         Classe = gamedata::species(Type);
+        if (Classe == nullptr)
+        {
+            tools::debug::error("This class has not been loaded: " + Type, "files");
+            return;
+        }
         Classe->Copie_Element(this);
     }
 

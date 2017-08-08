@@ -276,7 +276,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Liste = liste;
 	ind->Type = Type;
 
-	Load_ClasseCommune(Type);
     ind->Classe = gamedata::species(Type);
 
     if (ind->Classe == nullptr)
