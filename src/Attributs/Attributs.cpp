@@ -117,6 +117,14 @@ void Objects::loadFromXML(XMLElement* elem)
                 lua_call(L, 1, 0);
             }
         }
+        if (objectName == "objectDesign")
+        {
+            string design = object->Attribute("design");
+            int q = 0, p = 0;
+            object->QueryAttribute("quality", &q);
+            object->QueryAttribute("probability", &p);
+            designs.emplace_back(design, q, p);
+        }
 
         object = object->NextSiblingElement();
     }

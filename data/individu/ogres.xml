@@ -38,10 +38,10 @@
         </skill>
         <skillsManagement default="3" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
-            <addObject slot="inventory02" design="attackpotion" quality="1"/>
-            <addObject slot="inventory03" design="defensepotion" quality="1"/>
-            <addObject slot="inventory04" design="speedpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
+            <objectDesign design="attackpotion" quality="1" probability="5"/>
+            <objectDesign design="defensepotion" quality="1" probability="5"/>
+            <objectDesign design="speedpotion" quality="1" probability="5"/>
         </inventory>
     </species>
 </world>

@@ -38,7 +38,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
     </species>
     <species name="spider2">
@@ -79,7 +79,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
     </species>
     <species name="spider3">
@@ -120,7 +120,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
     </species>
     <species name="spider4">
@@ -161,7 +161,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
     </species>
     <species name="spider5">
@@ -202,7 +202,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
     </species>
 </world>

@@ -88,19 +88,12 @@ bool Individu_Commun::Set_Activite(string nv)
 			++key;
 		}
 
-		//Then, we create inventory and add it:
-		for (list<TemplateObject>::iterator obj = Classe->inventoryTemplate.begin() ; obj != Classe->inventoryTemplate.end() ; ++obj)
-		{
-			corpse->objects.addObject(obj->fileName, "storagebox" + intToString(key, 2), obj->quality);
-			++key;
-		}
-
 		//Finally, we create stuff according to probabilities and add it:
-		for (list<TemplateObject>::iterator obj = Classe->stuff.begin() ; obj != Classe->stuff.end() ; ++obj)
+		for (auto& d : Classe->inventory.designs)
 		{
-			if (rand()%100 < obj->probability)
+			if (rand()%100 < d.probability)
 			{
-				corpse->objects.addObject(obj->fileName, "storagebox" + intToString(key, 2), obj->quality);
+				corpse->objects.addObject(d.file, "storagebox" + intToString(key, 2), d.quality);
 				++key;
 			}
 		}
@@ -299,6 +292,10 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
             {
                 //TODO
             }
+        }
+        if (elemName == "inventory")
+        {
+            inventory.loadFromXML(elem);
         }
 
         elem = elem->NextSiblingElement();

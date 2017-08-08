@@ -75,8 +75,5 @@
             <images angle="270" pathToImages="1/0/%%.png"/>
         </skill>
         <skillsManagement default="1" onAttack="4"/>
-        <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
-        </inventory>
     </species>
 </world>

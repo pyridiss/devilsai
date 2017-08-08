@@ -38,7 +38,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
         </inventory>
     </species>
     <species name="orc2">
@@ -79,10 +79,10 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
-            <addObject slot="inventory02" design="attackpotion" quality="1"/>
-            <addObject slot="inventory03" design="defensepotion" quality="1"/>
-            <addObject slot="inventory04" design="speedpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
+            <objectDesign design="attackpotion" quality="1" probability="5"/>
+            <objectDesign design="defensepotion" quality="1" probability="5"/>
+            <objectDesign design="speedpotion" quality="1" probability="5"/>
         </inventory>
     </species>
     <species name="orc3">
@@ -123,10 +123,10 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
-            <addObject slot="inventory02" design="attackpotion" quality="1"/>
-            <addObject slot="inventory03" design="defensepotion" quality="1"/>
-            <addObject slot="inventory04" design="speedpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
+            <objectDesign design="attackpotion" quality="1" probability="5"/>
+            <objectDesign design="defensepotion" quality="1" probability="5"/>
+            <objectDesign design="speedpotion" quality="1" probability="5"/>
         </inventory>
     </species>
     <species name="orc4">
@@ -167,10 +167,10 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
-            <addObject slot="inventory02" design="attackpotion" quality="1"/>
-            <addObject slot="inventory03" design="defensepotion" quality="1"/>
-            <addObject slot="inventory04" design="speedpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
+            <objectDesign design="attackpotion" quality="1" probability="5"/>
+            <objectDesign design="defensepotion" quality="1" probability="5"/>
+            <objectDesign design="speedpotion" quality="1" probability="5"/>
         </inventory>
     </species>
     <species name="orc5">
@@ -211,7 +211,7 @@
         </skill>
         <skillsManagement default="1" onAttack="4"/>
         <inventory>
-            <addObject slot="inventory01" design="healpotion" quality="1"/>
+            <objectDesign design="healpotion" quality="1" probability="10"/>
         </inventory>
     </species>
 </world>

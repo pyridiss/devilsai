@@ -48,13 +48,6 @@ namespace tinyxml2{
 
 /** INDIVIDUS **/
 
-struct TemplateObject
-{
-	string fileName = "";
-	int quality = 0;
-	int probability = 0;
-};
-
 class Classe_Commune
 {
 	public:
@@ -76,8 +69,6 @@ class Classe_Commune
 	public:
 		Caracteristiques Caracs;
         Objects inventory;
-		list<TemplateObject> inventoryTemplate;	//These objects are always put on corpses, whatever probability
-		list<TemplateObject> stuff;
 
     public:
         string imagePrefix = "";

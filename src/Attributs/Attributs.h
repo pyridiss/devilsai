@@ -75,8 +75,24 @@ class Statistiques
 
 class Objects
 {
+    public:
+        struct objectDesign
+        {
+            string file;
+            int quality;
+            int probability;
+
+            objectDesign(const string& f, int q, int p) :
+                file(f),
+                quality(q),
+                probability(p)
+            {
+            }
+        };
+
 	public:
 		mapObjects objects;
+        list<objectDesign> designs;
 
 	public:
 		~Objects();
