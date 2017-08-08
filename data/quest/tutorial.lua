@@ -90,7 +90,6 @@ function questManage()
 
 	elseif questStep == "7" then
 		if dialogDisplayed("tutorial-10") then
-			loadList("didact_attaque")
 			enableCinematics(true)
 			questStep = "8"
 		end
@@ -98,7 +97,6 @@ function questManage()
 	elseif questStep == "8" then
 		remainingTime2 = remainingTime2 - I()
 		if remainingTime2 <= 0 then
-			deleteList("didact_attaque")
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-bael")
 			bael_ptr = getElement("tutorial-bael")
 			set(curtis_ptr, "vitality", 0)
@@ -108,7 +106,6 @@ function questManage()
 
 	elseif questStep == "9" then
 		if dialogDisplayed("tutorial-11") then
-			loadList("didact_attaque")
 			setActivity(bael_ptr, 4)
 			questStep = "10"
 		end
@@ -116,7 +113,6 @@ function questManage()
 	elseif questStep == "10" then
 		remainingTime3 = remainingTime3 - I()
 		if remainingTime3 <= 0 then
-			deleteList("didact_attaque")
 			questStep = "11"
 			pushDialog("tutorial-12")
 		end

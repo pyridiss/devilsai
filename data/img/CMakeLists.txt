@@ -20,7 +20,6 @@ set(img
     C301.png
     C401.png
     Curtis.img
-    didact_attaque_bael.img
     Fluellen.img
     Fond.png
     FondCoffre.png

@@ -6,7 +6,6 @@ set(individu
     320.com
     205.one
     400.one
-    2.mvt
     210.com
     310.com
     311.com
