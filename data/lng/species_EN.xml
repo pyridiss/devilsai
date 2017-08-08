@@ -6,7 +6,6 @@
     <text id="312">Zombie 3</text>
     <text id="313">Zombie 4</text>
     <text id="314">Bloody Zombie</text>
-    <text id="315">Clay Ogre</text>
     <text id="316">Ogre 2</text>
     <text id="317">Ogre 3</text>
     <text id="318">Ogre 4</text>
@@ -24,6 +23,7 @@
     <text id="fluellen">Fluellen</text>
     <text id="fountainOfLife_animation">fountainOfLife_animation</text>
     <text id="gower">Gower</text>
+    <text id="ogre1">Clay Ogre</text>
     <text id="orc1">Moon Orc</text>
     <text id="orc2">Night Orc</text>
     <text id="orc3">Snow Orc</text>

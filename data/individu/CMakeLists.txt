@@ -1,7 +1,6 @@
 
 set(individu
     203.one
-    315.com
     204.one
     320.com
     205.one
@@ -14,6 +13,7 @@ set(individu
     gower.xml
     grounds.xml
     misc.xml
+    ogres.xml
     orcs.xml
     player.xml
     spiders.xml
