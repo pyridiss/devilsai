@@ -3,7 +3,6 @@
     <text id="203">Owen Glendower</text>
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
-    <text id="210">Guerrier</text>
     <text id="310">Zombie</text>
     <text id="311">Cadavre congelé</text>
     <text id="312">Zombie 3</text>
@@ -44,4 +43,5 @@
     <text id="tutorial-player">Joueur</text>
     <text id="tutorial-training-mannequin-1">Mannequin en bois</text>
     <text id="tutorial-training-mannequin-2">Mannequin en bois</text>
+    <text id="warrior1">Guerrier</text>
 </texts>

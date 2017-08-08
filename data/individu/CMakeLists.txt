@@ -6,9 +6,9 @@ set(individu
     320.com
     205.one
     400.one
-    210.com
     310.com
     311.com
+    allies.xml
     ballista.xml
     buildings.xml
     fluellen.xml
