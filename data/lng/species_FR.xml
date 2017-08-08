@@ -4,11 +4,6 @@
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
     <text id="210">Guerrier</text>
-    <text id="305">Orque de la Lune</text>
-    <text id="306">Orque de la Nuit</text>
-    <text id="307">Orque des Neiges</text>
-    <text id="308">Orque des Brumes</text>
-    <text id="309">Orque de Sang</text>
     <text id="310">Zombie</text>
     <text id="311">Cadavre congelé</text>
     <text id="312">Zombie 3</text>
@@ -32,6 +27,11 @@
     <text id="fluellen">Fluellen</text>
     <text id="fountainOfLife_animation">fountainOfLife_animation</text>
     <text id="gower">Gower</text>
+    <text id="orc1">Orque de la Lune</text>
+    <text id="orc2">Orque de la Nuit</text>
+    <text id="orc3">Orque des Neiges</text>
+    <text id="orc4">Orque des Brumes</text>
+    <text id="orc5">Orque de Sang</text>
     <text id="player">Joueur</text>
     <text id="player_fireball_bullet">player_fireball_bullet</text>
     <text id="spider1">Araignée Rouge</text>

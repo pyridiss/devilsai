@@ -8,11 +8,6 @@ set(individu
     400.one
     2.mvt
     210.com
-    305.com
-    306.com
-    307.com
-    308.com
-    309.com
     310.com
     311.com
     ballista.xml
@@ -22,6 +17,7 @@ set(individu
     gower.xml
     grounds.xml
     misc.xml
+    orcs.xml
     player.xml
     spiders.xml
     stones.xml

@@ -4,11 +4,6 @@
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
     <text id="210">Warrior</text>
-    <text id="305">Moon Orc</text>
-    <text id="306">Night Orc</text>
-    <text id="307">Snow Orc</text>
-    <text id="308">Orc from the Mists</text>
-    <text id="309">Bloody Orc</text>
     <text id="310">Zombie</text>
     <text id="311">Frozen Corpse</text>
     <text id="312">Zombie 3</text>
@@ -32,6 +27,11 @@
     <text id="fluellen">Fluellen</text>
     <text id="fountainOfLife_animation">fountainOfLife_animation</text>
     <text id="gower">Gower</text>
+    <text id="orc1">Moon Orc</text>
+    <text id="orc2">Night Orc</text>
+    <text id="orc3">Snow Orc</text>
+    <text id="orc4">Orc from the Mists</text>
+    <text id="orc5">Bloody Orc</text>
     <text id="player">Player</text>
     <text id="player_fireball_bullet">player_fireball_bullet</text>
     <text id="spider1">Red Spider</text>
