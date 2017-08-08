@@ -6,19 +6,14 @@ set(individu
     320.com
     205.one
     400.one
-    302.com
     2.mvt
-    303.com
-    304.com
     210.com
     305.com
     306.com
     307.com
-    301.com
     308.com
     309.com
     310.com
-    300.com
     311.com
     ballista.xml
     buildings.xml
@@ -28,6 +23,7 @@ set(individu
     grounds.xml
     misc.xml
     player.xml
+    spiders.xml
     stones.xml
     trees.xml
     tutorial-bael.xml

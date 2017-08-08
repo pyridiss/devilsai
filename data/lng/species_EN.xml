@@ -4,11 +4,6 @@
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
     <text id="210">Warrior</text>
-    <text id="300">Red Spider</text>
-    <text id="301">Cobalt Mygale</text>
-    <text id="302">Lynx Spider</text>
-    <text id="303">Golden arachnid</text>
-    <text id="304">Bloody Spider</text>
     <text id="305">Moon Orc</text>
     <text id="306">Night Orc</text>
     <text id="307">Snow Orc</text>
@@ -39,6 +34,11 @@
     <text id="gower">Gower</text>
     <text id="player">Player</text>
     <text id="player_fireball_bullet">player_fireball_bullet</text>
+    <text id="spider1">Red Spider</text>
+    <text id="spider2">Cobalt Mygale</text>
+    <text id="spider3">Lynx Spider</text>
+    <text id="spider4">Golden arachnid</text>
+    <text id="spider5">Bloody Spider</text>
     <text id="tutorial-bael">Bael</text>
     <text id="tutorial-curtis">Curtis</text>
     <text id="tutorial-player">Player</text>

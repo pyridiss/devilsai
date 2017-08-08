@@ -4,11 +4,6 @@
     <text id="204">Banquo</text>
     <text id="205">Horst</text>
     <text id="210">Guerrier</text>
-    <text id="300">Araignée Rouge</text>
-    <text id="301">Mygale Cobalt</text>
-    <text id="302">Araignée Lynx</text>
-    <text id="303">Arachnide Dorée</text>
-    <text id="304">Araignée de Sang</text>
     <text id="305">Orque de la Lune</text>
     <text id="306">Orque de la Nuit</text>
     <text id="307">Orque des Neiges</text>
@@ -39,6 +34,11 @@
     <text id="gower">Gower</text>
     <text id="player">Joueur</text>
     <text id="player_fireball_bullet">player_fireball_bullet</text>
+    <text id="spider1">Araignée Rouge</text>
+    <text id="spider2">Mygale Cobalt</text>
+    <text id="spider3">Araignée Lynx</text>
+    <text id="spider4">Arachnide Dorée</text>
+    <text id="spider5">Araignée de Sang</text>
     <text id="tutorial-bael">Bael</text>
     <text id="tutorial-curtis">Curtis</text>
     <text id="tutorial-player">Joueur</text>
