@@ -95,7 +95,9 @@ void Coffre::loadFromXML(tinyxml2::XMLHandle &handle)
             if (elem->Attribute("imageContainer"))
                 imageContainer = elem->Attribute("imageContainer");
             if (elem->Attribute("name"))
-                Nom = tools::textManager::fromStdString(elem->Attribute("name"));
+                Nom = tools::textManager::getText("species", elem->Attribute("name"));
+            if (elem->Attribute("inlineName"))
+                Nom = tools::textManager::fromStdString(elem->Attribute("inlineName"));
             elem->QueryAttribute("closeWhenEmpty", &_closeWhenEmpty);
         }
         if (elemName == "inventory")
@@ -129,7 +131,7 @@ void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("ignoreCollision", ignoreCollision);
     properties->SetAttribute("classement", TypeClassement);
     properties->SetAttribute("imageContainer", imageContainer.c_str());
-    properties->SetAttribute("name", tools::textManager::toStdString(Nom).c_str());
+    properties->SetAttribute("inlineName", tools::textManager::toStdString(Nom).c_str());
     properties->SetAttribute("closeWhenEmpty", _closeWhenEmpty);
     storageBox->InsertEndChild(properties);
 
