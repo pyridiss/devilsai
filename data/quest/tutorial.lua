@@ -82,7 +82,7 @@ function questManage()
 
 	elseif questStep == "6" then
 		if dialogDisplayed("tutorial-08") then
-			loadList("didact_coffre")
+            loadWorld("tutorial", "carte/tutorial.xml", "tutorial-storagebox")
 			pushDialog("tutorial-09")
 			pushDialog("tutorial-10")
 			questStep = "7"

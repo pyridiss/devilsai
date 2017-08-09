@@ -3,6 +3,7 @@
     <loadDataFile file="individu/tutorial-species.xml"/>
     <loadDataFile file="individu/grounds.xml"/>
     <loadDataFile file="individu/walls.xml"/>
+    <loadDataFile file="individu/misc.xml"/>
     <place name="tutorial-military-academy" music="Crowd">
         <properties diplomacy="1"/>
         <shape type="rectangle" xCenter="0" yCenter="0" xSize="500" ySize="500"/>
@@ -60,6 +61,16 @@
     </items>
     <items tag="tutorial-training-3">
         <individual species="tutorial-training-mannequin-2" x="179" y="-102"/>
+    </items>
+    <items tag="tutorial-storagebox">
+        <storageBox design="21001" x="-40" y="150">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="611"/>
+            <inventory>
+                <addObject slot="storagebox01" design="sabaton" quality="6"/>
+                <addObject slot="storagebox02" design="healpotion" quality="3"/>
+            </inventory>
+        </storageBox>
     </items>
     <items tag="tutorial-bael">
         <unique name="tutorial-bael" loadFromDataFile="individu/tutorial-bael.xml" x="127" y="147"/>
