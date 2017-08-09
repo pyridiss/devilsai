@@ -20,6 +20,7 @@
 #include <lua5.2/lua.hpp>
 #include <tinyxml2.h>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
@@ -555,6 +556,141 @@ void Carte::loadFromFile(string path, string tag)
                     item = item->NextSiblingElement();
                 }
             }
+        }
+        else if (elemName == "randomZone")
+        {
+            string currentTag = "ALL";
+            bool Immuable = false;
+            bool ignoreCollision = false;
+
+            if (elem->Attribute("tag")) currentTag = elem->Attribute("tag");
+            elem->QueryAttribute("immuable", &Immuable);
+            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
+
+            if (currentTag != tag && tag != "ALL")
+            {
+                elem = elem->NextSiblingElement();
+                continue;
+            }
+
+            tools::math::Shape* zone = nullptr;
+            tools::math::Vector2d zoneOrigin(0, 0);
+            bool customZone = false;
+            XMLHandle hdl2(elem);
+            XMLElement *item = hdl2.FirstChildElement().ToElement();
+
+            //The zone can be defined from a place in the current world.
+            if (elem->Attribute("place"))
+            {
+                string placeName = elem->Attribute("place");
+                for (auto & p : places)
+                {
+                    if (p.first->Type == placeName) zone = &(p.first->size);
+                }
+            }
+            else if (elem->Attribute("customZone"))
+            {
+                if (strcmp(item->Name(), "shape") == 0)
+                {
+                    zone = new tools::math::Shape();
+                    customZone = true;
+                    zone->loadFromXML(item);
+                    zone->setOrigin(&zoneOrigin);
+                }
+                item = item->NextSiblingElement();
+            }
+
+            if (zone == nullptr)
+            {
+                tools::debug::error("A randomZone has been defined without a valid zone", "files");
+                elem = elem->NextSiblingElement();
+                continue;
+            }
+
+            pair<tools::math::Vector2d, tools::math::Vector2d> box = zone->box;
+
+            while (item)
+            {
+                double quantity = 0;
+                if (item->Attribute("density"))
+                {
+                    item->QueryAttribute("density", &quantity);
+                    quantity *= zone->area() / 1000000.0;
+                }
+                if (item->Attribute("quantity"))
+                {
+                    item->QueryAttribute("quantity", &quantity);
+                }
+
+                int counter = 0;
+
+                while (counter < quantity)
+                {
+                    Element_Carte* newItem = nullptr;
+
+                    string itemName = item->Name();
+
+                    if (itemName == "inertItem")
+                        newItem = new Paysage;
+                    else if (itemName == "individual")
+                        newItem = new Individu_Commun;
+                    else if (itemName == "unique")
+                        newItem = new Individu_Unique;
+                    else if (itemName == "storageBox")
+                        newItem = new Coffre;
+                    else if (itemName == "trigger")
+                        newItem = new Trigger;
+
+                    if (newItem == nullptr)
+                    {
+                        tools::debug::error("Error while creating a randomZone: unknown item(" + itemName + ")", "files");
+                        break;
+                    }
+
+                    if (ignoreCollision) newItem->ignoreCollision = true;
+
+                    XMLHandle hdl3(item);
+                    newItem->loadFromXML(hdl3);
+
+                    //'fake' will be used to test collisions with other items
+                    Individu_Unique fake;
+                    fake.size = newItem->size;
+                    fake.size.setOrigin(&(newItem->position()));
+
+                    int debugCounter = 0;
+                    do
+                    {
+                        ++debugCounter;
+
+                        //Set a new random position
+                        newItem->move(-newItem->position().x, -newItem->position().y);
+                        double x = box.first.x + (box.second.x - box.first.x)/10000.0 * (double)(rand()%10000);
+                        double y = box.first.y + (box.second.y - box.first.y)/10000.0 * (double)(rand()%10000);
+                        newItem->move(x, y);
+
+                        //1. The item must collide with the zone
+                        if (!tools::math::intersection(newItem->size, *zone)) continue;
+
+                        //2. The item must not collide with anything else
+                        resetCollisionManager();
+                        int Resultat = COLL_OK;
+                        for ( ; Resultat == COLL_OK ; Resultat = browseCollisionList(&fake)) {}
+                        if (Resultat == COLL_END) break;
+                    }
+                    while (debugCounter < 100);
+
+                    if (debugCounter == 100)
+                        tools::debug::error("Error while creating randomZone: no place left for " + newItem->Type, "files");
+                    else
+                        elements.push_back(newItem);
+                    ++counter;
+                }
+
+                item = item->NextSiblingElement();
+            }
+
+            if (customZone && zone != nullptr)
+                delete zone;
         }
         elem = elem->NextSiblingElement();
     }
