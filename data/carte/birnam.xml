@@ -254,6 +254,35 @@
             <shape type="rectangle" xSize="1024" ySize="6"/>
             <properties xExtent="16"/>
         </inertItem>
+        <individual species="ballista" x="237" y="-122"/>
+        <individual species="ballista" x="238" y="122"/>
+        <individual species="ballista" x="237" y="251"/>
+        <individual species="ballista" x="104" y="484"/>
+        <individual species="ballista" x="104" y="643"/>
+        <individual species="fountainOfLife_animation" x="-161" y="53"/>
+        <storageBox design="21001" x="-232" y="-202">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="611"/>
+            <inventory>
+                <createRandomObjects min="1" max="1">
+                    <objectDesign design="gladius" quality="6"/>
+                    <objectDesign design="shield" quality="6"/>
+                </createRandomObjects>
+                <createRandomObjects min="1" max="1">
+                    <objectDesign design="greathelm" quality="6"/>
+                    <objectDesign design="cuirass" quality="6"/>
+                    <objectDesign design="sabaton" quality="6"/>
+                    <objectDesign design="diamondring" quality="6"/>
+                </createRandomObjects>
+            </inventory>
+        </storageBox>
+        <storageBox design="21001" x="29" y="376">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="611"/>
+            <inventory>
+                <addObject slot="storagebox01" design="healpotion" quality="5"/>
+            </inventory>
+        </storageBox>
     </items>
     <randomZone tag="GowersCamp-TheGladeOfTheSaints-InertItems" place="birnam-glade-saints">
         <inertItem design="tree01" quantity="8"/>
