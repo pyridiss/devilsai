@@ -80,36 +80,26 @@
             <properties xExtent="23"/>
         </inertItem>
         <inertItem design="wall01-SW" x="3048" y="-1578"/>
-        <inertItem design="tree05" x="1929" y="-1492"/>
         <inertItem design="wall01-NS" x="3056" y="-1462">
             <shape type="rectangle" xSize="6" ySize="192"/>
             <properties yExtent="4"/>
         </inertItem>
-        <inertItem design="tree06" x="1824" y="-1451"/>
-        <inertItem design="tree10" x="2449" y="-1443"/>
         <inertItem design="wall01-NS" x="1520" y="-1438">
             <shape type="rectangle" xSize="6" ySize="240"/>
             <properties yExtent="5"/>
         </inertItem>
-        <inertItem design="tree10" x="2781" y="-1438"/>
-        <inertItem design="tree01" x="1584" y="-1420"/>
         <inertItem design="wall01-EN" x="3064" y="-1342"/>
         <inertItem design="wall01-EW" x="3344" y="-1338">
             <shape type="rectangle" xSize="512" ySize="6"/>
             <properties xExtent="8"/>
         </inertItem>
         <inertItem design="wall01-SW" x="3624" y="-1338"/>
-        <inertItem design="tree03" x="2100" y="-1302"/>
         <inertItem design="wall01-NW" x="1512" y="-1294"/>
         <inertItem design="wall01-ES" x="1016" y="-1290"/>
         <inertItem design="wall01-EW" x="1264" y="-1290">
             <shape type="rectangle" xSize="448" ySize="6"/>
             <properties xExtent="7"/>
         </inertItem>
-        <inertItem design="tree04" x="3278" y="-1243"/>
-        <inertItem design="tree08" x="1278" y="-1234"/>
-        <inertItem design="tree08" x="1153" y="-1195"/>
-        <inertItem design="tree10" x="3064" y="-1192"/>
         <inertItem design="wall01-NS" x="4272" y="-1174">
             <shape type="rectangle" xSize="6" ySize="384"/>
             <properties yExtent="8"/>
@@ -118,20 +108,10 @@
             <shape type="rectangle" xSize="6" ySize="336"/>
             <properties yExtent="7"/>
         </inertItem>
-        <inertItem design="tree13" x="2665" y="-1133"/>
-        <inertItem design="tree04" x="3518" y="-1124"/>
         <inertItem design="wall01-NS" x="1008" y="-1102">
             <shape type="rectangle" xSize="6" ySize="336"/>
             <properties yExtent="7"/>
         </inertItem>
-        <inertItem design="tree04" x="1711" y="-1102"/>
-        <inertItem design="tree10" x="2511" y="-1097"/>
-        <inertItem design="tree09" x="1226" y="-1094"/>
-        <inertItem design="tree13" x="2604" y="-1092"/>
-        <inertItem design="tree02" x="2930" y="-1077"/>
-        <inertItem design="tree08" x="1089" y="-1063"/>
-        <inertItem design="tree06" x="2306" y="-1011"/>
-        <inertItem design="tree01" x="1367" y="-959"/>
         <inertItem design="wall01-EN" x="3640" y="-958"/>
         <inertItem design="wall01-NW" x="4264" y="-958"/>
         <inertItem design="wall01-EW" x="3952" y="-954">
@@ -141,36 +121,17 @@
         <inertItem design="tree12" x="4350" y="-950"/>
         <inertItem design="tree12" x="4420" y="-950"/>
         <inertItem design="tree12" x="4490" y="-950"/>
-        <inertItem design="tree01" x="2588" y="-911"/>
         <inertItem design="wall01-NW" x="1000" y="-910"/>
         <inertItem design="wall01-ES" x="-392" y="-906"/>
         <inertItem design="wall01-EW" x="304" y="-906">
             <shape type="rectangle" xSize="1344" ySize="6"/>
             <properties xExtent="21"/>
         </inertItem>
-        <inertItem design="tree04" x="1625" y="-897"/>
-        <inertItem design="tree08" x="2104" y="-878"/>
-        <inertItem design="tree02" x="2778" y="-874"/>
         <inertItem design="wall01-ES" x="3640" y="-810"/>
         <inertItem design="wall01-EW" x="4112" y="-810">
             <shape type="rectangle" xSize="896" ySize="6"/>
             <properties xExtent="14"/>
         </inertItem>
-        <inertItem design="tree08" x="1831" y="-799"/>
-        <inertItem design="tree01" x="-251" y="-767"/>
-        <inertItem design="tree08" x="1322" y="-766"/>
-        <inertItem design="tree04" x="772" y="-758"/>
-        <inertItem design="tree04" x="2159" y="-747"/>
-        <inertItem design="tree08" x="2866" y="-747"/>
-        <inertItem design="tree06" x="465" y="-734"/>
-        <inertItem design="tree09" x="2295" y="-711"/>
-        <inertItem design="tree01" x="1060" y="-706"/>
-        <inertItem design="tree14" x="392" y="-701"/>
-        <inertItem design="tree09" x="3545" y="-677"/>
-        <inertItem design="tree04" x="2596" y="-660"/>
-        <inertItem design="tree04" x="-23" y="-652"/>
-        <inertItem design="tree03" x="1762" y="-637"/>
-        <inertItem design="tree04" x="2420" y="-634"/>
         <inertItem design="wall01-NS" x="-400" y="-622">
             <shape type="rectangle" xSize="6" ySize="528"/>
             <properties yExtent="11"/>
@@ -179,70 +140,43 @@
             <shape type="rectangle" xSize="6" ySize="336"/>
             <properties yExtent="7"/>
         </inertItem>
-        <inertItem design="tree09" x="1895" y="-583"/>
-        <inertItem design="tree03" x="2831" y="-580"/>
-        <inertItem design="tree13" x="1708" y="-540"/>
-        <inertItem design="tree09" x="3453" y="-538"/>
-        <inertItem design="tree13" x="1671" y="-514"/>
-        <inertItem design="tree13" x="1628" y="-499"/>
-        <inertItem design="tree08" x="2211" y="-492"/>
-        <inertItem design="tree04" x="2021" y="-485"/>
-        <inertItem design="tree05" x="549" y="-435"/>
         <inertItem design="wall01-NW" x="3624" y="-430"/>
-        <inertItem design="tree06" x="1298" y="-429"/>
-        <inertItem design="tree05" x="1371" y="-429"/>
         <inertItem design="wall01-ES" x="2936" y="-426"/>
         <inertItem design="wall01-EW" x="3280" y="-426">
             <shape type="rectangle" xSize="640" ySize="6"/>
             <properties xExtent="10"/>
         </inertItem>
-        <inertItem design="tree04" x="1080" y="-406"/>
-        <inertItem design="tree01" x="19" y="-389"/>
-        <inertItem design="tree09" x="2693" y="-359"/>
-        <inertItem design="tree02" x="920" y="-358"/>
         <inertItem design="wall01-Nx" x="-400" y="-334"/>
-        <inertItem design="tree08" x="1507" y="-331"/>
         <inertItem design="wall02-ES" x="-508" y="-318"/>
        <inertItem design="wall02-EW" x="-88" y="-318">
             <shape type="rectangle" xSize="768" ySize="6"/>
             <properties xExtent="6"/>
         </inertItem>
         <inertItem design="wall02-SW" x="338" y="-318"/>
-        <inertItem design="tree08" x="1564" y="-313"/>
         <inertItem design="wall01-NS" x="2928" y="-286">
             <shape type="rectangle" xSize="6" ySize="240"/>
             <properties yExtent="5"/>
         </inertItem>
-        <inertItem design="tree04" x="999" y="-263"/>
-        <inertItem design="tree09" x="2305" y="-240"/>
         <inertItem design="wall02-NS" x="-536" y="-235"/>
         <inertItem design="wall02-NS" x="360" y="-235"/>
         <inertItem design="tree04" x="230" y="-218"/>
-        <inertItem design="tree13" x="1890" y="-197"/>
-        <inertItem design="tree14" x="1487" y="-196"/>
         <inertItem design="building01" x="-354" y="-191"/>
         <inertItem design="tree05" x="14" y="-188"/>
-        <inertItem design="tree14" x="1429" y="-163"/>
         <inertItem design="wall02-NW" x="-558" y="-144"/>
         <inertItem design="wall01-NW" x="2920" y="-142"/>
         <inertItem design="wall02-NS" x="360" y="-139"/>
-        <inertItem design="tree04" x="610" y="-138"/>
         <inertItem design="wall01-ES" x="2040" y="-138"/>
         <inertItem design="wall01-EW" x="2480" y="-138">
             <shape type="rectangle" xSize="832" ySize="6"/>
             <properties xExtent="13"/>
         </inertItem>
         <inertItem design="wall02-ES" x="-636" y="-126"/>
-        <inertItem design="tree08" x="910" y="-124"/>
         <inertItem design="tree04" x="-481" y="-88"/>
-        <inertItem design="tree01" x="1226" y="-77"/>
         <inertItem design="wall02-Nx" x="360" y="-76"/>
         <inertItem design="tree04" x="-536" y="-63"/>
         <inertItem design="tree04" x="-577" y="-15"/>
         <inertItem design="tree11" x="-390" y="13"/>
-        <inertItem design="tree09" x="950" y="29"/>
         <inertItem design="tree13" x="-229" y="45"/>
-        <inertItem design="tree10" x="1664" y="55"/>
         <inertItem design="wall02-Sx" x="360" y="63"/>
         <inertItem design="tree13" x="-261" y="64"/>
         <inertItem design="wall01-NS" x="2032" y="74">
@@ -261,37 +195,26 @@
         <inertItem design="tree04" x="-212" y="166"/>
         <inertItem design="tree10" x="-399" y="167"/>
         <inertItem design="tree08" x="-544" y="171"/>
-        <inertItem design="tree08" x="521" y="175"/>
-        <inertItem design="tree09" x="1914" y="176"/>
         <inertItem design="tree04" x="-167" y="179"/>
         <inertItem design="tree04" x="4" y="193"/>
-        <inertItem design="tree03" x="1275" y="215"/>
-        <inertItem design="tree08" x="1612" y="233"/>
         <inertItem design="wall02-NS" x="360" y="245"/>
-        <inertItem design="tree09" x="702" y="262"/>
         <inertItem design="wall01-NW" x="2024" y="290"/>
         <inertItem design="wall01-ES" x="1720" y="294"/>
         <inertItem design="wall01-EW" x="1872" y="294">
             <shape type="rectangle" xSize="256" ySize="6"/>
             <properties xExtent="4"/>
         </inertItem>
-        <inertItem design="tree05" x="896" y="305"/>
         <inertItem design="tree12" x="-378" y="331"/>
         <inertItem design="wall02-NW" x="338" y="336"/>
         <inertItem design="wall02-EN" x="-636" y="336"/>
         <inertItem design="tree12" x="-345" y="352"/>
         <inertItem design="wall02-SW" x="-558" y="354"/>
         <inertItem design="wall02-ES" x="260" y="354"/>
-        <inertItem design="tree08" x="1467" y="404"/>
-        <inertItem design="tree09" x="294" y="415"/>
-        <inertItem design="tree08" x="363" y="426"/>
         <inertItem design="tree09" x="-208" y="448"/>
         <inertItem design="wall01-NS" x="1712" y="458">
             <shape type="rectangle" xSize="6" ySize="288"/>
             <properties yExtent="6"/>
         </inertItem>
-        <inertItem design="tree08" x="317" y="484"/>
-        <inertItem design="tree01" x="496" y="530"/>
         <inertItem design="tree08" x="-345" y="537"/>
         <inertItem design="wall02-NS" x="-536" y="581">
             <shape type="rectangle" xSize="6" ySize="384"/>
@@ -310,14 +233,12 @@
             <properties xExtent="8"/>
         </inertItem>
         <inertItem design="tree04" x="-289" y="680"/>
-        <inertItem design="tree09" x="673" y="760"/>
         <inertItem design="wall02-NW" x="210" y="816"/>
         <inertItem design="wall02-EN" x="-508" y="816"/>
         <inertItem design="wall01-NS" x="1136" y="818">
             <shape type="rectangle" xSize="6" ySize="336"/>
             <properties yExtent="7"/>
         </inertItem>
-        <inertItem design="tree03" x="358" y="830"/>
         <inertItem design="wall02-EW" x="-152" y="834">
             <shape type="rectangle" xSize="640" ySize="6"/>
             <properties xExtent="5"/>
@@ -332,4 +253,17 @@
             <properties xExtent="16"/>
         </inertItem>
     </items>
+    <randomZone tag="GowersCamp-TheGladeOfTheSaints-InertItems" place="birnam-glade-saints">
+        <inertItem design="tree01" quantity="8"/>
+        <inertItem design="tree02" quantity="3"/>
+        <inertItem design="tree03" quantity="5"/>
+        <inertItem design="tree04" quantity="13"/>
+        <inertItem design="tree05" quantity="4"/>
+        <inertItem design="tree06" quantity="4"/>
+        <inertItem design="tree08" quantity="16"/>
+        <inertItem design="tree09" quantity="12"/>
+        <inertItem design="tree10" quantity="5"/>
+        <inertItem design="tree13" quantity="6"/>
+        <inertItem design="tree14" quantity="3"/>
+    </randomZone>
 </world>
