@@ -126,6 +126,7 @@ struct Shape
     void line(const Vector2d& p, double length, double angle);
     void arc(const Vector2d& p, double radius, double direction, double opening);
 
+    double area();
     void updateDirection(double direction);
 
     void loadFromXML(tinyxml2::XMLElement* elem);

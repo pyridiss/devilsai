@@ -139,6 +139,33 @@ void Shape::arc(const Vector2d& p, double radius, double direction, double openi
     box.second.y = p.y + radius;
 }
 
+double Shape::area()
+{
+    switch(profile)
+    {
+        case Profiles::None:
+            return 0;
+        case Profiles::Point:
+            return 0;
+        case Profiles::Circle:
+            return M_PI * radius1 * radius1;
+        case Profiles::Rectangle:
+            return Vector2d::distance(points[0], points[1]) * Vector2d::distance(points[0], points[2]);
+        case Profiles::Line:
+            return 0;
+        case Profiles::Arc:
+            return angle2 * radius1 * radius1;
+        case Profiles::Complex:
+            //Simple addition of areas... does not take into account overlap
+            double value = 0;
+            for (Shape* s = next ; s != nullptr ; s = s->next)
+            {
+                value += s->area();
+            }
+            return value;
+    }
+}
+
 void Shape::updateDirection(double direction)
 {
     if (profile == Profiles::Line)
