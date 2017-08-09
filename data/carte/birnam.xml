@@ -9,6 +9,8 @@
     <loadDataFile file="individu/misc.xml"/>
     <loadDataFile file="individu/ballista.xml"/>
     <loadDataFile file="individu/fountainOfLife.xml"/>
+    <loadDataFile file="individu/spiders.xml"/>
+    <loadDataFile file="individu/orcs.xml"/>
     <place name="birnam-camp-gower" music="Spring_1">
         <properties diplomacy="1"/>
         <shape type="complex">
@@ -265,5 +267,10 @@
         <inertItem design="tree10" quantity="5"/>
         <inertItem design="tree13" quantity="6"/>
         <inertItem design="tree14" quantity="3"/>
+    </randomZone>
+    <randomZone tag="TheGladeOfTheSaints-Monsters" place="birnam-glade-saints">
+        <individual species="spider1" quantity="32"/>
+        <individual species="spider2" quantity="2"/>
+        <individual species="orc1" quantity="23"/>
     </randomZone>
 </world>

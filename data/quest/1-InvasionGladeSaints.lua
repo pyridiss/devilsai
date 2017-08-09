@@ -65,8 +65,9 @@ function questManage()
 		end
 	end
 
+
 	if questStep == "1" then
-		remainingEnemies = getNumberEnemiesInList("1-GladeSaints-Monsters")
+		remainingEnemies = getNumberEnemiesInList("TheGladeOfTheSaints-Monsters")
 		if remainingEnemies <= 5 and remainingEnemies > 0 then
 			if remainingEnemies ~= remainingMonstersDisplayed then
 				dispRemainingEnemies(remainingEnemies)
