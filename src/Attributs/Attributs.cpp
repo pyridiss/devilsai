@@ -125,10 +125,51 @@ void Objects::loadFromXML(XMLElement* elem)
             object->QueryAttribute("probability", &p);
             designs.emplace_back(design, q, p);
         }
+        if (objectName == "createRandomObjects")
+        {
+            int min = 0, max = 0;
+            object->QueryAttribute("min", &min);
+            object->QueryAttribute("max", &max);
+
+            int designsCount = 0;
+            XMLElement* currentDesign = object->FirstChildElement();
+            while (currentDesign)
+            {
+                ++designsCount;
+                currentDesign = currentDesign->NextSiblingElement();
+            }
+            for (int i = 0 ; i <= max - min ; ++i)
+            {
+                int selectedDesign = rand()%designsCount;
+                currentDesign = object->FirstChildElement();
+                for (int j = 0 ; j < selectedDesign ; ++j)
+                    currentDesign = currentDesign->NextSiblingElement();
+
+                string design = currentDesign->Attribute("design");
+                int q = 0;
+                currentDesign->QueryAttribute("quality", &q);
+                designs.emplace_back(design, q, 100);
+            }
+            createObjectsFromDesigns();
+        }
 
         object = object->NextSiblingElement();
     }
+}
 
+void Objects::createObjectsFromDesigns()
+{
+    int key = objects.size() + 1;
+
+    for (auto& d : designs)
+    {
+        if (rand()%100 < d.probability)
+        {
+            addObject(d.file, "storagebox" + intToString(key, 2), d.quality);
+            ++key;
+        }
+    }
+    designs.clear();
 }
 
 void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
