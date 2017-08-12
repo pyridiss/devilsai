@@ -6,13 +6,6 @@ set ( CMAKE_MODULE_PATH
      ${CMAKE_MODULE_PATH}
 )
 
-find_package(SFML 2 COMPONENTS system window graphics REQUIRED)
-find_package(PhysFS)
-find_package(Lua52)
-find_package(TinyXML2)
-
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
-
 # subdirectories to build
 add_subdirectory(data)
 add_subdirectory(src)

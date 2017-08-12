@@ -1,5 +1,3 @@
 add_library(gui button.cpp dropDownList.cpp inputField.cpp style.cpp scrollingList.cpp textWidget.cpp widget.cpp window.cpp)
 
-target_link_libraries(gui tinyxml2)
-
-set_target_properties(gui PROPERTIES COMPILE_FLAGS "-std=c++11")
+target_link_libraries(gui ${SFML_LIBRARIES} ${TinyXML2_LIBRARIES})

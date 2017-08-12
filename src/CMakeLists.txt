@@ -5,8 +5,16 @@ string(TIMESTAMP TIME %Y-%m-%d)
 
 configure_file("${devilsai_SOURCE_DIR}/config.h.cmake" "${devilsai_BINARY_DIR}/config.h" @ONLY)
 
+find_package(SFML 2 COMPONENTS system window graphics audio REQUIRED)
+find_package(PhysFS)
+find_package(Lua52)
+find_package(TinyXML2)
+
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${SFML_INCLUDE_DIR}
+    ${LUA_INCLUDE_DIR}
+    ${TinyXML2_INCLUDE_DIRS}
     ${devilsai_SOURCE_DIR}
 )
 
@@ -51,13 +59,10 @@ set(devilsai_SRCS
 )
 
 set(devilsaiTargetLibs
-    sfml-system
-    sfml-window
-    sfml-graphics
-    sfml-audio
-    physfs
-    lua5.2
-    tinyxml2
+    ${SFML_LIBRARIES}
+    ${PHYSFS_LIBRARY}
+    ${LUA_LIBRARIES}
+    ${TinyXML2_LIBRARIES}
     ${sfml-all_LIBS}
 )
 
@@ -77,6 +82,7 @@ target_link_libraries(devilsai
     musicManager
 )
 
-set_target_properties(devilsai PROPERTIES COMPILE_FLAGS "-std=c++11")
+SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3")
+SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -g")
 
 install(TARGETS devilsai RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
