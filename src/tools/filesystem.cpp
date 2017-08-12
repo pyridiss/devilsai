@@ -44,11 +44,11 @@ bool createDirectory(string str)
 
     if (result)
     {
-        tools::debug::message("The directory " + str + " has been created", "files");
+        tools::debug::message("The directory " + str + " has been created", "files", __FILENAME__, __LINE__);
         return true;
     }
 
-    tools::debug::fatal("Failed to create directory: " + str, "files");
+    tools::debug::fatal("Failed to create directory: " + str, "files", __FILENAME__, __LINE__);
     return false;
 }
 
@@ -62,11 +62,11 @@ bool removeDirectory(string str)
 
     if (result)
     {
-        tools::debug::message("The directory " + str + " has been removed", "files");
+        tools::debug::message("The directory " + str + " has been removed", "files", __FILENAME__, __LINE__);
         return true;
     }
 
-    tools::debug::fatal("Failed to remove directory: " + str, "files");
+    tools::debug::fatal("Failed to remove directory: " + str, "files", __FILENAME__, __LINE__);
     return false;
 }
 
@@ -80,11 +80,11 @@ bool removeFile(string str)
 
     if (result)
     {
-        tools::debug::message("The file " + str + " has been removed", "files");
+        tools::debug::message("The file " + str + " has been removed", "files", __FILENAME__, __LINE__);
         return true;
     }
 
-    tools::debug::fatal("Failed to remove file: " + str, "files");
+    tools::debug::fatal("Failed to remove file: " + str, "files", __FILENAME__, __LINE__);
     return false;
 }
 

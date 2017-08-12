@@ -197,7 +197,7 @@ void Shape::loadFromXML(XMLElement* elem)
 
     else if (type == "point")
     {
-        tools::debug::warning("Shape::loadFromXML() received type == 'point', which is not implemented", "tools::math");
+        tools::debug::warning("Shape::loadFromXML() received type == 'point', which is not implemented", "tools::math", __FILENAME__, __LINE__);
     }
 
     else if (type == "circle")
@@ -360,7 +360,7 @@ void Shape::display(RenderTarget& target, const Color& color)
 {
     if (origin == nullptr)
     {
-        tools::debug::error("Shape::display called while the shape has no origin.", "tools::math");
+        tools::debug::error("Shape::display called while the shape has no origin.", "tools::math", __FILENAME__, __LINE__);
         return;
     }
 

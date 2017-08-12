@@ -119,7 +119,7 @@ int LUA_set(lua_State* L)
 
     if (ind == NULL)
     {
-        tools::debug::error("LUA_set() has been called with a non-individual pointer.", "lua");
+        tools::debug::error("LUA_set() has been called with a non-individual pointer.", "lua", __FILENAME__, __LINE__);
         return 0;
     }
 
@@ -145,7 +145,7 @@ int LUA_get(lua_State* L)
 
     if (ind == NULL)
     {
-        tools::debug::error("LUA_get() has been called with a non-individual pointer.", "lua");
+        tools::debug::error("LUA_get() has been called with a non-individual pointer.", "lua", __FILENAME__, __LINE__);
         lua_pushnumber(L, 1);
         return 1;
     }
@@ -339,7 +339,7 @@ int LUA_loadList(lua_State* L)
 
 int LUA_loadWorld(lua_State* L)
 {
-    tools::debug::message("LUA_loadWorld() called", "lua");
+    tools::debug::message("LUA_loadWorld() called", "lua", __FILENAME__, __LINE__);
 
     string world = lua_tostring(L, 1);
     string file = lua_tostring(L, 2);
@@ -604,7 +604,7 @@ int LUA_createIndividual(lua_State* L)
 
 int LUA_changeCurrentSkill(lua_State* L)
 {
-    tools::debug::message("LUA_changeCurrentSkill() called", "lua");
+    tools::debug::message("LUA_changeCurrentSkill() called", "lua", __FILENAME__, __LINE__);
 
     Individu* ind = (Individu*)lua_touserdata(L, 1);
     string newSkill = lua_tostring(L, 2);

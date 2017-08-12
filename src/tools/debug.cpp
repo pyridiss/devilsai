@@ -65,36 +65,36 @@ void addDebugCategory(string category)
     debugCategories.insert(std::move(category));
 }
 
-void writeToDebugFile(string s)
+void writeToDebugFile(const string& s, const string& file, int line)
 {
-    logfile << "[" << clock.getElapsedTime().asSeconds() << "] ";
+    logfile << "[" << clock.getElapsedTime().asSeconds() << "] @" + file + ":" + to_string(line) + " – ";
     logfile << s << endl;
 }
 
-void fatal(string str, string category)
+void fatal(const string& str, const string& category, const string& file, int line)
 {
-    error(str, category);
+    error(str, category, file, line);
 }
 
-void error(string str, string category)
+void error(const string& str, const string& category, const string& file, int line)
 {
-    writeToDebugFile("(EE) " + category + " – " + str);
+    writeToDebugFile("(EE) " + str, file, line);
 }
 
-void warning(string str, string category)
+void warning(const string& str, const string& category, const string& file, int line)
 {
     if (debugCategories.empty()) return;
-    if (debugCategories.find(category) == debugCategories.end()) return;
+    if (debugCategories.find(category) == debugCategories.end() && debugCategories.find("all") == debugCategories.end()) return;
 
-    writeToDebugFile("(WW) " + category + " – " + str);
+    writeToDebugFile("(WW) " + str, file, line);
 }
 
-void message(string str, string category)
+void message(const string& str, const string& category, const string& file, int line)
 {
     if (debugCategories.empty()) return;
-    if (debugCategories.find(category) == debugCategories.end()) return;
+    if (debugCategories.find(category) == debugCategories.end() && debugCategories.find("all") == debugCategories.end()) return;
 
-    writeToDebugFile("(II) " + category + " – " + str);
+    writeToDebugFile("(II) " + str, file, line);
 }
 
 } //namespace debug

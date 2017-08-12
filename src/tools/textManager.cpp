@@ -107,7 +107,7 @@ String32& getText(string file, string id)
 
     if (c == texts.end())
     {
-        tools::debug::error("File has not been loaded: " + file, "files");
+        tools::debug::error("File has not been loaded: " + file, "files", __FILENAME__, __LINE__);
         return emptyString;
     }
 
@@ -115,7 +115,7 @@ String32& getText(string file, string id)
 
     if (i == c->second.end())
     {
-        tools::debug::error("Text not found: " + file + "::" + id, "languages");
+        tools::debug::error("Text not found: " + file + "::" + id, "languages", __FILENAME__, __LINE__);
         return emptyString;
     }
 

@@ -59,7 +59,7 @@ void addWorld(const string& id)
 
     w.first->second->Id = id;
 
-    tools::debug::message("A world has been added: " + id, "gamedata");
+    tools::debug::message("A world has been added: " + id, "gamedata", __FILENAME__, __LINE__);
 }
 
 Carte* world(const string& id)
@@ -80,7 +80,7 @@ void addSpecies(const string& s)
 {
     _species.emplace(s, new Classe_Commune);
 
-    tools::debug::message("A species has been added: " + s, "gamedata");
+    tools::debug::message("A species has been added: " + s, "gamedata", __FILENAME__, __LINE__);
 }
 
 Classe_Commune* species(const string& s)
@@ -98,7 +98,7 @@ void addInertItemDesign(const string& design)
 
     d.first->second->Type = design;
 
-    tools::debug::message("An inertItemDesign has been added: " + design, "gamedata");
+    tools::debug::message("An inertItemDesign has been added: " + design, "gamedata", __FILENAME__, __LINE__);
 }
 
 Paysage* inertItemDesign(const string& type)
@@ -115,7 +115,7 @@ void copyInertItemFromDesign(string t, Paysage *elem)
     Paysage* design = inertItemDesign(t);
     if (design == nullptr)
     {
-        tools::debug::error("Cannot initiate inertItem '" + t + "': design does not exist.", "gamedata");
+        tools::debug::error("Cannot initiate inertItem '" + t + "': design does not exist.", "gamedata", __FILENAME__, __LINE__);
         return;
     }
 
@@ -154,7 +154,7 @@ unordered_map<string, lua_State*>& quests()
 Joueur* player()
 {
     if (_player == nullptr)
-        tools::debug::error("No player loaded", "gamedata");
+        tools::debug::error("No player loaded", "gamedata", __FILENAME__, __LINE__);
 
     return _player;
 }
@@ -387,7 +387,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
                     lua_pushstring(i->second, currentState.c_str());
                     lua_call(i->second, 1, 0);
                 }
-                else tools::debug::error("Error while loading quest " + questFile, "files");
+                else tools::debug::error("Error while loading quest " + questFile, "files", __FILENAME__, __LINE__);
             }
         }
 

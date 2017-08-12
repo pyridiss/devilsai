@@ -68,7 +68,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
 
     if (!fromRef && !fromFile && !fromArch)
     {
-        tools::debug::error("Unable to load file: " + file, "images");
+        tools::debug::error("Unable to load file: " + file, "images", __FILENAME__, __LINE__);
     }
 
     texture.setSmooth(false);

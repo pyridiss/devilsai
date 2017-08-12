@@ -122,7 +122,7 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
         Classe = gamedata::species(Type);
         if (Classe == nullptr)
         {
-            tools::debug::error("This class has not been loaded: " + Type, "files");
+            tools::debug::error("This class has not been loaded: " + Type, "files", __FILENAME__, __LINE__);
             return;
         }
         Classe->Copie_Element(this);

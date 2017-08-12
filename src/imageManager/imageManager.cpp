@@ -54,7 +54,7 @@ void addImage(string container, string key, string file, Vector2i of, float scal
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been created yet: " + container, "images");
+        tools::debug::error("Image container has not been created yet: " + container, "images", __FILENAME__, __LINE__);
         return;
     }
 
@@ -77,7 +77,7 @@ void addImage(string container, string key, string file, Vector2i of, float scal
             ++j;
         }
         result.first->second.set(file, reference, of, scale);
-        tools::debug::message("Image " + container + "::" + key + " has been added.", "images");
+        tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
 }
 
@@ -87,11 +87,11 @@ void addArchiveFile(string path)
 
     if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
     {
-        tools::debug::error("Unable to load file: " + path, "images");
+        tools::debug::error("Unable to load file: " + path, "images", __FILENAME__, __LINE__);
     }
     else
     {
-        tools::debug::message("File \"" + path + "\" open", "files");
+        tools::debug::message("File \"" + path + "\" open", "files", __FILENAME__, __LINE__);
         currentArchiveFile = path;
     }
 }
@@ -114,7 +114,7 @@ imageManager::Image* getImage(string container, string key)
 
     if (c == images.end())
     {
-        tools::debug::error("Container not found: " + container, "images");
+        tools::debug::error("Container not found: " + container, "images", __FILENAME__, __LINE__);
         return nullptr;
     }
 
@@ -122,7 +122,7 @@ imageManager::Image* getImage(string container, string key)
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image not found: " + container + "::" + key, "images");
+        tools::debug::error("Image not found: " + container + "::" + key, "images", __FILENAME__, __LINE__);
         return nullptr;
     }
 
@@ -146,7 +146,7 @@ void display(RenderTarget& target, string container, string key, float x, float 
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been added yet: " + container, "images");
+        tools::debug::error("Image container has not been added yet: " + container, "images", __FILENAME__, __LINE__);
         return;
     }
 
@@ -154,13 +154,13 @@ void display(RenderTarget& target, string container, string key, float x, float 
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image '" + container + "::" + key + "' has not been loaded yet, skipping...", "images");
+        tools::debug::error("Image '" + container + "::" + key + "' has not been loaded yet, skipping...", "images", __FILENAME__, __LINE__);
         return;
     }
 
     (*i).second.display(target, x, y, atCenter, shader);
 
-    tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images");
+    tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images", __FILENAME__, __LINE__);
 }
 
 void addAnimation(string name, string file)
@@ -181,7 +181,7 @@ imageManager::Animation* getAnimation(string name)
 
     if (a == animations.end())
     {
-        tools::debug::error("Animation not found: " + name, "images");
+        tools::debug::error("Animation not found: " + name, "images", __FILENAME__, __LINE__);
         return nullptr;
     }
 

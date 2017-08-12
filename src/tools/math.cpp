@@ -111,7 +111,7 @@ bool intersection_point_rectangle(Shape& shape1, Shape& shape2)
 
 bool intersection_point_line(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_point_line() is not implemented", "tools::math");
+    tools::debug::warning("intersection_point_line() is not implemented", "tools::math", __FILENAME__, __LINE__);
     return false;
 }
 
@@ -208,7 +208,7 @@ bool intersection_rectangle_rectangle(Shape& shape1, Shape& shape2)
 
 bool intersection_rectangle_line(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_rectangle_line() is not implemented", "tools::math");
+    tools::debug::warning("intersection_rectangle_line() is not implemented", "tools::math", __FILENAME__, __LINE__);
     return false;
 }
 
@@ -248,19 +248,19 @@ bool intersection_rectangle_arc(Shape& shape1, Shape& shape2)
 
 bool intersection_line_line(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_line_line() is not implemented", "tools::math");
+    tools::debug::warning("intersection_line_line() is not implemented", "tools::math", __FILENAME__, __LINE__);
     return false;
 }
 
 bool intersection_line_arc(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_line_arc() is not implemented", "tools::math");
+    tools::debug::warning("intersection_line_arc() is not implemented", "tools::math", __FILENAME__, __LINE__);
     return false;
 }
 
 bool intersection_arc_arc(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_arc_arc() is not implemented", "tools::math");
+    tools::debug::warning("intersection_arc_arc() is not implemented", "tools::math", __FILENAME__, __LINE__);
     return false;
 }
 
@@ -277,7 +277,7 @@ bool intersection(Shape& shape1, Shape& shape2)
     //Shapes with no origin cannot intersect
     if (shape1.origin == nullptr || shape2.origin == nullptr)
     {
-        tools::debug::warning("intersection() has been called with a shape which has no origin", "tools::math");
+        tools::debug::warning("intersection() has been called with a shape which has no origin", "tools::math", __FILENAME__, __LINE__);
         return false;
     }
 

@@ -63,7 +63,7 @@ void Widget::setCurrentState(string state)
 {
     if (states.find(state) == states.end())
     {
-        tools::debug::warning("gui", "An unknown state (" + state + ") has been asked to a widget; aborting.");
+        tools::debug::warning("gui", "An unknown state (" + state + ") has been asked to a widget; aborting.", __FILENAME__, __LINE__);
         return;
     }
 

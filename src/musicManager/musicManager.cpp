@@ -77,8 +77,8 @@ void addSound(string soundID)
 
     bool success = result.first->second.loadFromFile(tools::filesystem::dataDirectory() + "sound/" + soundID + ".ogg");
 
-    if (success) tools::debug::message("Sound " + soundID + " has been loaded", "musics");
-    else tools::debug::error("Failed to load sound: " + soundID, "files");
+    if (success) tools::debug::message("Sound " + soundID + " has been loaded", "musics", __FILENAME__, __LINE__);
+    else tools::debug::error("Failed to load sound: " + soundID, "files", __FILENAME__, __LINE__);
 }
 
 void addMusic(string musicID)
@@ -90,8 +90,8 @@ void addMusic(string musicID)
 
     bool success = result.first->second.openFromFile(tools::filesystem::dataDirectory() + "music/" + musicID + ".ogg");
 
-    if (success) tools::debug::message("Music " + musicID + " has been loaded", "musics");
-    else tools::debug::error("Failed to load music: " + musicID, "files");
+    if (success) tools::debug::message("Music " + musicID + " has been loaded", "musics", __FILENAME__, __LINE__);
+    else tools::debug::error("Failed to load music: " + musicID, "files", __FILENAME__, __LINE__);
 }
 
 void playSound(string soundID)
@@ -100,7 +100,7 @@ void playSound(string soundID)
 
 	if (i != sounds.end())
 		sounds[soundID].start();
-	else tools::debug::error("This sound has not been loaded yet: " + soundID, "files");
+	else tools::debug::error("This sound has not been loaded yet: " + soundID, "files", __FILENAME__, __LINE__);
 }
 
 void playMusic(string musicID)
@@ -119,7 +119,7 @@ void playMusic(string musicID)
 
 	if (i != musics.end())
 		musics[musicID].fadeIn();
-	else tools::debug::error("This music has not been loaded yet: " + musicID, "files");
+	else tools::debug::error("This music has not been loaded yet: " + musicID, "files", __FILENAME__, __LINE__);
 }
 
 void stopMusic(string musicID)
@@ -128,7 +128,7 @@ void stopMusic(string musicID)
 
 	if (i != musics.end())
 		musics[musicID].fadeOut();
-	else tools::debug::error("This music has not been loaded yet: " + musicID, "files");
+	else tools::debug::error("This music has not been loaded yet: " + musicID, "files", __FILENAME__, __LINE__);
 }
 
 void manageRunningMusics()
@@ -245,7 +245,7 @@ void deleteMusics()
 	musics.clear();
 	sounds.clear();
 
-    tools::debug::message("All sounds and musics are deleted.", "musics");
+    tools::debug::message("All sounds and musics are deleted.", "musics", __FILENAME__, __LINE__);
 }
 
 } //namespace musicManager

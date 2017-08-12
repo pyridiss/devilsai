@@ -21,6 +21,9 @@
 #define DEBUG_H
 
 #include <string>
+#include <string.h>
+
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 using namespace std;
 
@@ -30,10 +33,10 @@ namespace debug{
 
 void openDebugFile(const string& appName, const string& version);
 void addDebugCategory(string category);
-void fatal(string str, string category);
-void error(string str, string category);
-void warning(string str, string category);
-void message(string str, string category);
+void fatal(const string& str, const string& category, const string& file, int line);
+void error(const string& str, const string& category, const string& file, int line);
+void warning(const string& str, const string& category, const string& file, int line);
+void message(const string& str, const string& category, const string& file, int line);
 
 } //namespace debug
 

@@ -602,7 +602,7 @@ void Carte::loadFromFile(string path, string tag)
 
             if (zone == nullptr)
             {
-                tools::debug::error("A randomZone has been defined without a valid zone", "files");
+                tools::debug::error("A randomZone has been defined without a valid zone", "files", __FILENAME__, __LINE__);
                 elem = elem->NextSiblingElement();
                 continue;
             }
@@ -643,7 +643,7 @@ void Carte::loadFromFile(string path, string tag)
 
                     if (newItem == nullptr)
                     {
-                        tools::debug::error("Error while creating a randomZone: unknown item(" + itemName + ")", "files");
+                        tools::debug::error("Error while creating a randomZone: unknown item(" + itemName + ")", "files", __FILENAME__, __LINE__);
                         break;
                     }
 
@@ -680,7 +680,7 @@ void Carte::loadFromFile(string path, string tag)
                     while (debugCounter < 100);
 
                     if (debugCounter == 100)
-                        tools::debug::error("Error while creating randomZone: no place left for " + newItem->Type, "files");
+                        tools::debug::error("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
                     else
                         elements.push_back(newItem);
                     ++counter;

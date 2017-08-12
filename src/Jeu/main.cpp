@@ -176,7 +176,7 @@ int main(int n, char *params[])
 
     options::Save_Options();
 
-    tools::debug::message("Closing devilsai debug file.", "devilsai");
+    tools::debug::message("Closing devilsai debug file.", "devilsai", __FILENAME__, __LINE__);
 
 	return EXIT_SUCCESS;
 }
