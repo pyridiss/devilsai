@@ -17,8 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cmath>
-
 #include <lua5.2/lua.hpp>
 #include <tinyxml2.h>
 
@@ -29,6 +27,7 @@
 #include "Attributs.h"
 
 #include "tools/filesystem.h"
+#include "tools/math.h"
 
 #include "imageManager/imageManager.h"
 

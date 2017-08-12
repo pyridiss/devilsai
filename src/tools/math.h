@@ -20,6 +20,11 @@
 #ifndef TOOLS_MATH_H
 #define TOOLS_MATH_H
 
+//M_PI seems to cause problems on some platforms; define it if not done yet.
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 using namespace std;
 
 namespace tools{
