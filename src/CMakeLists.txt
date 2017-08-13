@@ -82,7 +82,7 @@ target_link_libraries(devilsai
     musicManager
 )
 
-SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3")
-SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -g")
+SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3" CACHE INTERNAL "" FORCE)
+SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -Wall -g" CACHE INTERNAL "" FORCE)
 
 install(TARGETS devilsai RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
