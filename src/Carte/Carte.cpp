@@ -452,7 +452,33 @@ void Carte::displayBackground(RenderTarget& target)
     }
 }
 
-/** AUTRES FONCTIONS */
+Element_Carte* Carte::createNewItem(tinyxml2::XMLElement* item)
+{
+    Element_Carte* newItem = nullptr;
+
+    string itemName = item->Name();
+    if (itemName == "inertItem")
+        newItem = new Paysage;
+    else if (itemName == "individual")
+        newItem = new Individu_Commun;
+    else if (itemName == "unique")
+        newItem = new Individu_Unique;
+    else if (itemName == "storageBox")
+        newItem = new Coffre;
+    else if (itemName == "trigger")
+        newItem = new Trigger;
+
+    if (newItem == nullptr)
+    {
+        tools::debug::error("Unable to load item.", "files", __FILENAME__, __LINE__);
+        return nullptr;
+    }
+
+    XMLHandle hdl3(item);
+    newItem->loadFromXML(hdl3);
+
+    return newItem;
+}
 
 void Carte::loadFromFile(string path, string tag)
 {
@@ -525,30 +551,14 @@ void Carte::loadFromFile(string path, string tag)
                 XMLElement *item = hdl2.FirstChildElement().ToElement();
                 while (item)
                 {
-                    Element_Carte* newItem = nullptr;
-
-                    string itemName = item->Name();
-
-                    if (itemName == "inertItem")
-                        newItem = new Paysage;
-                    else if (itemName == "individual")
-                        newItem = new Individu_Commun;
-                    else if (itemName == "unique")
-                        newItem = new Individu_Unique;
-                    else if (itemName == "storageBox")
-                        newItem = new Coffre;
-                    else if (itemName == "trigger")
-                        newItem = new Trigger;
+                    Element_Carte* newItem = createNewItem(item);
 
                     if (newItem != nullptr)
                     {
-                        elements.push_back(newItem);
-
                         if (tag != "ALL") newItem->Liste = tag;
                         if (ignoreCollision) newItem->ignoreCollision = true;
 
-                        XMLHandle hdl3(item);
-                        newItem->loadFromXML(hdl3);
+                        elements.push_back(newItem);
 
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
                     }
@@ -626,31 +636,15 @@ void Carte::loadFromFile(string path, string tag)
 
                 while (counter < quantity)
                 {
-                    Element_Carte* newItem = nullptr;
-
-                    string itemName = item->Name();
-
-                    if (itemName == "inertItem")
-                        newItem = new Paysage;
-                    else if (itemName == "individual")
-                        newItem = new Individu_Commun;
-                    else if (itemName == "unique")
-                        newItem = new Individu_Unique;
-                    else if (itemName == "storageBox")
-                        newItem = new Coffre;
-                    else if (itemName == "trigger")
-                        newItem = new Trigger;
+                    Element_Carte* newItem = createNewItem(item);
 
                     if (newItem == nullptr)
                     {
-                        tools::debug::error("Error while creating a randomZone: unknown item(" + itemName + ")", "files", __FILENAME__, __LINE__);
+                        tools::debug::error("Error while creating a randomZone.", "files", __FILENAME__, __LINE__);
                         break;
                     }
 
                     if (ignoreCollision) newItem->ignoreCollision = true;
-
-                    XMLHandle hdl3(item);
-                    newItem->loadFromXML(hdl3);
 
                     //'fake' will be used to test collisions with other items
                     Individu_Unique fake;

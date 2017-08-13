@@ -31,6 +31,7 @@ using namespace std;
 using namespace sf;
 
 namespace tinyxml2{
+    class XMLElement;
     class XMLHandle;
     class XMLDocument;
 }
@@ -76,6 +77,8 @@ class Carte
         CheckPoint* addCheckPoint(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		void SupprimerElement(Element_Carte* elem);
+
+        Element_Carte* createNewItem(tinyxml2::XMLElement* item);
 
 		void SupprimerListe(string num);
 
