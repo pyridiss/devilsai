@@ -318,18 +318,6 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             }
         }
 
-        if (elemName == "uniqueData")
-        {
-            string uniqueName = elem->Attribute("name");
-
-            Individu_Unique* u = findIndividuUnique(uniqueName);
-            if (u != nullptr)
-            {
-                XMLHandle hdl2(elem);
-                u->loadFromXML(hdl2);
-            }
-        }
-
         if (elemName == "loadWorld")
         {
             string worldFile = elem->Attribute("file");

@@ -21,6 +21,7 @@
 
 #include <tinyxml2.h>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/textManager.h"
@@ -132,16 +133,13 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
 
+    //May be needed if loadFromDataFile is set.
+    XMLDocument file;
+
     if (elem->Attribute("name"))
     {
         Type = elem->Attribute("name");
         Nom = tools::textManager::getText("species", Type);
-    }
-
-    if (elem->Attribute("loadFromDataFile"))
-    {
-        dataFile = elem->Attribute("loadFromDataFile");
-        gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
     }
 
     double x = 0, y = 0;
@@ -152,7 +150,32 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("tag"))
         Liste = elem->Attribute("tag");
 
-    elem = handle.FirstChildElement().ToElement();
+    if (elem->Attribute("loadFromDataFile"))
+    {
+        //Another file must be loaded to complete the unique profile.
+        dataFile = elem->Attribute("loadFromDataFile");
+
+        //First, give this file to gamedata because it can contain species used by the unique
+        gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
+
+        //We need to load this file and find the XMLElement named "uniqueData" to continue the loading
+        file.LoadFile((tools::filesystem::dataDirectory() + dataFile).c_str());
+
+        XMLHandle hdl(file);
+        elem = hdl.FirstChildElement().FirstChildElement("uniqueData").FirstChildElement().ToElement();
+
+        if (elem == nullptr)
+        {
+            tools::debug::error("Cannot find unique data", "files", __FILENAME__, __LINE__);
+            return;
+        }
+    }
+    else
+    {
+        //No other file needed, we can continue with this file
+        elem = handle.FirstChildElement().ToElement();
+    }
+
     while (elem)
     {
         string elemName = elem->Name();
