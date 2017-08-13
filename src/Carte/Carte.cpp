@@ -589,6 +589,11 @@ void Carte::loadFromFile(string path, string tag)
             XMLHandle hdl2(elem);
             XMLElement *item = hdl2.FirstChildElement().ToElement();
 
+            //We create a list in which all genereated items are stored. If ignoreCollision is set to true,
+            //we will add this parameter only when all items are generated; this way, items will not collide
+            //one another. If this behavior is not wanted, the shape must be forced to none in the XML file.
+            list<Element_Carte*> itemsList;
+
             //The zone can be defined from a place in the current world.
             if (elem->Attribute("place"))
             {
@@ -644,8 +649,6 @@ void Carte::loadFromFile(string path, string tag)
                         break;
                     }
 
-                    if (ignoreCollision) newItem->ignoreCollision = true;
-
                     //'fake' will be used to test collisions with other items
                     Individu_Unique fake;
                     fake.size = newItem->size;
@@ -674,9 +677,17 @@ void Carte::loadFromFile(string path, string tag)
                     while (debugCounter < 100);
 
                     if (debugCounter == 100)
-                        tools::debug::error("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
+                    {
+                        if (item->Attribute("density"))
+                            tools::debug::message("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
+                        if (item->Attribute("quantity"))
+                            tools::debug::warning("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
+                    }
                     else
+                    {
                         elements.push_back(newItem);
+                        itemsList.push_back(newItem);
+                    }
                     ++counter;
                 }
 
@@ -685,6 +696,13 @@ void Carte::loadFromFile(string path, string tag)
 
             if (customZone && zone != nullptr)
                 delete zone;
+
+            if (ignoreCollision)
+            {
+                for (auto& i : itemsList)
+                    i->ignoreCollision = true;
+            }
+
         }
         elem = elem->NextSiblingElement();
     }
