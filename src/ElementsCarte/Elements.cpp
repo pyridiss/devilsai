@@ -19,6 +19,7 @@
 
 #include <cmath>
 
+#include "tools/debug.h"
 #include "tools/math.h"
 #include "tools/timeManager.h"
 
@@ -144,5 +145,10 @@ int Individu::GestionElementMouvant()
 
 int Individu::Get_Vitesse(const string& act)
 {
+    if (Get_Activite(act) == nullptr)
+    {
+        tools::debug::error("The activity " + act + " does not belong to " + Type, "items", __FILENAME__, __LINE__);
+        return 0;
+    }
     return Get_Activite(act)->speed + currentHealthStatus(Get_Activite(act)->speedImprover);
 }

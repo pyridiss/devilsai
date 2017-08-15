@@ -322,7 +322,13 @@ int LUA_interact(lua_State* L)
 
     Individu* individual = (Individu*)lua_touserdata(L, 1);
     Element_Carte* element = (Element_Carte*)lua_touserdata(L, 2);
-    bool result = intersection(individual->interactionField, element->size);//false; //= Collision_cercle_cercle(indA->position().x, indA->position().y, indA->size.r1+2, indB->position().x, indB->position().y, indB->size.r1+2);
+
+    bool result = false;
+
+    if (individual != nullptr && element != nullptr)
+        result = intersection(individual->interactionField, element->size);
+    else
+        tools::debug::error("LUA_interact() has been called with a non-existent element.", "lua", __FILENAME__, __LINE__);
 
 	lua_pushboolean(L, result);
 	return 1;
@@ -383,7 +389,15 @@ int LUA_addCheckPoint(lua_State* L)
     int w = lua_tonumber(L, 4);
     int h = lua_tonumber(L, 5);
 
-    CheckPoint *c = gamedata::world(world)->addCheckPoint("CheckPoints", x, y);
+    Carte* wo = gamedata::world(world);
+    if (wo == nullptr)
+    {
+        tools::debug::error("LUA_addCheckPoint() has been called from a Lua state that require an unknown world: " + world, "lua", __FILENAME__, __LINE__);
+        lua_pushnumber(L, 0);
+        return 1;
+    }
+
+    CheckPoint *c = wo->addCheckPoint("CheckPoints", x, y);
     c->size.rectangle(tools::math::Vector2d(-w, -h), tools::math::Vector2d(w, -h), tools::math::Vector2d(-w, h));
     lua_pushlightuserdata(L, (void*)c);
 
