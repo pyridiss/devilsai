@@ -190,8 +190,8 @@ void mainLoop()
             if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
                 currentUserScreen->manageFunction(event);
 
-            if (event.type == Event::Closed || (Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-                return;
+            if (event.type == Event::Closed || (event.type == Event::KeyReleased && Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
+                tools::signals::addSignal("ask-exit");
 
             if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
             {
