@@ -7,7 +7,7 @@ Doors are 'fake' items that can block the passage to certain individuals accordi
 
 function collision(item, collisionType, data)
     if collisionType == 2 then
-        if data + 0 == get(item, "diplomacy") + 0 then -- The zeros force the conversion to numbers.
+        if data + 0 == get(item, "diplomacy") + 0 or data + 0 == -1 then -- The zeros force the conversion to numbers.
             return 2
         else
             return 0

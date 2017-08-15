@@ -40,6 +40,14 @@
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
     </items>
     <items tag="SharedTriggers">
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="0" y1="860" x2="50" y2="1480"/>
+                <shape type="rectangle" x1="50" y1="1430" x2="1970" y2="1480"/>
+                <shape type="rectangle" xCenter="2800" yCenter="600" xSize="50" ySize="2400" angle="0.7854"/>
+                <shape type="rectangle" x1="3615" y1="-805" x2="3665" y2="-230"/>
+            </shape>
+        </trigger>
         <trigger script="shared_trigger/door.lua" x="2838" y="-3015" data="2">
             <shape type="rectangle" xSize="100" ySize="10"/>
         </trigger>
@@ -134,44 +142,25 @@
             <shape type="rectangle" xSize="896" ySize="6"/>
             <properties xExtent="14"/>
         </inertItem>
+        <inertItem design="wall01-Nx" x="3632" y="-766"/>
         <inertItem design="wall01-NS" x="-400" y="-622">
             <shape type="rectangle" xSize="6" ySize="528"/>
             <properties yExtent="11"/>
         </inertItem>
-        <inertItem design="wall01-NS" x="3632" y="-622">
-            <shape type="rectangle" xSize="6" ySize="336"/>
-            <properties yExtent="7"/>
-        </inertItem>
-        <inertItem design="wall01-NW" x="3624" y="-430"/>
-        <inertItem design="wall01-ES" x="2936" y="-426"/>
-        <inertItem design="wall01-EW" x="3280" y="-426">
-            <shape type="rectangle" xSize="640" ySize="6"/>
-            <properties xExtent="10"/>
-        </inertItem>
         <inertItem design="wall01-Nx" x="-400" y="-334"/>
         <inertItem design="wall02-ES" x="-508" y="-318"/>
-       <inertItem design="wall02-EW" x="-88" y="-318">
+        <inertItem design="wall02-EW" x="-88" y="-318">
             <shape type="rectangle" xSize="768" ySize="6"/>
             <properties xExtent="6"/>
         </inertItem>
         <inertItem design="wall02-SW" x="338" y="-318"/>
-        <inertItem design="wall01-NS" x="2928" y="-286">
-            <shape type="rectangle" xSize="6" ySize="240"/>
-            <properties yExtent="5"/>
-        </inertItem>
         <inertItem design="wall02-NS" x="-536" y="-235"/>
         <inertItem design="wall02-NS" x="360" y="-235"/>
         <inertItem design="tree04" x="230" y="-218"/>
         <inertItem design="building01" x="-354" y="-191"/>
         <inertItem design="tree05" x="14" y="-188"/>
         <inertItem design="wall02-NW" x="-558" y="-144"/>
-        <inertItem design="wall01-NW" x="2920" y="-142"/>
         <inertItem design="wall02-NS" x="360" y="-139"/>
-        <inertItem design="wall01-ES" x="2040" y="-138"/>
-        <inertItem design="wall01-EW" x="2480" y="-138">
-            <shape type="rectangle" xSize="832" ySize="6"/>
-            <properties xExtent="13"/>
-        </inertItem>
         <inertItem design="wall02-ES" x="-636" y="-126"/>
         <inertItem design="tree04" x="-481" y="-88"/>
         <inertItem design="wall02-Nx" x="360" y="-76"/>
@@ -181,10 +170,6 @@
         <inertItem design="tree13" x="-229" y="45"/>
         <inertItem design="wall02-Sx" x="360" y="63"/>
         <inertItem design="tree13" x="-261" y="64"/>
-        <inertItem design="wall01-NS" x="2032" y="74">
-            <shape type="rectangle" xSize="6" ySize="384"/>
-            <properties yExtent="8"/>
-        </inertItem>
         <inertItem design="tree13" x="-222" y="82"/>
         <inertItem design="wall02-NS" x="-664" y="101">
             <shape type="rectangle" xSize="6" ySize="384"/>
@@ -200,12 +185,6 @@
         <inertItem design="tree04" x="-167" y="179"/>
         <inertItem design="tree04" x="4" y="193"/>
         <inertItem design="wall02-NS" x="360" y="245"/>
-        <inertItem design="wall01-NW" x="2024" y="290"/>
-        <inertItem design="wall01-ES" x="1720" y="294"/>
-        <inertItem design="wall01-EW" x="1872" y="294">
-            <shape type="rectangle" xSize="256" ySize="6"/>
-            <properties xExtent="4"/>
-        </inertItem>
         <inertItem design="tree12" x="-378" y="331"/>
         <inertItem design="wall02-NW" x="338" y="336"/>
         <inertItem design="wall02-EN" x="-636" y="336"/>
@@ -213,10 +192,6 @@
         <inertItem design="wall02-SW" x="-558" y="354"/>
         <inertItem design="wall02-ES" x="260" y="354"/>
         <inertItem design="tree09" x="-208" y="448"/>
-        <inertItem design="wall01-NS" x="1712" y="458">
-            <shape type="rectangle" xSize="6" ySize="288"/>
-            <properties yExtent="6"/>
-        </inertItem>
         <inertItem design="tree08" x="-345" y="537"/>
         <inertItem design="wall02-NS" x="-536" y="581">
             <shape type="rectangle" xSize="6" ySize="384"/>
@@ -228,31 +203,12 @@
         </inertItem>
         <inertItem design="tree06" x="-104" y="585"/>
         <inertItem design="tree06" x="-39" y="585"/>
-        <inertItem design="wall01-NW" x="1704" y="626"/>
-        <inertItem design="wall01-ES" x="1144" y="630"/>
-        <inertItem design="wall01-EW" x="1424" y="630">
-            <shape type="rectangle" xSize="512" ySize="6"/>
-            <properties xExtent="8"/>
-        </inertItem>
         <inertItem design="tree04" x="-289" y="680"/>
         <inertItem design="wall02-NW" x="210" y="816"/>
         <inertItem design="wall02-EN" x="-508" y="816"/>
-        <inertItem design="wall01-NS" x="1136" y="818">
-            <shape type="rectangle" xSize="6" ySize="336"/>
-            <properties yExtent="7"/>
-        </inertItem>
         <inertItem design="wall02-EW" x="-152" y="834">
             <shape type="rectangle" xSize="640" ySize="6"/>
             <properties xExtent="5"/>
-        </inertItem>
-        <inertItem design="wall01-Sx" x="48" y="874"/>
-        <inertItem design="wall01-NS" x="48" y="914"/>
-        <inertItem design="wall01-NS" x="48" y="962"/>
-        <inertItem design="wall01-EN" x="56" y="1010"/>
-        <inertItem design="wall01-NW" x="1128" y="1010"/>
-        <inertItem design="wall01-EW" x="592" y="1014">
-            <shape type="rectangle" xSize="1024" ySize="6"/>
-            <properties xExtent="16"/>
         </inertItem>
         <individual species="ballista" x="237" y="-122"/>
         <individual species="ballista" x="238" y="122"/>
