@@ -41,7 +41,6 @@ using namespace tinyxml2;
 Individu_Commun::Individu_Commun() : Individu()
 {
 	Classe = NULL;
-	Act = -1;
 }
 
 String32& Individu_Commun::Get_Nom()

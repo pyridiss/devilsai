@@ -41,7 +41,6 @@ using namespace tinyxml2;
 
 Individu_Unique::Individu_Unique() : Individu()
 {
-	Act = -1;
 }
 
 Individu_Unique::~Individu_Unique()
