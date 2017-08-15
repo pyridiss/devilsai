@@ -17,8 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <fstream>
-
 #include <physfs.h>
 
 #include "tools/debug.h"
@@ -33,8 +31,7 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
     offset = of;
 
     //Images can be loaded from a file or from an archive.
-    ifstream f(tools::filesystem::dataDirectory() + file);
-    bool fromFile = f.good();
+    bool fromFile = tools::filesystem::checkFile(tools::filesystem::dataDirectory() + file);
     bool fromArch = PHYSFS_exists(file.c_str());
     bool fromRef  = (reference != nullptr);
 

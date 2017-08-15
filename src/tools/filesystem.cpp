@@ -25,6 +25,8 @@
 #include <unistd.h>
 #endif
 
+#include <fstream>
+
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 
@@ -86,6 +88,12 @@ bool removeFile(string str)
 
     tools::debug::fatal("Failed to remove file: " + str, "files", __FILENAME__, __LINE__);
     return false;
+}
+
+bool checkFile(string file)
+{
+    ifstream f(file);
+    return f.good();
 }
 
 string getSaveDirectoryPath()

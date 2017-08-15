@@ -31,6 +31,7 @@ namespace filesystem{
 bool createDirectory(string);
 bool removeDirectory(string);
 bool removeFile(string);
+bool checkFile(string file);
 string getSaveDirectoryPath();
 void setDataDirectory(const string& d);
 const string& dataDirectory();

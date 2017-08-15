@@ -21,6 +21,7 @@
 
 #include <lua5.2/lua.hpp>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
@@ -33,6 +34,12 @@
 
 void addQuest(string newQuest, string args)
 {
+    if (!tools::filesystem::checkFile(tools::filesystem::dataDirectory() + newQuest))
+    {
+        tools::debug::error("Unable to load quest: checkFile failed (" + newQuest + ").", "files", __FILENAME__, __LINE__);
+        return;
+    }
+
 	MESSAGE("Ajout de la quête " + newQuest + " en cours…", FICHIER)
 
 	lua_State* L = luaL_newstate();
