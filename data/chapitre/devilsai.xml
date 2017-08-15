@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
+    <loadWorld name="1" file="carte/birnam.xml" tag="OutsideInertItems"/>
     <loadWorld name="1" file="carte/birnam.xml" tag="GowersCamp-TheGladeOfTheSaints-InertItems"/>
     <loadWorld name="1" file="carte/birnam.xml" tag="Uniques"/>
     <loadWorld name="1" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Monsters"/>

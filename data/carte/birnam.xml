@@ -240,6 +240,27 @@
             </inventory>
         </storageBox>
     </items>
+    <randomZone tag="OutsideInertItems" customZone="1" ignoreCollision="1">
+        <shape type="complex">
+            <shape type="rectangle" x1="1450" y1="-2240" x2="3110" y2="-1640"/>
+            <shape type="rectangle" x1="340" y1="-1960" x2="1450" y2="-1360"/>
+            <shape type="rectangle" x1="3110" y1="-1875" x2="3470" y2="-1400"/>
+            <shape type="rectangle" x1="3470" y1="-1630" x2="3695" y2="-1400"/>
+            <shape type="rectangle" x1="3695" y1="-1630" x2="4110" y2="-1020"/>
+            <shape type="rectangle" x1="-900" y1="-1570" x2="-460" y2="-400"/>
+            <shape type="rectangle" x1="-460" y1="-1570" x2="940" y2="-970"/>
+            <shape type="rectangle" x1="3665" y1="-735" x2="4265" y2="-230"/>
+            <shape type="rectangle" x1="-1200" y1="-400" x2="-630" y2="-200"/>
+            <shape type="rectangle" x1="-1200" y1="-200" x2="-750" y2="400"/>
+            <shape type="rectangle" x1="-1200" y1="400" x2="-630" y2="910"/>
+            <shape type="rectangle" xCenter="3030" yCenter="830" xSize="600" ySize="3000" angle="0.7854"/>
+            <shape type="rectangle" x1="-1200" y1="910" x2="0" y2="2060"/>
+            <shape type="rectangle" x1="0" y1="1460" x2="1970" y2="2060"/>
+        </shape>
+        <inertItem design="tree01" density="150"/>
+        <inertItem design="tree02" density="150"/>
+        <inertItem design="tree03" density="150"/>
+    </randomZone>
     <randomZone tag="GowersCamp-TheGladeOfTheSaints-InertItems" place="birnam-glade-saints">
         <inertItem design="tree01" quantity="8"/>
         <inertItem design="tree02" quantity="3"/>
