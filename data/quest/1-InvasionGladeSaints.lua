@@ -1,14 +1,11 @@
 --[[
 
-Map 1 - Quest "Invasion of the Glade of the Saints"
+Quest "Invasion of the Glade of the Saints"
 
-Steps:
-1 - The player must kill all monsters from list 1100. When there are less than 5 remaining monsters,
-	this number is displayed on the screen.
-2 - The player must talk to Gower. Texts are displayed.
-3 - The next quest "Quest2" is launched and the player gains experience.
-A - At the beginning, it must be written that the player should go talk to Gower.
-B - If the player goes talk to Gower, texts are displayed.
+Summary:
+  The player must kill all monsters with tag "TheGladeOfTheSaints-Monsters".
+  When there are less than 5 remaining monsters, this number is displayed on the screen.
+  When the quest is done, the player gains experience.
 
 ]]
 
@@ -19,8 +16,11 @@ B - If the player goes talk to Gower, texts are displayed.
 player_ptr = 0
 gower_ptr  = 0
 
+checkPoint = 0
+
 questStep = "0"
 hasTalkedToGower = false
+hasReachedTheCheckPoint = false
 
 remainingMonstersDisplayed = 0
 
@@ -30,27 +30,22 @@ remainingMonstersDisplayed = 0
 function questBegin(addNewElements)
 
 	if questStep == "0" then
-		-- Find Player and Gower
+
 		player_ptr = getElement("player")
 		gower_ptr  = getElement("gower")
 
 		if addNewElements == "true" then
-			loadElement([[CARTE_MERE 1 LISTE_IMMUABLE
---							ACTIONNEUR 3652 -881
---							RECT_COL 10 100
---							TEXTE_PERSO_EST 2
---							FIN_ACTIONNEUR
---							PAYSAGE 30205 3752 -881]], "Obstacle-GladeSaints-IceRoad")
-			loadElement("CARTE_MERE 1 IND_COMMUN 210 489 -33", "Warriors-GladeSaints")
-			loadElement("CARTE_MERE 1 IND_COMMUN 210 580 -33", "Warriors-GladeSaints")
-			loadElement("CARTE_MERE 1 IND_COMMUN 210 486  62", "Warriors-GladeSaints")
-			loadElement("CARTE_MERE 1 IND_COMMUN 210 580  62", "Warriors-GladeSaints")
+            loadWorld("birnam", "carte/birnam.xml", "Obstacle-GladeSaints-IceRoad")
+            loadWorld("birnam", "carte/birnam.xml", "TheGladeOfTheSaints-Monsters")
+            loadWorld("birnam", "carte/birnam.xml", "Warriors-GladeSaints")
 			pushDialog("1-InvasionGlade-Intro1")
 			addJournalEntry("1-InvasionGlade-Intro1")
 		end
 
 		questStep = "1"
 	end
+
+    checkPoint = addCheckPoint("birnam", 3652, -880, 10, 100)
 
 end
 
@@ -65,6 +60,10 @@ function questManage()
 		end
 	end
 
+    if hasReachedTheCheckPoint == false and interact(player_ptr, checkPoint) then
+        pushDialog("actionneur_1_2")
+        hasReachedTheCheckPoint = true
+    end
 
 	if questStep == "1" then
 		remainingEnemies = getNumberOfItemsByTag("birnam", "TheGladeOfTheSaints-Monsters")
@@ -124,7 +123,7 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	addQuest("1-RescueFluellensCamp")
-	addQuest("1-UnknownStone")
+	addQuest("quest/1-RescueFluellensCamp.lua")
+	addQuest("quest/1-UnknownStone.lua")
 	addExperience(1000)
 end

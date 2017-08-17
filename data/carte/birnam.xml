@@ -11,6 +11,7 @@
     <loadDataFile file="individu/fountainOfLife.xml"/>
     <loadDataFile file="individu/spiders.xml"/>
     <loadDataFile file="individu/orcs.xml"/>
+    <loadDataFile file="individu/allies.xml"/>
     <place name="birnam-camp-gower" music="Spring_1">
         <properties diplomacy="1"/>
         <shape type="complex">
@@ -279,4 +280,11 @@
         <individual species="spider2" quantity="2"/>
         <individual species="orc1" quantity="23"/>
     </randomZone>
+    <randomZone tag="Warriors-GladeSaints" customZone="1">
+        <shape type="rectangle" x1="480" y1="-63" x2="520" y2="92"/>
+        <individual species="warrior1" quantity="4"/>
+    </randomZone>
+    <items tag="Obstacle-GladeSaints-IceRoad">
+        <inertItem design="30205" x="3752" y="-881"/>
+    </items>
 </world>
