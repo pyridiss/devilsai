@@ -353,20 +353,30 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             w->loadFromFile(dataDirectory + worldFile, tag);
         }
 
-        if (elemName == "player" || elemName == "unique")
+        if ((elemName == "player" || elemName == "unique") && _player == nullptr)
         {
-            string w = elem->Attribute("world");
-
-            if (_player == nullptr)
+            if (!elem->Attribute("world"))
             {
-                _player = new Joueur;
-                _currentWorld = world(w);
-                _currentWorld->elements.push_back(_player);
-                XMLHandle playerHandle(elem);
-                _player->loadFromXML(playerHandle);
-                if (elem->Attribute("playerName"))
-                    _player->Nom = tools::textManager::fromStdString(elem->Attribute("playerName"));
+                tools::debug::error("Attribute 'world' is not defined in player declaration (" + mainFile + ").", "files", __FILENAME__, __LINE__);
+                continue;
             }
+
+            _player = new Joueur;
+            _currentWorld = world(elem->Attribute("world"));
+
+            if (currentWorld == nullptr)
+            {
+                tools::debug::error("Player is declared in an unknown world: " + string(elem->Attribute("world")), "files", __FILENAME__, __LINE__);
+                continue;
+            }
+
+            _currentWorld->elements.push_back(_player);
+
+            XMLHandle playerHandle(elem);
+            _player->loadFromXML(playerHandle);
+
+            if (elem->Attribute("playerName"))
+                _player->Nom = tools::textManager::fromStdString(elem->Attribute("playerName"));
         }
 
         if (elemName == "quest")
