@@ -58,7 +58,7 @@ function questManage()
 		end
 
 	elseif questStep == "3" then
-		if getNumberEnemiesInList("tutorial-training-1") == 0 and dialogDisplayed("tutorial-02") then
+		if getNumberOfItemsByTag("tutorial", "tutorial-training-1") == 0 and dialogDisplayed("tutorial-02") then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-2")
 			pushDialog("tutorial-03")
 			pushDialog("tutorial-04")
@@ -66,7 +66,7 @@ function questManage()
 		end
 
 	elseif questStep == "4" then
-		if getNumberEnemiesInList("tutorial-training-2") == 0 and dialogDisplayed("tutorial-04") then
+		if getNumberOfItemsByTag("tutorial", "tutorial-training-2") == 0 and dialogDisplayed("tutorial-04") then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-3")
 			pushDialog("tutorial-05")
 			pushDialog("tutorial-06")
@@ -74,7 +74,7 @@ function questManage()
 		end
 
 	elseif questStep == "5" then
-		if getNumberEnemiesInList("tutorial-training-3") == 0 and dialogDisplayed("tutorial-06") then
+		if getNumberOfItemsByTag("tutorial", "tutorial-training-3") == 0 and dialogDisplayed("tutorial-06") then
 			pushDialog("tutorial-07")
 			pushDialog("tutorial-08")
 			questStep = "6"

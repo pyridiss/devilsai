@@ -63,7 +63,7 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "journalEntryDone",	[](lua_State* L) { Partie.journal.setDone(lua_tostring(L, 1)); return 0; });
 
 	lua_register(L, "cout", LUA_cout);
-	lua_register(L, "getNumberEnemiesInList", LUA_getNumberEnemiesInList);
+	lua_register(L, "getNumberOfItemsByTag", LUA_getNumberOfItemsByTag);
 	lua_register(L, "getElement", LUA_getElement);
 	lua_register(L, "pushDialog", LUA_pushDialog);
 	lua_register(L, "popDialog", LUA_popDialog);
