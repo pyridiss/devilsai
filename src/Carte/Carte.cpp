@@ -685,6 +685,8 @@ void Carte::loadFromFile(string path, string tag)
                     }
                     else
                     {
+                        if (tag != "ALL") newItem->Liste = tag;
+                        if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
                         elements.push_back(newItem);
                         itemsList.push_back(newItem);
                     }
