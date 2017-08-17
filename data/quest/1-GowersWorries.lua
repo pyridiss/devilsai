@@ -55,7 +55,7 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		if getNumberEnemiesInList("1105") == 0 then
+		if getNumberOfItemsByTag("birnam", "1105") == 0 then
 			deleteList("Obstacle-IceRoad-Forres")
 			loadList("1241")
 			addExperience(4000)

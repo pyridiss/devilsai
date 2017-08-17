@@ -220,6 +220,24 @@ Individu_Unique* findIndividuUnique(string type)
     return nullptr;
 }
 
+list<Element_Carte*> getItemsByTag(const string& w, const string& tag)
+{
+    list<Element_Carte*> l;
+
+    Carte* w_ptr = world(w);
+
+    if (w_ptr != nullptr)
+    {
+        for (auto& i : w_ptr->elements)
+        {
+            if (i->Liste == tag)
+                l.push_back(i);
+        }
+    }
+
+    return std::move(l);
+}
+
 void updateCurrentPlace()
 {
     if (_currentPlace == nullptr || !intersection(_player->size, _currentPlace->first->size))

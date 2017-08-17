@@ -250,17 +250,22 @@ int LUA_getQuantityOf(lua_State* L)
 	return 1;
 }
 
-int LUA_getNumberEnemiesInList(lua_State* L)
+int LUA_getNumberOfItemsByTag(lua_State* L)
 {
-    MESSAGE("LUA_getNumberEnemiesInList() called", LUA)
+    if (!lua_isstring(L, 1) || !lua_isstring(L, 2))
+    {
+        tools::debug::error("LUA_getNumberOfItemsByTag(): bad arguments.", "lua", __FILENAME__, __LINE__);
+        lua_pushnumber(L, 0);
+        return 1;
+    }
 
-	string list = lua_tostring(L, 1);
-	int qty = 0;
-	for (auto& tmp : gamedata::currentWorld()->elements)
-		if (tmp->Liste == list && tmp->Type != "TYPE_CADAVRE") ++qty;
+    string world = lua_tostring(L, 1);
+    string tag = lua_tostring(L, 2);
 
-	lua_pushnumber(L, qty);
-	return 1;
+    auto items = gamedata::getItemsByTag(world, tag);
+
+    lua_pushnumber(L, items.size());
+    return 1;
 }
 
 int LUA_getElement(lua_State* L)

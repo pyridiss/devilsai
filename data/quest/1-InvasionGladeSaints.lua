@@ -67,7 +67,7 @@ function questManage()
 
 
 	if questStep == "1" then
-		remainingEnemies = getNumberEnemiesInList("TheGladeOfTheSaints-Monsters")
+		remainingEnemies = getNumberOfItemsByTag("birnam", "TheGladeOfTheSaints-Monsters")
 		if remainingEnemies <= 5 and remainingEnemies > 0 then
 			if remainingEnemies ~= remainingMonstersDisplayed then
 				dispRemainingEnemies(remainingEnemies)

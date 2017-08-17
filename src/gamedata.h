@@ -22,6 +22,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <list>
 
 class Carte;
 class Classe_Commune;
@@ -58,6 +59,7 @@ Carte* currentWorld();
 void clear();
 Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
+list<Element_Carte*> getItemsByTag(const string& w, const string& tag);
 void updateCurrentPlace();
 void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 void loadFromXML(const string& dataDirectory, const string& mainFile);

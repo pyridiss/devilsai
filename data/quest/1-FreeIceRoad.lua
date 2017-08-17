@@ -35,7 +35,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if getNumberEnemiesInList("1-IceRoad-Monsters") == 0 then
+		if getNumberOfItemsByTag("birnam", "1-IceRoad-Monsters") == 0 then
 			pushDialog("1-FreeIceRoad-GoToFluellen")
 			questStep = "2"
 		end

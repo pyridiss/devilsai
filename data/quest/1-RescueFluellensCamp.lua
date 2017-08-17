@@ -84,7 +84,7 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		remainingEnemies = getNumberEnemiesInList("1-AncientLands-Monsters")
+		remainingEnemies = getNumberOfItemsByTag("birnam", "1-AncientLands-Monsters")
 		if remainingEnemies <= 5 and remainingEnemies > 0 then
 			if remainingEnemies ~= remainingMonstersDisplayed then
 				dispRemainingEnemies(remainingEnemies)

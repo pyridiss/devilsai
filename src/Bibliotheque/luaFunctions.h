@@ -36,7 +36,7 @@ int LUA_individual_copy(lua_State*);
 int LUA_useObject(lua_State*);
 int LUA_dispText(lua_State*);
 int LUA_getQuantityOf(lua_State*);
-int LUA_getNumberEnemiesInList(lua_State*);
+int LUA_getNumberOfItemsByTag(lua_State*);
 int LUA_getElement(lua_State*);
 int LUA_pushDialog(lua_State*);
 int LUA_popDialog(lua_State*);
