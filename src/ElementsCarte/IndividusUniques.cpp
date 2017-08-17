@@ -132,9 +132,6 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
 
-    //May be needed if loadFromDataFile is set.
-    XMLDocument file;
-
     if (elem->Attribute("name"))
     {
         Type = elem->Attribute("name");
@@ -158,22 +155,16 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
 
         //We need to load this file and find the XMLElement named "uniqueData" to continue the loading
+        XMLDocument file;
         file.LoadFile((tools::filesystem::dataDirectory() + dataFile).c_str());
-
         XMLHandle hdl(file);
-        elem = hdl.FirstChildElement().FirstChildElement("uniqueData").FirstChildElement().ToElement();
+        XMLHandle hdl2 = hdl.FirstChildElement().FirstChildElement("uniqueData");
 
-        if (elem == nullptr)
-        {
-            tools::debug::error("Cannot find unique data", "files", __FILENAME__, __LINE__);
-            return;
-        }
+        //We can call loadFromXML() with this other file
+        loadFromXML(hdl2);
     }
-    else
-    {
-        //No other file needed, we can continue with this file
-        elem = handle.FirstChildElement().ToElement();
-    }
+
+    elem = handle.FirstChildElement().ToElement();
 
     while (elem)
     {
