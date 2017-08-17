@@ -402,7 +402,6 @@ bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 
 void Carte::GestionElements(const View& worldView)
 {
-	int RetourElement = 0;
 	Element_Carte* ASupprimer = NULL;
 
     int max = worldView.getSize().x + 1500;
@@ -411,11 +410,11 @@ void Carte::GestionElements(const View& worldView)
 	{
         if (abs((int)(tmp->position().x - worldView.getCenter().x)) <= max &&
             abs((int)(tmp->position().y - worldView.getCenter().y)) <= max)
-            RetourElement = tmp->Gestion();
-
-		switch(RetourElement)
-		{
-			case ETAT_MORT		: ASupprimer = tmp; break;
+        {
+            if (tmp->Gestion() == ETAT_MORT)
+            {
+                ASupprimer = tmp;
+            }
 		}
 	}
 
