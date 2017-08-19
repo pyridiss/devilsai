@@ -46,9 +46,7 @@ Paysage::~Paysage()
 
 int Paysage::Gestion()
 {
-	//Test de proximité au joueur
-	int Retour = Element_Carte::Gestion();
-	if (Retour != ETAT_CONTINUER) return Retour;
+    Element_Carte::Gestion();
 
 	return ETAT_NORMAL;
 }
