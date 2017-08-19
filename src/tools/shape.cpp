@@ -72,6 +72,26 @@ void Shape::circle(const Vector2d& p, double radius)
     box.second.y = p.y + radius;
 }
 
+void Shape::triangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3)
+{
+    if (p1 == p2 || p1 == p3 || p2 == p3)
+    {
+        profile = Profiles::None;
+        return;
+    }
+
+    profile = Profiles::Triangle;
+
+    points.emplace_back(p1.x, p1.y);
+    points.emplace_back(p2.x, p2.y);
+    points.emplace_back(p3.x, p3.y);
+
+    box.first.x = min({p1.x, p2.x, p3.x});
+    box.first.y = min({p1.y, p2.y, p3.y});
+    box.second.x = max({p1.x, p2.x, p3.x});
+    box.second.y = max({p1.y, p2.y, p3.y});
+}
+
 void Shape::rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3)
 {
     if (p1 == p2 || p1 == p3 || p2 == p3)
@@ -149,6 +169,8 @@ double Shape::area()
             return 0;
         case Profiles::Circle:
             return M_PI * radius1 * radius1;
+        case Profiles::Triangle:
+            return 1./2. * abs((points[1].x - points[0].x)*(points[2].y - points[0].y) - (points[2].x - points[0].x)*(points[1].y - points[0].y));
         case Profiles::Rectangle:
             return Vector2d::distance(points[0], points[1]) * Vector2d::distance(points[0], points[2]);
         case Profiles::Line:
@@ -209,6 +231,22 @@ void Shape::loadFromXML(XMLElement* elem)
         elem->QueryAttribute("radius", &radius);
 
         circle(p, radius);
+    }
+
+    else if (type == "triangle")
+    {
+        Vector2d p1(0, 0);
+        Vector2d p2(0, 0);
+        Vector2d p3(0, 0);
+
+        elem->QueryAttribute("x1", &p1.x);
+        elem->QueryAttribute("y1", &p1.y);
+        elem->QueryAttribute("x2", &p2.x);
+        elem->QueryAttribute("y2", &p2.y);
+        elem->QueryAttribute("x3", &p3.x);
+        elem->QueryAttribute("y3", &p3.y);
+
+        triangle(p1, p2, p3);
     }
 
     else if (type == "rectangle")
@@ -320,6 +358,15 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             root->SetAttribute("yCenter", points[0].y);
             root->SetAttribute("radius", radius1);
             break;
+        case Profiles::Triangle:
+            root->SetAttribute("type", "circle");
+            root->SetAttribute("x1", points[0].x);
+            root->SetAttribute("y1", points[0].y);
+            root->SetAttribute("x2", points[1].x);
+            root->SetAttribute("y2", points[1].y);
+            root->SetAttribute("x3", points[2].x);
+            root->SetAttribute("y3", points[2].x);
+            break;
         case Profiles::Rectangle:
             root->SetAttribute("type", "rectangle");
             root->SetAttribute("xCenter", (points[1].x + points[2].x) / 2.0);
@@ -374,6 +421,17 @@ void Shape::display(RenderTarget& target, const Color& color)
             {
                 CircleShape drawing(radius1);
                 drawing.setPosition(origin->x + points[0].x - radius1, origin->y + points[0].y - radius1);
+                drawing.setFillColor(color);
+                target.draw(drawing);
+            }
+            break;
+        case Profiles::Triangle:
+            {
+                ConvexShape drawing;
+                drawing.setPointCount(3);
+                drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
+                drawing.setPoint(1, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
+                drawing.setPoint(2, Vector2f(origin->x + points[2].x, origin->y + points[2].y));
                 drawing.setFillColor(color);
                 target.draw(drawing);
             }

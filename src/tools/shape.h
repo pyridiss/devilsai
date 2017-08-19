@@ -48,6 +48,7 @@ struct Shape
         None,
         Point,
         Circle,
+        Triangle,
         Rectangle,
         Line,
         Arc,
@@ -121,6 +122,7 @@ struct Shape
     void setOrigin(const Vector2d* o);
     void point(const Vector2d& p);
     void circle(const Vector2d& p, double radius);
+    void triangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
     void rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
     void line(const Vector2d& p1, const Vector2d& p2);
     void line(const Vector2d& p, double length, double angle);
