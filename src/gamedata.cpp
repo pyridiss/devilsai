@@ -364,7 +364,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             _player = new Joueur;
             _currentWorld = world(elem->Attribute("world"));
 
-            if (currentWorld == nullptr)
+            if (_currentWorld == nullptr)
             {
                 tools::debug::error("Player is declared in an unknown world: " + string(elem->Attribute("world")), "files", __FILENAME__, __LINE__);
                 continue;
