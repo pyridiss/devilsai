@@ -96,7 +96,21 @@ bool intersection_point_circle(Shape& shape1, Shape& shape2)
 
 bool intersection_point_triangle(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_point_triangle() is not implemented", "tools::math", __FILENAME__, __LINE__);
+    Vector2d vec_Nab(shape2.points[1].y - shape2.points[0].y, shape2.points[0].x - shape2.points[1].x);
+    Vector2d vec_Nbc(shape2.points[2].y - shape2.points[1].y, shape2.points[1].x - shape2.points[2].x);
+    Vector2d vec_Nca(shape2.points[0].y - shape2.points[2].y, shape2.points[2].x - shape2.points[0].x);
+
+    Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+    Vector2d vec_BH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[1]);
+    Vector2d vec_CH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[2]);
+
+    double h1 = Vector2d::dotProduct(vec_AH, vec_Nab);
+    double h2 = Vector2d::dotProduct(vec_BH, vec_Nbc);
+    double h3 = Vector2d::dotProduct(vec_CH, vec_Nca);
+
+    if (h1 >= 0 && h2 >= 0 && h3 >= 0) return true;
+    if (h1 <= 0 && h2 <= 0 && h3 <= 0) return true;
+
     return false;
 }
 
@@ -142,7 +156,21 @@ bool intersection_circle_circle(Shape& shape1, Shape& shape2)
 
 bool intersection_circle_triangle(Shape& shape1, Shape& shape2)
 {
-    tools::debug::warning("intersection_circle_triangle() is not implemented", "tools::math", __FILENAME__, __LINE__);
+    Vector2d vec_Nab(shape2.points[1].y - shape2.points[0].y, shape2.points[0].x - shape2.points[1].x);
+    Vector2d vec_Nbc(shape2.points[2].y - shape2.points[1].y, shape2.points[1].x - shape2.points[2].x);
+    Vector2d vec_Nca(shape2.points[0].y - shape2.points[2].y, shape2.points[2].x - shape2.points[0].x);
+
+    Vector2d vec_AH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[0]);
+    Vector2d vec_BH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[1]);
+    Vector2d vec_CH = *shape1.origin + shape1.points[0] - (*shape2.origin + shape2.points[2]);
+
+    double h1 = Vector2d::dotProduct(vec_AH, vec_Nab) / vec_Nab.length();
+    double h2 = Vector2d::dotProduct(vec_BH, vec_Nbc) / vec_Nbc.length();
+    double h3 = Vector2d::dotProduct(vec_CH, vec_Nca) / vec_Nca.length();
+
+    if (h1 >= -shape1.radius1 && h2 >= -shape1.radius1 && h3 >= -shape1.radius1) return true;
+    if (h1 <= shape1.radius1 && h2 <= shape1.radius1 && h3 <= shape1.radius1) return true;
+
     return false;
 }
 
