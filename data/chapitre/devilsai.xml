@@ -6,7 +6,6 @@
     <loadWorld name="birnam" file="carte/birnam.xml" tag="SharedTriggers"/>
     <LISTE number="1-ways"/>
     <CARTE number="101"/>
-    <LISTE number="1-OutsideLands"/>
     <LISTE number="101200"/>
     <LISTE number="101107"/>
     <player name="player" world="birnam" loadFromDataFile="individu/player.xml" x="0" y="0"/>
