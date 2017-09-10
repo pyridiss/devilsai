@@ -418,13 +418,6 @@ argument: hostile
 END_SHARED_TRIGGER
 SHARED_TRIGGER
 type: change_place
-position: 2442 -3299
-size: rectangle 60 10
-argument: 1102
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 2838 -3035
 size: rectangle 100 10
 argument: 1002
@@ -432,24 +425,10 @@ argument: village
 END_SHARED_TRIGGER
 SHARED_TRIGGER
 type: change_place
-position: 2838 -3015
-size: rectangle 100 10
-argument: 1102
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 11643 -2645
 size: rectangle 100 10
 argument: 1104
 argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 11643 -2605
-size: rectangle 100 10
-argument: 1002
-argument: village
 END_SHARED_TRIGGER
 ACTIONNEUR -15 -2470
 RECT_COL 20 1
@@ -460,20 +439,6 @@ type: change_place
 position: 1598 -2281
 size: rectangle 10 200
 argument: 1106
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 2153 -2281
-size: rectangle 10 200
-argument: 1102
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 4227 -880
-size: rectangle 10 100
-argument: 1102
 argument: hostile
 END_SHARED_TRIGGER
 ACTIONNEUR 4657 -737

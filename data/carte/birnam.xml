@@ -34,6 +34,15 @@
             <shape type="rectangle" x1="1553" y1="-1553" x2="3039" y2="-1265"/>
         </shape>
     </place>
+    <place name="birnam-ice-road" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="4230" y1="-2500" x2="5240" y2="-785"/>
+            <shape type="rectangle" x1="3480" y1="-2500" x2="4230" y2="-1690"/>
+            <shape type="rectangle" x1="2200" y1="-3310" x2="4100" y2="-2500"/>
+            <shape type="rectangle" x1="2200" y1="-2500" x2="3480" y2="-2040"/>
+        </shape>
+    </place>
     <items tag="Uniques">
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
