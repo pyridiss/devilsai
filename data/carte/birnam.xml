@@ -20,6 +20,10 @@
             <shape type="rectangle" x1="-508" y1="329" x2="210" y2="816"/>
         </shape>
     </place>
+    <place name="birnam-camp-fluellen" music="Spring_1">
+        <properties diplomacy="1"/>
+        <shape type="rectangle" x1="1648" y1="-4707" x2="2622" y2="-3843"/>
+    </place>
     <place name="birnam-glade-saints" music="Spring_1">
         <properties diplomacy="2"/>
         <shape type="complex">
