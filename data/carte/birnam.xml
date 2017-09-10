@@ -59,6 +59,18 @@
             <shape type="triangle" x1="770" y1="-5210" x2="770" y2="-4820" x3="1100" y3="-5210"/>
         </shape>
     </place>
+    <place name="birnam-ancient-lands" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="2200" y1="-3793" x2="4795" y2="-3630"/>
+            <shape type="rectangle" x1="2672" y1="-4900" x2="4795" y2="-3793"/>
+            <shape type="rectangle" x1="2280" y1="-4900" x2="2672" y2="-4757"/>
+            <shape type="rectangle" x1="4795" y1="-4900" x2="5640.32" y2="-3963.9"/>
+            <shape type="rectangle" x1="2280" y1="-5910" x2="6400" y2="-4900"/>
+            <shape type="triangle" x1="4795" y1="-3963.9" x2="4795" y2="-3630" x3="5640.32" y3="-3963.9"/>
+            <shape type="triangle" x1="5640.32" y1="-4900" x2="5640.32" y2="-3963.9" x3="6400" y3="-4900"/>
+        </shape>
+    </place>
     <items tag="Uniques">
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>

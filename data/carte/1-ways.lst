@@ -369,37 +369,9 @@ PAYSAGE 2121 737 16
 PAYSAGE 2002 -161 58
 SHARED_TRIGGER
 type: change_place
-position: 2188 -5300
-size: rectangle 10 100
-argument: 1103
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 2670 -4325
-size: rectangle 1 100
-argument: 1103
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 4688 -3626
-size: rectangle 100 10
-argument: 1103
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 4689 -3482
 size: rectangle 100 10
 argument: 1104
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 2442 -3427
-size: rectangle 60 10
-argument: 1103
 argument: hostile
 END_SHARED_TRIGGER
 SHARED_TRIGGER

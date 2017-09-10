@@ -3,9 +3,9 @@
     <text id="1001">Campement</text>
     <text id="1002">Refuge</text>
     <text id="1030">Forres</text>
-    <text id="1103">Les Terres Anciennes</text>
     <text id="1104">La Forêt de Birnam</text>
     <text id="1105">Les Plaines de Forres</text>
+    <text id="birnam-ancient-lands">Les Terres Anciennes</text>
     <text id="birnam-camp-fluellen">Camp de Fluellen</text>
     <text id="birnam-glade-saints">La Clairière des Saints</text>
     <text id="birnam-hills-noirefontaine">Les collines de Noirefontaine</text>
