@@ -369,13 +369,6 @@ PAYSAGE 2121 737 16
 PAYSAGE 2002 -161 58
 SHARED_TRIGGER
 type: change_place
-position: 1913 -5300
-size: rectangle 10 100
-argument: 1106
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 2188 -5300
 size: rectangle 10 100
 argument: 1103
@@ -434,13 +427,6 @@ ACTIONNEUR -15 -2470
 RECT_COL 20 1
 CHANGEMENT_CARTE 101
 FIN_ACTIONNEUR
-SHARED_TRIGGER
-type: change_place
-position: 1598 -2281
-size: rectangle 10 200
-argument: 1106
-argument: hostile
-END_SHARED_TRIGGER
 ACTIONNEUR 4657 -737
 RECT_COL 100 10
 CHARGER_CHAPITRE 2

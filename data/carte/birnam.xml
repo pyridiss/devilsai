@@ -43,6 +43,18 @@
             <shape type="rectangle" x1="2200" y1="-2500" x2="3480" y2="-2040"/>
         </shape>
     </place>
+    <place name="birnam-hills-noirefontaine" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="770" y1="-2170" x2="1510" y2="-2040"/>
+            <shape type="rectangle" x1="-100" y1="-2530" x2="770" y2="-2040"/>
+            <shape type="rectangle" x1="160" y1="-6050" x2="770" y2="-2530"/>
+            <shape type="rectangle" x1="85" y1="-6050" x2="160" y2="-5360"/>
+            <shape type="rectangle" x1="770" y1="-6050" x2="1790" y2="-5210"/>
+            <shape type="triangle" x1="770" y1="-3130" x2="770" y2="-2170" x3="1510" y3="-2170"/>
+            <shape type="triangle" x1="770" y1="-5210" x2="770" y2="-4820" x3="1100" y3="-5210"/>
+        </shape>
+    </place>
     <items tag="Uniques">
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
