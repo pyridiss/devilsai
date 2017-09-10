@@ -637,6 +637,8 @@ void Carte::loadFromFile(string path, string tag)
                 }
 
                 int counter = 0;
+                //'fake' will be used to test collisions with other items
+                Individu_Unique fake;
 
                 while (counter < quantity)
                 {
@@ -648,8 +650,6 @@ void Carte::loadFromFile(string path, string tag)
                         break;
                     }
 
-                    //'fake' will be used to test collisions with other items
-                    Individu_Unique fake;
                     fake.size = newItem->size;
                     fake.size.setOrigin(&(newItem->position()));
 
@@ -675,14 +675,10 @@ void Carte::loadFromFile(string path, string tag)
                     }
                     while (debugCounter < 100);
 
-                    if (debugCounter == 100)
-                    {
-                        if (item->Attribute("density"))
-                            tools::debug::message("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
-                        if (item->Attribute("quantity"))
-                            tools::debug::warning("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
-                    }
-                    else
+                    if (debugCounter == 100 && item->Attribute("quantity"))
+                        tools::debug::error("Error while creating randomZone: no place left for " + newItem->Type, "files", __FILENAME__, __LINE__);
+
+                    if (debugCounter < 100)
                     {
                         if (tag != "ALL") newItem->Liste = tag;
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
