@@ -67,7 +67,7 @@ void addDebugCategory(string category)
 
 void writeToDebugFile(const string& s, const string& file, int line)
 {
-    logfile << "[" << clock.getElapsedTime().asSeconds() << "] @" + file + ":" + to_string(line) + " – ";
+    logfile << "[" << clock.getElapsedTime().asSeconds() << "] @" << file << ":" << line << " – ";
     logfile << s << endl;
 }
 
