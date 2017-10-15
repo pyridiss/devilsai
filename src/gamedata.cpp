@@ -19,7 +19,7 @@
 
 #include <unordered_map>
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 #include <tinyxml2.h>
 
 #include "tools/debug.h"

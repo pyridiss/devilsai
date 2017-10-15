@@ -20,7 +20,7 @@
 #include <string>
 #include <sstream>
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include "tools/debug.h"
 #include "tools/timeManager.h"

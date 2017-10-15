@@ -19,7 +19,7 @@
 
 #include <fstream>
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"

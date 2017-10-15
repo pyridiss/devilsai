@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../Jeu/Jeu.h"

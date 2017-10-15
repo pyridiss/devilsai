@@ -18,7 +18,7 @@
 */
 
 #include <tinyxml2.h>
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include <cmath>
 

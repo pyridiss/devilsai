@@ -22,7 +22,7 @@
 #include <cmath>
 #include <string>
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include "tools/timeManager.h"
 

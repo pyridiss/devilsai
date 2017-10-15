@@ -19,7 +19,7 @@
 
 #include <cmath>
 
-#include <lua5.2/lua.hpp>
+#include <lua.hpp>
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
