@@ -13,6 +13,7 @@ find_package(TinyXML2)
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${SFML_INCLUDE_DIR}
+    ${PHYSFS_INCLUDE_DIR}
     ${LUA_INCLUDE_DIR}
     ${TinyXML2_INCLUDE_DIRS}
     ${devilsai_SOURCE_DIR}
