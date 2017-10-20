@@ -11,6 +11,7 @@ add_subdirectory(data)
 add_subdirectory(src)
 
 
-# files to install in the devilsai project root directory
-install( PROGRAMS devilsai.desktop  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications )
-install( PROGRAMS data/devilsai.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/96x96/apps )
+if (UNIX)
+  install( PROGRAMS devilsai.desktop  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications )
+  install( PROGRAMS data/devilsai.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/96x96/apps )
+endif (UNIX)
