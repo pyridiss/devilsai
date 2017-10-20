@@ -10,5 +10,5 @@ set(quest
     tutorial.lua
 )
 
-install(FILES ${quest} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/quest)
+install(FILES ${quest} DESTINATION ${dataDestination}/quest)
 

@@ -8,5 +8,5 @@ set(sound
     Sword_4.ogg
 )
 
-install(FILES ${sound} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/sound)
+install(FILES ${sound} DESTINATION ${dataDestination}/sound)
 

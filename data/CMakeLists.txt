@@ -1,3 +1,9 @@
+if (UNIX)
+  set(dataDestination ${CMAKE_INSTALL_PREFIX}/share/devilsai)
+else (UNIX)
+  set(dataDestination ${CMAKE_INSTALL_PREFIX}/data)
+endif (UNIX)
+
 add_subdirectory(carte)
 add_subdirectory(chapitre)
 add_subdirectory(gui)
@@ -21,5 +27,5 @@ set(data
     contrastShader.frag
 )
 
-install(FILES ${data} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai)
+install(FILES ${data} DESTINATION ${dataDestination})
 

@@ -170,5 +170,5 @@ set(img
     Zombie.img
 )
 
-install(FILES ${img} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/img)
+install(FILES ${img} DESTINATION ${dataDestination}/img)
 

@@ -52,5 +52,5 @@ set(lng
     tutorial-13.lng
 )
 
-install(FILES ${lng} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/lng)
+install(FILES ${lng} DESTINATION ${dataDestination}/lng)
 

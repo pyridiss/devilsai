@@ -14,5 +14,5 @@ set(gui
     storage-box.xml
 )
 
-install(FILES ${gui} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/gui)
+install(FILES ${gui} DESTINATION ${dataDestination}/gui)
 

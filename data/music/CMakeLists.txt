@@ -6,5 +6,5 @@ set(music
     Spring_1.ogg
 )
 
-install(FILES ${music} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/music)
+install(FILES ${music} DESTINATION ${dataDestination}/music)
 

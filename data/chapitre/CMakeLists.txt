@@ -5,5 +5,5 @@ set(chapitre
     tutorial.xml
 )
 
-install(FILES ${chapitre} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/chapitre)
+install(FILES ${chapitre} DESTINATION ${dataDestination}/chapitre)
 

@@ -17,5 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#if defined(_WIN32) || defined(__WIN32__)
+#define INSTALL_DIR string("data/")
+#else
 #define INSTALL_DIR string("@CMAKE_INSTALL_PREFIX@/share/devilsai/")
+#endif
 #define VERSION string("@VERSION@ (@TIME@)")

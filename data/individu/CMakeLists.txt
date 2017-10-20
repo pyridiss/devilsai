@@ -27,5 +27,5 @@ set(individu
     zombies.xml
 )
 
-install(FILES ${individu} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/individu)
+install(FILES ${individu} DESTINATION ${dataDestination}/individu)
 

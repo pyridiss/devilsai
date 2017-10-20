@@ -86,4 +86,10 @@ target_link_libraries(devilsai
 SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3" CACHE INTERNAL "" FORCE)
 SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -Wall -g" CACHE INTERNAL "" FORCE)
 
-install(TARGETS devilsai RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+if (UNIX)
+  set(exeDestination ${CMAKE_INSTALL_PREFIX}/bin)
+else (UNIX)
+  set(exeDestination ${CMAKE_INSTALL_PREFIX})
+endif (UNIX)
+
+install(TARGETS devilsai RUNTIME DESTINATION ${exeDestination})

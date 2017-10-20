@@ -19,5 +19,5 @@ set(carte
     tutorial.xml
 )
 
-install(FILES ${carte} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/carte)
+install(FILES ${carte} DESTINATION ${dataDestination}/carte)
 

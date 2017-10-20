@@ -32,5 +32,5 @@ set(object
     unidentifiedstone.lua
 )
 
-install(FILES ${object} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/devilsai/object)
+install(FILES ${object} DESTINATION ${dataDestination}/object)
 
