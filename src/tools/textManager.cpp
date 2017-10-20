@@ -170,6 +170,15 @@ string toStdString(const String32& original)
     return str;
 }
 
+int toInt(const string& original)
+{
+    istringstream str(original);
+    int i;
+    str >> i;
+
+    return i;
+}
+
 } //namespace textManager
 
 } //namespace tools

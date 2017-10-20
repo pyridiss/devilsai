@@ -38,6 +38,7 @@ String32 getFormattedText(string file, string id, const String32& arg);
 String32 getFormattedText(string file, string id, double arg);
 String32 fromStdString(const string& original);
 string toStdString(const String32& original);
+int toInt(const string& original);
 
 } //namespace textManager
 

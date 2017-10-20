@@ -140,8 +140,8 @@ void changeOption(string option, string value)
     else if (option == "option-change-resolution")
     {
         size_t x = value.find("x");
-        Options.ScreenW_Save = stoi(value);
-        Options.ScreenH_Save = stoi(value.substr(x+1));
+        Options.ScreenW_Save = tools::textManager::toInt(value);
+        Options.ScreenH_Save = tools::textManager::toInt(value.substr(x+1));
     }
     else if (option == "option-change-fullscreen")
     {
