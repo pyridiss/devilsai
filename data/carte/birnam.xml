@@ -93,6 +93,53 @@
                 <shape type="rectangle" x1="3615" y1="-1350" x2="3665" y2="-975"/>
             </shape>
         </trigger>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="4230" y1="-785" x2="5290" y2="-735"/>
+                <shape type="rectangle" x1="5240" y1="-2550" x2="5290" y2="-785"/>
+                <shape type="rectangle" x1="4100" y1="-2550" x2="5240" y2="-2500"/>
+                <shape type="rectangle" x1="4100" y1="-3360" x2="4150" y2="-2550"/>
+                <shape type="rectangle" x1="2640" y1="-3360" x2="4100" y2="-3310"/>
+                <shape type="rectangle" x1="4180" y1="-1690" x2="4230" y2="-980"/>
+                <shape type="rectangle" x1="3430" y1="-1690" x2="4180" y2="-1630"/>
+                <shape type="rectangle" x1="3430" y1="-2040" x2="3480" y2="-1690"/>
+                <shape type="rectangle" x1="-150" y1="-2040" x2="3430" y2="-1990"/>
+                <shape type="rectangle" x1="-150" y1="-2580" x2="-100" y2="-2040"/>
+                <shape type="rectangle" x1="-100" y1="-2580" x2="160" y2="-2530"/>
+                <shape type="rectangle" x1="110" y1="-5360" x2="160" y2="-2580"/>
+                <shape type="rectangle" x1="35" y1="-5360" x2="110" y2="-5310"/>
+                <shape type="rectangle" x1="35" y1="-6100" x2="85" y2="-5360"/>
+                <shape type="rectangle" x1="85" y1="-6100" x2="1840" y2="-6050"/>
+                <shape type="rectangle" x1="1790" y1="-6050" x2="1840" y2="-5425"/>
+                <shape type="rectangle" x1="1790" y1="-5425" x2="2280" y2="-5375"/>
+                <shape type="rectangle" x1="2230" y1="-5960" x2="2280" y2="-5425"/>
+                <shape type="rectangle" x1="2280" y1="-5960" x2="6450" y2="-5910"/>
+                <shape type="rectangle" x1="6400" y1="-5910" x2="6450" y2="-4900"/>
+                <shape type="triangle" x1="6400" y1="-4900" x2="5670" y2="-3923.66" x3="6450" y3="-4900"/> <!--poly11-->
+                <shape type="triangle" x1="6400" y1="-4900" x2="5640.32" y2="-3960.9" x3="5670" y3="-3923.66"/> <!--poly12-->
+                <shape type="triangle" x1="5640.32" y1="-3960.9" x2="5670" y2="-3923.66" x3="4795" y3="-3580"/> <!--poly13-->
+                <shape type="triangle" x1="4795" y1="-3630" x2="4795" y2="-3580" x3="5640.32" y3="-3960.9"/> <!--poly14-->
+                <shape type="rectangle" x1="2640" y1="-3630" x2="2690" y2="-3360"/>
+                <shape type="rectangle" x1="2690" y1="-3630" x2="4795" y2="-3580"/>
+            </shape>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="2150" y1="-3843" x2="2200" y2="-2220"/>
+                <shape type="rectangle" x1="1560" y1="-2220" x2="2200" y2="-2170"/>
+                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2170" x3="1560" y3="-2220"/> <!--poly40-->
+                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2220" x3="770" y3="-3130"/> <!--poly41-->
+                <shape type="triangle" x1="1560" y1="-2220" x2="820" y2="-3180" x3="770" y3="-3130"/> <!--poly42-->
+                <shape type="triangle" x1="770" y1="-3130" x2="820" y2="-3180" x3="770" y3="-3180"/> <!--poly43-->
+                <shape type="rectangle" x1="770" y1="-4770" x2="820" y2="-3180"/>
+                <shape type="triangle" x1="770" y1="-4770" x2="820" y2="-4770" x3="770" y3="-4820"/> <!--poly46-->
+                <shape type="triangle" x1="770" y1="-4820" x2="820" y2="-4770" x3="1150" y3="-5160"/> <!--poly47-->
+                <shape type="triangle" x1="770" y1="-4820" x2="1150" y2="-5160" x3="1100" y3="-5210"/> <!--poly48-->
+                <shape type="triangle" x1="1100" y1="-5210" x2="1150" y2="-5160" x3="1150" y3="-5210"/> <!--poly49-->
+                <shape type="rectangle" x1="1150" y1="-5210" x2="2280" y2="-5160"/>
+                <shape type="rectangle" x1="2230" y1="-5160" x2="2280" y2="-4730"/>
+            </shape>
+        </trigger>
         <trigger script="shared_trigger/door.lua" x="2838" y="-3015" data="2">
             <shape type="rectangle" xSize="100" ySize="10"/>
         </trigger>
