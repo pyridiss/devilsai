@@ -1,7 +1,5 @@
 
 set(individu
-    203.one
-    204.one
     205.one
     400.one
     allies.xml
