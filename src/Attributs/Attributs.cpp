@@ -129,6 +129,7 @@ void Objects::loadFromXML(XMLElement* elem)
             int min = 0, max = 0;
             object->QueryAttribute("min", &min);
             object->QueryAttribute("max", &max);
+            int n = tools::math::randomNumber(min, max);
 
             int designsCount = 0;
             XMLElement* currentDesign = object->FirstChildElement();
@@ -137,7 +138,7 @@ void Objects::loadFromXML(XMLElement* elem)
                 ++designsCount;
                 currentDesign = currentDesign->NextSiblingElement();
             }
-            for (int i = 0 ; i <= max - min ; ++i)
+            for (int i = 0 ; i < n ; ++i)
             {
                 int selectedDesign = rand()%designsCount;
                 currentDesign = object->FirstChildElement();
