@@ -111,7 +111,9 @@ bool Individu_Unique::Set_Activite(string nv)
 
 		for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
 		{
-			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
+            corpse->objects.objects.emplace("storagebox" + intToString(key, 2), i->second);
+            i->second = nullptr;
+            inventory.objects.erase(i);
 			++key;
 		}
 
