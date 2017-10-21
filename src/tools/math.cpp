@@ -68,6 +68,11 @@ double randomNumber(double min, double max)
     return min + (max - min) * n;
 }
 
+int randomNumber(int min, int max)
+{
+    return round(randomNumber((double)min, (double)max));
+}
+
 double randomNumber_BinomialLaw(double min, double max)
 {
     binomial_distribution<int> distribution(1000*(max - min), 0.5);

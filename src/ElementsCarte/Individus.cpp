@@ -36,7 +36,7 @@
 Individu::Individu() : Element_Carte()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
-    angle = tools::math::randomNumber(0, 2 * M_PI);
+    angle = tools::math::randomNumber(0.0, 2 * M_PI);
     inert = false;
     interactionField.setOrigin(&position());
     viewField.setOrigin(&position());
