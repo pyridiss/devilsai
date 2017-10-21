@@ -1,6 +1,5 @@
 
 set(individu
-    205.one
     allies.xml
     ballista.xml
     buildings.xml
@@ -8,6 +7,7 @@ set(individu
     fountainOfLife.xml
     gower.xml
     grounds.xml
+    horst.xml
     misc.xml
     ogres.xml
     orcs.xml
