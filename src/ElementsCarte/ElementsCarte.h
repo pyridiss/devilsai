@@ -408,7 +408,6 @@ class Trigger : public Element_Carte
 		void Disp(RenderTarget& target);
 };
 
-void Load_IndividuUnique(string, Individu_Unique*);
 void Disp_Personnage();
 
 #endif

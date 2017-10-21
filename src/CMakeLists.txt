@@ -39,7 +39,6 @@ set(devilsai_SRCS
     skillbarManager.cpp
     storageBoxScreenManager.cpp
 	ElementsCarte/Actionneurs.cpp
-	ElementsCarte/ChargementElements.cpp
 	ElementsCarte/Coffres.cpp
 	ElementsCarte/Elements.cpp
 	ElementsCarte/ElementsCarte.h

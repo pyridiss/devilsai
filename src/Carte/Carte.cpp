@@ -92,20 +92,10 @@ Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string lis
             carte->loadFromFile(tools::filesystem::dataDirectory() + file, b2);
         }
 
-		if (TypeDonnee == "IND_UNIQUE" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterElement_Unique(Ind, list, X, Y);
-		}
 		if (TypeDonnee == "IND_COMMUN" && carte != NULL)
 		{
 			Fichier >> Ind >> X >> Y;
 			lastElementLoaded = carte->AjouterElement_Commun(Ind, list, X, Y);
-		}
-		if (TypeDonnee == "JOUEUR" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterJoueur(Ind, list, X, Y);
 		}
 		if (TypeDonnee == "PAYSAGE" && carte != NULL)
 		{
@@ -253,23 +243,6 @@ void Carte::AjouterElementEnListe(Element_Carte *elem)
 	elements.push_back(elem);
 }
 
-Individu_Unique* Carte::AjouterElement_Unique(string Type, string liste, int x, int y)
-{
-	Individu_Unique *ind = new Individu_Unique;
-
-	ind->Liste = liste;
-	ind->Type = Type;
-
-	Load_IndividuUnique(Type, ind);
-
-    ind->move(x, y);
-
-	MESSAGE("Un individu unique a été ajouté - Type = " + Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
 Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
 {
 	Individu_Commun *ind = new Individu_Commun;
@@ -290,25 +263,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
     ind->move(x, y);
 
 	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Joueur* Carte::AjouterJoueur(string Type, string liste, int x, int y)
-{
-	Joueur *ind = new Joueur;
-
-	ind->Liste = liste;
-	ind->Type = Type;
-
-	Load_IndividuUnique(Type, ind);
-
-    ind->move(x, y);
-
-	MESSAGE("Un joueur a été ajouté - Type = " + Type, FICHIER)
-
-    gamedata::setPlayer(ind, this);
 
 	AjouterElementEnListe(ind);
 	return ind;

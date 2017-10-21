@@ -70,9 +70,7 @@ class Carte
 		void AjouterElementEnListe(Element_Carte *elem);
 
 	public:
-		Individu_Unique* AjouterElement_Unique(string Type, string liste, int x, int y);
 		Individu_Commun* AjouterElement_Commun(string Type, string liste, int x, int y);
-		Joueur* AjouterJoueur(string Type, string liste, int x, int y);
 		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
         CheckPoint* addCheckPoint(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);
