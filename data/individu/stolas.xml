@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata>
+    <uniqueData name="stolas">
+        <addImageArchiveFile file="img/Stolas.img"/>
+        <shape type="circle" radius="32"/>
+        <attackField type="circle" radius="60"/>
+        <viewField type="circle" radius="600"/>
+        <properties diplomacy="2" fixedHealing="1" maximumEnergy="1" experience="5000" corpseImageKey="stolas:6/6/3/23.png"/>
+        <characteristics strength="440" power="230" agility="80" intellect="50" constitution="345" dodge="40" charisma="120" healingPower="0"/>
+        <skill name="4" owner="stolas">
+            <properties priority="1" speed="8" step="0" numberOfImages="14"/>
+            <images angle="0" pathToImages="4/2/%%.png"/>
+            <images angle="90" pathToImages="4/1/%%.png"/>
+            <images angle="180" pathToImages="4/3/%%.png"/>
+            <images angle="270" pathToImages="4/0/%%.png"/>
+        </skill>
+        <skill name="3" owner="stolas">
+            <properties priority="0" speed="15" step="6" numberOfImages="16"/>
+            <images angle="0" pathToImages="3/2/%%.png"/>
+            <images angle="90" pathToImages="3/1/%%.png"/>
+            <images angle="180" pathToImages="3/3/%%.png"/>
+            <images angle="270" pathToImages="3/0/%%.png"/>
+        </skill>
+        <skill name="2" owner="stolas">
+            <properties priority="0" speed="6" step="0" numberOfImages="16"/>
+            <images angle="180" pathToImages="2/3/%%.png"/>
+        </skill>
+        <skill name="6" owner="stolas">
+            <properties priority="3" speed="3" step="0" numberOfImages="24"/>
+            <images angle="0" pathToImages="6/3/%%.png"/>
+        </skill>
+        <skillsManagement default="2" onAttack="4"/>
+        <inventory>
+            <addObject slot="inventory01" design="healpotion" quality="3"/>
+            <createRandomObjects min="1" max="2">
+                <objectDesign design="spatha" quality="8"/>
+                <objectDesign design="pavis" quality="8"/>
+            </createRandomObjects>
+            <createRandomObjects min="1" max="2">
+                <objectDesign design="bascinet" quality="8"/>
+                <objectDesign design="platearmor" quality="8"/>
+            </createRandomObjects>
+            <createRandomObjects min="1" max="2">
+                <objectDesign design="fabricboots" quality="8"/>
+                <objectDesign design="sapphirering" quality="8"/>
+            </createRandomObjects>
+        </inventory>
+    </uniqueData>
+</gamedata>

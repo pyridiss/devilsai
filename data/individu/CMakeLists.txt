@@ -1,7 +1,6 @@
 
 set(individu
     205.one
-    400.one
     allies.xml
     ballista.xml
     buildings.xml
@@ -14,6 +13,7 @@ set(individu
     orcs.xml
     player.xml
     spiders.xml
+    stolas.xml
     stones.xml
     trees.xml
     trolls.xml
