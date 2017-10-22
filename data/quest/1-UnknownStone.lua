@@ -60,7 +60,7 @@ function questManage()
 		end
 
 		if hasTheStone == false and gowersWorriesDone == true then
-			loadElement("PAYSAGE 21004 153 125", "UnknownStone-Scroll")
+            loadWorld("birnam", "quest/birnam/UnknownStone.xml", "UnknownStone-Scroll")
 			questStep = "10"
 		end
 

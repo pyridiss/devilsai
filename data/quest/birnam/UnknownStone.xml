@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <loadDataFile file="individu/misc.xml"/>
+    <items tag="UnknownStone-Scroll">
+        <inertItem design="21004" x="153" y="125"/>
+    </items>
+</world>
