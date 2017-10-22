@@ -10,7 +10,6 @@ set(carte
     1-Noirefontaine-Monsters.lst
     1-ways.lst
     101.map
-	1241.lst
 	101107.lst
 	101200.lst
     birnam.xml

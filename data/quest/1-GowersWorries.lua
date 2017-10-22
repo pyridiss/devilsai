@@ -56,7 +56,6 @@ function questManage()
 
 	elseif questStep == "2" then
         if getNumberOfItemsByTag("birnam", "GowersWorries-Enemies") == 0 then
-			loadList("1241")
 			addExperience(4000)
 			pushDialog("mis_1.13_ccl")
 			pushDialog("mis_1.14_intro")
@@ -77,7 +76,6 @@ function questManage()
 
 	elseif questStep == "21" then
 		if interact(player_ptr, fluellen_ptr) then
-			loadList("1241")
 			pushDialog("mis_1.E3_ccl")
 			pushDialog("mis_1.E4_intro")
 			questStep = "22"
