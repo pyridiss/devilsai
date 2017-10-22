@@ -14,4 +14,12 @@
         <inertItem design="wall02-NS" x="2622" y="-4259"/>
         <inertItem design="wall02-Nx" x="2622" y="-4196"/>
     </items>
+    <items tag="RescueFluellensCamp-ObstacleForEnemies">
+        <trigger script="shared_trigger/door.lua" x="1850" y="-5301" data="2">
+            <shape type="rectangle" xSize="10" ySize="100"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="1510" y="-2281" data="2">
+            <shape type="rectangle" xSize="10" ySize="200"/>
+        </trigger>
+    </items>
 </world>

@@ -18,8 +18,10 @@ player_ptr   = 0
 gower_ptr    = 0
 fluellen_ptr = 0
 
-checkPoint1 = 0
-checkPoint2 = 0
+checkPoint1 = 0 -- AncientLands entrance
+checkPoint2 = 0 -- AncientLands entrance
+checkPoint3 = 0 -- Noirefontaine entrance
+checkPoint4 = 0 -- Noirefontaine entrance
 
 questStep = "0"
 
@@ -39,6 +41,8 @@ function questBegin(addNewElements)
 		-- Add new elements and monsters
         checkPoint1 = addCheckPoint("birnam", 2222, -5304, 35, 100)
         checkPoint2 = addCheckPoint("birnam", 2440, -3359, 100, 35)
+        checkPoint3 = addCheckPoint("birnam", 1790, -5301, 35, 100)
+        checkPoint4 = addCheckPoint("birnam", 1450, -2281, 35, 200)
 
 		deleteList("Obstacle-GladeSaints-IceRoad")
 
@@ -47,11 +51,7 @@ function questBegin(addNewElements)
 
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Obstacle-AncientLands-Birnam")
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Gate-FluellensCamp")
-
-		loadElement("ACTIONNEUR 1790 -5301	RECT_COL 10 100	TEXTE_PERSO_OUEST 1	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")
-		loadElement("ACTIONNEUR 1850 -5301	RECT_COL 10 100	COLLISION_DIPLOM 2	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")
-		loadElement("ACTIONNEUR 1450 -2281	RECT_COL 10 200	TEXTE_PERSO_OUEST 1	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")
-		loadElement("ACTIONNEUR 1510 -2281	RECT_COL 10 200	COLLISION_DIPLOM 2	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")
+        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "RescueFluellensCamp-ObstacleForEnemies")
 
 		loadList("1-IceRoad-Monsters")
 		loadList("1-AncientLands-Monsters")
@@ -97,6 +97,10 @@ function questManage()
 		end
 
 	end
+
+    if interact(player_ptr, checkPoint3) or interact(player_ptr, checkPoint4) then
+        pushDialog("actionneur_1_1")
+    end
 
 end
 
