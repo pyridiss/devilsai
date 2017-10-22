@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
     <text id="1001">Campement</text>
-    <text id="1002">Refuge</text>
     <text id="1030">Forres</text>
     <text id="1104">La Forêt de Birnam</text>
     <text id="1105">Les Plaines de Forres</text>
@@ -10,6 +9,7 @@
     <text id="birnam-glade-saints">La Clairière des Saints</text>
     <text id="birnam-hills-noirefontaine">Les collines de Noirefontaine</text>
     <text id="birnam-ice-road">La Route des Glaces</text>
+    <text id="birnam-ice-road-refuge">Refuge</text>
     <text id="birnam-camp-gower">Camp de Gower</text>
     <text id="tutorial-military-academy">Académie militaire</text>
 </texts>

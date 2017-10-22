@@ -376,13 +376,6 @@ argument: hostile
 END_SHARED_TRIGGER
 SHARED_TRIGGER
 type: change_place
-position: 2838 -3035
-size: rectangle 100 10
-argument: 1002
-argument: village
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
 position: 11643 -2645
 size: rectangle 100 10
 argument: 1104

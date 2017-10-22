@@ -24,6 +24,10 @@
         <properties diplomacy="1"/>
         <shape type="rectangle" x1="1648" y1="-4707" x2="2622" y2="-3843"/>
     </place>
+    <place name="birnam-ice-road-refuge" music="Spring_1">
+        <properties diplomacy="1"/>
+        <shape type="rectangle" x1="2735" y1="-3197" x2="2941" y2="-3053"/>
+    </place>
     <place name="birnam-glade-saints" music="Spring_1">
         <properties diplomacy="2"/>
         <shape type="complex">
@@ -43,7 +47,10 @@
         <shape type="complex">
             <shape type="rectangle" x1="4230" y1="-2500" x2="5240" y2="-785"/>
             <shape type="rectangle" x1="3480" y1="-2500" x2="4230" y2="-1690"/>
-            <shape type="rectangle" x1="2200" y1="-3310" x2="4100" y2="-2500"/>
+            <shape type="rectangle" x1="2200" y1="-3005" x2="4100" y2="-2500"/>
+            <shape type="rectangle" x1="2200" y1="-3310" x2="2685" y2="-3005"/>
+            <shape type="rectangle" x1="2685" y1="-3310" x2="2991" y2="-3247"/>
+            <shape type="rectangle" x1="2991" y1="-3310" x2="4100" y2="-3005"/>
             <shape type="rectangle" x1="2200" y1="-2500" x2="3480" y2="-2040"/>
         </shape>
     </place>
@@ -140,8 +147,8 @@
                 <shape type="rectangle" x1="2230" y1="-5160" x2="2280" y2="-4730"/>
             </shape>
         </trigger>
-        <trigger script="shared_trigger/door.lua" x="2838" y="-3015" data="2">
-            <shape type="rectangle" xSize="100" ySize="10"/>
+        <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
+            <shape type="rectangle" xSize="128" ySize="10"/>
         </trigger>
         <trigger script="shared_trigger/door.lua" x="11643" y="-2645" data="2">
             <shape type="rectangle" xSize="100" ySize="10"/>
@@ -277,6 +284,17 @@
                 <addObject slot="storagebox01" design="healpotion" quality="5"/>
             </inventory>
         </storageBox>
+    </items>
+    <items tag="IceRoad-InertItems">
+        <inertItem design="wall02-EW" x="2838" y="-3222"/>
+        <inertItem design="wall02-ES" x="2738" y="-3222"/>
+        <inertItem design="wall02-SW" x="2944" y="-3222"/>
+        <inertItem design="wall02-NS" x="2710" y="-3139"/>
+        <inertItem design="wall02-NS" x="2966" y="-3139"/>
+        <inertItem design="wall02-Wx" x="2790" y="-3030"/>
+        <inertItem design="wall02-Ex" x="2894" y="-3030"/>
+        <inertItem design="wall02-EN" x="2738" y="-3048"/>
+        <inertItem design="wall02-NW" x="2944" y="-3048"/>
     </items>
     <randomZone tag="Outside-Part1" customZone="1" ignoreCollision="1">
         <shape type="complex">

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
     <text id="1001">Camp</text>
-    <text id="1002">Refuge</text>
     <text id="1030">Forres</text>
     <text id="1104">The Birnam Forest</text>
     <text id="1105">Forres Lands</text>
@@ -10,6 +9,7 @@
     <text id="birnam-glade-saints">The Glade of the Saints</text>
     <text id="birnam-hills-noirefontaine">The hills of Noirefontaine</text>
     <text id="birnam-ice-road">The Ice Road</text>
+    <text id="birnam-ice-road-refuge">Refuge</text>
     <text id="birnam-camp-gower">Gower's Camp</text>
     <text id="tutorial-military-academy">Military Academy</text>
 </texts>
