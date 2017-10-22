@@ -45,10 +45,6 @@ function questBegin(addNewElements)
 		loadList("1-IceRoad-AncientLands-Lands1")
 		loadList("1-IceRoad-AncientLands-Lands2")
 
-		loadElement("PAYSAGE 10004 4592 -814", "Obstacle-IceRoad-Forres")
-		loadElement("PAYSAGE 10004 4656 -814", "Obstacle-IceRoad-Forres")
-		loadElement("PAYSAGE 10004 4720 -814", "Obstacle-IceRoad-Forres")
-
 		loadElement("PAYSAGE 10104 4688 -3722", "Obstacle-AncientLands-Birnam")
 		loadElement("PAYSAGE 10109 4793 -3718", "Obstacle-AncientLands-Birnam")
 		loadElement("PAYSAGE 10108 4588 -3717", "Obstacle-AncientLands-Birnam")

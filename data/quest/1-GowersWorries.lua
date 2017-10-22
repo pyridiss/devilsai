@@ -56,7 +56,6 @@ function questManage()
 
 	elseif questStep == "2" then
 		if getNumberOfItemsByTag("birnam", "1105") == 0 then
-			deleteList("Obstacle-IceRoad-Forres")
 			loadList("1241")
 			addExperience(4000)
 			pushDialog("mis_1.13_ccl")
@@ -78,7 +77,6 @@ function questManage()
 
 	elseif questStep == "21" then
 		if interact(player_ptr, fluellen_ptr) then
-			deleteList("Obstacle-IceRoad-Forres")
 			loadList("1241")
 			pushDialog("mis_1.E3_ccl")
 			pushDialog("mis_1.E4_intro")
