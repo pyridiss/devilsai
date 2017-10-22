@@ -285,8 +285,8 @@
             <shape type="rectangle" x1="940" y1="-1990" x2="1450" y2="-1360"/>
             <shape type="rectangle" x1="1450" y1="-1990" x2="3110" y2="-1640"/>
             <shape type="rectangle" x1="3110" y1="-1990" x2="3430" y2="-1400"/>
-            <shape type="rectangle" x1="3430" y1="-1630" x2="3695" y2="-1400"/>
-            <shape type="rectangle" x1="3695" y1="-1630" x2="4210" y2="-1020"/>
+            <shape type="rectangle" x1="3430" y1="-1630" x2="3665" y2="-1400"/>
+            <shape type="rectangle" x1="3665" y1="-1630" x2="4180" y2="-1020"/>
             <shape type="rectangle" x1="-1200" y1="-400" x2="-630" y2="-200"/>
             <shape type="rectangle" x1="-1200" y1="-200" x2="-750" y2="400"/>
             <shape type="rectangle" x1="-1200" y1="400" x2="-630" y2="910"/>
@@ -301,7 +301,7 @@
     <randomZone tag="Outside-Part2" customZone="1" ignoreCollision="1">
         <shape type="complex">
             <shape type="triangle" x1="6450" y1="-3580" x2="6450" y2="-4230" x3="4795" y3="-3580"/> <!--poly23-->
-            <shape type="rectangle" x1="2910" y1="-3580" x2="4590" y2="-3360"/> <!--poly24-->
+            <shape type="rectangle" x1="2690" y1="-3580" x2="4590" y2="-3360"/> <!--poly24-->
             <shape type="rectangle" x1="4150" y1="-3360" x2="4590" y2="-2550"/> <!--poly25-->
             <shape type="rectangle" x1="4590" y1="-2880" x2="5290" y2="-2550"/> <!--poly26-->
             <shape type="rectangle" x1="5290" y1="-2880" x2="5870" y2="-735"/> <!--poly27-->
@@ -332,11 +332,11 @@
             <shape type="rectangle" x1="-750" y1="-2580" x2="-150" y2="-1990"/> <!--poly6-->
             <shape type="rectangle" x1="-490" y1="-5310" x2="110" y2="-2580"/> <!--poly7-->
             <shape type="rectangle" x1="3665" y1="-735" x2="4570" y2="-230"/> <!--poly15-->
-            <shape type="rectangle" x1="1450" y1="-3435" x2="2150" y2="-2520"/> <!--poly30-->
-            <shape type="rectangle" x1="820" y1="-4730" x2="1560" y2="-3435"/> <!--poly31-->
-            <shape type="rectangle" x1="1150" y1="-5160" x2="2245" y2="-4770"/> <!--poly32-->
-            <shape type="rectangle" x1="1560" y1="-3800" x2="1910" y2="-3435"/> <!--poly33-->
-            <shape type="rectangle" x1="820" y1="-3435" x2="1450" y2="-3180"/> <!--poly34-->
+            <shape type="rectangle" x1="1560" y1="-3793" x2="2150" y2="-2220"/> <!--poly30-->
+            <shape type="rectangle" x1="820" y1="-4770" x2="1560" y2="-3180"/> <!--poly31-->
+            <shape type="rectangle" x1="1150" y1="-5160" x2="2230" y2="-4770"/> <!--poly32-->
+            <shape type="triangle" x1="820" y1="-3180" x2="1560" y2="-2220" x3="1560" y3="-3180"/> <!--poly8-->
+            <shape type="triangle" x1="820" y1="-4770" x2="1150" y2="-4770" x3="1150" y3="-5160"/> <!--poly9-->
         </shape>
         <inertItem design="tree01" density="110"/>
         <inertItem design="tree02" density="110"/>
