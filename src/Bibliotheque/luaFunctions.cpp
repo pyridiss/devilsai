@@ -529,21 +529,6 @@ int LUA_questRunning(lua_State* L)
 	return 1;
 }
 
-int LUA_loadElement(lua_State* L)
-{
-    MESSAGE("LUA_loadElement() called", LUA)
-
-	//Be careful: only the last element is included in collision list
-	stringstream stream;
-	stream << lua_tostring(L, 1);
-	string list = lua_tostring(L, 2);
-
-	Element_Carte* elem = loadElementsFromStream(stream, gamedata::currentWorld(), list);
-
-    lua_pushlightuserdata(L, (void*)elem);
-	return 1;
-}
-
 int LUA_createActivite(lua_State* L)
 {
     MESSAGE("LUA_createActivite() called", LUA)

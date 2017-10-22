@@ -79,7 +79,6 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "possess", LUA_possess);
 	lua_register(L, "transferObject", LUA_transferObject);
 	lua_register(L, "questRunning", LUA_questRunning);
-	lua_register(L, "loadElement", LUA_loadElement);
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "set", LUA_set);
 

@@ -52,7 +52,6 @@ int LUA_setActivity(lua_State*);
 int LUA_possess(lua_State*);
 int LUA_transferObject(lua_State*);
 int LUA_questRunning(lua_State*);
-int LUA_loadElement(lua_State*);
 int LUA_createActivite(lua_State*);
 int LUA_activiteSet(lua_State*);
 int LUA_activiteAddImage(lua_State*);
