@@ -45,16 +45,8 @@ function questBegin(addNewElements)
 		loadList("1-IceRoad-AncientLands-Lands1")
 		loadList("1-IceRoad-AncientLands-Lands2")
 
-		loadElement("PAYSAGE 10104 4688 -3722", "Obstacle-AncientLands-Birnam")
-		loadElement("PAYSAGE 10109 4793 -3718", "Obstacle-AncientLands-Birnam")
-		loadElement("PAYSAGE 10108 4588 -3717", "Obstacle-AncientLands-Birnam")
-		loadElement("PAYSAGE 10102 4560 -3671", "Obstacle-AncientLands-Birnam")
-		loadElement("PAYSAGE 10102 4816 -3671", "Obstacle-AncientLands-Birnam")
-
-		loadElement("PAYSAGE 10100 2622 -4429", "Gate-FluellensCamp")
-		loadElement("PAYSAGE 10101 2622 -4355", "Gate-FluellensCamp")
-		loadElement("PAYSAGE 10101 2622 -4259", "Gate-FluellensCamp")
-		loadElement("PAYSAGE 10102 2622 -4196", "Gate-FluellensCamp")
+        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Obstacle-AncientLands-Birnam")
+        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Gate-FluellensCamp")
 
 		loadElement("ACTIONNEUR 1790 -5301	RECT_COL 10 100	TEXTE_PERSO_OUEST 1	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")
 		loadElement("ACTIONNEUR 1850 -5301	RECT_COL 10 100	COLLISION_DIPLOM 2	FIN_ACTIONNEUR", "Actionneurs-Noirefontaine")

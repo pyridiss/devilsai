@@ -1,6 +1,7 @@
 
 set(quest_birnam
     FreeIceRoad.xml
+    RescueFluellensCamp.xml
     UnknownStone.xml
     Wizard.xml
 )
