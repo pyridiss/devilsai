@@ -48,20 +48,7 @@ function questManage()
 
 	elseif questStep == "3" then
 		if interact(player_ptr, gower_ptr) == true then
-			loadElement([[	COFFRE -81 -169
-							RAY_COL 1
-							NOM 612
-							NOMBRE_OBJETS 1
-							OBJET
-							TYPE_ALEATOIRE spatha 9
-							TYPE_ALEATOIRE pavis 9
-							TYPE_ALEATOIRE bascinet 9
-							TYPE_ALEATOIRE platearmor 9
-							TYPE_ALEATOIRE fabricboots 9
-							TYPE_ALEATOIRE sapphirering 9
-							FIN_OBJET
-							FIN_COFFRE]], "DEFAUT")
-			loadElement("PAYSAGE 21002 -81 -169", "DEFAUT")
+            loadWorld("birnam", "quest/birnam/FreeIceRoad.xml", "FreeIceRoad-Reward")
 			pushDialog("1-FreeIceRoad-Reward")
 			questStep = "4"
 		end

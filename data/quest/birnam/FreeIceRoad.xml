@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <loadDataFile file="individu/misc.xml"/>
+    <items tag="FreeIceRoad-Reward">
+        <storageBox design="21002" x="-81" y="-169">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="612"/>
+            <inventory>
+                <createRandomObjects min="1" max="1">
+                    <objectDesign design="spatha" quality="9"/>
+                    <objectDesign design="pavis" quality="9"/>
+                    <objectDesign design="bascinet" quality="9"/>
+                    <objectDesign design="platearmor" quality="9"/>
+                    <objectDesign design="fabricboots" quality="9"/>
+                    <objectDesign design="sapphirering" quality="9"/>
+                </createRandomObjects>
+            </inventory>
+        </storageBox>
+    </items>
+</world>

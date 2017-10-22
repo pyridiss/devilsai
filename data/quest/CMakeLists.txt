@@ -1,4 +1,6 @@
 
+add_subdirectory(birnam)
+
 set(quest
     1-FreeIceRoad.lua
     1-GowersWorries.lua
