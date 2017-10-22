@@ -388,6 +388,12 @@
         <individual species="spider2" quantity="11"/>
         <individual species="spider1" quantity="8"/>
     </randomZone>
+    <randomZone tag="AncientLands-Monsters" place="birnam-ancient-lands">
+        <individual species="zombie1" quantity="12"/>
+        <individual species="spider2" quantity="14"/>
+        <individual species="orc1" quantity="18"/>
+        <individual species="orc2" quantity="23"/>
+    </randomZone>
     <items tag="Obstacle-GladeSaints-IceRoad">
         <inertItem design="30205" x="3752" y="-881"/>
     </items>

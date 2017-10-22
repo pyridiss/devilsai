@@ -1,6 +1,5 @@
 
 set(carte
-    1-AncientLands-Monsters.lst
     1-Birnam-Lands1.lst
     1-Birnam-Lands2.lst
     1-Birnam-Monsters.lst

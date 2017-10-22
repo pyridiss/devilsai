@@ -54,7 +54,7 @@ function questBegin(addNewElements)
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "RescueFluellensCamp-ObstacleForEnemies")
 
         loadWorld("birnam", "carte/birnam.xml", "IceRoad-Monsters")
-		loadList("1-AncientLands-Monsters")
+        loadWorld("birnam", "carte/birnam.xml", "AncientLands-Monsters")
 
 		pushDialog("1-RescueFluellensCamp-Beginning")
 		questStep = "1"
@@ -72,7 +72,7 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-		remainingEnemies = getNumberOfItemsByTag("birnam", "1-AncientLands-Monsters")
+        remainingEnemies = getNumberOfItemsByTag("birnam", "AncientLands-Monsters")
 		if remainingEnemies <= 5 and remainingEnemies > 0 then
 			if remainingEnemies ~= remainingMonstersDisplayed then
 				dispRemainingEnemies(remainingEnemies)
