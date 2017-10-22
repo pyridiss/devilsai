@@ -25,12 +25,12 @@ function questBegin(addNewElements)
 
 	if questStep == "0" then
 		if addNewElements == "true" then
-			loadElement("IND_UNIQUE 205 1426 -5711", "DEFAUT")
+            loadWorld("birnam", "quest/birnam/Wizard.xml", "Wizard-Horst")
 		end
 
-		-- Find Player and Gower
+        -- Find Player and Horst
 		player_ptr = getElement("player")
-		wizard_ptr = getElement("205") -- 205 = wizard
+        wizard_ptr = getElement("horst")
 
         checkPoint1 = addCheckPoint("birnam", 1820, -5301, 10, 100)
         checkPoint2 = addCheckPoint("birnam", 1480, -2281, 10, 200)

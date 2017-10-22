@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <items tag="Wizard-Horst">
+        <unique name="horst" loadFromDataFile="individu/horst.xml" x="1426" y="-5711"/>
+    </items>
+</world>
