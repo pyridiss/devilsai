@@ -53,7 +53,7 @@ function questBegin(addNewElements)
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Gate-FluellensCamp")
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "RescueFluellensCamp-ObstacleForEnemies")
 
-		loadList("1-IceRoad-Monsters")
+        loadWorld("birnam", "carte/birnam.xml", "IceRoad-Monsters")
 		loadList("1-AncientLands-Monsters")
 
 		pushDialog("1-RescueFluellensCamp-Beginning")
