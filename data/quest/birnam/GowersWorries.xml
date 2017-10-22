@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <loadDataFile file="individu/allies.xml"/>
+    <loadDataFile file="individu/spiders.xml"/>
+    <loadDataFile file="individu/orcs.xml"/>
+    <randomZone tag="GowersWorries-Enemies" customZone="1">
+        <shape type="rectangle" x1="-300" y1="-200" x2="300" y2="300"/>
+        <individual species="spider3" quantity="4"/>
+        <individual species="orc3" quantity="4"/>
+    </randomZone>
+    <randomZone tag="GowersWorries-Warriors" customZone="1">
+        <shape type="rectangle" x1="-300" y1="-200" x2="300" y2="300"/>
+        <individual species="warrior1" quantity="4"/>
+    </randomZone>
+</world>

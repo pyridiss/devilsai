@@ -49,13 +49,13 @@ function questManage()
 
 	if questStep == "1" then
 		if interact(player_ptr, checkPoint1) then
-			loadList("1004")
-			loadList("1105")
+            loadWorld("birnam", "quest/birnam/GowersWorries.xml", "GowersWorries-Warriors")
+            loadWorld("birnam", "quest/birnam/GowersWorries.xml", "GowersWorries-Enemies")
 			questStep = "2"
 		end
 
 	elseif questStep == "2" then
-		if getNumberOfItemsByTag("birnam", "1105") == 0 then
+        if getNumberOfItemsByTag("birnam", "GowersWorries-Enemies") == 0 then
 			loadList("1241")
 			addExperience(4000)
 			pushDialog("mis_1.13_ccl")

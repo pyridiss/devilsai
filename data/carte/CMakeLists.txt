@@ -10,8 +10,6 @@ set(carte
     1-Noirefontaine-Monsters.lst
     1-ways.lst
     101.map
-	1004.lst
-	1105.lst
 	1241.lst
 	101107.lst
 	101200.lst
