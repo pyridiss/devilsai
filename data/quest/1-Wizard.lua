@@ -59,7 +59,7 @@ function questManage()
 		remainingTime = remainingTime - I()
 		if remainingTime <= 0 then
 			set(wizard_ptr, "vitality", 0)
-			loadList("1-Noirefontaine-Monsters")
+            loadWorld("birnam", "quest/birnam/Wizard.xml", "Wizard-Monsters")
 			questStep = "4"
 		end
 	end
