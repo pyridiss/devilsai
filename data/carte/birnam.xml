@@ -221,6 +221,7 @@
         <trigger script="shared_trigger/heal.lua" x="2845" y="-2827" data="none">
             <shape type="circle" radius="38"/>
         </trigger>
+        <individual species="fountainOfLife_animation" x="2845" y="-2827"/>
         <inertItem design="tree08" x="3556" y="-1859"/>
         <inertItem design="tree12" x="4350" y="-950"/>
         <inertItem design="tree12" x="4420" y="-950"/>
@@ -344,9 +345,46 @@
     </place>
     <items tag="FluellensCamp-Items">
         <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
+        <individual species="ballista" x="2516" y="-4609"/>
+        <individual species="ballista" x="2516" y="-3984"/>
+        <individual species="ballista" x="2516" y="-4107"/>
         <trigger script="shared_trigger/heal.lua" x="2219" y="-4185" data="none">
             <shape type="circle" radius="38"/>
         </trigger>
+        <individual species="fountainOfLife_animation" x="2219" y="-4185"/>
+        <storageBox design="21001" x="1968" y="-4362">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="611"/>
+            <inventory>
+                <addObject slot="storagebox01" design="spatha" quality="4"/>
+                <createRandomObjects min="3" max="5">
+                    <objectDesign design="spatha" quality="4"/>
+                    <objectDesign design="pavis" quality="4"/>
+                    <objectDesign design="bascinet" quality="5"/>
+                    <objectDesign design="platearmor" quality="5"/>
+                    <objectDesign design="fabricboots" quality="4"/>
+                    <objectDesign design="sapphirering" quality="4"/>
+                </createRandomObjects>
+            </inventory>
+        </storageBox>
+        <storageBox design="21001" x="1908" y="-4334">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="611"/>
+            <inventory>
+                <addObject slot="storagebox01" design="healpotion" quality="5"/>
+                <createRandomObjects min="1" max="3">
+                    <objectDesign design="spatha" quality="5"/>
+                    <objectDesign design="pavis" quality="5"/>
+                    <objectDesign design="bascinet" quality="4"/>
+                </createRandomObjects>
+                <createRandomObjects min="1" max="3">
+                    <objectDesign design="platearmor" quality="4"/>
+                    <objectDesign design="fabricboots" quality="5"/>
+                    <objectDesign design="sapphirering" quality="5"/>
+                </createRandomObjects>
+            </inventory>
+        </storageBox>
+        <inertItem design="building01" x="2118" y="-4525"/>
     </items>
 
     <!-- Outside -->
