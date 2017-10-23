@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
-    <loadWorld name="birnam" file="carte/birnam.xml" tag="Outside-Part1"/>
-    <loadWorld name="birnam" file="carte/birnam.xml" tag="GowersCamp-TheGladeOfTheSaints-InertItems"/>
-    <loadWorld name="birnam" file="carte/birnam.xml" tag="Uniques"/>
-    <loadWorld name="birnam" file="carte/birnam.xml" tag="SharedTriggers"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="Outside"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="GowersCamp-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheIceRoad-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheHillsOfNoirefontaine-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Monsters"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheIceRoad-Monsters"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Monsters"/>
     <LISTE number="1-ways"/>
     <CARTE number="101"/>
     <LISTE number="101200"/>

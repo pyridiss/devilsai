@@ -13,6 +13,9 @@
     <loadDataFile file="individu/orcs.xml"/>
     <loadDataFile file="individu/allies.xml"/>
     <loadDataFile file="individu/zombies.xml"/>
+
+    <!-- Gower's Camp -->
+
     <place name="birnam-camp-gower" music="Spring_1">
         <properties diplomacy="1"/>
         <shape type="complex">
@@ -21,247 +24,20 @@
             <shape type="rectangle" x1="-508" y1="329" x2="210" y2="816"/>
         </shape>
     </place>
-    <place name="birnam-camp-fluellen" music="Spring_1">
-        <properties diplomacy="1"/>
-        <shape type="rectangle" x1="1648" y1="-4707" x2="2622" y2="-3843"/>
-    </place>
-    <place name="birnam-ice-road-refuge" music="Spring_1">
-        <properties diplomacy="1"/>
-        <shape type="rectangle" x1="2735" y1="-3197" x2="2941" y2="-3053"/>
-    </place>
-    <place name="birnam-glade-saints" music="Spring_1">
-        <properties diplomacy="2"/>
-        <shape type="complex">
-            <shape type="rectangle" x1="-410" y1="-920" x2="388" y2="-343"/>
-            <shape type="rectangle" x1="388" y1="-920" x2="1970" y2="379"/>
-            <shape type="rectangle" x1="260" y1="379" x2="1970" y2="866"/>
-            <shape type="rectangle" x1="50" y1="866" x2="1970" y2="1410"/>
-            <shape type="rectangle" x1="1970" y1="-920" x2="3615" y2="-230"/>
-            <shape type="triangle" x1="1970" y1="-230" x2="1970" y2="1410" x3="3615" y3="-230"/>
-            <shape type="rectangle" x1="990" y1="-1310" x2="3060" y2="-920"/>
-            <shape type="rectangle" x1="3060" y1="-1350" x2="3615" y2="-920"/>
-            <shape type="rectangle" x1="1500" y1="-1590" x2="3060" y2="-1310"/>
-        </shape>
-    </place>
-    <place name="birnam-ice-road" music="Spring_1">
-        <properties diplomacy="2"/>
-        <shape type="complex">
-            <shape type="rectangle" x1="4230" y1="-2500" x2="5240" y2="-785"/>
-            <shape type="rectangle" x1="3480" y1="-2500" x2="4230" y2="-1690"/>
-            <shape type="rectangle" x1="2200" y1="-3005" x2="4100" y2="-2500"/>
-            <shape type="rectangle" x1="2200" y1="-3310" x2="2685" y2="-3005"/>
-            <shape type="rectangle" x1="2685" y1="-3310" x2="2991" y2="-3247"/>
-            <shape type="rectangle" x1="2991" y1="-3310" x2="4100" y2="-3005"/>
-            <shape type="rectangle" x1="2200" y1="-2500" x2="3480" y2="-2040"/>
-        </shape>
-    </place>
-    <place name="birnam-hills-noirefontaine" music="Spring_1">
-        <properties diplomacy="2"/>
-        <shape type="complex">
-            <shape type="rectangle" x1="770" y1="-2170" x2="1510" y2="-2040"/>
-            <shape type="rectangle" x1="-100" y1="-2530" x2="770" y2="-2040"/>
-            <shape type="rectangle" x1="160" y1="-6050" x2="770" y2="-2530"/>
-            <shape type="rectangle" x1="85" y1="-6050" x2="160" y2="-5360"/>
-            <shape type="rectangle" x1="770" y1="-6050" x2="1790" y2="-5210"/>
-            <shape type="triangle" x1="770" y1="-3130" x2="770" y2="-2170" x3="1510" y3="-2170"/>
-            <shape type="triangle" x1="770" y1="-5210" x2="770" y2="-4820" x3="1100" y3="-5210"/>
-        </shape>
-    </place>
-    <place name="birnam-ancient-lands" music="Spring_1">
-        <properties diplomacy="2"/>
-        <shape type="complex">
-            <shape type="rectangle" x1="2200" y1="-3793" x2="4795" y2="-3630"/>
-            <shape type="rectangle" x1="2672" y1="-4900" x2="4795" y2="-3793"/>
-            <shape type="rectangle" x1="2280" y1="-4900" x2="2672" y2="-4757"/>
-            <shape type="rectangle" x1="4795" y1="-4900" x2="5640.32" y2="-3963.9"/>
-            <shape type="rectangle" x1="2280" y1="-5910" x2="6400" y2="-4900"/>
-            <shape type="triangle" x1="4795" y1="-3963.9" x2="4795" y2="-3630" x3="5640.32" y3="-3963.9"/>
-            <shape type="triangle" x1="5640.32" y1="-4900" x2="5640.32" y2="-3963.9" x3="6400" y3="-4900"/>
-        </shape>
-    </place>
-    <items tag="Uniques">
+    <items tag="GowersCamp-Items">
         <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
-        <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
-    </items>
-    <items tag="SharedTriggers">
-        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
-            <shape type="complex">
-                <shape type="rectangle" x1="0" y1="860" x2="50" y2="1460"/>
-                <shape type="rectangle" x1="50" y1="1410" x2="1970" y2="1460"/>
-                <shape type="rectangle" xCenter="2800" yCenter="600" xSize="50" ySize="2400" angle="0.7854"/>
-                <shape type="rectangle" x1="3615" y1="-805" x2="3665" y2="-230"/>
-                <shape type="rectangle" x1="-460" y1="-970" x2="-410" y2="-343"/>
-                <shape type="rectangle" x1="-410" y1="-970" x2="990" y2="-920"/>
-                <shape type="rectangle" x1="940" y1="-1360" x2="990" y2="-970"/>
-                <shape type="rectangle" x1="990" y1="-1360" x2="1500" y2="-1310"/>
-                <shape type="rectangle" x1="1450" y1="-1640" x2="1500" y2="-1360"/>
-                <shape type="rectangle" x1="1500" y1="-1640" x2="3110" y2="-1590"/>
-                <shape type="rectangle" x1="3060" y1="-1590" x2="3110" y2="-1350"/>
-                <shape type="rectangle" x1="3110" y1="-1400" x2="3665" y2="-1350"/>
-                <shape type="rectangle" x1="3615" y1="-1350" x2="3665" y2="-975"/>
-            </shape>
-        </trigger>
-        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
-            <shape type="complex">
-                <shape type="rectangle" x1="4230" y1="-785" x2="5290" y2="-735"/>
-                <shape type="rectangle" x1="5240" y1="-2550" x2="5290" y2="-785"/>
-                <shape type="rectangle" x1="4100" y1="-2550" x2="5240" y2="-2500"/>
-                <shape type="rectangle" x1="4100" y1="-3360" x2="4150" y2="-2550"/>
-                <shape type="rectangle" x1="2640" y1="-3360" x2="4100" y2="-3310"/>
-                <shape type="rectangle" x1="4180" y1="-1690" x2="4230" y2="-980"/>
-                <shape type="rectangle" x1="3430" y1="-1690" x2="4180" y2="-1630"/>
-                <shape type="rectangle" x1="3430" y1="-2040" x2="3480" y2="-1690"/>
-                <shape type="rectangle" x1="-150" y1="-2040" x2="3430" y2="-1990"/>
-                <shape type="rectangle" x1="-150" y1="-2580" x2="-100" y2="-2040"/>
-                <shape type="rectangle" x1="-100" y1="-2580" x2="160" y2="-2530"/>
-                <shape type="rectangle" x1="110" y1="-5360" x2="160" y2="-2580"/>
-                <shape type="rectangle" x1="35" y1="-5360" x2="110" y2="-5310"/>
-                <shape type="rectangle" x1="35" y1="-6100" x2="85" y2="-5360"/>
-                <shape type="rectangle" x1="85" y1="-6100" x2="1840" y2="-6050"/>
-                <shape type="rectangle" x1="1790" y1="-6050" x2="1840" y2="-5425"/>
-                <shape type="rectangle" x1="1790" y1="-5425" x2="2280" y2="-5375"/>
-                <shape type="rectangle" x1="2230" y1="-5960" x2="2280" y2="-5425"/>
-                <shape type="rectangle" x1="2280" y1="-5960" x2="6450" y2="-5910"/>
-                <shape type="rectangle" x1="6400" y1="-5910" x2="6450" y2="-4900"/>
-                <shape type="triangle" x1="6400" y1="-4900" x2="5670" y2="-3923.66" x3="6450" y3="-4900"/> <!--poly11-->
-                <shape type="triangle" x1="6400" y1="-4900" x2="5640.32" y2="-3960.9" x3="5670" y3="-3923.66"/> <!--poly12-->
-                <shape type="triangle" x1="5640.32" y1="-3960.9" x2="5670" y2="-3923.66" x3="4795" y3="-3580"/> <!--poly13-->
-                <shape type="triangle" x1="4795" y1="-3630" x2="4795" y2="-3580" x3="5640.32" y3="-3960.9"/> <!--poly14-->
-                <shape type="rectangle" x1="2640" y1="-3630" x2="2690" y2="-3360"/>
-                <shape type="rectangle" x1="2690" y1="-3630" x2="4795" y2="-3580"/>
-            </shape>
-        </trigger>
-        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
-            <shape type="complex">
-                <shape type="rectangle" x1="2150" y1="-3843" x2="2200" y2="-2220"/>
-                <shape type="rectangle" x1="1560" y1="-2220" x2="2200" y2="-2170"/>
-                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2170" x3="1560" y3="-2220"/> <!--poly40-->
-                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2220" x3="770" y3="-3130"/> <!--poly41-->
-                <shape type="triangle" x1="1560" y1="-2220" x2="820" y2="-3180" x3="770" y3="-3130"/> <!--poly42-->
-                <shape type="triangle" x1="770" y1="-3130" x2="820" y2="-3180" x3="770" y3="-3180"/> <!--poly43-->
-                <shape type="rectangle" x1="770" y1="-4770" x2="820" y2="-3180"/>
-                <shape type="triangle" x1="770" y1="-4770" x2="820" y2="-4770" x3="770" y3="-4820"/> <!--poly46-->
-                <shape type="triangle" x1="770" y1="-4820" x2="820" y2="-4770" x3="1150" y3="-5160"/> <!--poly47-->
-                <shape type="triangle" x1="770" y1="-4820" x2="1150" y2="-5160" x3="1100" y3="-5210"/> <!--poly48-->
-                <shape type="triangle" x1="1100" y1="-5210" x2="1150" y2="-5160" x3="1150" y3="-5210"/> <!--poly49-->
-                <shape type="rectangle" x1="1150" y1="-5210" x2="2280" y2="-5160"/>
-                <shape type="rectangle" x1="2230" y1="-5160" x2="2280" y2="-4730"/>
-            </shape>
-        </trigger>
-        <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
-            <shape type="rectangle" xSize="128" ySize="10"/>
-        </trigger>
-        <trigger script="shared_trigger/door.lua" x="11643" y="-2645" data="2">
-            <shape type="rectangle" xSize="100" ySize="10"/>
-        </trigger>
-        <trigger script="shared_trigger/door.lua" x="366" y="1" data="2">
-            <shape type="rectangle" xSize="1" ySize="100"/>
-        </trigger>
-        <trigger script="shared_trigger/heal.lua" x="2219" y="-4185" data="none">
-            <shape type="circle" radius="38"/>
-        </trigger>
-        <trigger script="shared_trigger/heal.lua" x="6984" y="-2896" data="none">
-            <shape type="circle" radius="38"/>
-        </trigger>
-        <trigger script="shared_trigger/heal.lua" x="2845" y="-2827" data="none">
-            <shape type="circle" radius="38"/>
-        </trigger>
-        <trigger script="shared_trigger/heal.lua" x="11630" y="-2293" data="none">
-            <shape type="circle" radius="38"/>
-        </trigger>
-        <trigger script="shared_trigger/heal.lua" x="-161" y="58" data="none">
-            <shape type="circle" radius="38"/>
-        </trigger>
-    </items>
-    <items tag="GowersCamp-TheGladeOfTheSaints-InertItems">
-        <inertItem design="tree08" x="3556" y="-1859"/>
-        <inertItem design="wall01-Sx" x="3632" y="-998"/>
-        <inertItem design="wall01-Sx" x="4272" y="-998"/>
-        <inertItem design="wall01-EN" x="3640" y="-958"/>
-        <inertItem design="wall01-NW" x="4264" y="-958"/>
-        <inertItem design="wall01-EW" x="3952" y="-954">
-            <shape type="rectangle" xSize="576" ySize="6"/>
-            <properties xExtent="9"/>
-        </inertItem>
-        <inertItem design="tree12" x="4350" y="-950"/>
-        <inertItem design="tree12" x="4420" y="-950"/>
-        <inertItem design="tree12" x="4490" y="-950"/>
-        <inertItem design="wall01-ES" x="3640" y="-810"/>
-        <inertItem design="wall01-EW" x="3952" y="-810">
-            <shape type="rectangle" xSize="576" ySize="6"/>
-            <properties xExtent="9"/>
-        </inertItem>
-        <inertItem design="wall01-SW" x="4264" y="-810"/>
-        <inertItem design="wall01-Nx" x="3632" y="-766"/>
-        <inertItem design="wall01-Nx" x="4272" y="-766"/>
-        <inertItem design="wall02-ES" x="-508" y="-318"/>
-        <inertItem design="wall02-EW" x="-88" y="-318">
-            <shape type="rectangle" xSize="768" ySize="6"/>
-            <properties xExtent="6"/>
-        </inertItem>
-        <inertItem design="wall02-SW" x="338" y="-318"/>
-        <inertItem design="wall02-NS" x="-536" y="-235"/>
-        <inertItem design="wall02-NS" x="360" y="-235"/>
-        <inertItem design="tree04" x="230" y="-218"/>
-        <inertItem design="building01" x="-354" y="-191"/>
-        <inertItem design="tree05" x="14" y="-188"/>
-        <inertItem design="wall02-NW" x="-558" y="-144"/>
-        <inertItem design="wall02-NS" x="360" y="-139"/>
-        <inertItem design="wall02-ES" x="-636" y="-126"/>
-        <inertItem design="tree04" x="-481" y="-88"/>
-        <inertItem design="wall02-Nx" x="360" y="-76"/>
-        <inertItem design="tree04" x="-536" y="-63"/>
-        <inertItem design="tree04" x="-577" y="-15"/>
-        <inertItem design="tree11" x="-390" y="13"/>
-        <inertItem design="tree13" x="-229" y="45"/>
-        <inertItem design="wall02-Sx" x="360" y="63"/>
-        <inertItem design="tree13" x="-261" y="64"/>
-        <inertItem design="tree13" x="-222" y="82"/>
-        <inertItem design="wall02-NS" x="-664" y="101">
-            <shape type="rectangle" xSize="6" ySize="384"/>
-            <properties yExtent="4"/>
-        </inertItem>
-        <inertItem design="tree14" x="-184" y="104"/>
-        <inertItem design="tree04" x="-275" y="114"/>
-        <inertItem design="tree04" x="-247" y="143"/>
-        <inertItem design="wall02-NS" x="360" y="149"/>
-        <inertItem design="tree04" x="-212" y="166"/>
-        <inertItem design="tree10" x="-399" y="167"/>
-        <inertItem design="tree08" x="-544" y="171"/>
-        <inertItem design="tree04" x="-167" y="179"/>
-        <inertItem design="tree04" x="4" y="193"/>
-        <inertItem design="wall02-NS" x="360" y="245"/>
-        <inertItem design="tree12" x="-378" y="331"/>
-        <inertItem design="wall02-NW" x="338" y="336"/>
-        <inertItem design="wall02-EN" x="-636" y="336"/>
-        <inertItem design="tree12" x="-345" y="352"/>
-        <inertItem design="wall02-SW" x="-558" y="354"/>
-        <inertItem design="wall02-ES" x="260" y="354"/>
-        <inertItem design="tree09" x="-208" y="448"/>
-        <inertItem design="tree08" x="-345" y="537"/>
-        <inertItem design="wall02-NS" x="-536" y="581">
-            <shape type="rectangle" xSize="6" ySize="384"/>
-            <properties yExtent="4"/>
-        </inertItem>
-        <inertItem design="wall02-NS" x="232" y="581">
-            <shape type="rectangle" xSize="6" ySize="384"/>
-            <properties yExtent="4"/>
-        </inertItem>
-        <inertItem design="tree06" x="-104" y="585"/>
-        <inertItem design="tree06" x="-39" y="585"/>
-        <inertItem design="tree04" x="-289" y="680"/>
-        <inertItem design="wall02-NW" x="210" y="816"/>
-        <inertItem design="wall02-EN" x="-508" y="816"/>
-        <inertItem design="wall02-EW" x="-152" y="834">
-            <shape type="rectangle" xSize="640" ySize="6"/>
-            <properties xExtent="5"/>
-        </inertItem>
         <individual species="ballista" x="237" y="-122"/>
         <individual species="ballista" x="238" y="122"/>
         <individual species="ballista" x="237" y="251"/>
         <individual species="ballista" x="104" y="484"/>
         <individual species="ballista" x="104" y="643"/>
         <individual species="fountainOfLife_animation" x="-161" y="53"/>
+        <trigger script="shared_trigger/heal.lua" x="-161" y="58" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="360" y="1" data="2">
+            <shape type="rectangle" xSize="10" ySize="100"/>
+        </trigger>
         <storageBox design="21001" x="-232" y="-202">
             <shape type="circle" radius="15"/>
             <properties imageContainer="paysage" name="611"/>
@@ -285,8 +61,170 @@
                 <addObject slot="storagebox01" design="healpotion" quality="5"/>
             </inventory>
         </storageBox>
+        <inertItem design="wall02-ES" x="-508" y="-318"/>
+        <inertItem design="wall02-EW" x="-88" y="-318">
+            <shape type="rectangle" xSize="768" ySize="6"/>
+            <properties xExtent="6"/>
+        </inertItem>
+        <inertItem design="wall02-SW" x="338" y="-318"/>
+        <inertItem design="wall02-NS" x="-536" y="-235"/>
+        <inertItem design="wall02-NS" x="360" y="-235"/>
+        <inertItem design="wall02-NW" x="-558" y="-144"/>
+        <inertItem design="wall02-NS" x="360" y="-139"/>
+        <inertItem design="wall02-ES" x="-636" y="-126"/>
+        <inertItem design="wall02-Nx" x="360" y="-76"/>
+        <inertItem design="wall02-Sx" x="360" y="63"/>
+        <inertItem design="wall02-NS" x="-664" y="101">
+            <shape type="rectangle" xSize="6" ySize="384"/>
+            <properties yExtent="4"/>
+        </inertItem>
+        <inertItem design="wall02-NS" x="360" y="149"/>
+        <inertItem design="wall02-NS" x="360" y="245"/>
+        <inertItem design="wall02-NW" x="338" y="336"/>
+        <inertItem design="wall02-EN" x="-636" y="336"/>
+        <inertItem design="wall02-SW" x="-558" y="354"/>
+        <inertItem design="wall02-ES" x="260" y="354"/>
+        <inertItem design="wall02-NS" x="-536" y="581">
+            <shape type="rectangle" xSize="6" ySize="384"/>
+            <properties yExtent="4"/>
+        </inertItem>
+        <inertItem design="wall02-NS" x="232" y="581">
+            <shape type="rectangle" xSize="6" ySize="384"/>
+            <properties yExtent="4"/>
+        </inertItem>
+        <inertItem design="wall02-NW" x="210" y="816"/>
+        <inertItem design="wall02-EN" x="-508" y="816"/>
+        <inertItem design="wall02-EW" x="-152" y="834">
+            <shape type="rectangle" xSize="640" ySize="6"/>
+            <properties xExtent="5"/>
+        </inertItem>
+        <inertItem design="tree04" x="230" y="-218"/>
+        <inertItem design="building01" x="-354" y="-161"/>
+        <inertItem design="tree05" x="14" y="-188"/>
+        <inertItem design="tree04" x="-481" y="-88"/>
+        <inertItem design="tree04" x="-536" y="-63"/>
+        <inertItem design="tree04" x="-577" y="-15"/>
+        <inertItem design="tree11" x="-390" y="13"/>
+        <inertItem design="tree13" x="-229" y="45"/>
+        <inertItem design="tree13" x="-261" y="64"/>
+        <inertItem design="tree13" x="-222" y="82"/>
+        <inertItem design="tree14" x="-184" y="104"/>
+        <inertItem design="tree04" x="-275" y="114"/>
+        <inertItem design="tree04" x="-247" y="143"/>
+        <inertItem design="tree04" x="-212" y="166"/>
+        <inertItem design="tree10" x="-399" y="167"/>
+        <inertItem design="tree08" x="-544" y="171"/>
+        <inertItem design="tree04" x="-167" y="179"/>
+        <inertItem design="tree04" x="4" y="193"/>
+        <inertItem design="tree12" x="-378" y="331"/>
+        <inertItem design="tree12" x="-345" y="352"/>
+        <inertItem design="tree09" x="-208" y="448"/>
+        <inertItem design="tree08" x="-345" y="537"/>
+        <inertItem design="tree06" x="-104" y="585"/>
+        <inertItem design="tree06" x="-39" y="585"/>
+        <inertItem design="tree04" x="-289" y="680"/>
     </items>
-    <items tag="IceRoad-InertItems">
+
+    <!-- The Glade of the Saints -->
+
+    <place name="birnam-glade-saints" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="-410" y1="-920" x2="388" y2="-343"/>
+            <shape type="rectangle" x1="388" y1="-920" x2="1970" y2="379"/>
+            <shape type="rectangle" x1="260" y1="379" x2="1970" y2="866"/>
+            <shape type="rectangle" x1="50" y1="866" x2="1970" y2="1410"/>
+            <shape type="rectangle" x1="1970" y1="-920" x2="3615" y2="-230"/>
+            <shape type="triangle" x1="1970" y1="-230" x2="1970" y2="1410" x3="3615" y3="-230"/>
+            <shape type="rectangle" x1="990" y1="-1310" x2="3060" y2="-920"/>
+            <shape type="rectangle" x1="3060" y1="-1350" x2="3615" y2="-920"/>
+            <shape type="rectangle" x1="1500" y1="-1590" x2="3060" y2="-1310"/>
+        </shape>
+    </place>
+    <items tag="TheGladeOfTheSaints-Items">
+        <inertItem design="wall01-Sx" x="3632" y="-998"/>
+        <inertItem design="wall01-Sx" x="4272" y="-998"/>
+        <inertItem design="wall01-EN" x="3640" y="-958"/>
+        <inertItem design="wall01-NW" x="4264" y="-958"/>
+        <inertItem design="wall01-EW" x="3952" y="-954">
+            <shape type="rectangle" xSize="576" ySize="6"/>
+            <properties xExtent="9"/>
+        </inertItem>
+        <inertItem design="wall01-ES" x="3640" y="-810"/>
+        <inertItem design="wall01-EW" x="3952" y="-810">
+            <shape type="rectangle" xSize="576" ySize="6"/>
+            <properties xExtent="9"/>
+        </inertItem>
+        <inertItem design="wall01-SW" x="4264" y="-810"/>
+        <inertItem design="wall01-Nx" x="3632" y="-766"/>
+        <inertItem design="wall01-Nx" x="4272" y="-766"/>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="0" y1="860" x2="50" y2="1460"/>
+                <shape type="rectangle" x1="50" y1="1410" x2="1970" y2="1460"/>
+                <shape type="rectangle" xCenter="2800" yCenter="600" xSize="50" ySize="2400" angle="0.7854"/>
+                <shape type="rectangle" x1="3615" y1="-805" x2="3665" y2="-230"/>
+                <shape type="rectangle" x1="-460" y1="-970" x2="-410" y2="-343"/>
+                <shape type="rectangle" x1="-410" y1="-970" x2="990" y2="-920"/>
+                <shape type="rectangle" x1="940" y1="-1360" x2="990" y2="-970"/>
+                <shape type="rectangle" x1="990" y1="-1360" x2="1500" y2="-1310"/>
+                <shape type="rectangle" x1="1450" y1="-1640" x2="1500" y2="-1360"/>
+                <shape type="rectangle" x1="1500" y1="-1640" x2="3110" y2="-1590"/>
+                <shape type="rectangle" x1="3060" y1="-1590" x2="3110" y2="-1350"/>
+                <shape type="rectangle" x1="3110" y1="-1400" x2="3665" y2="-1350"/>
+                <shape type="rectangle" x1="3615" y1="-1350" x2="3665" y2="-975"/>
+            </shape>
+        </trigger>
+    </items>
+    <randomZone tag="TheGladeOfTheSaints-Items" place="birnam-glade-saints">
+        <inertItem design="tree01" quantity="8"/>
+        <inertItem design="tree02" quantity="3"/>
+        <inertItem design="tree03" quantity="5"/>
+        <inertItem design="tree04" quantity="13"/>
+        <inertItem design="tree05" quantity="4"/>
+        <inertItem design="tree06" quantity="4"/>
+        <inertItem design="tree08" quantity="16"/>
+        <inertItem design="tree09" quantity="12"/>
+        <inertItem design="tree10" quantity="5"/>
+        <inertItem design="tree13" quantity="6"/>
+        <inertItem design="tree14" quantity="3"/>
+    </randomZone>
+    <randomZone tag="TheGladeOfTheSaints-Warriors" customZone="1">
+        <shape type="rectangle" x1="480" y1="-63" x2="520" y2="92"/>
+        <individual species="warrior1" quantity="4"/>
+    </randomZone>
+    <randomZone tag="TheGladeOfTheSaints-Monsters" place="birnam-glade-saints">
+        <individual species="spider1" quantity="32"/>
+        <individual species="spider2" quantity="2"/>
+        <individual species="orc1" quantity="23"/>
+    </randomZone>
+
+    <!-- The Ice Road -->
+
+    <place name="birnam-ice-road" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="4230" y1="-2500" x2="5240" y2="-785"/>
+            <shape type="rectangle" x1="3480" y1="-2500" x2="4230" y2="-1690"/>
+            <shape type="rectangle" x1="2200" y1="-3005" x2="4100" y2="-2500"/>
+            <shape type="rectangle" x1="2200" y1="-3310" x2="2685" y2="-3005"/>
+            <shape type="rectangle" x1="2685" y1="-3310" x2="2991" y2="-3247"/>
+            <shape type="rectangle" x1="2991" y1="-3310" x2="4100" y2="-3005"/>
+            <shape type="rectangle" x1="2200" y1="-2500" x2="3480" y2="-2040"/>
+        </shape>
+    </place>
+    <place name="birnam-ice-road-refuge" music="Spring_1">
+        <properties diplomacy="1"/>
+        <shape type="rectangle" x1="2735" y1="-3197" x2="2941" y2="-3053"/>
+    </place>
+    <items tag="TheIceRoad-Items">
+        <trigger script="shared_trigger/heal.lua" x="2845" y="-2827" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <inertItem design="tree08" x="3556" y="-1859"/>
+        <inertItem design="tree12" x="4350" y="-950"/>
+        <inertItem design="tree12" x="4420" y="-950"/>
+        <inertItem design="tree12" x="4490" y="-950"/>
         <inertItem design="wall02-EW" x="2838" y="-3222"/>
         <inertItem design="wall02-ES" x="2738" y="-3222"/>
         <inertItem design="wall02-SW" x="2944" y="-3222"/>
@@ -296,8 +234,124 @@
         <inertItem design="wall02-Ex" x="2894" y="-3030"/>
         <inertItem design="wall02-EN" x="2738" y="-3048"/>
         <inertItem design="wall02-NW" x="2944" y="-3048"/>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="4230" y1="-785" x2="5290" y2="-735"/>
+                <shape type="rectangle" x1="5240" y1="-2550" x2="5290" y2="-785"/>
+                <shape type="rectangle" x1="4100" y1="-2550" x2="5240" y2="-2500"/>
+                <shape type="rectangle" x1="4100" y1="-3360" x2="4150" y2="-2550"/>
+                <shape type="rectangle" x1="2640" y1="-3360" x2="4100" y2="-3310"/>
+                <shape type="rectangle" x1="2150" y1="-3843" x2="2200" y2="-2220"/>
+                <shape type="rectangle" x1="4180" y1="-1690" x2="4230" y2="-980"/>
+                <shape type="rectangle" x1="3430" y1="-1690" x2="4180" y2="-1630"/>
+                <shape type="rectangle" x1="3430" y1="-2040" x2="3480" y2="-1690"/>
+                <shape type="rectangle" x1="1510" y1="-2040" x2="3430" y2="-1990"/>
+                <shape type="rectangle" x1="1560" y1="-2220" x2="2200" y2="-2170"/>
+                <shape type="rectangle" x1="1790" y1="-6050" x2="1840" y2="-5425"/>
+                <shape type="rectangle" x1="1790" y1="-5425" x2="2280" y2="-5375"/>
+                <shape type="rectangle" x1="2640" y1="-3630" x2="2690" y2="-3360"/>
+            </shape>
+        </trigger>
     </items>
-    <randomZone tag="Outside-Part1" customZone="1" ignoreCollision="1">
+    <randomZone tag="TheIceRoad-Monsters" place="birnam-ice-road">
+        <individual species="zombie1" quantity="16"/>
+        <individual species="spider2" quantity="11"/>
+        <individual species="spider1" quantity="8"/>
+    </randomZone>
+
+    <!-- The hills of Noirefontaine -->
+
+    <place name="birnam-hills-noirefontaine" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="770" y1="-2170" x2="1510" y2="-2040"/>
+            <shape type="rectangle" x1="-100" y1="-2530" x2="770" y2="-2040"/>
+            <shape type="rectangle" x1="160" y1="-6050" x2="770" y2="-2530"/>
+            <shape type="rectangle" x1="85" y1="-6050" x2="160" y2="-5360"/>
+            <shape type="rectangle" x1="770" y1="-6050" x2="1790" y2="-5210"/>
+            <shape type="triangle" x1="770" y1="-3130" x2="770" y2="-2170" x3="1510" y3="-2170"/>
+            <shape type="triangle" x1="770" y1="-5210" x2="770" y2="-4820" x3="1100" y3="-5210"/>
+        </shape>
+    </place>
+    <items tag="TheHillsOfNoirefontaine-Items">
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="-150" y1="-2040" x2="1510" y2="-1990"/>
+                <shape type="rectangle" x1="-150" y1="-2580" x2="-100" y2="-2040"/>
+                <shape type="rectangle" x1="-100" y1="-2580" x2="160" y2="-2530"/>
+                <shape type="rectangle" x1="110" y1="-5360" x2="160" y2="-2580"/>
+                <shape type="rectangle" x1="35" y1="-5360" x2="110" y2="-5310"/>
+                <shape type="rectangle" x1="35" y1="-6100" x2="85" y2="-5360"/>
+                <shape type="rectangle" x1="85" y1="-6100" x2="1840" y2="-6050"/>
+                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2170" x3="1560" y3="-2220"/>
+                <shape type="triangle" x1="1510" y1="-2170" x2="1560" y2="-2220" x3="770" y3="-3130"/>
+                <shape type="triangle" x1="1560" y1="-2220" x2="820" y2="-3180" x3="770" y3="-3130"/>
+                <shape type="triangle" x1="770" y1="-3130" x2="820" y2="-3180" x3="770" y3="-3180"/>
+                <shape type="rectangle" x1="770" y1="-4770" x2="820" y2="-3180"/>
+                <shape type="triangle" x1="770" y1="-4770" x2="820" y2="-4770" x3="770" y3="-4820"/>
+                <shape type="triangle" x1="770" y1="-4820" x2="820" y2="-4770" x3="1150" y3="-5160"/>
+                <shape type="triangle" x1="770" y1="-4820" x2="1150" y2="-5160" x3="1100" y3="-5210"/>
+                <shape type="triangle" x1="1100" y1="-5210" x2="1150" y2="-5160" x3="1150" y3="-5210"/>
+                <shape type="rectangle" x1="1150" y1="-5210" x2="2280" y2="-5160"/>
+            </shape>
+        </trigger>
+    </items>
+
+    <!-- The Ancient Lands -->
+
+    <place name="birnam-ancient-lands" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="2200" y1="-3793" x2="4795" y2="-3630"/>
+            <shape type="rectangle" x1="2672" y1="-4900" x2="4795" y2="-3793"/>
+            <shape type="rectangle" x1="2280" y1="-4900" x2="2672" y2="-4757"/>
+            <shape type="rectangle" x1="4795" y1="-4900" x2="5640.32" y2="-3963.9"/>
+            <shape type="rectangle" x1="2280" y1="-5910" x2="6400" y2="-4900"/>
+            <shape type="triangle" x1="4795" y1="-3963.9" x2="4795" y2="-3630" x3="5640.32" y3="-3963.9"/>
+            <shape type="triangle" x1="5640.32" y1="-4900" x2="5640.32" y2="-3963.9" x3="6400" y3="-4900"/>
+        </shape>
+    </place>
+    <items tag="TheAncientLands-Items">
+        <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
+            <shape type="rectangle" xSize="128" ySize="10"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="2230" y1="-5160" x2="2280" y2="-4730"/>
+                <shape type="rectangle" x1="2230" y1="-5960" x2="2280" y2="-5425"/>
+                <shape type="rectangle" x1="2280" y1="-5960" x2="6450" y2="-5910"/>
+                <shape type="rectangle" x1="6400" y1="-5910" x2="6450" y2="-4900"/>
+                <shape type="triangle" x1="6400" y1="-4900" x2="5670" y2="-3923.66" x3="6450" y3="-4900"/>
+                <shape type="triangle" x1="6400" y1="-4900" x2="5640.32" y2="-3960.9" x3="5670" y3="-3923.66"/>
+                <shape type="triangle" x1="5640.32" y1="-3960.9" x2="5670" y2="-3923.66" x3="4795" y3="-3580"/>
+                <shape type="triangle" x1="4795" y1="-3630" x2="4795" y2="-3580" x3="5640.32" y3="-3960.9"/>
+                <shape type="rectangle" x1="2690" y1="-3630" x2="4795" y2="-3580"/>
+            </shape>
+        </trigger>
+    </items>
+    <randomZone tag="TheAncientLands-Monsters" place="birnam-ancient-lands">
+        <individual species="zombie1" quantity="12"/>
+        <individual species="spider2" quantity="14"/>
+        <individual species="orc1" quantity="18"/>
+        <individual species="orc2" quantity="23"/>
+    </randomZone>
+
+    <!-- Fluellen's Camp -->
+
+    <place name="birnam-camp-fluellen" music="Spring_1">
+        <properties diplomacy="1"/>
+        <shape type="rectangle" x1="1648" y1="-4707" x2="2622" y2="-3843"/>
+    </place>
+    <items tag="FluellensCamp-Items">
+        <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
+        <trigger script="shared_trigger/heal.lua" x="2219" y="-4185" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+    </items>
+
+    <!-- Outside -->
+
+    <randomZone tag="Outside" customZone="1" ignoreCollision="1">
         <shape type="complex">
             <shape type="rectangle" x1="-900" y1="-1990" x2="-460" y2="-400"/>
             <shape type="rectangle" x1="-460" y1="-1990" x2="940" y2="-970"/>
@@ -317,7 +371,7 @@
         <inertItem design="tree02" density="110"/>
         <inertItem design="tree03" density="110"/>
     </randomZone>
-    <randomZone tag="Outside-Part2" customZone="1" ignoreCollision="1">
+    <randomZone tag="Outside" customZone="1" ignoreCollision="1">
         <shape type="complex">
             <shape type="triangle" x1="6450" y1="-3580" x2="6450" y2="-4230" x3="4795" y3="-3580"/> <!--poly23-->
             <shape type="rectangle" x1="2690" y1="-3580" x2="4590" y2="-3360"/> <!--poly24-->
@@ -333,7 +387,7 @@
         <inertItem design="tree02" density="110"/>
         <inertItem design="tree03" density="110"/>
     </randomZone>
-    <randomZone tag="Outside-Part2" customZone="1" ignoreCollision="1">
+    <randomZone tag="Outside" customZone="1" ignoreCollision="1">
         <shape type="complex">
             <shape type="rectangle" x1="1840" y1="-6500" x2="2230" y2="-5425"/> <!--poly1-->
             <shape type="rectangle" x1="2230" y1="-6360" x2="6450" y2="-5960"/> <!--poly2-->
@@ -345,7 +399,7 @@
         <inertItem design="tree02" density="110"/>
         <inertItem design="tree03" density="110"/>
     </randomZone>
-    <randomZone tag="Outside-Part2" customZone="1" ignoreCollision="1">
+    <randomZone tag="Outside" customZone="1" ignoreCollision="1">
         <shape type="complex">
             <shape type="rectangle" x1="-750" y1="-2830" x2="-490" y2="-2580"/> <!--poly4-->
             <shape type="rectangle" x1="-750" y1="-2580" x2="-150" y2="-1990"/> <!--poly6-->
@@ -361,40 +415,4 @@
         <inertItem design="tree02" density="110"/>
         <inertItem design="tree03" density="110"/>
     </randomZone>
-    <randomZone tag="GowersCamp-TheGladeOfTheSaints-InertItems" place="birnam-glade-saints">
-        <inertItem design="tree01" quantity="8"/>
-        <inertItem design="tree02" quantity="3"/>
-        <inertItem design="tree03" quantity="5"/>
-        <inertItem design="tree04" quantity="13"/>
-        <inertItem design="tree05" quantity="4"/>
-        <inertItem design="tree06" quantity="4"/>
-        <inertItem design="tree08" quantity="16"/>
-        <inertItem design="tree09" quantity="12"/>
-        <inertItem design="tree10" quantity="5"/>
-        <inertItem design="tree13" quantity="6"/>
-        <inertItem design="tree14" quantity="3"/>
-    </randomZone>
-    <randomZone tag="TheGladeOfTheSaints-Monsters" place="birnam-glade-saints">
-        <individual species="spider1" quantity="32"/>
-        <individual species="spider2" quantity="2"/>
-        <individual species="orc1" quantity="23"/>
-    </randomZone>
-    <randomZone tag="Warriors-GladeSaints" customZone="1">
-        <shape type="rectangle" x1="480" y1="-63" x2="520" y2="92"/>
-        <individual species="warrior1" quantity="4"/>
-    </randomZone>
-    <randomZone tag="IceRoad-Monsters" place="birnam-ice-road">
-        <individual species="zombie1" quantity="16"/>
-        <individual species="spider2" quantity="11"/>
-        <individual species="spider1" quantity="8"/>
-    </randomZone>
-    <randomZone tag="AncientLands-Monsters" place="birnam-ancient-lands">
-        <individual species="zombie1" quantity="12"/>
-        <individual species="spider2" quantity="14"/>
-        <individual species="orc1" quantity="18"/>
-        <individual species="orc2" quantity="23"/>
-    </randomZone>
-    <items tag="Obstacle-GladeSaints-IceRoad">
-        <inertItem design="30205" x="3752" y="-881"/>
-    </items>
 </world>

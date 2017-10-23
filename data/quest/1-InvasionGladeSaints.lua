@@ -35,9 +35,7 @@ function questBegin(addNewElements)
 		gower_ptr  = getElement("gower")
 
 		if addNewElements == "true" then
-            loadWorld("birnam", "carte/birnam.xml", "Obstacle-GladeSaints-IceRoad")
-            loadWorld("birnam", "carte/birnam.xml", "TheGladeOfTheSaints-Monsters")
-            loadWorld("birnam", "carte/birnam.xml", "Warriors-GladeSaints")
+            loadWorld("birnam", "quest/birnam/FreeIceRoad.xml", "Obstacle-GladeSaints-IceRoad")
 			pushDialog("1-InvasionGlade-Intro1")
 			addJournalEntry("1-InvasionGlade-Intro1")
 		end

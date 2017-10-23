@@ -66,7 +66,7 @@ function questManage()
 
 	if questStep == "1" then
 		if interact(player_ptr, checkPoint1) or interact(player_ptr, checkPoint2) then
-			deleteList("Warriors-GladeSaints")
+            deleteList("TheGladeOfTheSaints-Warriors")
 			questStep = "2"
 			pushDialog("1-RescueFluellensCamp-Reminder")
 		end

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
     <loadDataFile file="individu/misc.xml"/>
+    <items tag="Obstacle-GladeSaints-IceRoad">
+        <inertItem design="30205" x="3752" y="-881"/>
+    </items>
     <items tag="FreeIceRoad-Reward">
         <storageBox design="21002" x="-81" y="-169">
             <shape type="circle" radius="15"/>
