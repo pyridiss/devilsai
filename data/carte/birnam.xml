@@ -222,10 +222,10 @@
             <shape type="circle" radius="38"/>
         </trigger>
         <individual species="fountainOfLife_animation" x="2845" y="-2827"/>
-        <inertItem design="tree08" x="3556" y="-1859"/>
         <inertItem design="tree12" x="4350" y="-950"/>
         <inertItem design="tree12" x="4420" y="-950"/>
         <inertItem design="tree12" x="4490" y="-950"/>
+        <inertItem design="building01" x="2850" y="-3120"/>
         <inertItem design="wall02-EW" x="2838" y="-3222"/>
         <inertItem design="wall02-ES" x="2738" y="-3222"/>
         <inertItem design="wall02-SW" x="2944" y="-3222"/>
@@ -235,6 +235,31 @@
         <inertItem design="wall02-Ex" x="2894" y="-3030"/>
         <inertItem design="wall02-EN" x="2738" y="-3048"/>
         <inertItem design="wall02-NW" x="2944" y="-3048"/>
+        <inertItem design="tree12" x="3012" y="-3231"/>
+        <inertItem design="tree12" x="3024" y="-3184"/>
+        <inertItem design="tree12" x="3007" y="-3138"/>
+        <inertItem design="tree12" x="3012" y="-3093"/>
+        <inertItem design="tree12" x="3030" y="-3050"/>
+        <inertItem design="tree12" x="3006" y="-3004"/>
+        <inertItem design="tree16" x="2717" y="-2988"/>
+        <inertItem design="tree12" x="2949" y="-2983"/>
+        <inertItem design="tree12" x="2763" y="-2800"/>
+        <inertItem design="tree04" x="2928" y="-2791"/>
+        <inertItem design="tree04" x="2885" y="-2746"/>
+        <inertItem design="tree12" x="4555" y="-2204"/>
+        <inertItem design="tree12" x="4674" y="-2186"/>
+        <inertItem design="tree12" x="4455" y="-2173"/>
+        <inertItem design="tree12" x="4370" y="-2139"/>
+        <inertItem design="tree12" x="4743" y="-2127"/>
+        <inertItem design="tree12" x="4775" y="-2044"/>
+        <inertItem design="30200" x="4531" y="-1999"/>
+        <inertItem design="30201" x="4465" y="-1960"/>
+        <inertItem design="30202" x="4572" y="-1943"/>
+        <inertItem design="tree12" x="4781" y="-1922"/>
+        <inertItem design="30203" x="4512" y="-1909"/>
+        <inertItem design="tree12" x="4747" y="-1829"/>
+        <inertItem design="tree12" x="4701" y="-994"/>
+        <inertItem design="tree12" x="4703" y="-934"/>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="4230" y1="-785" x2="5290" y2="-735"/>
@@ -275,6 +300,16 @@
         </shape>
     </place>
     <items tag="TheHillsOfNoirefontaine-Items">
+        <inertItem design="30204" x="-25" y="-2474"/>
+        <inertItem design="building01" x="1570" y="-5841"/>
+        <inertItem design="tree11" x="1605" y="-5956"/>
+        <inertItem design="tree11" x="1566" y="-5955"/>
+        <inertItem design="tree11" x="1528" y="-5954"/>
+        <inertItem design="tree11" x="1493" y="-5952"/>
+        <inertItem design="tree04" x="1411" y="-5843"/>
+        <inertItem design="tree16" x="1622" y="-5696"/>
+        <inertItem design="tree09" x="1578" y="-5680"/>
+        <inertItem design="tree10" x="1527" y="-5670"/>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="-150" y1="-2040" x2="1510" y2="-1990"/>
@@ -313,6 +348,10 @@
         </shape>
     </place>
     <items tag="TheAncientLands-Items">
+        <inertItem design="tree12" x="2562" y="-3796"/>
+        <inertItem design="tree12" x="2498" y="-3773"/>
+        <inertItem design="tree12" x="2450" y="-3732"/>
+        <inertItem design="tree12" x="2415" y="-3678"/>
         <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
             <shape type="rectangle" xSize="128" ySize="10"/>
         </trigger>
