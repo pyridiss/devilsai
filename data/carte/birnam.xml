@@ -260,6 +260,9 @@
         <inertItem design="tree12" x="4747" y="-1829"/>
         <inertItem design="tree12" x="4701" y="-994"/>
         <inertItem design="tree12" x="4703" y="-934"/>
+        <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
+            <shape type="rectangle" xSize="128" ySize="10"/>
+        </trigger>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="4230" y1="-785" x2="5290" y2="-735"/>
@@ -352,9 +355,6 @@
         <inertItem design="tree12" x="2498" y="-3773"/>
         <inertItem design="tree12" x="2450" y="-3732"/>
         <inertItem design="tree12" x="2415" y="-3678"/>
-        <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
-            <shape type="rectangle" xSize="128" ySize="10"/>
-        </trigger>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="2230" y1="-5160" x2="2280" y2="-4730"/>
