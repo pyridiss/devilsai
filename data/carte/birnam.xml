@@ -391,6 +391,29 @@
             <shape type="circle" radius="38"/>
         </trigger>
         <individual species="fountainOfLife_animation" x="2219" y="-4185"/>
+        <inertItem design="tree08" x="2088" y="-4625"/>
+        <inertItem design="tree08" x="2030" y="-4602"/>
+        <inertItem design="tree04" x="2368" y="-4593"/>
+        <inertItem design="tree03" x="1937" y="-4588"/>
+        <inertItem design="tree04" x="2422" y="-4580"/>
+        <inertItem design="tree04" x="2384" y="-4543"/>
+        <inertItem design="tree08" x="1953" y="-4494"/>
+        <inertItem design="20002" x="2535" y="-4455"/>
+        <inertItem design="tree08" x="1937" y="-4430"/>
+        <inertItem design="tree02" x="1792" y="-4429"/>
+        <inertItem design="tree15" x="2240" y="-4344"/>
+        <inertItem design="tree15" x="2168" y="-4319"/>
+        <inertItem design="tree15" x="2121" y="-4297"/>
+        <inertItem design="tree12" x="2018" y="-4213"/>
+        <inertItem design="tree02" x="2426" y="-4168"/>
+        <inertItem design="tree12" x="1967" y="-4160"/>
+        <inertItem design="tree13" x="2146" y="-4154"/>
+        <inertItem design="tree13" x="2170" y="-4125"/>
+        <inertItem design="tree13" x="2210" y="-4106"/>
+        <inertItem design="tree02" x="1835" y="-4096"/>
+        <inertItem design="tree12" x="2072" y="-4030"/>
+        <inertItem design="tree12" x="2137" y="-4004"/>
+        <inertItem design="tree08" x="2401" y="-3966"/>
         <storageBox design="21001" x="1968" y="-4362">
             <shape type="circle" radius="15"/>
             <properties imageContainer="paysage" name="611"/>
