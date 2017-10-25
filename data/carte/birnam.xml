@@ -334,6 +334,22 @@
         <inertItem design="tree16" x="1622" y="-5696"/>
         <inertItem design="tree09" x="1578" y="-5680"/>
         <inertItem design="tree10" x="1527" y="-5670"/>
+        <inertItem design="wall01-Sx" x="1776" y="-5418"/>
+        <inertItem design="wall01-Sx" x="2288" y="-5418"/>
+        <inertItem design="wall01-EN" x="1784" y="-5378"/>
+        <inertItem design="wall01-EW" x="2032" y="-5374">
+            <shape type="rectangle" xSize="448" ySize="6"/>
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall01-NW" x="2280" y="-5378"/>
+        <inertItem design="wall01-EW" x="2032" y="-5230">
+            <shape type="rectangle" xSize="448" ySize="6"/>
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall01-SW" x="2280" y="-5230"/>
+        <inertItem design="wall01-ES" x="1784" y="-5230"/>
+        <inertItem design="wall01-Nx" x="1776" y="-5186"/>
+        <inertItem design="wall01-Nx" x="2288" y="-5186"/>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="-150" y1="-2040" x2="1510" y2="-1990"/>
