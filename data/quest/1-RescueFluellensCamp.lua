@@ -46,7 +46,6 @@ function questBegin(addNewElements)
 
 		deleteList("Obstacle-GladeSaints-IceRoad")
 
-		loadList("1-IceRoad-AncientLands-Lands1")
         loadWorld("birnam", "carte/birnam.xml", "IceRoad-InertItems")
 
         loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Obstacle-AncientLands-Birnam")

@@ -305,6 +305,27 @@
     <items tag="TheHillsOfNoirefontaine-Items">
         <inertItem design="30204" x="-25" y="-2474"/>
         <inertItem design="building01" x="1570" y="-5841"/>
+        <inertItem design="wall02-EW" x="351" y="-5918"/>
+        <inertItem design="wall02-EW" x="479" y="-5918"/>
+        <inertItem design="wall02-EW" x="607" y="-5918"/>
+        <inertItem design="wall02-EW" x="735" y="-5918"/>
+        <inertItem design="wall02-EW" x="863" y="-5918"/>
+        <inertItem design="wall02-ES" x="251" y="-5918"/>
+        <inertItem design="wall02-SW" x="969" y="-5918"/>
+        <inertItem design="wall02-NS" x="223" y="-5835"/>
+        <inertItem design="wall02-NS" x="991" y="-5835"/>
+        <inertItem design="wall02-NS" x="223" y="-5739"/>
+        <inertItem design="wall02-NS" x="991" y="-5739"/>
+        <inertItem design="wall02-NS" x="223" y="-5643"/>
+        <inertItem design="wall02-NS" x="991" y="-5643"/>
+        <inertItem design="wall02-EW" x="351" y="-5534"/>
+        <inertItem design="wall02-EW" x="479" y="-5534"/>
+        <inertItem design="wall02-Wx" x="559" y="-5534"/>
+        <inertItem design="wall02-EN" x="251" y="-5552"/>
+        <inertItem design="wall02-Ex" x="663" y="-5534"/>
+        <inertItem design="wall02-EW" x="735" y="-5534"/>
+        <inertItem design="wall02-EW" x="863" y="-5534"/>
+        <inertItem design="wall02-NW" x="969" y="-5552"/>
         <inertItem design="tree11" x="1605" y="-5956"/>
         <inertItem design="tree11" x="1566" y="-5955"/>
         <inertItem design="tree11" x="1528" y="-5954"/>
@@ -391,6 +412,30 @@
             <shape type="circle" radius="38"/>
         </trigger>
         <individual species="fountainOfLife_animation" x="2219" y="-4185"/>
+        <inertItem design="wall02-EW" x="2135" y="-4732">
+            <shape type="rectangle" xSize="896" ySize="6"/>
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall02-SW" x="2625" y="-4732"/>
+        <inertItem design="wall02-ES" x="1651" y="-4732"/>
+        <inertItem design="wall02-NS" x="1623" y="-4313">
+            <shape type="rectangle" xSize="6" ySize="768"/>
+            <properties yExtent="8"/>
+        </inertItem>
+        <inertItem design="wall02-NS" x="2647" y="-4649"/>
+        <inertItem design="wall02-NS" x="2647" y="-4553"/>
+        <inertItem design="wall02-NS" x="2647" y="-4457"/>
+        <inertItem design="wall02-Nx" x="2647" y="-4394"/>
+        <inertItem design="wall02-Sx" x="2647" y="-4255"/>
+        <inertItem design="wall02-NS" x="2647" y="-4169"/>
+        <inertItem design="wall02-NS" x="2647" y="-4073"/>
+        <inertItem design="wall02-NS" x="2647" y="-3977"/>
+        <inertItem design="wall02-EW" x="2135" y="-3868">
+            <shape type="rectangle" xSize="896" ySize="6"/>
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall02-NW" x="2625" y="-3886"/>
+        <inertItem design="wall02-EN" x="1651" y="-3886"/>
         <inertItem design="tree08" x="2088" y="-4625"/>
         <inertItem design="tree08" x="2030" y="-4602"/>
         <inertItem design="tree04" x="2368" y="-4593"/>
