@@ -339,15 +339,6 @@ int LUA_interact(lua_State* L)
 	return 1;
 }
 
-int LUA_loadList(lua_State* L)
-{
-    MESSAGE("LUA_loadList() called", LUA)
-
-	string idList = lua_tostring(L, 1);
-	Load_Carte(idList, TYPE_LISTE);
-	return 0;
-}
-
 int LUA_loadWorld(lua_State* L)
 {
     tools::debug::message("LUA_loadWorld() called", "lua", __FILENAME__, __LINE__);
