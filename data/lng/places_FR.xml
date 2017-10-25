@@ -2,7 +2,6 @@
 <texts>
     <text id="1001">Campement</text>
     <text id="1030">Forres</text>
-    <text id="1104">La Forêt de Birnam</text>
     <text id="1105">Les Plaines de Forres</text>
     <text id="birnam-ancient-lands">Les Terres Anciennes</text>
     <text id="birnam-camp-fluellen">Camp de Fluellen</text>
@@ -11,5 +10,7 @@
     <text id="birnam-ice-road">La Route des Glaces</text>
     <text id="birnam-ice-road-refuge">Refuge</text>
     <text id="birnam-camp-gower">Camp de Gower</text>
+    <text id="birnam-TheBirnamForest">La Forêt de Birnam</text>
+    <text id="birnam-TheBirnamForest-Refuge">Refuge</text>
     <text id="tutorial-military-academy">Académie militaire</text>
 </texts>

@@ -7,9 +7,11 @@
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheHillsOfNoirefontaine-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="FluellensCamp-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheBirnamForest-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheIceRoad-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Monsters"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheBirnamForest-Monsters"/>
     <LISTE number="1-ways"/>
     <CARTE number="101"/>
     <LISTE number="101200"/>

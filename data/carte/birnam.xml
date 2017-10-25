@@ -434,7 +434,11 @@
                 <shape type="triangle" x1="6400" y1="-4900" x2="5640.32" y2="-3960.9" x3="5670" y3="-3923.66"/>
                 <shape type="triangle" x1="5640.32" y1="-3960.9" x2="5670" y2="-3923.66" x3="4795" y3="-3580"/>
                 <shape type="triangle" x1="4795" y1="-3630" x2="4795" y2="-3580" x3="5640.32" y3="-3960.9"/>
-                <shape type="rectangle" x1="2690" y1="-3630" x2="4795" y2="-3580"/>
+                <shape type="rectangle" x1="2690" y1="-3630" x2="4640" y2="-3580"/>
+                <shape type="rectangle" x1="4590" y1="-3580" x2="4640" y2="-2880"/>
+                <shape type="rectangle" x1="4640" y1="-2930" x2="5920" y2="-2880"/>
+                <shape type="rectangle" x1="4745" y1="-3630" x2="4795" y2="-3015"/>
+                <shape type="rectangle" x1="4795" y1="-3065" x2="5920" y2="-3015"/>
             </shape>
         </trigger>
     </items>
@@ -542,6 +546,62 @@
         <inertItem design="building01" x="2118" y="-4525"/>
     </items>
 
+    <!-- The Birnam Forest -->
+
+    <place name="birnam-TheBirnamForest" music="Spring_1">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="5920" y1="-3065" x2="8000" y2="-2880"/>
+            <shape type="rectangle" x1="8000" y1="-4500" x2="12000" y2="-2000"/>
+        </shape>
+    </place>
+    <place name="birnam-TheBirnamForest-Refuge" music="Spring_1">
+        <properties diplomacy="1"/>
+        <shape type="rectangle" x1="7200" y1="-3500" x2="7600" y2="-3115"/>
+    </place>
+    <items tag="TheBirnamForest-Items">
+        <trigger script="shared_trigger/heal.lua" x="7400" y="-3220" data="none">
+            <shape type="circle" radius="38"/>
+        </trigger>
+        <individual species="fountainOfLife_animation" x="7400" y="-3220"/>
+        <inertItem design="building01" x="7400" y="-3350"/>
+        <inertItem design="wall02-Ex" x="7072" y="-3090"/>
+        <inertItem design="wall02-EW" x="7142" y="-3090"/>
+        <inertItem design="wall02-EW" x="7270" y="-3090"/>
+        <inertItem design="wall02-Wx" x="7348" y="-3090"/>
+        <inertItem design="wall02-Ex" x="7452" y="-3090"/>
+        <inertItem design="wall02-EW" x="7524" y="-3090"/>
+        <inertItem design="wall02-EW" x="7650" y="-3090"/>
+        <inertItem design="wall02-Wx" x="7728" y="-3090"/>
+        <trigger script="shared_trigger/door.lua" x="7400" y="-3090" data="2">
+            <shape type="rectangle" xSize="128" ySize="10"/>
+        </trigger>
+        <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
+            <shape type="complex">
+                <shape type="rectangle" x1="5870" y1="-2880" x2="8000" y2="-2830"/>
+                <shape type="rectangle" x1="5870" y1="-3115" x2="7200" y2="-3065"/>
+                <shape type="rectangle" x1="7150" y1="-3550" x2="7200" y2="-3115"/>
+                <shape type="rectangle" x1="7200" y1="-3550" x2="7650" y2="-3500"/>
+                <shape type="rectangle" x1="7600" y1="-3500" x2="7650" y2="-3115"/>
+                <shape type="rectangle" x1="7600" y1="-3115" x2="8000" y2="-3065"/>
+                <shape type="rectangle" x1="7950" y1="-2830" x2="8000" y2="-1950"/>
+                <shape type="rectangle" x1="8000" y1="-2000" x2="12050" y2="-1950"/>
+                <shape type="rectangle" x1="12000" y1="-4550" x2="12050" y2="-2000"/>
+                <shape type="rectangle" x1="7950" y1="-4550" x2="12000" y2="-4500"/>
+                <shape type="rectangle" x1="7950" y1="-4500" x2="8000" y2="-3115"/>
+            </shape>
+        </trigger>
+    </items>
+    <items tag="TheBirnamForest-Monsters">
+        <unique name="stolas" loadFromDataFile="individu/stolas.xml" x="11500" y="-3500"/>
+    </items>
+    <randomZone tag="TheBirnamForest-Monsters" place="birnam-TheBirnamForest">
+        <individual species="spider2" quantity="9"/>
+        <individual species="spider3" quantity="23"/>
+        <individual species="orc2" quantity="18"/>
+        <individual species="orc3" quantity="29"/>
+    </randomZone>
+
     <!-- Outside -->
 
     <randomZone tag="Outside" customZone="1" ignoreCollision="1">
@@ -607,5 +667,19 @@
         <inertItem design="tree01" density="110"/>
         <inertItem design="tree02" density="110"/>
         <inertItem design="tree03" density="110"/>
+    </randomZone>
+    <randomZone tag="Outside" customZone="1" ignoreCollision="1">
+        <shape type="complex">
+            <shape type="rectangle" x1="5870" y1="-2830" x2="7350" y2="-2550"/> <!--poly69-->
+            <shape type="rectangle" x1="7350" y1="-2830" x2="7950" y2="-1550"/> <!--poly70-->
+            <shape type="rectangle" x1="7950" y1="-1950" x2="12650" y2="-1550"/> <!--poly71-->
+            <shape type="rectangle" x1="12050" y1="-4900" x2="12650" y2="-1950"/> <!--poly72-->
+            <shape type="rectangle" x1="7950" y1="-4900" x2="12050" y2="-4550"/> <!--poly73-->
+            <shape type="rectangle" x1="7650" y1="-4900" x2="7950" y2="-3115"/> <!--poly74-->
+            <shape type="rectangle" x1="7150" y1="-4900" x2="7650" y2="-3550"/> <!--poly75-->
+            <shape type="rectangle" x1="6600" y1="-3900" x2="7150" y2="-3115"/> <!--poly76-->
+            <shape type="rectangle" x1="5870" y1="-3500" x2="6600" y2="-3115"/> <!--poly77-->
+        </shape>
+        <inertItem design="tree07" density="150"/>
     </randomZone>
 </world>

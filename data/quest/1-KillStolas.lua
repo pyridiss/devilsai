@@ -26,11 +26,6 @@ questStep = "0"
 function questBegin(addNewElements)
 
 	if questStep == "0" then
-		if addNewElements == "true" then
-			loadList("1-Birnam-Lands1")
-			loadList("1-Birnam-Lands2")
-			loadList("1-Birnam-Monsters")
-		end
 
 		player_ptr   = getElement("player")
 		fluellen_ptr = getElement("fluellen")

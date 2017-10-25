@@ -367,20 +367,6 @@ PAYSAGE 2121 481 16
 PAYSAGE 2121 609 16
 PAYSAGE 2121 737 16
 PAYSAGE 2002 -161 58
-SHARED_TRIGGER
-type: change_place
-position: 4689 -3482
-size: rectangle 100 10
-argument: 1104
-argument: hostile
-END_SHARED_TRIGGER
-SHARED_TRIGGER
-type: change_place
-position: 11643 -2645
-size: rectangle 100 10
-argument: 1104
-argument: hostile
-END_SHARED_TRIGGER
 ACTIONNEUR -15 -2470
 RECT_COL 20 1
 CHANGEMENT_CARTE 101
