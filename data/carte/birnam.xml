@@ -298,6 +298,17 @@
             </shape>
         </trigger>
     </items>
+    <randomZone tag="TheIceRoad-Items" place="birnam-ice-road">
+        <inertItem design="tree01" density="4"/>
+        <inertItem design="tree02" density="1"/>
+        <inertItem design="tree03" density="3"/>
+        <inertItem design="tree04" density="5"/>
+        <inertItem design="tree05" density="2"/>
+        <inertItem design="tree06" density="2"/>
+        <inertItem design="tree10" density="3"/>
+        <inertItem design="tree13" density="3"/>
+        <inertItem design="tree14" density="1"/>
+    </randomZone>
     <randomZone tag="TheIceRoad-Monsters" place="birnam-ice-road">
         <individual species="zombie1" quantity="16"/>
         <individual species="spider2" quantity="11"/>
@@ -388,6 +399,19 @@
             </shape>
         </trigger>
     </items>
+    <randomZone tag="TheHillsOfNoirefontaine-Items" place="birnam-hills-noirefontaine">
+        <inertItem design="tree01" density="6"/>
+        <inertItem design="tree02" density="3"/>
+        <inertItem design="tree03" density="5"/>
+        <inertItem design="tree04" density="8"/>
+        <inertItem design="tree05" density="4"/>
+        <inertItem design="tree06" density="4"/>
+        <inertItem design="tree08" density="10"/>
+        <inertItem design="tree09" density="10"/>
+        <inertItem design="tree10" density="6"/>
+        <inertItem design="tree13" density="6"/>
+        <inertItem design="tree14" density="2"/>
+    </randomZone>
 
     <!-- The Ancient Lands -->
 
@@ -442,6 +466,17 @@
             </shape>
         </trigger>
     </items>
+    <randomZone tag="TheAncientLands-Items" place="birnam-ancient-lands">
+        <inertItem design="tree01" density="2"/>
+        <inertItem design="tree02" density="1"/>
+        <inertItem design="tree03" density="2"/>
+        <inertItem design="tree04" density="4"/>
+        <inertItem design="tree05" density="2"/>
+        <inertItem design="tree06" density="2"/>
+        <inertItem design="tree10" density="3"/>
+        <inertItem design="tree13" density="2"/>
+        <inertItem design="tree14" density="1"/>
+    </randomZone>
     <randomZone tag="TheAncientLands-Monsters" place="birnam-ancient-lands">
         <individual species="zombie1" quantity="12"/>
         <individual species="spider2" quantity="14"/>
@@ -544,6 +579,9 @@
             </inventory>
         </storageBox>
         <inertItem design="building01" x="2118" y="-4525"/>
+        <trigger script="shared_trigger/door.lua" x="2647" y="-4324" data="2">
+            <shape type="rectangle" xSize="10" ySize="128"/>
+        </trigger>
     </items>
 
     <!-- The Birnam Forest -->
@@ -592,6 +630,9 @@
             </shape>
         </trigger>
     </items>
+    <randomZone tag="TheBirnamForest-Items" place="birnam-TheBirnamForest">
+        <inertItem design="tree07" density="10"/>
+    </randomZone>
     <items tag="TheBirnamForest-Monsters">
         <unique name="stolas" loadFromDataFile="individu/stolas.xml" x="11500" y="-3500"/>
     </items>
