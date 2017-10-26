@@ -187,6 +187,20 @@ void Shape::arc(const Vector2d& p, double radius, double direction, double openi
     box.second.y = p.y + radius;
 }
 
+double Shape::length()
+{
+    //This function just computes the sum of the lengths of each edge.
+
+    double l = 0;
+
+    for (int i = 1 ; i < points.size() ; ++i)
+    {
+        l += Vector2d::distance(points[i-1], points[i]);
+    }
+
+    return l;
+}
+
 double Shape::area()
 {
     switch(profile)

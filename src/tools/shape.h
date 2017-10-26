@@ -129,6 +129,7 @@ struct Shape
     void polyline(vector<Vector2d>& p, int thickness);
     void arc(const Vector2d& p, double radius, double direction, double opening);
 
+    double length();
     double area();
     void updateDirection(double direction);
 

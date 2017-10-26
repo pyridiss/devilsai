@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cmath>
+
 #include <lua.hpp>
 #include <tinyxml2.h>
 
@@ -413,13 +415,72 @@ void Carte::loadFromFile(string path, string tag)
             elem->QueryAttribute("y", &path.first.y);
 
             XMLHandle hdl2(elem);
-            XMLElement *item = hdl2.FirstChildElement().ToElement();
-            if (item)
+            XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
+            while (elem2)
             {
-                path.second.loadFromXML(item);
-                path.second.setOrigin(&path.first);
-                paths.push_back(std::move(path));
+                string elem2Name = elem2->Name();
+
+                if (elem2Name == "shape")
+                {
+                    path.second.loadFromXML(elem2);
+                    path.second.setOrigin(&path.first);
+                }
+                if (elem2Name == "inertItem")
+                {
+                    double repetitionStep = 1;
+                    elem2->QueryAttribute("repetition-step", &repetitionStep);
+
+                    if (path.second.points.size() < 2)
+                    {
+                        tools::debug::warning("Cannot add items along the path.", "files", __FILENAME__, __LINE__);
+                        break;
+                    }
+
+                    double createdItems = 0;
+                    tools::math::Vector2d currentVector = path.second.points[1] - path.second.points[0];
+                    double currentAngle = tools::math::angle(currentVector.x, currentVector.y);
+                    double lengthOnCurrentVector = 0;
+                    int index = 1;
+
+                    while ((createdItems-1) * repetitionStep < path.second.length())
+                    {
+                        Element_Carte* newItem = createNewItem(elem2);
+
+                        if (newItem == nullptr)
+                        {
+                            tools::debug::error("Error while creating a path.", "files", __FILENAME__, __LINE__);
+                            break;
+                        }
+
+                        newItem->move(-newItem->position().x, -newItem->position().y);
+
+                        if (currentVector.length() > lengthOnCurrentVector + repetitionStep)
+                        {
+                            newItem->move(path.second.points[index-1].x, path.second.points[index-1].y);
+                            newItem->move(lengthOnCurrentVector * cos(currentAngle), lengthOnCurrentVector * sin(currentAngle));
+                            newItem->move(repetitionStep * cos(currentAngle), repetitionStep * sin(currentAngle));
+                            lengthOnCurrentVector += repetitionStep;
+                        }
+                        else
+                        {
+                            lengthOnCurrentVector = repetitionStep - (currentVector.length() - lengthOnCurrentVector);
+                            ++index;
+                            currentVector = path.second.points[index] - path.second.points[index-1];
+                            currentAngle = tools::math::angle(currentVector.x, currentVector.y);
+                            newItem->move(path.second.points[index-1].x, path.second.points[index-1].y);
+                            newItem->move(lengthOnCurrentVector * cos(currentAngle), lengthOnCurrentVector * sin(currentAngle));
+                        }
+
+                        elements.push_back(newItem);
+
+                        ++createdItems;
+                    }
+                }
+
+                elem2 = elem2->NextSiblingElement();
             }
+
+            paths.push_back(std::move(path));
         }
         else if (elemName == "items")
         {
