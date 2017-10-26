@@ -27,6 +27,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <tools/math.h>
+#include <tools/shape.h>
+#include <tools/vector2d.h>
+
 using namespace std;
 using namespace sf;
 
@@ -55,6 +59,7 @@ class Carte
 	public:
 		list <Element_Carte*> elements;
         list <pair<Element_Carte*, string>> places;
+        list <pair<tools::math::Vector2d, tools::math::Shape>> paths;
 		string Id = "";
 		string backgroundImage = "";
         set <string> dataFiles;

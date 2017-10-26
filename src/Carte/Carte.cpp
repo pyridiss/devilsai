@@ -405,6 +405,22 @@ void Carte::loadFromFile(string path, string tag)
             }
             places.push_back(pair<Element_Carte*, string>(p, music));
         }
+        if (elemName == "path" && !commonDataLoaded)
+        {
+            pair<tools::math::Vector2d, tools::math::Shape> path;
+
+            elem->QueryAttribute("x", &path.first.x);
+            elem->QueryAttribute("y", &path.first.y);
+
+            XMLHandle hdl2(elem);
+            XMLElement *item = hdl2.FirstChildElement().ToElement();
+            if (item)
+            {
+                path.second.loadFromXML(item);
+                path.second.setOrigin(&path.first);
+                paths.push_back(std::move(path));
+            }
+        }
         else if (elemName == "items")
         {
             string currentTag = "ALL";
@@ -538,11 +554,21 @@ void Carte::loadFromFile(string path, string tag)
                         //1. The item must collide with the zone
                         if (!tools::math::intersection(newItem->size, *zone)) continue;
 
-                        //2. The item must not collide with anything else
+                        //2. The item must not collide with paths
+                        bool c = false;
+                        for (auto& path : paths)
+                        {
+                            if (tools::math::intersection(newItem->size, path.second))
+                                c = true;
+                        }
+                        if (c) continue;
+
+                        //3. The item must not collide with anything else
                         resetCollisionManager();
                         int Resultat = COLL_OK;
                         for ( ; Resultat == COLL_OK ; Resultat = browseCollisionList(&fake)) {}
                         if (Resultat == COLL_END) break;
+
                     }
                     while (debugCounter < 100);
 
@@ -610,6 +636,20 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
         tmp.first->size.saveToXML(doc, shapeHandle);
 
         root->InsertEndChild(place);
+    }
+
+    for (auto& tmp : paths)
+    {
+        XMLElement* path = doc.NewElement("path");
+        path->SetAttribute("x", tmp.first.x);
+        path->SetAttribute("y", tmp.first.y);
+
+        XMLElement* pathShape = doc.NewElement("shape");
+        path->InsertEndChild(pathShape);
+        XMLHandle shapeHandle(pathShape);
+        tmp.second.saveToXML(doc, shapeHandle);
+
+        root->InsertEndChild(path);
     }
 
     XMLElement* _items = doc.NewElement("items");
