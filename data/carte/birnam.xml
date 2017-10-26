@@ -221,6 +221,10 @@
         <properties diplomacy="1"/>
         <shape type="rectangle" x1="2735" y1="-3197" x2="2941" y2="-3053"/>
     </place>
+    <path>
+        <shape type="polyline" points="12" thickness="40" x1="4290" y1="-880" x2="4585" y2="-880" x3="4600" y3="-1780" x4="4680" y4="-1840" x5="4680" y5="-2025" x6="4610" y6="-2090" x7="4430" y7="-2090" x8="4355" y8="-2030" x9="3730" y9="-2030" x10="3625" y10="-2900" x11="2480" y11="-2950" x12="2460" y12="-3290"/>
+        <inertItem design="2002" repetition-step="90"/>
+    </path>
     <items tag="TheIceRoad-Items">
         <trigger script="shared_trigger/heal.lua" x="2845" y="-2827" data="none">
             <shape type="circle" radius="38"/>

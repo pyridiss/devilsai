@@ -442,7 +442,7 @@ void Carte::loadFromFile(string path, string tag)
                     double lengthOnCurrentVector = 0;
                     int index = 1;
 
-                    while ((createdItems-1) * repetitionStep < path.second.length())
+                    while ((createdItems+1) * repetitionStep < path.second.length())
                     {
                         Element_Carte* newItem = createNewItem(elem2);
 
