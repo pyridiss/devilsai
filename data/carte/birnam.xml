@@ -141,6 +141,10 @@
             <shape type="rectangle" x1="1500" y1="-1590" x2="3060" y2="-1310"/>
         </shape>
     </place>
+    <path>
+        <shape type="polyline" points="7" thickness="40" x1="400" y1="0" x2="1120" y2="-70" x3="1220" y3="-370" x4="1980" y4="-560" x5="2470" y5="-590" x6="2880" y6="-950" x7="3615" y7="-900"/>
+        <inertItem design="2002" repetition-step="90"/>
+    </path>
     <items tag="TheGladeOfTheSaints-Items">
         <inertItem design="wall01-Sx" x="3632" y="-998"/>
         <inertItem design="wall01-Sx" x="4272" y="-998"/>
