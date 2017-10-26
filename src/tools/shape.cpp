@@ -18,6 +18,7 @@
 */
 
 #include <cmath>
+#include <sstream>
 
 #include <tinyxml2.h>
 #include <SFML/Graphics.hpp>
@@ -142,6 +143,33 @@ void Shape::line(const Vector2d& p, double length, double angle)
     box.first.y = min(points[0].y, points[1].y);
     box.second.x = max(points[0].x, points[1].x);
     box.second.y = max(points[0].y, points[1].y);
+}
+
+void Shape::polyline(vector<Vector2d>& p, int thickness)
+{
+    if (p.size() < 2)
+    {
+        tools::debug::error("A polyline with less than 2 points has been asked.", "tools::math", __FILENAME__, __LINE__);
+        return;
+    }
+
+    profile = Profiles::Line;
+
+    points = p;
+    radius1 = thickness;
+
+    box.first.x = points[0].x;
+    box.first.y = points[0].y;
+    box.second.x = points[0].x;
+    box.second.y = points[0].y;
+
+    for (auto& p : points)
+    {
+        if (p.x - radius1 < box.first.x) box.first.x = p.x - radius1;
+        if (p.y - radius1 < box.first.y) box.first.y = p.y - radius1;
+        if (p.x + radius1 > box.second.x) box.second.x = p.x + radius1;
+        if (p.y + radius1 > box.second.y) box.second.y = p.y + radius1;
+    }
 }
 
 void Shape::arc(const Vector2d& p, double radius, double direction, double opening)
@@ -297,6 +325,28 @@ void Shape::loadFromXML(XMLElement* elem)
         line(p, length, angle);
     }
 
+    else if (type == "polyline")
+    {
+        vector<Vector2d> p;
+        int n = 0, thickness = 0;
+        elem->QueryAttribute("points", &n);
+        elem->QueryAttribute("thickness", &thickness);
+        for (int i = 1 ; i <= n ; ++i)
+        {
+            Vector2d v(0, 0);
+
+            stringstream x, y;
+            x << "x" << i;
+            y << "y" << i;
+
+            elem->QueryAttribute(x.str().c_str(), &v.x);
+            elem->QueryAttribute(y.str().c_str(), &v.y);
+            p.emplace_back(std::move(v));
+        }
+
+        polyline(p, thickness);
+    }
+
     else if (type == "arc")
     {
         Vector2d p(0, 0);
@@ -377,10 +427,16 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             break;
         case Profiles::Line:
             root->SetAttribute("type", "line");
-            root->SetAttribute("xOrigin", points[0].x);
-            root->SetAttribute("yOrigin", points[0].y);
-            root->SetAttribute("length", length1);
-            root->SetAttribute("angle", angle1);
+            root->SetAttribute("thickness", radius1);
+            root->SetAttribute("points", (int)points.size());
+            for (int i = 0 ; i < points.size() ; ++i)
+            {
+                stringstream x, y;
+                x << "x" << i + 1;
+                y << "y" << i + 1;
+                root->SetAttribute(x.str().c_str(), points[i].x);
+                root->SetAttribute(y.str().c_str(), points[i].y);
+            }
             break;
         case Profiles::Arc:
             root->SetAttribute("type", "arc");
@@ -450,15 +506,26 @@ void Shape::display(RenderTarget& target, const Color& color)
             break;
         case Profiles::Line:
             {
-                ConvexShape drawing;
-                drawing.setPointCount(4);
-                drawing.setPoint(0, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
-                drawing.setPoint(1, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
-                drawing.setPoint(2, Vector2f(origin->x + points[1].x, origin->y + points[1].y));
-                drawing.setPoint(3, Vector2f(origin->x + points[0].x, origin->y + points[0].y));
-                drawing.setOutlineColor(color);
-                drawing.setOutlineThickness(1);
-                target.draw(drawing);
+                CircleShape drawing0(radius1);
+                drawing0.setPosition(origin->x + points[0].x - radius1, origin->y + points[0].y - radius1);
+                drawing0.setFillColor(color);
+                target.draw(drawing0);
+                for (int i = 1 ; i < points.size() ; ++i)
+                {
+                    ConvexShape drawing;
+                    drawing.setPointCount(4);
+                    drawing.setPoint(0, Vector2f(origin->x + points[i-1].x, origin->y + points[i-1].y));
+                    drawing.setPoint(1, Vector2f(origin->x + points[i].x, origin->y + points[i].y));
+                    drawing.setPoint(2, Vector2f(origin->x + points[i].x, origin->y + points[i].y));
+                    drawing.setPoint(3, Vector2f(origin->x + points[i-1].x, origin->y + points[i-1].y));
+                    drawing.setOutlineColor(color);
+                    drawing.setOutlineThickness(radius1);
+                    target.draw(drawing);
+                    CircleShape drawing2(radius1);
+                    drawing2.setPosition(origin->x + points[i].x - radius1, origin->y + points[i].y - radius1);
+                    drawing2.setFillColor(color);
+                    target.draw(drawing2);
+                }
             }
             break;
         case Profiles::Arc:
