@@ -10,7 +10,7 @@
         <properties classement="0"/>
         <image imageFile="img/ground-dirtygrass02.png"/>
     </inertItemDesign>
-    <inertItemDesign name="2004">
+    <inertItemDesign name="ground-tile02">
         <shape type="none"/>
         <properties classement="0"/>
         <image imageFile="img/ground-tile02.png"/>

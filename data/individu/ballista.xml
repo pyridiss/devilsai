@@ -4,7 +4,7 @@
         <addImageArchiveFile file="img/Baliste.img"/>
         <shape type="rectangle" xCenter="-18" yCenter="4" xSize="54" ySize="20"/>
         <attackField type="line" length="600"/>
-        <properties angleFixed="0" diplomacy="2"/>
+        <properties angleFixed="0" diplomacy="1"/>
         <skill name="4" owner="ballista">
             <properties priority="1" speed="6" step="0" numberOfImages="6"/>
             <images angle="0" pathToImages="7/%%.png"/>
