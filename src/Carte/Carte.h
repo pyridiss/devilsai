@@ -76,7 +76,6 @@ class Carte
 
 	public:
 		Individu_Commun* AjouterElement_Commun(string Type, string liste, int x, int y);
-		Paysage* AjouterPaysage(string Type, string liste, int x, int y);
         CheckPoint* addCheckPoint(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		void SupprimerElement(Element_Carte* elem);
@@ -110,8 +109,6 @@ class Carte
 };
 
 
-void Load_Carte(string, bool);
-Element_Carte* loadElementsFromStream(istream&, Carte*, string);
 void ChangerCarte(Element_Carte*, string, string);
 
 void Combat(Individu*, Individu*, lua_State* L = NULL);

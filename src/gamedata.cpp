@@ -407,19 +407,6 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             }
         }
 
-        //Just to make old maps work, will be removed later
-
-        if (elemName == "CARTE")
-        {
-            string n = elem->Attribute("number");
-            Load_Carte(n, TYPE_CARTE);
-        }
-        if (elemName == "LISTE")
-        {
-            string n = elem->Attribute("number");
-            Load_Carte(n, TYPE_LISTE);
-        }
-
         elem = elem->NextSiblingElement();
     }
 }

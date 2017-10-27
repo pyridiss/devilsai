@@ -38,89 +38,6 @@
 
 using namespace tinyxml2;
 
-void Load_Carte(string Id, bool TypeCarte)
-{
-	string fileName = tools::filesystem::dataDirectory() + "carte/" + Id;
-	if (TypeCarte == TYPE_CARTE) fileName += ".map";
-	if (TypeCarte == TYPE_LISTE) fileName += ".lst";
-
-	Carte *carte = NULL;
-
-	if (TypeCarte == TYPE_CARTE)
-	{
-		if (gamedata::world(Id) == NULL) gamedata::addWorld(Id);
-		else return;
-		carte = gamedata::world(Id);
-	}
-
-	ifstream fileStream(fileName, ios_base::in);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fileName);
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fileName + "\" ouvert", FICHIER)
-
-	loadElementsFromStream(fileStream, carte, (TypeCarte == TYPE_LISTE) ? Id : "DEFAUT");
-
-	fileStream.close();
-}
-
-Element_Carte* loadElementsFromStream(istream& Fichier, Carte *carte, string list)
-{
-	//int bufferInt;
-	string bufferString;
-	string Ind; int X, Y;
-
-	bool Immuable = false, SansCollision = false;
-
-	Element_Carte *lastElementLoaded = NULL;
-
-	string TypeDonnee;
-
-	while (Fichier.rdstate() == 0)
-	{
-		Fichier >> TypeDonnee;
-
-		if (TypeDonnee == "CARTE_MERE")
-		{
-			Fichier >> bufferString;
-			carte = gamedata::world(bufferString);
-		}
-		if (TypeDonnee == "LISTE_IMMUABLE") Immuable = true;
-		if (TypeDonnee == "SANS_COLLISION") SansCollision = true;
-
-        if (TypeDonnee == "loadXMLFile")
-        {
-            string file, b2;
-            Fichier >> file >> b2;
-            carte->loadFromFile(tools::filesystem::dataDirectory() + file, b2);
-        }
-
-		if (TypeDonnee == "IND_COMMUN" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterElement_Commun(Ind, list, X, Y);
-		}
-		if (TypeDonnee == "PAYSAGE" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterPaysage(Ind, list, X, Y);
-			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
-			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->ignoreCollision = true;
-		}
-		if (TypeDonnee == "PAYSAGE-REPEAT" && carte != NULL)
-		{
-			Fichier >> Ind >> X >> Y;
-			lastElementLoaded = carte->AjouterPaysage(Ind, list, X, Y);
-			if (lastElementLoaded != NULL && Immuable)		lastElementLoaded->TypeClassement = CLASSEMENT_CADAVRE;
-			if (lastElementLoaded != NULL && SansCollision)	lastElementLoaded->ignoreCollision = true;
-            Paysage* paysage = dynamic_cast<Paysage*>(lastElementLoaded);
-            Fichier >> paysage->extent.x >> paysage->extent.y;
-		}
-		TypeDonnee = "";
-	}
-
-	return lastElementLoaded;
-}
-
 void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
 {
 	Carte *Orig = gamedata::world(IdOrig);
@@ -182,23 +99,6 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
     ind->move(x, y);
 
 	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
-
-	AjouterElementEnListe(ind);
-	return ind;
-}
-
-Paysage* Carte::AjouterPaysage(string Type, string liste, int x, int y)
-{
-	Paysage *ind = new Paysage;
-
-	ind->Liste = liste;
-	ind->Type = Type;
-
-    gamedata::copyInertItemFromDesign(Type, ind);
-
-    ind->move(x, y);
-
-	MESSAGE("Un paysage a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
 	return ind;
