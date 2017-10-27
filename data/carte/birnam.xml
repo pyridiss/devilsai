@@ -32,6 +32,8 @@
         <individual species="ballista" x="104" y="484"/>
         <individual species="ballista" x="104" y="643"/>
         <individual species="fountainOfLife_animation" x="-161" y="53"/>
+        <inertItem design="2001" x="-338" y="-175"/>
+        <inertItem design="2002" x="-161" y="58"/>
         <trigger script="shared_trigger/heal.lua" x="-161" y="58" data="none">
             <shape type="circle" radius="38"/>
         </trigger>
@@ -233,6 +235,7 @@
             <shape type="circle" radius="38"/>
         </trigger>
         <individual species="fountainOfLife_animation" x="2845" y="-2827"/>
+        <inertItem design="2002" x="2845" y="-2822"/>
         <inertItem design="tree12" x="4350" y="-950"/>
         <inertItem design="tree12" x="4420" y="-950"/>
         <inertItem design="tree12" x="4490" y="-950"/>
@@ -287,6 +290,13 @@
         <inertItem design="wall01-ES" x="2672" y="-3642"/>
         <inertItem design="wall01-SW" x="2208" y="-3642"/>
         <inertItem design="wall01-Ex" x="2162" y="-3642"/>
+        <inertItem design="2001" x="4519" y="-1942"/>
+        <inertItem design="2002" x="4720" y="-2525">
+            <properties xExtent="9"/>
+        </inertItem>
+        <inertItem design="2002" x="3420" y="-3335">
+            <properties xExtent="12"/>
+        </inertItem>
         <trigger script="shared_trigger/door.lua" x="2838" y="-3010" data="2">
             <shape type="rectangle" xSize="128" ySize="10"/>
         </trigger>
@@ -462,6 +472,9 @@
         <shape type="polyline" points="6" thickness="40" x1="2835" y1="-3920" x2="3520" y2="-3890" x3="4490" y3="-3920" x4="4675" y4="-3820" x5="4705" y5="-3020" x6="5870" y6="-2990"/>
         <inertItem design="2002" repetition-step="90"/>
     </path>
+    <path>
+        <shape type="polyline" points="3" thickness="40" x1="2835" y1="-4280" x2="2835" y2="-5300" x3="2270" y3="-5300"/>
+    </path>
     <items tag="TheAncientLands-Items">
         <inertItem design="tree12" x="2562" y="-3796"/>
         <inertItem design="tree12" x="2498" y="-3773"/>
@@ -534,6 +547,7 @@
             <shape type="circle" radius="38"/>
         </trigger>
         <individual species="fountainOfLife_animation" x="2219" y="-4185"/>
+        <inertItem design="2002" x="2219" y="-4180"/>
         <inertItem design="wall02-EW" x="2135" y="-4732">
             <shape type="rectangle" xSize="896" ySize="6"/>
             <properties xExtent="7"/>
@@ -632,6 +646,13 @@
         <properties diplomacy="1"/>
         <shape type="rectangle" x1="7200" y1="-3500" x2="7600" y2="-3115"/>
     </place>
+    <path>
+        <shape type="polyline" points="3" thickness="40" x1="5870" y1="-2990" x2="8200" y2="-2990" x3="11500" y3="-3500"/>
+    </path>
+    <path>
+        <shape type="circle" xCenter="11500" yCenter="-3500" radius="500"/>
+        <inertItem design="2002" repetition-step="90"/>
+    </path>
     <items tag="TheBirnamForest-Items">
         <trigger script="shared_trigger/heal.lua" x="7400" y="-3220" data="none">
             <shape type="circle" radius="38"/>
@@ -646,6 +667,12 @@
         <inertItem design="wall02-EW" x="7524" y="-3090"/>
         <inertItem design="wall02-EW" x="7650" y="-3090"/>
         <inertItem design="wall02-Wx" x="7728" y="-3090"/>
+        <inertItem design="2001" x="7400" y="-3550">
+            <properties xExtent="3"/>
+        </inertItem>
+        <inertItem design="2001" x="7400" y="-3550">
+            <properties xExtent="2"/>
+        </inertItem>
         <trigger script="shared_trigger/door.lua" x="7400" y="-3090" data="2">
             <shape type="rectangle" xSize="128" ySize="10"/>
         </trigger>
