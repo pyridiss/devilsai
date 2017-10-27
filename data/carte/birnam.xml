@@ -142,7 +142,7 @@
         </shape>
     </place>
     <path>
-        <shape type="polyline" points="7" thickness="40" x1="400" y1="0" x2="1120" y2="-70" x3="1220" y3="-370" x4="1980" y4="-560" x5="2470" y5="-590" x6="2880" y6="-950" x7="3615" y7="-900"/>
+        <shape type="polyline" points="7" thickness="40" x1="400" y1="0" x2="1030" y2="0" x3="1220" y3="-370" x4="1980" y4="-560" x5="2470" y5="-590" x6="2880" y6="-950" x7="3660" y7="-880"/>
         <inertItem design="2002" repetition-step="90"/>
     </path>
     <items tag="TheGladeOfTheSaints-Items">
