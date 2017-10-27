@@ -33,17 +33,6 @@ set(img
     Guerrier.img
     ground-dirtygrass01.png
     ground-dirtygrass02.png
-    ground-dirtygrass03.png
-    ground-dirtyway01.png
-    ground-dirtyway02.png
-    ground-dirtyway03.png
-    ground-dirtyway04.png
-    ground-dirtyway05.png
-    ground-dirtyway06.png
-    ground-dirtyway07.png
-    ground-dirtyway08.png
-    ground-dirtyway09.png
-    ground-dirtyway10.png
     ground-tile01.png
     ground-tile02.png
     ground-tile03.png
