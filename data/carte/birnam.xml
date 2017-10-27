@@ -454,6 +454,14 @@
             <shape type="triangle" x1="5640.32" y1="-4900" x2="5640.32" y2="-3963.9" x3="6400" y3="-4900"/>
         </shape>
     </place>
+    <path>
+        <shape type="polyline" points="7" thickness="40" x1="2455" y1="-3620" x2="2525" y2="-3720" x3="2700" y3="-3820" x4="2835" y4="-3920" x5="2835" y5="-4275" x6="2680" y6="-4320" x7="2580" y7="-4320"/>
+        <inertItem design="2002" repetition-step="90"/>
+    </path>
+    <path>
+        <shape type="polyline" points="6" thickness="40" x1="2835" y1="-3920" x2="3520" y2="-3890" x3="4490" y3="-3920" x4="4675" y4="-3820" x5="4705" y5="-3020" x6="5870" y6="-2990"/>
+        <inertItem design="2002" repetition-step="90"/>
+    </path>
     <items tag="TheAncientLands-Items">
         <inertItem design="tree12" x="2562" y="-3796"/>
         <inertItem design="tree12" x="2498" y="-3773"/>
