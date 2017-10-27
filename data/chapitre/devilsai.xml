@@ -12,10 +12,8 @@
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheIceRoad-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheBirnamForest-Monsters"/>
-    <LISTE number="1-ways"/>
-    <CARTE number="101"/>
-    <LISTE number="101200"/>
-    <LISTE number="101107"/>
+    <loadWorld name="birnam-thecaveofthespider" file="carte/birnam-thecaveofthespider.xml" tag="TheCaveOfTheSpider-Items"/>
+    <loadWorld name="birnam-thecaveofthespider" file="carte/birnam-thecaveofthespider.xml" tag="TheCaveOfTheSpider-Monsters"/>
     <player name="player" world="birnam" loadFromDataFile="individu/player.xml" x="0" y="0"/>
     <quest file="quest/1-InvasionGladeSaints.lua" initialData="true"/>
 </gamedata>

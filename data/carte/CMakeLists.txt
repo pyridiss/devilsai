@@ -1,9 +1,7 @@
 
 set(carte
-    101.map
-	101107.lst
-	101200.lst
     birnam.xml
+    birnam-thecaveofthespider.xml
     tutorial.xml
 )
 

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<world>
+    <loadDataFile file="individu/grounds.xml"/>
+    <loadDataFile file="individu/walls.xml"/>
+    <loadDataFile file="individu/misc.xml"/>
+    <loadDataFile file="individu/spiders.xml"/>
+
+    <!-- The Cave of the Spider -->
+
+    <place name="birnam-TheCaveOfTheSpider" music="Cavern">
+        <properties diplomacy="2"/>
+        <shape type="complex">
+            <shape type="rectangle" x1="-170" y1="-151" x2="179" y2="5"/>
+            <shape type="rectangle" x1="83" y1="-343" x2="179" y2="-151"/>
+            <shape type="rectangle" x1="179" y1="-343" x2="815" y2="-186"/>
+            <shape type="rectangle" x1="598" y1="-186" x2="815" y2="40"/>
+            <shape type="rectangle" x1="598" y1="40" x2="1587" y2="150"/>
+            <shape type="rectangle" x1="598" y1="150" x2="798" y2="486"/>
+            <shape type="rectangle" x1="798" y1="377" x2="1219" y2="486"/>
+            <shape type="rectangle" x1="1219" y1="150" x2="1587" y2="486"/>
+        </shape>
+    </place>
+    
+    <items tag="TheCaveOfTheSpider-Items">
+        <inertItem design="ground-tile02" x="635" y="31">
+            <properties yExtent="6"/>
+        </inertItem>
+        <inertItem design="ground-tile02" x="769" y="-329"/>
+        <inertItem design="ground-tile02" x="130" y="-316"/>
+        <inertItem design="ground-tile02" x="233" y="-279"/>
+        <inertItem design="ground-tile02" x="367" y="-279"/>
+        <inertItem design="ground-tile02" x="501" y="-279"/>
+        <inertItem design="ground-tile02" x="769" y="-185"/>
+        <inertItem design="ground-tile02" x="130" y="-172"/>
+        <inertItem design="ground-tile02" x="-138" y="-128"/>
+        <inertItem design="ground-tile02" x="-4" y="-128"/>
+        <inertItem design="ground-tile02" x="769" y="-41"/>
+        <inertItem design="ground-tile02" x="-138" y="-28"/>
+        <inertItem design="ground-tile02" x="-4" y="-28"/>
+        <inertItem design="ground-tile02" x="130" y="-28"/>
+        <inertItem design="ground-tile02" x="1141" y="103">
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="ground-tile02" x="739" y="247"/>
+        <inertItem design="ground-tile02" x="1275" y="247"/>
+        <inertItem design="ground-tile02" x="1409" y="247"/>
+        <inertItem design="ground-tile02" x="1543" y="247"/>
+        <inertItem design="ground-tile02" x="1141" y="391">
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall03-ES" x="83" y="-362"/>
+        <inertItem design="wall03-EW" x="442" y="-362">
+            <shape type="rectangle" xSize="640" ySize="16"/>
+            <properties xExtent="5"/>
+        </inertItem>
+        <inertItem design="wall03-SW" x="815" y="-362"/>
+        <inertItem design="wall03-NS" x="64" y="-292"/>
+        <inertItem design="wall03-NS" x="832" y="-292"/>
+        <inertItem design="wall03-NS" x="832" y="-196"/>
+        <inertItem design="wall03-ES" x="-169" y="-170"/>
+        <inertItem design="wall03-EW" x="-66" y="-170"/>
+        <inertItem design="wall03-NW" x="49" y="-170"/>
+        <inertItem design="wall03-ES" x="215" y="-170"/>
+        <inertItem design="wall03-EW" x="318" y="-170"/>
+        <inertItem design="wall03-EW" x="446" y="-170"/>
+        <inertItem design="wall03-SW" x="563" y="-170"/>
+        <inertItem design="wall03-NS" x="-188" y="-100"/>
+        <inertItem design="wall03-NS" x="196" y="-100"/>
+        <inertItem design="wall03-NS" x="832" y="-100"/>
+        <inertItem design="wall03-NS" x="580" y="140">
+            <shape type="rectangle" xSize="16" ySize="576"/>
+            <properties yExtent="6"/>
+        </inertItem>
+        <inertItem design="wall03-EN" x="-167" y="22"/>
+        <inertItem design="wall03-SW" x="-73" y="22"/>
+        <inertItem design="wall03-ES" x="91" y="22"/>
+        <inertItem design="wall03-NW" x="181" y="22"/>
+        <inertItem design="wall03-EN" x="853" y="22"/>
+        <inertItem design="wall03-EW" x="1214" y="22">
+            <shape type="rectangle" xSize="640" ySize="16"/>
+            <properties xExtent="5"/>
+        </inertItem>
+        <inertItem design="wall03-SW" x="1587" y="22"/>
+        <inertItem design="wall03-NS" x="1604" y="92"/>
+        <inertItem design="wall03-ES" x="834" y="166"/>
+        <inertItem design="wall03-EW" x="937" y="166"/>
+        <inertItem design="wall03-EW" x="1065" y="166"/>
+        <inertItem design="wall03-SW" x="1182" y="166"/>
+        <inertItem design="wall03-NS" x="1604" y="188"/>
+        <inertItem design="wall03-NS" x="815" y="236"/>
+        <inertItem design="wall03-NS" x="1199" y="236"/>
+        <inertItem design="wall03-NS" x="1604" y="284"/>
+        <inertItem design="wall03-EN" x="836" y="358"/>
+        <inertItem design="wall03-EW" x="941" y="358"/>
+        <inertItem design="wall03-EW" x="1069" y="358"/>
+        <inertItem design="wall03-NW" x="1184" y="358"/>
+        <inertItem design="wall03-NS" x="1604" y="380"/>
+        <inertItem design="wall03-EN" x="601" y="502"/>
+        <inertItem design="wall03-EW" x="1090" y="502">
+            <shape type="rectangle" xSize="896" ySize="16"/>
+            <properties xExtent="7"/>
+        </inertItem>
+        <inertItem design="wall03-NW" x="1589" y="502"/>
+        <storageBox design="21002" x="1496" y="224">
+            <shape type="circle" radius="15"/>
+            <properties imageContainer="paysage" name="612"/>
+            <inventory>
+                <addObject slot="storagebox01" design="unidentifiedstone" quality="0"/>
+                <createRandomObjects min="1" max="2">
+                    <objectDesign design="spatha" quality="4"/>
+                    <objectDesign design="pavis" quality="4"/>
+                    <objectDesign design="bascinet" quality="5"/>
+                    <objectDesign design="platearmor" quality="5"/>
+                    <objectDesign design="fabricboots" quality="4"/>
+                    <objectDesign design="sapphirering" quality="4"/>
+                </createRandomObjects>
+            </inventory>
+        </storageBox>
+    </items>
+    <items tag="TheCaveOfTheSpider-Monsters">
+        <individual species="spider5" x="1396" y="234"/>
+    </items>
+    <randomZone tag="TheCaveOfTheSpider-Monsters" place="birnam-TheCaveOfTheSpider">
+        <individual species="spider2" quantity="5"/>
+        <individual species="spider3" quantity="3"/>
+        <individual species="spider4" quantity="2"/>
+    </randomZone>
+</world>
