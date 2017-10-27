@@ -439,10 +439,10 @@ void Carte::loadFromFile(string path, string tag)
                     double createdItems = 0;
                     tools::math::Vector2d currentVector = path.second.points[1] - path.second.points[0];
                     double currentAngle = tools::math::angle(currentVector.x, currentVector.y);
-                    double lengthOnCurrentVector = 0;
+                    double lengthOnCurrentVector = -repetitionStep;
                     int index = 1;
 
-                    while ((createdItems+1) * repetitionStep < path.second.length())
+                    while (createdItems * repetitionStep < path.second.length())
                     {
                         Element_Carte* newItem = createNewItem(elem2);
 
@@ -463,9 +463,21 @@ void Carte::loadFromFile(string path, string tag)
                         }
                         else
                         {
-                            lengthOnCurrentVector = repetitionStep - (currentVector.length() - lengthOnCurrentVector);
+                            lengthOnCurrentVector += repetitionStep - currentVector.length();
                             ++index;
+                            if (index >= path.second.points.size()) break;
                             currentVector = path.second.points[index] - path.second.points[index-1];
+
+                            while (currentVector.length() <= lengthOnCurrentVector)
+                            {
+                                lengthOnCurrentVector -= currentVector.length();
+                                ++index;
+                                if (index >= path.second.points.size()) break;
+                                currentVector = path.second.points[index] - path.second.points[index-1];
+                            }
+
+                            if (index >= path.second.points.size()) break;
+
                             currentAngle = tools::math::angle(currentVector.x, currentVector.y);
                             newItem->move(path.second.points[index-1].x, path.second.points[index-1].y);
                             newItem->move(lengthOnCurrentVector * cos(currentAngle), lengthOnCurrentVector * sin(currentAngle));
