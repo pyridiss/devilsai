@@ -401,6 +401,9 @@
         <inertItem design="wall01-ES" x="1784" y="-5230"/>
         <inertItem design="wall01-Nx" x="1776" y="-5186"/>
         <inertItem design="wall01-Nx" x="2288" y="-5186"/>
+        <inertItem design="2002" x="902" y="-6075">
+            <properties xExtent="15"/>
+        </inertItem>
         <trigger script="shared_trigger/door.lua" x="0" y="0" data="-1">
             <shape type="complex">
                 <shape type="rectangle" x1="-150" y1="-2040" x2="1510" y2="-1990"/>
