@@ -154,6 +154,11 @@ void Carte::SupprimerListe(string num)
 	}
 }
 
+void Carte::stopManagement()
+{
+    _stopManagement = true;
+}
+
 bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 {
 	/* Classement des Élements selon leur TypeClassement
@@ -178,6 +183,7 @@ void Carte::GestionElements(const View& worldView)
 	Element_Carte* ASupprimer = NULL;
 
     int max = worldView.getSize().x + 1500;
+    _stopManagement = false;
 
 	for (auto& tmp : elements)
 	{
@@ -189,6 +195,7 @@ void Carte::GestionElements(const View& worldView)
                 ASupprimer = tmp;
             }
 		}
+        if (_stopManagement) break;
 	}
 
 	elements.sort(comparisonBetweenElements);

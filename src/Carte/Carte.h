@@ -65,6 +65,12 @@ class Carte
         set <string> dataFiles;
         bool commonDataLoaded;
 
+    private:
+        /*
+         * _stopManagement must be set when elements are modified outside this class.
+         */
+        bool _stopManagement;
+
 	//Constructeurs / Destructeurs :
 	public:
 		Carte();
@@ -83,6 +89,7 @@ class Carte
         Element_Carte* createNewItem(tinyxml2::XMLElement* item);
 
 		void SupprimerListe(string num);
+        void stopManagement();
 
         void loadFromFile(string path, string tag="ALL");
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
