@@ -61,6 +61,7 @@ Element_Carte* findElement(int id);
 Individu_Unique* findIndividuUnique(string type);
 list<Element_Carte*> getItemsByTag(const string& w, const string& tag);
 void updateCurrentPlace();
+void updateCurrentWorld(const string& newWorld);
 void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 void loadFromXML(const string& dataDirectory, const string& mainFile);
 

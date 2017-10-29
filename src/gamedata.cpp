@@ -140,6 +140,9 @@ lua_State* sharedTrigger(string name)
         lua_register(L, "cout", LUA_cout);
         lua_register(L, "set", LUA_set);
         lua_register(L, "get", LUA_get);
+        lua_register(L, "getElement", LUA_getElement);
+        lua_register(L, "moveItemTo", LUA_moveItemTo);
+        lua_register(L, "updateCurrentWorld", [](lua_State* L) {updateCurrentWorld(lua_tostring(L, 1)); return 0;});
 
         return L;
     }
@@ -261,6 +264,20 @@ void updateCurrentPlace()
             }
         }
     }
+}
+
+void updateCurrentWorld(const string& newWorld)
+{
+    if (_worlds.find(newWorld) == _worlds.end())
+    {
+        tools::debug::error("Cannot find asked world: " + newWorld, "gamedata", __FILENAME__, __LINE__);
+        return;
+    }
+
+    _currentWorld = _worlds.find(newWorld)->second;
+
+    _currentPlace = nullptr;
+    updateCurrentPlace();
 }
 
 void saveToXML(XMLDocument& doc, XMLHandle& handle)

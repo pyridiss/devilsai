@@ -609,3 +609,68 @@ int LUA_changeCurrentSkill(lua_State* L)
 
     return 0;
 }
+
+int LUA_moveItemTo(lua_State* L)
+{
+    tools::debug::message("LUA_moveItemTo() called", "lua", __FILENAME__, __LINE__);
+
+    Individu* ind = (Individu*)lua_touserdata(L, 1);
+    string w = lua_tostring(L, 2);
+    string p = lua_tostring(L, 3);
+
+    for (auto& world : gamedata::worlds())
+    {
+        world.second->elements.remove(ind);
+        world.second->stopManagement();
+    }
+
+    Carte* newWorld = gamedata::world(w);
+    if (newWorld == nullptr)
+    {
+        tools::debug::error("World not found: " + w, "lua", __FILENAME__, __LINE__);
+        return 0;
+    }
+
+    tools::math::Shape* zone = nullptr;
+    for (auto & place : newWorld->places)
+    {
+        if (place.first->Type == p) zone = &(place.first->size);
+    }
+
+    if (zone == nullptr)
+    {
+        tools::debug::error("This place does not exist: " + p, "lua", __FILENAME__, __LINE__);
+        return 0;
+    }
+
+    pair<tools::math::Vector2d, tools::math::Vector2d> box = zone->box;
+
+    int debugCounter = 0;
+    do
+    {
+        ++debugCounter;
+
+        //Set a new random position
+        double x = box.first.x + (box.second.x - box.first.x)/10000.0 * (double)(rand()%10000);
+        double y = box.first.y + (box.second.y - box.first.y)/10000.0 * (double)(rand()%10000);
+        ind->move(x - ind->position().x, y - ind->position().y);
+
+        //1. The item must collide with the zone
+        if (!tools::math::intersection(ind->size, *zone)) continue;
+
+        //2. The item must not collide with anything else
+        newWorld->resetCollisionManager();
+        int Resultat = COLL_OK;
+        for ( ; Resultat == COLL_OK ; Resultat = newWorld->browseCollisionList(ind)) {}
+        if (Resultat == COLL_END) break;
+    }
+    while (debugCounter < 100);
+
+    if (debugCounter == 100)
+        tools::debug::error("Error while moving item to a new world: no place left", "lua", __FILENAME__, __LINE__);
+
+    newWorld->elements.push_back(ind);
+    newWorld->stopManagement();
+
+    return 0;
+}
