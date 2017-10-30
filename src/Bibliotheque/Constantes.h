@@ -64,8 +64,6 @@ using namespace std;
 #define CLASSEMENT_NUAGE	4
 
 //Activités
-#define STOP		"0"
-#define MARCHE 		"1"
 #define PAUSE		"2"
 #define COURSE		"3"
 #define ATTAQUE		"4"
@@ -84,15 +82,9 @@ using namespace std;
 
 //Clefs d'inventaire
 #define CLEF_INVENTAIRE	100
-#define CLEF_STUFF		200
-#define CLEF_COFFRE		300
 
 
 /** CONSTANTES DIVERSES **/
-
-//Types de carte
-#define TYPE_CARTE	0
-#define TYPE_LISTE	1
 
 //Retours de Collision
 #define COLL_OK			0
@@ -104,7 +96,6 @@ using namespace std;
 #define COLL_VIS		8
 
 //Action de l'utilisateur & états des individus
-#define ACTION_MORT		5
 #define ETAT_NORMAL		6
 #define ETAT_MORT		8
 #define ETAT_CONTINUER	9

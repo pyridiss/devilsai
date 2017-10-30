@@ -116,8 +116,6 @@ class Carte
 };
 
 
-void ChangerCarte(Element_Carte*, string, string);
-
 void Combat(Individu*, Individu*, lua_State* L = NULL);
 
 #endif

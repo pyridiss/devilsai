@@ -22,7 +22,7 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/luaFunctions.h"
-#include "../Jeu/Jeu.h"
+#include "../Bibliotheque/Bibliotheque.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Attributs.h"
 
@@ -257,7 +257,7 @@ double Caracteristiques::operator[](string characteristic) const
 	if (characteristic == "healingPower")
         return healingPower;
 
-	return Jeu.intNotFound;
+	return MAX_VALUE;
 }
 
 double Caracteristiques::operator[](Attribute a)

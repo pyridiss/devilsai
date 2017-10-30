@@ -162,12 +162,6 @@ Joueur* player()
     return _player;
 }
 
-void setPlayer(Joueur* p, Carte* w)
-{
-    _player = p;
-    _currentWorld = w;
-}
-
 void setPlayerName(string s)
 {
     _player->Nom = tools::textManager::fromStdString(s);

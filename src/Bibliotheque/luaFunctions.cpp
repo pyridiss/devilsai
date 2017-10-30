@@ -520,50 +520,6 @@ int LUA_questRunning(lua_State* L)
 	return 1;
 }
 
-int LUA_createActivite(lua_State* L)
-{
-    MESSAGE("LUA_createActivite() called", LUA)
-
-    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
-	string id = lua_tostring(L, 2);
-
-	ind->Ajouter_Activite(id);
-	Activite* act = ind->Get_Activite(id);
-
-    lua_pushlightuserdata(L, (void*)act);
-	return 1;
-}
-
-int LUA_activiteSet(lua_State* L)
-{
-    MESSAGE("LUA_activiteSet() called", LUA)
-
-    Activite* act = (Activite*)lua_touserdata(L, 1);
-	string field = lua_tostring(L, 2);
-	int value = lua_tonumber(L, 3);
-
-	if (field == "speed")		if (act != NULL)	act->speed = value;
-	if (field == "step")		if (act != NULL)	act->step = value;
-	if (field == "priority")	if (act != NULL)	act->priority = value;
-
-	return 0;
-}
-
-int LUA_activiteAddImage(lua_State* L)
-{
-    MESSAGE("LUA_activiteAddImage() called", LUA)
-    Erreur("LUA_activiteAddImage() not implemented.", "");
-/*
-	Activite* act = (Activite*)lua_touserdata(L, 1);
-	int Act = lua_tonumber(L, 2);
-	int Num = lua_tonumber(L, 3);
-
-	if (act != NULL) act->addImage(Act, Num);
-
-	return 0;
-    */
-}
-
 int LUA_addSound(lua_State* L)
 {
     MESSAGE("LUA_addSound() called", LUA)

@@ -19,35 +19,20 @@
 
 #include <cmath>
 
-#include <lua.hpp>
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"
 
-#include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Bibliotheque.h"
 #include "Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "gamedata.h"
 
 using namespace tinyxml2;
-
-void ChangerCarte(Element_Carte *elem, string IdOrig, string IdCible)
-{
-	Carte *Orig = gamedata::world(IdOrig);
-	Carte *Cible = gamedata::world(IdCible);
-
-	if (elem == NULL || Orig == NULL || Cible == NULL) return;
-
-	Orig->elements.remove(elem);
-	Cible->elements.push_back(elem);
-}
 
 
 /** FONCTIONS DE LA CLASSE Carte **/
@@ -72,7 +57,6 @@ void Carte::AjouterElementEnListe(Element_Carte *elem)
 {
 	if (elem == NULL)
 	{
-		Erreur("Carte::AjouterElementEnListe() appelé avec NULL", "");
 		return;
 	}
 
@@ -90,15 +74,12 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 
     if (ind->Classe == nullptr)
 	{
-		Erreur("La classe de l'élément commun suivant n'a pas pu être chargée", Type);
 		delete ind;
 		return NULL;
 	}
 
 	ind->Classe->Copie_Element(ind);
     ind->move(x, y);
-
-	MESSAGE("Un individu commun a été ajouté - Classe = " + Type, FICHIER)
 
 	AjouterElementEnListe(ind);
 	return ind;
@@ -113,8 +94,6 @@ CheckPoint* Carte::addCheckPoint(string liste, int x, int y)
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
-	MESSAGE("Un actionneur a été ajouté", FICHIER)
-
 	AjouterElementEnListe(ind);
 	return ind;
 }
@@ -128,16 +107,12 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
-	MESSAGE("Un coffre a été ajouté", FICHIER)
-
 	AjouterElementEnListe(ind);
 	return ind;
 }
 
 void Carte::SupprimerElement(Element_Carte* elem)
 {
-	MESSAGE("Element_Carte " + intToString(elem->Id) + " va être supprimé", FICHIER)
-
 	delete elem;
 	elements.remove(elem);
 }
