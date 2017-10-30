@@ -82,6 +82,14 @@ int Trigger::Gestion()
 
 int Trigger::Collision(Individu* elem, int TypeCollision)
 {
+    if (elem->Type == "intern")
+    {
+        lua_getglobal(script, "mouseHovering");
+        lua_pushstring(script, data.c_str());
+        lua_call(script, 1, 0);
+        return 0;
+    }
+
     lua_getglobal(script, "collision");
     lua_pushlightuserdata(script, (void*)elem);
     lua_pushnumber(script, TypeCollision);

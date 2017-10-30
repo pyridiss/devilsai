@@ -12,3 +12,7 @@ function collision(item, collisionType, data)
     end
     return 0
 end
+
+function mouseHovering(data)
+
+end

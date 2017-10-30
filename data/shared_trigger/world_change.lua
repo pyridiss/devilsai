@@ -19,3 +19,7 @@ function collision(item, collisionType, data)
 
     return 0
 end
+
+function mouseHovering(data)
+
+end
