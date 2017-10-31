@@ -574,12 +574,6 @@ int LUA_moveItemTo(lua_State* L)
     string w = lua_tostring(L, 2);
     string p = lua_tostring(L, 3);
 
-    for (auto& world : gamedata::worlds())
-    {
-        world.second->elements.remove(ind);
-        world.second->stopManagement();
-    }
-
     Carte* newWorld = gamedata::world(w);
     if (newWorld == nullptr)
     {
@@ -600,6 +594,7 @@ int LUA_moveItemTo(lua_State* L)
     }
 
     pair<tools::math::Vector2d, tools::math::Vector2d> box = zone->box;
+    tools::math::Vector2d originalPosition = ind->position();
 
     int debugCounter = 0;
     do
@@ -623,10 +618,22 @@ int LUA_moveItemTo(lua_State* L)
     while (debugCounter < 100);
 
     if (debugCounter == 100)
-        tools::debug::error("Error while moving item to a new world: no place left", "lua", __FILENAME__, __LINE__);
+    {
+        //Refuse to do the move: there is no place left
+        ind->move(originalPosition.x - ind->position().x, originalPosition.y - ind->position().y);
+        lua_pushboolean(L, false);
+    }
+    else
+    {
+        for (auto& world : gamedata::worlds())
+        {
+            world.second->elements.remove(ind);
+            world.second->stopManagement();
+        }
 
-    newWorld->elements.push_back(ind);
-    newWorld->stopManagement();
+        newWorld->elements.push_back(ind);
+        lua_pushboolean(L, true);
+    }
 
-    return 0;
+    return 1;
 }

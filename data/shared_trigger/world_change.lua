@@ -8,10 +8,12 @@ function collision(item, collisionType, data)
     if collisionType == 2 then
         w, p = string.match(data, "(.+):(.+)")
 
-        moveItemTo(item, w, p)
+        movementDone = moveItemTo(item, w, p)
 
-        if item == getElement("player") then
-            updateCurrentWorld(w)
+        if movementDone then
+            if item == getElement("player") then
+                updateCurrentWorld(w)
+            end
         end
 
         return 0
