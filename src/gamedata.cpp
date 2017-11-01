@@ -142,6 +142,7 @@ lua_State* sharedTrigger(string name)
         lua_register(L, "get", LUA_get);
         lua_register(L, "getElement", LUA_getElement);
         lua_register(L, "moveItemTo", LUA_moveItemTo);
+        lua_register(L, "addTooltip", LUA_addTooltip);
         lua_register(L, "updateCurrentWorld", [](lua_State* L) {updateCurrentWorld(lua_tostring(L, 1)); return 0;});
 
         return L;

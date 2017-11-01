@@ -127,6 +127,7 @@ void mainLoop()
     int selectedStorageBox = -1;
     bool cursorIsInWorld = false;
     bool move = false;
+    string tooltip;
 
     enum LeftScreens { None, Inventory };
     LeftScreens currentLeftScreen = LeftScreens::None;
@@ -347,6 +348,9 @@ void mainLoop()
             if (signal.first == "player-skill") {
                 gamedata::player()->Set_Activite(signal.second);
             }
+            if (signal.first == "add-tooltip") {
+                tooltip = signal.second;
+            }
 
             tools::signals::removeSignal();
             signal = tools::signals::getNextSignal();
@@ -474,6 +478,14 @@ void mainLoop()
         if (underCursor != nullptr) underCursor->displayLifeGauge();
 
         if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(Jeu.App);
+
+        if (!tooltip.empty())
+        {
+            int x = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x;
+            int y = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y;
+            Disp_TexteCentre(tools::textManager::getText("places", tooltip), x, y + 25, Color(255, 255, 255, 255), 15.f);
+        }
+        tooltip.clear();
 
         if (Keyboard::isKeyPressed(Keyboard::LAlt))
         {

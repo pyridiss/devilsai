@@ -229,6 +229,12 @@ int LUA_dispText(lua_State* L)
 	return 0;
 }
 
+int LUA_addTooltip(lua_State* L)
+{
+    tools::signals::addSignal("add-tooltip", lua_tostring(L, 1));
+    return 0;
+}
+
 int LUA_getQuantityOf(lua_State* L)
 {
     MESSAGE("LUA_getQuantityOf() called", LUA)
