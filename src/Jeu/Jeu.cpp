@@ -98,6 +98,11 @@ void mainLoop()
     placeName.setTextOutline(Color(0, 0, 0), 1);
     placeName.setTextColor("normal", Color(192, 0, 0));
 
+    gui::TextWidget tooltip;
+    tooltip.setBackgroundShader("normal", "textBackground");
+    tooltip.setTextFont(gui::style::fontFromString("liberation-bold"), 15);
+    tooltip.setTextColor("normal", Color(255, 255, 255));
+
     ingameToolbar.startWindow(Jeu.App);
     loadingWindow.startWindow(Jeu.App);
     inventoryWindow.startWindow(Jeu.App);
@@ -127,7 +132,7 @@ void mainLoop()
     int selectedStorageBox = -1;
     bool cursorIsInWorld = false;
     bool move = false;
-    string tooltip;
+    bool showTooltip = false;
 
     enum LeftScreens { None, Inventory };
     LeftScreens currentLeftScreen = LeftScreens::None;
@@ -349,7 +354,9 @@ void mainLoop()
                 gamedata::player()->Set_Activite(signal.second);
             }
             if (signal.first == "add-tooltip") {
-                tooltip = signal.second;
+                tooltip.setSize(0, 0);
+                tooltip.setAllText(tools::textManager::getText("places", signal.second));
+                showTooltip = true;
             }
 
             tools::signals::removeSignal();
@@ -479,13 +486,15 @@ void mainLoop()
 
         if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(Jeu.App);
 
-        if (!tooltip.empty())
+        if (showTooltip)
         {
-            int x = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x;
-            int y = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y;
-            Disp_TexteCentre(tools::textManager::getText("places", tooltip), x, y + 25, Color(255, 255, 255, 255), 15.f);
+            int x = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x + 10;
+            int y = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y + 10;
+            tooltip.setTopLeftCoordinates(x, y);
+            tooltip.updateTextPosition();
+            tooltip.display(Jeu.App);
         }
-        tooltip.clear();
+        showTooltip = false;
 
         if (Keyboard::isKeyPressed(Keyboard::LAlt))
         {
