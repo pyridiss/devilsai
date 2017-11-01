@@ -350,6 +350,9 @@
             <shape type="triangle" x1="770" y1="-5210" x2="770" y2="-4820" x3="1100" y3="-5210"/>
         </shape>
     </place>
+    <place name="entranceFromTheCaveOfTheSpider" music="Spring_1">
+        <shape type="rectangle" xCenter="-15" yCenter="-2405" xSize="160" ySize="50"/>
+    </place>
     <path>
         <shape type="polyline" points="3" thickness="40" x1="1520" y1="-2110" x2="460" y2="-2450" x3="-20" y3="-2450"/>
     </path>
@@ -364,6 +367,9 @@
         <shape type="polyline" points="3" thickness="40" x1="1570" y1="-5800" x2="1570" y2="-5300" x3="2310" y3="-5300"/>
     </path>
     <items tag="TheHillsOfNoirefontaine-Items">
+        <trigger script="shared_trigger/world_change.lua" x="-25" y="-2464" data="birnam-thecaveofthespider:entranceFromBirnam:birnam-TheCaveOfTheSpider">
+            <shape type="circle" radius="10"/>
+        </trigger>
         <inertItem design="30204" x="-25" y="-2474"/>
         <inertItem design="building01" x="1570" y="-5841"/>
         <inertItem design="wall02-EW" x="351" y="-5918"/>

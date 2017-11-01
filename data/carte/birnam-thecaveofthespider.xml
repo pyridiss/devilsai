@@ -20,8 +20,16 @@
             <shape type="rectangle" x1="1219" y1="150" x2="1587" y2="486"/>
         </shape>
     </place>
-    
+    <place name="entranceFromBirnam" music="Cavern">
+        <shape type="rectangle" xCenter="0" yCenter="-30" xSize="120" ySize="60"/>
+    </place>
+    <path>
+        <shape type="polyline" points="4" thickness="60" x1="0" y1="0" x2="0" y2="-80" x3="-150" y3="-80" x4="150" y4="-80"/>
+    </path>
     <items tag="TheCaveOfTheSpider-Items">
+        <trigger script="shared_trigger/world_change.lua" x="0" y="50" data="birnam:entranceFromTheCaveOfTheSpider:birnam-hills-noirefontaine">
+            <shape type="rectangle" xSize="100" ySize="5"/>
+        </trigger>
         <inertItem design="ground-tile02" x="635" y="31">
             <properties yExtent="6"/>
         </inertItem>
