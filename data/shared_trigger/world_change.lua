@@ -6,7 +6,7 @@ Shared_Trigger - World Change
 
 function collision(item, collisionType, data)
     if collisionType == 2 then
-        w, p = string.match(data, "(.+):(.+)")
+        w, p, t = string.match(data, "(.+):(.+):(.+)")
 
         movementDone = moveItemTo(item, w, p)
 
@@ -23,5 +23,6 @@ function collision(item, collisionType, data)
 end
 
 function mouseHovering(data)
-
+    w, p, t = string.match(data, "(.+):(.+):(.+)")
+    addTooltip(t)
 end
