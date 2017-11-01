@@ -129,6 +129,7 @@ void mainLoop()
 
     Individu* underCursor = nullptr;
     Coffre* storageBoxUnderCursor = nullptr;
+    Coffre* openStorageBox = nullptr;
     int selectedStorageBox = -1;
     bool cursorIsInWorld = false;
     bool move = false;
@@ -162,11 +163,11 @@ void mainLoop()
                 {
                     selectedStorageBox = -1;
 
-                    if (Partie.CoffreOuvert != nullptr)
+                    if (openStorageBox != nullptr)
                     {
-                        Partie.CoffreOuvert->close();
+                        openStorageBox->close();
                         currentBottomScreen = BottomScreens::NoBottomScreen;
-                        Partie.CoffreOuvert = nullptr;
+                        openStorageBox = nullptr;
                     }
                 }
             }
@@ -188,7 +189,7 @@ void mainLoop()
             switch (currentBottomScreen)
             {
                 case BottomScreens::StorageBox :
-                    manageStorageBoxScreen(storageBoxWindow, Jeu.App, event);
+                    manageStorageBoxScreen(storageBoxWindow, Jeu.App, event, openStorageBox);
                 default:
                     break;
             }
@@ -201,11 +202,11 @@ void mainLoop()
 
             if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
             {
-                if (Partie.CoffreOuvert != nullptr)
+                if (openStorageBox != nullptr)
                 {
-                    Partie.CoffreOuvert->close();
+                    openStorageBox->close();
                     currentBottomScreen = BottomScreens::NoBottomScreen;
-                    Partie.CoffreOuvert = nullptr;
+                    openStorageBox = nullptr;
                 }
                 selectedStorageBox = -1;
             }
@@ -425,19 +426,19 @@ void mainLoop()
             if (tools::math::intersection(gamedata::player()->interactionField, c->size))
             {
                 gamedata::player()->stopAutomoving();
-                Partie.CoffreOuvert = dynamic_cast<Coffre*>(c);
+                openStorageBox = dynamic_cast<Coffre*>(c);
                 currentBottomScreen = BottomScreens::StorageBox;
                 currentLeftScreen = LeftScreens::None;
             }
             else
             {
-                if (Partie.CoffreOuvert == nullptr)
+                if (openStorageBox == nullptr)
                     gamedata::player()->automove(c->position());
                 else
                 {
-                    Partie.CoffreOuvert->close();
+                    openStorageBox->close();
                     currentBottomScreen = BottomScreens::NoBottomScreen;
-                    Partie.CoffreOuvert = nullptr;
+                    openStorageBox = nullptr;
                     selectedStorageBox = -1;
                 }
             }
@@ -539,7 +540,7 @@ void mainLoop()
         switch (currentBottomScreen)
         {
             case BottomScreens::StorageBox :
-                displayStorageBoxScreen(storageBoxWindow, Jeu.App);
+                displayStorageBoxScreen(storageBoxWindow, Jeu.App, openStorageBox);
             default:
                 break;
         }
@@ -612,7 +613,6 @@ void mainLoop()
 
 void Clean_Partie()
 {
-	Partie.CoffreOuvert = NULL;
 	Partie.selectedObject = nullptr;
 	Partie.listDialogs.clear();
 	currentUserScreen = nullptr;

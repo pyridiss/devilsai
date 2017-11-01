@@ -28,7 +28,6 @@
 using namespace std;
 using namespace sf;
 
-class Coffre;
 
 namespace gui
 {
@@ -45,7 +44,6 @@ struct Classe_Partie
 
 	Journal journal;
 
-	Coffre *CoffreOuvert        = NULL;
 	lua_State* selectedObject   = nullptr;
 
 	bool loadFirstChapter   = false;

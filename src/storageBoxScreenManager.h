@@ -33,7 +33,9 @@ namespace gui
     class Window;
 }
 
-void manageStorageBoxScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event);
-void displayStorageBoxScreen(gui::Window& window, sf::RenderWindow& target);
+class Coffre;
+
+void manageStorageBoxScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event, Coffre* box);
+void displayStorageBoxScreen(gui::Window& window, sf::RenderWindow& target, Coffre* box);
 
 #endif // STORAGEBOXSCREENMANAGER_H

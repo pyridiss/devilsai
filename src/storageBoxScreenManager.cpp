@@ -25,7 +25,6 @@
 #include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque/Bibliotheque.h"
-#include "Jeu/Jeu.h"
 
 #include "gamedata.h"
 
@@ -34,10 +33,10 @@
 //Defined in Attributs/Objets.cpp
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
 
-void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& event)
+void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& event, Coffre* box)
 {
     mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
-    mapObjects* storageBox = &(Partie.CoffreOuvert->objects.objects);
+    mapObjects* storageBox = &(box->objects.objects);
 
     mapObjects::iterator currentObject;
 
@@ -93,7 +92,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
                 if (getBoolFromLUA(i.second, "getCumul") && getIntFromLUA(i.second, "getInternalNumber") == getIntFromLUA(currentObject->second, "getInternalNumber"))
                 {
                     setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") + getIntFromLUA(currentObject->second, "getQuantite"));
-                    Partie.CoffreOuvert->objects.deleteObject(currentObject->second);
+                    box->objects.deleteObject(currentObject->second);
                     storageBox->erase(currentObject);
                     currentObject = storageBox->end();
                     break;
@@ -118,15 +117,15 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
     }
 }
 
-void displayStorageBoxScreen(gui::Window& window, RenderWindow& target)
+void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)
 {
     gui::TextWidget* boxName = dynamic_cast<gui::TextWidget*>(window.widget("storagebox-name"));
-    boxName->setValue(tools::textManager::toStdString(Partie.CoffreOuvert->Nom));
+    boxName->setValue(tools::textManager::toStdString(box->Nom));
 
     window.display(target);
 
     mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
-    mapObjects* storageBox = &(Partie.CoffreOuvert->objects.objects);
+    mapObjects* storageBox = &(box->objects.objects);
 
     const auto& slots = window.getWidgets();
 
