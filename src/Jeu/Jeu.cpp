@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <lua.hpp>
+
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
@@ -130,6 +132,7 @@ void mainLoop()
     Individu* underCursor = nullptr;
     Coffre* storageBoxUnderCursor = nullptr;
     Coffre* openStorageBox = nullptr;
+    lua_State* selectedObject = nullptr;
     int selectedStorageBox = -1;
     bool cursorIsInWorld = false;
     bool move = false;
@@ -181,7 +184,7 @@ void mainLoop()
             switch (currentLeftScreen)
             {
                 case LeftScreens::Inventory :
-                    manageInventoryScreen(inventoryWindow, Jeu.App, event);
+                    manageInventoryScreen(inventoryWindow, Jeu.App, event, selectedObject);
                 default:
                     break;
             }
@@ -532,7 +535,7 @@ void mainLoop()
         switch (currentLeftScreen)
         {
             case LeftScreens::Inventory :
-                displayInventoryScreen(inventoryWindow, Jeu.App);
+                displayInventoryScreen(inventoryWindow, Jeu.App, selectedObject);
             default:
                 break;
         }
@@ -609,11 +612,16 @@ void mainLoop()
 		Jeu.App.display();
         musicManager::manageRunningMusics();
 	}
+
+    if (selectedObject != nullptr)
+    {
+        lua_close(selectedObject);
+        selectedObject = nullptr;
+    }
 }
 
 void Clean_Partie()
 {
-	Partie.selectedObject = nullptr;
 	Partie.listDialogs.clear();
 	currentUserScreen = nullptr;
 	Partie.journal.entries.clear();

@@ -44,8 +44,6 @@ struct Classe_Partie
 
 	Journal journal;
 
-	lua_State* selectedObject   = nullptr;
-
 	bool loadFirstChapter   = false;
 
 	list<Dialog> listDialogs;

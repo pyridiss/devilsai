@@ -459,12 +459,14 @@ int LUA_transferObject(lua_State* L)
 
 	mapObjects::iterator iObj = indA->inventory.objects.begin();
 
-	//1. On place l'objet en question dans Partie.ObjetSelectionne
+    lua_State* tmp;
+
+    //1. On place l'objet en question dans tmp
 	while (iObj != indA->inventory.objects.end() && getIntFromLUA(iObj->second, "getInternalNumber") != object)
 		++iObj;
 	if (iObj == indA->inventory.objects.end()) return 0;
 
-	Partie.selectedObject = iObj->second;
+    tmp = iObj->second;
 	setStringToLUA(iObj->second, "setKey", "0");
 	indA->inventory.objects.erase(iObj);
 
@@ -473,12 +475,12 @@ int LUA_transferObject(lua_State* L)
 
 	bool cumulate = false;
 
-	if (getBoolFromLUA(Partie.selectedObject, "getCumul"))
+    if (getBoolFromLUA(tmp, "getCumul"))
 	{
 		string key = intToString(CLEF_INVENTAIRE);
 		for (mapObjects::iterator k = indB->inventory.objects.begin() ; k != indB->inventory.objects.end() ; ++k)
 			if (k->first[0] == key[0] && 
-				getIntFromLUA(k->second, "getInternalNumber") == getIntFromLUA(Partie.selectedObject, "getInternalNumber"))
+                getIntFromLUA(k->second, "getInternalNumber") == getIntFromLUA(tmp, "getInternalNumber"))
 			{
 				cumulate = true;
 				iObj = k;
@@ -488,8 +490,8 @@ int LUA_transferObject(lua_State* L)
 
 	if (cumulate)
 	{
-		setIntToLUA(iObj->second, "setQuantite", getIntFromLUA(iObj->second, "getQuantite") + getIntFromLUA(Partie.selectedObject, "getQuantite"));
-		Partie.selectedObject = nullptr;
+        setIntToLUA(iObj->second, "setQuantite", getIntFromLUA(iObj->second, "getQuantite") + getIntFromLUA(tmp, "getQuantite"));
+        tmp = nullptr;
 	}
 	else
 	{
@@ -500,11 +502,11 @@ int LUA_transferObject(lua_State* L)
 			++cell;
 			key = intToString(CLEF_INVENTAIRE + cell);
 		}
-		pair<mapObjects::iterator, bool> result = indB->inventory.objects.insert(mapObjects::value_type(key, Partie.selectedObject));
+        pair<mapObjects::iterator, bool> result = indB->inventory.objects.insert(mapObjects::value_type(key, tmp));
 		if (result.second)
 		{
 			setStringToLUA(result.first->second, "setKey",key);
-			Partie.selectedObject = nullptr;
+            tmp = nullptr;
 		}
 	}
 

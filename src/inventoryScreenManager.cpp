@@ -23,7 +23,6 @@
 #include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque/Bibliotheque.h"
-#include "Jeu/Jeu.h"
 
 #include "gamedata.h"
 
@@ -32,7 +31,7 @@
 //Defined in Attributs/Objets.cpp
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
 
-void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event)
+void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event, lua_State*& selectedObject)
 {
     mapObjects* objects = &(gamedata::player()->inventory.objects);
     mapObjects::iterator currentObject = objects->end();
@@ -43,14 +42,14 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
     {
         if (slot.second->activated(target, event))
         {
-            if (Partie.selectedObject == nullptr)
+            if (selectedObject == nullptr)
             {
                 currentObject = objects->find(slot.first);
                 if (currentObject != objects->end())
                 {
                     if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
                     {
-                        Partie.selectedObject = currentObject->second;
+                        selectedObject = currentObject->second;
                         objects->erase(currentObject);
                     }
                     if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Right)
@@ -75,18 +74,18 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
             }
             else if (objects->find(slot.first) == objects->end() &&
                      (slot.second->embeddedData("allowed-object") == "all" ||
-                      slot.second->embeddedData("allowed-object") == getStringFromLUA(Partie.selectedObject, "getTypeObject")))
+                      slot.second->embeddedData("allowed-object") == getStringFromLUA(selectedObject, "getTypeObject")))
             {
-                setStringToLUA(Partie.selectedObject, "setKey", slot.first);
-                objects->emplace(slot.first, Partie.selectedObject);
-                Partie.selectedObject = nullptr;
+                setStringToLUA(selectedObject, "setKey", slot.first);
+                objects->emplace(slot.first, selectedObject);
+                selectedObject = nullptr;
             }
             break;
         }
     }
 }
 
-void displayInventoryScreen(gui::Window& window, RenderWindow& target)
+void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State*& selectedObject)
 {
     window.display(target);
 
@@ -114,9 +113,9 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target)
         }
     }
 
-    if (Partie.selectedObject != nullptr)
+    if (selectedObject != nullptr)
     {
-        string objectName = getStringFromLUA(Partie.selectedObject, "getFileName");
-        imageManager::display(Jeu.App, "objects", objectName, Mouse::getPosition(Jeu.App).x, Mouse::getPosition(Jeu.App).y, true);
+        string objectName = getStringFromLUA(selectedObject, "getFileName");
+        imageManager::display(target, "objects", objectName, Mouse::getPosition(target).x, Mouse::getPosition(target).y, true);
     }
 }
