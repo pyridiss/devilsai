@@ -25,6 +25,7 @@
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
+#include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
@@ -62,9 +63,9 @@ void addQuest(string newQuest, string args)
         tools::signals::addSignal("new-game");
         return 0;
     });
-	lua_register(L, "enableCinematics",	[](lua_State* L) { Partie.ModeCinematiques = lua_toboolean(L, 1); return 0; });
-	lua_register(L, "addJournalEntry",	[](lua_State* L) { Partie.journal.addEntry(lua_tostring(L, 1)); return 0; });
-	lua_register(L, "journalEntryDone",	[](lua_State* L) { Partie.journal.setDone(lua_tostring(L, 1)); return 0; });
+	lua_register(L, "enableCinematics",	[](lua_State* L) { Options.ModeCinematiques = lua_toboolean(L, 1); return 0; });
+	lua_register(L, "addJournalEntry",	[](lua_State* L) { gamedata::journal().addEntry(lua_tostring(L, 1)); return 0; });
+	lua_register(L, "journalEntryDone",	[](lua_State* L) { gamedata::journal().setDone(lua_tostring(L, 1)); return 0; });
 
 	lua_register(L, "cout", LUA_cout);
 	lua_register(L, "getNumberOfItemsByTag", LUA_getNumberOfItemsByTag);
@@ -119,10 +120,10 @@ void manageQuests()
 		else ++i;
 	}
 
-	if (!Partie.listDialogs.empty())
+	if (!gamedata::listDialogs().empty())
 	{
-		bool done = Partie.listDialogs.begin()->display();
-		if (done) Partie.listDialogs.pop_front();
+		bool done = gamedata::listDialogs().begin()->display();
+		if (done) gamedata::listDialogs().pop_front();
 	}
 }
 

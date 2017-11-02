@@ -23,7 +23,6 @@
 #include <string>
 #include <list>
 
-#include "../Bibliotheque/Bibliotheque.h"
 
 using namespace std;
 using namespace sf;
@@ -34,18 +33,7 @@ namespace gui
     class Window;
 }
 
-/**
- * Contient les principales données concernant la partie en cours :
- * cartes, joueur, classes des éléments, éléments de collisions…
-*/
-struct Classe_Partie
-{
-	bool ModeCinematiques   = false;
-
-	Journal journal;
-
-	list<Dialog> listDialogs;
-};
+typedef basic_string<Uint32> String32;
 
 /**
  * Contient les données du programme : fenêtre d'affichage, polices, phrases, arguments et options. 
@@ -75,6 +63,7 @@ struct Classe_Jeu
 		String32 CharForm;
 		String32 CharEOL;
 		String32 CharSpace;
+        bool ModeCinematiques   = false;
 
 		Classe_Options();
 	};
@@ -87,7 +76,6 @@ struct Classe_Jeu
 
 //Objets globaux Jeu et Partie :
 extern Classe_Jeu Jeu;
-extern Classe_Partie Partie;
 extern Classe_Jeu::Classe_Arguments Arguments;
 extern Classe_Jeu::Classe_Options Options;
 

@@ -30,6 +30,8 @@ class Element_Carte;
 class Paysage;
 class Individu_Unique;
 class Joueur;
+class Journal;
+class Dialog;
 
 class lua_State;
 
@@ -53,6 +55,8 @@ void copyInertItemFromDesign(string t, Paysage *elem);
 lua_State* sharedTrigger(string name);
 unordered_map<string, lua_State*>& quests();
 Joueur* player();
+Journal& journal();
+list<Dialog>& listDialogs();
 void setPlayerName(string s);
 Carte* currentWorld();
 void clear();

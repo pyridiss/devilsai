@@ -29,7 +29,6 @@
 
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
-#include "../Jeu/Jeu.h"
 #include "Bibliotheque.h"
 
 #include "gamedata.h"
@@ -292,8 +291,8 @@ int LUA_pushDialog(lua_State* L)
 
 	string newDialog = lua_tostring(L, 1);
 	Dialog dialog;
-	Partie.listDialogs.push_back(dialog);
-	Partie.listDialogs.back().load(newDialog + ".lng");
+	gamedata::listDialogs().push_back(dialog);
+	gamedata::listDialogs().back().load(newDialog + ".lng");
 	return 0;
 }
 
@@ -302,10 +301,10 @@ int LUA_popDialog(lua_State* L)
     MESSAGE("LUA_popDialog() called", LUA)
 
 	string dialog = lua_tostring(L, 1);
-	for (auto i = Partie.listDialogs.begin() ; i != Partie.listDialogs.end() ; ++i)
+	for (auto i = gamedata::listDialogs().begin() ; i != gamedata::listDialogs().end() ; ++i)
 		if (i->id == dialog + ".lng")
 		{
-			Partie.listDialogs.erase(i);
+			gamedata::listDialogs().erase(i);
 			break;
 		}
 	return 0;
@@ -316,7 +315,7 @@ int LUA_dialogDisplayed(lua_State* L)
     MESSAGE("LUA_dialogDisplayed() called", LUA)
 
 	string dialog = lua_tostring(L, 1);
-	for (auto& i : Partie.listDialogs)
+	for (auto& i : gamedata::listDialogs())
 		if (i.id == dialog + ".lng")
 		{
 			lua_pushboolean(L, false);

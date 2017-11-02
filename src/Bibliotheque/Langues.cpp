@@ -327,14 +327,14 @@ void Journal::setDone(string _ref)
 
 void displayJournal()
 {
-	if (Partie.journal.entries.empty()) return;
+	if (gamedata::journal().entries.empty()) return;
 
     gui::style::textBackgroundShader(Jeu.App, 10, 170, Options.ScreenW / 2 - 20, Options.ScreenH - 170 - 10);
 
 	int numberOfLine = 0;
 	int opacity = 255;
 
-	for (auto entry = Partie.journal.entries.rbegin() ; entry != Partie.journal.entries.rend() ; ++entry)
+	for (auto entry = gamedata::journal().entries.rbegin() ; entry != gamedata::journal().entries.rend() ; ++entry)
 	{
 		Text Texte("", gui::style::defaultTextFont(), 11);
 

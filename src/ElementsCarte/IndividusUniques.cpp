@@ -29,8 +29,8 @@
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/Constantes.h"
+#include "../Bibliotheque/Bibliotheque.h"
 #include "../Carte/Carte.h"
-#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 #include "gamedata.h"

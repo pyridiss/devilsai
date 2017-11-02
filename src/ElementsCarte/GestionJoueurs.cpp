@@ -80,7 +80,7 @@ int Joueur::Gestion()
 	}
 
 	//Désactivation de (presque) tout si on est en mode cinématiques
-	if (Partie.ModeCinematiques)
+	if (Options.ModeCinematiques)
 	{
 		Appui[HAUT] = false; Appui[BAS] = false; Appui[DROITE] = false; Appui[GAUCHE] = false;
 	}

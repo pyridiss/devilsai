@@ -30,6 +30,7 @@
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
+#include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "../Carte/Carte.h"
@@ -44,7 +45,6 @@
 
 //Création du jeu et de la partie :
 Classe_Jeu Jeu;
-Classe_Partie Partie;
 Classe_Jeu::Classe_Arguments Arguments;
 Classe_Jeu::Classe_Options Options;
 

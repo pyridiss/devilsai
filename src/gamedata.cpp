@@ -32,6 +32,7 @@
 #include "ElementsCarte/ElementsCarte.h"
 
 #include "Bibliotheque/luaFunctions.h"
+#include "Bibliotheque/Bibliotheque.h"
 
 #include "gamedata.h"
 
@@ -52,6 +53,8 @@ Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
 pair<Element_Carte*, string>* _currentPlace = nullptr;
 
+Journal _journal;
+list<Dialog> _listDialogs;
 
 void addWorld(const string& id)
 {
@@ -163,6 +166,16 @@ Joueur* player()
     return _player;
 }
 
+Journal& journal()
+{
+    return _journal;
+}
+
+list<Dialog>& listDialogs()
+{
+    return _listDialogs;
+}
+
 void setPlayerName(string s)
 {
     _player->Nom = tools::textManager::fromStdString(s);
@@ -198,6 +211,9 @@ void clear()
     _player = nullptr;
     _currentWorld = nullptr;
     _currentPlace = nullptr;
+
+    _journal.entries.clear();
+    _listDialogs.clear();
 }
 
 Element_Carte* findElement(int id)

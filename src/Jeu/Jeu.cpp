@@ -30,6 +30,7 @@
 
 #include "musicManager/musicManager.h"
 
+#include "Bibliotheque/Bibliotheque.h"
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
@@ -517,7 +518,7 @@ void mainLoop()
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
-        if (!Partie.ModeCinematiques)
+        if (!Options.ModeCinematiques)
         {
             Disp_Menu();
             Disp_JaugesVie();
@@ -606,9 +607,7 @@ void mainLoop()
 
 void Clean_Partie()
 {
-	Partie.listDialogs.clear();
 	currentUserScreen = nullptr;
-	Partie.journal.entries.clear();
 
 	SupprimerLignesConsoles();
 

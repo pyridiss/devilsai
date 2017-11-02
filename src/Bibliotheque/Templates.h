@@ -23,7 +23,6 @@
 #include <sstream>
 
 #include "Bibliotheque.h"
-#include "../Jeu/Jeu.h"
 #include "../Attributs/Attributs.h"
 
 
