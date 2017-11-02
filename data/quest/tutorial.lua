@@ -169,5 +169,5 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	loadFirstChapter()
+    gameSuccessfullyEnded()
 end

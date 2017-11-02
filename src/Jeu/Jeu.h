@@ -44,8 +44,6 @@ struct Classe_Partie
 
 	Journal journal;
 
-	bool loadFirstChapter   = false;
-
 	list<Dialog> listDialogs;
 };
 

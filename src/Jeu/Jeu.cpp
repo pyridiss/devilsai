@@ -253,6 +253,9 @@ void mainLoop()
                 gamedata::player()->Repos();
             }
 
+            if (signal.first == "game-successfully-ended") {
+                //TODO: Do something here
+            }
             if (signal.first == "player-dead")
             {
                 playerDeadWindow.manage(Jeu.App);
@@ -265,6 +268,7 @@ void mainLoop()
             }
 
             if (signal.first == "start-new-game") {
+                gamedata::clear();
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
@@ -586,17 +590,6 @@ void mainLoop()
 				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
 
 			}
-		}
-
-		//7. CHARGEMENT DU JEU APRÈS LE DIDACTICIEL
-
-		if (Partie.loadFirstChapter)
-		{
-			String32 NomPersonnage = gamedata::player()->Nom;
-			Clean_Partie();
-			gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
-			gamedata::player()->Nom = NomPersonnage;
-			Partie.loadFirstChapter = false;
 		}
 
         tools::timeManager::frameDone();
