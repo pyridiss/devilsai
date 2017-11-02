@@ -264,19 +264,10 @@ void mainLoop()
                 newGameWindow.manage(Jeu.App);
             }
 
-            if (signal.first == "start-game-chapter-1")
-            {
+            if (signal.first == "start-new-game") {
                 loadingWindow.display(Jeu.App);
                 Jeu.App.display();
-                gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/devilsai.xml");
-                managementActivated = true;
-            }
-
-            if (signal.first == "start-game-tutorial")
-            {
-                loadingWindow.display(Jeu.App);
-                Jeu.App.display();
-                gamedata::loadFromXML(tools::filesystem::dataDirectory(), "chapitre/tutorial.xml");
+                gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
                 managementActivated = true;
             }
             if (signal.first == "change-player-name") {

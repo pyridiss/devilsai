@@ -7,11 +7,15 @@
     <widget name="question" type="text" xCenter="244" yCenter="50" allText="new-game-title" textSize="24" textFont="dayroman"/>
     <widget name="answer" type = "input-field" xCenter="244" yCenter="120" width="356" height="46" allBackground="input-field-background-356x46" textSize="18" textFont="dayroman"/>
     <widget name="button-back" type="button" xTopLeft="20" yTopLeft="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-tutorial" type="button" xTopLeft="312" yTopLeft="192" width="156" height="46" allBackground="button-background-156x46" allText="new-game-tutorial" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-devilsai" type="button" xTopLeft="312" yTopLeft="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-tutorial" type="button" xTopLeft="312" yTopLeft="192" width="156" height="46" allBackground="button-background-156x46" allText="new-game-tutorial" textSize="12" textFont="liberation-bold">
+        <addEmbeddedData name="value" value="chapitre/tutorial.xml"/>
+    </widget>
+    <widget name="button-devilsai" type="button" xTopLeft="312" yTopLeft="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1" textSize="12" textFont="liberation-bold">
+        <addEmbeddedData name="value" value="chapitre/devilsai.xml"/>
+    </widget>
     <signal emitter="button-back" signal="main-menu"/>
-    <signal emitter="button-tutorial" signal="start-game-tutorial"/>
-    <signal emitter="button-devilsai" signal="start-game-chapter-1"/>
+    <signal emitter="button-tutorial" signal="start-new-game" dataProvider="button-tutorial"/>
+    <signal emitter="button-devilsai" signal="start-new-game" dataProvider="button-devilsai"/>
     <signal emitter="button-tutorial" signal="change-player-name" dataProvider="answer"/>
     <signal emitter="button-devilsai" signal="change-player-name" dataProvider="answer"/>
     <exitWindowSignal emitter="button-back"/>
