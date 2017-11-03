@@ -45,7 +45,6 @@ struct Classe_Jeu
 
 	struct Classe_Options
 	{
-		float VitesseJeu            = 60.f/1000.f;
 		unsigned ScreenW            = 800;
 		unsigned ScreenH            = 600;
 		string Langue               = "en=";

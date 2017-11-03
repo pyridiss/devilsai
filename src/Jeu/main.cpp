@@ -169,7 +169,7 @@ int main(int n, char *params[])
 	PHYSFS_init(params[0]);
 
     options::Load_Options();
-    tools::timeManager::setSpeed(Options.VitesseJeu);
+    tools::timeManager::setSpeed(60.0/1000.0);
 
     createWindow();
 
