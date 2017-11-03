@@ -60,12 +60,6 @@ Classe_Jeu::~Classe_Jeu()
 
 Classe_Jeu::Classe_Options::Classe_Options()
 {
-	string form = "%%";
-	string eol = "\\";
-	string space = " ";
-	Utf8::toUtf32(form.begin(), form.end(), back_inserter(CharForm));
-	Utf8::toUtf32(eol.begin(), eol.end(), back_inserter(CharEOL));
-	Utf8::toUtf32(space.begin(), space.end(), back_inserter(CharSpace));
 }
 
 

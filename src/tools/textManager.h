@@ -32,6 +32,9 @@ namespace tools{
 namespace textManager{
 
 void initLibrary();
+String32& FORM();
+String32& EOL();
+String32& SPACE();
 void loadFile(string container, string path);
 String32& getText(string file, string id);
 String32 getFormattedText(string file, string id, const String32& arg);

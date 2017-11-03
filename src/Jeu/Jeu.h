@@ -33,8 +33,6 @@ namespace gui
     class Window;
 }
 
-typedef basic_string<Uint32> String32;
-
 /**
  * Contient les données du programme : fenêtre d'affichage, polices, phrases, arguments et options. 
 */
@@ -46,9 +44,6 @@ struct Classe_Jeu
 	{
 		unsigned ScreenW            = 800;
 		unsigned ScreenH            = 600;
-		String32 CharForm;
-		String32 CharEOL;
-		String32 CharSpace;
 
 		Classe_Options();
 	};

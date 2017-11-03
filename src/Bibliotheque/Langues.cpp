@@ -23,6 +23,7 @@
 #include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
+#include "tools/textManager.h"
 
 #include "../Jeu/Jeu.h"
 #include "Jeu/options.h"
@@ -92,12 +93,12 @@ void cutParagraph(Paragraph* paragraph)
 	Text text("", gui::style::defaultTextFont(), 12);
 
 	//Before cutting, detect the presence of formatting characters
-	size_t formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
+	size_t formattingCharacterPosition = paragraph->characters.find(tools::textManager::FORM());
 
 	while (gamedata::player() != NULL && formattingCharacterPosition != paragraph->characters.npos)
 	{
-		paragraph->characters.replace(formattingCharacterPosition, Options.CharForm.size(), gamedata::player()->Nom);
-		formattingCharacterPosition = paragraph->characters.find(Options.CharForm);
+		paragraph->characters.replace(formattingCharacterPosition, tools::textManager::FORM().size(), gamedata::player()->Nom);
+		formattingCharacterPosition = paragraph->characters.find(tools::textManager::FORM());
 	}
 
 	String32 buffer = paragraph->characters;
@@ -109,19 +110,19 @@ void cutParagraph(Paragraph* paragraph)
 
 		while (text.getLocalBounds().width > paragraph->rectangle.width)
 		{
-			lastCut = buffer.find_last_of(Options.CharSpace);
+			lastCut = buffer.find_last_of(tools::textManager::SPACE());
 			if (lastCut == buffer.npos)
 			{
 				//Word too long to be displayed; exceed the frame rather than cutting the word
-				lastCut = paragraph->characters.substr(firstCut).find_first_of(Options.CharSpace);
+				lastCut = paragraph->characters.substr(firstCut).find_first_of(tools::textManager::SPACE());
 				break;
 			}
 			buffer = buffer.substr(0, lastCut);
 			text.setString(buffer);
 		}
-		if (buffer.find(Options.CharEOL) != buffer.npos)
+		if (buffer.find(tools::textManager::EOL()) != buffer.npos)
 		{
-			lastCut = buffer.find(Options.CharEOL);
+			lastCut = buffer.find(tools::textManager::EOL());
 			buffer = buffer.substr(0, lastCut);
 			text.setString(buffer);
 			++lastCut;

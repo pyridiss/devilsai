@@ -38,6 +38,8 @@ typedef map < string, Container > Database;
 Database texts;
 String32 emptyString;
 String32 charForm;
+String32 charEOL;
+String32 charSpace;
 
 
 template <class charT, class Traits>
@@ -57,7 +59,24 @@ basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, St
 void initLibrary()
 {
     string form = "%%";
+    string eol = "\\";
+    string space = " ";
     Utf8::toUtf32(form.begin(), form.end(), back_inserter(charForm));
+    Utf8::toUtf32(eol.begin(), eol.end(), back_inserter(charEOL));
+    Utf8::toUtf32(space.begin(), space.end(), back_inserter(charSpace));
+}
+
+String32& FORM()
+{
+    return charForm;
+}
+String32& EOL()
+{
+    return charEOL;
+}
+String32& SPACE()
+{
+    return charSpace;
 }
 
 void loadFile(string container, string path)
