@@ -101,7 +101,7 @@ void Disp_Menu(RenderTarget& target)
     }
 
 	//Erreur éventuelle
-	if (Jeu.ErreurDetectee)
+	if (options::option<bool>("error-occured"))
 	{
         Disp_Texte(tools::textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
 	}

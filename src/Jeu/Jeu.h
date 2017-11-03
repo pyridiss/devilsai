@@ -54,8 +54,6 @@ struct Classe_Jeu
 		Classe_Options();
 	};
 
-	bool ErreurDetectee = false;
-
 	Classe_Jeu();
 	~Classe_Jeu();
 };

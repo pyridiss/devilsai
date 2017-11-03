@@ -195,7 +195,7 @@ void Verbose(const string &Message, const short &Type)
 
 void Erreur(const string &Message1, const string &Message2)
 {
-	Jeu.ErreurDetectee = true;
+    options::addOption<bool>("error-occured", true);
 
 	ofstream FichierErreurs("Devilsai_Errors", ios_base::out | ios_base::app);
 
