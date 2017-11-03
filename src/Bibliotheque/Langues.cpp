@@ -25,6 +25,7 @@
 #include "tools/timeManager.h"
 
 #include "../Jeu/Jeu.h"
+#include "Jeu/options.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"
 #include "Constantes.h"
@@ -55,7 +56,7 @@ String32 getTranslatedName(string fichier, T Indice)
 		if (TypeDonnee == "#") getline(fileStream, Buffer); //Comments
 
 		else if (TypeDonnee == "*") fileStream >> NumCourant;
-		else if (TypeDonnee == Options.Langue && Indice == NumCourant)
+		else if (TypeDonnee == options::option<string>("language") && Indice == NumCourant)
 		{
 			fileStream.get();
 			fileStream >> Nom;
@@ -183,10 +184,10 @@ void Dialog::load(string str)
 		else if (dataType == "NOM")
 		{
 			fileStream >> dataType2;
-			if (dataType2 == Options.Langue || dataType2 == "TOUTES_LANGUES")
+			if (dataType2 == options::option<string>("language") || dataType2 == "TOUTES_LANGUES")
 				fileStream >> paragraphNumber->name;
 		}
-		else if (dataType == Options.Langue)
+		else if (dataType == options::option<string>("language"))
 		{
 			fileStream >> paragraphNumber->characters;
 		}
@@ -295,10 +296,10 @@ void Journal::addEntry(string _ref)
 		else if (dataType == "NOM")
 		{
 			fileStream >> dataType;
-			if (dataType == Options.Langue && readRef == _ref)
+			if (dataType == options::option<string>("language") && readRef == _ref)
 				fileStream >> entry.name;
 		}
-		else if (dataType == Options.Langue && readRef == _ref)
+		else if (dataType == options::option<string>("language") && readRef == _ref)
 		{
 			fileStream.get();
 			fileStream >> entry.characters;

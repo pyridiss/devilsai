@@ -46,7 +46,6 @@ struct Classe_Jeu
 	{
 		unsigned ScreenW            = 800;
 		unsigned ScreenH            = 600;
-		string Langue               = "en=";
 		String32 CharForm;
 		String32 CharEOL;
 		String32 CharSpace;

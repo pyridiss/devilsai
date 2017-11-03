@@ -122,7 +122,6 @@ void Load_Options()
 
         if (elemName == "configuration")
         {
-            Options.Langue = elem->Attribute("language");
             elem->QueryAttribute("next-game-number", &nextGameNumber);
         }
         else if (elemName == "options")
@@ -182,7 +181,6 @@ void Save_Options()
     file.InsertFirstChild(elem);
 
     XMLElement* config = file.NewElement("configuration");
-    config->SetAttribute("language", Options.Langue.c_str());
     config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
 
@@ -226,8 +224,8 @@ void changeOption(string name, string value)
 {
     if (name == "option-change-language")
     {
-        if (value == "EN") Options.Langue = "en=";
-        if (value == "FR") Options.Langue = "fr=";
+        if (value == "EN") addOption<string>("language", "en=");
+        if (value == "FR") addOption<string>("language", "fr=");
     }
     else if (name == "option-change-resolution")
     {
@@ -361,7 +359,7 @@ void initOptionsWindow(gui::Window& window)
 {
     string d;
 
-    if (Options.Langue == "fr=") d = "FR";
+    if (option<string>("language") == "fr=") d = "FR";
     else d = "EN";
     window.setValue("chooser-language", d);
 
