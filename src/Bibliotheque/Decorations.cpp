@@ -86,7 +86,7 @@ void Disp_FPS(RenderTarget& target)
 {
     float Framerate = tools::timeManager::getFPS();
     Text FPS("FPS : " + intToString(Framerate), gui::style::defaultTextFont(), 10);
-    FPS.setPosition(Options.ScreenW - 100, 16);
+    FPS.setPosition(target.getSize().x - 100, 16);
     target.draw(FPS);
 }
 
@@ -95,7 +95,7 @@ void Disp_FPS(RenderTarget& target)
 
 void Disp_Menu(RenderTarget& target)
 {
-	for (unsigned short a = 0 ; a < Options.ScreenW/220 + 1 ; ++a)
+	for (unsigned short a = 0 ; a < target.getSize().x/220 + 1 ; ++a)
     {
 		imageManager::display(target, "misc", "gui-top-border", 220*a, 0);
     }
@@ -337,7 +337,7 @@ void Disp_FonduNoir(int Commande, RenderTarget& target)
 	if (Commande < 0) Avancement = 0;
 	if (Avancement > 0 && Avancement <= 255)
 	{
-		static RectangleShape Fond(Vector2f(Options.ScreenW, Options.ScreenH));
+        static RectangleShape Fond(Vector2f(target.getSize().x, target.getSize().y));
 
 		Fond.setFillColor(Color(0, 0, 0, Avancement));
         target.draw(Fond);
@@ -385,12 +385,12 @@ bool Disp_Repos(RenderTarget& target)
 	sf::Vertex Degrade[] =
 	{
 		sf::Vertex(sf::Vector2f(0, 0), Color(0, 0, 0, T1)),
-		sf::Vertex(sf::Vector2f(0, Options.ScreenH), Color(0, 0, 0, T2)),
-		sf::Vertex(sf::Vector2f(Options.ScreenW, Options.ScreenH), Color(0, 0, 0, T3)),
-		sf::Vertex(sf::Vector2f(Options.ScreenW, 0), Color(0, 0, 0, T4))
+		sf::Vertex(sf::Vector2f(0, target.getSize().y), Color(0, 0, 0, T2)),
+		sf::Vertex(sf::Vector2f(target.getSize().x, target.getSize().y), Color(0, 0, 0, T3)),
+		sf::Vertex(sf::Vector2f(target.getSize().x, 0), Color(0, 0, 0, T4))
 	};
 
-    imageManager::display(target, "misc", "Repos", Options.ScreenW/2, Options.ScreenH/2, true);
+    imageManager::display(target, "misc", "Repos", target.getSize().x/2, target.getSize().y/2, true);
     target.draw(Degrade, 4, sf::Quads);
 	return false;
 }
