@@ -68,14 +68,16 @@ unordered_map<string, optionType> _options;
 template<typename T>
 void addOption(const string& name, T value)
 {
-    optionType o;
-    o.set<T>(value);
-
     const auto& i = _options.find(name);
+
     if (i == _options.end())
+    {
+        optionType o;
+        o.set<T>(value);
         _options.emplace(name, o);
+    }
     else
-        i->second = o;
+        i->second.set<T>(value);
 }
 
 //Explicit instantiations for the linker
