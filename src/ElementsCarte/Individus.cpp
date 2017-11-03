@@ -147,7 +147,7 @@ void Individu::updateAngle(const tools::math::Vector2d& p)
 
 void Individu::Disp(RenderTarget& target)
 {
-    if (options::displayShapes())
+    if (options::option<bool>("displayShapes"))
     {
         viewField.display(target, Color(255, 255, 0, 20));
         interactionField.display(target, Color(255, 0, 0, 30));

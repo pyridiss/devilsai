@@ -143,7 +143,7 @@ void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Coffre::Disp(RenderTarget& target)
 {
-    if (options::displayShapes())
+    if (options::option<bool>("displayShapes"))
         size.display(target, Color(0, 0, 255, 50));
 
     if (!imageContainer.empty() && !Type.empty())

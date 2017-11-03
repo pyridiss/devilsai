@@ -43,7 +43,6 @@ void deleteSavedGamePack(string directory);
 string getCurrentSavedGameDirectory();
 void initLoadGameWindow(gui::Window& window);
 void initOptionsWindow(gui::Window& window);
-bool displayShapes();
 
 } //namespace options
 

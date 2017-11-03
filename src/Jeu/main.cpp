@@ -74,6 +74,9 @@ Classe_Jeu::Classe_Options::Classe_Options()
 
 void GestionArguments(int n, char *params[])
 {
+    //Default options
+    options::addOption<bool>("displayShapes", false);
+
 	for (int i = 0 ; i < n ; ++i)
 	{
 		#ifdef DEBOGAGE
@@ -113,7 +116,7 @@ void GestionArguments(int n, char *params[])
 		}
 		if (strcmp(params[i], "-m") == 0)
 		{
-			Options.displayShapes = true;
+            options::addOption<bool>("displayShapes", true);
 		}
 		#endif
 	}
