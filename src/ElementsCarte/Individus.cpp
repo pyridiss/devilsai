@@ -23,7 +23,6 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
@@ -158,7 +157,7 @@ void Individu::Disp(RenderTarget& target)
     imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
 }
 
-void Individu::displayLifeGauge()
+void Individu::displayLifeGauge(RenderTarget& target)
 {
     if (Diplomatie == DIPLOM_NEUTRE) return;
 
@@ -174,10 +173,10 @@ void Individu::displayLifeGauge()
     RectangleShape background(Vector2f(50, 4));
     background.setPosition(x - 25, y + 35);
     background.setFillColor(Color(0, 0, 0, 175));
-    Jeu.App.draw(background);
+    target.draw(background);
 
     RectangleShape foreground(Vector2f(currentHealthStatus(Statistiques::Life)/20, 4));
     foreground.setPosition(x - 25, y + 35);
     foreground.setFillColor(Color(228, 0, 0, 255));
-    Jeu.App.draw(foreground);
+    target.draw(foreground);
 }

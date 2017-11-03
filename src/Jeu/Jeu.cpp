@@ -482,7 +482,7 @@ void mainLoop()
         gamedata::currentWorld()->displayBackground(Jeu.App);
         gamedata::currentWorld()->display(Jeu.App);
 
-        if (underCursor != nullptr) underCursor->displayLifeGauge();
+        if (underCursor != nullptr) underCursor->displayLifeGauge(Jeu.App);
 
         if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(Jeu.App);
 
@@ -513,7 +513,7 @@ void mainLoop()
         {
             Element_Carte* elem = gamedata::findElement(gamedata::player()->ElementInteraction);
             Individu* ind = dynamic_cast<Individu*>(elem);
-            if (ind != nullptr && ind != underCursor) ind->displayLifeGauge();
+            if (ind != nullptr && ind != underCursor) ind->displayLifeGauge(Jeu.App);
         }
 
         Jeu.App.setView(Jeu.App.getDefaultView());

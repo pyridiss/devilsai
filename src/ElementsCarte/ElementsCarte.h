@@ -239,7 +239,7 @@ class Individu : public Element_Carte
 	//Affichage
 	public:
 		void Disp(RenderTarget& target);
-        void displayLifeGauge();
+        void displayLifeGauge(RenderTarget& target);
 };
 
 class Individu_Unique : public Individu
