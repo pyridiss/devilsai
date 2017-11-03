@@ -33,6 +33,8 @@
 
 #include "gamedata.h"
 
+#include "Jeu/options.h"
+
 /** VARIABLES GLOBALES **/
 
 LigneConsole ConsolePerso[10];
@@ -199,7 +201,7 @@ void Disp_JaugesVie()
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)
 {
-	if (!Options.AffichageDegats) return;
+	if (!options::option<bool>("show-console")) return;
 
 	for(int a = 0 ; a < 10 ; ++a)
 	{

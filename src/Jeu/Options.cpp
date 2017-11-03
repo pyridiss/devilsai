@@ -121,7 +121,6 @@ void Load_Options()
         if (elemName == "configuration")
         {
             Options.Langue = elem->Attribute("language");
-            elem->QueryAttribute("console", &Options.AffichageDegats);
             elem->QueryAttribute("next-game-number", &nextGameNumber);
         }
         else if (elemName == "options")
@@ -182,7 +181,6 @@ void Save_Options()
 
     XMLElement* config = file.NewElement("configuration");
     config->SetAttribute("language", Options.Langue.c_str());
-    config->SetAttribute("console", Options.AffichageDegats);
     config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
 
@@ -245,7 +243,7 @@ void changeOption(string option, string value)
     }
     else if (option == "option-change-console")
     {
-        Options.AffichageDegats = (value == "enabled" ? true : false);
+        addOption<bool>("show-console", (value == "enabled" ? true : false));
     }
 }
 
@@ -360,7 +358,7 @@ void initOptionsWindow(gui::Window& window)
     d = (option<bool>("screen-fullscreen") ? "enabled" : "disabled");
     window.setValue("chooser-fullscreen", d);
 
-    d = (Options.AffichageDegats ? "enabled" : "disabled");
+    d = (option<bool>("show-console") ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
 }
 
