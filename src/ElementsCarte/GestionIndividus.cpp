@@ -69,9 +69,12 @@ int Individu::Gestion()
 	int Iteration = 0;
 	Element_Carte* tmp1 = NULL, *tmp2 = NULL;
 
-	Element_Carte *Elem = gamedata::findElement(ElementVision);
+    Element_Carte *Elem = nullptr;
 
-	if (Elem == NULL)
+    if (ElementVision != -1)
+        Elem = gamedata::findElement(ElementVision);
+
+    if (Elem == nullptr)
 	{
 		ElementVision = -1;
 		Comportement = COMPORTEMENT_ALEATOIRE;
