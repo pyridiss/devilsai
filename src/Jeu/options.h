@@ -30,6 +30,11 @@ namespace gui{
 
 namespace options{
 
+template<typename T>
+void addOption(const string& name, T value);
+template<typename T>
+T option(const string& name);
+
 void Load_Options();
 void Save_Options();
 void changeOption(string option, string value);

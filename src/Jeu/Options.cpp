@@ -18,9 +18,12 @@
 */
 
 #include <list>
+#include <unordered_map>
 
 #include <tinyxml2.h>
 
+#include "tools/debug.h"
+#include "tools/variant.h"
 #include "tools/signals.h"
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
@@ -54,9 +57,48 @@ struct SavedGame
     }
 };
 
+typedef tools::math::Variant<unsigned, bool, string> optionType;
+
 list<SavedGame> savedGames;
 SavedGame* currentSavedGame = nullptr;
 int nextGameNumber = 1;
+unordered_map<string, optionType> _options;
+
+
+template<typename T>
+void addOption(const string& name, T value)
+{
+    optionType o;
+    o.set<T>(value);
+
+    const auto& i = _options.find(name);
+    if (i == _options.end())
+        _options.emplace(name, o);
+    else
+        i->second = o;
+}
+
+//Explicit instantiations for the linker
+template void addOption<unsigned>(const string& name, unsigned value);
+template void addOption<bool>(const string& name, bool value);
+template void addOption<string>(const string& name, string value);
+
+template<typename T>
+T option(const string& name)
+{
+    const auto& i = _options.find(name);
+    if (i != _options.end())
+        return i->second.get<T>();
+
+    tools::debug::error("This option does not exist: " + name, "options", __FILENAME__, __LINE__);
+    return T();
+}
+
+//Explicit instantiations for the linker
+template unsigned option<unsigned>(const string& name);
+template bool option<bool>(const string& name);
+template string option<string>(const string& name);
+
 
 void Load_Options()
 {
