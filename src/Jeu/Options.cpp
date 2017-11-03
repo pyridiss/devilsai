@@ -139,9 +139,9 @@ void Load_Options()
         elem = elem->NextSiblingElement();
     }
 
-	Options.PleinEcran_Save = Options.PleinEcran;
-	Options.ScreenW_Save = Options.ScreenW;
-	Options.ScreenH_Save = Options.ScreenH;
+    addOption<unsigned>("screen-width", Options.ScreenW);
+    addOption<unsigned>("screen-height", Options.ScreenH);
+    addOption<bool>("screen-fullscreen", Options.PleinEcran);
 }
 
 void Save_Options()
@@ -153,9 +153,9 @@ void Save_Options()
 
     XMLElement* config = file.NewElement("configuration");
     config->SetAttribute("language", Options.Langue.c_str());
-    config->SetAttribute("resolution-x", Options.ScreenW_Save);
-    config->SetAttribute("resolution-y", Options.ScreenH_Save);
-    config->SetAttribute("fullscreen", Options.PleinEcran_Save);
+    config->SetAttribute("resolution-x", Options.ScreenW);
+    config->SetAttribute("resolution-y", Options.ScreenH);
+    config->SetAttribute("fullscreen", Options.PleinEcran);
     config->SetAttribute("console", Options.AffichageDegats);
     config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
@@ -182,12 +182,17 @@ void changeOption(string option, string value)
     else if (option == "option-change-resolution")
     {
         size_t x = value.find("x");
-        Options.ScreenW_Save = tools::textManager::toInt(value);
-        Options.ScreenH_Save = tools::textManager::toInt(value.substr(x+1));
+        Options.ScreenW = tools::textManager::toInt(value);
+        Options.ScreenH = tools::textManager::toInt(value.substr(x+1));
+        addOption<unsigned>("screen-width", Options.ScreenW);
+        addOption<unsigned>("screen-height", Options.ScreenH);
+        createWindow();
     }
     else if (option == "option-change-fullscreen")
     {
-        Options.PleinEcran_Save = (value == "enabled" ? true : false);
+        Options.PleinEcran = (value == "enabled" ? true : false);
+        addOption<bool>("screen-fullscreen", Options.PleinEcran);
+        createWindow();
     }
     else if (option == "option-change-console")
     {
@@ -300,7 +305,7 @@ void initOptionsWindow(gui::Window& window)
     else d = "EN";
     window.setValue("chooser-language", d);
 
-    d = intToString(Options.ScreenW_Save) + "x" + intToString(Options.ScreenH_Save);
+    d = intToString(Options.ScreenW) + "x" + intToString(Options.ScreenH);
     window.setValue("chooser-resolution", d);
 
     d = (Options.PleinEcran ? "enabled" : "disabled");

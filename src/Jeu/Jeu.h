@@ -46,13 +46,10 @@ struct Classe_Jeu
 	struct Classe_Options
 	{
 		bool PleinEcran             = false;
-		bool PleinEcran_Save        = false;
 		bool AffichageDegats        = false;
 		float VitesseJeu            = 60.f/1000.f;
 		unsigned ScreenW            = 800;
-		unsigned ScreenW_Save       = 800;
 		unsigned ScreenH            = 600;
-		unsigned ScreenH_Save       = 600;
 		string Langue               = "en=";
 		String32 CharForm;
 		String32 CharEOL;
@@ -74,6 +71,8 @@ extern Classe_Jeu::Classe_Options Options;
 
 
 //Fonctions définies dans les fichiers dépendants de Jeu
+
+void createWindow();
 
 void mainLoop();
 void Clean_Partie();

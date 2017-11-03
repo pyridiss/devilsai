@@ -127,6 +127,27 @@ void GestionArguments(int n, char *params[])
 	}
 }
 
+void createWindow()
+{
+    unsigned w = options::option<unsigned>("screen-width");
+    unsigned h = options::option<unsigned>("screen-height");
+
+    VideoMode vm = VideoMode(w, h, VideoMode::getDesktopMode().bitsPerPixel);
+
+    if (options::option<bool>("screen-fullscreen") && vm.isValid())
+    {
+        Jeu.App.create(vm, "devilsai", Style::Fullscreen);
+    }
+    else
+    {
+        Jeu.App.create(vm, "devilsai");
+    }
+
+    Jeu.App.setFramerateLimit(60);
+    Jeu.App.setKeyRepeatEnabled(false);
+    Jeu.App.setVerticalSyncEnabled(true);
+
+}
 
 /** DÉBUT DU PROGRAMME **/
 int main(int n, char *params[])
@@ -150,17 +171,7 @@ int main(int n, char *params[])
     options::Load_Options();
     tools::timeManager::setSpeed(Options.VitesseJeu);
 
-	if (!Options.PleinEcran) Jeu.App.create(VideoMode(Options.ScreenW, Options.ScreenH, VideoMode::getDesktopMode().bitsPerPixel), "Devilsai");
-	else
-	{
-		VideoMode vm = VideoMode(Options.ScreenW, Options.ScreenH, VideoMode::getDesktopMode().bitsPerPixel);
-		if (vm.isValid()) Jeu.App.create(vm, "Devilsai", Style::Fullscreen);
-		else Jeu.App.create(vm, "Devilsai");
-	}
-
-    Jeu.App.setFramerateLimit(60);
-	Jeu.App.setKeyRepeatEnabled(false);
-	Jeu.App.setVerticalSyncEnabled(true);
+    createWindow();
 
 	srand(time(NULL));
 
