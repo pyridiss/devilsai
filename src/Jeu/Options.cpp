@@ -220,28 +220,39 @@ void Save_Options()
     file.SaveFile((tools::filesystem::getSaveDirectoryPath() + "options.xml").c_str());
 }
 
-void changeOption(string option, string value)
+void changeOption(string name, string value)
 {
-    if (option == "option-change-language")
+    if (name == "option-change-language")
     {
         if (value == "EN") Options.Langue = "en=";
         if (value == "FR") Options.Langue = "fr=";
     }
-    else if (option == "option-change-resolution")
+    else if (name == "option-change-resolution")
     {
         size_t x = value.find("x");
-        Options.ScreenW = tools::textManager::toInt(value);
-        Options.ScreenH = tools::textManager::toInt(value.substr(x+1));
-        addOption<unsigned>("screen-width", Options.ScreenW);
-        addOption<unsigned>("screen-height", Options.ScreenH);
-        createWindow();
+        unsigned newWidth = tools::textManager::toInt(value);
+        unsigned newHeight = tools::textManager::toInt(value.substr(x+1));
+
+        if (newWidth != option<unsigned>("screen-width") || newHeight != option<unsigned>("screen-height"))
+        {
+            addOption<unsigned>("screen-width", newWidth);
+            addOption<unsigned>("screen-height", newHeight);
+            createWindow();
+            Options.ScreenW = newWidth;
+            Options.ScreenH = newHeight;
+        }
     }
-    else if (option == "option-change-fullscreen")
+    else if (name == "option-change-fullscreen")
     {
-        addOption<bool>("screen-fullscreen", (value == "enabled" ? true : false));
-        createWindow();
+        bool newMode = (value == "enabled" ? true : false);
+
+        if (newMode != option<bool>("screen-fullscreen"))
+        {
+            addOption<bool>("screen-fullscreen", newMode);
+            createWindow();
+        }
     }
-    else if (option == "option-change-console")
+    else if (name == "option-change-console")
     {
         addOption<bool>("show-console", (value == "enabled" ? true : false));
     }
