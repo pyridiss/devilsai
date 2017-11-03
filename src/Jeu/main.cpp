@@ -48,21 +48,6 @@ Classe_Jeu Jeu;
 Classe_Jeu::Classe_Options Options;
 
 
-/** CONSTRUCTEURS ET DESTRUCTEURS DES CLASSES Jeu ET Partie **/
-
-Classe_Jeu::Classe_Jeu()
-{
-}
-
-Classe_Jeu::~Classe_Jeu()
-{
-}
-
-Classe_Jeu::Classe_Options::Classe_Options()
-{
-}
-
-
 /** *** **/
 
 void GestionArguments(int n, char *params[])

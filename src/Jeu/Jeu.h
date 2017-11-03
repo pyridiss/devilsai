@@ -20,9 +20,6 @@
 #ifndef header_jeu
 #define header_jeu
 
-#include <string>
-#include <list>
-
 
 using namespace std;
 using namespace sf;
@@ -44,12 +41,7 @@ struct Classe_Jeu
 	{
 		unsigned ScreenW            = 800;
 		unsigned ScreenH            = 600;
-
-		Classe_Options();
 	};
-
-	Classe_Jeu();
-	~Classe_Jeu();
 };
 
 //Objets globaux Jeu et Partie :
