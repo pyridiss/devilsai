@@ -6,5 +6,6 @@
         <option name="screen-height" type="unsigned" value="768"/>
         <option name="screen-fullscreen" type="boolean" value="false"/>
         <option name="show-console" type="boolean" value="false"/>
+        <option name="cinematic-mode" type="boolean" value="false"/>
     </options>
 </options>

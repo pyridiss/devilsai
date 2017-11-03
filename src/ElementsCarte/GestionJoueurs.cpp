@@ -28,6 +28,7 @@
 #include "../Bibliotheque/Constantes.h"
 #include "../Carte/Carte.h"
 #include "../Jeu/Jeu.h"
+#include "Jeu/options.h"
 #include "ElementsCarte.h"
 
 #include "gamedata.h"
@@ -80,7 +81,7 @@ int Joueur::Gestion()
 	}
 
 	//Désactivation de (presque) tout si on est en mode cinématiques
-	if (Options.ModeCinematiques)
+	if (options::option<bool>("cinematic-mode"))
 	{
 		Appui[HAUT] = false; Appui[BAS] = false; Appui[DROITE] = false; Appui[GAUCHE] = false;
 	}

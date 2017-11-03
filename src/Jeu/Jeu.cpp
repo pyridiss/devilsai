@@ -518,7 +518,7 @@ void mainLoop()
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
-        if (!Options.ModeCinematiques)
+        if (!options::option<bool>("cinematic-mode"))
         {
             Disp_Menu();
             Disp_JaugesVie();

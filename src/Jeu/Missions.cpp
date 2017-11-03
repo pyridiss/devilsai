@@ -29,6 +29,7 @@
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
+#include "Jeu/options.h"
 
 #include "gamedata.h"
 
@@ -63,7 +64,7 @@ void addQuest(string newQuest, string args)
         tools::signals::addSignal("new-game");
         return 0;
     });
-	lua_register(L, "enableCinematics",	[](lua_State* L) { Options.ModeCinematiques = lua_toboolean(L, 1); return 0; });
+	lua_register(L, "enableCinematics",	[](lua_State* L) { options::addOption<bool>("cinematic-mode", lua_toboolean(L, 1)); return 0; });
 	lua_register(L, "addJournalEntry",	[](lua_State* L) { gamedata::journal().addEntry(lua_tostring(L, 1)); return 0; });
 	lua_register(L, "journalEntryDone",	[](lua_State* L) { gamedata::journal().setDone(lua_tostring(L, 1)); return 0; });
 

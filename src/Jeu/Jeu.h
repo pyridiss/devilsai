@@ -51,7 +51,6 @@ struct Classe_Jeu
 		String32 CharForm;
 		String32 CharEOL;
 		String32 CharSpace;
-        bool ModeCinematiques   = false;
 
 		Classe_Options();
 	};
