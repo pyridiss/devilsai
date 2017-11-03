@@ -43,11 +43,6 @@ struct Classe_Jeu
 	RenderWindow App;
 	Font DayRoman;
 
-	struct Classe_Arguments
-	{
-		bool TabVerbose[6]      = {false};
-	};
-
 	struct Classe_Options
 	{
 		bool PleinEcran             = false;
@@ -75,7 +70,6 @@ struct Classe_Jeu
 
 //Objets globaux Jeu et Partie :
 extern Classe_Jeu Jeu;
-extern Classe_Jeu::Classe_Arguments Arguments;
 extern Classe_Jeu::Classe_Options Options;
 
 

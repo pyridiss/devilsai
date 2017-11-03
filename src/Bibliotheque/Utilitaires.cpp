@@ -29,6 +29,7 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 #include "../Jeu/Jeu.h"
+#include "Jeu/options.h"
 //#include "../Carte/Carte.h"
 //#include "../ElementsCarte/ElementsCarte.h"
 
@@ -169,23 +170,23 @@ double ToSegment(double x, int min, int max)
 #ifdef DEBOGAGE
 void Verbose(const string &Message, const short &Type)
 {
-	if(!Arguments.TabVerbose[0]) return;
+	if(!options::option<bool>("verbose")) return;
 
 	switch (Type)
 	{
-		case FICHIER :		if (!Arguments.TabVerbose[FICHIER]) return;
+		case FICHIER :		if (!options::option<bool>("verbose-files")) return;
 							cout << "VERB.FICH : " << Message << endl;
 							break;
-		case IMAGE :		if (!Arguments.TabVerbose[IMAGE]) return;
+		case IMAGE :		if (!options::option<bool>("verbose-images")) return;
 							cout << "VERB.IMG  : " << Message << endl;
 							break;
-		case LISTE :		if (!Arguments.TabVerbose[LISTE]) return;
+		case LISTE :		if (!options::option<bool>("verbose-lists")) return;
 							cout << "VERB.LIST : " << Message << endl;
 							break;
-		case LUA :			if (!Arguments.TabVerbose[LUA]) return;
+		case LUA :			if (!options::option<bool>("verbose-lua")) return;
 							cout << "VERB.LUA  : " << Message << endl;
 							break;
-		case MUSIC :		if (!Arguments.TabVerbose[MUSIC]) return;
+		case MUSIC :		if (!options::option<bool>("verbose-musics")) return;
 							cout << "VERB.MUSIC  : " << Message << endl;
 							break;
 	}

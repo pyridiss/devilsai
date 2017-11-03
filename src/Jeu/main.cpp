@@ -45,7 +45,6 @@
 
 //Création du jeu et de la partie :
 Classe_Jeu Jeu;
-Classe_Jeu::Classe_Arguments Arguments;
 Classe_Jeu::Classe_Options Options;
 
 
@@ -76,42 +75,48 @@ void GestionArguments(int n, char *params[])
 {
     //Default options
     options::addOption<bool>("displayShapes", false);
+    options::addOption<bool>("verbose", false);
+    options::addOption<bool>("verbose-files", false);
+    options::addOption<bool>("verbose-images", false);
+    options::addOption<bool>("verbose-lists", false);
+    options::addOption<bool>("verbose-lua", false);
+    options::addOption<bool>("verbose-musics", false);
 
 	for (int i = 0 ; i < n ; ++i)
 	{
 		#ifdef DEBOGAGE
 		if (strcmp(params[i], "-v") == 0 || strcmp(params[i], "--verbose") == 0)
 		{
-			Arguments.TabVerbose[0] = true;
+			options::addOption<bool>("verbose", true);
 		}
-		if (strcmp(params[i], "fichiers") == 0 && Arguments.TabVerbose[0])
+		if (strcmp(params[i], "fichiers") == 0 && options::option<bool>("verbose"))
 		{
 			cout << "Mode VERBOSE : FICHIERS activé" << endl;
-			Arguments.TabVerbose[FICHIER] = true;
+            options::addOption<bool>("verbose-files", true);
             tools::debug::addDebugCategory("files");
 		}
-		if (strcmp(params[i], "images") == 0 && Arguments.TabVerbose[0])
+		if (strcmp(params[i], "images") == 0 && options::option<bool>("verbose"))
 		{
 			cout << "Mode VERBOSE : IMAGES activé" << endl;
-			Arguments.TabVerbose[IMAGE] = true;
+            options::addOption<bool>("verbose-images", true);
             tools::debug::addDebugCategory("images");
 		}
-		if (strcmp(params[i], "listes") == 0 && Arguments.TabVerbose[0])
+		if (strcmp(params[i], "listes") == 0 && options::option<bool>("verbose"))
 		{
 			cout << "Mode VERBOSE : LISTES CHAINEES activé" << endl;
-			Arguments.TabVerbose[LISTE] = true;
+            options::addOption<bool>("verbose-lists", true);
             tools::debug::addDebugCategory("lists");
 		}
-		if (strcmp(params[i], "lua") == 0 && Arguments.TabVerbose[0])
+		if (strcmp(params[i], "lua") == 0 && options::option<bool>("verbose"))
 		{
 			cout << "Mode VERBOSE : LUA activé" << endl;
-			Arguments.TabVerbose[LUA] = true;
+            options::addOption<bool>("verbose-lua", false);
             tools::debug::addDebugCategory("lua");
 		}
-		if (strcmp(params[i], "music") == 0 && Arguments.TabVerbose[0])
+		if (strcmp(params[i], "music") == 0 && options::option<bool>("verbose"))
 		{
 			cout << "Mode VERBOSE : MUSIC activé" << endl;
-			Arguments.TabVerbose[MUSIC] = true;
+            options::addOption<bool>("verbose-musics", false);
             tools::debug::addDebugCategory("musics");
 		}
 		if (strcmp(params[i], "-m") == 0)
