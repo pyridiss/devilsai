@@ -45,7 +45,6 @@ struct Classe_Jeu
 
 	struct Classe_Options
 	{
-		bool PleinEcran             = false;
 		bool AffichageDegats        = false;
 		float VitesseJeu            = 60.f/1000.f;
 		unsigned ScreenW            = 800;

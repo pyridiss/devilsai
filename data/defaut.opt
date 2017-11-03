@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <options>
-    <configuration language="en=" resolution-x="800" resolution-y="600" fullscreen="0" console="0" next-game-number="1"/>
+    <configuration language="en=" console="0" next-game-number="1"/>
+    <options>
+        <option name="screen-width" type="unsigned" value="1024"/>
+        <option name="screen-height" type="unsigned" value="768"/>
+        <option name="screen-fullscreen" type="boolean" value="false"/>
+    </options>
 </options>

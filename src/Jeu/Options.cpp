@@ -121,9 +121,6 @@ void Load_Options()
         if (elemName == "configuration")
         {
             Options.Langue = elem->Attribute("language");
-            elem->QueryAttribute("resolution-x", &Options.ScreenW);
-            elem->QueryAttribute("resolution-y", &Options.ScreenH);
-            elem->QueryAttribute("fullscreen", &Options.PleinEcran);
             elem->QueryAttribute("console", &Options.AffichageDegats);
             elem->QueryAttribute("next-game-number", &nextGameNumber);
         }
@@ -172,9 +169,8 @@ void Load_Options()
         elem = elem->NextSiblingElement();
     }
 
-    addOption<unsigned>("screen-width", Options.ScreenW);
-    addOption<unsigned>("screen-height", Options.ScreenH);
-    addOption<bool>("screen-fullscreen", Options.PleinEcran);
+    Options.ScreenW = option<unsigned>("screen-width");
+    Options.ScreenH = option<unsigned>("screen-height");
 }
 
 void Save_Options()
@@ -186,9 +182,6 @@ void Save_Options()
 
     XMLElement* config = file.NewElement("configuration");
     config->SetAttribute("language", Options.Langue.c_str());
-    config->SetAttribute("resolution-x", Options.ScreenW);
-    config->SetAttribute("resolution-y", Options.ScreenH);
-    config->SetAttribute("fullscreen", Options.PleinEcran);
     config->SetAttribute("console", Options.AffichageDegats);
     config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
@@ -247,8 +240,7 @@ void changeOption(string option, string value)
     }
     else if (option == "option-change-fullscreen")
     {
-        Options.PleinEcran = (value == "enabled" ? true : false);
-        addOption<bool>("screen-fullscreen", Options.PleinEcran);
+        addOption<bool>("screen-fullscreen", (value == "enabled" ? true : false));
         createWindow();
     }
     else if (option == "option-change-console")
@@ -365,7 +357,7 @@ void initOptionsWindow(gui::Window& window)
     d = intToString(Options.ScreenW) + "x" + intToString(Options.ScreenH);
     window.setValue("chooser-resolution", d);
 
-    d = (Options.PleinEcran ? "enabled" : "disabled");
+    d = (option<bool>("screen-fullscreen") ? "enabled" : "disabled");
     window.setValue("chooser-fullscreen", d);
 
     d = (Options.AffichageDegats ? "enabled" : "disabled");
