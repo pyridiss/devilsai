@@ -53,7 +53,7 @@ void Disp_Skill(lua_State* skill)
 	string internalNumber = getStringFromLUA(skill, "getInternalNumber");
 
 	String32 nom = getTranslatedNameOfSkill(internalNumber);
-	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., gui::style::fontFromString("dayroman"));
 }
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
@@ -64,7 +64,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	int internalNumber = getIntFromLUA(obj, "getInternalNumber");
 
 	String32 nom = getTranslatedNameOfObject(internalNumber);
-	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., Jeu.DayRoman);
+	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., gui::style::fontFromString("dayroman"));
 
 	LigneCourante += 26;
 

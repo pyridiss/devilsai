@@ -262,7 +262,7 @@ void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Disp_Personnage()
 {
-	Disp_Texte(gamedata::player()->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., Jeu.DayRoman);
+	Disp_Texte(gamedata::player()->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., gui::style::fontFromString("dayroman"));
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Statistiques::Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);

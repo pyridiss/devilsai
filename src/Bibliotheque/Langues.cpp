@@ -224,7 +224,7 @@ bool Dialog::display()
 
     gui::style::textBackgroundShader(Jeu.App, paragraphs.begin()->rectangle.left - 20, paragraphs.begin()->rectangle.top, Options.ScreenW / 2, 26 + paragraphNumber->lines.size() * 16);
 
-	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, Jeu.DayRoman);
+	Disp_Texte(paragraphNumber->name, paragraphNumber->rectangle.left, paragraphNumber->rectangle.top, Color(255,220,220,255), 20, gui::style::fontFromString("dayroman"));
 
 	Text text("", gui::style::defaultTextFont(), 11);
 
@@ -362,7 +362,7 @@ void displayJournal()
 		}
 
 		numberOfLine += 22;
-		Disp_Texte(entry->name, entry->rectangle.left, entry->rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, Jeu.DayRoman);
+		Disp_Texte(entry->name, entry->rectangle.left, entry->rectangle.top - numberOfLine, Color(255,220,220,opacity), 16, gui::style::fontFromString("dayroman"));
 		numberOfLine += 10;
 	}
 }

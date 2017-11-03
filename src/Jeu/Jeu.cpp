@@ -587,8 +587,8 @@ void mainLoop()
 			if (SauvegardeEffectuee <= 0) SauvegardeEffectuee = 255;
 			else
 			{
-				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2 + 1, 161, Color(0, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
-				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., Jeu.DayRoman);
+				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2 + 1, 161, Color(0, 0, 0, SauvegardeEffectuee), 30., gui::style::fontFromString("dayroman"));
+				Disp_TexteCentre(tools::textManager::getText("devilsai", "SAUVEGARDE"), Options.ScreenW/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., gui::style::fontFromString("dayroman"));
 
 			}
 		}

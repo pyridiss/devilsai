@@ -41,7 +41,6 @@ typedef basic_string<Uint32> String32;
 struct Classe_Jeu
 {
 	RenderWindow App;
-	Font DayRoman;
 
 	struct Classe_Options
 	{

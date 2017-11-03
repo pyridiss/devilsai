@@ -321,7 +321,7 @@ void Disp_Information(const String32& info, bool reactiver)
 	}
 	if (Temps > 0)
 	{
-		Disp_TexteCentre(Information, Options.ScreenW/2, Options.ScreenH/2 - 100, Color(255,255,255,Temps), 20., Jeu.DayRoman);
+		Disp_TexteCentre(Information, Options.ScreenW/2, Options.ScreenH/2 - 100, Color(255,255,255,Temps), 20., gui::style::fontFromString("dayroman"));
 		Temps -= tools::timeManager::I((256-Temps)/24);
 	}
 }
