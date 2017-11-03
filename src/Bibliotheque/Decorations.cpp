@@ -326,7 +326,7 @@ void Disp_Information(const String32& info, bool reactiver)
 	}
 }
 
-void Disp_FonduNoir(int Commande)
+void Disp_FonduNoir(int Commande, RenderTarget& target)
 {
 	static float Avancement = 0;
 
@@ -340,18 +340,18 @@ void Disp_FonduNoir(int Commande)
 		static RectangleShape Fond(Vector2f(Options.ScreenW, Options.ScreenH));
 
 		Fond.setFillColor(Color(0, 0, 0, Avancement));
-		Jeu.App.draw(Fond);
+        target.draw(Fond);
 		Avancement += tools::timeManager::I(1);
 		if (Avancement > 255) Avancement = 255;
 	}
 }
 
-bool Disp_Repos()
+bool Disp_Repos(RenderTarget& target)
 {
 	static float Animation = 0;
 	static float T1 = 255, T2 = 255, T3 = 255, T4 = 255;
 
-	Jeu.App.clear(Color::Black);
+    target.clear(Color::Black);
 
 	Animation += tools::timeManager::I(1);
 
@@ -390,7 +390,7 @@ bool Disp_Repos()
 		sf::Vertex(sf::Vector2f(Options.ScreenW, 0), Color(0, 0, 0, T4))
 	};
 
-	imageManager::display(Jeu.App, "misc", "Repos", Options.ScreenW/2, Options.ScreenH/2, true);
- 	Jeu.App.draw(Degrade, 4, sf::Quads);
+    imageManager::display(target, "misc", "Repos", Options.ScreenW/2, Options.ScreenH/2, true);
+    target.draw(Degrade, 4, sf::Quads);
 	return false;
 }

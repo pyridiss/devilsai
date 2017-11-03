@@ -547,11 +547,11 @@ void mainLoop()
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();
 
-        Disp_FonduNoir(0);
+        Disp_FonduNoir(0, Jeu.App);
 
         if (playerResting)
         {
-            bool animationFinished = Disp_Repos();
+            bool animationFinished = Disp_Repos(Jeu.App);
             if (animationFinished)
             {
                 playerResting = false;
