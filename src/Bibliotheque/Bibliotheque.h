@@ -118,9 +118,9 @@ class Dialog
 
 void Load_Decorations();
 void Supprimer_Decorations();
-void Disp_FPS();
-void Disp_Menu();
-void Disp_JaugesVie();
+void Disp_FPS(RenderTarget& target);
+void Disp_Menu(RenderTarget& target);
+void Disp_JaugesVie(RenderTarget& target);
 void Ajouter_LignePerso(String32, Color);
 void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles();

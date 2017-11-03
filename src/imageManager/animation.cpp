@@ -55,14 +55,14 @@ void Animation::setColor(Color c)
     image.sprite.setColor(c);
 }
 
-void Animation::display(RenderWindow& app, int x, int y, bool atCenter)
+void Animation::display(RenderTarget& target, int x, int y, bool atCenter)
 {
     static double time;
     time += tools::timeManager::I(1);
     if (flickering)
         image.sprite.setColor(Color(255, 255, 255, 255*sin(time*flickering)));
 
-    image.display(app, x, y, atCenter);
+    image.display(target, x, y, atCenter);
 }
 
 } //namespace imageManager

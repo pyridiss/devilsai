@@ -38,7 +38,7 @@ class Animation
         void setSmoothRectangle(int x, int y, int w, int h);
         void setFlickering(float f);
         void setColor(Color c);
-        void display(RenderWindow& app, int x, int y, bool atCenter);
+        void display(RenderTarget& target, int x, int y, bool atCenter);
 };
 
 }

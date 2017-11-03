@@ -520,8 +520,8 @@ void mainLoop()
 
         if (!options::option<bool>("cinematic-mode"))
         {
-            Disp_Menu();
-            Disp_JaugesVie();
+            Disp_Menu(Jeu.App);
+            Disp_JaugesVie(Jeu.App);
             Disp_Consoles();
         }
 
@@ -559,7 +559,7 @@ void mainLoop()
             }
         }
 
-        Disp_FPS();
+        Disp_FPS(Jeu.App);
 
 		//2. GESTION DES MISSIONS
 

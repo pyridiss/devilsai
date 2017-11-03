@@ -82,22 +82,22 @@ void Supprimer_Decorations()
 
 /** F.P.S. **/
 
-void Disp_FPS()
+void Disp_FPS(RenderTarget& target)
 {
     float Framerate = tools::timeManager::getFPS();
     Text FPS("FPS : " + intToString(Framerate), gui::style::defaultTextFont(), 10);
     FPS.setPosition(Options.ScreenW - 100, 16);
-    Jeu.App.draw(FPS);
+    target.draw(FPS);
 }
 
 
 /** MENU SUPÉRIEUR **/
 
-void Disp_Menu()
+void Disp_Menu(RenderTarget& target)
 {
 	for (unsigned short a = 0 ; a < Options.ScreenW/220 + 1 ; ++a)
     {
-		imageManager::display(Jeu.App, "misc", "gui-top-border", 220*a, 0);
+		imageManager::display(target, "misc", "gui-top-border", 220*a, 0);
     }
 
 	//Erreur éventuelle
@@ -109,7 +109,7 @@ void Disp_Menu()
 
 /** CONSOLES DU PERSONNAGE **/
 
-void Disp_JaugesVie()
+void Disp_JaugesVie(RenderTarget& target)
 {
 	static int PersoEnePrec = gamedata::player()->currentHealthStatus(Statistiques::Energy);
 
@@ -142,22 +142,22 @@ void Disp_JaugesVie()
         playerEnergyGaugeBackground->setColor(Color(0, 0, 0, 255));
     }
 
-    playerLifeGaugeBackground->display(Jeu.App, 42, 70, false);
-    playerLifeGauge->display(Jeu.App, 42, 70, false);
-    playerEnergyGaugeBackground->display(Jeu.App, 42, 79, false);
-    playerEnergyGauge->display(Jeu.App, 42, 79, false);
+    playerLifeGaugeBackground->display(target, 42, 70, false);
+    playerLifeGauge->display(target, 42, 70, false);
+    playerEnergyGaugeBackground->display(target, 42, 79, false);
+    playerEnergyGauge->display(target, 42, 79, false);
 
 	int Recup = gamedata::player()->currentHealthStatus(Statistiques::Healing);
 
 	if (Recup > 0)
 	{
         playerRecoveryGauge->setRectangle(51, 0, (Recup-(Recup/98)*Recup%98)/2, 7);
-        playerRecoveryGauge->display(Jeu.App, 93, 88, false);
+        playerRecoveryGauge->display(target, 93, 88, false);
 	}
 	if (Recup < 0)
 	{
         playerRecoveryGauge->setRectangle(51+Recup/2, 0, - Recup/2, 7);
-        playerRecoveryGauge->display(Jeu.App, 92+Recup/2, 88, false);
+        playerRecoveryGauge->display(target, 92+Recup/2, 88, false);
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
