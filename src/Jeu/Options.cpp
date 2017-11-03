@@ -127,6 +127,39 @@ void Load_Options()
             elem->QueryAttribute("console", &Options.AffichageDegats);
             elem->QueryAttribute("next-game-number", &nextGameNumber);
         }
+        else if (elemName == "options")
+        {
+            XMLHandle hdl2(elem);
+            XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
+            while (elem2)
+            {
+                string elem2Name = elem2->Name();
+                if (elem2Name == "option")
+                {
+                    string name = elem2->Attribute("name");
+                    string type = elem2->Attribute("type");
+                    if (type == "boolean")
+                    {
+                        bool b = false;
+                        elem2->QueryAttribute("value", &b);
+                        addOption<bool>(name, b);
+                    }
+                    else if (type == "unsigned")
+                    {
+                        unsigned u = 0;
+                        elem2->QueryAttribute("value", &u);
+                        addOption<unsigned>(name, u);
+                    }
+                    else if (type == "string")
+                    {
+                        string s = elem2->Attribute("value");
+                        addOption<string>(name, s);
+                    }
+                }
+
+                elem2 = elem2->NextSiblingElement();
+            }
+        }
         else if (elemName == "savedGame")
         {
             SavedGame s;
@@ -159,6 +192,30 @@ void Save_Options()
     config->SetAttribute("console", Options.AffichageDegats);
     config->SetAttribute("next-game-number", nextGameNumber);
     elem->InsertEndChild(config);
+
+    XMLElement* options = file.NewElement("options");
+    for (auto& o : _options)
+    {
+        XMLElement* option = file.NewElement("option");
+        option->SetAttribute("name", o.first.c_str());
+        if (o.second.is<bool>())
+        {
+            option->SetAttribute("type", "boolean");
+            option->SetAttribute("value", o.second.get<bool>());
+        }
+        else if (o.second.is<unsigned>())
+        {
+            option->SetAttribute("type", "unsigned");
+            option->SetAttribute("value", o.second.get<unsigned>());
+        }
+        else if (o.second.is<string>())
+        {
+            option->SetAttribute("type", "string");
+            option->SetAttribute("value", o.second.get<string>().c_str());
+        }
+        options->InsertEndChild(option);
+    }
+    elem->InsertEndChild(options);
 
     for (auto& s : savedGames)
     {
