@@ -469,7 +469,7 @@ void mainLoop()
                     gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->value());
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player()->Id)
-                    gamedata::player()->hunt(underCursor->Id, ingameSkillbar.widget("right-click")->value());
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value());
             }
 
         }
