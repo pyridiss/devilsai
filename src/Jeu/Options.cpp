@@ -61,7 +61,6 @@ typedef tools::math::Variant<unsigned, bool, string> optionType;
 
 list<SavedGame> savedGames;
 SavedGame* currentSavedGame = nullptr;
-int nextGameNumber = 1;
 unordered_map<string, optionType> _options;
 
 
@@ -120,11 +119,7 @@ void Load_Options()
     {
         string elemName = elem->Name();
 
-        if (elemName == "configuration")
-        {
-            elem->QueryAttribute("next-game-number", &nextGameNumber);
-        }
-        else if (elemName == "options")
+        if (elemName == "options")
         {
             XMLHandle hdl2(elem);
             XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
@@ -179,10 +174,6 @@ void Save_Options()
 
     XMLElement* elem = file.NewElement("options");
     file.InsertFirstChild(elem);
-
-    XMLElement* config = file.NewElement("configuration");
-    config->SetAttribute("next-game-number", nextGameNumber);
-    elem->InsertEndChild(config);
 
     XMLElement* options = file.NewElement("options");
     for (auto& o : _options)
@@ -262,14 +253,14 @@ void createNewSavedGamePack()
 {
     SavedGame s;
 
-    s.directory = intToString(nextGameNumber, 4) + "/";
+    s.directory = intToString(option<unsigned>("next-game-number"), 4) + "/";
     s.playerName = gamedata::player()->Nom;
     s.version = "master";
 
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);
 
     savedGames.push_back(std::move(s));
-    ++nextGameNumber;
+    addOption<unsigned>("next-game-number", option<unsigned>("next-game-number") + 1);
 
     currentSavedGame = &savedGames.back();
     Save_Options();
