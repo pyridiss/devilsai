@@ -434,8 +434,7 @@ void Carte::loadFromFile(string path, string tag)
             XMLHandle hdl2(elem);
             XMLElement *item = hdl2.FirstChildElement().ToElement();
 
-            //We create a list in which all genereated items are stored. If ignoreCollision is set to true,
-            //we will add this parameter only when all items are generated; this way, items will not collide
+            //We create a list in which all genereated items are stored. This way, new items will not collide
             //one another. If this behavior is not wanted, the shape must be forced to none in the XML file.
             list<Element_Carte*> itemsList;
 
@@ -522,7 +521,15 @@ void Carte::loadFromFile(string path, string tag)
                         }
                         if (c) continue;
 
-                        //3. The item must not collide with anything else
+                        //3. The item must not collide with other items already added
+                        for (auto& i : itemsList)
+                        {
+                            if (tools::math::intersection(newItem->size, i->size))
+                                c = true;
+                        }
+                        if (c) continue;
+
+                        //4. The item must not collide with anything else
                         resetCollisionManager();
                         int Resultat = COLL_OK;
                         for ( ; Resultat == COLL_OK ; Resultat = browseCollisionList(&fake)) {}
@@ -538,7 +545,7 @@ void Carte::loadFromFile(string path, string tag)
                     {
                         if (tag != "ALL") newItem->Liste = tag;
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
-                        elements.push_back(newItem);
+                        if (ignoreCollision) newItem->ignoreCollision = true;
                         itemsList.push_back(newItem);
                     }
                     ++counter;
@@ -550,12 +557,8 @@ void Carte::loadFromFile(string path, string tag)
             if (customZone && zone != nullptr)
                 delete zone;
 
-            if (ignoreCollision)
-            {
-                for (auto& i : itemsList)
-                    i->ignoreCollision = true;
-            }
-
+            for (auto& i : itemsList)
+                insertItem(i);
         }
         elem = elem->NextSiblingElement();
     }
