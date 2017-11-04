@@ -342,7 +342,7 @@ void Carte::loadFromFile(string path, string tag)
                     tools::math::Vector2d currentVector = path.second.points[1] - path.second.points[0];
                     double currentAngle = tools::math::angle(currentVector.x, currentVector.y);
                     double lengthOnCurrentVector = -repetitionStep;
-                    int index = 1;
+                    unsigned int index = 1;
 
                     while (createdItems * repetitionStep < path.second.length())
                     {
