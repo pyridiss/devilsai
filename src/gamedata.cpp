@@ -127,6 +127,7 @@ void copyInertItemFromDesign(string t, Paysage *elem)
     elem->size.setOrigin(&elem->position());
 
 	elem->TypeClassement = design->TypeClassement;
+    elem->ignoreCollision = design->ignoreCollision;
 	elem->Diplomatie = 0;
 }
 

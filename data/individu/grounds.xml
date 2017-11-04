@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
     <inertItemDesign name="2001">
-        <shape type="none"/>
-        <properties classement="0"/>
+        <properties classement="0" ignoreCollision="1"/>
         <image imageFile="img/ground-dirtygrass01.png"/>
     </inertItemDesign>
     <inertItemDesign name="2002">
-        <shape type="none"/>
-        <properties classement="0"/>
+        <properties classement="0" ignoreCollision="1"/>
         <image imageFile="img/ground-dirtygrass02.png"/>
     </inertItemDesign>
     <inertItemDesign name="ground-tile02">
-        <shape type="none"/>
-        <properties classement="0"/>
+        <properties classement="0" ignoreCollision="1"/>
         <image imageFile="img/ground-tile02.png"/>
     </inertItemDesign>
     <inertItemDesign name="2005">
-        <shape type="none"/>
-        <properties classement="0"/>
+        <properties classement="0" ignoreCollision="1"/>
         <image imageFile="img/ground-tile03.png"/>
     </inertItemDesign>
 </world>
