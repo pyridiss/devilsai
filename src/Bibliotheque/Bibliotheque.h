@@ -20,9 +20,7 @@
 #ifndef header_bibliotheque
 #define header_bibliotheque
 
-#include <iostream>
 #include <string>
-#include <fstream>
 #include <list>
 
 #include "gui/style.h"

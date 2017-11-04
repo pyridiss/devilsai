@@ -20,15 +20,10 @@
 #ifndef header_jeu
 #define header_jeu
 
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace sf;
-
-
-namespace gui
-{
-    class Window;
-}
 
 /**
  * Contient les données du programme : fenêtre d'affichage, polices, phrases, arguments et options. 

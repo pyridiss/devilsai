@@ -22,6 +22,7 @@
 #include <physfs.h>
 
 #include <string.h>
+#include <iostream>
 
 #include "gui/style.h"
 #include "tools/debug.h"

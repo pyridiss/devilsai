@@ -23,7 +23,6 @@
 #include <string>
 #include <list>
 #include <vector>
-#include <map>
 #include <set>
 
 #include <SFML/Graphics.hpp>
@@ -43,16 +42,11 @@ namespace tinyxml2{
 
 class lua_State;
 
-class Classe_Commune;
 class Element_Carte;
 class Coffre;
 class Individu;
-class Individu_Unique;
 class Individu_Commun;
-class Joueur;
-class Paysage;
 class CheckPoint;
-class Trigger;
 
 
 class Carte

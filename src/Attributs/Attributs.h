@@ -35,8 +35,6 @@ class lua_State;
 class Caracteristiques;
 class Activite;
 class Individu;
-class Joueur;
-class Individu_Unique;
 
 namespace tinyxml2{
     class XMLElement;

@@ -39,7 +39,6 @@ class Element_Carte;
 class Individu;
 class Individu_Commun;
 class Paysage;
-class Dialog;
 
 namespace tinyxml2{
     class XMLHandle;

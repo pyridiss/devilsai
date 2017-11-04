@@ -22,9 +22,7 @@
 
 #include <sstream>
 
-#include "Bibliotheque.h"
-#include "../Attributs/Attributs.h"
-
+typedef basic_string<Uint32> String32;
 
 //Ce fichier regroupe les fonctions templates utilisées par le programme
 
