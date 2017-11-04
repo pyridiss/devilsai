@@ -76,11 +76,9 @@ class Carte
 		Carte();
 		~Carte();
 
-	//Gestion liste chainée :
-	private:
-		void AjouterElementEnListe(Element_Carte *elem);
-
 	public:
+        void insertItem(Element_Carte *elem);
+        void removeItem(Element_Carte *elem);
 		Individu_Commun* AjouterElement_Commun(string Type, string liste, int x, int y);
         CheckPoint* addCheckPoint(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);

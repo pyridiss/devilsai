@@ -53,14 +53,18 @@ Carte::~Carte()
     elements.clear();
 }
 
-void Carte::AjouterElementEnListe(Element_Carte *elem)
+void Carte::insertItem(Element_Carte *elem)
 {
-	if (elem == NULL)
-	{
-		return;
-	}
+    if (elem == nullptr) return;
 
 	elements.push_back(elem);
+}
+
+void Carte::removeItem(Element_Carte *elem)
+{
+    if (elem == nullptr) return;
+
+    elements.remove(elem);
 }
 
 Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
@@ -81,7 +85,7 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Classe->Copie_Element(ind);
     ind->move(x, y);
 
-	AjouterElementEnListe(ind);
+    insertItem(ind);
 	return ind;
 }
 
@@ -94,7 +98,7 @@ CheckPoint* Carte::addCheckPoint(string liste, int x, int y)
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
-	AjouterElementEnListe(ind);
+    insertItem(ind);
 	return ind;
 }
 
@@ -107,14 +111,14 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
     ind->move(x, y);
     ind->size.setOrigin(&ind->position());
 
-	AjouterElementEnListe(ind);
+    insertItem(ind);
 	return ind;
 }
 
 void Carte::SupprimerElement(Element_Carte* elem)
 {
+    removeItem(elem);
 	delete elem;
-	elements.remove(elem);
 }
 
 void Carte::SupprimerListe(string num)
@@ -365,7 +369,7 @@ void Carte::loadFromFile(string path, string tag)
                             newItem->move(lengthOnCurrentVector * cos(currentAngle), lengthOnCurrentVector * sin(currentAngle));
                         }
 
-                        elements.push_back(newItem);
+                        insertItem(newItem);
 
                         ++createdItems;
                     }
@@ -399,7 +403,7 @@ void Carte::loadFromFile(string path, string tag)
                         if (tag != "ALL") newItem->Liste = tag;
                         if (ignoreCollision) newItem->ignoreCollision = true;
 
-                        elements.push_back(newItem);
+                        insertItem(newItem);
 
                         if (Immuable) newItem->TypeClassement = CLASSEMENT_CADAVRE;
                     }

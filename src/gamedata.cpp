@@ -399,7 +399,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
                 continue;
             }
 
-            _currentWorld->elements.push_back(_player);
+            _currentWorld->insertItem(_player);
 
             XMLHandle playerHandle(elem);
             _player->loadFromXML(playerHandle);

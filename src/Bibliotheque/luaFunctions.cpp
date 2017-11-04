@@ -634,11 +634,11 @@ int LUA_moveItemTo(lua_State* L)
     {
         for (auto& world : gamedata::worlds())
         {
-            world.second->elements.remove(ind);
+            world.second->removeItem(ind);
             world.second->stopManagement();
         }
 
-        newWorld->elements.push_back(ind);
+        newWorld->insertItem(ind);
         lua_pushboolean(L, true);
     }
 
