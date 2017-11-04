@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <options>
-    <options>
-        <option name="screen-width" type="unsigned" value="1024"/>
-        <option name="screen-height" type="unsigned" value="768"/>
-        <option name="screen-fullscreen" type="boolean" value="false"/>
-        <option name="language" type="string" value="en="/>
-        <option name="show-console" type="boolean" value="false"/>
-        <option name="cinematic-mode" type="boolean" value="false"/>
-        <option name="next-game-number" type="unsigned" value="1"/>
-        <option name="error-occured" type="boolean" value="false"/>
-    </options>
+    <option name="screen-width" type="unsigned" value="1024"/>
+    <option name="screen-height" type="unsigned" value="768"/>
+    <option name="screen-fullscreen" type="boolean" value="false"/>
+    <option name="language" type="string" value="en="/>
+    <option name="show-console" type="boolean" value="false"/>
+    <option name="cinematic-mode" type="boolean" value="false"/>
+    <option name="next-game-number" type="unsigned" value="1"/>
+    <option name="error-occured" type="boolean" value="false"/>
 </options>

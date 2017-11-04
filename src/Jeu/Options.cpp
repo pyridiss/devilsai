@@ -119,37 +119,26 @@ void Load_Options()
     {
         string elemName = elem->Name();
 
-        if (elemName == "options")
+        if (elemName == "option")
         {
-            XMLHandle hdl2(elem);
-            XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
-            while (elem2)
+            string name = elem->Attribute("name");
+            string type = elem->Attribute("type");
+            if (type == "boolean")
             {
-                string elem2Name = elem2->Name();
-                if (elem2Name == "option")
-                {
-                    string name = elem2->Attribute("name");
-                    string type = elem2->Attribute("type");
-                    if (type == "boolean")
-                    {
-                        bool b = false;
-                        elem2->QueryAttribute("value", &b);
-                        addOption<bool>(name, b);
-                    }
-                    else if (type == "unsigned")
-                    {
-                        unsigned u = 0;
-                        elem2->QueryAttribute("value", &u);
-                        addOption<unsigned>(name, u);
-                    }
-                    else if (type == "string")
-                    {
-                        string s = elem2->Attribute("value");
-                        addOption<string>(name, s);
-                    }
-                }
-
-                elem2 = elem2->NextSiblingElement();
+                bool b = false;
+                elem->QueryAttribute("value", &b);
+                addOption<bool>(name, b);
+            }
+            else if (type == "unsigned")
+            {
+                unsigned u = 0;
+                elem->QueryAttribute("value", &u);
+                addOption<unsigned>(name, u);
+            }
+            else if (type == "string")
+            {
+                string s = elem->Attribute("value");
+                addOption<string>(name, s);
             }
         }
         else if (elemName == "savedGame")
@@ -175,7 +164,6 @@ void Save_Options()
     XMLElement* elem = file.NewElement("options");
     file.InsertFirstChild(elem);
 
-    XMLElement* options = file.NewElement("options");
     for (auto& o : _options)
     {
         XMLElement* option = file.NewElement("option");
@@ -195,9 +183,8 @@ void Save_Options()
             option->SetAttribute("type", "string");
             option->SetAttribute("value", o.second.get<string>().c_str());
         }
-        options->InsertEndChild(option);
+        elem->InsertEndChild(option);
     }
-    elem->InsertEndChild(options);
 
     for (auto& s : savedGames)
     {
