@@ -22,6 +22,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 #include <map>
 #include <set>
 
@@ -58,6 +59,16 @@ class Carte
 {
 	public:
 		list <Element_Carte*> elements;
+
+        /*
+         * collidingItems will store items which can collide with others.
+         * As a vector, it will be more efficient than a list to search for collisions.
+         * Moreover, it will avoid take time to check if an item has 'ignoreCollision' set or not.
+         */
+    private:
+        vector <Element_Carte*> collidingItems;
+
+    public:
         list <pair<Element_Carte*, string>> places;
         list <pair<tools::math::Vector2d, tools::math::Shape>> paths;
 		string Id = "";
@@ -103,9 +114,8 @@ class Carte
 
 	//Collisions manager
 	public:
-		list<Element_Carte*>::iterator currentCollider;
-		list<Element_Carte*>::iterator lastCollider;
-		int maxRadius = 0;
+        vector<Element_Carte*>::iterator currentCollider;
+        vector<Element_Carte*>::iterator lastCollider;
 
 	public:
 		Element_Carte* getCurrentCollider();

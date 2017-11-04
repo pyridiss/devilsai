@@ -28,14 +28,14 @@
 
 Element_Carte* Carte::getCurrentCollider()
 {
-	if (lastCollider != elements.end()) return *lastCollider;
+	if (lastCollider != collidingItems.end()) return *lastCollider;
 	return NULL;
 }
 
 void Carte::resetCollisionManager()
 {
-	currentCollider = elements.begin();
-	lastCollider = elements.begin();
+	currentCollider = collidingItems.begin();
+	lastCollider = collidingItems.begin();
 }
 
 int Carte::browseCollisionList(Individu *elem)
@@ -47,7 +47,7 @@ int Carte::browseCollisionList(Individu *elem)
 	static float elemPosX = 0, elemPosY = 0;
 	elemPosX = elem->position().x; elemPosY = elem->position().y;
 
-	const auto& end = elements.end();
+	const auto& end = collidingItems.end();
 
     //If currentCollider has no collision, we can jump to the next one
     while (currentCollider != end && (*currentCollider)->ignoreCollision)
@@ -55,7 +55,7 @@ int Carte::browseCollisionList(Individu *elem)
 
 	if (currentCollider == end)
 	{
-		currentCollider = elements.begin();
+		currentCollider = collidingItems.begin();
 		return COLL_END;
 	}
 

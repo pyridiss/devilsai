@@ -51,6 +51,7 @@ Carte::~Carte()
         delete tmp.first;
 
     elements.clear();
+    collidingItems.clear();
 }
 
 void Carte::insertItem(Element_Carte *elem)
@@ -58,6 +59,9 @@ void Carte::insertItem(Element_Carte *elem)
     if (elem == nullptr) return;
 
 	elements.push_back(elem);
+
+    if (!elem->ignoreCollision)
+        collidingItems.push_back(elem);
 }
 
 void Carte::removeItem(Element_Carte *elem)
@@ -65,6 +69,18 @@ void Carte::removeItem(Element_Carte *elem)
     if (elem == nullptr) return;
 
     elements.remove(elem);
+
+    if (!elem->ignoreCollision)
+    {
+        for (auto i = collidingItems.begin() ; i != collidingItems.end() ; ++i)
+        {
+            if (*i == elem)
+            {
+                collidingItems.erase(i);
+                break;
+            }
+        }
+    }
 }
 
 Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
