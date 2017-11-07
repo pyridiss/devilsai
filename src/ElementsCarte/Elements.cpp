@@ -86,7 +86,7 @@ bool Individu::Set_Activite(string nv)
 		Num = 0;
 	}
 
-	if (Act == MORT) return false;
+    if (Act == behavior(Behaviors::Dying)) return false;
 
 	if (Get_Activite(Act)->priority > Get_Activite(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
@@ -95,7 +95,7 @@ bool Individu::Set_Activite(string nv)
 	Act = nv;
     Get_Activite(Act)->atBegin(this);
 
-	if (Act == MORT) size.circle(tools::math::Vector2d(0, 0), 0);
+    if (Act == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
 
 	if (Get_Activite(nv)->priority > 0) IncrementNum(true);
 	return true;
@@ -116,7 +116,7 @@ int Individu::Collision(Individu *elem, int TypeCollision)
 
 void Individu::IncrementNum(bool RaZ)
 {
-	if (Act == MORT && Num == Get_Activite(Act)->numberOfImages-1) return;
+    if (Act == behavior(Behaviors::Dying) && Num == Get_Activite(Act)->numberOfImages-1) return;
 
 	if (RaZ)
 	{

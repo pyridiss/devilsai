@@ -78,6 +78,16 @@ Activite* Individu_Unique::Get_Activite(string act)
 	return &i->second;
 }
 
+string& Individu_Unique::behavior(Behaviors b)
+{
+    return _behaviors[b];
+}
+
+vector<string>& Individu_Unique::attacks()
+{
+    return _attacks;
+}
+
 void Individu_Unique::modifyHealthStatus(Statistiques::Attribute a, double value)
 {
     if (RecuperationFixe && a == Statistiques::Healing) return;
@@ -91,13 +101,13 @@ bool Individu_Unique::Set_Activite(string nv)
 
 	bool Resultat = Individu::Set_Activite(nv);
 
-	if (Get_Act() == MORT)
+    if (Get_Act() == behavior(Behaviors::Dying))
 	{
 		setHealthStatus(Statistiques::Life, 0);
 		setHealthStatus(Statistiques::Energy, 0);
 		setHealthStatus(Statistiques::Healing, 0);
 	}
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
+    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(behavior(Behaviors::Dying))->numberOfImages-2)
 	{
 		int key = 1;
 
@@ -180,7 +190,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 
         if (elemName == "shape")            size.loadFromXML(elem);
         if (elemName == "viewField")        viewField.loadFromXML(elem);
-        if (elemName == "attackField")      interactionField.loadFromXML(elem);
+        if (elemName == "interactionField") interactionField.loadFromXML(elem);
 
         if (elemName == "characteristics")
         {
@@ -214,13 +224,37 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "skillsManagement")
         {
-            ActDefaut = elem->Attribute("default");
-            Set_Activite(ActDefaut);
-
-            if (elem->Attribute("onAttack"))
+            if (elem->Attribute("randomBehavior"))
+                _behaviors[Behaviors::Random] = elem->Attribute("randomBehavior");
+            if (elem->Attribute("blocked"))
+                _behaviors[Behaviors::Blocked] = elem->Attribute("blocked");
+            if (elem->Attribute("hunting"))
+                _behaviors[Behaviors::Hunting] = elem->Attribute("hunting");
+            if (elem->Attribute("hurt"))
+                _behaviors[Behaviors::Hurt] = elem->Attribute("hurt");
+            if (elem->Attribute("dying"))
+                _behaviors[Behaviors::Dying] = elem->Attribute("dying");
+            if (elem->Attribute("attacks"))
             {
-                //TODO
+                string total = elem->Attribute("attacks");
+                if (total.find(',') == string::npos)
+                {
+                    _attacks.push_back(total);
+                }
+                else
+                {
+                    size_t first = 0, second = total.find(',');
+                    while (second != string::npos)
+                    {
+                        _attacks.push_back(total.substr(first, second - first));
+                        first = second + 1;
+                        second = total.find(',', first);
+                    }
+                    _attacks.push_back(total.substr(first));
+                }
             }
+
+            Set_Activite(_behaviors[Behaviors::Random]);
         }
         if (elemName == "inventory")
         {

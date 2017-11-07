@@ -112,12 +112,12 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		}
 		if (Blesse == gamedata::player())
 		{
-			if (gamedata::player()->Get_Act() == BLESSE) gamedata::player()->BlessuresMultiples(Attaquant);
+            if (gamedata::player()->Get_Act() == Blesse->behavior(Behaviors::Hurt)) gamedata::player()->BlessuresMultiples(Attaquant);
 			String32 Recus = tools::textManager::getFormattedText("devilsai", "DEGATS_RECUS", (int)Degats);
 			Ajouter_LignePerso(Recus, Color(0, 0, 0, 255));
 		}
 
-		if (Degats) Blesse->Set_Activite(BLESSE);
+        if (Degats) Blesse->Set_Activite(Blesse->behavior(Behaviors::Hurt));
 	}
 	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(tools::textManager::getText("devilsai", "ECHEC"), Color(200, 10, 20, 255));
 }

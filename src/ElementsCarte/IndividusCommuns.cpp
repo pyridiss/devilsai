@@ -63,13 +63,23 @@ Activite* Individu_Commun::Get_Activite(string act)
 	return Classe->Get_Activite(act);
 }
 
+string& Individu_Commun::behavior(Behaviors b)
+{
+    return Classe->_behaviors[b];
+}
+
+vector<string>& Individu_Commun::attacks()
+{
+    return Classe->_attacks;
+}
+
 bool Individu_Commun::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
 
 	bool Resultat = Individu::Set_Activite(nv);
 
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(MORT)->numberOfImages-2)
+    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(behavior(Behaviors::Dying))->numberOfImages-2)
 	{
 		int key = 1;
 
@@ -209,8 +219,7 @@ Activite* Classe_Commune::Get_Activite(string Id)
 
 void Classe_Commune::Copie_Element(Individu_Commun *elem)
 {
-	elem->ActDefaut = ActDefaut;
-	elem->Set_Activite(ActDefaut);
+    elem->Set_Activite(_behaviors[Behaviors::Random]);
     elem->size = size;
     elem->interactionField = interactionField;
     elem->viewField = viewField;
@@ -291,10 +300,34 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "skillsManagement")
         {
-            ActDefaut = elem->Attribute("default");
-            if (elem->Attribute("onAttack"))
+            if (elem->Attribute("randomBehavior"))
+                _behaviors[Behaviors::Random] = elem->Attribute("randomBehavior");
+            if (elem->Attribute("blocked"))
+                _behaviors[Behaviors::Blocked] = elem->Attribute("blocked");
+            if (elem->Attribute("hunting"))
+                _behaviors[Behaviors::Hunting] = elem->Attribute("hunting");
+            if (elem->Attribute("hurt"))
+                _behaviors[Behaviors::Hurt] = elem->Attribute("hurt");
+            if (elem->Attribute("dying"))
+                _behaviors[Behaviors::Dying] = elem->Attribute("dying");
+            if (elem->Attribute("attacks"))
             {
-                //TODO
+                string total = elem->Attribute("attacks");
+                if (total.find(',') == string::npos)
+                {
+                    _attacks.push_back(total);
+                }
+                else
+                {
+                    size_t first = 0, second = total.find(',');
+                    while (second != string::npos)
+                    {
+                        _attacks.push_back(total.substr(first, second - first));
+                        first = second + 1;
+                        second = total.find(',', first);
+                    }
+                    _attacks.push_back(total.substr(first));
+                }
             }
         }
         if (elemName == "inventory")

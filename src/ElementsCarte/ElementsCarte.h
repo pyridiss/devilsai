@@ -45,6 +45,19 @@ namespace tinyxml2{
     class XMLDocument;
 };
 
+enum Behaviors
+{
+    Random,
+    Blocked,
+    Defense,
+    Hunting,
+    Attacking,
+    REGEN,
+    Hurt,
+    Dying,
+    enumSize
+};
+
 /** INDIVIDUS **/
 
 class Classe_Commune
@@ -56,7 +69,8 @@ class Classe_Commune
         tools::math::Shape size;
         tools::math::Shape viewField;
         tools::math::Shape interactionField;
-		string ActDefaut         = "0";
+        string _behaviors[Behaviors::enumSize];
+        vector<string> _attacks;
         double lifetime         = -1;
 
         bool angleFixed = false;
@@ -176,15 +190,14 @@ class Individu : public Element_Carte
 		short Num   = 0;
 
 	public:
-		string ActDefaut     = "0";
 		bool ActEffectue    = true;
 
 	public:
 		float Temps         = 0;
 
 	public:
-		int Comportement        = COMPORTEMENT_ALEATOIRE;
-		int NouveauComportement = COMPORTEMENT_ALEATOIRE;
+        Behaviors Comportement = Behaviors::Random;
+        Behaviors NouveauComportement = Behaviors::Random;
 		int ElementVision       = -1;
 
 	protected:
@@ -215,6 +228,8 @@ class Individu : public Element_Carte
         string Get_Act();
 		short Get_Num();
 		virtual Activite* Get_Activite(string act) =0;
+        virtual string& behavior(Behaviors b) = 0;
+        virtual vector<string>& attacks() = 0;
 
 	//Gestion :
 	public:
@@ -247,6 +262,8 @@ class Individu_Unique : public Individu
 		String32 Nom;
 		unsigned int Experience = 0;
         string dataFile;
+        string _behaviors[Behaviors::enumSize];
+        vector<string> _attacks;
 
     public:
         string imagePrefix = "";
@@ -271,6 +288,8 @@ class Individu_Unique : public Individu
 		int Get_Experience();
 		Caracteristiques& attributes();
 		virtual Activite* Get_Activite(string act);
+        string& behavior(Behaviors b);
+        vector<string>& attacks();
         bool angleFixed();
 
         void modifyHealthStatus(Statistiques::Attribute a, double value);
@@ -298,6 +317,8 @@ class Individu_Commun : public Individu
 		int Get_Experience();
 		Caracteristiques& attributes();
 		Activite* Get_Activite(string act);
+        string& behavior(Behaviors b);
+        vector<string>& attacks();
         bool angleFixed();
 
 		bool Set_Activite(string nv);

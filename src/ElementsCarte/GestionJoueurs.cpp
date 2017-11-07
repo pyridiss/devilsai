@@ -54,7 +54,7 @@ int Joueur::Gestion()
 
 	if (currentHealthStatus(Statistiques::Life) <= 0)
 	{
-		Set_Activite(MORT);
+        Set_Activite(behavior(Behaviors::Dying));
 		for (int a = 0 ; a < 4 ; ++a)
 		{
 			Appui[a] = false; Old[a] = false;
@@ -98,7 +98,7 @@ int Joueur::Gestion()
     if (_hunting)
     {
         Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(_hunted));
-        if (ind != nullptr && ind->Act != MORT)
+        if (ind != nullptr && ind->Act != behavior(Behaviors::Dying))
         {
             tools::math::Shape& s = Get_Activite(_skillForHunted)->interactionField;
             tools::math::Shape& s2 = (s.profile != tools::math::Shape::None) ? s : interactionField;

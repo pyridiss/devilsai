@@ -39,13 +39,13 @@ int Individu::Gestion()
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
-	if (Get_Act() == MORT && Get_Num() == Get_Activite(Get_Act())->numberOfImages-1)
+    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(Get_Act())->numberOfImages-1)
 	{
 			return ETAT_MORT;
 	}
-	if (Get_Act() != MORT && (currentHealthStatus(Statistiques::Life) == 0 || lifetime == 0))
+    if (Get_Act() != behavior(Behaviors::Dying) && (currentHealthStatus(Statistiques::Life) == 0 || lifetime == 0))
 	{
-		if (!Set_Activite(MORT)) return ETAT_MORT;
+        if (!Set_Activite(behavior(Behaviors::Dying))) return ETAT_MORT;
 		else return ETAT_NORMAL;
 	}
 
@@ -55,9 +55,9 @@ int Individu::Gestion()
 	Retour = Individu::GestionElementMouvant();
 	if (Retour != ETAT_CONTINUER) return Retour;
 
-	if (Get_Act() == MORT)
+    if (Get_Act() == behavior(Behaviors::Dying))
 	{
-		Set_Activite(MORT); //Permet de gérer les situations spéciales (dépose des inventaires, etc…)
+        Set_Activite(behavior(Behaviors::Dying)); //Permet de gérer les situations spéciales (dépose des inventaires, etc…)
 		IncrementNum();
 		return ETAT_NORMAL;
 	}
@@ -77,7 +77,7 @@ int Individu::Gestion()
     if (Elem == nullptr)
 	{
 		ElementVision = -1;
-		Comportement = COMPORTEMENT_ALEATOIRE;
+        Comportement = Behaviors::Random;
 	}
 
 	while(Resultat != COLL_END)
@@ -196,11 +196,11 @@ int Individu::Gestion()
 		//On vérifie que l'ennemi est toujours à portée, avant de lancer le combat :
 		if (ennemi != NULL)
 		{
-			if (tools::math::intersection(interactionField, ennemi->size))
+            if (tools::math::intersection(Get_Activite(Act)->interactionField, ennemi->size))
 				Combat(this, ennemi);
-			NouveauComportement = COMPORTEMENT_CHASSE;
+            NouveauComportement = Behaviors::Hunting;
 		}
-		else NouveauComportement = COMPORTEMENT_ALEATOIRE;
+        else NouveauComportement = Behaviors::Random;
 	}
     if (Get_Num() == 0)
     {
@@ -283,7 +283,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 	//Pas de mouvement trouvé : PAUSE.
     if (Iteration == 10)
 	{
-		Set_Activite(PAUSE);
+        Set_Activite(behavior(Behaviors::Blocked));
 		return false;
 	}
 

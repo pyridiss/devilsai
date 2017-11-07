@@ -61,9 +61,9 @@ void Joueur::Gestion_Statistiques()
 	if (DureeEveil > currentHealthStatus(Caracteristiques::Constitution)) modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Caracteristiques::Constitution))/10000);
 
 	//4. Gain & Perte d'énergie par activité
-	if (Get_Act() == PAUSE)
+	if (Get_Act() == _behaviors[Behaviors::Random])
 		modifyHealthStatus(Statistiques::Energy, tools::timeManager::I(currentHealthStatus(Statistiques::Life)/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(currentHealthStatus(Statistiques::Life)/10000)*/);
-	if (Get_Act() == COURSE)
+	if (Get_Act() == _behaviors[Behaviors::Hunting])
 		modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(0.05/currentHealthStatus(Caracteristiques::Constitution)));
 
 	//6. Durée d'éveil
