@@ -3,33 +3,33 @@
     <species name="warrior1">
         <addImageArchiveFile file="img/Guerrier.img"/>
         <shape type="circle" radius="20"/>
-        <attackField type="circle" radius="45"/>
         <viewField type="circle" radius="650"/>
-        <properties diplomacy="1" corpseImageKey="warrior1:6/6/1/05.png"/>
+        <properties diplomacy="1" corpseImageKey="warrior1:die/6/1/05.png"/>
         <characteristics strength="150" power="100" agility="60" intellect="15" constitution="40" dodge="10" charisma="35" healingPower="40"/>
-        <skill name="6" owner="warrior1">
+        <skill name="die" owner="warrior1">
             <properties priority="3" speed="5" step="0" numberOfImages="6"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skill name="4" owner="warrior1">
+        <skill name="attack" owner="warrior1">
             <properties priority="1" speed="10" step="0" numberOfImages="10"/>
+            <interactionField type="circle" radius="45"/>
             <images angle="0" pathToImages="4/2/%%.png"/>
             <images angle="90" pathToImages="4/1/%%.png"/>
             <images angle="180" pathToImages="4/3/%%.png"/>
             <images angle="270" pathToImages="4/0/%%.png"/>
         </skill>
-        <skill name="3" owner="warrior1">
+        <skill name="run" owner="warrior1">
             <properties priority="0" speed="9" step="5" numberOfImages="8"/>
             <images angle="0" pathToImages="3/2/%%.png"/>
             <images angle="90" pathToImages="3/1/%%.png"/>
             <images angle="180" pathToImages="3/3/%%.png"/>
             <images angle="270" pathToImages="3/0/%%.png"/>
         </skill>
-        <skill name="2" owner="warrior1">
+        <skill name="pause" owner="warrior1">
             <properties priority="1" speed="2" step="0" numberOfImages="6"/>
             <images angle="0" pathToImages="2/1/%%.png"/>
         </skill>
-        <skillsManagement default="3" onAttack="4"/>
+        <skillsManagement randomBehavior="run" blocked="pause" hunting="run" dying="die" attacks="attack"/>
         <inventory>
             <addObject slot="inventory01" design="spidervenom" quality="1"/>
         </inventory>

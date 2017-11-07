@@ -3,36 +3,36 @@
     <uniqueData name="gower">
         <addImageArchiveFile file="img/Gower.img"/>
         <shape type="circle" radius="20"/>
-        <attackField type="circle" radius="50"/>
         <viewField type="circle" radius="500"/>
-        <properties diplomacy="1" corpseImageKey="gower:6/6/1/08.png"/>
+        <properties diplomacy="1" corpseImageKey="gower:die/6/1/08.png"/>
         <characteristics strength="400" power="500" agility="65" intellect="8" constitution="30" dodge="5" charisma="10" healingPower="40"/>
-        <skill name="4" owner="gower">
+        <skill name="attack" owner="gower">
             <properties priority="1" speed="22" step="0" numberOfImages="12"/>
+            <interactionField type="circle" radius="50"/>
             <images angle="0" pathToImages="4/2/%%.png"/>
             <images angle="90" pathToImages="4/1/%%.png"/>
             <images angle="180" pathToImages="4/3/%%.png"/>
             <images angle="270" pathToImages="4/0/%%.png"/>
         </skill>
-        <skill name="3" owner="gower">
+        <skill name="run" owner="gower">
             <properties priority="0" speed="15" step="10" numberOfImages="8"/>
             <images angle="0" pathToImages="3/2/%%.png"/>
             <images angle="90" pathToImages="3/1/%%.png"/>
             <images angle="180" pathToImages="3/3/%%.png"/>
             <images angle="270" pathToImages="3/0/%%.png"/>
         </skill>
-        <skill name="2" owner="gower">
+        <skill name="pause" owner="gower">
             <properties priority="0" speed="3" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/2/%%.png"/>
             <images angle="90" pathToImages="2/1/%%.png"/>
             <images angle="180" pathToImages="2/3/%%.png"/>
             <images angle="270" pathToImages="2/0/%%.png"/>
         </skill>
-        <skill name="6" owner="gower">
+        <skill name="die" owner="gower">
             <properties priority="3" speed="6" step="0" numberOfImages="9"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skillsManagement default="2" onAttack="4"/>
+        <skillsManagement randomBehavior="pause" blocked="pause" hunting="run" dying="die" attacks="attack"/>
         <inventory>
             <addObject slot="equipment-weapon" design="spatha"/>
             <addObject slot="equipment-armor" design="cuirass"/>

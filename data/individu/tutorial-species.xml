@@ -3,13 +3,13 @@
     <species name="tutorial-training-mannequin-1">
         <addImageArchiveFile file="img/Mannequin.img"/>
         <shape type="circle" radius="14"/>
-        <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-1:6/6/1/11.png"/>
+        <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-1:die/6/1/11.png"/>
         <characteristics strength="1" power="1" agility="1" intellect="1" constitution="0" dodge="1" charisma="50" healingPower="0"/>
-        <skill name="6" owner="tutorial-training-mannequin-1">
+        <skill name="die" owner="tutorial-training-mannequin-1">
             <properties priority="3" speed="9" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skill name="5" owner="tutorial-training-mannequin-1">
+        <skill name="hurt" owner="tutorial-training-mannequin-1">
             <properties priority="2" speed="9" step="0" numberOfImages="7"/>
             <images angle="0" pathToImages="5/1/%%.png"/>
         </skill>
@@ -17,18 +17,18 @@
             <properties priority="0" speed="5" step="0" numberOfImages="1"/>
             <images angle="0" pathToImages="2/1/%%.png"/>
         </skill>
-        <skillsManagement default="pause"/>
+        <skillsManagement randomBehavior="pause" hurt="hurt" dying="die"/>
     </species>
     <species name="tutorial-training-mannequin-2">
         <addImageArchiveFile file="img/Mannequin.img"/>
         <shape type="circle" radius="14"/>
-        <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-2:6/6/1/11.png"/>
+        <properties angleFixed="0" diplomacy="2" corpseImageKey="tutorial-training-mannequin-2:die/6/1/11.png"/>
         <characteristics strength="1" power="1" agility="1" intellect="1" constitution="150" dodge="1" charisma="50" healingPower="0"/>
-        <skill name="6" owner="tutorial-training-mannequin-2">
+        <skill name="die" owner="tutorial-training-mannequin-2">
             <properties priority="3" speed="9" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skill name="5" owner="tutorial-training-mannequin-2">
+        <skill name="hurt" owner="tutorial-training-mannequin-2">
             <properties priority="2" speed="9" step="0" numberOfImages="7"/>
             <images angle="0" pathToImages="5/1/%%.png"/>
         </skill>
@@ -36,6 +36,6 @@
             <properties priority="0" speed="5" step="0" numberOfImages="1"/>
             <images angle="0" pathToImages="2/1/%%.png"/>
         </skill>
-        <skillsManagement default="pause"/>
+        <skillsManagement randomBehavior="pause" hurt="hurt" dying="die"/>
     </species>
 </world>

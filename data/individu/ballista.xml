@@ -3,10 +3,11 @@
     <species name="ballista">
         <addImageArchiveFile file="img/Baliste.img"/>
         <shape type="rectangle" xCenter="-18" yCenter="4" xSize="54" ySize="20"/>
-        <attackField type="line" length="600"/>
+        <viewField type="line" length="600"/>
         <properties angleFixed="0" diplomacy="1"/>
-        <skill name="4" owner="ballista">
+        <skill name="attack" owner="ballista">
             <properties priority="1" speed="6" step="0" numberOfImages="6"/>
+            <interactionField type="line" length="600"/>
             <images angle="0" pathToImages="7/%%.png"/>
             <script>
                 function atBegin(owner)
@@ -26,16 +27,16 @@
             <properties priority="0" speed="10" step="0" numberOfImages="1"/>
             <images angle="0" pathToImages="0/%%.png"/>
         </skill>
-        <skillsManagement default="pause" onAttack="4"/>
+        <skillsManagement randomBehavior="pause" attacks="attack"/>
     </species>
     <species name="ballista_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>
         <viewField type="circle" radius="80"/>
-        <attackField type="rectangle" yCenter="-5" xSize="60" ySize="14"/>
         <characteristics strength="200" power="100" agility="80" intellect="5"/>
         <properties angleFixed="0" lifetime="80" diplomacy="0"/>
-        <skill name="4" owner="ballista_bullet">
+        <skill name="attack" owner="ballista_bullet">
             <properties priority="0" speed="100" step="0" fightAtEnd="1" numberOfImages="1"/>
+            <interactionField type="rectangle" yCenter="-5" xSize="60" ySize="14"/>
             <images angle="0" imageFile="img/10000200.png"/>
             <script>
                 function atBegin(owner)
@@ -50,6 +51,6 @@
             <properties priority="0" speed="100" step="8" numberOfImages="1"/>
             <images angle="0" imageFile="img/10000200.png"/>
         </skill>
-        <skillsManagement default="normal" onAttack="4"/>
+        <skillsManagement randomBehavior="normal" attacks="attack"/>
     </species>
 </world>

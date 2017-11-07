@@ -3,40 +3,40 @@
     <species name="spider1">
         <addImageArchiveFile file="img/monster-spider-red.img"/>
         <shape type="circle" radius="14"/>
-        <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="30" corpseImageKey="spider1:6/6/1/09.png"/>
+        <properties diplomacy="2" experience="30" corpseImageKey="spider1:die/6/1/09.png"/>
         <characteristics strength="100" power="50" agility="40" intellect="18" constitution="20" dodge="15" charisma="30" healingPower="50"/>
-        <skill name="6" owner="spider1">
+        <skill name="die" owner="spider1">
             <properties priority="3" speed="9" step="0" numberOfImages="10"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skill name="5" owner="spider1">
+        <skill name="hurt" owner="spider1">
             <properties priority="2" speed="20" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="5/2/%%.png"/>
             <images angle="90" pathToImages="5/1/%%.png"/>
             <images angle="180" pathToImages="5/3/%%.png"/>
             <images angle="270" pathToImages="5/0/%%.png"/>
         </skill>
-        <skill name="4" owner="spider1">
+        <skill name="attack" owner="spider1">
             <properties priority="1" speed="8" step="0" numberOfImages="8"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" pathToImages="4/2/%%.png"/>
             <images angle="90" pathToImages="4/1/%%.png"/>
             <images angle="180" pathToImages="4/3/%%.png"/>
             <images angle="270" pathToImages="4/0/%%.png"/>
         </skill>
-        <skill name="2" owner="spider1">
+        <skill name="pause" owner="spider1">
             <properties priority="1" speed="5" step="0" numberOfImages="7"/>
             <images angle="0" pathToImages="2/1/%%.png"/>
         </skill>
-        <skill name="1" owner="spider1">
+        <skill name="walk" owner="spider1">
             <properties priority="0" speed="10" step="2" numberOfImages="8"/>
             <images angle="0" pathToImages="1/2/%%.png"/>
             <images angle="90" pathToImages="1/1/%%.png"/>
             <images angle="180" pathToImages="1/3/%%.png"/>
             <images angle="270" pathToImages="1/0/%%.png"/>
         </skill>
-        <skillsManagement default="1" onAttack="4"/>
+        <skillsManagement randomBehavior="walk" blocked="pause" hunting="walk" hurt="hurt" dying="die" attacks="attack"/>
         <inventory>
             <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
@@ -44,40 +44,40 @@
     <species name="spider2">
         <addImageArchiveFile file="img/monster-spider-greyscale.img"/>
         <shape type="circle" radius="14"/>
-        <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="55" corpseImageKey="spider2:6/death/south/09.png"/>
+        <properties diplomacy="2" experience="55" corpseImageKey="spider2:die/death/south/09.png"/>
         <characteristics strength="125" power="60" agility="46" intellect="24" constitution="30" dodge="20" charisma="32" healingPower="55"/>
-        <skill name="6" owner="spider2">
+        <skill name="die" owner="spider2">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="220" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="death/south/%%.png"/>
         </skill>
-        <skill name="5" owner="spider2">
+        <skill name="hurt" owner="spider2">
             <properties priority="2" speed="20" step="0" numberOfImages="8" hue="220" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="hurt/east/%%.png"/>
             <images angle="90" pathToImages="hurt/south/%%.png"/>
             <images angle="180" pathToImages="hurt/west/%%.png"/>
             <images angle="270" pathToImages="hurt/north/%%.png"/>
         </skill>
-        <skill name="4" owner="spider2">
+        <skill name="attack" owner="spider2">
             <properties priority="1" speed="9" step="0" numberOfImages="8" hue="220" saturation="100" luminance="50"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" pathToImages="attack/east/%%.png"/>
             <images angle="90" pathToImages="attack/south/%%.png"/>
             <images angle="180" pathToImages="attack/west/%%.png"/>
             <images angle="270" pathToImages="attack/north/%%.png"/>
         </skill>
-        <skill name="2" owner="spider2">
+        <skill name="pause" owner="spider2">
             <properties priority="1" speed="7" step="0" numberOfImages="7" hue="220" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="pause/south/%%.png"/>
         </skill>
-        <skill name="1" owner="spider2">
+        <skill name="walk" owner="spider2">
             <properties priority="0" speed="12" step="2" numberOfImages="8" hue="220" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="walking/east/%%.png"/>
             <images angle="90" pathToImages="walking/south/%%.png"/>
             <images angle="180" pathToImages="walking/west/%%.png"/>
             <images angle="270" pathToImages="walking/north/%%.png"/>
         </skill>
-        <skillsManagement default="1" onAttack="4"/>
+        <skillsManagement randomBehavior="walk" blocked="pause" hunting="walk" hurt="hurt" dying="die" attacks="attack"/>
         <inventory>
             <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
@@ -85,40 +85,40 @@
     <species name="spider3">
         <addImageArchiveFile file="img/monster-spider-greyscale.img"/>
         <shape type="circle" radius="14"/>
-        <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="95" corpseImageKey="spider3:6/death/south/09.png"/>
+        <properties diplomacy="2" experience="95" corpseImageKey="spider3:die/death/south/09.png"/>
         <characteristics strength="165" power="70" agility="58" intellect="28" constitution="40" dodge="25" charisma="33" healingPower="60"/>
-        <skill name="6" owner="spider3">
+        <skill name="die" owner="spider3">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="125" saturation="90" luminance="40"/>
             <images angle="0" pathToImages="death/south/%%.png"/>
         </skill>
-        <skill name="5" owner="spider3">
+        <skill name="hurt" owner="spider3">
             <properties priority="2" speed="20" step="0" numberOfImages="8" hue="125" saturation="90" luminance="40"/>
             <images angle="0" pathToImages="hurt/east/%%.png"/>
             <images angle="90" pathToImages="hurt/south/%%.png"/>
             <images angle="180" pathToImages="hurt/west/%%.png"/>
             <images angle="270" pathToImages="hurt/north/%%.png"/>
         </skill>
-        <skill name="4" owner="spider3">
+        <skill name="attack" owner="spider3">
             <properties priority="1" speed="11" step="0" numberOfImages="8" hue="125" saturation="90" luminance="40"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" pathToImages="attack/east/%%.png"/>
             <images angle="90" pathToImages="attack/south/%%.png"/>
             <images angle="180" pathToImages="attack/west/%%.png"/>
             <images angle="270" pathToImages="attack/north/%%.png"/>
         </skill>
-        <skill name="2" owner="spider3">
+        <skill name="pause" owner="spider3">
             <properties priority="1" speed="7" step="0" numberOfImages="7" hue="125" saturation="90" luminance="40"/>
             <images angle="0" pathToImages="pause/south/%%.png"/>
         </skill>
-        <skill name="1" owner="spider3">
+        <skill name="walk" owner="spider3">
             <properties priority="0" speed="15" step="2" numberOfImages="8" hue="125" saturation="90" luminance="40"/>
             <images angle="0" pathToImages="walking/east/%%.png"/>
             <images angle="90" pathToImages="walking/south/%%.png"/>
             <images angle="180" pathToImages="walking/west/%%.png"/>
             <images angle="270" pathToImages="walking/north/%%.png"/>
         </skill>
-        <skillsManagement default="1" onAttack="4"/>
+        <skillsManagement randomBehavior="walk" blocked="pause" hunting="walk" hurt="hurt" dying="die" attacks="attack"/>
         <inventory>
             <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
@@ -126,40 +126,40 @@
     <species name="spider4">
         <addImageArchiveFile file="img/monster-spider-greyscale.img"/>
         <shape type="circle" radius="14"/>
-        <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="135" corpseImageKey="spider4:6/death/south/09.png"/>
+        <properties diplomacy="2" experience="135" corpseImageKey="spider4:die/death/south/09.png"/>
         <characteristics strength="195" power="90" agility="70" intellect="38" constitution="55" dodge="30" charisma="38" healingPower="60"/>
-        <skill name="6" owner="spider4">
+        <skill name="die" owner="spider4">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="40" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="death/south/%%.png"/>
         </skill>
-        <skill name="5" owner="spider4">
+        <skill name="hurt" owner="spider4">
             <properties priority="2" speed="20" step="0" numberOfImages="8" hue="40" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="hurt/east/%%.png"/>
             <images angle="90" pathToImages="hurt/south/%%.png"/>
             <images angle="180" pathToImages="hurt/west/%%.png"/>
             <images angle="270" pathToImages="hurt/north/%%.png"/>
         </skill>
-        <skill name="4" owner="spider4">
+        <skill name="attack" owner="spider4">
             <properties priority="1" speed="10" step="0" numberOfImages="8" hue="40" saturation="100" luminance="50"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" pathToImages="attack/east/%%.png"/>
             <images angle="90" pathToImages="attack/south/%%.png"/>
             <images angle="180" pathToImages="attack/west/%%.png"/>
             <images angle="270" pathToImages="attack/north/%%.png"/>
         </skill>
-        <skill name="2" owner="spider4">
+        <skill name="pause" owner="spider4">
             <properties priority="1" speed="7" step="0" numberOfImages="7" hue="40" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="pause/south/%%.png"/>
         </skill>
-        <skill name="1" owner="spider4">
+        <skill name="walk" owner="spider4">
             <properties priority="0" speed="16" step="2" numberOfImages="8" hue="40" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="walking/east/%%.png"/>
             <images angle="90" pathToImages="walking/south/%%.png"/>
             <images angle="180" pathToImages="walking/west/%%.png"/>
             <images angle="270" pathToImages="walking/north/%%.png"/>
         </skill>
-        <skillsManagement default="1" onAttack="4"/>
+        <skillsManagement randomBehavior="walk" blocked="pause" hunting="walk" hurt="hurt" dying="die" attacks="attack"/>
         <inventory>
             <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>
@@ -167,40 +167,40 @@
     <species name="spider5">
         <addImageArchiveFile file="img/monster-spider-greyscale.img"/>
         <shape type="circle" radius="14"/>
-        <attackField type="circle" radius="30"/>
         <viewField type="circle" radius="450"/>
-        <properties diplomacy="2" experience="200" corpseImageKey="spider5:6/death/south/09.png"/>
+        <properties diplomacy="2" experience="200" corpseImageKey="spider5:die/death/south/09.png"/>
         <characteristics strength="265" power="140" agility="105" intellect="50" constitution="80" dodge="45" charisma="45" healingPower="72"/>
-        <skill name="6" owner="spider5">
+        <skill name="die" owner="spider5">
             <properties priority="3" speed="9" step="0" numberOfImages="10" hue="0" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="death/south/%%.png"/>
         </skill>
-        <skill name="5" owner="spider5">
+        <skill name="hurt" owner="spider5">
             <properties priority="2" speed="20" step="0" numberOfImages="8" hue="0" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="hurt/east/%%.png"/>
             <images angle="90" pathToImages="hurt/south/%%.png"/>
             <images angle="180" pathToImages="hurt/west/%%.png"/>
             <images angle="270" pathToImages="hurt/north/%%.png"/>
         </skill>
-        <skill name="4" owner="spider5">
+        <skill name="attack" owner="spider5">
             <properties priority="1" speed="14" step="0" numberOfImages="8" hue="0" saturation="100" luminance="50"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" pathToImages="attack/east/%%.png"/>
             <images angle="90" pathToImages="attack/south/%%.png"/>
             <images angle="180" pathToImages="attack/west/%%.png"/>
             <images angle="270" pathToImages="attack/north/%%.png"/>
         </skill>
-        <skill name="2" owner="spider5">
+        <skill name="pause" owner="spider5">
             <properties priority="1" speed="7" step="0" numberOfImages="7" hue="0" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="pause/south/%%.png"/>
         </skill>
-        <skill name="1" owner="spider5">
+        <skill name="walk" owner="spider5">
             <properties priority="0" speed="18" step="2" numberOfImages="8" hue="0" saturation="100" luminance="50"/>
             <images angle="0" pathToImages="walking/east/%%.png"/>
             <images angle="90" pathToImages="walking/south/%%.png"/>
             <images angle="180" pathToImages="walking/west/%%.png"/>
             <images angle="270" pathToImages="walking/north/%%.png"/>
         </skill>
-        <skillsManagement default="1" onAttack="4"/>
+        <skillsManagement randomBehavior="walk" blocked="pause" hunting="walk" hurt="hurt" dying="die" attacks="attack"/>
         <inventory>
             <objectDesign design="spidervenom" quality="1" probability="10"/>
         </inventory>

@@ -8,6 +8,6 @@
             <properties priority="0" speed="3" step="0" numberOfImages="4"/>
             <images angle="0" xAlignment="6" yAlignment="-6" pathToImages="1/%%.png"/>
         </skill>
-        <skillsManagement default="animation"/>
+        <skillsManagement randomBehavior="animation"/>
     </species>
 </world>

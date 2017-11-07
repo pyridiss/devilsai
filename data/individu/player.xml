@@ -4,9 +4,9 @@
         <addImageArchiveFile file="img/Joueur.img"/>
         <shape type="circle" radius="20"/>
         <attackField type="arc" radius="45" direction="0" opening="0.5"/>
-        <properties diplomacy="1" corpseImageKey="player:6/6/1/08.png"/>
+        <properties diplomacy="1" corpseImageKey="player:die/6/1/08.png"/>
         <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
-        <skill name="2" owner="player">
+        <skill name="pause" owner="player">
             <properties priority="0" speed="3" speedImprover="runSpeed" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/2/%%.png"/>
             <images angle="45" pathToImages="2/6/%%.png"/>
@@ -17,7 +17,7 @@
             <images angle="270" pathToImages="2/0/%%.png"/>
             <images angle="315" pathToImages="2/4/%%.png"/>
         </skill>
-        <skill name="3" owner="player">
+        <skill name="run" owner="player">
             <properties priority="0" speed="13" speedImprover="runSpeed" step="13" numberOfImages="8"/>
             <images angle="0" pathToImages="3/2/%%.png"/>
             <images angle="45" pathToImages="3/6/%%.png"/>
@@ -28,7 +28,7 @@
             <images angle="270" pathToImages="3/0/%%.png"/>
             <images angle="315" pathToImages="3/4/%%.png"/>
         </skill>
-        <skill name="5" owner="player">
+        <skill name="hurt" owner="player">
             <properties priority="2" speed="15" speedImprover="injurySpeed" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="5/2/%%.png"/>
             <images angle="45" pathToImages="5/6/%%.png"/>
@@ -39,12 +39,13 @@
             <images angle="270" pathToImages="5/0/%%.png"/>
             <images angle="315" pathToImages="5/4/%%.png"/>
         </skill>
-        <skill name="6" owner="player">
+        <skill name="die" owner="player">
             <properties priority="4" speed="6" step="0" numberOfImages="9"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
         <skill name="skill-sword-handling" owner="player">
             <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="12"/>
+            <interactionField type="arc" radius="55" direction="0" opening="0.8"/>
             <loadImage key="skill-sword-handling" path="img/C101.png"/>
             <images angle="0" pathToImages="101/2/%%.png"/>
             <images angle="45" pathToImages="101/6/%%.png"/>
@@ -215,7 +216,7 @@
                 end
             </script>
         </skill>
-        <skillsManagement default="2" onAttack="4"/>
+        <skillsManagement randomBehavior="pause" blocked="pause" hunting="run" hurt="hurt" dying="die"/>
         <inventory>
             <addObject slot="equipment-helmet" design="greathelm0"/>
             <addObject slot="equipment-weapon" design="gladius0"/>
@@ -227,12 +228,12 @@
     </uniqueData>
     <species name="player_fireball_bullet">
         <shape type="rectangle" xSize="0" ySize="0"/>
-        <viewField type="circle" radius = "80"/>
-        <attackField type="circle" radius="30"/>
+        <viewField type="circle" radius="80"/>
         <characteristics strength="140" power="100" agility="180" intellect="5"/>
         <properties angleFixed="0" lifetime="80" diplomacy="1"/>
-        <skill name="4" owner="player_fireball_bullet">
+        <skill name="attack" owner="player_fireball_bullet">
             <properties priority="0" speed="100" step="0" fightAtEnd="1" numberOfImages="1"/>
+            <interactionField type="circle" radius="30"/>
             <images angle="0" imageFile="img/10010000.png"/>
             <script>
                 function atBegin(owner)
@@ -247,6 +248,6 @@
             <properties priority="0" speed="35" step="8" numberOfImages="1"/>
             <images angle="0" imageFile="img/10010000.png"/>
         </skill>
-        <skillsManagement default="normal" onAttack="4"/>
+        <skillsManagement randomBehavior="normal" attacks="attack"/>
     </species>
 </world>

@@ -3,16 +3,16 @@
     <uniqueData name="horst">
         <addImageArchiveFile file="img/Horst.img"/>
         <shape type="circle" radius="20"/>
-        <properties diplomacy="1" corpseImageKey="horst:6/6/1/11.png"/>
-        <skill name="2" owner="horst">
+        <properties diplomacy="1" corpseImageKey="horst:die/6/1/11.png"/>
+        <skill name="pause" owner="horst">
             <properties priority="0" speed="2" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="2/1/%%.png"/>
         </skill>
-        <skill name="6" owner="horst">
+        <skill name="die" owner="horst">
             <properties priority="3" speed="6" step="0" numberOfImages="12"/>
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
-        <skillsManagement default="2"/>
+        <skillsManagement randomBehavior="pause" dying="die"/>
         <inventory>
             <addObject slot="inventory01" design="spatha" quality="12"/>
             <addObject slot="inventory02" design="sapphirering" quality="12"/>
