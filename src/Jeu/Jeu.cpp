@@ -149,11 +149,18 @@ void mainLoop()
 	{
         //1. Events & Signals
 
+        bool leftClick = false, rightClick = false;
+
         Event event;
         while (Jeu.App.pollEvent(event))
         {
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld)
             {
+                if (event.mouseButton.button == Mouse::Button::Left)
+                    leftClick = true;
+                if (event.mouseButton.button == Mouse::Button::Right)
+                    rightClick = true;
+
                 //Will force the player to stop the current activity (if possible) and adopt a new one immediately
                 move = true;
 
@@ -175,9 +182,6 @@ void mainLoop()
                     }
                 }
             }
-
-            if (event.type == Event::MouseButtonReleased && cursorIsInWorld)
-                gamedata::player()->selectedIndividual = -1;
 
             ingameToolbar.manage(Jeu.App, event);
             ingameSkillbar.manage(Jeu.App, event);
@@ -451,7 +455,7 @@ void mainLoop()
                 gamedata::player()->Temps = 1;
             }
 
-            if (Mouse::isButtonPressed(Mouse::Left))
+            if (Mouse::isButtonPressed(Mouse::Left) || leftClick)
             {
                 if (gamedata::player()->selectedIndividual == -1)
                 {
@@ -461,7 +465,7 @@ void mainLoop()
                 else if (gamedata::player()->selectedIndividual != gamedata::player()->Id)
                     gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->value());
             }
-            if (Mouse::isButtonPressed(Mouse::Right))
+            else if (Mouse::isButtonPressed(Mouse::Right) || rightClick)
             {
                 if (gamedata::player()->selectedIndividual == -1)
                 {
@@ -471,6 +475,7 @@ void mainLoop()
                 else if (gamedata::player()->selectedIndividual != gamedata::player()->Id)
                     gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value());
             }
+            else gamedata::player()->selectedIndividual = -1;
 
         }
 
