@@ -43,11 +43,6 @@ using namespace std;
 //Value used to say "not found"
 #define MAX_VALUE 2147483647
 
-//Touches
-#define HAUT		0
-#define BAS			1
-#define DROITE		2
-#define GAUCHE		3
 
 /** CONSTANTES RELATIVES AUX ÉLÉMENTS **/
 

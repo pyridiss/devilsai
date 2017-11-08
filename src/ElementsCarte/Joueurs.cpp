@@ -40,14 +40,6 @@ Joueur::Joueur() : Individu_Unique()
 {
 }
 
-string Joueur::TabToAct(int TabAppui)
-{
-	if (TabAppui == 0)		return PAUSE;
-	if (TabAppui < 10000)	return COURSE;
-
-	return PAUSE;
-}
-
 void Joueur::Repos()
 {
 	setHealthStatus(Statistiques::Life, 1000);
@@ -222,8 +214,6 @@ void Joueur::automove(const tools::math::Vector2d& p)
 {
     _automove = true;
     _automoveEndpoint = p;
-    Set_Activite("3");
-    angle = tools::math::angle(p.x - position().x, p.y - position().y);
 }
 
 void Joueur::hunt(int id, const string& skill)

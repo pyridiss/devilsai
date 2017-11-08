@@ -3,7 +3,8 @@
     <uniqueData name="player">
         <addImageArchiveFile file="img/Joueur.img"/>
         <shape type="circle" radius="20"/>
-        <attackField type="arc" radius="45" direction="0" opening="0.5"/>
+        <interactionField type="arc" radius="45" direction="0" opening="0.5"/>
+        <viewField type="circle" radius="800"/>
         <properties diplomacy="1" corpseImageKey="player:die/6/1/08.png"/>
         <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
         <skill name="pause" owner="player">
@@ -68,11 +69,11 @@
                     if individual_get(owner, "energy") > 20 then
                         enemy = getElementInteraction(owner)
                         if isIndividu(enemy) then
-                        randomNumber = math.random(1, 4)
-                        playSound("Sword_" .. randomNumber)
-                        fight(owner, enemy)
-                    end
-                    individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
+                            randomNumber = math.random(1, 4)
+                            playSound("Sword_" .. randomNumber)
+                            fight(owner, enemy)
+                        end
+                        individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
                     end
                 end
 

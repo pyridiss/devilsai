@@ -353,7 +353,6 @@ class Joueur : public Individu_Unique
 		void Gestion_Statistiques();
 		void Repos();
 
-		string TabToAct(int TabAppui);
 		void CoupCritique(Individu* ennemi);
 		void BlessureGrave(Individu* ennemi);
 		void CoupEsquive(Individu* ennemi);
