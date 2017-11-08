@@ -144,12 +144,12 @@ int main(int n, char *params[])
     tools::math::initLibrary();
     tools::textManager::initLibrary();
 
-	GestionArguments(n, params);
-
 	PHYSFS_init(params[0]);
 
     options::Load_Options();
     tools::timeManager::setSpeed(60.0/1000.0);
+
+    GestionArguments(n, params);
 
     createWindow();
 
