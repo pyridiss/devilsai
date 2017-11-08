@@ -4,13 +4,12 @@ Shared_Trigger - Heal
 
 ]]
 
-function collision(item, collisionType, data)
-    if collisionType == 2 then
+function collision(item, apply, data)
+    if apply then
         set(item, "healing", 100)
-    elseif collisionType == 8 then
-        return 14
+    else
+        return 5 -- 5 = Behaviors::REGEN
     end
-    return 0
 end
 
 function mouseHovering(data)

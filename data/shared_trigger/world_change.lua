@@ -4,8 +4,8 @@ Shared_Trigger - World Change
 
 ]]
 
-function collision(item, collisionType, data)
-    if collisionType == 2 then
+function collision(item, apply, data)
+    if apply then
         w, p, t = string.match(data, "(.+):(.+):(.+)")
 
         movementDone = moveItemTo(item, w, p)
