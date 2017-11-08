@@ -580,11 +580,8 @@ void Carte::loadFromFile(string path, string tag)
                         if (c) continue;
 
                         //4. The item must not collide with anything else
-                        resetCollisionManager();
-                        int Resultat = COLL_OK;
-                        for ( ; Resultat == COLL_OK ; Resultat = browseCollisionList(&fake)) {}
-                        if (Resultat == COLL_END) break;
-
+                        if (findFirstCollidingItem(&fake, newItem->size, false).first == nullptr)
+                            break;
                     }
                     while (debugCounter < 100);
 

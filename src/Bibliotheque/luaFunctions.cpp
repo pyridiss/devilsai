@@ -618,10 +618,8 @@ int LUA_moveItemTo(lua_State* L)
         if (!tools::math::intersection(ind->size, *zone)) continue;
 
         //2. The item must not collide with anything else
-        newWorld->resetCollisionManager();
-        int Resultat = COLL_OK;
-        for ( ; Resultat == COLL_OK ; Resultat = newWorld->browseCollisionList(ind)) {}
-        if (Resultat == COLL_END) break;
+        if (newWorld->findFirstCollidingItem(ind, ind->size, false).first == nullptr)
+            break;
     }
     while (debugCounter < 100);
 

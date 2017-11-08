@@ -124,11 +124,10 @@ void mainLoop()
     Individu_Unique cursor;
     cursor.Type = "intern";
     cursor.size.circle(tools::math::Vector2d(0, 0), 5);
-    cursor.interactionField.circle(tools::math::Vector2d(0, 0), 5);
 
     Individu_Unique screen;
     screen.Type = "intern";
-    screen.interactionField.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
+    screen.size.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
 
     Individu* underCursor = nullptr;
     Coffre* storageBoxUnderCursor = nullptr;
@@ -400,22 +399,13 @@ void mainLoop()
         underCursor = nullptr;
         storageBoxUnderCursor = nullptr;
 
-        int Resultat = COLL_OK;
-
-        while(cursorIsInWorld && Resultat == COLL_OK)
+        if (cursorIsInWorld)
         {
-            Resultat = gamedata::currentWorld()->browseCollisionList(&cursor);
-
-            if (Resultat == COLL_PRIM_MVT)
-            {
-                underCursor = dynamic_cast<Individu*>(gamedata::currentWorld()->getCurrentCollider());
-                break;
-            }
-            if (Resultat == COLL_INTER)
-            {
-                storageBoxUnderCursor = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
-                break;
-            }
+            auto result = gamedata::currentWorld()->findFirstCollidingItem(&cursor, cursor.size, true);
+            if (result.second == COLL_PRIM_MVT)
+                underCursor = dynamic_cast<Individu*>(result.first);
+            else if (result.second == COLL_INTER)
+                storageBoxUnderCursor = dynamic_cast<Coffre*>(result.first);
         }
 
         if (gamedata::player()->selectedIndividual != -1 && gamedata::findElement(gamedata::player()->selectedIndividual) == nullptr)
@@ -503,12 +493,12 @@ void mainLoop()
 
         if (Keyboard::isKeyPressed(Keyboard::LAlt))
         {
-            gamedata::currentWorld()->resetCollisionManager();
-            for (int Resultat = COLL_OK ; Resultat != COLL_END ; Resultat = gamedata::currentWorld()->browseCollisionList(&screen))
+            auto result = gamedata::currentWorld()->findAllCollidingItems(&screen, screen.size, false);
+            for (auto& v : result)
             {
-                if (Resultat == COLL_INTER)
+                if (v.second == COLL_INTER)
                 {
-                    Coffre* c = dynamic_cast<Coffre*>(gamedata::currentWorld()->getCurrentCollider());
+                    Coffre* c = dynamic_cast<Coffre*>(v.first);
                     if (c != nullptr) c->highlight(Jeu.App);
                 }
             }
