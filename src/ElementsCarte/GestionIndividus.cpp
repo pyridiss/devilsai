@@ -19,6 +19,7 @@
 
 #include <cmath>
 
+#include "tools/debug.h"
 #include "tools/timeManager.h"
 #include "tools/math.h"
 
@@ -64,10 +65,11 @@ int Individu::Gestion()
 
 	if (NouveauComportement != -1) Comportement = NouveauComportement;
 
-	int Resultat = COLL_OK;
-	int EnAttente = 0;
 	int Iteration = 0;
-	Element_Carte* tmp1 = NULL, *tmp2 = NULL;
+    Element_Carte* tmp = NULL;
+    string attackToUse;
+
+    bool findNewPosition = false;
 
     Element_Carte *Elem = nullptr;
 
@@ -80,116 +82,125 @@ int Individu::Gestion()
         Comportement = Behaviors::Random;
 	}
 
-	while(Resultat != COLL_END)
-	{
-		Resultat = COLL_OK;
+    Set_Activite(behavior(Comportement));
 
-		if (!Set_Activite(ActDefaut) && Get_Num() != Get_Activite(Act)->numberOfImages)
-		{
-			Resultat = COLL_END;
-			EnAttente = -1;
-			//En cas d'attaque, on cherche quand même la meilleure direction
-			if (Act == ATTAQUE && Elem != NULL)
-			{
-                if (!angleFixed())
-                    angle = tools::math::angle(Elem->position().x - position().x, Elem->position().y - position().y);
-			}
-			break;
-		}
+    if (Get_Activite(Act)->step > 0) findNewPosition = true;
 
-		//Déplacement selon le Comportement de l'individu
-		switch (Comportement)
-		{
-			case COMPORTEMENT_ALEATOIRE :	MouvementAleatoire(Iteration); break;
-            case COMPORTEMENT_CHASSE :		if (tools::math::intersection(interactionField, Elem->size))
-											{
-												Resultat = COLL_END; EnAttente = COLL_ATT;
-												if (Elem->Diplomatie != DIPLOM_NEUTRE && Elem->Diplomatie != Diplomatie)
-												{
-													NouveauComportement = COMPORTEMENT_ATTAQUE;
-												}
-											}
-											else
-												MouvementChasse(Elem);
-											break;
-			case COMPORTEMENT_ATTAQUE :		break;
-			case COMPORTEMENT_REGEN :		MouvementChasse(Elem); break;
-		}
+    auto seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
-		//Test de collision dans la nouvelle position de l'individu
-		NouveauComportement = -1;
-		gamedata::currentWorld()->resetCollisionManager();
-		while(Resultat != COLL_END && Resultat != COLL_PRIM)
-		{
-			Resultat = gamedata::currentWorld()->browseCollisionList(this);
+    while (findNewPosition)
+    {
+        switch (Comportement)
+        {
+            case Behaviors::Random :
+                MouvementAleatoire(Iteration);
+                break;
+            case Behaviors::Hunting :
+                MouvementChasse(Elem);
+                break;
+            case Behaviors::REGEN :
+                MouvementChasse(Elem);
+                break;
+            default:
+                break;
+        }
 
-			if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
+        bool collision = false;
+        for (auto& i : seenItems)
+        {
+            if (tools::math::intersection(size, i.first->size))
+            {
+                int c = i.first->Collision(this, false);
+                if (c == COLL_PRIM || c == COLL_PRIM_MVT)
+                {
+                    collision = true;
+                    break;
+                }
+            }
+        }
 
-			//Les Collisions INTER sont pour le moment inutiles ici
-			if (Resultat == COLL_INTER) Resultat = COLL_OK;
+        if (collision)
+        {
+            //Le mouvement précédent a entraîné une collision primaire : retour en arrière.
+            move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
 
-			if (Resultat == COLL_ATT)
-			{
-				tmp2 = gamedata::currentWorld()->getCurrentCollider();
-				if (tmp1 == NULL || EnAttente == COLL_VIS) tmp1 = tmp2;
-				EnAttente = COLL_ATT;
-				NouveauComportement = COMPORTEMENT_ATTAQUE;
-			}
-			if (Resultat == COLL_VIS)
-			{
-				tmp2 = gamedata::currentWorld()->getCurrentCollider();
-				if (tmp2 == NULL) break;
+            if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
+            {
+                findNewPosition = false;
+                Set_Activite(behavior(Behaviors::Blocked));
+            }
+        }
+        else
+            findNewPosition = false;
 
-				Resultat = tmp2->Collision(this, COLL_VIS); //Permet de définir, si nécessaire, le nouveau comportement
+        ++Iteration;
+    }
 
-				if (Resultat > NouveauComportement)
-				{
-					NouveauComportement = Resultat;
-					tmp1 = tmp2;
-					EnAttente = COLL_VIS;
-				}
-				if (Resultat == NouveauComportement)
-				{
-					if (tmp1 == NULL) tmp1 = tmp2;
+    NouveauComportement = Behaviors::Random;
 
-					if ((position().x-tmp2->position().x)*(position().x-tmp2->position().x)+(position().y-tmp2->position().y)*(position().y-tmp2->position().y) < (position().x-tmp1->position().x)*(position().x-tmp1->position().x)+(position().y-tmp1->position().y)*(position().y-tmp1->position().y))
-						tmp1 = tmp2;
+    for (auto& i : seenItems)
+    {
+        if (tools::math::intersection(size, i.first->size))
+        {
+            i.first->Collision(this, true);
+        }
+        switch (i.second)
+        {
+            case COLL_PRIM_MVT:
+                if (i.first->Diplomatie != 0 && i.first->Diplomatie != Diplomatie)
+                {
+                    bool canUseAttack = false;
+                    for (auto& attack : attacks())
+                    {
+                        if (Get_Activite(attack) == nullptr)
+                        {
+                            tools::debug::error("This skill does not exists : " + Type + ":" + attack, "items", __FILENAME__, __LINE__);
+                            continue;
+                        }
 
-					EnAttente = COLL_VIS;
-				}
-			}
-		} //Fin du while de parcours de la liste de collisions
+                        Get_Activite(attack)->interactionField.setOrigin(&position());
+                        Get_Activite(attack)->interactionField.updateDirection(angle);
 
-		if (Resultat == COLL_PRIM)
-		{
-			//Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-			move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
+                        if (tools::math::intersection(Get_Activite(attack)->interactionField, i.first->size))
+                        {
+                            canUseAttack = true;
+                            if (Behaviors::Attacking > NouveauComportement)
+                            {
+                                NouveauComportement = Behaviors::Attacking;
+                                tmp = i.first;
+                                attackToUse = attack;
+                            }
+                        }
+                    }
 
-			if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
-			{
-				Resultat = COLL_END;
-				Set_Activite(PAUSE);
-				break;
-			}
-		}
+                    if (!canUseAttack)
+                    {
+                        if (Behaviors::Hunting > NouveauComportement)
+                        {
+                            NouveauComportement = Behaviors::Hunting;
+                            tmp = i.first;
+                        }
+                        else if (NouveauComportement == Behaviors::Hunting)
+                        {
+                            if (tools::math::Vector2d::distance(position(), i.first->position()) < tools::math::Vector2d::distance(position(), tmp->position()))
+                                tmp = i.first;
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-		++Iteration;
-	}	//Fin du while d'AI
+    if (tmp != NULL) ElementVision = tmp->Id;
 
-	if (EnAttente == COLL_VIS || EnAttente == COLL_ATT)
-	{
-		if (tmp1 != NULL) ElementVision = tmp1->Id;
-		else if (tmp2 != NULL) ElementVision = tmp2->Id;
-	}
-	if (EnAttente == COLL_ATT && ElementVision != -1) 
-	{
-		Set_Activite(ATTAQUE);
-	}
-	if (EnAttente == 0) NouveauComportement = COMPORTEMENT_ALEATOIRE;
+    if (NouveauComportement == Behaviors::Attacking)
+        Set_Activite(attackToUse);
 
 	IncrementNum();
 
-	if (Get_Num() == 0 && Get_Act() == ATTAQUE)
+	if (Get_Num() == 0 && NouveauComportement == Behaviors::Attacking)
 	{
 		Individu *ennemi = dynamic_cast<Individu*>(Elem);
 
@@ -212,8 +223,6 @@ int Individu::Gestion()
 
 void Individu::MouvementAleatoire(int Iteration)
 {
-    Set_Activite(ActDefaut);
-
     if (!angleFixed())
     {
         angle += M_PI / 2.0 * Iteration;
@@ -228,10 +237,7 @@ void Individu::MouvementAleatoire(int Iteration)
 
 bool Individu::MouvementChasse(Element_Carte *elem)
 {
-	int buf = 0;
-	int DirActuelle = 0;
 	int Iteration = 0;
-	int coeff = 1;
 
 	if (elem == NULL)
 	{
@@ -241,8 +247,6 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 
     if (!angleFixed())
         angle = tools::math::angle(elem->position().x - position().x, elem->position().y - position().y);
-
-    Set_Activite(COURSE);
 
     while(Iteration < 10)
     {

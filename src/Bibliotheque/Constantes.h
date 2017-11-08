@@ -58,20 +58,6 @@ using namespace std;
 #define CLASSEMENT_HAUT		3
 #define CLASSEMENT_NUAGE	4
 
-//Activités
-#define PAUSE		"2"
-#define COURSE		"3"
-#define ATTAQUE		"4"
-#define BLESSE		"5"
-#define MORT		"6"
-
-//Comportements des individus
-#define COMPORTEMENT_ALEATOIRE	10
-#define COMPORTEMENT_DEFENSE	11
-#define COMPORTEMENT_CHASSE		12
-#define COMPORTEMENT_ATTAQUE	13
-#define COMPORTEMENT_REGEN		14
-
 
 /** CONSTANTES RELATIVES AUX OBJETS **/
 

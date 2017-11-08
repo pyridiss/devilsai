@@ -3,6 +3,7 @@
     <uniqueData name="horst">
         <addImageArchiveFile file="img/Horst.img"/>
         <shape type="circle" radius="20"/>
+        <viewField type="circle" radius="30"/>
         <properties diplomacy="1" corpseImageKey="horst:die/6/1/11.png"/>
         <skill name="pause" owner="horst">
             <properties priority="0" speed="2" step="0" numberOfImages="12"/>

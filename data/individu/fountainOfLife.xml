@@ -3,6 +3,7 @@
     <species name="fountainOfLife_animation">
         <addImageArchiveFile file="img/Fontaine.img"/>
         <shape type="rectangle" xSize="30" ySize="16"/>
+        <viewField type="circle" radius="30"/>
         <properties angleFixed="0" diplomacy="0"/>
         <skill name="animation" owner="fountainOfLife_animation">
             <properties priority="0" speed="3" step="0" numberOfImages="4"/>
