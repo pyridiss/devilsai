@@ -154,6 +154,40 @@ void Carte::stopManagement()
     _stopManagement = true;
 }
 
+pair<Element_Carte*, int> Carte::findFirstCollidingItem(Individu* individual, tools::math::Shape& shape, bool apply)
+{
+    for (auto& item : collidingItems)
+    {
+        if (item == individual) continue;
+        if (tools::math::intersection(shape, item->size))
+        {
+            int result = item->Collision(individual, apply);
+            if (result != COLL_OK)
+                return pair<Element_Carte*, int>(item, result);
+        }
+    }
+
+    return pair<Element_Carte*, int>(nullptr, 0);
+}
+
+vector<pair<Element_Carte*, int>> Carte::findAllCollidingItems(Individu* individual, tools::math::Shape& shape, bool apply)
+{
+    vector<pair<Element_Carte*, int>> v;
+
+    for (auto& item : collidingItems)
+    {
+        if (item == individual) continue;
+        if (tools::math::intersection(shape, item->size))
+        {
+            int result = item->Collision(individual, apply);
+            if (result != COLL_OK)
+                v.push_back(pair<Element_Carte*, int>(item, result));
+        }
+    }
+
+    return v;
+}
+
 bool comparisonBetweenElements(Element_Carte* a, Element_Carte* b)
 {
 	/* Classement des Élements selon leur TypeClassement
