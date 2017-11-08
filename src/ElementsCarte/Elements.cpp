@@ -101,16 +101,8 @@ bool Individu::Set_Activite(string nv)
 	return true;
 }
 
-int Individu::Collision(Individu *elem, int TypeCollision)
+int Individu::Collision(Individu *elem, bool apply)
 {
-	if (TypeCollision == COLL_VIS)
-	{
-		if (Diplomatie != DIPLOM_NEUTRE && elem->Diplomatie != DIPLOM_NEUTRE && elem->Diplomatie != Diplomatie)
-		{
-			if (elem->Comportement <= COMPORTEMENT_CHASSE) return COMPORTEMENT_CHASSE;
-		}
-		return COMPORTEMENT_ALEATOIRE;
-	}
 	return COLL_PRIM_MVT;
 }
 

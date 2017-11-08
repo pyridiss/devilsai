@@ -48,17 +48,18 @@ int Coffre::Gestion()
 	return ETAT_NORMAL;
 }
 
-int Coffre::Collision(Individu* elem, int TypeCollision)
+int Coffre::Collision(Individu* elem, bool apply)
 {
-    if (elem->Type == "intern") return COMPORTEMENT_ALEATOIRE;
-
-    if (TypeClassement == CLASSEMENT_NORMAL)
+    if (apply && elem->Type == "intern")
     {
-        if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
-        return COLL_PRIM;
+        if (inert) return COLL_OK;
+        else return COLL_INTER;
     }
 
-    return COMPORTEMENT_ALEATOIRE;
+    if (TypeClassement == CLASSEMENT_NORMAL)
+        return COLL_PRIM;
+
+    return COLL_OK;
 }
 
 void Coffre::loadFromXML(tinyxml2::XMLHandle &handle)

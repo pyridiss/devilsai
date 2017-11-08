@@ -137,7 +137,7 @@ class Element_Carte
 	public:
 		virtual int Gestion();
 
-		virtual int Collision(Individu *elem, int TypeCollision) =0;
+		virtual int Collision(Individu *elem, bool apply) =0;
 
         void move(double x, double y);
 
@@ -168,7 +168,7 @@ class Coffre : public Element_Carte
 	//Gestion :
 	public:
 		int Gestion();
-		int Collision(Individu* elem, int TypeCollision);
+		int Collision(Individu* elem, bool apply);
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
         bool empty();
@@ -240,7 +240,7 @@ class Individu : public Element_Carte
 		virtual void Gestion_Recuperation();
 		virtual bool Set_Activite(string nv);
         int Get_Vitesse(const string& act);
-		int Collision(Individu *elem, int TypeCollision);
+		int Collision(Individu *elem, bool apply);
 		void IncrementNum(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
 
@@ -383,7 +383,7 @@ class Paysage : public Element_Carte
 
 	public:
 		int Gestion();
-		int Collision(Individu *elem, int TypeCollision);
+		int Collision(Individu *elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
@@ -398,7 +398,7 @@ class CheckPoint : public Element_Carte
         CheckPoint();
 
 		int Gestion();
-		int Collision(Individu* elem, int TypeCollision);
+		int Collision(Individu* elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
@@ -419,7 +419,7 @@ class Trigger : public Element_Carte
 
 	public:
 		int Gestion();
-		int Collision(Individu *elem, int TypeCollision);
+		int Collision(Individu *elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);

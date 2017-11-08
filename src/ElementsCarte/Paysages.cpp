@@ -51,9 +51,8 @@ int Paysage::Gestion()
 	return ETAT_NORMAL;
 }
 
-int Paysage::Collision(Individu *elem, int TypeCollision)
+int Paysage::Collision(Individu *elem, bool apply)
 {
-	if (TypeCollision == COLL_VIS) return COMPORTEMENT_ALEATOIRE;
 	return COLL_PRIM;
 }
 

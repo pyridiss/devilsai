@@ -43,7 +43,7 @@ int CheckPoint::Gestion()
 	return ETAT_NORMAL;
 }
 
-int CheckPoint::Collision(Individu* elem, int TypeCollision)
+int CheckPoint::Collision(Individu* elem, bool apply)
 {
 	return COLL_OK;
 }
@@ -80,9 +80,9 @@ int Trigger::Gestion()
     return ETAT_NORMAL;
 }
 
-int Trigger::Collision(Individu* elem, int TypeCollision)
+int Trigger::Collision(Individu* elem, bool apply)
 {
-    if (elem->Type == "intern")
+    if (apply && elem->Type == "intern")
     {
         lua_getglobal(script, "mouseHovering");
         lua_pushstring(script, data.c_str());
@@ -92,7 +92,7 @@ int Trigger::Collision(Individu* elem, int TypeCollision)
 
     lua_getglobal(script, "collision");
     lua_pushlightuserdata(script, (void*)elem);
-    lua_pushnumber(script, TypeCollision);
+    lua_pushboolean(script, apply);
     lua_pushstring(script, data.c_str());
     lua_call(script, 3, 1);
 
