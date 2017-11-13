@@ -56,6 +56,8 @@ double angle(double x, double y)
         return M_PI / 2;
     if (x == 0 && y < 0)
         return 3 * M_PI / 2;
+
+    return 0;
 }
 
 // binomial_distribution
@@ -196,7 +198,7 @@ bool intersection_circle_rectangle(Shape& shape1, Shape& shape2)
 
 bool intersection_circle_line(Shape& shape1, Shape& shape2)
 {
-    for (int i = 1 ; i < shape2.points.size() ; ++i)
+    for (unsigned i = 1 ; i < shape2.points.size() ; ++i)
     {
         Vector2d vec_AB = shape2.points[i] - shape2.points[i-1];
         Vector2d vec_AC(-vec_AB.y, vec_AB.x);
@@ -222,13 +224,13 @@ bool intersection_circle_arc(Shape& shape1, Shape& shape2)
         return true;
 
     Shape line1;
-    line1.line(shape2.points[0], shape2.radius1, shape2.angle1 - shape2.angle2);
+    line1.line(shape2.points[0], shape2.radius1, shape2.angle1 - shape2.angle2, 1);
     line1.setOrigin(shape2.origin);
     if (intersection_circle_line(shape1, line1))
         return true;
 
     Shape line2;
-    line2.line(shape2.points[0], shape2.radius1, shape2.angle1 + shape2.angle2);
+    line2.line(shape2.points[0], shape2.radius1, shape2.angle1 + shape2.angle2, 1);
     line2.setOrigin(shape2.origin);
     if (intersection_circle_line(shape1, line2))
         return true;

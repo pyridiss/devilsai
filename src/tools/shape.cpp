@@ -36,6 +36,13 @@ namespace tools{
 
 namespace math{
 
+Vector2d _absoluteOrigin(0, 0);
+
+Vector2d* absoluteOrigin()
+{
+    return &_absoluteOrigin;
+}
+
 void Shape::setOrigin(const Vector2d* o)
 {
     origin = o;
@@ -46,6 +53,7 @@ void Shape::point(const Vector2d& p)
 {
     profile = Profiles::Point;
 
+    points.clear();
     points.emplace_back(p.x, p.y);
 
     box.first.x = p.x - 1;
@@ -64,6 +72,7 @@ void Shape::circle(const Vector2d& p, double radius)
 
     profile = Profiles::Circle;
 
+    points.clear();
     points.emplace_back(p.x, p.y);
     radius1 = radius;
 
@@ -83,6 +92,7 @@ void Shape::triangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3)
 
     profile = Profiles::Triangle;
 
+    points.clear();
     points.emplace_back(p1.x, p1.y);
     points.emplace_back(p2.x, p2.y);
     points.emplace_back(p3.x, p3.y);
@@ -103,6 +113,7 @@ void Shape::rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3
 
     profile = Profiles::Rectangle;
 
+    points.clear();
     points.emplace_back(p1.x, p1.y);
     points.emplace_back(p2.x, p2.y);
     points.emplace_back(p3.x, p3.y);
@@ -114,15 +125,17 @@ void Shape::rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3
     box.second.y = max({p1.y, p2.y, p3.y, points[3].y});
 }
 
-void Shape::line(const Vector2d& p1, const Vector2d& p2)
+void Shape::line(const Vector2d& p1, const Vector2d& p2, int thickness)
 {
     profile = Profiles::Line;
 
+    points.clear();
     points.emplace_back(p1.x, p1.y);
     points.emplace_back(p2.x, p2.y);
 
     length1 = sqrt((p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
     angle1 = angle(p2.x - p1.x, p2.y - p1.y);
+    radius1 = thickness;
 
     box.first.x = min(p1.x, p2.x);
     box.first.y = min(p1.y, p2.y);
@@ -130,14 +143,16 @@ void Shape::line(const Vector2d& p1, const Vector2d& p2)
     box.second.y = max(p1.y, p2.y);
 }
 
-void Shape::line(const Vector2d& p, double length, double angle)
+void Shape::line(const Vector2d& p, double length, double angle, int thickness)
 {
     profile = Profiles::Line;
 
+    points.clear();
     points.emplace_back(p.x, p.y);
     points.emplace_back(p.x + length * cos(angle), p.y + length * sin(angle));
     length1 = length;
     angle1 = angle;
+    radius1 = thickness;
 
     box.first.x = min(points[0].x, points[1].x);
     box.first.y = min(points[0].y, points[1].y);
@@ -176,6 +191,7 @@ void Shape::arc(const Vector2d& p, double radius, double direction, double openi
 {
     profile = Profiles::Arc;
 
+    points.clear();
     points.emplace_back(p.x, p.y);
     radius1 = radius;
     angle1 = direction;
@@ -193,7 +209,7 @@ double Shape::length()
 
     double l = 0;
 
-    for (int i = 1 ; i < points.size() ; ++i)
+    for (unsigned i = 1 ; i < points.size() ; ++i)
     {
         l += Vector2d::distance(points[i-1], points[i]);
     }
@@ -228,6 +244,8 @@ double Shape::area()
             }
             return value;
     }
+
+    return 0;
 }
 
 void Shape::updateDirection(double direction)
@@ -330,13 +348,14 @@ void Shape::loadFromXML(XMLElement* elem)
     else if (type == "line")
     {
         Vector2d p(0, 0);
-        double length = 0, angle = 0;
+        double length = 0, angle = 0, thickness = 0;
         elem->QueryAttribute("xOrigin", &p.x);
         elem->QueryAttribute("yOrigin", &p.y);
         elem->QueryAttribute("length", &length);
         elem->QueryAttribute("angle", &angle);
+        elem->QueryAttribute("thickness", &thickness);
 
-        line(p, length, angle);
+        line(p, length, angle, thickness);
     }
 
     else if (type == "polyline")
@@ -443,7 +462,7 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
             root->SetAttribute("type", "line");
             root->SetAttribute("thickness", radius1);
             root->SetAttribute("points", (int)points.size());
-            for (int i = 0 ; i < points.size() ; ++i)
+            for (unsigned i = 0 ; i < points.size() ; ++i)
             {
                 stringstream x, y;
                 x << "x" << i + 1;
@@ -524,7 +543,7 @@ void Shape::display(RenderTarget& target, const Color& color)
                 drawing0.setPosition(origin->x + points[0].x - radius1, origin->y + points[0].y - radius1);
                 drawing0.setFillColor(color);
                 target.draw(drawing0);
-                for (int i = 1 ; i < points.size() ; ++i)
+                for (unsigned i = 1 ; i < points.size() ; ++i)
                 {
                     ConvexShape drawing;
                     drawing.setPointCount(4);

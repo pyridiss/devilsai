@@ -124,8 +124,8 @@ struct Shape
     void circle(const Vector2d& p, double radius);
     void triangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
     void rectangle(const Vector2d& p1, const Vector2d& p2, const Vector2d& p3);
-    void line(const Vector2d& p1, const Vector2d& p2);
-    void line(const Vector2d& p, double length, double angle);
+    void line(const Vector2d& p1, const Vector2d& p2, int thickness);
+    void line(const Vector2d& p, double length, double angle, int thickness);
     void polyline(vector<Vector2d>& p, int thickness);
     void arc(const Vector2d& p, double radius, double direction, double opening);
 
@@ -138,6 +138,8 @@ struct Shape
 
     void display(sf::RenderTarget& target, const sf::Color& color);
 };
+
+Vector2d* absoluteOrigin();
 
 } //namespace math
 
