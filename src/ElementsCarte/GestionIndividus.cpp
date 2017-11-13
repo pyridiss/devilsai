@@ -221,11 +221,12 @@ int Individu::Gestion()
 	return ETAT_NORMAL;
 }
 
-void Individu::MouvementAleatoire(int Iteration)
+void Individu::MouvementAleatoire(bool newDirection)
 {
     if (!angleFixed())
     {
-        angle += M_PI / 2.0 * Iteration;
+        if (newDirection)
+            angle = tools::math::randomNumber(0.0, 2.0 * M_PI);
         angle += tools::math::randomNumber_BinomialLaw(-10.0, 10.0);
     }
 

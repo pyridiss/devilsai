@@ -236,7 +236,7 @@ class Individu : public Element_Carte
 	public:
 		int Gestion();
         int GestionElementMouvant();
-		void MouvementAleatoire(int Iteration);
+        void MouvementAleatoire(bool newDirection);
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
 		virtual bool Set_Activite(string nv);
