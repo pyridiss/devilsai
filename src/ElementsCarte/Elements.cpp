@@ -58,7 +58,7 @@ void Element_Carte::move(double x, double y)
     _position.y += y;
 }
 
-const tools::math::Vector2d& Element_Carte::position()
+const tools::math::Vector2d& Element_Carte::position() const
 {
     return _position;
 }

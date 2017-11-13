@@ -131,7 +131,7 @@ class Element_Carte
 
 	//Getter :
 	public:
-        const tools::math::Vector2d& position();
+        const tools::math::Vector2d& position() const;
 
 	//Gestion :
 	public:
