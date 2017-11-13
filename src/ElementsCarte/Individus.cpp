@@ -41,6 +41,8 @@ Individu::Individu() : Element_Carte()
     interactionField.setOrigin(&position());
     viewField.setOrigin(&position());
     pathToTarget.profile = tools::math::Shape::Profiles::None;
+    validityOfPath.circle(tools::math::Vector2d(0, 0), 20);
+    validityOfPath.setOrigin(tools::math::absoluteOrigin());
 }
 
 void Individu::Gestion_Recuperation()

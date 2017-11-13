@@ -259,56 +259,40 @@ void Individu::MouvementAleatoire(bool newDirection)
 
 bool Individu::MouvementChasse(Element_Carte *elem)
 {
-	int Iteration = 0;
-
-	if (elem == NULL)
-	{
-		Erreur("Individu::MouvementChasse() a été appelée avec un élément NULL", "");
-		return true;
-	}
-
-    if (!angleFixed())
-        angle = tools::math::angle(elem->position().x - position().x, elem->position().y - position().y);
-
-    while(Iteration < 10)
+    if (!tools::math::intersection(elem->size, validityOfPath))
     {
-        angle += (double)Iteration * M_PI / 4.0;
-
-        while (angle < 0) angle += 2.0 * M_PI;
-        while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
-
-        move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
-
-        //Tests de collision :
-        int Resultat = COLL_OK;
-        gamedata::currentWorld()->resetCollisionManager();
-        while(Resultat != COLL_END && Resultat != COLL_PRIM)
+        pathToTarget.line(elem->position(), position(), size.radius1);
+        pathToTarget.setOrigin(tools::math::absoluteOrigin());
+        bool obstacle = false;
+        for (auto& i : seenItems)
         {
-            Resultat = gamedata::currentWorld()->browseCollisionList(this);
-
-            //Annihile COLL_PRIM_MVT si c'est l'élément chassé qui est détecté
-            if (Resultat == COLL_PRIM_MVT && gamedata::currentWorld()->getCurrentCollider() == elem) Resultat = COLL_OK;
-
-            //Les Collisions INTER sont pour le moment inutiles ici
-            if (Resultat == COLL_INTER) Resultat = COLL_OK;
-
-            if (Resultat == COLL_PRIM_MVT) Resultat = COLL_PRIM;
-            if (Resultat == COLL_ATT) Resultat = COLL_OK;
+            if (i.first == elem) continue;
+            if (tools::math::intersection(pathToTarget, i.first->size))
+            {
+                obstacle = true;
+                break;
+            }
         }
-        if (Resultat == COLL_PRIM)
+
+        if (obstacle)
         {
-            move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
-            ++Iteration;
+            findPath(elem->position());
+            validityOfPath.circle(elem->position(), 20);
         }
         else
-        {
-            break;
-        }
+            validityOfPath.circle(elem->position(), 5);
     }
 
-	//Pas de mouvement trouvé : PAUSE.
-    if (Iteration == 10)
-	{
+    if (pathToTarget.profile != tools::math::Shape::Profiles::None && pathToTarget.points.size() >= 2)
+    {
+        tools::math::Vector2d step = pathToTarget.points[pathToTarget.points.size() - 2];
+        angle = tools::math::angle(step.x - position().x, step.y - position().y);
+        move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
+        if (tools::math::Vector2d::distanceSquare(step, position()) < 100)
+            pathToTarget.points.pop_back();
+    }
+    else
+    {
         Set_Activite(behavior(Behaviors::Blocked));
 		return false;
 	}

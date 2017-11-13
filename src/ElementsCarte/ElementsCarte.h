@@ -214,6 +214,8 @@ class Individu : public Element_Carte
         vector<pair<Element_Carte*, int>> seenItems;
 
         tools::math::Shape pathToTarget;
+        tools::math::Shape validityOfPath;
+
         Objects inventory;
 
 	//Constructeurs / Destructeurs :
