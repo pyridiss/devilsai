@@ -213,6 +213,7 @@ class Individu : public Element_Carte
         tools::math::Shape viewField;
         vector<pair<Element_Carte*, int>> seenItems;
 
+        tools::math::Shape pathToTarget;
         Objects inventory;
 
 	//Constructeurs / Destructeurs :
@@ -237,6 +238,7 @@ class Individu : public Element_Carte
 		int Gestion();
         int GestionElementMouvant();
         void MouvementAleatoire(bool newDirection);
+        void findPath(const tools::math::Vector2d& destination);
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
 		virtual bool Set_Activite(string nv);

@@ -27,6 +27,7 @@
 
 #include "tools/timeManager.h"
 #include "tools/math.h"
+#include "tools/aStar.h"
 #include "imageManager/imageManager.h"
 
 #include "Jeu/options.h"
@@ -39,6 +40,7 @@ Individu::Individu() : Element_Carte()
     inert = false;
     interactionField.setOrigin(&position());
     viewField.setOrigin(&position());
+    pathToTarget.profile = tools::math::Shape::Profiles::None;
 }
 
 void Individu::Gestion_Recuperation()
@@ -142,6 +144,40 @@ void Individu::modifyHealthStatus(Statistiques::Attribute a, double value)
 void Individu::updateAngle(const tools::math::Vector2d& p)
 {
     angle = tools::math::angle(p.x - position().x, p.y - position().y);
+}
+
+void Individu::findPath(const tools::math::Vector2d& destination)
+{
+    tools::aStar::clear();
+
+    tools::aStar::setPoints(position(), destination);
+    tools::aStar::setField(viewField);
+
+    tools::math::Shape node;
+    node.circle(tools::math::Vector2d(0, 0), size.radius1);
+    tools::aStar::setNodesProperties(node, 8, 30, 150);
+
+    vector<pair<tools::math::Shape*, int>> obstacles;
+    for (auto& i : seenItems)
+    {
+        switch (i.second)
+        {
+            case COLL_PRIM :
+                obstacles.emplace_back(&i.first->size, 100000);
+                break;
+            case COLL_PRIM_MVT :
+                obstacles.emplace_back(&i.first->size, 3000);
+                break;
+            default:
+                break;
+        }
+    }
+
+    tools::aStar::setObstacles(obstacles);
+
+    pathToTarget = tools::aStar::aStar();
+    pathToTarget.setOrigin(tools::math::absoluteOrigin());
+    pathToTarget.radius1 = size.radius1;
 }
 
 void Individu::Disp(RenderTarget& target)
