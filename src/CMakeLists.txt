@@ -32,7 +32,6 @@ set(devilsai_SRCS
 	Bibliotheque/luaFunctions.cpp
 	Carte/Carte.cpp
 	Carte/Carte.h
-	Carte/Collisions.cpp
 	Carte/Interactions.cpp
 	gamedata.cpp
     inventoryScreenManager.cpp

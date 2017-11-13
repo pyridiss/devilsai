@@ -108,13 +108,6 @@ class Carte
 
 	//Collisions manager
 	public:
-        vector<Element_Carte*>::iterator currentCollider;
-        vector<Element_Carte*>::iterator lastCollider;
-
-	public:
-		Element_Carte* getCurrentCollider();
-		void resetCollisionManager();
-		int browseCollisionList(Individu *elem);
         pair<Element_Carte*, int> findFirstCollidingItem(Individu* individual, tools::math::Shape& shape, bool apply);
         vector<pair<Element_Carte*, int>> findAllCollidingItems(Individu* individual, tools::math::Shape& shape, bool apply);
 };

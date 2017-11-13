@@ -395,7 +395,6 @@ void mainLoop()
             cursorIsInWorld = true;
         else cursorIsInWorld = false;
 
-        gamedata::currentWorld()->resetCollisionManager();
         underCursor = nullptr;
         storageBoxUnderCursor = nullptr;
 
