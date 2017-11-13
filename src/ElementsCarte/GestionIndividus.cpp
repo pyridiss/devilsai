@@ -88,6 +88,8 @@ int Individu::Gestion()
 
     seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
+    tools::math::Vector2d oldPosition = position();
+
     while (findNewPosition)
     {
         switch (Comportement)
@@ -98,6 +100,9 @@ int Individu::Gestion()
             case Behaviors::Hunting :
                 MouvementChasse(Elem);
                 break;
+            case Behaviors::Attacking:
+                angle = tools::math::angle(Elem->position().x - position().x, Elem->position().y - position().y);
+                break;
             case Behaviors::REGEN :
                 MouvementChasse(Elem);
                 break;
@@ -106,23 +111,39 @@ int Individu::Gestion()
         }
 
         bool collision = false;
-        for (auto& i : seenItems)
+        int Iteration2 = 0;
+        while (Iteration2 < 5)
         {
-            if (tools::math::intersection(size, i.first->size))
+            collision = false;
+            Element_Carte* other;
+            for (auto& i : seenItems)
             {
-                int c = i.first->Collision(this, false);
-                if (c == COLL_PRIM || c == COLL_PRIM_MVT)
+                if (tools::math::intersection(size, i.first->size))
                 {
-                    collision = true;
-                    break;
+                    int c = i.first->Collision(this, false);
+                    if (c == COLL_PRIM || c == COLL_PRIM_MVT)
+                    {
+                        collision = true;
+                        other = i.first;
+                        break;
+                    }
                 }
             }
+            if (collision == false) break;
+
+            double angleWithOther = tools::math::angle(other->position().x - position().x, other->position().y - position().y);
+            move(-2 * cos(angleWithOther), -2 * sin(angleWithOther));
+            ++Iteration2;
         }
 
         if (collision)
         {
             //Le mouvement précédent a entraîné une collision primaire : retour en arrière.
-            move(-cos(angle)*Get_Activite(Act)->step, -sin(angle)*Get_Activite(Act)->step);
+            move(oldPosition.x - position().x, oldPosition.y - position().y);
+
+            //If cannot reach the hunted item, it is better to stop than to stomp.
+            if (Comportement == Behaviors::Hunting)
+                Iteration = 4;
 
             if (Iteration == 4) //Aucun mouvement valable n'a été trouvé
             {
@@ -175,7 +196,7 @@ int Individu::Gestion()
 
                     if (!canUseAttack)
                     {
-                        if (Behaviors::Hunting > NouveauComportement)
+                        if (Behaviors::Hunting > NouveauComportement && !angleFixed())
                         {
                             NouveauComportement = Behaviors::Hunting;
                             tmp = i.first;
