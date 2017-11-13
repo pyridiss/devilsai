@@ -86,7 +86,7 @@ int Individu::Gestion()
 
     if (Get_Activite(Act)->step > 0) findNewPosition = true;
 
-    auto seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
+    seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
     while (findNewPosition)
     {

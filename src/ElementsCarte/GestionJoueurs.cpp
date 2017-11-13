@@ -95,7 +95,7 @@ int Joueur::Gestion()
     bool findNewPosition = false;
     if (Get_Activite(skillToUse)->step > 0 && MouvementAutorise) findNewPosition = true;
 
-    auto seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
+    seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
     tools::math::Vector2d oldPosition = position();
 

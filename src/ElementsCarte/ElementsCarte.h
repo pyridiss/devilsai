@@ -211,6 +211,7 @@ class Individu : public Element_Carte
 
         tools::math::Shape interactionField;
         tools::math::Shape viewField;
+        vector<pair<Element_Carte*, int>> seenItems;
 
         Objects inventory;
 
