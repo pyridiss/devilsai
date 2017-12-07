@@ -81,8 +81,8 @@ target_link_libraries(devilsai
     musicManager
 )
 
-SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O3" CACHE INTERNAL "" FORCE)
-SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -Wall -g" CACHE INTERNAL "" FORCE)
+SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++17 -O3" CACHE INTERNAL "" FORCE)
+SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++17 -Wall -g" CACHE INTERNAL "" FORCE)
 
 if (UNIX)
   set(exeDestination ${CMAKE_INSTALL_PREFIX}/bin)
