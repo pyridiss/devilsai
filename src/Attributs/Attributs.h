@@ -21,6 +21,7 @@
 #define header_attributs
 
 #include <string>
+#include <string_view>
 #include <map>
 #include <list>
 
@@ -45,6 +46,27 @@ namespace tinyxml2{
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
+
+enum Attribute {
+    Life = 0, Energy, Healing,
+    Strength, Power, Agility, Intellect,
+    Constitution, Charisma, Dodge, HealingPower,
+    RunSpeed, AttackSpeed, InjurySpeed,
+    StrengthFactor, PowerFactor, AgilityFactor, IntellectFactor,
+    ConstitutionFactor, CharismaFactor, DodgeFactor, HealingPowerFactor,
+    RunSpeedFactor, AttackSpeedFactor, InjurySpeedFactor,
+    numberOfAttributes
+};
+
+constexpr const char* AttributesNames[] = {
+    "life", "energy", "healing",
+    "strength", "power", "agility", "intellect",
+    "constitution", "charisma", "dodge", "healingPower",
+    "runSpeed", "attackSpeed", "injurySpeed",
+    "strengthFactor", "powerFactor", "agilityFactor", "intellectFactor",
+    "constitutionFactor", "charismaFactor", "dodgeFactor", "healingPowerFactor",
+    "runSpeedFactor", "attackSpeedFactor", "injurySpeedFactor"
+};
 
 class Statistiques
 {
@@ -167,6 +189,17 @@ class Activite
         void atEnd(Individu* owner);
 };
 
+static constexpr const char* attributeToString(Attribute a)
+{
+    return AttributesNames[static_cast<int>(a)];
+}
+static constexpr Attribute stringToAttribute(string_view a)
+{
+    for (int i = 0 ; i < numberOfAttributes ; ++i)
+        if (AttributesNames[i] == a)
+            return static_cast<Attribute>(i);
+    return numberOfAttributes;
+}
 
 void Disp_Equipement();
 void Load_Decorations_Objets();
