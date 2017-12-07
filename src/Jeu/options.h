@@ -21,6 +21,7 @@
 #define OPTIONS_H
 
 #include <string>
+#include <string_view>
 
 using namespace std;
 
@@ -31,9 +32,13 @@ namespace gui{
 namespace options{
 
 template<typename T>
-void addOption(const string& name, T value);
+void addOption(unsigned int hash, T value);
 template<typename T>
-T option(const string& name);
+void addOption(string_view name, T value);
+template<typename T>
+T option(unsigned int hash);
+template<typename T>
+T option(string_view name);
 
 void Load_Options();
 void Save_Options();

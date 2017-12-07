@@ -101,7 +101,7 @@ void Disp_Menu(RenderTarget& target)
     }
 
 	//Erreur éventuelle
-	if (options::option<bool>("error-occured"))
+    if (options::option<bool>(tools::math::sdbm_hash("error-occured")))
 	{
         Disp_Texte(tools::textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
 	}
@@ -201,7 +201,7 @@ void Disp_JaugesVie(RenderTarget& target)
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)
 {
-	if (!options::option<bool>("show-console")) return;
+    if (!options::option<bool>(tools::math::sdbm_hash("show-console"))) return;
 
 	for(int a = 0 ; a < 10 ; ++a)
 	{

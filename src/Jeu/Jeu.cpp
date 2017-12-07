@@ -512,7 +512,7 @@ void mainLoop()
 
         Jeu.App.setView(Jeu.App.getDefaultView());
 
-        if (!options::option<bool>("cinematic-mode"))
+        if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
         {
             Disp_Menu(Jeu.App);
             Disp_JaugesVie(Jeu.App);

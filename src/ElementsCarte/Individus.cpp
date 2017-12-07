@@ -184,7 +184,7 @@ void Individu::findPath(const tools::math::Vector2d& destination)
 
 void Individu::Disp(RenderTarget& target)
 {
-    if (options::option<bool>("displayShapes"))
+    if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
     {
         viewField.display(target, Color(255, 255, 0, 20));
         interactionField.display(target, Color(255, 0, 0, 30));

@@ -41,6 +41,15 @@ int randomNumber(int min, int max);
 double randomNumber_BinomialLaw(double min, double max);
 bool intersection(Shape& shape1, Shape& shape2);
 
+constexpr unsigned int sdbm_hash(const char* str)
+{
+    unsigned int h = 0;
+    for (unsigned i = 0 ; str[i] != '\0' ; ++i)
+        h = str[i] + (h << 6) + (h << 16) - h;
+
+    return h;
+}
+
 } //namespace math
 
 } //namespace tools

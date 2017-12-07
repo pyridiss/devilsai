@@ -58,7 +58,7 @@ void CheckPoint::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void CheckPoint::Disp(RenderTarget& target)
 {
-    if (options::option<bool>("displayShapes"))
+    if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
         size.display(target, Color(255, 0, 0, 50));
 	return;
 }
@@ -155,7 +155,7 @@ void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Trigger::Disp(RenderTarget& target)
 {
-    if (options::option<bool>("displayShapes"))
+    if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
         size.display(target, Color(0, 255, 0, 50));
 	return;
 }

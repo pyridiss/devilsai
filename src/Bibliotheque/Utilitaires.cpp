@@ -26,6 +26,7 @@
 #include <lua.hpp>
 
 #include "tools/timeManager.h"
+#include "tools/math.h"
 
 #include "Bibliotheque.h"
 #include "Constantes.h"
@@ -171,32 +172,37 @@ double ToSegment(double x, int min, int max)
 #ifdef DEBOGAGE
 void Verbose(const string &Message, const short &Type)
 {
-	if(!options::option<bool>("verbose")) return;
+    if(!options::option<bool>(tools::math::sdbm_hash("verbose"))) return;
 
 	switch (Type)
 	{
-		case FICHIER :		if (!options::option<bool>("verbose-files")) return;
-							cout << "VERB.FICH : " << Message << endl;
-							break;
-		case IMAGE :		if (!options::option<bool>("verbose-images")) return;
-							cout << "VERB.IMG  : " << Message << endl;
-							break;
-		case LISTE :		if (!options::option<bool>("verbose-lists")) return;
-							cout << "VERB.LIST : " << Message << endl;
-							break;
-		case LUA :			if (!options::option<bool>("verbose-lua")) return;
-							cout << "VERB.LUA  : " << Message << endl;
-							break;
-		case MUSIC :		if (!options::option<bool>("verbose-musics")) return;
-							cout << "VERB.MUSIC  : " << Message << endl;
-							break;
+        case FICHIER :
+            if (!options::option<bool>(tools::math::sdbm_hash("verbose-files"))) return;
+            cout << "VERB.FICH : " << Message << endl;
+            break;
+        case IMAGE :
+            if (!options::option<bool>(tools::math::sdbm_hash("verbose-images"))) return;
+            cout << "VERB.IMG  : " << Message << endl;
+            break;
+        case LISTE :
+            if (!options::option<bool>(tools::math::sdbm_hash("verbose-lists"))) return;
+            cout << "VERB.LIST : " << Message << endl;
+            break;
+        case LUA :
+            if (!options::option<bool>(tools::math::sdbm_hash("verbose-lua"))) return;
+            cout << "VERB.LUA  : " << Message << endl;
+            break;
+        case MUSIC :
+            if (!options::option<bool>(tools::math::sdbm_hash("verbose-musics"))) return;
+            cout << "VERB.MUSIC  : " << Message << endl;
+            break;
 	}
 }
 #endif
 
 void Erreur(const string &Message1, const string &Message2)
 {
-    options::addOption<bool>("error-occured", true);
+    options::addOption<bool>(tools::math::sdbm_hash("error-occured"), true);
 
 	ofstream FichierErreurs("Devilsai_Errors", ios_base::out | ios_base::app);
 

@@ -61,44 +61,56 @@ typedef tools::math::Variant<unsigned, bool, string> optionType;
 
 list<SavedGame> savedGames;
 SavedGame* currentSavedGame = nullptr;
-unordered_map<string, optionType> _options;
+unordered_map<unsigned int, optionType> _options;
 
 
 template<typename T>
-void addOption(const string& name, T value)
+void addOption(unsigned int hash, T value)
 {
-    const auto& i = _options.find(name);
+    const auto& i = _options.find(hash);
 
     if (i == _options.end())
     {
         optionType o;
         o.set<T>(value);
-        _options.emplace(name, o);
+        _options.emplace(hash, o);
     }
     else
         i->second.set<T>(value);
 }
 
-//Explicit instantiations for the linker
-template void addOption<unsigned>(const string& name, unsigned value);
-template void addOption<bool>(const string& name, bool value);
-template void addOption<string>(const string& name, string value);
-
 template<typename T>
-T option(const string& name)
+void addOption(string_view name, T value)
 {
-    const auto& i = _options.find(name);
-    if (i != _options.end())
-        return i->second.get<T>();
-
-    tools::debug::error("This option does not exist: " + name, "options", __FILENAME__, __LINE__);
-    return T();
+    addOption<T>(tools::math::sdbm_hash(name.data()), value);
 }
 
 //Explicit instantiations for the linker
-template unsigned option<unsigned>(const string& name);
-template bool option<bool>(const string& name);
-template string option<string>(const string& name);
+template void addOption<unsigned>(unsigned int hash, unsigned value);
+template void addOption<bool>(unsigned int hash, bool value);
+template void addOption<string>(unsigned int hash, string value);
+
+template<typename T>
+T option(unsigned int hash)
+{
+    const auto& i = _options.find(hash);
+    if (i != _options.end())
+        return i->second.get<T>();
+
+    tools::debug::error("This option does not exist: " + intToString(hash), "options", __FILENAME__, __LINE__);
+    return T();
+}
+
+template<typename T>
+T option(string_view name)
+{
+    return option<T>(tools::math::sdbm_hash(name.data()));
+}
+
+//Explicit instantiations for the linker
+template unsigned option<unsigned>(unsigned int hash);
+template bool option<bool>(unsigned int hash);
+template string option<string>(unsigned int hash);
 
 
 void Load_Options()
@@ -121,24 +133,36 @@ void Load_Options()
 
         if (elemName == "option")
         {
-            string name = elem->Attribute("name");
-            string type = elem->Attribute("type");
+            string_view name = elem->Attribute("name");
+            unsigned int hash = 0;
+            elem->QueryAttribute("hash", &hash);
+
+            string_view type = elem->Attribute("type");
             if (type == "boolean")
             {
                 bool b = false;
                 elem->QueryAttribute("value", &b);
-                addOption<bool>(name, b);
+                if (name.size() > 0)
+                    addOption<bool>(name, b);
+                else if (hash != 0)
+                    addOption<bool>(hash, b);
             }
             else if (type == "unsigned")
             {
                 unsigned u = 0;
                 elem->QueryAttribute("value", &u);
-                addOption<unsigned>(name, u);
+                if (name.size() > 0)
+                    addOption<unsigned>(name, u);
+                else if (hash != 0)
+                    addOption<unsigned>(hash, u);
             }
             else if (type == "string")
             {
                 string s = elem->Attribute("value");
-                addOption<string>(name, s);
+                if (name.size() > 0)
+                    addOption<string>(name, s);
+                else if (hash != 0)
+                    addOption<string>(hash, s);
             }
         }
         else if (elemName == "savedGame")
@@ -153,8 +177,8 @@ void Load_Options()
         elem = elem->NextSiblingElement();
     }
 
-    Options.ScreenW = option<unsigned>("screen-width");
-    Options.ScreenH = option<unsigned>("screen-height");
+    Options.ScreenW = option<unsigned>(tools::math::sdbm_hash("screen-width"));
+    Options.ScreenH = option<unsigned>(tools::math::sdbm_hash("screen-height"));
 }
 
 void Save_Options()
@@ -167,7 +191,7 @@ void Save_Options()
     for (auto& o : _options)
     {
         XMLElement* option = file.NewElement("option");
-        option->SetAttribute("name", o.first.c_str());
+        option->SetAttribute("hash", o.first);
         if (o.second.is<bool>())
         {
             option->SetAttribute("type", "boolean");
@@ -202,8 +226,8 @@ void changeOption(string name, string value)
 {
     if (name == "option-change-language")
     {
-        if (value == "EN") addOption<string>("language", "en=");
-        if (value == "FR") addOption<string>("language", "fr=");
+        if (value == "EN") addOption<string>(tools::math::sdbm_hash("language"), "en=");
+        if (value == "FR") addOption<string>(tools::math::sdbm_hash("language"), "fr=");
     }
     else if (name == "option-change-resolution")
     {
@@ -211,10 +235,10 @@ void changeOption(string name, string value)
         unsigned newWidth = tools::textManager::toInt(value);
         unsigned newHeight = tools::textManager::toInt(value.substr(x+1));
 
-        if (newWidth != option<unsigned>("screen-width") || newHeight != option<unsigned>("screen-height"))
+        if (newWidth != option<unsigned>(tools::math::sdbm_hash("screen-width")) || newHeight != option<unsigned>(tools::math::sdbm_hash("screen-height")))
         {
-            addOption<unsigned>("screen-width", newWidth);
-            addOption<unsigned>("screen-height", newHeight);
+            addOption<unsigned>(tools::math::sdbm_hash("screen-width"), newWidth);
+            addOption<unsigned>(tools::math::sdbm_hash("screen-height"), newHeight);
             createWindow();
             Options.ScreenW = newWidth;
             Options.ScreenH = newHeight;
@@ -224,15 +248,15 @@ void changeOption(string name, string value)
     {
         bool newMode = (value == "enabled" ? true : false);
 
-        if (newMode != option<bool>("screen-fullscreen"))
+        if (newMode != option<bool>(tools::math::sdbm_hash("screen-fullscreen")))
         {
-            addOption<bool>("screen-fullscreen", newMode);
+            addOption<bool>(tools::math::sdbm_hash("screen-fullscreen"), newMode);
             createWindow();
         }
     }
     else if (name == "option-change-console")
     {
-        addOption<bool>("show-console", (value == "enabled" ? true : false));
+        addOption<bool>(tools::math::sdbm_hash("show-console"), (value == "enabled" ? true : false));
     }
 }
 
@@ -240,14 +264,14 @@ void createNewSavedGamePack()
 {
     SavedGame s;
 
-    s.directory = intToString(option<unsigned>("next-game-number"), 4) + "/";
+    s.directory = intToString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
     s.playerName = gamedata::player()->Nom;
     s.version = "master";
 
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);
 
     savedGames.push_back(std::move(s));
-    addOption<unsigned>("next-game-number", option<unsigned>("next-game-number") + 1);
+    addOption<unsigned>(tools::math::sdbm_hash("next-game-number"), option<unsigned>(tools::math::sdbm_hash("next-game-number")) + 1);
 
     currentSavedGame = &savedGames.back();
     Save_Options();
@@ -337,17 +361,17 @@ void initOptionsWindow(gui::Window& window)
 {
     string d;
 
-    if (option<string>("language") == "fr=") d = "FR";
+    if (option<string>(tools::math::sdbm_hash("language")) == "fr=") d = "FR";
     else d = "EN";
     window.setValue("chooser-language", d);
 
     d = intToString(Options.ScreenW) + "x" + intToString(Options.ScreenH);
     window.setValue("chooser-resolution", d);
 
-    d = (option<bool>("screen-fullscreen") ? "enabled" : "disabled");
+    d = (option<bool>(tools::math::sdbm_hash("screen-fullscreen")) ? "enabled" : "disabled");
     window.setValue("chooser-fullscreen", d);
 
-    d = (option<bool>("show-console") ? "enabled" : "disabled");
+    d = (option<bool>(tools::math::sdbm_hash("show-console")) ? "enabled" : "disabled");
     window.setValue("chooser-console", d);
 }
 
