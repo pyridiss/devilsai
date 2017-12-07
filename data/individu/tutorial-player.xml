@@ -161,7 +161,7 @@
                 end
 
                 function atEnd(owner)
-                    individual_set(owner, "vitality", 0)
+                    individual_set(owner, "life", 0)
                 end
             </script>
         </skill>

@@ -99,7 +99,7 @@ function questManage()
 		if remainingTime2 <= 0 then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-bael")
 			bael_ptr = getElement("tutorial-bael")
-			set(curtis_ptr, "vitality", 0)
+			set(curtis_ptr, "life", 0)
 			questStep = "9"
 			pushDialog("tutorial-11")
 		end

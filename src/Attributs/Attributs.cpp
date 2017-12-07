@@ -361,7 +361,7 @@ string Statistiques::toString(Attribute a)
 
 void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
 {
-    elem->QueryAttribute("vitality", &Vitalite);
+    elem->QueryAttribute("life", &Vitalite);
     elem->QueryAttribute("energy", &Energie);
     elem->QueryAttribute("healing", &Recuperation);
 }
@@ -370,7 +370,7 @@ void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& ha
 {
     XMLElement* root = handle.ToElement();
 
-    root->SetAttribute("vitality", Vitalite);
+    root->SetAttribute("life", Vitalite);
     root->SetAttribute("energy", Energie);
     root->SetAttribute("healing", Recuperation);
 }

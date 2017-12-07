@@ -154,7 +154,7 @@ int LUA_get(lua_State* L)
     else if (field == "PosY") result = ind->position().y;
     else if (field == "angle") result = ind->angle;
     else if (field == "diplomacy") result = ind->Diplomatie;
-    else if (field == "vitality") result = ind->currentHealthStatus(Statistiques::Life);
+    else if (field == "life") result = ind->currentHealthStatus(Statistiques::Life);
     else if (field == "energy") result = ind->currentHealthStatus(Statistiques::Energy);
     else if (field == "healing") result = ind->currentHealthStatus(Statistiques::Healing);
     else if (field == "strength") result = ind->currentHealthStatus(Caracteristiques::Strength);

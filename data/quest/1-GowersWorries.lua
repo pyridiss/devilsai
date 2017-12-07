@@ -61,7 +61,7 @@ function questManage()
 			pushDialog("mis_1.14_intro")
 			questStep = "10"
 		end
-		if get(gower_ptr, "vitality") == 0 then
+		if get(gower_ptr, "life") == 0 then
 			questStep = "20"
 		end
 
