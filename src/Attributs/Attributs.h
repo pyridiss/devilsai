@@ -71,22 +71,33 @@ constexpr const char* AttributesNames[] = {
 class Statistiques
 {
 	private:
-		double Vitalite		= 1000;
-		double Energie		= 1000;
-		double Recuperation	= 0;
+        double _stats[numberOfAttributes];
 
 	public:
+        Statistiques()
+            : _stats {1000, 1000} //Only Life and Energy are 1000 by default
+        {
+        }
         enum Attribute { Life, Energy, Healing,
                          enumSize };
 
-        double operator[](string stat) const;
-        double operator[](Attribute a);
-        void add(Attribute a, double value);
-        void set(Attribute a, double value);
         static string toString(Attribute a);
 
-    private:
-        double& get(Attribute a);
+        constexpr double operator[](Attribute a)
+        {
+            if (a == numberOfAttributes) return 0;
+            return _stats[a];
+        }
+        void add(Attribute a, double value)
+        {
+            if (a == numberOfAttributes) return;
+            _stats[a] += value;
+        }
+        void set(Attribute a, double value)
+        {
+            if (a == numberOfAttributes) return;
+            _stats[a] = value;
+        }
 
     public:
         void loadFromXML(tinyxml2::XMLElement* elem);

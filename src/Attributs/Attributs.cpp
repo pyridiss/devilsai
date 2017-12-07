@@ -314,41 +314,6 @@ string Caracteristiques::toString(Attribute a)
     }
 }
 
-double Statistiques::operator[](string stat) const
-{
-	if (stat == "life" || stat == "vitality" || stat == "Vitalite")
-        return Vitalite;
-	if (stat == "energy" || stat == "Energie")
-        return Energie;
-	if (stat == "healing")
-        return Recuperation;
-}
-
-double Statistiques::operator[](Attribute a)
-{
-    return get(a);
-}
-
-void Statistiques::add(Attribute a, double value)
-{
-    get(a) += value;
-}
-
-void Statistiques::set(Attribute a, double value)
-{
-    get(a) = value;
-}
-
-double& Statistiques::get(Attribute a)
-{
-    switch (a)
-    {
-        case Life: return Vitalite;
-        case Energy: return Energie;
-        case Healing: return Recuperation;
-    }
-}
-
 string Statistiques::toString(Attribute a)
 {
     switch (a)
@@ -361,18 +326,18 @@ string Statistiques::toString(Attribute a)
 
 void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
 {
-    elem->QueryAttribute("life", &Vitalite);
-    elem->QueryAttribute("energy", &Energie);
-    elem->QueryAttribute("healing", &Recuperation);
+    elem->QueryAttribute("life", &_stats[0]);
+    elem->QueryAttribute("energy", &_stats[1]);
+    elem->QueryAttribute("healing", &_stats[2]);
 }
 
 void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 
-    root->SetAttribute("life", Vitalite);
-    root->SetAttribute("energy", Energie);
-    root->SetAttribute("healing", Recuperation);
+    root->SetAttribute("life", _stats[0]);
+    root->SetAttribute("energy", _stats[1]);
+    root->SetAttribute("healing", _stats[2]);
 }
 
 
