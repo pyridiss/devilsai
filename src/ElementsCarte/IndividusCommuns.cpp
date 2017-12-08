@@ -53,11 +53,6 @@ int Individu_Commun::Get_Experience()
 	return Classe->Experience;
 }
 
-Caracteristiques& Individu_Commun::attributes()
-{
-	return Classe->Caracs;
-}
-
 Activite* Individu_Commun::Get_Activite(string act)
 {
 	return Classe->Get_Activite(act);
@@ -159,7 +154,7 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "statistics")
         {
-            Stats.loadFromXML(elem);
+            _currentHealthStatus.loadFromXML(elem);
         }
 
         elem = elem->NextSiblingElement();

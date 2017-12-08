@@ -202,6 +202,7 @@ class Individu : public Element_Carte
 
 	protected:
         Statistiques _currentHealthStatus;
+        Statistiques _attributes;
         Clock _clock;
 
 	public:
@@ -226,7 +227,6 @@ class Individu : public Element_Carte
 	public:
 		virtual String32& Get_Nom() = 0;
 		virtual int Get_Experience() = 0;
-		virtual Caracteristiques& attributes() =0;
         virtual bool angleFixed() =0;
         string Get_Act();
 		short Get_Num();
@@ -276,8 +276,6 @@ class Individu_Unique : public Individu
 	public:
 		MapActivites Activites;
 
-		Caracteristiques Caracs;
-
 	//Constructeurs / Destructeurs :
 	public:
 		Individu_Unique();
@@ -290,7 +288,7 @@ class Individu_Unique : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques& attributes();
+        Statistiques& attributes();
 		virtual Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
@@ -319,7 +317,6 @@ class Individu_Commun : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques& attributes();
 		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();

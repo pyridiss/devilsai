@@ -186,7 +186,7 @@ bool Joueur::ApplicationAmeliorations()
     for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
     {
         Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
-        int diff = floor(attributes()[att]) - _displayedAttributes[att];
+        int diff = floor(_attributes[att]) - _displayedAttributes[att];
 
         if (diff != 0)
         {
@@ -195,7 +195,7 @@ bool Joueur::ApplicationAmeliorations()
             (diff > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
         }
 
-        _displayedAttributes.set(att, floor(attributes()[att]));
+        _displayedAttributes.set(att, floor(_attributes[att]));
     }
 
 	return Retour;
@@ -206,7 +206,7 @@ void Joueur::resetDisplayedAttributes()
     for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
     {
         Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
-        _displayedAttributes.set(att, floor(attributes()[att]));
+        _displayedAttributes.set(att, floor(_attributes[att]));
     }
 }
 

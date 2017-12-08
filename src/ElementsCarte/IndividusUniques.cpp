@@ -66,9 +66,9 @@ int Individu_Unique::Get_Experience()
 	return Experience;
 }
 
-Caracteristiques& Individu_Unique::attributes()
+Statistiques& Individu_Unique::attributes()
 {
-	return Caracs;
+	return _attributes;
 }
 
 Activite* Individu_Unique::Get_Activite(string act)
@@ -192,11 +192,11 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         if (elemName == "viewField")        viewField.loadFromXML(elem);
         if (elemName == "interactionField") interactionField.loadFromXML(elem);
 
-        if (elemName == "characteristics")
+        if (elemName == "attributes")
         {
-            Caracs.loadFromXML(elem);
-            //Force the updating of attributes
-            currentHealthStatus(Caracteristiques::Strength, true);
+            _attributes.loadFromXML(elem);
+            //Force the updating of _currentHealthStatus
+            currentHealthStatus(Life, true);
         }
 
         if (elemName == "properties")
@@ -277,10 +277,10 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     unique->SetAttribute("y", position().y);
     unique->SetAttribute("tag", Liste.c_str());
 
-    XMLElement* characteristicsElem = doc.NewElement("characteristics");
-    unique->InsertEndChild(characteristicsElem);
-    XMLHandle characteristicsHandle(characteristicsElem);
-    Caracs.saveToXML(doc, characteristicsHandle);
+    XMLElement* attributesElem = doc.NewElement("attributes");
+    unique->InsertEndChild(attributesElem);
+    XMLHandle attributesHandle(attributesElem);
+    _attributes.saveToXML(doc, attributesHandle);
 
     XMLElement* properties = doc.NewElement("properties");
     properties->SetAttribute("id", Id);

@@ -88,7 +88,7 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
     //Update values
     if (forceUpdate || _clock.getElapsedTime().asSeconds() > 1)
     {
-        _currentHealthStatus = attributes();
+        _currentHealthStatus = _attributes;
 
         for (int i = 0 ; i != Caracteristiques::Attribute::enumSize ; ++i)
         {
@@ -121,21 +121,33 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
 void Individu::setHealthStatus(Statistiques::Attribute a, double value)
 {
     if (a == Statistiques::Life || a == Statistiques::Energy)
+    {
         value = min(max(0.0, value), 1000.0);
-    else //Healing
+        _currentHealthStatus.set(a, value);
+        _attributes.set(a, value);
+    }
+    if (a == Healing)
+    {
         value = min(max(-100.0, value), 100.0);
-
-    Stats.set(a, value);
+        _currentHealthStatus.set(a, value);
+        _attributes.set(a, value);
+    }
 }
 
 void Individu::modifyHealthStatus(Statistiques::Attribute a, double value)
 {
-    if (a == Statistiques::Life || a == Statistiques::Energy)
-        value = min(max(-Stats[a], value), 1000.0 - Stats[a]);
-    else //Healing
-        value = min(max(-100.0 - Stats[a], value), 100.0 - Stats[a]);
-
-    Stats.add(a, value);
+    if (a == Life || a == Energy)
+    {
+        value = min(max(-_currentHealthStatus[a], value), 1000.0 - _currentHealthStatus[a]);
+        _currentHealthStatus.add(a, value);
+        _attributes.add(a, value);
+    }
+    if (a == Healing)
+    {
+        value = min(max(-100.0 - _currentHealthStatus[a], value), 100.0 - _currentHealthStatus[a]);
+        _currentHealthStatus.add(a, value);
+        _attributes.add(a, value);
+    }
 }
 
 void Individu::updateAngle(const tools::math::Vector2d& p)
