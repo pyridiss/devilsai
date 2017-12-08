@@ -282,7 +282,7 @@ void Disp_Personnage()
 	int numberChar = 0;
     for (int a = Strength ; a != RunSpeed ; ++a)
 	{
-        int absoluteQty = gamedata::player()->attributes()[static_cast<Attribute>(A)];
+        int absoluteQty = gamedata::player()->attributes()[static_cast<Attribute>(a)];
         int diffQty = gamedata::player()->currentHealthStatus(static_cast<Attribute>(a)) - absoluteQty;
 
 		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
