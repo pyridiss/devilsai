@@ -186,7 +186,7 @@ void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
     XMLElement* stats = doc.NewElement("statistics");
     individual->InsertEndChild(stats);
     XMLHandle statsHandle(stats);
-    Stats.saveToXML(doc, statsHandle);
+    _currentHealthStatus.saveToXML(doc, statsHandle);
 
     root->InsertEndChild(individual);
 }

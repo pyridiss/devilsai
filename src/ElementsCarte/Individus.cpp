@@ -83,12 +83,7 @@ void Individu::Gestion_Recuperation()
     }
 }
 
-int Individu::currentHealthStatus(Statistiques::Attribute a)
-{
-    return Stats[a];
-}
-
-int Individu::currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate)
+int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
 {
     //Update values
     if (forceUpdate || _clock.getElapsedTime().asSeconds() > 1)

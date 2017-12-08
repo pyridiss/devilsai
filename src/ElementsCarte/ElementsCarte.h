@@ -201,8 +201,7 @@ class Individu : public Element_Carte
 		int ElementVision       = -1;
 
 	protected:
-		Statistiques Stats;
-        Caracteristiques _currentHealthStatus;
+        Statistiques _currentHealthStatus;
         Clock _clock;
 
 	public:

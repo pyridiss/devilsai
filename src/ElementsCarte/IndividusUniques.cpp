@@ -198,7 +198,6 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             //Force the updating of attributes
             currentHealthStatus(Caracteristiques::Strength, true);
         }
-        if (elemName == "statistics")       Stats.loadFromXML(elem);
 
         if (elemName == "properties")
         {
@@ -282,11 +281,6 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     unique->InsertEndChild(characteristicsElem);
     XMLHandle characteristicsHandle(characteristicsElem);
     Caracs.saveToXML(doc, characteristicsHandle);
-
-    XMLElement* statisticsElem = doc.NewElement("statistics");
-    unique->InsertEndChild(statisticsElem);
-    XMLHandle statisticsHandle(statisticsElem);
-    Stats.saveToXML(doc, statisticsHandle);
 
     XMLElement* properties = doc.NewElement("properties");
     properties->SetAttribute("id", Id);
