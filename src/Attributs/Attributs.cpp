@@ -258,11 +258,11 @@ void Activite::loadFromXML(XMLHandle &handle, Individu* owner)
             elem->QueryAttribute("luminance", &l);
 
             if (elem->Attribute("speedImprover", "runSpeed"))
-                speedImprover = Caracteristiques::RunSpeed;
+                speedImprover = RunSpeed;
             else if (elem->Attribute("speedImprover", "attackSpeed"))
-                speedImprover = Caracteristiques::AttackSpeed;
+                speedImprover = AttackSpeed;
             else if (elem->Attribute("speedImprover", "injurySpeed"))
-                speedImprover = Caracteristiques::InjurySpeed;
+                speedImprover = InjurySpeed;
         }
         if (elemName == "interactionField")
         {

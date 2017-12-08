@@ -153,7 +153,7 @@ class Activite
         bool fightAtEnd    = false;
         string scriptString;
         lua_State* script  = nullptr;
-        Caracteristiques::Attribute speedImprover = Caracteristiques::Attribute::enumSize;
+        Attribute speedImprover = numberOfAttributes;
         tools::math::Shape interactionField;
 
         int priority       = 0;
