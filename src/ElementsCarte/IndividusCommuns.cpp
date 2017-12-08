@@ -152,7 +152,7 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("ignoreCollision", &ignoreCollision);
             elem->QueryAttribute("classement", &TypeClassement);
         }
-        if (elemName == "statistics")
+        if (elemName == "currentHealthStatus")
         {
             _currentHealthStatus.loadFromXML(elem);
         }
@@ -178,7 +178,7 @@ void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("classement", TypeClassement);
     individual->InsertEndChild(properties);
 
-    XMLElement* stats = doc.NewElement("statistics");
+    XMLElement* stats = doc.NewElement("currentHealthStatus");
     individual->InsertEndChild(stats);
     XMLHandle statsHandle(stats);
     _currentHealthStatus.saveToXML(doc, statsHandle);
