@@ -183,14 +183,15 @@ bool Joueur::ApplicationAmeliorations()
 	Color Positif(128, 255, 128, 255); Color Negatif(255, 128, 128, 255);
 	bool Retour = false;
 
-    for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
+    for (int a = Strength ; a != StrengthFactor ; ++a)
     {
-        Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
+        Attribute att = static_cast<Attribute>(a);
         int diff = floor(_attributes[att]) - _displayedAttributes[att];
 
         if (diff != 0)
         {
-            string text = "console-attributeImprovement-" + Caracteristiques::toString(att);
+            char text[50] = "console-attributeImprovement-";
+            strcat(text, attributeToString(att));
             Final = tools::textManager::getFormattedText("devilsai", text, diff);
             (diff > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
         }
@@ -203,9 +204,9 @@ bool Joueur::ApplicationAmeliorations()
 
 void Joueur::resetDisplayedAttributes()
 {
-    for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
+    for (int a = Strength ; a != StrengthFactor ; ++a)
     {
-        Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
+        Attribute att = static_cast<Attribute>(a);
         _displayedAttributes.set(att, floor(_attributes[att]));
     }
 }
@@ -279,10 +280,10 @@ void Disp_Personnage()
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
 
 	int numberChar = 0;
-    for (int c = 0 ; c != Caracteristiques::Attribute::RunSpeed ; ++c)
+    for (int a = Strength ; a != RunSpeed ; ++a)
 	{
-        int absoluteQty = gamedata::player()->attributes()[static_cast<Caracteristiques::Attribute>(c)];
-        int diffQty = gamedata::player()->currentHealthStatus(static_cast<Caracteristiques::Attribute>(c)) - absoluteQty;
+        int absoluteQty = gamedata::player()->attributes()[static_cast<Attribute>(A)];
+        int diffQty = gamedata::player()->currentHealthStatus(static_cast<Attribute>(a)) - absoluteQty;
 
 		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 

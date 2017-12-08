@@ -344,7 +344,7 @@ class Joueur : public Individu_Unique
         int selectedIndividual = -1;
 
     private:
-        Caracteristiques _displayedAttributes;
+        Statistiques _displayedAttributes;
 
 	public:
 		Joueur();
