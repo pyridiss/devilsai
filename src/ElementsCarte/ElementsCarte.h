@@ -80,7 +80,7 @@ class Classe_Commune
 		unsigned int Experience = 0;
 
 	public:
-		Caracteristiques Caracs;
+        Statistiques commonStats;
         Objects inventory;
 
     public:
@@ -326,6 +326,8 @@ class Individu_Commun : public Individu
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
+    friend class Classe_Commune;
 };
 
 class Joueur : public Individu_Unique

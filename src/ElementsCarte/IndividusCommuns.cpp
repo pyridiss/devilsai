@@ -224,7 +224,8 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->viewField.setOrigin(&elem->position());
 
 	elem->Diplomatie = Diplomatie;
-    elem->setHealthStatus(Statistiques::Healing, Caracs[Caracteristiques::HealingPower]);
+    elem->_attributes = commonStats;
+    elem->setHealthStatus(Healing, commonStats[HealingPower]);
     elem->lifetime = lifetime;
 
     if (angleFixed) elem->angle = fixedAngle;
@@ -268,7 +269,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "characteristics")
         {
-            Caracs.loadFromXML(elem);
+            commonStats.loadFromXML(elem);
         }
         if (elemName == "properties")
         {
