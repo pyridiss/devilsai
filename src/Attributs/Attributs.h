@@ -225,26 +225,4 @@ static constexpr Attribute stringToAttribute(string_view a)
 void Disp_Equipement();
 void Load_Decorations_Objets();
 
-static const string ObjectProperties[19] = {
-    "strength",
-    "power",
-    "agility",
-    "intellect",
-    "constitution",
-    "charisma",
-    "dodge",
-    "healingPower",
-    "strengthFactor",
-    "powerFactor",
-    "agilityFactor",
-    "intellectFactor",
-    "constitutionFactor",
-    "charismaFactor",
-    "dodgeFactor",
-    "healingPowerFactor",
-    "attackSpeed",
-    "runSpeed",
-    "injurySpeed"
-};
-
 #endif
