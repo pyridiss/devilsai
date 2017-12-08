@@ -5,7 +5,7 @@
         <shape type="circle" radius="20"/>
         <attackField type="circle" radius="45"/>
         <properties diplomacy="1" corpseImageKey="tutorial-player:die/6/1/08.png"/>
-        <characteristics strength="300" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
+        <attributes strength="300" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
         <skill name="pause" owner="tutorial-player">
             <properties priority="0" speed="3" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/2/%%.png"/>

@@ -5,7 +5,7 @@
         <shape type="circle" radius="20"/>
         <viewField type="circle" radius="50"/>
         <properties diplomacy="1" corpseImageKey="fluellen:pause/2/1/00.png"/>
-        <characteristics strength="350" power="1000" agility="60" intellect="5" constitution="20" dodge="5" charisma="5" healingPower="40"/>
+        <attributes strength="350" power="1000" agility="60" intellect="5" constitution="20" dodge="5" charisma="5" healingPower="40"/>
         <skill name="pause" owner="fluellen">
             <properties priority="0" speed="2" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/1/%%.png"/>

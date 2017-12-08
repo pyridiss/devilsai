@@ -5,7 +5,7 @@
         <shape type="circle" radius="20"/>
         <viewField type="circle" radius="500"/>
         <properties diplomacy="1" corpseImageKey="gower:die/6/1/08.png"/>
-        <characteristics strength="400" power="500" agility="65" intellect="8" constitution="30" dodge="5" charisma="10" healingPower="40"/>
+        <attributes strength="400" power="500" agility="65" intellect="8" constitution="30" dodge="5" charisma="10" healingPower="40"/>
         <skill name="attack" owner="gower">
             <properties priority="1" speed="22" step="0" numberOfImages="12"/>
             <interactionField type="circle" radius="50"/>

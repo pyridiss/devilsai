@@ -6,7 +6,7 @@
         <interactionField type="arc" radius="45" direction="0" opening="0.5"/>
         <viewField type="circle" radius="800"/>
         <properties diplomacy="1" corpseImageKey="player:die/6/1/08.png"/>
-        <characteristics strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
+        <attributes strength="100" power="90" agility="58" intellect="15" constitution="5" dodge="2" charisma="15" healingPower="15"/>
         <skill name="pause" owner="player">
             <properties priority="0" speed="3" speedImprover="runSpeed" step="0" numberOfImages="8"/>
             <images angle="0" pathToImages="2/2/%%.png"/>
