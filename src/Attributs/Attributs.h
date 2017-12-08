@@ -36,7 +36,6 @@ using namespace tinyxml2;
 
 class lua_State;
 
-class Caracteristiques;
 class Activite;
 class Individu;
 
@@ -75,10 +74,6 @@ class Statistiques
             : _stats {1000, 1000} //Only Life and Energy are 1000 by default
         {
         }
-        enum Attribute { Life, Energy, Healing,
-                         enumSize };
-
-        static string toString(Attribute a);
 
         constexpr double operator[](Attribute a)
         {
@@ -143,38 +138,6 @@ class Objects
         void createObjectsFromDesigns();
 		void deleteObject(lua_State* obj);
 		void deleteObjects();
-
-        void loadFromXML(tinyxml2::XMLElement* elem);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-};
-
-class Caracteristiques
-{
-	private:
-        double strength, power, agility, intellect;
-        double constitution, charisma, dodge, healingPower;
-        double runSpeed, attackSpeed, injurySpeed;
-
-	public:
-        Caracteristiques();
-		~Caracteristiques();
-
-	public:
-        enum Attribute { Strength, Power, Agility, Intellect,
-                         Constitution, Charisma, Dodge, HealingPower,
-                         RunSpeed, AttackSpeed, InjurySpeed,
-                         enumSize };
-
-        double operator[](string characteristic) const;
-        double operator[](Attribute a);
-        void add(Attribute a, double value);
-        void set(Attribute a, double value);
-
-    private:
-        double& get(Attribute a);
-
-	public:
-        static string toString(Attribute a);
 
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
