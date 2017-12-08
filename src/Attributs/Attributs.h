@@ -25,23 +25,20 @@
 #include <map>
 #include <list>
 
+#include <tinyxml2.h>
+
 #include "tools/shape.h"
 #include "gui/button.h"
 
 using namespace std;
 using namespace sf;
+using namespace tinyxml2;
 
 class lua_State;
 
 class Caracteristiques;
 class Activite;
 class Individu;
-
-namespace tinyxml2{
-    class XMLElement;
-    class XMLHandle;
-    class XMLDocument;
-};
 
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
@@ -100,8 +97,21 @@ class Statistiques
         }
 
     public:
-        void loadFromXML(tinyxml2::XMLElement* elem);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+        void loadFromXML(tinyxml2::XMLElement* elem)
+        {
+            for (int i = 0 ; i < numberOfAttributes ; ++i)
+                elem->QueryAttribute(AttributesNames[i], &_stats[i]);
+        }
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+        {
+            XMLElement* root = handle.ToElement();
+
+            for (int i = 0 ; i < numberOfAttributes ; ++i)
+            {
+                if (_stats[i])
+                    root->SetAttribute(AttributesNames[i], _stats[i]);
+            }
+        }
 };
 
 class Objects

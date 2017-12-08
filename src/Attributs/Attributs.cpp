@@ -324,22 +324,6 @@ string Statistiques::toString(Attribute a)
     }
 }
 
-void Statistiques::loadFromXML(tinyxml2::XMLElement* elem)
-{
-    elem->QueryAttribute("life", &_stats[0]);
-    elem->QueryAttribute("energy", &_stats[1]);
-    elem->QueryAttribute("healing", &_stats[2]);
-}
-
-void Statistiques::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
-{
-    XMLElement* root = handle.ToElement();
-
-    root->SetAttribute("life", _stats[0]);
-    root->SetAttribute("energy", _stats[1]);
-    root->SetAttribute("healing", _stats[2]);
-}
-
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
