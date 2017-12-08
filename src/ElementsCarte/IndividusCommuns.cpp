@@ -231,7 +231,7 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     if (angleFixed) elem->angle = fixedAngle;
 
     //Force the updating of attributes
-    elem->currentHealthStatus(Caracteristiques::Strength, true);
+    elem->currentHealthStatus(Strength, true);
 }
 
 void Classe_Commune::setAngleFixed(double angle)

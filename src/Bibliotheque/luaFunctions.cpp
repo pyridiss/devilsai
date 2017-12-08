@@ -125,9 +125,9 @@ int LUA_set(lua_State* L)
 
     if (field == "Diplomatie") elem->Diplomatie = (int)value;
     else if (field == "Num_Max") ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
-    else if (field == "vitality") ind->setHealthStatus(Statistiques::Life, value);
-    else if (field == "energy") ind->setHealthStatus(Statistiques::Energy, value);
-    else if (field == "healing") ind->setHealthStatus(Statistiques::Healing, value);
+    else if (field == "life") ind->setHealthStatus(Life, value);
+    else if (field == "energy") ind->setHealthStatus(Energy, value);
+    else if (field == "healing") ind->setHealthStatus(Healing, value);
 
 	return 0;
 }
@@ -154,20 +154,12 @@ int LUA_get(lua_State* L)
     else if (field == "PosY") result = ind->position().y;
     else if (field == "angle") result = ind->angle;
     else if (field == "diplomacy") result = ind->Diplomatie;
-    else if (field == "life") result = ind->currentHealthStatus(Statistiques::Life);
-    else if (field == "energy") result = ind->currentHealthStatus(Statistiques::Energy);
-    else if (field == "healing") result = ind->currentHealthStatus(Statistiques::Healing);
-    else if (field == "strength") result = ind->currentHealthStatus(Caracteristiques::Strength);
-    else if (field == "power") result = ind->currentHealthStatus(Caracteristiques::Power);
-    else if (field == "agility") result = ind->currentHealthStatus(Caracteristiques::Agility);
-    else if (field == "intellect") result = ind->currentHealthStatus(Caracteristiques::Intellect);
-    else if (field == "constitution") result = ind->currentHealthStatus(Caracteristiques::Constitution);
-    else if (field == "charisma") result = ind->currentHealthStatus(Caracteristiques::Charisma);
-    else if (field == "dodge") result = ind->currentHealthStatus(Caracteristiques::Dodge);
-    else if (field == "healingPower") result = ind->currentHealthStatus(Caracteristiques::HealingPower);
-    else if (field == "runSpeed") result = ind->currentHealthStatus(Caracteristiques::RunSpeed);
-    else if (field == "attackSpeed") result = ind->currentHealthStatus(Caracteristiques::AttackSpeed);
-    else if (field == "injurySpeed") result = ind->currentHealthStatus(Caracteristiques::InjurySpeed);
+    else
+    {
+        Attribute a = stringToAttribute(field);
+        if (a != numberOfAttributes)
+            result = ind->currentHealthStatus(a);
+    }
 
 	lua_pushnumber(L, result);
 	return 1;

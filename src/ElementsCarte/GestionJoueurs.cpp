@@ -37,7 +37,7 @@ int Joueur::Gestion()
 
 		// 2. Vérifie que le personnage est toujours en vie !
 
-	if (currentHealthStatus(Statistiques::Life) <= 0)
+	if (currentHealthStatus(Life) <= 0)
 	{
         Set_Activite(behavior(Behaviors::Dying));
         if (Get_Num() == 8) tools::signals::addSignal("player-dead");

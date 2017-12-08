@@ -88,9 +88,9 @@ vector<string>& Individu_Unique::attacks()
     return _attacks;
 }
 
-void Individu_Unique::modifyHealthStatus(Statistiques::Attribute a, double value)
+void Individu_Unique::modifyHealthStatus(Attribute a, double value)
 {
-    if (RecuperationFixe && a == Statistiques::Healing) return;
+    if (RecuperationFixe && a == Healing) return;
 
     Individu::modifyHealthStatus(a, value);
 }
@@ -103,9 +103,9 @@ bool Individu_Unique::Set_Activite(string nv)
 
     if (Get_Act() == behavior(Behaviors::Dying))
 	{
-		setHealthStatus(Statistiques::Life, 0);
-		setHealthStatus(Statistiques::Energy, 0);
-		setHealthStatus(Statistiques::Healing, 0);
+		setHealthStatus(Life, 0);
+		setHealthStatus(Energy, 0);
+		setHealthStatus(Healing, 0);
 	}
     if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(behavior(Behaviors::Dying))->numberOfImages-2)
 	{

@@ -249,10 +249,9 @@ class Individu : public Element_Carte
         void updateAngle(const tools::math::Vector2d& p);
 
 	public:
-        int currentHealthStatus(Statistiques::Attribute a);
-        int currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate = false);
-        void setHealthStatus(Statistiques::Attribute a, double value);
-        virtual void modifyHealthStatus(Statistiques::Attribute a, double value);
+        int currentHealthStatus(Attribute a, bool forceUpdate = false);
+        void setHealthStatus(Attribute a, double value);
+        virtual void modifyHealthStatus(Attribute a, double value);
 
 	//Affichage
 	public:
@@ -294,7 +293,7 @@ class Individu_Unique : public Individu
         vector<string>& attacks();
         bool angleFixed();
 
-        void modifyHealthStatus(Statistiques::Attribute a, double value);
+        void modifyHealthStatus(Attribute a, double value);
 
 		bool Set_Activite(string nv);
 

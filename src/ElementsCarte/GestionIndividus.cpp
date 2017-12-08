@@ -44,7 +44,7 @@ int Individu::Gestion()
 	{
 			return ETAT_MORT;
 	}
-    if (Get_Act() != behavior(Behaviors::Dying) && (currentHealthStatus(Statistiques::Life) == 0 || lifetime == 0))
+    if (Get_Act() != behavior(Behaviors::Dying) && (currentHealthStatus(Life) == 0 || lifetime == 0))
 	{
         if (!Set_Activite(behavior(Behaviors::Dying))) return ETAT_MORT;
 		else return ETAT_NORMAL;
