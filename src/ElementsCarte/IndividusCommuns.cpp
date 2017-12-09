@@ -249,6 +249,8 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
     Type = handle.ToElement()->Attribute("name");
     Nom = tools::textManager::getText("species", Type);
 
+    string archiveFile;
+
     XMLElement *elem = handle.FirstChildElement().ToElement();
     while (elem)
     {
@@ -256,8 +258,8 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
 
         if (elemName == "addImageArchiveFile")
         {
-            imagePrefix = elem->Attribute("file");
-            imageManager::addArchiveFile(imagePrefix);
+            archiveFile = elem->Attribute("file");
+            imageManager::addArchiveFile(archiveFile);
         }
         if (elemName == "shape")
         {
@@ -338,6 +340,6 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         elem = elem->NextSiblingElement();
     }
 
-    imageManager::removeArchiveFile(imagePrefix);
+    imageManager::removeArchiveFile(archiveFile);
 
 }

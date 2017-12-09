@@ -144,6 +144,8 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
 
+    string archiveFile;
+
     if (elem->Attribute("name"))
     {
         Type = elem->Attribute("name");
@@ -184,8 +186,8 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
 
         if (elemName == "addImageArchiveFile")
         {
-            imagePrefix = elem->Attribute("file");
-            imageManager::addArchiveFile(imagePrefix);
+            archiveFile = elem->Attribute("file");
+            imageManager::addArchiveFile(archiveFile);
         }
 
         if (elemName == "shape")            size.loadFromXML(elem);
@@ -264,7 +266,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         elem = elem->NextSiblingElement();
     }
 
-    imageManager::removeArchiveFile(imagePrefix);
+    imageManager::removeArchiveFile(archiveFile);
 }
 
 void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)

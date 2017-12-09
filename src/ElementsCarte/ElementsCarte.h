@@ -84,7 +84,6 @@ class Classe_Commune
         Objects inventory;
 
     public:
-        string imagePrefix = "";
         string corpseImageKey = "";
 
 		MapActivites Activites;
@@ -271,7 +270,6 @@ class Individu_Unique : public Individu
         vector<string> _attacks;
 
     public:
-        string imagePrefix = "";
         string corpseImageKey = "";
 
 	public:
