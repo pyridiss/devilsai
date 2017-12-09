@@ -78,13 +78,6 @@ vector<string>& Individu_Unique::attacks()
     return _attacks;
 }
 
-void Individu_Unique::modifyHealthStatus(Attribute a, double value)
-{
-    if (RecuperationFixe && a == Healing) return;
-
-    Individu::modifyHealthStatus(a, value);
-}
-
 bool Individu_Unique::Set_Activite(string nv)
 {
 	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort

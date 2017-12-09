@@ -295,8 +295,6 @@ class Individu_Unique : public Individu
         string& behavior(Behaviors b);
         vector<string>& attacks();
 
-        void modifyHealthStatus(Attribute a, double value);
-
 		bool Set_Activite(string nv);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);

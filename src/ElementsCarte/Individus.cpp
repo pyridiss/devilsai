@@ -165,7 +165,7 @@ void Individu::setHealthStatus(Attribute a, double value)
         _currentHealthStatus.set(a, value);
         _attributes.set(a, value);
     }
-    if (a == Healing)
+    if (a == Healing && !RecuperationFixe)
     {
         value = min(max(-100.0, value), 100.0);
         _currentHealthStatus.set(a, value);
@@ -181,7 +181,7 @@ void Individu::modifyHealthStatus(Attribute a, double value)
         _currentHealthStatus.add(a, value);
         _attributes.add(a, value);
     }
-    if (a == Healing)
+    if (a == Healing && !RecuperationFixe)
     {
         value = min(max(-100.0 - _currentHealthStatus[a], value), 100.0 - _currentHealthStatus[a]);
         _currentHealthStatus.add(a, value);
