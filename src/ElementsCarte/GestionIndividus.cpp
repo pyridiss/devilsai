@@ -214,7 +214,11 @@ int Individu::Gestion()
         }
     }
 
-    if (tmp != NULL) ElementVision = tmp->Id;
+    if (tmp != NULL)
+    {
+        ElementVision = tmp->Id;
+        Elem = tmp;
+    }
 
     if (NouveauComportement == Behaviors::Attacking)
         Set_Activite(attackToUse);
