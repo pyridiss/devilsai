@@ -202,6 +202,7 @@ class Individu : public Element_Carte
 	protected:
         Statistiques _currentHealthStatus;
         Statistiques _attributes;
+        Classe_Commune* _species;
         Clock _clock;
 
 	public:
@@ -251,6 +252,8 @@ class Individu : public Element_Carte
         int currentHealthStatus(Attribute a, bool forceUpdate = false);
         void setHealthStatus(Attribute a, double value);
         virtual void modifyHealthStatus(Attribute a, double value);
+        void setSpecies(Classe_Commune* s);
+        Classe_Commune* species();
 
 	//Affichage
 	public:
@@ -301,13 +304,8 @@ class Individu_Unique : public Individu
 
 class Individu_Commun : public Individu
 {
-	//Objet :
-	public:
-		Classe_Commune *Classe;
-
 	//Constructeurs / Destructeurs :
 	public:
-		Individu_Commun();
 		virtual ~Individu_Commun() {}
 
 	//Getter :

@@ -33,7 +33,9 @@
 #include "Jeu/options.h"
 
 
-Individu::Individu() : Element_Carte()
+Individu::Individu()
+    : Element_Carte(),
+    _species(nullptr)
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     angle = tools::math::randomNumber(0.0, 2 * M_PI);
@@ -149,6 +151,16 @@ void Individu::modifyHealthStatus(Attribute a, double value)
         _currentHealthStatus.add(a, value);
         _attributes.add(a, value);
     }
+}
+
+void Individu::setSpecies(Classe_Commune* s)
+{
+    _species = s;
+}
+
+Classe_Commune* Individu::species()
+{
+    return _species;
 }
 
 void Individu::updateAngle(const tools::math::Vector2d& p)

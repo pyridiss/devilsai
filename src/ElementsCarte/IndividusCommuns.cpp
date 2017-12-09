@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-Individu_Commun::Individu_Commun() : Individu()
-{
-	Classe = NULL;
-}
-
 String32& Individu_Commun::Get_Nom()
 {
 	return Classe->Nom;
@@ -50,22 +45,22 @@ String32& Individu_Commun::Get_Nom()
 
 int Individu_Commun::Get_Experience()
 {
-	return Classe->Experience;
+    return _species->Experience;
 }
 
 Activite* Individu_Commun::Get_Activite(string act)
 {
-	return Classe->Get_Activite(act);
+    return _species->Get_Activite(act);
 }
 
 string& Individu_Commun::behavior(Behaviors b)
 {
-    return Classe->_behaviors[b];
+    return _species->_behaviors[b];
 }
 
 vector<string>& Individu_Commun::attacks()
 {
-    return Classe->_attacks;
+    return _species->_attacks;
 }
 
 bool Individu_Commun::Set_Activite(string nv)
@@ -79,7 +74,7 @@ bool Individu_Commun::Set_Activite(string nv)
 		int key = 1;
 
         Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
-        corpse->Set_Individu(Type, Classe->corpseImageKey);
+        corpse->Set_Individu(Type, _species->corpseImageKey);
         corpse->size.circle(tools::math::Vector2d(0, 0), 20);
         corpse->size.setOrigin(&corpse->position());
 
@@ -87,14 +82,14 @@ bool Individu_Commun::Set_Activite(string nv)
 		Diplomatie = DIPLOM_NEUTRE;
 
 		//First, we add equipment:
-		for (mapObjects::iterator i = Classe->inventory.objects.begin() ; i != Classe->inventory.objects.end() ; ++i)
+        for (mapObjects::iterator i = _species->inventory.objects.begin() ; i != _species->inventory.objects.end() ; ++i)
 		{
 			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
 			++key;
 		}
 
 		//Finally, we create stuff according to probabilities and add it:
-		for (auto& d : Classe->inventory.designs)
+        for (auto& d : _species->inventory.designs)
 		{
 			if (rand()%100 < d.probability)
 			{
@@ -113,7 +108,7 @@ bool Individu_Commun::Set_Activite(string nv)
 
 bool Individu_Commun::angleFixed()
 {
-    return Classe->angleFixed;
+    return _species->angleFixed;
 }
 
 void Individu_Commun::loadFromXML(XMLHandle &handle)
@@ -123,13 +118,13 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("species"))
     {
         Type = elem->Attribute("species");
-        Classe = gamedata::species(Type);
-        if (Classe == nullptr)
+        _species = gamedata::species(Type);
+        if (_species == nullptr)
         {
             tools::debug::error("This class has not been loaded: " + Type, "files", __FILENAME__, __LINE__);
             return;
         }
-        Classe->Copie_Element(this);
+        _species->Copie_Element(this);
     }
 
     double x = 0, y = 0;

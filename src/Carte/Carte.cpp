@@ -90,15 +90,15 @@ Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, 
 	ind->Liste = liste;
 	ind->Type = Type;
 
-    ind->Classe = gamedata::species(Type);
+    ind->setSpecies(gamedata::species(Type));
 
-    if (ind->Classe == nullptr)
+    if (ind->species() == nullptr)
 	{
 		delete ind;
 		return NULL;
 	}
 
-	ind->Classe->Copie_Element(ind);
+    ind->species()->Copie_Element(ind);
     ind->move(x, y);
 
     insertItem(ind);
