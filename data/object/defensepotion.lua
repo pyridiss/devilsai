@@ -18,9 +18,9 @@ currentSlot = 0
 slotForUse = "equipment-potion"
 
 properties = {
-    ["constitutionFactor"] = 10,
-    ["charismaFactor"]     = 15,
-    ["dodgeFactor"]        = 15
+    ["constitutionAmplifier"] = 10,
+    ["charismaAmplifier"]     = 15,
+    ["dodgeAmplifier"]        = 15
 }
 
 duree    = 7200

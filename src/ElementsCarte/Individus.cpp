@@ -90,10 +90,10 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
     {
         _currentHealthStatus = _attributes;
 
-        for (int i = Strength ; i != StrengthFactor ; ++i)
+        for (int i = Strength ; i != numberOfAttributes ; ++i)
         {
             Attribute att = static_cast<Attribute>(i);
-            Attribute attFactor = static_cast<Attribute>(i+11);
+            AttributeAmplifier attAmplifier = static_cast<AttributeAmplifier>(i);
 
             if (att != HealingPower)
                 _currentHealthStatus.set(att, _currentHealthStatus[att] / 2.0 * (1 + 1.2*_currentHealthStatus[Life]/1000.0));
@@ -106,7 +106,7 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
                 _currentHealthStatus.add(att, lua_tonumber(o.second, -1));
                 lua_pop(o.second, 1);
                 lua_getglobal(o.second, "getCurrentObjectEffect");
-                lua_pushstring(o.second, attributeToString(attFactor));
+                lua_pushstring(o.second, attributeAmplifierToString(attAmplifier));
                 lua_call(o.second, 1, 1);
                 _currentHealthStatus.add(att, _attributes[att] * lua_tonumber(o.second, -1) / 100.0);
                 lua_pop(o.second, 1);

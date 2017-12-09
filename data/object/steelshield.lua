@@ -22,7 +22,7 @@ properties = {
     ["constitution"]       = 15,
     ["charisma"]           = 0,
     ["dodge"]              = 8,
-    ["agilityFactor"]      = 0,
+    ["agilityAmplifier"]      = 0,
     ["injurySpeed"]        = 1
 }
 
@@ -164,7 +164,7 @@ function generateRandomObject(quality)
 							Choix = Choix - ameliorationVitesseBlesseProba
 
 							if Choix <= ameliorationMultAgiliteProba then
-								properties["agilityFactor"] = properties["agilityFactor"] + 5
+								properties["agilityAmplifier"] = properties["agilityAmplifier"] + 5
 								quality = quality - ameliorationMultAgiliteQte
 							end
 						end
@@ -177,7 +177,7 @@ end
 
 
 function objectSave()
-	return properties["agility"] .. " " .. properties["constitution"] .. " " .. properties["charisma"] .. " " .. properties["dodge"] .. " " .. properties["injurySpeed"] .. " " .. properties["agilityFactor"]
+	return properties["agility"] .. " " .. properties["constitution"] .. " " .. properties["charisma"] .. " " .. properties["dodge"] .. " " .. properties["injurySpeed"] .. " " .. properties["agilityAmplifier"]
 end
 
 function objectRecoverState(data)

@@ -22,8 +22,8 @@ properties = {
     ["agility"]            = 12,
     ["constitution"]       = 8,
     ["dodge"]              = 0,
-    ["constitutionFactor"] = 0,
-    ["dodgeFactor"]        = 0,
+    ["constitutionAmplifier"] = 0,
+    ["dodgeAmplifier"]        = 0,
     ["runSpeed"]           = 1,
 }
 
@@ -159,13 +159,13 @@ function generateRandomObject(quality)
 						Choix = Choix - ameliorationVitesseCourseProba
 
 						if Choix <= ameliorationMultConstitutionProba then
-							properties["constitutionFactor"] = properties["constitutionFactor"] + 5
+							properties["constitutionAmplifier"] = properties["constitutionAmplifier"] + 5
 							quality = quality - ameliorationMultConstitutionQte
 						else
 							Choix = Choix - ameliorationMultConstitutionProba
 
 							if Choix <= ameliorationMultEsquiveProba then
-								properties["dodgeFactor"] = properties["dodgeFactor"] + 5
+								properties["dodgeAmplifier"] = properties["dodgeAmplifier"] + 5
 								quality = quality - ameliorationMultEsquiveQte
 							end
 						end
@@ -177,9 +177,9 @@ function generateRandomObject(quality)
 end
 
 function objectSave()
-	return properties["power"] .. " " .. properties["agility"] .. " " .. properties["constitution"] .. " " .. properties["dodge"] .. " " .. properties["runSpeed"] .. " " .. properties["constitutionFactor"] .. " " .. properties["dodgeFactor"]
+	return properties["power"] .. " " .. properties["agility"] .. " " .. properties["constitution"] .. " " .. properties["dodge"] .. " " .. properties["runSpeed"] .. " " .. properties["constitutionAmplifier"] .. " " .. properties["dodgeAmplifier"]
 end
 
 function objectRecoverState(data)
-	_, _, properties["power"], properties["agility"], properties["constitution"], properties["dodge"], properties["runSpeed"], properties["constitutionFactor"], properties["dodgeFactor"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
+	_, _, properties["power"], properties["agility"], properties["constitution"], properties["dodge"], properties["runSpeed"], properties["constitutionAmplifier"], properties["dodgeAmplifier"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
 end

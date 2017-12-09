@@ -48,20 +48,28 @@ enum Attribute {
     Strength, Power, Agility, Intellect,
     Constitution, Charisma, Dodge, HealingPower,
     RunSpeed, AttackSpeed, InjurySpeed,
-    StrengthFactor, PowerFactor, AgilityFactor, IntellectFactor,
-    ConstitutionFactor, CharismaFactor, DodgeFactor, HealingPowerFactor,
-    RunSpeedFactor, AttackSpeedFactor, InjurySpeedFactor,
     numberOfAttributes
+};
+
+enum AttributeAmplifier {
+    LifeAmplifier = 0, EnergyAmplifier, HealingAmplifier,
+    StrengthAmplifier, PowerAmplifier, AgilityAmplifier, IntellectAmplifier,
+    ConstitutionAmplifier, CharismaAmplifier, DodgeAmplifier, HealingPowerAmplifier,
+    RunSpeedAmplifier, AttackSpeedAmplifier, InjurySpeedAmplifier
 };
 
 constexpr const char* AttributesNames[] = {
     "life", "energy", "healing",
     "strength", "power", "agility", "intellect",
     "constitution", "charisma", "dodge", "healingPower",
-    "runSpeed", "attackSpeed", "injurySpeed",
-    "strengthFactor", "powerFactor", "agilityFactor", "intellectFactor",
-    "constitutionFactor", "charismaFactor", "dodgeFactor", "healingPowerFactor",
-    "runSpeedFactor", "attackSpeedFactor", "injurySpeedFactor"
+    "runSpeed", "attackSpeed", "injurySpeed"
+};
+
+constexpr const char* AttributesAmplifiersNames[] = {
+    "lifeAmplifier", "energyAmplifier", "healingAmplifier",
+    "strengthAmplifier", "powerAmplifier", "agilityAmplifier", "intellectAmplifier",
+    "constitutionAmplifier", "charismaAmplifier", "dodgeAmplifier", "healingPowerAmplifier",
+    "runSpeedAmplifier", "attackSpeedAmplifier", "injurySpeedAmplifier"
 };
 
 class Statistiques
@@ -177,12 +185,23 @@ static constexpr const char* attributeToString(Attribute a)
 {
     return AttributesNames[static_cast<int>(a)];
 }
+static constexpr const char* attributeAmplifierToString(AttributeAmplifier a)
+{
+    return AttributesAmplifiersNames[static_cast<int>(a)];
+}
 static constexpr Attribute stringToAttribute(string_view a)
 {
     for (int i = 0 ; i < numberOfAttributes ; ++i)
         if (AttributesNames[i] == a)
             return static_cast<Attribute>(i);
     return numberOfAttributes;
+}
+static constexpr AttributeAmplifier stringToAttributeAmplifier(string_view a)
+{
+    for (int i = 0 ; i < numberOfAttributes ; ++i)
+        if (AttributesAmplifiersNames[i] == a)
+            return static_cast<AttributeAmplifier>(i);
+    return static_cast<AttributeAmplifier>(numberOfAttributes);
 }
 
 void Disp_Equipement();

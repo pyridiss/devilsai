@@ -18,10 +18,10 @@ currentSlot = 0
 slotForUse = "equipment-potion"
 
 properties = {
-    ["strengthFactor"]     = 10,
-    ["powerFactor"]        = 10,
-    ["agilityFactor"]      = 10,
-    ["intellectFactor"]    = 5
+    ["strengthAmplifier"]     = 10,
+    ["powerAmplifier"]        = 10,
+    ["agilityAmplifier"]      = 10,
+    ["intellectAmplifier"]    = 5
 }
 
 duree    = 7200

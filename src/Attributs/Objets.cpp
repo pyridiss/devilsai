@@ -101,6 +101,18 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
                 LigneCourante += 14;
             }
         }
+        for (auto& p : AttributesAmplifiersNames)
+        {
+            lua_getglobal(obj, "getObjectProperty");
+            lua_pushstring(obj, p);
+            lua_call(obj, 1, 1);
+            int value = lua_tonumber(obj, -1);
+            if (value != 0)
+            {
+                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", string("object-property-") + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
+                LigneCourante += 14;
+            }
+        }
     }
 
 	LigneCourante += 26;

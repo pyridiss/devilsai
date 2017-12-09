@@ -183,7 +183,7 @@ bool Joueur::ApplicationAmeliorations()
 	Color Positif(128, 255, 128, 255); Color Negatif(255, 128, 128, 255);
 	bool Retour = false;
 
-    for (int a = Strength ; a != StrengthFactor ; ++a)
+    for (int a = Strength ; a != numberOfAttributes ; ++a)
     {
         Attribute att = static_cast<Attribute>(a);
         int diff = floor(_attributes[att]) - _displayedAttributes[att];
@@ -204,7 +204,7 @@ bool Joueur::ApplicationAmeliorations()
 
 void Joueur::resetDisplayedAttributes()
 {
-    for (int a = Strength ; a != StrengthFactor ; ++a)
+    for (int a = Strength ; a != numberOfAttributes ; ++a)
     {
         Attribute att = static_cast<Attribute>(a);
         _displayedAttributes.set(att, floor(_attributes[att]));
@@ -275,8 +275,8 @@ void Disp_Personnage()
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_INTELLI"), 280, Options.ScreenH - 180 + 45, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CONSTIT"), 280, Options.ScreenH - 180 + 60, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
 
 	int numberChar = 0;

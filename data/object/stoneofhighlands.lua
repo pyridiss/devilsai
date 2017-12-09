@@ -22,8 +22,8 @@ properties = {
     ["intellect"]          = 4,
     ["charisma"]           = 5,
     ["healingPower"]       = 1,
-    ["powerFactor"]        = 0,
-    ["charismaFactor"]     = 0
+    ["powerAmplifier"]        = 0,
+    ["charismaAmplifier"]     = 0
 }
 
 duree    = -1
@@ -158,13 +158,13 @@ function generateRandomObject(quality)
 						Choix = Choix - ameliorationRecuperationProba
 
 						if Choix <= ameliorationMultPuissanceProba then
-							properties["powerFactor"] = properties["powerFactor"] + 5
+							properties["powerAmplifier"] = properties["powerAmplifier"] + 5
 							quality = quality - ameliorationMultPuissanceQte
 						else
 							Choix = Choix - ameliorationMultPuissanceProba
 
 							if Choix <= ameliorationMultCharismeProba then
-								properties["charismaFactor"] = properties["charismaFactor"] + 5
+								properties["charismaAmplifier"] = properties["charismaAmplifier"] + 5
 								quality = quality - ameliorationMultCharismeQte
 							end
 						end
@@ -176,9 +176,9 @@ function generateRandomObject(quality)
 end
 
 function objectSave()
-	return properties["power"] .. " " .. properties["intellect"] .. " " .. properties["charisma"] .. " " .. properties["healingPower"] .. " " .. properties["powerFactor"] .. " " .. properties["charismaFactor"]
+	return properties["power"] .. " " .. properties["intellect"] .. " " .. properties["charisma"] .. " " .. properties["healingPower"] .. " " .. properties["powerAmplifier"] .. " " .. properties["charismaAmplifier"]
 end
 
 function objectRecoverState(data)
-	_, _, properties["power"], properties["intellect"], properties["charisma"], properties["healingPower"], properties["powerFactor"], properties["charismaFactor"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
+	_, _, properties["power"], properties["intellect"], properties["charisma"], properties["healingPower"], properties["powerAmplifier"], properties["charismaAmplifier"] = string.find(data, "(%d+) (%d+) (%d+) (%d+) (%d+) (%d+)")
 end
