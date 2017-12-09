@@ -229,7 +229,7 @@ class Individu : public Element_Carte
 	public:
         const String32& displayedName();
         unsigned int experience();
-        virtual bool angleFixed() =0;
+        bool angleFixed();
         string Get_Act();
 		short Get_Num();
 		virtual Activite* Get_Activite(string act) =0;
@@ -294,7 +294,6 @@ class Individu_Unique : public Individu
 		virtual Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
-        bool angleFixed();
 
         void modifyHealthStatus(Attribute a, double value);
 
@@ -315,7 +314,6 @@ class Individu_Commun : public Individu
 		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
-        bool angleFixed();
 
 		bool Set_Activite(string nv);
 

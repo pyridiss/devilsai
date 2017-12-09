@@ -75,6 +75,14 @@ unsigned int Individu::experience()
     return _experience;
 }
 
+bool Individu::angleFixed()
+{
+    if (_species != nullptr)
+        return _species->angleFixed;
+
+    return false;
+}
+
 void Individu::Gestion_Recuperation()
 {
     modifyHealthStatus(Life, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));

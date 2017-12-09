@@ -125,11 +125,6 @@ bool Individu_Unique::Set_Activite(string nv)
 	return Resultat;
 }
 
-bool Individu_Unique::angleFixed()
-{
-    return false;
-}
-
 void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();

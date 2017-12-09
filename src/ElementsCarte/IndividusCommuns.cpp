@@ -96,11 +96,6 @@ bool Individu_Commun::Set_Activite(string nv)
 	return Resultat;
 }
 
-bool Individu_Commun::angleFixed()
-{
-    return _species->angleFixed;
-}
-
 void Individu_Commun::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
