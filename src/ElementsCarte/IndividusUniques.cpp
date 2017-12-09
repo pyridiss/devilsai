@@ -56,11 +56,6 @@ void Individu_Unique::Ajouter_Activite(string Id)
 	i->second.Id = Id;
 }
 
-int Individu_Unique::Get_Experience()
-{
-	return Experience;
-}
-
 Statistiques& Individu_Unique::attributes()
 {
 	return _attributes;
@@ -205,7 +200,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("diplomacy", &Diplomatie);
             elem->QueryAttribute("fixedHealing", &RecuperationFixe);
             elem->QueryAttribute("maximumEnergy", &EnergieMax);
-            elem->QueryAttribute("experience", &Experience);
+            elem->QueryAttribute("experience", &_experience);
             if (elem->Attribute("corpseImageKey"))
                 corpseImageKey = elem->Attribute("corpseImageKey");
         }
@@ -287,7 +282,7 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("diplomacy", Diplomatie);
     properties->SetAttribute("fixedHealing", RecuperationFixe);
     properties->SetAttribute("maximumEnergy", EnergieMax);
-    properties->SetAttribute("experience", Experience);
+    properties->SetAttribute("experience", _experience);
     properties->SetAttribute("corpseImageKey", corpseImageKey.c_str());
     unique->InsertEndChild(properties);
 

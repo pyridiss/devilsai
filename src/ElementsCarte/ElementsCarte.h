@@ -75,9 +75,7 @@ class Classe_Commune
 
         bool angleFixed = false;
         double fixedAngle = 0;
-
-	public:
-		unsigned int Experience = 0;
+        unsigned int _experience = 0;
 
 	public:
         Statistiques commonStats;
@@ -101,6 +99,8 @@ class Classe_Commune
         void setAngleFixed(double angle);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
+
+    friend class Individu;
 };
 
 class Element_Carte
@@ -204,6 +204,7 @@ class Individu : public Element_Carte
         Statistiques _attributes;
         Classe_Commune* _species;
         String32* _displayedName;
+        unsigned int _experience = 0;
         Clock _clock;
 
 	public:
@@ -227,7 +228,7 @@ class Individu : public Element_Carte
 	//Getters :
 	public:
         const String32& displayedName();
-		virtual int Get_Experience() = 0;
+        unsigned int experience();
         virtual bool angleFixed() =0;
         string Get_Act();
 		short Get_Num();
@@ -248,6 +249,7 @@ class Individu : public Element_Carte
 		int Collision(Individu *elem, bool apply);
 		void IncrementNum(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
+        void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
 
 	public:
         int currentHealthStatus(Attribute a, bool forceUpdate = false);
@@ -261,12 +263,13 @@ class Individu : public Element_Carte
 	public:
 		void Disp(RenderTarget& target);
         void displayLifeGauge(RenderTarget& target);
+
+    friend class Classe_Commune;
 };
 
 class Individu_Unique : public Individu
 {
 	public:
-		unsigned int Experience = 0;
         string dataFile;
         string _behaviors[Behaviors::enumSize];
         vector<string> _attacks;
@@ -287,7 +290,6 @@ class Individu_Unique : public Individu
 
 	//Getter :
 	public:
-		int Get_Experience();
         Statistiques& attributes();
 		virtual Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
@@ -310,7 +312,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-		int Get_Experience();
 		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
@@ -320,8 +321,6 @@ class Individu_Commun : public Individu
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-
-    friend class Classe_Commune;
 };
 
 class Joueur : public Individu_Unique
@@ -353,7 +352,6 @@ class Joueur : public Individu_Unique
 		void CoupCritique(Individu* ennemi);
 		void BlessureGrave(Individu* ennemi);
 		void CoupEsquive(Individu* ennemi);
-		void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
 		void BlessuresMultiples(Individu* ennemi);
 
 		bool ApplicationAmeliorations();

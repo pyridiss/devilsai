@@ -67,6 +67,14 @@ const String32& Individu::displayedName()
     return *_displayedName;
 }
 
+unsigned int Individu::experience()
+{
+    if (_species != nullptr)
+        return _experience + _species->_experience;
+
+    return _experience;
+}
+
 void Individu::Gestion_Recuperation()
 {
     modifyHealthStatus(Life, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));

@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-int Individu_Commun::Get_Experience()
-{
-    return _species->Experience;
-}
-
 Activite* Individu_Commun::Get_Activite(string act)
 {
     return _species->Get_Activite(act);
@@ -273,7 +268,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
             }
             elem->QueryAttribute("diplomacy", &Diplomatie);
             elem->QueryAttribute("lifetime", &lifetime);
-            elem->QueryAttribute("experience", &Experience);
+            elem->QueryAttribute("experience", &_experience);
             if (elem->Attribute("corpseImageKey"))
                 corpseImageKey = elem->Attribute("corpseImageKey");
         }

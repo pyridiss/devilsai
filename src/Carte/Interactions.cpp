@@ -103,10 +103,11 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
         Blesse->modifyHealthStatus(Life, -Degats);
         Blesse->modifyHealthStatus(Healing, -3-Degats/20);
 
+        Attaquant->GainExperience(Blesse, Degats);
+
 		if (Attaquant == gamedata::player())
 		{
-			gamedata::player()->GainExperience(Blesse, Degats);
-
+            gamedata::player()->ApplicationAmeliorations();
 			String32 Infliges = tools::textManager::getFormattedText("devilsai", "DEGATS_INFLIGES", (int)Degats);
 			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}

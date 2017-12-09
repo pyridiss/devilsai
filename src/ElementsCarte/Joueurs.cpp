@@ -125,13 +125,13 @@ void Joueur::CoupEsquive(Individu* ennemi)
 		Disp_Information(tools::textManager::getText("devilsai", "ESQUIVE"), true);
 }
 
-void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
+void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
 {
 	//Gain d'expérience
 	if (ennemi != NULL)
 	{
-        if (ennemi->currentHealthStatus(Life) > 0) Exp += Degats/5000.*ennemi->Get_Experience();
-		else Exp += ennemi->Get_Experience();
+        if (ennemi->currentHealthStatus(Life) > 0) Exp += Degats/5000.*ennemi->experience();
+        else Exp += ennemi->experience();
 
 		//Intelligence+, Force+, Puissance+, et Constitution+, si peu fatigué
 		for (int i = 0 ; i < 1 + Exp/100 ; ++i)
@@ -148,12 +148,9 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 				}
 			}
 		}
-
-		//Application
-		ApplicationAmeliorations();
 	}
 
-	Experience += Exp;
+    _experience += Exp;
 }
 
 void Joueur::BlessuresMultiples(Individu* ennemi)
@@ -268,7 +265,7 @@ void Disp_Personnage()
         Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(intToString((int)gamedata::player()->experience()), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
