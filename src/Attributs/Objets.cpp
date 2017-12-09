@@ -89,15 +89,15 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 
     if (getBoolFromLUA(obj, "getDescriptionAutomatique"))
     {
-        for (auto& p : ObjectProperties)
+        for (auto& p : AttributesNames)
         {
             lua_getglobal(obj, "getObjectProperty");
-            lua_pushstring(obj, p.c_str());
+            lua_pushstring(obj, p);
             lua_call(obj, 1, 1);
             int value = lua_tonumber(obj, -1);
             if (value != 0)
             {
-                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "object-property-" + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
+                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", string("object-property-") + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
                 LigneCourante += 14;
             }
         }

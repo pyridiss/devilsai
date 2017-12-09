@@ -80,7 +80,7 @@ class Classe_Commune
 		unsigned int Experience = 0;
 
 	public:
-		Caracteristiques Caracs;
+        Statistiques commonStats;
         Objects inventory;
 
     public:
@@ -200,8 +200,8 @@ class Individu : public Element_Carte
 		int ElementVision       = -1;
 
 	protected:
-		Statistiques Stats;
-        Caracteristiques _currentHealthStatus;
+        Statistiques _currentHealthStatus;
+        Statistiques _attributes;
         Clock _clock;
 
 	public:
@@ -226,7 +226,6 @@ class Individu : public Element_Carte
 	public:
 		virtual String32& Get_Nom() = 0;
 		virtual int Get_Experience() = 0;
-		virtual Caracteristiques& attributes() =0;
         virtual bool angleFixed() =0;
         string Get_Act();
 		short Get_Num();
@@ -249,10 +248,9 @@ class Individu : public Element_Carte
         void updateAngle(const tools::math::Vector2d& p);
 
 	public:
-        int currentHealthStatus(Statistiques::Attribute a);
-        int currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate = false);
-        void setHealthStatus(Statistiques::Attribute a, double value);
-        virtual void modifyHealthStatus(Statistiques::Attribute a, double value);
+        int currentHealthStatus(Attribute a, bool forceUpdate = false);
+        void setHealthStatus(Attribute a, double value);
+        virtual void modifyHealthStatus(Attribute a, double value);
 
 	//Affichage
 	public:
@@ -275,8 +273,6 @@ class Individu_Unique : public Individu
 	public:
 		MapActivites Activites;
 
-		Caracteristiques Caracs;
-
 	//Constructeurs / Destructeurs :
 	public:
 		Individu_Unique();
@@ -289,13 +285,13 @@ class Individu_Unique : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques& attributes();
+        Statistiques& attributes();
 		virtual Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
         bool angleFixed();
 
-        void modifyHealthStatus(Statistiques::Attribute a, double value);
+        void modifyHealthStatus(Attribute a, double value);
 
 		bool Set_Activite(string nv);
 
@@ -318,7 +314,6 @@ class Individu_Commun : public Individu
 	public:
 		String32& Get_Nom();
 		int Get_Experience();
-		Caracteristiques& attributes();
 		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
@@ -328,6 +323,8 @@ class Individu_Commun : public Individu
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
+    friend class Classe_Commune;
 };
 
 class Joueur : public Individu_Unique
@@ -345,7 +342,7 @@ class Joueur : public Individu_Unique
         int selectedIndividual = -1;
 
     private:
-        Caracteristiques _displayedAttributes;
+        Statistiques _displayedAttributes;
 
 	public:
 		Joueur();

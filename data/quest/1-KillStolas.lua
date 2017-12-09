@@ -40,7 +40,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if get(stolas_ptr, "vitality") == 0 then
+		if get(stolas_ptr, "life") == 0 then
 			questStep = "2"
 -- END OF GAME
 --			pushDialog("1-KillStolas-GoToCamp")

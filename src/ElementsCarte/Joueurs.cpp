@@ -42,35 +42,35 @@ Joueur::Joueur() : Individu_Unique()
 
 void Joueur::Repos()
 {
-	setHealthStatus(Statistiques::Life, 1000);
-	setHealthStatus(Statistiques::Energy, 1000);
+    setHealthStatus(Life, 1000);
+    setHealthStatus(Energy, 1000);
 	DureeEveil = 0;
 }
 
 void Joueur::Gestion_Statistiques()
 {
 	//3. Perte d'énergie selon durée depuis repos
-	if (DureeEveil > currentHealthStatus(Caracteristiques::Constitution)) modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Caracteristiques::Constitution))/10000);
+    if (DureeEveil > currentHealthStatus(Constitution)) modifyHealthStatus(Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Constitution))/10000);
 
 	//4. Gain & Perte d'énergie par activité
 	if (Get_Act() == _behaviors[Behaviors::Random])
-		modifyHealthStatus(Statistiques::Energy, tools::timeManager::I(currentHealthStatus(Statistiques::Life)/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(currentHealthStatus(Statistiques::Life)/10000)*/);
+        modifyHealthStatus(Energy, tools::timeManager::I(currentHealthStatus(Life)/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(currentHealthStatus(Statistiques::Life)/10000)*/);
 	if (Get_Act() == _behaviors[Behaviors::Hunting])
-		modifyHealthStatus(Statistiques::Energy, -tools::timeManager::I(0.05/currentHealthStatus(Caracteristiques::Constitution)));
+        modifyHealthStatus(Energy, -tools::timeManager::I(0.05/currentHealthStatus(Constitution)));
 
 	//6. Durée d'éveil
 	DureeEveil += tools::timeManager::I(0.0005);
 
 	//7. Fatigue extrême
-	if (currentHealthStatus(Statistiques::Energy) < 70 && currentHealthStatus(Statistiques::Energy) > 10)
+	if (currentHealthStatus(Energy) < 70 && currentHealthStatus(Energy) > 10)
 	{
 		//Agilite-
-        if (Caracs[Caracteristiques::Agility] > 1)
-            attributes().add(Caracteristiques::Agility, -(70.0-currentHealthStatus(Statistiques::Energy))/100000.0*tools::timeManager::I(1));
+        if (_attributes[Agility] > 1)
+            _attributes.add(Agility, -(70.0-currentHealthStatus(Energy))/100000.0*tools::timeManager::I(1));
 
 		//Intelligence-
-        if (Caracs[Caracteristiques::Intellect] > 1)
-            attributes().add(Caracteristiques::Intellect, -(70.0-currentHealthStatus(Statistiques::Energy))/100000.0*tools::timeManager::I(1));
+        if (_attributes[Intellect] > 1)
+            _attributes.add(Intellect, -(70.0-currentHealthStatus(Energy))/100000.0*tools::timeManager::I(1));
 
 		//Application
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
@@ -87,12 +87,12 @@ void Joueur::Gestion_Statistiques()
 void Joueur::CoupCritique(Individu* ennemi)
 {
 	//Agilité+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Agility) - ennemi->currentHealthStatus(Caracteristiques::Agility), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Agility, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Agility)/currentHealthStatus(Caracteristiques::Agility), 0, 10));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Agility) - ennemi->currentHealthStatus(Agility), 0, 10) + 1)))
+        _attributes.add(Agility, ToSegment(1.1*ennemi->currentHealthStatus(Agility)/currentHealthStatus(Agility), 0, 10));
 
 	//Charisme+, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Charisma) - ennemi->currentHealthStatus(Caracteristiques::Charisma), 0, 10) + 1)))
-		attributes().add(Caracteristiques::Charisma, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Charisma)/currentHealthStatus(Caracteristiques::Charisma), 0, 10));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Charisma) - ennemi->currentHealthStatus(Charisma), 0, 10) + 1)))
+        _attributes.add(Charisma, ToSegment(1.1*ennemi->currentHealthStatus(Charisma)/currentHealthStatus(Charisma), 0, 10));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
@@ -102,12 +102,12 @@ void Joueur::CoupCritique(Individu* ennemi)
 void Joueur::BlessureGrave(Individu* ennemi)
 {
 	//Constitution-, selon Puissance de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Constitution) - ennemi->currentHealthStatus(Caracteristiques::Power), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Constitution, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Power)/currentHealthStatus(Caracteristiques::Constitution), 0, 10)));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
+        _attributes.add(Constitution, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
 
 	//Charisme-, selon Charisme de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Charisma) - ennemi->currentHealthStatus(Caracteristiques::Charisma), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Charisma, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Charisma)/currentHealthStatus(Caracteristiques::Charisma), 0, 10)));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Charisma) - ennemi->currentHealthStatus(Charisma), 0, 10) + 1)))
+        _attributes.add(Charisma, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Charisma)/currentHealthStatus(Charisma), 0, 10)));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -117,8 +117,8 @@ void Joueur::BlessureGrave(Individu* ennemi)
 void Joueur::CoupEsquive(Individu* ennemi)
 {
 	//Esquive+, selon Agilité de l'ennemi
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Dodge) - ennemi->currentHealthStatus(Caracteristiques::Agility), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Dodge, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Agility)/currentHealthStatus(Caracteristiques::Dodge), 0, 3));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Dodge) - ennemi->currentHealthStatus(Agility), 0, 10) + 1)))
+        _attributes.add(Dodge, ToSegment(1.1*ennemi->currentHealthStatus(Agility)/currentHealthStatus(Dodge), 0, 3));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
@@ -130,21 +130,21 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 	//Gain d'expérience
 	if (ennemi != NULL)
 	{
-		if (ennemi->currentHealthStatus(Statistiques::Life) > 0) Exp += Degats/5000.*ennemi->Get_Experience();
+        if (ennemi->currentHealthStatus(Life) > 0) Exp += Degats/5000.*ennemi->Get_Experience();
 		else Exp += ennemi->Get_Experience();
 
 		//Intelligence+, Force+, Puissance+, et Constitution+, si peu fatigué
 		for (int i = 0 ; i < 1 + Exp/100 ; ++i)
 		{
-			if (!(rand()%(int)(50 + ToSegment(-currentHealthStatus(Statistiques::Energy)/100, 0, 30) + 1)))
+            if (!(rand()%(int)(50 + ToSegment(-currentHealthStatus(Energy)/100, 0, 30) + 1)))
 			{
 				short carac = rand()%4;
 				switch(carac)
 				{
-                    case 0 : attributes().add(Caracteristiques::Intellect, ToSegment(2*currentHealthStatus(Caracteristiques::Intellect), 0, 100)/100); break;
-                    case 1 : attributes().add(Caracteristiques::Strength, ToSegment(10*currentHealthStatus(Caracteristiques::Intellect), 0, 100)/100); break;
-                    case 2 : attributes().add(Caracteristiques::Power, ToSegment(10*currentHealthStatus(Caracteristiques::Intellect), 0, 100)/100); break;
-                    case 3 : attributes().add(Caracteristiques::Constitution, ToSegment(5*currentHealthStatus(Caracteristiques::Intellect), 0, 100)/100); break;
+                    case 0 : _attributes.add(Intellect, ToSegment(2*currentHealthStatus(Intellect), 0, 100)/100); break;
+                    case 1 : _attributes.add(Strength, ToSegment(10*currentHealthStatus(Intellect), 0, 100)/100); break;
+                    case 2 : _attributes.add(Power, ToSegment(10*currentHealthStatus(Intellect), 0, 100)/100); break;
+                    case 3 : _attributes.add(Constitution, ToSegment(5*currentHealthStatus(Intellect), 0, 100)/100); break;
 				}
 			}
 		}
@@ -159,16 +159,16 @@ void Joueur::GainExperience(Individu* ennemi, float Degats, int Exp)
 void Joueur::BlessuresMultiples(Individu* ennemi)
 {
 	//Force-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Constitution) - ennemi->currentHealthStatus(Caracteristiques::Power), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Strength, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Power)/currentHealthStatus(Caracteristiques::Constitution), 0, 10)));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
+        _attributes.add(Strength, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
 
 	//Puissance-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Constitution) - ennemi->currentHealthStatus(Caracteristiques::Power), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Power, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Power)/currentHealthStatus(Caracteristiques::Constitution), 0, 10)));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
+        _attributes.add(Power, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
 
 	//Esquive-, selon sa propre Constitution et Puissance de l'un des ennemis
-	if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Caracteristiques::Constitution) - ennemi->currentHealthStatus(Caracteristiques::Power), 0, 10) + 1)))
-        attributes().add(Caracteristiques::Dodge, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Caracteristiques::Power)/currentHealthStatus(Caracteristiques::Constitution), 0, 10)));
+    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
+        _attributes.add(Dodge, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
@@ -183,19 +183,20 @@ bool Joueur::ApplicationAmeliorations()
 	Color Positif(128, 255, 128, 255); Color Negatif(255, 128, 128, 255);
 	bool Retour = false;
 
-    for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
+    for (int a = Strength ; a != StrengthFactor ; ++a)
     {
-        Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
-        int diff = floor(attributes()[att]) - _displayedAttributes[att];
+        Attribute att = static_cast<Attribute>(a);
+        int diff = floor(_attributes[att]) - _displayedAttributes[att];
 
         if (diff != 0)
         {
-            string text = "console-attributeImprovement-" + Caracteristiques::toString(att);
+            char text[50] = "console-attributeImprovement-";
+            strcat(text, attributeToString(att));
             Final = tools::textManager::getFormattedText("devilsai", text, diff);
             (diff > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
         }
 
-        _displayedAttributes.set(att, floor(attributes()[att]));
+        _displayedAttributes.set(att, floor(_attributes[att]));
     }
 
 	return Retour;
@@ -203,10 +204,10 @@ bool Joueur::ApplicationAmeliorations()
 
 void Joueur::resetDisplayedAttributes()
 {
-    for (int c = 0 ; c != Caracteristiques::Attribute::enumSize ; ++c)
+    for (int a = Strength ; a != StrengthFactor ; ++a)
     {
-        Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(c);
-        _displayedAttributes.set(att, floor(attributes()[att]));
+        Attribute att = static_cast<Attribute>(a);
+        _displayedAttributes.set(att, floor(_attributes[att]));
     }
 }
 
@@ -255,16 +256,16 @@ void Disp_Personnage()
 	Disp_Texte(gamedata::player()->Nom, 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., gui::style::fontFromString("dayroman"));
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Statistiques::Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
+    Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ENERGIE"), 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
-	Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Statistiques::Energy)), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
+    Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Energy)), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
-	if (gamedata::player()->currentHealthStatus(Statistiques::Healing) >= 0)
-		Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Statistiques::Healing)), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
-	if (gamedata::player()->currentHealthStatus(Statistiques::Healing) < 0)
-		Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Statistiques::Healing)), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
+    if (gamedata::player()->currentHealthStatus(Healing) >= 0)
+        Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
+    if (gamedata::player()->currentHealthStatus(Healing) < 0)
+        Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
 	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 	Disp_Texte(intToString((int)gamedata::player()->Experience), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
@@ -279,10 +280,10 @@ void Disp_Personnage()
     Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
 
 	int numberChar = 0;
-    for (int c = 0 ; c != Caracteristiques::Attribute::RunSpeed ; ++c)
+    for (int a = Strength ; a != RunSpeed ; ++a)
 	{
-        int absoluteQty = gamedata::player()->attributes()[static_cast<Caracteristiques::Attribute>(c)];
-        int diffQty = gamedata::player()->currentHealthStatus(static_cast<Caracteristiques::Attribute>(c)) - absoluteQty;
+        int absoluteQty = gamedata::player()->attributes()[static_cast<Attribute>(a)];
+        int diffQty = gamedata::player()->currentHealthStatus(static_cast<Attribute>(a)) - absoluteQty;
 
 		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
 

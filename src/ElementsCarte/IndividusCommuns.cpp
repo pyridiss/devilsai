@@ -53,11 +53,6 @@ int Individu_Commun::Get_Experience()
 	return Classe->Experience;
 }
 
-Caracteristiques& Individu_Commun::attributes()
-{
-	return Classe->Caracs;
-}
-
 Activite* Individu_Commun::Get_Activite(string act)
 {
 	return Classe->Get_Activite(act);
@@ -157,9 +152,9 @@ void Individu_Commun::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("ignoreCollision", &ignoreCollision);
             elem->QueryAttribute("classement", &TypeClassement);
         }
-        if (elemName == "statistics")
+        if (elemName == "currentHealthStatus")
         {
-            Stats.loadFromXML(elem);
+            _currentHealthStatus.loadFromXML(elem);
         }
 
         elem = elem->NextSiblingElement();
@@ -183,10 +178,10 @@ void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("classement", TypeClassement);
     individual->InsertEndChild(properties);
 
-    XMLElement* stats = doc.NewElement("statistics");
+    XMLElement* stats = doc.NewElement("currentHealthStatus");
     individual->InsertEndChild(stats);
     XMLHandle statsHandle(stats);
-    Stats.saveToXML(doc, statsHandle);
+    _currentHealthStatus.saveToXML(doc, statsHandle);
 
     root->InsertEndChild(individual);
 }
@@ -229,13 +224,14 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->viewField.setOrigin(&elem->position());
 
 	elem->Diplomatie = Diplomatie;
-    elem->setHealthStatus(Statistiques::Healing, Caracs[Caracteristiques::HealingPower]);
+    elem->_attributes = commonStats;
+    elem->setHealthStatus(Healing, commonStats[HealingPower]);
     elem->lifetime = lifetime;
 
     if (angleFixed) elem->angle = fixedAngle;
 
     //Force the updating of attributes
-    elem->currentHealthStatus(Caracteristiques::Strength, true);
+    elem->currentHealthStatus(Strength, true);
 }
 
 void Classe_Commune::setAngleFixed(double angle)
@@ -275,7 +271,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "characteristics")
         {
-            Caracs.loadFromXML(elem);
+            commonStats.loadFromXML(elem);
         }
         if (elemName == "properties")
         {

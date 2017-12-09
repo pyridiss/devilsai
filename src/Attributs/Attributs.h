@@ -21,54 +21,92 @@
 #define header_attributs
 
 #include <string>
+#include <string_view>
 #include <map>
 #include <list>
+
+#include <tinyxml2.h>
 
 #include "tools/shape.h"
 #include "gui/button.h"
 
 using namespace std;
 using namespace sf;
+using namespace tinyxml2;
 
 class lua_State;
 
-class Caracteristiques;
 class Activite;
 class Individu;
-
-namespace tinyxml2{
-    class XMLElement;
-    class XMLHandle;
-    class XMLDocument;
-};
 
 typedef map < string, lua_State* > mapObjects;
 typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
 
+enum Attribute {
+    Life = 0, Energy, Healing,
+    Strength, Power, Agility, Intellect,
+    Constitution, Charisma, Dodge, HealingPower,
+    RunSpeed, AttackSpeed, InjurySpeed,
+    StrengthFactor, PowerFactor, AgilityFactor, IntellectFactor,
+    ConstitutionFactor, CharismaFactor, DodgeFactor, HealingPowerFactor,
+    RunSpeedFactor, AttackSpeedFactor, InjurySpeedFactor,
+    numberOfAttributes
+};
+
+constexpr const char* AttributesNames[] = {
+    "life", "energy", "healing",
+    "strength", "power", "agility", "intellect",
+    "constitution", "charisma", "dodge", "healingPower",
+    "runSpeed", "attackSpeed", "injurySpeed",
+    "strengthFactor", "powerFactor", "agilityFactor", "intellectFactor",
+    "constitutionFactor", "charismaFactor", "dodgeFactor", "healingPowerFactor",
+    "runSpeedFactor", "attackSpeedFactor", "injurySpeedFactor"
+};
+
 class Statistiques
 {
 	private:
-		double Vitalite		= 1000;
-		double Energie		= 1000;
-		double Recuperation	= 0;
+        double _stats[numberOfAttributes];
 
 	public:
-        enum Attribute { Life, Energy, Healing,
-                         enumSize };
+        Statistiques()
+            : _stats {1000, 1000} //Only Life and Energy are 1000 by default
+        {
+        }
 
-        double operator[](string stat) const;
-        double operator[](Attribute a);
-        void add(Attribute a, double value);
-        void set(Attribute a, double value);
-        static string toString(Attribute a);
-
-    private:
-        double& get(Attribute a);
+        constexpr double operator[](Attribute a)
+        {
+            if (a == numberOfAttributes) return 0;
+            return _stats[a];
+        }
+        void add(Attribute a, double value)
+        {
+            if (a == numberOfAttributes) return;
+            _stats[a] += value;
+        }
+        void set(Attribute a, double value)
+        {
+            if (a == numberOfAttributes) return;
+            _stats[a] = value;
+        }
 
     public:
-        void loadFromXML(tinyxml2::XMLElement* elem);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+        void loadFromXML(tinyxml2::XMLElement* elem)
+        {
+            for (int i = 0 ; i < numberOfAttributes ; ++i)
+                elem->QueryAttribute(AttributesNames[i], &_stats[i]);
+        }
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+        {
+            XMLElement* root = handle.ToElement();
+
+            for (int i = 0 ; i < numberOfAttributes ; ++i)
+            {
+                if (_stats[i])
+                    root->SetAttribute(AttributesNames[i], _stats[i]);
+            }
+        }
 };
 
 class Objects
@@ -105,38 +143,6 @@ class Objects
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
-class Caracteristiques
-{
-	private:
-        double strength, power, agility, intellect;
-        double constitution, charisma, dodge, healingPower;
-        double runSpeed, attackSpeed, injurySpeed;
-
-	public:
-        Caracteristiques();
-		~Caracteristiques();
-
-	public:
-        enum Attribute { Strength, Power, Agility, Intellect,
-                         Constitution, Charisma, Dodge, HealingPower,
-                         RunSpeed, AttackSpeed, InjurySpeed,
-                         enumSize };
-
-        double operator[](string characteristic) const;
-        double operator[](Attribute a);
-        void add(Attribute a, double value);
-        void set(Attribute a, double value);
-
-    private:
-        double& get(Attribute a);
-
-	public:
-        static string toString(Attribute a);
-
-        void loadFromXML(tinyxml2::XMLElement* elem);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-};
-
 class Activite
 {
 	public:
@@ -147,7 +153,7 @@ class Activite
         bool fightAtEnd    = false;
         string scriptString;
         lua_State* script  = nullptr;
-        Caracteristiques::Attribute speedImprover = Caracteristiques::Attribute::enumSize;
+        Attribute speedImprover = numberOfAttributes;
         tools::math::Shape interactionField;
 
         int priority       = 0;
@@ -167,30 +173,19 @@ class Activite
         void atEnd(Individu* owner);
 };
 
+static constexpr const char* attributeToString(Attribute a)
+{
+    return AttributesNames[static_cast<int>(a)];
+}
+static constexpr Attribute stringToAttribute(string_view a)
+{
+    for (int i = 0 ; i < numberOfAttributes ; ++i)
+        if (AttributesNames[i] == a)
+            return static_cast<Attribute>(i);
+    return numberOfAttributes;
+}
 
 void Disp_Equipement();
 void Load_Decorations_Objets();
-
-static const string ObjectProperties[19] = {
-    "strength",
-    "power",
-    "agility",
-    "intellect",
-    "constitution",
-    "charisma",
-    "dodge",
-    "healingPower",
-    "strengthFactor",
-    "powerFactor",
-    "agilityFactor",
-    "intellectFactor",
-    "constitutionFactor",
-    "charismaFactor",
-    "dodgeFactor",
-    "healingPowerFactor",
-    "attackSpeed",
-    "runSpeed",
-    "injurySpeed"
-};
 
 #endif

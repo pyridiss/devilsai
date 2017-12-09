@@ -43,17 +43,17 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 	if (Attaquant->Diplomatie == Blesse->Diplomatie) return;
 
     //Force the updating of attributes
-    Attaquant->currentHealthStatus(Caracteristiques::Strength, true);
-    Blesse->currentHealthStatus(Caracteristiques::Strength, true);
+    Attaquant->currentHealthStatus(Strength, true);
+    Blesse->currentHealthStatus(Strength, true);
 
-	double Att_Agilite = Attaquant->currentHealthStatus(Caracteristiques::Agility);
-	double Att_Intelli = Attaquant->currentHealthStatus(Caracteristiques::Intellect);
-	double Att_Puissance = Attaquant->currentHealthStatus(Caracteristiques::Power);
+    double Att_Agilite = Attaquant->currentHealthStatus(Agility);
+    double Att_Intelli = Attaquant->currentHealthStatus(Intellect);
+    double Att_Puissance = Attaquant->currentHealthStatus(Power);
 	if (Att_Agilite == 0) Att_Agilite = 1;
 	if (Att_Intelli == 0) Att_Intelli = 1;
 	if (Att_Puissance == 0) Att_Puissance = 1;
 
-	double TauxReussite = (1.0 + (Att_Agilite - Blesse->currentHealthStatus(Caracteristiques::Agility))/Att_Agilite) * 50.0;
+    double TauxReussite = (1.0 + (Att_Agilite - Blesse->currentHealthStatus(Agility))/Att_Agilite) * 50.0;
 	if (TauxReussite > 95) TauxReussite = 95;
 	if (TauxReussite < 5) TauxReussite = 5;
 
@@ -61,10 +61,10 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
 	if (Succes)
 	{
-		double Degats = Attaquant->currentHealthStatus(Caracteristiques::Strength);
+        double Degats = Attaquant->currentHealthStatus(Strength);
 		if (L != NULL) Degats += getDoubleFromLUA(L, "getDegats") - getDoubleFromLUA(L, "getAmplitude") + rand()%(2*getIntFromLUA(L, "getAmplitude"));
 
-		double TauxEsquive = (1.0 + (Blesse->currentHealthStatus(Caracteristiques::Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
+        double TauxEsquive = (1.0 + (Blesse->currentHealthStatus(Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
 		bool Esquive = (rand()%100 < TauxEsquive) ? true : false;
 
 		if (Esquive)
@@ -78,13 +78,13 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 		}
 		else
 		{
-			double TauxCritique = (1 + (Att_Intelli - Blesse->currentHealthStatus(Caracteristiques::Charisma))/Att_Intelli) * 10.0;
+            double TauxCritique = (1 + (Att_Intelli - Blesse->currentHealthStatus(Charisma))/Att_Intelli) * 10.0;
 			bool Critique = (rand()%100 < TauxCritique) ? true : false;
 			if (Critique)
 			{
 				Degats *= 1.5;
-				Attaquant->modifyHealthStatus(Statistiques::Energy, -10);
-				Blesse->modifyHealthStatus(Statistiques::Healing, -30);
+                Attaquant->modifyHealthStatus(Energy, -10);
+                Blesse->modifyHealthStatus(Healing, -30);
 				if (Attaquant->Id == gamedata::player()->Id)
 				{
 					gamedata::player()->CoupCritique(Blesse);
@@ -96,12 +96,12 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				}
 			}
 
-			Degats *= (1 + (Att_Puissance - Blesse->currentHealthStatus(Caracteristiques::Constitution))/Att_Puissance)/2.0;
+            Degats *= (1 + (Att_Puissance - Blesse->currentHealthStatus(Constitution))/Att_Puissance)/2.0;
 			if (Degats < 5) Degats = 5;
 		}
 
-		Blesse->modifyHealthStatus(Statistiques::Life, -Degats);
-		Blesse->modifyHealthStatus(Statistiques::Healing, -3-Degats/20);
+        Blesse->modifyHealthStatus(Life, -Degats);
+        Blesse->modifyHealthStatus(Healing, -3-Degats/20);
 
 		if (Attaquant == gamedata::player())
 		{

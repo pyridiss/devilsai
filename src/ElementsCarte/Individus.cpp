@@ -47,23 +47,23 @@ Individu::Individu() : Element_Carte()
 
 void Individu::Gestion_Recuperation()
 {
-    modifyHealthStatus(Statistiques::Life, currentHealthStatus(Statistiques::Healing)/1000.0 * tools::timeManager::I(1.0));
-    modifyHealthStatus(Statistiques::Energy, currentHealthStatus(Statistiques::Healing)/1000.0 * tools::timeManager::I(1.0));
+    modifyHealthStatus(Life, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));
+    modifyHealthStatus(Energy, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));
 
-    if (currentHealthStatus(Statistiques::Healing) > 95)
+    if (currentHealthStatus(Healing) > 95)
     {
-        modifyHealthStatus(Statistiques::Life, tools::timeManager::I(1.0));
-        modifyHealthStatus(Statistiques::Energy, tools::timeManager::I(1.0));
+        modifyHealthStatus(Life, tools::timeManager::I(1.0));
+        modifyHealthStatus(Energy, tools::timeManager::I(1.0));
     }
 
-    double diff = currentHealthStatus(Caracteristiques::HealingPower) + (currentHealthStatus(Statistiques::Life)-800.0)/100.0 - currentHealthStatus(Statistiques::Healing);
-    modifyHealthStatus(Statistiques::Healing, diff / 1000.0 * tools::timeManager::I(1.0));
+    double diff = currentHealthStatus(HealingPower) + (currentHealthStatus(Life)-800.0)/100.0 - currentHealthStatus(Healing);
+    modifyHealthStatus(Healing, diff / 1000.0 * tools::timeManager::I(1.0));
 
     //Test de récupération forcée (potion, …)
-    if (RecuperationFixe || abs(currentHealthStatus(Caracteristiques::HealingPower)) >= 95)
-        setHealthStatus(Statistiques::Healing, currentHealthStatus(Caracteristiques::HealingPower));
+    if (RecuperationFixe || abs(currentHealthStatus(HealingPower)) >= 95)
+        setHealthStatus(Healing, currentHealthStatus(HealingPower));
 
-    if (EnergieMax) setHealthStatus(Statistiques::Energy, 1000);
+    if (EnergieMax) setHealthStatus(Energy, 1000);
 
     //Diminue la durée de vie des objets utilisés
     for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
@@ -83,36 +83,32 @@ void Individu::Gestion_Recuperation()
     }
 }
 
-int Individu::currentHealthStatus(Statistiques::Attribute a)
-{
-    return Stats[a];
-}
-
-int Individu::currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdate)
+int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
 {
     //Update values
     if (forceUpdate || _clock.getElapsedTime().asSeconds() > 1)
     {
-        _currentHealthStatus = attributes();
+        _currentHealthStatus = _attributes;
 
-        for (int i = 0 ; i != Caracteristiques::Attribute::enumSize ; ++i)
+        for (int i = Strength ; i != StrengthFactor ; ++i)
         {
-            Caracteristiques::Attribute att = static_cast<Caracteristiques::Attribute>(i);
+            Attribute att = static_cast<Attribute>(i);
+            Attribute attFactor = static_cast<Attribute>(i+11);
 
-            if (att != Caracteristiques::HealingPower)
-                _currentHealthStatus.set(att, _currentHealthStatus[att] / 2.0 * (1 + 1.2*currentHealthStatus(Statistiques::Life)/1000.0));
+            if (att != HealingPower)
+                _currentHealthStatus.set(att, _currentHealthStatus[att] / 2.0 * (1 + 1.2*_currentHealthStatus[Life]/1000.0));
 
             for (auto& o : inventory.objects)
             {
                 lua_getglobal(o.second, "getCurrentObjectEffect");
-                lua_pushstring(o.second, Caracteristiques::toString(att).c_str());
+                lua_pushstring(o.second, attributeToString(att));
                 lua_call(o.second, 1, 1);
                 _currentHealthStatus.add(att, lua_tonumber(o.second, -1));
                 lua_pop(o.second, 1);
                 lua_getglobal(o.second, "getCurrentObjectEffect");
-                lua_pushstring(o.second, (Caracteristiques::toString(att) + "Factor").c_str());
+                lua_pushstring(o.second, attributeToString(attFactor));
                 lua_call(o.second, 1, 1);
-                _currentHealthStatus.add(att, attributes()[att] * lua_tonumber(o.second, -1) / 100.0);
+                _currentHealthStatus.add(att, _attributes[att] * lua_tonumber(o.second, -1) / 100.0);
                 lua_pop(o.second, 1);
             }
         }
@@ -123,24 +119,36 @@ int Individu::currentHealthStatus(Caracteristiques::Attribute a, bool forceUpdat
     return floor(_currentHealthStatus[a]);
 }
 
-void Individu::setHealthStatus(Statistiques::Attribute a, double value)
+void Individu::setHealthStatus(Attribute a, double value)
 {
-    if (a == Statistiques::Life || a == Statistiques::Energy)
+    if (a == Life || a == Energy)
+    {
         value = min(max(0.0, value), 1000.0);
-    else //Healing
+        _currentHealthStatus.set(a, value);
+        _attributes.set(a, value);
+    }
+    if (a == Healing)
+    {
         value = min(max(-100.0, value), 100.0);
-
-    Stats.set(a, value);
+        _currentHealthStatus.set(a, value);
+        _attributes.set(a, value);
+    }
 }
 
-void Individu::modifyHealthStatus(Statistiques::Attribute a, double value)
+void Individu::modifyHealthStatus(Attribute a, double value)
 {
-    if (a == Statistiques::Life || a == Statistiques::Energy)
-        value = min(max(-Stats[a], value), 1000.0 - Stats[a]);
-    else //Healing
-        value = min(max(-100.0 - Stats[a], value), 100.0 - Stats[a]);
-
-    Stats.add(a, value);
+    if (a == Life || a == Energy)
+    {
+        value = min(max(-_currentHealthStatus[a], value), 1000.0 - _currentHealthStatus[a]);
+        _currentHealthStatus.add(a, value);
+        _attributes.add(a, value);
+    }
+    if (a == Healing)
+    {
+        value = min(max(-100.0 - _currentHealthStatus[a], value), 100.0 - _currentHealthStatus[a]);
+        _currentHealthStatus.add(a, value);
+        _attributes.add(a, value);
+    }
 }
 
 void Individu::updateAngle(const tools::math::Vector2d& p)
@@ -213,7 +221,7 @@ void Individu::displayLifeGauge(RenderTarget& target)
     background.setFillColor(Color(0, 0, 0, 175));
     target.draw(background);
 
-    RectangleShape foreground(Vector2f(currentHealthStatus(Statistiques::Life)/20, 4));
+    RectangleShape foreground(Vector2f(currentHealthStatus(Life)/20, 4));
     foreground.setPosition(x - 25, y + 35);
     foreground.setFillColor(Color(228, 0, 0, 255));
     target.draw(foreground);
