@@ -97,7 +97,7 @@ void cutParagraph(Paragraph* paragraph)
 
 	while (gamedata::player() != NULL && formattingCharacterPosition != paragraph->characters.npos)
 	{
-		paragraph->characters.replace(formattingCharacterPosition, tools::textManager::FORM().size(), gamedata::player()->Nom);
+        paragraph->characters.replace(formattingCharacterPosition, tools::textManager::FORM().size(), gamedata::player()->displayedName());
 		formattingCharacterPosition = paragraph->characters.find(tools::textManager::FORM());
 	}
 

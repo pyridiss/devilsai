@@ -35,7 +35,8 @@
 
 Individu::Individu()
     : Element_Carte(),
-    _species(nullptr)
+    _species(nullptr),
+    _displayedName(nullptr)
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     angle = tools::math::randomNumber(0.0, 2 * M_PI);
@@ -45,6 +46,25 @@ Individu::Individu()
     pathToTarget.profile = tools::math::Shape::Profiles::None;
     validityOfPath.circle(tools::math::Vector2d(0, 0), 20);
     validityOfPath.setOrigin(tools::math::absoluteOrigin());
+}
+
+Individu::~Individu()
+{
+    if (_displayedName != nullptr)
+        delete _displayedName;
+}
+
+const String32& Individu::displayedName()
+{
+    if (_displayedName != nullptr)
+        return *_displayedName;
+
+    if (_species != nullptr)
+        return _species->_displayedName;
+
+    //In case there is no custom name nor species...
+    setCustomDisplayedName(String32());
+    return *_displayedName;
 }
 
 void Individu::Gestion_Recuperation()
@@ -163,6 +183,14 @@ Classe_Commune* Individu::species()
     return _species;
 }
 
+void Individu::setCustomDisplayedName(const String32& newName)
+{
+    if (_displayedName == nullptr)
+        _displayedName = new String32;
+
+    *_displayedName = newName;
+}
+
 void Individu::updateAngle(const tools::math::Vector2d& p)
 {
     angle = tools::math::angle(p.x - position().x, p.y - position().y);
@@ -226,7 +254,7 @@ void Individu::displayLifeGauge(RenderTarget& target)
     Color color;
     if (Diplomatie == DIPLOM_ALLIE) color = Color(128, 255, 128, 255);
     if (Diplomatie == DIPLOM_ENNEMI) color = Color(255, 255, 255, 255);
-    Disp_TexteCentre(Get_Nom(), x, y + 25, color, 10.f);
+    Disp_TexteCentre(displayedName(), x, y + 25, color, 10.f);
 
     RectangleShape background(Vector2f(50, 4));
     background.setPosition(x - 25, y + 35);

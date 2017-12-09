@@ -265,7 +265,7 @@ void createNewSavedGamePack()
     SavedGame s;
 
     s.directory = intToString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
-    s.playerName = gamedata::player()->Nom;
+    s.playerName = gamedata::player()->displayedName();
     s.version = "master";
 
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);

@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-String32& Individu_Commun::Get_Nom()
-{
-	return Classe->Nom;
-}
-
 int Individu_Commun::Get_Experience()
 {
     return _species->Experience;
@@ -238,7 +233,7 @@ void Classe_Commune::setAngleFixed(double angle)
 void Classe_Commune::loadFromXML(XMLHandle &handle)
 {
     Type = handle.ToElement()->Attribute("name");
-    Nom = tools::textManager::getText("species", Type);
+    _displayedName = tools::textManager::getText("species", Type);
 
     string archiveFile;
 

@@ -63,7 +63,7 @@ enum Behaviors
 class Classe_Commune
 {
 	public:
-		String32 Nom;
+        String32 _displayedName;
 		string Type             = "";
 		int Diplomatie          = 0;
         tools::math::Shape size;
@@ -203,6 +203,7 @@ class Individu : public Element_Carte
         Statistiques _currentHealthStatus;
         Statistiques _attributes;
         Classe_Commune* _species;
+        String32* _displayedName;
         Clock _clock;
 
 	public:
@@ -221,11 +222,11 @@ class Individu : public Element_Carte
 	//Constructeurs / Destructeurs :
 	public:
 		Individu();
-		virtual ~Individu() {}
+        virtual ~Individu();
 
 	//Getters :
 	public:
-		virtual String32& Get_Nom() = 0;
+        const String32& displayedName();
 		virtual int Get_Experience() = 0;
         virtual bool angleFixed() =0;
         string Get_Act();
@@ -254,6 +255,7 @@ class Individu : public Element_Carte
         virtual void modifyHealthStatus(Attribute a, double value);
         void setSpecies(Classe_Commune* s);
         Classe_Commune* species();
+        void setCustomDisplayedName(const String32& newName);
 
 	//Affichage
 	public:
@@ -264,7 +266,6 @@ class Individu : public Element_Carte
 class Individu_Unique : public Individu
 {
 	public:
-		String32 Nom;
 		unsigned int Experience = 0;
         string dataFile;
         string _behaviors[Behaviors::enumSize];
@@ -286,7 +287,6 @@ class Individu_Unique : public Individu
 
 	//Getter :
 	public:
-		String32& Get_Nom();
 		int Get_Experience();
         Statistiques& attributes();
 		virtual Activite* Get_Activite(string act);
@@ -310,7 +310,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-		String32& Get_Nom();
 		int Get_Experience();
 		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);

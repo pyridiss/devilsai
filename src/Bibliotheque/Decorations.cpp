@@ -119,7 +119,7 @@ void Disp_JaugesVie(RenderTarget& target)
     static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
     static imageManager::Animation* playerRecoveryGauge = imageManager::getAnimation("playerRecoveryGauge");
 
-	Disp_TexteCentre(gamedata::player()->Nom, 92, 60, Color(128, 255, 128, 255), 12.f);
+    Disp_TexteCentre(gamedata::player()->displayedName(), 92, 60, Color(128, 255, 128, 255), 12.f);
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 

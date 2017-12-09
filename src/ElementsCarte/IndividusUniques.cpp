@@ -56,11 +56,6 @@ void Individu_Unique::Ajouter_Activite(string Id)
 	i->second.Id = Id;
 }
 
-String32& Individu_Unique::Get_Nom()
-{
-	return Nom;
-}
-
 int Individu_Unique::Get_Experience()
 {
 	return Experience;
@@ -149,7 +144,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("name"))
     {
         Type = elem->Attribute("name");
-        Nom = tools::textManager::getText("species", Type);
+        setCustomDisplayedName(tools::textManager::getText("species", Type));
     }
 
     double x = 0, y = 0;
