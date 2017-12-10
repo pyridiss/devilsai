@@ -258,6 +258,7 @@ class Individu : public Element_Carte
         virtual void modifyHealthStatus(Attribute a, double value);
         void setSpecies(Classe_Commune* s);
         Classe_Commune* species();
+        Activite* createSkill(string Id);
         void setCustomDisplayedName(const String32& newName);
 
 	//Affichage
@@ -283,9 +284,6 @@ class Individu_Unique : public Individu
 	public:
 		Individu_Unique();
 		virtual ~Individu_Unique();
-
-	public:
-		void Ajouter_Activite(string Id);
 
 	//Getter :
 	public:

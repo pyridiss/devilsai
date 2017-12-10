@@ -47,14 +47,6 @@ Individu_Unique::~Individu_Unique()
 {
 }
 
-void Individu_Unique::Ajouter_Activite(string Id)
-{
-	Activite act;
-    skills().insert(MapActivites::value_type(Id, act));
-    MapActivites::iterator i = skills().find(Id);
-	i->second.Id = Id;
-}
-
 Statistiques& Individu_Unique::attributes()
 {
 	return _attributes;
@@ -187,8 +179,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Ajouter_Activite(skillName);
-            Activite *s = skill(skillName);
+            Activite* s = createSkill(skillName);
 
             XMLHandle hdl2(elem);
             s->loadFromXML(hdl2, this);

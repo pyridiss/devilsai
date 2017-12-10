@@ -224,6 +224,17 @@ Classe_Commune* Individu::species()
     return _species;
 }
 
+Activite* Individu::createSkill(string Id)
+{
+    if (_skills == nullptr)
+        _skills = new MapActivites;
+
+    auto [it, result] = _skills->try_emplace(Id);
+    it->second.Id = Id;
+
+    return &(it->second);
+}
+
 void Individu::setCustomDisplayedName(const String32& newName)
 {
     if (_displayedName == nullptr)
