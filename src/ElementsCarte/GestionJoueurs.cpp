@@ -61,9 +61,9 @@ int Joueur::Gestion()
     if (_hunting)
     {
         Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(_hunted));
-        if (ind != nullptr && ind->Act != behavior(Behaviors::Dying))
+        if (ind != nullptr && ind->currentHealthStatus(Life) > 0)
         {
-            tools::math::Shape& s = Get_Activite(_skillForHunted)->interactionField;
+            tools::math::Shape& s = skill(_skillForHunted)->interactionField;
             tools::math::Shape& s2 = (s.profile != tools::math::Shape::None) ? s : interactionField;
 
             if (tools::math::intersection(s2, ind->size))
@@ -85,7 +85,7 @@ int Joueur::Gestion()
         skillToUse = _behaviors[Behaviors::Hunting];
 
         //Check if we are close enough to the endPoint
-        if (tools::math::Vector2d::distance(_automoveEndpoint, position()) < 1.2 * Get_Activite(skillToUse)->step)
+        if (tools::math::Vector2d::distance(_automoveEndpoint, position()) < 1.2 * skill(skillToUse)->step)
         {
             _automove = false;
             Set_Activite(_behaviors[Behaviors::Random]);
@@ -93,7 +93,7 @@ int Joueur::Gestion()
     }
 
     bool findNewPosition = false;
-    if (Get_Activite(skillToUse)->step > 0 && MouvementAutorise) findNewPosition = true;
+    if (skill(skillToUse)->step > 0 && MouvementAutorise) findNewPosition = true;
 
     seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
@@ -101,7 +101,7 @@ int Joueur::Gestion()
 
     if (findNewPosition)
     {
-        double step = Get_Activite(skillToUse)->step;
+        double step = skill(skillToUse)->step;
 
         move(cos(angle)*step, sin(angle)*step);
 
@@ -138,7 +138,7 @@ int Joueur::Gestion()
         {
             i.first->Collision(this, true);
         }
-        if (tools::math::intersection(Get_Activite(Act)->interactionField, i.first->size))
+        if (tools::math::intersection(_currentSkill->interactionField, i.first->size))
         {
             if (abs(tools::math::angle(i.first->position().x - position().x, i.first->position().y - position().y) - angle) < angleDifference)
             {
@@ -157,11 +157,11 @@ int Joueur::Gestion()
 		IncrementNum();
 
         interactionField.updateDirection(angle);
-        Get_Activite(Act)->interactionField.updateDirection(angle);
+        _currentSkill->interactionField.updateDirection(angle);
 
 		if (Get_Num() == 0)
 		{
-            Get_Activite(Act)->atEnd(this);
+            _currentSkill->atEnd(this);
 		}
 	}
 

@@ -84,15 +84,14 @@ class Classe_Commune
     public:
         string corpseImageKey = "";
 
-		MapActivites Activites;
+        MapActivites _skills;
 
 	public:
 		Classe_Commune();
 		~Classe_Commune();
 
 	public:
-		void Ajouter_Activite(string Id);
-		Activite* Get_Activite(string Id);
+        Activite* Ajouter_Activite(string Id);
 
 	public:
 		void Copie_Element(Individu_Commun *elem);
@@ -184,7 +183,6 @@ class Individu : public Element_Carte
 {
     //Objet
 	public:
-		string Act   = "0";
         double angle = 0;
 		short Num   = 0;
 
@@ -200,8 +198,10 @@ class Individu : public Element_Carte
 		int ElementVision       = -1;
 
 	protected:
+        Activite* _currentSkill;
         Statistiques _currentHealthStatus;
         Statistiques _attributes;
+        MapActivites* _skills;
         Classe_Commune* _species;
         String32* _displayedName;
         unsigned int _experience = 0;
@@ -226,13 +226,15 @@ class Individu : public Element_Carte
         virtual ~Individu();
 
 	//Getters :
+    protected:
+        MapActivites& skills();
+
 	public:
+        Activite* skill(const string& s);
         const String32& displayedName();
         unsigned int experience();
         bool angleFixed();
-        string Get_Act();
 		short Get_Num();
-		virtual Activite* Get_Activite(string act) =0;
         virtual string& behavior(Behaviors b) = 0;
         virtual vector<string>& attacks() = 0;
 
@@ -245,7 +247,6 @@ class Individu : public Element_Carte
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
 		virtual bool Set_Activite(string nv);
-        int Get_Vitesse(const string& act);
 		int Collision(Individu *elem, bool apply);
 		void IncrementNum(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
@@ -265,6 +266,7 @@ class Individu : public Element_Carte
         void displayLifeGauge(RenderTarget& target);
 
     friend class Classe_Commune;
+    friend void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L);
 };
 
 class Individu_Unique : public Individu
@@ -277,9 +279,6 @@ class Individu_Unique : public Individu
     public:
         string corpseImageKey = "";
 
-	public:
-		MapActivites Activites;
-
 	//Constructeurs / Destructeurs :
 	public:
 		Individu_Unique();
@@ -291,7 +290,6 @@ class Individu_Unique : public Individu
 	//Getter :
 	public:
         Statistiques& attributes();
-		virtual Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
 
@@ -309,7 +307,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-		Activite* Get_Activite(string act);
         string& behavior(Behaviors b);
         vector<string>& attacks();
 

@@ -40,11 +40,11 @@ int Individu::Gestion()
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
-    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(Get_Act())->numberOfImages-1)
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-1)
 	{
 			return ETAT_MORT;
 	}
-    if (Get_Act() != behavior(Behaviors::Dying) && (currentHealthStatus(Life) == 0 || lifetime == 0))
+    if (_currentSkill->Id != behavior(Behaviors::Dying) && (currentHealthStatus(Life) == 0 || lifetime == 0))
 	{
         if (!Set_Activite(behavior(Behaviors::Dying))) return ETAT_MORT;
 		else return ETAT_NORMAL;
@@ -56,7 +56,7 @@ int Individu::Gestion()
 	Retour = Individu::GestionElementMouvant();
 	if (Retour != ETAT_CONTINUER) return Retour;
 
-    if (Get_Act() == behavior(Behaviors::Dying))
+    if (_currentSkill->Id == behavior(Behaviors::Dying))
 	{
         Set_Activite(behavior(Behaviors::Dying)); //Permet de gérer les situations spéciales (dépose des inventaires, etc…)
 		IncrementNum();
@@ -84,7 +84,7 @@ int Individu::Gestion()
 
     Set_Activite(behavior(Comportement));
 
-    if (Get_Activite(Act)->step > 0) findNewPosition = true;
+    if (_currentSkill->step > 0) findNewPosition = true;
 
     seenItems = gamedata::currentWorld()->findAllCollidingItems(this, viewField, false);
 
@@ -173,16 +173,16 @@ int Individu::Gestion()
                     bool canUseAttack = false;
                     for (auto& attack : attacks())
                     {
-                        if (Get_Activite(attack) == nullptr)
+                        if (skill(attack) == nullptr)
                         {
                             tools::debug::error("This skill does not exists : " + Type + ":" + attack, "items", __FILENAME__, __LINE__);
                             continue;
                         }
 
-                        Get_Activite(attack)->interactionField.setOrigin(&position());
-                        Get_Activite(attack)->interactionField.updateDirection(angle);
+                        skill(attack)->interactionField.setOrigin(&position());
+                        skill(attack)->interactionField.updateDirection(angle);
 
-                        if (tools::math::intersection(Get_Activite(attack)->interactionField, i.first->size))
+                        if (tools::math::intersection(skill(attack)->interactionField, i.first->size))
                         {
                             canUseAttack = true;
                             if (Behaviors::Attacking > NouveauComportement)
@@ -232,7 +232,7 @@ int Individu::Gestion()
 		//On vérifie que l'ennemi est toujours à portée, avant de lancer le combat :
 		if (ennemi != NULL)
 		{
-            if (tools::math::intersection(Get_Activite(Act)->interactionField, ennemi->size))
+            if (tools::math::intersection(_currentSkill->interactionField, ennemi->size))
 				Combat(this, ennemi);
             NouveauComportement = Behaviors::Hunting;
 		}
@@ -240,7 +240,7 @@ int Individu::Gestion()
 	}
     if (Get_Num() == 0)
     {
-        Get_Activite(Act)->atEnd(this);
+        _currentSkill->atEnd(this);
     }
 
 	return ETAT_NORMAL;
@@ -258,7 +258,7 @@ void Individu::MouvementAleatoire(bool newDirection)
     while (angle < 0) angle += 2.0 * M_PI;
     while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-    move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
+    move(cos(angle)*_currentSkill->step, sin(angle)*_currentSkill->step);
 }
 
 bool Individu::MouvementChasse(Element_Carte *elem)
@@ -291,7 +291,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
     {
         tools::math::Vector2d step = pathToTarget.points[pathToTarget.points.size() - 2];
         angle = tools::math::angle(step.x - position().x, step.y - position().y);
-        move(cos(angle)*Get_Activite(Act)->step, sin(angle)*Get_Activite(Act)->step);
+        move(cos(angle)*_currentSkill->step, sin(angle)*_currentSkill->step);
         if (tools::math::Vector2d::distanceSquare(step, position()) < 100)
             pathToTarget.points.pop_back();
     }

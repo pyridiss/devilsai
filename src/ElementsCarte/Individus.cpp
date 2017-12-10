@@ -35,6 +35,8 @@
 
 Individu::Individu()
     : Element_Carte(),
+    _currentSkill(nullptr),
+    _skills(nullptr),
     _species(nullptr),
     _displayedName(nullptr)
 {
@@ -50,8 +52,31 @@ Individu::Individu()
 
 Individu::~Individu()
 {
+    if (_skills != nullptr)
+        delete _skills;
+
     if (_displayedName != nullptr)
         delete _displayedName;
+}
+
+MapActivites& Individu::skills()
+{
+    if (_skills != nullptr)
+        return *_skills;
+
+    if (_species != nullptr)
+        return _species->_skills;
+
+    //In case there is no custom skills nor species...
+   _skills = new MapActivites;
+    return *_skills;
+}
+
+Activite* Individu::skill(const string& s)
+{
+    auto i = skills().find(s);
+    if (i == skills().end()) return nullptr;
+    return &i->second;
 }
 
 const String32& Individu::displayedName()
@@ -255,8 +280,7 @@ void Individu::Disp(RenderTarget& target)
         size.display(target, Color(255, 255, 255, 50));
     }
 
-	Activite* act = Get_Activite(Act);
-    imageManager::display(target, "individuals", act->getImageKey(angle, Num), position().x, position().y, true);
+    imageManager::display(target, "individuals", _currentSkill->getImageKey(angle, Num), position().x, position().y, true);
 }
 
 void Individu::displayLifeGauge(RenderTarget& target)

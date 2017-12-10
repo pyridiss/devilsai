@@ -45,27 +45,19 @@ Individu_Unique::Individu_Unique() : Individu()
 
 Individu_Unique::~Individu_Unique()
 {
-	Activites.clear();
 }
 
 void Individu_Unique::Ajouter_Activite(string Id)
 {
 	Activite act;
-	Activites.insert(MapActivites::value_type(Id, act));
-	MapActivites::iterator i = Activites.find(Id);
+    skills().insert(MapActivites::value_type(Id, act));
+    MapActivites::iterator i = skills().find(Id);
 	i->second.Id = Id;
 }
 
 Statistiques& Individu_Unique::attributes()
 {
 	return _attributes;
-}
-
-Activite* Individu_Unique::Get_Activite(string act)
-{
-	MapActivites::iterator i = Activites.find(act);
-	if (i == Activites.end()) return NULL;
-	return &i->second;
 }
 
 string& Individu_Unique::behavior(Behaviors b)
@@ -84,13 +76,13 @@ bool Individu_Unique::Set_Activite(string nv)
 
 	bool Resultat = Individu::Set_Activite(nv);
 
-    if (Get_Act() == behavior(Behaviors::Dying))
+    if (_currentSkill->Id == behavior(Behaviors::Dying))
 	{
 		setHealthStatus(Life, 0);
 		setHealthStatus(Energy, 0);
 		setHealthStatus(Healing, 0);
 	}
-    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(behavior(Behaviors::Dying))->numberOfImages-2)
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-2)
 	{
 		int key = 1;
 
@@ -196,10 +188,10 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         {
             string skillName = elem->Attribute("name");
             Ajouter_Activite(skillName);
-            Activite *skill = Get_Activite(skillName);
+            Activite *s = skill(skillName);
 
             XMLHandle hdl2(elem);
-            skill->loadFromXML(hdl2, this);
+            s->loadFromXML(hdl2, this);
         }
         if (elemName == "skillsManagement")
         {

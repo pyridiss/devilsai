@@ -124,7 +124,6 @@ int LUA_set(lua_State* L)
     }
 
     if (field == "Diplomatie") elem->Diplomatie = (int)value;
-    else if (field == "Num_Max") ind->Get_Activite(ind->Get_Act())->numberOfImages = (int)value;
     else if (field == "life") ind->setHealthStatus(Life, value);
     else if (field == "energy") ind->setHealthStatus(Energy, value);
     else if (field == "healing") ind->setHealthStatus(Healing, value);

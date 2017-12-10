@@ -65,11 +65,6 @@ const tools::math::Vector2d& Element_Carte::position() const
 
 /** FONCTIONS DE LA CLASSE Element_Mouvant **/
 
-string Individu::Get_Act()
-{
-	return Act;
-}
-
 short Individu::Get_Num()
 {
 	return Num;
@@ -77,27 +72,27 @@ short Individu::Get_Num()
 
 bool Individu::Set_Activite(string nv)
 {
-    if (Get_Activite(nv) == NULL) return false;
+    if (skill(nv) == nullptr) return false;
 
-	if (Get_Activite(Act) == NULL)
+	if (_currentSkill == nullptr)
 	{
-		Act = nv;
-        Get_Activite(Act)->atBegin(this);
+        _currentSkill = skill(nv);
+        _currentSkill->atBegin(this);
 		Num = 0;
 	}
 
-    if (Act == behavior(Behaviors::Dying)) return false;
+    if (_currentSkill->Id == behavior(Behaviors::Dying)) return false;
 
-	if (Get_Activite(Act)->priority > Get_Activite(nv)->priority && (!ActEffectue || Num != 0)) return false;
+    if (_currentSkill->priority > skill(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
-	if (Act == nv) return true;
+    if (_currentSkill->Id == nv) return true;
 
-	Act = nv;
-    Get_Activite(Act)->atBegin(this);
+    _currentSkill = skill(nv);
+    _currentSkill->atBegin(this);
 
-    if (Act == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
+    if (nv == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
 
-	if (Get_Activite(nv)->priority > 0) IncrementNum(true);
+    if (_currentSkill->priority > 0) IncrementNum(true);
 	return true;
 }
 
@@ -108,7 +103,7 @@ int Individu::Collision(Individu *elem, bool apply)
 
 void Individu::IncrementNum(bool RaZ)
 {
-    if (Act == behavior(Behaviors::Dying) && Num == Get_Activite(Act)->numberOfImages-1) return;
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && Num == _currentSkill->numberOfImages-1) return;
 
 	if (RaZ)
 	{
@@ -118,14 +113,17 @@ void Individu::IncrementNum(bool RaZ)
 	else
 	{
 		++Num;
-		if (Num == Get_Activite(Act)->numberOfImages) Num = 0;
+        if (Num == _currentSkill->numberOfImages) Num = 0;
 		ActEffectue = true;
 	}
 }
 
 int Individu::GestionElementMouvant()
 {
-	if (Temps < (1/(float)Get_Vitesse(Get_Act())))
+    if (_currentSkill == nullptr) return 0;
+
+    double speed = _currentSkill->speed + currentHealthStatus(_currentSkill->speedImprover);
+    if (Temps < 1.0/speed)
 	{
 		Temps += tools::timeManager::I(1/60.);
 		return ETAT_NORMAL;
@@ -133,14 +131,4 @@ int Individu::GestionElementMouvant()
 	else Temps = tools::timeManager::I(1/60.);
 
 	return ETAT_CONTINUER;
-}
-
-int Individu::Get_Vitesse(const string& act)
-{
-    if (Get_Activite(act) == nullptr)
-    {
-        tools::debug::error("The activity " + act + " does not belong to " + Type, "items", __FILENAME__, __LINE__);
-        return 0;
-    }
-    return Get_Activite(act)->speed + currentHealthStatus(Get_Activite(act)->speedImprover);
 }

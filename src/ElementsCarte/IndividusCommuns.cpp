@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-Activite* Individu_Commun::Get_Activite(string act)
-{
-    return _species->Get_Activite(act);
-}
-
 string& Individu_Commun::behavior(Behaviors b)
 {
     return _species->_behaviors[b];
@@ -59,7 +54,7 @@ bool Individu_Commun::Set_Activite(string nv)
 
 	bool Resultat = Individu::Set_Activite(nv);
 
-    if (Get_Act() == behavior(Behaviors::Dying) && Get_Num() == Get_Activite(behavior(Behaviors::Dying))->numberOfImages-2)
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-2)
 	{
 		int key = 1;
 
@@ -174,22 +169,17 @@ Classe_Commune::Classe_Commune()
 
 Classe_Commune::~Classe_Commune()
 {
-	Activites.clear();
+    _skills.clear();
 }
 
-void Classe_Commune::Ajouter_Activite(string Id)
+Activite* Classe_Commune::Ajouter_Activite(string Id)
 {
 	Activite act;
-	Activites.insert(MapActivites::value_type(Id, act));
-	MapActivites::iterator i = Activites.find(Id);
+    _skills.insert(MapActivites::value_type(Id, act));
+    MapActivites::iterator i = _skills.find(Id);
 	i->second.Id = Id;
-}
 
-Activite* Classe_Commune::Get_Activite(string Id)
-{
-	MapActivites::iterator i = Activites.find(Id);
-	if (i == Activites.end()) return NULL;
-	return &i->second;
+    return &i->second;
 }
 
 void Classe_Commune::Copie_Element(Individu_Commun *elem)
@@ -270,11 +260,10 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Ajouter_Activite(skillName);
-            Activite *skill = Get_Activite(skillName);
+            Activite *s = Ajouter_Activite(skillName);
 
             XMLHandle hdl2(elem);
-            skill->loadFromXML(hdl2);
+            s->loadFromXML(hdl2);
         }
         if (elemName == "skillsManagement")
         {
