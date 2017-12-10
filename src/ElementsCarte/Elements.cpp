@@ -81,14 +81,20 @@ bool Individu::Set_Activite(string nv)
 		Num = 0;
 	}
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying)) return false;
-
     if (_currentSkill->priority > skill(nv)->priority && (!ActEffectue || Num != 0)) return false;
 
     if (_currentSkill->Id == nv) return true;
 
     _currentSkill = skill(nv);
     _currentSkill->atBegin(this);
+
+    if (_currentSkill->Id == behavior(Behaviors::Dying))
+    {
+        setHealthStatus(Life, 0);
+        setHealthStatus(Energy, 0);
+        setHealthStatus(Healing, 0);
+        Diplomatie = DIPLOM_NEUTRE;
+    }
 
     if (nv == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
 

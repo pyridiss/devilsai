@@ -62,19 +62,8 @@ vector<string>& Individu_Unique::attacks()
     return _attacks;
 }
 
-bool Individu_Unique::Set_Activite(string nv)
+void Individu_Unique::createCorpse()
 {
-	//Cette redéfinition permet d'adopter un comportement particulier lors de la mort
-
-	bool Resultat = Individu::Set_Activite(nv);
-
-    if (_currentSkill->Id == behavior(Behaviors::Dying))
-	{
-		setHealthStatus(Life, 0);
-		setHealthStatus(Energy, 0);
-		setHealthStatus(Healing, 0);
-	}
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-2)
 	{
 		int key = 1;
 
@@ -82,9 +71,6 @@ bool Individu_Unique::Set_Activite(string nv)
         corpse->Set_Individu(Type, corpseImageKey);
         corpse->size.circle(tools::math::Vector2d(0, 0), 20);
         corpse->size.setOrigin(&corpse->position());
-
-		TypeClassement = CLASSEMENT_CADAVRE;
-		Diplomatie = DIPLOM_NEUTRE;
 
 		for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
 		{
@@ -95,11 +81,7 @@ bool Individu_Unique::Set_Activite(string nv)
 		}
 
         corpse->close();
-
-		IncrementNum();
 	}
-
-	return Resultat;
 }
 
 void Individu_Unique::loadFromXML(XMLHandle &handle)

@@ -42,7 +42,8 @@ int Individu::Gestion()
 
     if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-1)
 	{
-			return ETAT_MORT;
+        createCorpse();
+        return ETAT_MORT;
 	}
     if (_currentSkill->Id != behavior(Behaviors::Dying) && (currentHealthStatus(Life) == 0 || lifetime == 0))
 	{
