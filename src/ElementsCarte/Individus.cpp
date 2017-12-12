@@ -36,6 +36,7 @@
 Individu::Individu()
     : Element_Carte(),
     _currentSkill(nullptr),
+    _behaviors(nullptr),
     _skills(nullptr),
     _species(nullptr),
     _displayedName(nullptr),
@@ -54,6 +55,9 @@ Individu::Individu()
 
 Individu::~Individu()
 {
+    if (_behaviors != nullptr)
+        delete[] _behaviors;
+
     if (_skills != nullptr)
         delete _skills;
 
@@ -65,6 +69,24 @@ Individu::~Individu()
 
     if (_extraDataFile != nullptr)
         delete _extraDataFile;
+}
+
+string& Individu::behavior(Behaviors b)
+{
+    if (_behaviors != nullptr)
+        return _behaviors[b];
+
+    if (_species != nullptr)
+        return _species->_behaviors[b];
+
+    //In case there is no custom behaviors nor species...
+    createCustomBehaviors();
+    return _behaviors[b];
+}
+
+void Individu::createCustomBehaviors()
+{
+    _behaviors = new string[Behaviors::enumSize];
 }
 
 MapActivites& Individu::skills()

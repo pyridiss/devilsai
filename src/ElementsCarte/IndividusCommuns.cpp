@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-string& Individu_Commun::behavior(Behaviors b)
-{
-    return _species->_behaviors[b];
-}
-
 vector<string>& Individu_Commun::attacks()
 {
     return _species->_attacks;

@@ -51,8 +51,8 @@ int Joueur::Gestion()
 	if (Individu::GestionElementMouvant() != ETAT_CONTINUER)
 		MouvementAutorise = false;
 
-    string skillToUse = _behaviors[Behaviors::Random];
-    if (MouvementAutorise && !Set_Activite(_behaviors[Behaviors::Random]))
+    string skillToUse = behavior(Behaviors::Random);
+    if (MouvementAutorise && !Set_Activite(behavior(Behaviors::Random)))
     {
         _hunting = false;
         _automove = false;
@@ -82,13 +82,13 @@ int Joueur::Gestion()
     if (_automove)
     {
         angle = tools::math::angle(_automoveEndpoint.x - position().x, _automoveEndpoint.y - position().y);
-        skillToUse = _behaviors[Behaviors::Hunting];
+        skillToUse = behavior(Behaviors::Hunting);
 
         //Check if we are close enough to the endPoint
         if (tools::math::Vector2d::distance(_automoveEndpoint, position()) < 1.2 * skill(skillToUse)->step)
         {
             _automove = false;
-            Set_Activite(_behaviors[Behaviors::Random]);
+            Set_Activite(behavior(Behaviors::Random));
         }
     }
 

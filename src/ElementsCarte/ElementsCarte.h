@@ -201,6 +201,7 @@ class Individu : public Element_Carte
         Activite* _currentSkill;
         Statistiques _currentHealthStatus;
         Statistiques _attributes;
+        string* _behaviors;
         MapActivites* _skills;
         Classe_Commune* _species;
         String32* _displayedName;
@@ -229,6 +230,8 @@ class Individu : public Element_Carte
 
 	//Getters :
     protected:
+        string& behavior(Behaviors b);
+        void createCustomBehaviors();
         MapActivites& skills();
         string& corpseImageKey();
 
@@ -238,7 +241,6 @@ class Individu : public Element_Carte
         unsigned int experience();
         bool angleFixed();
 		short Get_Num();
-        virtual string& behavior(Behaviors b) = 0;
         virtual vector<string>& attacks() = 0;
 
 	//Gestion :
@@ -277,7 +279,6 @@ class Individu : public Element_Carte
 class Individu_Unique : public Individu
 {
 	public:
-        string _behaviors[Behaviors::enumSize];
         vector<string> _attacks;
 
 	//Constructeurs / Destructeurs :
@@ -288,7 +289,6 @@ class Individu_Unique : public Individu
 	//Getter :
 	public:
         Statistiques& attributes();
-        string& behavior(Behaviors b);
         vector<string>& attacks();
 
         void createCorpse();
@@ -305,7 +305,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-        string& behavior(Behaviors b);
         vector<string>& attacks();
 
         void createCorpse();

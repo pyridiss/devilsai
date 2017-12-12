@@ -52,11 +52,6 @@ Statistiques& Individu_Unique::attributes()
 	return _attributes;
 }
 
-string& Individu_Unique::behavior(Behaviors b)
-{
-    return _behaviors[b];
-}
-
 vector<string>& Individu_Unique::attacks()
 {
     return _attacks;
@@ -169,16 +164,17 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         }
         if (elemName == "skillsManagement")
         {
+            createCustomBehaviors();
             if (elem->Attribute("randomBehavior"))
-                _behaviors[Behaviors::Random] = elem->Attribute("randomBehavior");
+                behavior(Behaviors::Random) = elem->Attribute("randomBehavior");
             if (elem->Attribute("blocked"))
-                _behaviors[Behaviors::Blocked] = elem->Attribute("blocked");
+                behavior(Behaviors::Blocked) = elem->Attribute("blocked");
             if (elem->Attribute("hunting"))
-                _behaviors[Behaviors::Hunting] = elem->Attribute("hunting");
+                behavior(Behaviors::Hunting) = elem->Attribute("hunting");
             if (elem->Attribute("hurt"))
-                _behaviors[Behaviors::Hurt] = elem->Attribute("hurt");
+                behavior(Behaviors::Hurt) = elem->Attribute("hurt");
             if (elem->Attribute("dying"))
-                _behaviors[Behaviors::Dying] = elem->Attribute("dying");
+                behavior(Behaviors::Dying) = elem->Attribute("dying");
             if (elem->Attribute("attacks"))
             {
                 string total = elem->Attribute("attacks");
@@ -199,7 +195,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
                 }
             }
 
-            Set_Activite(_behaviors[Behaviors::Random]);
+            Set_Activite(behavior(Behaviors::Random));
         }
         if (elemName == "inventory")
         {
