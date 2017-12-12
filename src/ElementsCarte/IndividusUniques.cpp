@@ -68,7 +68,7 @@ void Individu_Unique::createCorpse()
 		int key = 1;
 
         Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
-        corpse->Set_Individu(Type, corpseImageKey);
+        corpse->Set_Individu(Type, corpseImageKey());
         corpse->size.circle(tools::math::Vector2d(0, 0), 20);
         corpse->size.setOrigin(&corpse->position());
 
@@ -157,7 +157,7 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("maximumEnergy", &EnergieMax);
             elem->QueryAttribute("experience", &_experience);
             if (elem->Attribute("corpseImageKey"))
-                corpseImageKey = elem->Attribute("corpseImageKey");
+                corpseImageKey() = elem->Attribute("corpseImageKey");
         }
         if (elemName == "skill")
         {
@@ -238,7 +238,8 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("fixedHealing", RecuperationFixe);
     properties->SetAttribute("maximumEnergy", EnergieMax);
     properties->SetAttribute("experience", _experience);
-    properties->SetAttribute("corpseImageKey", corpseImageKey.c_str());
+    if (_corpseImageKey != nullptr)
+        properties->SetAttribute("corpseImageKey", _corpseImageKey->c_str());
     unique->InsertEndChild(properties);
 
     XMLHandle hdl(unique);

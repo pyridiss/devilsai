@@ -204,6 +204,7 @@ class Individu : public Element_Carte
         MapActivites* _skills;
         Classe_Commune* _species;
         String32* _displayedName;
+        string* _corpseImageKey;
         unsigned int _experience = 0;
         string* _extraDataFile;
         Clock _clock;
@@ -229,6 +230,7 @@ class Individu : public Element_Carte
 	//Getters :
     protected:
         MapActivites& skills();
+        string& corpseImageKey();
 
 	public:
         Activite* skill(const string& s);
@@ -277,9 +279,6 @@ class Individu_Unique : public Individu
 	public:
         string _behaviors[Behaviors::enumSize];
         vector<string> _attacks;
-
-    public:
-        string corpseImageKey = "";
 
 	//Constructeurs / Destructeurs :
 	public:

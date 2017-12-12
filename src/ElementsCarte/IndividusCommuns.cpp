@@ -54,7 +54,7 @@ void Individu_Commun::createCorpse()
 		int key = 1;
 
         Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
-        corpse->Set_Individu(Type, _species->corpseImageKey);
+        corpse->Set_Individu(Type, corpseImageKey());
         corpse->size.circle(tools::math::Vector2d(0, 0), 20);
         corpse->size.setOrigin(&corpse->position());
 

@@ -39,6 +39,7 @@ Individu::Individu()
     _skills(nullptr),
     _species(nullptr),
     _displayedName(nullptr),
+    _corpseImageKey(nullptr),
     _extraDataFile(nullptr)
 {
 	TypeClassement = CLASSEMENT_NORMAL;
@@ -59,6 +60,9 @@ Individu::~Individu()
     if (_displayedName != nullptr)
         delete _displayedName;
 
+    if (_corpseImageKey != nullptr)
+        delete _corpseImageKey;
+
     if (_extraDataFile != nullptr)
         delete _extraDataFile;
 }
@@ -74,6 +78,19 @@ MapActivites& Individu::skills()
     //In case there is no custom skills nor species...
    _skills = new MapActivites;
     return *_skills;
+}
+
+string& Individu::corpseImageKey()
+{
+    if (_corpseImageKey != nullptr)
+        return *_corpseImageKey;
+
+    if (_species != nullptr)
+        return _species->corpseImageKey;
+
+    //In case there is no custom corpse image key nor species...
+    _corpseImageKey = new string;
+    return *_corpseImageKey;
 }
 
 Activite* Individu::skill(const string& s)
