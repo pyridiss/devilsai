@@ -50,7 +50,7 @@ int Coffre::Gestion()
 
 int Coffre::Collision(Individu* elem, bool apply)
 {
-    if (apply && elem->Type == "intern")
+    if (elem->Type == "intern")
     {
         if (inert) return COLL_OK;
         else return COLL_INTER;
