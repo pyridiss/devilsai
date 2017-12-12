@@ -23,6 +23,7 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
+#include "Carte/Carte.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
@@ -31,6 +32,7 @@
 #include "imageManager/imageManager.h"
 
 #include "Jeu/options.h"
+#include "gamedata.h"
 
 
 Individu::Individu()
@@ -130,6 +132,34 @@ string& Individu::corpseImageKey()
     //In case there is no custom corpse image key nor species...
     _corpseImageKey = new string;
     return *_corpseImageKey;
+}
+
+void Individu::createCorpse()
+{
+    int key = 1;
+
+    Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
+    corpse->Set_Individu(Type, corpseImageKey());
+    corpse->size.circle(tools::math::Vector2d(0, 0), 20);
+    corpse->size.setOrigin(&corpse->position());
+
+    if (_species != nullptr)
+    {
+        for (auto& i : _species->inventory.objects)
+        {
+            corpse->objects.addObject(getStringFromLUA(i.second, "getFileName"), "storagebox" + intToString(key, 2));
+            ++key;
+        }
+    }
+
+    for (auto& i : inventory.objects)
+    {
+        corpse->objects.objects.emplace("storagebox" + intToString(key, 2), i.second);
+        ++key;
+    }
+    inventory.objects.clear();
+
+    corpse->close();
 }
 
 Statistiques& Individu::attributes()

@@ -236,6 +236,7 @@ class Individu : public Element_Carte
         void createCustomBehaviors();
         MapActivites& skills();
         string& corpseImageKey();
+        void createCorpse();
 
 	public:
         Statistiques& attributes();
@@ -254,7 +255,6 @@ class Individu : public Element_Carte
 		bool MouvementChasse(Element_Carte *elem);
 		virtual void Gestion_Recuperation();
         bool Set_Activite(string nv);
-        virtual void createCorpse() = 0;
 		int Collision(Individu *elem, bool apply);
 		void IncrementNum(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
@@ -287,7 +287,6 @@ class Individu_Unique : public Individu
 
 	//Getter :
 	public:
-        void createCorpse();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
@@ -301,8 +300,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-        void createCorpse();
-
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };

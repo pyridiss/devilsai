@@ -47,28 +47,6 @@ Individu_Unique::~Individu_Unique()
 {
 }
 
-void Individu_Unique::createCorpse()
-{
-	{
-		int key = 1;
-
-        Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
-        corpse->Set_Individu(Type, corpseImageKey());
-        corpse->size.circle(tools::math::Vector2d(0, 0), 20);
-        corpse->size.setOrigin(&corpse->position());
-
-		for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
-		{
-            corpse->objects.objects.emplace("storagebox" + intToString(key, 2), i->second);
-            i->second = nullptr;
-            inventory.objects.erase(i);
-			++key;
-		}
-
-        corpse->close();
-	}
-}
-
 void Individu_Unique::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();

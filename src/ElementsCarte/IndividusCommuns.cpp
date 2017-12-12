@@ -38,28 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-void Individu_Commun::createCorpse()
-{
-	{
-		int key = 1;
-
-        Coffre *corpse = gamedata::currentWorld()->AjouterCoffre("storage-boxes", position().x, position().y);
-        corpse->Set_Individu(Type, corpseImageKey());
-        corpse->size.circle(tools::math::Vector2d(0, 0), 20);
-        corpse->size.setOrigin(&corpse->position());
-
-		//First, we add equipment:
-        for (mapObjects::iterator i = _species->inventory.objects.begin() ; i != _species->inventory.objects.end() ; ++i)
-		{
-			corpse->objects.addObject(getStringFromLUA(i->second, "getFileName"), "storagebox" + intToString(key, 2));
-			++key;
-		}
-
-
-        corpse->close();
-	}
-}
-
 void Individu_Commun::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
