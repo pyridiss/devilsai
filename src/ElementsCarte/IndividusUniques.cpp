@@ -52,11 +52,6 @@ Statistiques& Individu_Unique::attributes()
 	return _attributes;
 }
 
-vector<string>& Individu_Unique::attacks()
-{
-    return _attacks;
-}
-
 void Individu_Unique::createCorpse()
 {
 	{
@@ -180,18 +175,18 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
                 string total = elem->Attribute("attacks");
                 if (total.find(',') == string::npos)
                 {
-                    _attacks.push_back(total);
+                    attacks().push_back(total);
                 }
                 else
                 {
                     size_t first = 0, second = total.find(',');
                     while (second != string::npos)
                     {
-                        _attacks.push_back(total.substr(first, second - first));
+                        attacks().push_back(total.substr(first, second - first));
                         first = second + 1;
                         second = total.find(',', first);
                     }
-                    _attacks.push_back(total.substr(first));
+                    attacks().push_back(total.substr(first));
                 }
             }
 

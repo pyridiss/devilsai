@@ -202,6 +202,7 @@ class Individu : public Element_Carte
         Statistiques _currentHealthStatus;
         Statistiques _attributes;
         string* _behaviors;
+        vector<string>* _attacks;
         MapActivites* _skills;
         Classe_Commune* _species;
         String32* _displayedName;
@@ -231,6 +232,7 @@ class Individu : public Element_Carte
 	//Getters :
     protected:
         string& behavior(Behaviors b);
+        vector<string>& attacks();
         void createCustomBehaviors();
         MapActivites& skills();
         string& corpseImageKey();
@@ -241,7 +243,6 @@ class Individu : public Element_Carte
         unsigned int experience();
         bool angleFixed();
 		short Get_Num();
-        virtual vector<string>& attacks() = 0;
 
 	//Gestion :
 	public:
@@ -278,9 +279,6 @@ class Individu : public Element_Carte
 
 class Individu_Unique : public Individu
 {
-	public:
-        vector<string> _attacks;
-
 	//Constructeurs / Destructeurs :
 	public:
 		Individu_Unique();
@@ -289,7 +287,6 @@ class Individu_Unique : public Individu
 	//Getter :
 	public:
         Statistiques& attributes();
-        vector<string>& attacks();
 
         void createCorpse();
 
@@ -305,8 +302,6 @@ class Individu_Commun : public Individu
 
 	//Getter :
 	public:
-        vector<string>& attacks();
-
         void createCorpse();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);

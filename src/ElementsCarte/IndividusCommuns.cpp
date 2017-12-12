@@ -38,11 +38,6 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Individu_Commun **/
 
-vector<string>& Individu_Commun::attacks()
-{
-    return _species->_attacks;
-}
-
 void Individu_Commun::createCorpse()
 {
 	{
