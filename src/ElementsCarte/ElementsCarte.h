@@ -205,6 +205,7 @@ class Individu : public Element_Carte
         Classe_Commune* _species;
         String32* _displayedName;
         unsigned int _experience = 0;
+        string* _extraDataFile;
         Clock _clock;
 
 	public:
@@ -274,7 +275,6 @@ class Individu : public Element_Carte
 class Individu_Unique : public Individu
 {
 	public:
-        string dataFile;
         string _behaviors[Behaviors::enumSize];
         vector<string> _attacks;
 

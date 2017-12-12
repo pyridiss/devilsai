@@ -107,14 +107,15 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("loadFromDataFile"))
     {
         //Another file must be loaded to complete the unique profile.
-        dataFile = elem->Attribute("loadFromDataFile");
+        _extraDataFile = new string;
+        *_extraDataFile = elem->Attribute("loadFromDataFile");
 
         //First, give this file to gamedata because it can contain species used by the unique
-        gamedata::loadFromXML(tools::filesystem::dataDirectory(), dataFile);
+        gamedata::loadFromXML(tools::filesystem::dataDirectory(), *_extraDataFile);
 
         //We need to load this file and find the XMLElement named "uniqueData" to continue the loading
         XMLDocument file;
-        file.LoadFile((tools::filesystem::dataDirectory() + dataFile).c_str());
+        file.LoadFile((tools::filesystem::dataDirectory() + *_extraDataFile).c_str());
         XMLHandle hdl(file);
         XMLHandle hdl2 = hdl.FirstChildElement().FirstChildElement("uniqueData");
 
@@ -216,7 +217,8 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
     XMLElement* root = handle.ToElement();
 
     XMLElement* unique = doc.NewElement("unique");
-    unique->SetAttribute("loadFromDataFile", dataFile.c_str());
+    if (_extraDataFile != nullptr)
+        unique->SetAttribute("loadFromDataFile", _extraDataFile->c_str());
     unique->SetAttribute("name", Type.c_str());
     unique->SetAttribute("x", position().x);
     unique->SetAttribute("y", position().y);

@@ -38,7 +38,8 @@ Individu::Individu()
     _currentSkill(nullptr),
     _skills(nullptr),
     _species(nullptr),
-    _displayedName(nullptr)
+    _displayedName(nullptr),
+    _extraDataFile(nullptr)
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     angle = tools::math::randomNumber(0.0, 2 * M_PI);
@@ -57,6 +58,9 @@ Individu::~Individu()
 
     if (_displayedName != nullptr)
         delete _displayedName;
+
+    if (_extraDataFile != nullptr)
+        delete _extraDataFile;
 }
 
 MapActivites& Individu::skills()
