@@ -47,11 +47,6 @@ Individu_Unique::~Individu_Unique()
 {
 }
 
-Statistiques& Individu_Unique::attributes()
-{
-	return _attributes;
-}
-
 void Individu_Unique::createCorpse()
 {
 	{

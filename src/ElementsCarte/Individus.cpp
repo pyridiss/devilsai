@@ -132,6 +132,11 @@ string& Individu::corpseImageKey()
     return *_corpseImageKey;
 }
 
+Statistiques& Individu::attributes()
+{
+    return _attributes;
+}
+
 Activite* Individu::skill(const string& s)
 {
     auto i = skills().find(s);

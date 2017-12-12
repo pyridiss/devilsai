@@ -238,6 +238,7 @@ class Individu : public Element_Carte
         string& corpseImageKey();
 
 	public:
+        Statistiques& attributes();
         Activite* skill(const string& s);
         const String32& displayedName();
         unsigned int experience();
@@ -286,8 +287,6 @@ class Individu_Unique : public Individu
 
 	//Getter :
 	public:
-        Statistiques& attributes();
-
         void createCorpse();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
