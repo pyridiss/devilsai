@@ -36,7 +36,7 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
-Joueur::Joueur() : Individu_Unique()
+Joueur::Joueur() : Individu()
 {
 }
 
@@ -239,13 +239,13 @@ void Joueur::stopAutomoving()
 
 void Joueur::loadFromXML(tinyxml2::XMLHandle &handle)
 {
-    Individu_Unique::loadFromXML(handle);
+    Individu::loadFromXML(handle);
     resetDisplayedAttributes();
 }
 
 void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
-    Individu_Unique::saveToXML(doc, handle);
+    Individu::saveToXML(doc, handle);
 }
 
 void Disp_Personnage()

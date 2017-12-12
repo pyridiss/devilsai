@@ -23,31 +23,18 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
-#include "tools/timeManager.h"
 #include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 
-#include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Bibliotheque.h"
-#include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
 #include "gamedata.h"
 
 using namespace tinyxml2;
 
-/** FONCTIONS DE LA CLASSE Individu_Unique **/
 
-Individu_Unique::Individu_Unique() : Individu()
-{
-}
-
-Individu_Unique::~Individu_Unique()
-{
-}
-
-void Individu_Unique::loadFromXML(XMLHandle &handle)
+void Individu::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.ToElement();
 
@@ -57,6 +44,18 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     {
         Type = elem->Attribute("name");
         setCustomDisplayedName(tools::textManager::getText("species", Type));
+    }
+
+    if (elem->Attribute("species"))
+    {
+        Type = elem->Attribute("species");
+        _species = gamedata::species(Type);
+        if (_species == nullptr)
+        {
+            tools::debug::error("This class has not been loaded: " + Type, "files", __FILENAME__, __LINE__);
+            return;
+        }
+        _species->Copie_Element(this);
     }
 
     double x = 0, y = 0;
@@ -102,6 +101,10 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
         if (elemName == "viewField")        viewField.loadFromXML(elem);
         if (elemName == "interactionField") interactionField.loadFromXML(elem);
 
+        if (elemName == "currentHealthStatus")
+        {
+            _currentHealthStatus.loadFromXML(elem);
+        }
         if (elemName == "attributes")
         {
             _attributes.loadFromXML(elem);
@@ -176,17 +179,28 @@ void Individu_Unique::loadFromXML(XMLHandle &handle)
     imageManager::removeArchiveFile(archiveFile);
 }
 
-void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
+void Individu::saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 
-    XMLElement* unique = doc.NewElement("unique");
+    XMLElement* unique = doc.NewElement("individual");
+
     if (_extraDataFile != nullptr)
         unique->SetAttribute("loadFromDataFile", _extraDataFile->c_str());
-    unique->SetAttribute("name", Type.c_str());
+
+    if (_species != nullptr)
+        unique->SetAttribute("species", Type.c_str());
+    else
+        unique->SetAttribute("name", Type.c_str());
+
     unique->SetAttribute("x", position().x);
     unique->SetAttribute("y", position().y);
     unique->SetAttribute("tag", Liste.c_str());
+
+    XMLElement* stats = doc.NewElement("currentHealthStatus");
+    unique->InsertEndChild(stats);
+    XMLHandle statsHandle(stats);
+    _currentHealthStatus.saveToXML(doc, statsHandle);
 
     XMLElement* attributesElem = doc.NewElement("attributes");
     unique->InsertEndChild(attributesElem);
@@ -195,15 +209,26 @@ void Individu_Unique::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
     XMLElement* properties = doc.NewElement("properties");
     properties->SetAttribute("id", Id);
-    properties->SetAttribute("lifetime", lifetime);
-    properties->SetAttribute("ignoreCollision", ignoreCollision);
+
+    if (lifetime != -1)
+        properties->SetAttribute("lifetime", lifetime);
+
+    if (ignoreCollision)
+        properties->SetAttribute("ignoreCollision", ignoreCollision);
     properties->SetAttribute("classement", TypeClassement);
     properties->SetAttribute("diplomacy", Diplomatie);
-    properties->SetAttribute("fixedHealing", RecuperationFixe);
-    properties->SetAttribute("maximumEnergy", EnergieMax);
+
+    if (RecuperationFixe)
+        properties->SetAttribute("fixedHealing", RecuperationFixe);
+
+    if (EnergieMax)
+        properties->SetAttribute("maximumEnergy", EnergieMax);
+
     properties->SetAttribute("experience", _experience);
+
     if (_corpseImageKey != nullptr)
         properties->SetAttribute("corpseImageKey", _corpseImageKey->c_str());
+
     unique->InsertEndChild(properties);
 
     XMLHandle hdl(unique);

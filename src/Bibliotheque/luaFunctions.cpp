@@ -182,7 +182,7 @@ int LUA_useObject(lua_State* L)
 {
     MESSAGE("LUA_useObject() called", LUA)
 
-    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
 
 	mapObjects* objects = &(ind->inventory.objects);
@@ -230,7 +230,7 @@ int LUA_getQuantityOf(lua_State* L)
 {
     MESSAGE("LUA_getQuantityOf() called", LUA)
 
-    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
 	int result = 0;
 
@@ -269,7 +269,7 @@ int LUA_getElement(lua_State* L)
 {
     MESSAGE("LUA_getElement() called", LUA)
 
-	Individu_Unique* ind = gamedata::findIndividuUnique(lua_tostring(L, 1));
+    Individu* ind = gamedata::findIndividuUnique(lua_tostring(L, 1));
 	//A quest can ask for an element already dead (KillStolas for example)
 //	if (ind == NULL) Erreur("Un élément non chargé ou non Individu_Unique a été demandé", "");
 
@@ -410,7 +410,7 @@ int LUA_setActivity(lua_State* L)
 {
     MESSAGE("LUA_setActivity() called", LUA)
 
-    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
 	if (ind != NULL) ind->Set_Activite(lua_tostring(L, 2));
 
@@ -421,7 +421,7 @@ int LUA_possess(lua_State* L)
 {
     MESSAGE("LUA_possess() called", LUA)
 
-    Individu_Unique* ind = (Individu_Unique*)lua_touserdata(L, 1);
+    Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
 	int object = lua_tonumber(L, 2);
 
@@ -443,8 +443,8 @@ int LUA_transferObject(lua_State* L)
 {
     MESSAGE("LUA_transferObject() called", LUA)
 
-    Individu_Unique* indA = (Individu_Unique*)lua_touserdata(L, 1);
-    Individu_Unique* indB = (Individu_Unique*)lua_touserdata(L, 2);
+    Individu* indA = static_cast<Individu*>(lua_touserdata(L, 1));
+    Individu* indB = static_cast<Individu*>(lua_touserdata(L, 2));
 
 	int object = lua_tonumber(L, 3);
 

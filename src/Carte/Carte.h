@@ -45,7 +45,6 @@ class lua_State;
 class Element_Carte;
 class Coffre;
 class Individu;
-class Individu_Commun;
 class CheckPoint;
 
 
@@ -84,7 +83,7 @@ class Carte
 	public:
         void insertItem(Element_Carte *elem);
         void removeItem(Element_Carte *elem);
-		Individu_Commun* AjouterElement_Commun(string Type, string liste, int x, int y);
+        Individu* AjouterElement_Commun(string Type, string liste, int x, int y);
         CheckPoint* addCheckPoint(string liste, int x, int y);
 		Coffre* AjouterCoffre(string liste, int x, int y);
 		void SupprimerElement(Element_Carte* elem);

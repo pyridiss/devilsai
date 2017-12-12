@@ -5,7 +5,7 @@
     <loadDataFile file="individu/orcs.xml"/>
     <loadDataFile file="individu/ogres.xml"/>
     <items tag="Wizard-Horst">
-        <unique name="horst" loadFromDataFile="individu/horst.xml" x="1426" y="-5711"/>
+        <individual name="horst" loadFromDataFile="individu/horst.xml" x="1426" y="-5711"/>
     </items>
     <randomZone tag="Wizard-Monsters" customZone="1">
         <shape type="rectangle" x1="337" y1="-5983" x2="1556" y2="-5301"/>

@@ -226,11 +226,11 @@ Element_Carte* findElement(int id)
     return nullptr;
 }
 
-Individu_Unique* findIndividuUnique(string type)
+Individu* findIndividuUnique(string type)
 {
     for (auto& w : _worlds)
         for (auto& element : w.second->elements)
-            if (element->Type == type) return dynamic_cast<Individu_Unique*>(element);
+            if (element->Type == type) return dynamic_cast<Individu*>(element);
 
     return nullptr;
 }

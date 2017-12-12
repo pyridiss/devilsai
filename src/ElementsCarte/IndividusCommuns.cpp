@@ -17,96 +17,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cmath>
-
-#include <tinyxml2.h>
-
-#include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 
-#include "tools/debug.h"
 #include "tools/textManager.h"
 
 #include "imageManager/imageManager.h"
 
-#include "gamedata.h"
-
 using namespace tinyxml2;
 
-
-/** FONCTIONS DE LA CLASSE Individu_Commun **/
-
-void Individu_Commun::loadFromXML(XMLHandle &handle)
-{
-    XMLElement *elem = handle.ToElement();
-
-    if (elem->Attribute("species"))
-    {
-        Type = elem->Attribute("species");
-        _species = gamedata::species(Type);
-        if (_species == nullptr)
-        {
-            tools::debug::error("This class has not been loaded: " + Type, "files", __FILENAME__, __LINE__);
-            return;
-        }
-        _species->Copie_Element(this);
-    }
-
-    double x = 0, y = 0;
-    elem->QueryAttribute("x", &x);
-    elem->QueryAttribute("y", &y);
-    move(x, y);
-
-    if (elem->Attribute("tag"))
-        Liste = elem->Attribute("tag");
-
-    elem = handle.FirstChildElement().ToElement();
-    while (elem)
-    {
-        string elemName = elem->Name();
-
-        if (elemName == "properties")
-        {
-            elem->QueryAttribute("id", &Id);
-            elem->QueryAttribute("lifetime", &lifetime);
-            elem->QueryAttribute("ignoreCollision", &ignoreCollision);
-            elem->QueryAttribute("classement", &TypeClassement);
-        }
-        if (elemName == "currentHealthStatus")
-        {
-            _currentHealthStatus.loadFromXML(elem);
-        }
-
-        elem = elem->NextSiblingElement();
-    }
-}
-
-void Individu_Commun::saveToXML(XMLDocument& doc, XMLHandle& handle)
-{
-    XMLElement* root = handle.ToElement();
-
-    XMLElement* individual = doc.NewElement("individual");
-    individual->SetAttribute("species", Type.c_str());
-    individual->SetAttribute("x", position().x);
-    individual->SetAttribute("y", position().y);
-    individual->SetAttribute("tag", Liste.c_str());
-
-    XMLElement* properties = doc.NewElement("properties");
-    properties->SetAttribute("id", Id);
-    properties->SetAttribute("lifetime", lifetime);
-    properties->SetAttribute("ignoreCollision", ignoreCollision);
-    properties->SetAttribute("classement", TypeClassement);
-    individual->InsertEndChild(properties);
-
-    XMLElement* stats = doc.NewElement("currentHealthStatus");
-    individual->InsertEndChild(stats);
-    XMLHandle statsHandle(stats);
-    _currentHealthStatus.saveToXML(doc, statsHandle);
-
-    root->InsertEndChild(individual);
-}
 
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
 
@@ -129,7 +48,7 @@ Activite* Classe_Commune::Ajouter_Activite(string Id)
     return &i->second;
 }
 
-void Classe_Commune::Copie_Element(Individu_Commun *elem)
+void Classe_Commune::Copie_Element(Individu *elem)
 {
     elem->Set_Activite(_behaviors[Behaviors::Random]);
     elem->size = size;
@@ -151,7 +70,6 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     int key = 1;
     for (auto& d : inventory.designs)
     {
-        cout << "try to create " << d.file << endl;
         if (rand()%100 < d.probability)
         {
             elem->inventory.addObject(d.file, "inventory" + intToString(key, 2), d.quality);

@@ -25,7 +25,7 @@
         </shape>
     </place>
     <items tag="GowersCamp-Items">
-        <unique name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
+        <individual name="gower" loadFromDataFile="individu/gower.xml" x="-151" y="-159"/>
         <individual species="ballista" x="237" y="-122"/>
         <individual species="ballista" x="238" y="122"/>
         <individual species="ballista" x="237" y="251"/>
@@ -545,7 +545,7 @@
         <shape type="rectangle" x1="1648" y1="-4707" x2="2622" y2="-3843"/>
     </place>
     <items tag="FluellensCamp-Items">
-        <unique name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
+        <individual name="fluellen" loadFromDataFile="individu/fluellen.xml" x="2366" y="-4059"/>
         <individual species="ballista" x="2516" y="-4609"/>
         <individual species="ballista" x="2516" y="-3984"/>
         <individual species="ballista" x="2516" y="-4107"/>
@@ -702,7 +702,7 @@
         <inertItem design="tree07" density="10"/>
     </randomZone>
     <items tag="TheBirnamForest-Monsters">
-        <unique name="stolas" loadFromDataFile="individu/stolas.xml" x="11500" y="-3500"/>
+        <individual name="stolas" loadFromDataFile="individu/stolas.xml" x="11500" y="-3500"/>
     </items>
     <randomZone tag="TheBirnamForest-Monsters" place="birnam-TheBirnamForest">
         <individual species="spider2" quantity="9"/>

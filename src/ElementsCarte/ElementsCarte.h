@@ -37,7 +37,6 @@ using namespace sf;
 class Carte;
 class Element_Carte;
 class Individu;
-class Individu_Commun;
 class Paysage;
 
 namespace tinyxml2{
@@ -94,7 +93,7 @@ class Classe_Commune
         Activite* Ajouter_Activite(string Id);
 
 	public:
-		void Copie_Element(Individu_Commun *elem);
+        void Copie_Element(Individu *elem);
         void setAngleFixed(double angle);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
@@ -269,6 +268,10 @@ class Individu : public Element_Carte
         Activite* createSkill(string Id);
         void setCustomDisplayedName(const String32& newName);
 
+    public:
+        void loadFromXML(tinyxml2::XMLHandle &handle);
+        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
 	//Affichage
 	public:
 		void Disp(RenderTarget& target);
@@ -278,33 +281,7 @@ class Individu : public Element_Carte
     friend void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L);
 };
 
-class Individu_Unique : public Individu
-{
-	//Constructeurs / Destructeurs :
-	public:
-		Individu_Unique();
-		virtual ~Individu_Unique();
-
-	//Getter :
-	public:
-
-        void loadFromXML(tinyxml2::XMLHandle &handle);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-};
-
-class Individu_Commun : public Individu
-{
-	//Constructeurs / Destructeurs :
-	public:
-		virtual ~Individu_Commun() {}
-
-	//Getter :
-	public:
-        void loadFromXML(tinyxml2::XMLHandle &handle);
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-};
-
-class Joueur : public Individu_Unique
+class Joueur : public Individu
 {
     private:
         bool _automove = false;

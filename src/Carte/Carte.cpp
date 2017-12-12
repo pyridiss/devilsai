@@ -83,9 +83,9 @@ void Carte::removeItem(Element_Carte *elem)
     }
 }
 
-Individu_Commun* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
+Individu* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
 {
-	Individu_Commun *ind = new Individu_Commun;
+    Individu *ind = new Individu;
 
 	ind->Liste = liste;
 	ind->Type = Type;
@@ -268,9 +268,7 @@ Element_Carte* Carte::createNewItem(tinyxml2::XMLElement* item)
     if (itemName == "inertItem")
         newItem = new Paysage;
     else if (itemName == "individual")
-        newItem = new Individu_Commun;
-    else if (itemName == "unique")
-        newItem = new Individu_Unique;
+        newItem = new Individu;
     else if (itemName == "storageBox")
         newItem = new Coffre;
     else if (itemName == "trigger")
@@ -533,7 +531,7 @@ void Carte::loadFromFile(string path, string tag)
 
                 int counter = 0;
                 //'fake' will be used to test collisions with other items
-                Individu_Unique fake;
+                Individu fake;
 
                 while (counter < quantity)
                 {
