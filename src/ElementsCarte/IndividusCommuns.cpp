@@ -55,15 +55,6 @@ void Individu_Commun::createCorpse()
 			++key;
 		}
 
-		//Finally, we create stuff according to probabilities and add it:
-        for (auto& d : _species->inventory.designs)
-		{
-			if (rand()%100 < d.probability)
-			{
-				corpse->objects.addObject(d.file, "storagebox" + intToString(key, 2), d.quality);
-				++key;
-			}
-		}
 
         corpse->close();
 	}
@@ -177,6 +168,18 @@ void Classe_Commune::Copie_Element(Individu_Commun *elem)
     elem->lifetime = lifetime;
 
     if (angleFixed) elem->angle = fixedAngle;
+
+    //Create objects in the item's inventory
+    int key = 1;
+    for (auto& d : inventory.designs)
+    {
+        cout << "try to create " << d.file << endl;
+        if (rand()%100 < d.probability)
+        {
+            elem->inventory.addObject(d.file, "inventory" + intToString(key, 2), d.quality);
+            ++key;
+        }
+    }
 
     //Force the updating of attributes
     elem->currentHealthStatus(Strength, true);
