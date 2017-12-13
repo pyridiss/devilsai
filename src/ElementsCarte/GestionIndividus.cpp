@@ -40,7 +40,7 @@ int Individu::Gestion()
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && Get_Num() == _currentSkill->numberOfImages-1)
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame == _currentSkill->numberOfImages-1)
 	{
         createCorpse();
         return ETAT_MORT;
@@ -60,7 +60,7 @@ int Individu::Gestion()
     if (_currentSkill->Id == behavior(Behaviors::Dying))
 	{
         Set_Activite(behavior(Behaviors::Dying)); //Permet de gérer les situations spéciales (dépose des inventaires, etc…)
-		IncrementNum();
+        nextAnimationFrame();
 		return ETAT_NORMAL;
 	}
 
@@ -213,9 +213,9 @@ int Individu::Gestion()
     if (NouveauComportement == Behaviors::Attacking)
         Set_Activite(attackToUse);
 
-	IncrementNum();
+    nextAnimationFrame();
 
-	if (Get_Num() == 0 && NouveauComportement == Behaviors::Attacking)
+    if (_animationFrame == 0 && NouveauComportement == Behaviors::Attacking)
 	{
 		Individu *ennemi = dynamic_cast<Individu*>(_targetedItem);
 
@@ -228,7 +228,7 @@ int Individu::Gestion()
 		}
         else NouveauComportement = Behaviors::Random;
 	}
-    if (Get_Num() == 0)
+    if (_animationFrame == 0)
     {
         _currentSkill->atEnd(this);
     }

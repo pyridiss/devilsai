@@ -69,11 +69,6 @@ const tools::math::Vector2d& Element_Carte::position() const
 
 /** FONCTIONS DE LA CLASSE Element_Mouvant **/
 
-short Individu::Get_Num()
-{
-	return Num;
-}
-
 bool Individu::Set_Activite(string nv)
 {
     if (skill(nv) == nullptr) return false;
@@ -82,10 +77,10 @@ bool Individu::Set_Activite(string nv)
 	{
         _currentSkill = skill(nv);
         _currentSkill->atBegin(this);
-		Num = 0;
+        _animationFrame = 0;
 	}
 
-    if (_currentSkill->priority > skill(nv)->priority && (!ActEffectue || Num != 0)) return false;
+    if (_currentSkill->priority > skill(nv)->priority && (!ActEffectue || _animationFrame != 0)) return false;
 
     if (_currentSkill->Id == nv) return true;
 
@@ -102,7 +97,7 @@ bool Individu::Set_Activite(string nv)
 
     if (nv == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
 
-    if (_currentSkill->priority > 0) IncrementNum(true);
+    if (_currentSkill->priority > 0) nextAnimationFrame(true);
 	return true;
 }
 
@@ -111,19 +106,19 @@ int Individu::Collision(Individu *elem, bool apply)
 	return COLL_PRIM_MVT;
 }
 
-void Individu::IncrementNum(bool RaZ)
+void Individu::nextAnimationFrame(bool RaZ)
 {
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && Num == _currentSkill->numberOfImages-1) return;
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame == _currentSkill->numberOfImages-1) return;
 
 	if (RaZ)
 	{
-		Num = 0;
+        _animationFrame = 0;
 		ActEffectue = false;
 	}
 	else
 	{
-		++Num;
-        if (Num == _currentSkill->numberOfImages) Num = 0;
+        ++_animationFrame;
+        if (_animationFrame == _currentSkill->numberOfImages) _animationFrame = 0;
 		ActEffectue = true;
 	}
 }

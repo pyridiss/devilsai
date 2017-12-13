@@ -40,7 +40,7 @@ int Joueur::Gestion()
 	if (currentHealthStatus(Life) <= 0)
 	{
         Set_Activite(behavior(Behaviors::Dying));
-        if (Get_Num() == 8) tools::signals::addSignal("player-dead");
+        if (_animationFrame == 8) tools::signals::addSignal("player-dead");
 	}
 
     Gestion_Recuperation();
@@ -163,12 +163,12 @@ int Joueur::Gestion()
 
 	if (MouvementAutorise)
 	{
-		IncrementNum();
+        nextAnimationFrame();
 
         interactionField.updateDirection(angle);
         _currentSkill->interactionField.updateDirection(angle);
 
-		if (Get_Num() == 0)
+        if (_animationFrame == 0)
 		{
             _currentSkill->atEnd(this);
 		}

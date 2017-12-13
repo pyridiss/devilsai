@@ -184,7 +184,6 @@ class Individu : public Element_Carte
     //Objet
 	public:
         double angle = 0;
-		short Num   = 0;
 
 	public:
 		bool ActEffectue    = true;
@@ -197,6 +196,7 @@ class Individu : public Element_Carte
         Behaviors NouveauComportement = Behaviors::Random;
 
 	protected:
+        unsigned _animationFrame;
         Element_Carte* _targetedItem;
         Activite* _currentSkill;
         Statistiques _currentHealthStatus;
@@ -245,7 +245,6 @@ class Individu : public Element_Carte
         const String32& displayedName();
         unsigned int experience();
         bool angleFixed();
-		short Get_Num();
 
 	//Gestion :
 	public:
@@ -258,7 +257,7 @@ class Individu : public Element_Carte
         bool Set_Activite(string nv);
 		int Collision(Individu *elem, bool apply);
         void otherItemDeleted(Element_Carte* other);
-		void IncrementNum(bool RaZ = false);
+        void nextAnimationFrame(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
         void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
 

@@ -37,6 +37,7 @@
 
 Individu::Individu()
     : Element_Carte(),
+    _animationFrame(0),
     _targetedItem(nullptr),
     _currentSkill(nullptr),
     _behaviors(nullptr),
@@ -400,7 +401,7 @@ void Individu::Disp(RenderTarget& target)
         size.display(target, Color(255, 255, 255, 50));
     }
 
-    imageManager::display(target, "individuals", _currentSkill->getImageKey(angle, Num), position().x, position().y, true);
+    imageManager::display(target, "individuals", _currentSkill->getImageKey(angle, _animationFrame), position().x, position().y, true);
 }
 
 void Individu::displayLifeGauge(RenderTarget& target)
