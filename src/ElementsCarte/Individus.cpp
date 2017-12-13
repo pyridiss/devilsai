@@ -84,6 +84,11 @@ void Individu::otherItemDeleted(Element_Carte* other)
         _targetedItem = nullptr;
 }
 
+Element_Carte* Individu::targetedItem()
+{
+    return _targetedItem;
+}
+
 string& Individu::behavior(Behaviors b)
 {
     if (_behaviors != nullptr)

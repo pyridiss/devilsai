@@ -60,20 +60,19 @@ int Joueur::Gestion()
 
     if (_hunting)
     {
-        Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(_hunted));
-        if (ind != nullptr && ind->currentHealthStatus(Life) > 0)
+        if (_hunted != nullptr && _hunted->currentHealthStatus(Life) > 0)
         {
             tools::math::Shape& s = skill(_skillForHunted)->interactionField;
             tools::math::Shape& s2 = (s.profile != tools::math::Shape::None) ? s : interactionField;
 
-            if (tools::math::intersection(s2, ind->size))
+            if (tools::math::intersection(s2, _hunted->size))
             {
                 _hunting = false;
                 Set_Activite(_skillForHunted);
             }
             else
             {
-                automove(ind->position());
+                automove(_hunted->position());
             }
         }
         else _hunting = false;
@@ -130,7 +129,7 @@ int Joueur::Gestion()
         }
     }
 
-    ElementInteraction = -1;
+    _targetedItem = nullptr;
     double angleDifference = 100;
     for (auto& i : seenItems)
     {
@@ -143,14 +142,14 @@ int Joueur::Gestion()
             if (abs(tools::math::angle(i.first->position().x - position().x, i.first->position().y - position().y) - angle) < angleDifference)
             {
                 angleDifference = abs(tools::math::angle(i.first->position().x - position().x, i.first->position().y - position().y) - angle);
-                ElementInteraction = i.first->Id;
+                _targetedItem = i.first;
             }
         }
     }
 
     //The individual selected by the used is more important than the one found by the collision manager
-    if (selectedIndividual != -1 && selectedIndividual != Id)
-        ElementInteraction = selectedIndividual;
+    if (selectedIndividual != nullptr && selectedIndividual != this)
+        _targetedItem = selectedIndividual;
 
 	if (MouvementAutorise)
 	{

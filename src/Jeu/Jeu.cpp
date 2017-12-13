@@ -164,7 +164,7 @@ void mainLoop()
                 move = true;
 
                 //Retrieve the current individual under the cursor
-                if (underCursor != nullptr) gamedata::player()->selectedIndividual = underCursor->Id;
+                if (underCursor != nullptr) gamedata::player()->selectedIndividual = underCursor;
 
                 //Retrieve the current storage box under the cursor
                 if (storageBoxUnderCursor != nullptr && event.mouseButton.button == Mouse::Button::Left)
@@ -407,8 +407,6 @@ void mainLoop()
                 storageBoxUnderCursor = dynamic_cast<Coffre*>(result.first);
         }
 
-        if (gamedata::player()->selectedIndividual != -1 && gamedata::findElement(gamedata::player()->selectedIndividual) == nullptr)
-            gamedata::player()->selectedIndividual = -1;
         if (selectedStorageBox != -1 && gamedata::findElement(selectedStorageBox) == nullptr)
             selectedStorageBox = -1;
 
@@ -446,25 +444,25 @@ void mainLoop()
 
             if (Mouse::isButtonPressed(Mouse::Left) || leftClick)
             {
-                if (gamedata::player()->selectedIndividual == -1)
+                if (gamedata::player()->selectedIndividual == nullptr)
                 {
                     gamedata::player()->automove(cursor.position());
                     gamedata::player()->stopHunting();
                 }
-                else if (gamedata::player()->selectedIndividual != gamedata::player()->Id)
+                else if (gamedata::player()->selectedIndividual != gamedata::player())
                     gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->value());
             }
             else if (Mouse::isButtonPressed(Mouse::Right) || rightClick)
             {
-                if (gamedata::player()->selectedIndividual == -1)
+                if (gamedata::player()->selectedIndividual == nullptr)
                 {
                     gamedata::player()->updateAngle(cursor.position());
                     gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->value());
                 }
-                else if (gamedata::player()->selectedIndividual != gamedata::player()->Id)
+                else if (gamedata::player()->selectedIndividual != gamedata::player())
                     gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value());
             }
-            else gamedata::player()->selectedIndividual = -1;
+            else gamedata::player()->selectedIndividual = nullptr;
 
         }
 
@@ -503,10 +501,9 @@ void mainLoop()
             }
         }
 
-        if (gamedata::player()->ElementInteraction != -1)
+        if (gamedata::player()->targetedItem() != nullptr)
         {
-            Element_Carte* elem = gamedata::findElement(gamedata::player()->ElementInteraction);
-            Individu* ind = dynamic_cast<Individu*>(elem);
+            Individu* ind = dynamic_cast<Individu*>(gamedata::player()->targetedItem());
             if (ind != nullptr && ind != underCursor) ind->displayLifeGauge(Jeu.App);
         }
 

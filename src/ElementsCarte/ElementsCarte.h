@@ -239,6 +239,7 @@ class Individu : public Element_Carte
         void createCorpse();
 
 	public:
+        Element_Carte* targetedItem();
         Statistiques& attributes();
         Activite* skill(const string& s);
         const String32& displayedName();
@@ -289,13 +290,12 @@ class Joueur : public Individu
         bool _automove = false;
         tools::math::Vector2d _automoveEndpoint;
         bool _hunting = false;
-        int _hunted;
+        Individu* _hunted;
         string _skillForHunted;
 
 	public:
 		float DureeEveil               = 0;
-		int ElementInteraction         = -1;
-        int selectedIndividual = -1;
+        Element_Carte* selectedIndividual;
 
     private:
         Statistiques _displayedAttributes;
@@ -308,6 +308,7 @@ class Joueur : public Individu
 		int Gestion();
 		void Gestion_Statistiques();
 		void Repos();
+        void otherItemDeleted(Element_Carte* other);
 
 		void CoupCritique(Individu* ennemi);
 		void BlessureGrave(Individu* ennemi);
@@ -318,7 +319,7 @@ class Joueur : public Individu
         void resetDisplayedAttributes();
 
         void automove(const tools::math::Vector2d& p);
-        void hunt(int id, const string& skill);
+        void hunt(Element_Carte* item, const string& skill);
         void stopAutomoving();
         void stopHunting();
 

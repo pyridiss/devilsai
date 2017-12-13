@@ -47,22 +47,15 @@ int LUA_cout(lua_State* L)
 	return 0;
 }
 
-int LUA_getElementInteraction(lua_State* L)
+int LUA_getTargetedItem(lua_State* L)
 {
-    MESSAGE("LUA_getElementInteraction() called", LUA)
+    MESSAGE("LUA_getTargetedItem() called", LUA)
 
-    Joueur* player = (Joueur*)lua_touserdata(L, 1);
-    Element_Carte* elem = NULL;
+    Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
-    if (player != NULL && player->ElementInteraction != -1)
-        elem = gamedata::findElement(player->ElementInteraction);
+    lua_pushlightuserdata(L, (void*)ind->targetedItem());
 
-    if (elem != NULL)
-        lua_pushlightuserdata(L, (void*)elem);
-    else
-        lua_pushnumber(L, 0);
-
-	return 1;
+    return 1;
 }
 
 int LUA_isIndividu(lua_State* L)

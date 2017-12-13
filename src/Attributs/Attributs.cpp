@@ -332,7 +332,7 @@ void Activite::loadScript()
     lua_register(script, "cout", LUA_cout);
     lua_register(script, "createIndividual", LUA_createIndividual);
     lua_register(script, "fight", LUA_combat);
-    lua_register(script, "getElementInteraction", LUA_getElementInteraction);
+    lua_register(script, "getElementInteraction", LUA_getTargetedItem);
     lua_register(script, "individual_changeCurrentSkill", LUA_changeCurrentSkill);
     lua_register(script, "individual_copy", LUA_individual_copy);
     lua_register(script, "individual_get", LUA_get);

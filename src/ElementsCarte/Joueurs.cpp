@@ -36,8 +36,19 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
-Joueur::Joueur() : Individu()
+Joueur::Joueur()
+     : Individu(),
+     selectedIndividual(nullptr)
 {
+}
+
+void Joueur::otherItemDeleted(Element_Carte* other)
+{
+    if (_targetedItem == other)
+        _targetedItem = nullptr;
+
+    if (selectedIndividual == other)
+        selectedIndividual = nullptr;
 }
 
 void Joueur::Repos()
@@ -214,14 +225,14 @@ void Joueur::automove(const tools::math::Vector2d& p)
     _automoveEndpoint = p;
 }
 
-void Joueur::hunt(int id, const string& skill)
+void Joueur::hunt(Element_Carte* item, const string& skill)
 {
-    Individu* ind = dynamic_cast<Individu*>(gamedata::findElement(id));
+    Individu* ind = dynamic_cast<Individu*>(item);
 
     if (ind != nullptr)
     {
         _hunting = true;
-        _hunted = id;
+        _hunted = ind;
         _skillForHunted = skill;
         angle = tools::math::angle(ind->position().x - position().x, ind->position().y - position().y);
     }
