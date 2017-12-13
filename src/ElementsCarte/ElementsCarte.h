@@ -195,9 +195,9 @@ class Individu : public Element_Carte
 	public:
         Behaviors Comportement = Behaviors::Random;
         Behaviors NouveauComportement = Behaviors::Random;
-		int ElementVision       = -1;
 
 	protected:
+        Element_Carte* _targetedItem;
         Activite* _currentSkill;
         Statistiques _currentHealthStatus;
         Statistiques _attributes;

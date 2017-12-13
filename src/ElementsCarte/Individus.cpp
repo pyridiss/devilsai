@@ -37,6 +37,7 @@
 
 Individu::Individu()
     : Element_Carte(),
+    _targetedItem(nullptr),
     _currentSkill(nullptr),
     _behaviors(nullptr),
     _attacks(nullptr),
@@ -79,6 +80,8 @@ Individu::~Individu()
 
 void Individu::otherItemDeleted(Element_Carte* other)
 {
+    if (_targetedItem == other)
+        _targetedItem = nullptr;
 }
 
 string& Individu::behavior(Behaviors b)

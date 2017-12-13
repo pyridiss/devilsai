@@ -67,21 +67,14 @@ int Individu::Gestion()
 	if (NouveauComportement != -1) Comportement = NouveauComportement;
 
 	int Iteration = 0;
-    Element_Carte* tmp = NULL;
     string attackToUse;
 
     bool findNewPosition = false;
 
-    Element_Carte *Elem = nullptr;
 
-    if (ElementVision != -1)
-        Elem = gamedata::findElement(ElementVision);
 
-    if (Elem == nullptr)
-	{
-		ElementVision = -1;
+    if (_targetedItem == nullptr)
         Comportement = Behaviors::Random;
-	}
 
     Set_Activite(behavior(Comportement));
 
@@ -99,13 +92,13 @@ int Individu::Gestion()
                 MouvementAleatoire(Iteration);
                 break;
             case Behaviors::Hunting :
-                MouvementChasse(Elem);
+                MouvementChasse(_targetedItem);
                 break;
             case Behaviors::Attacking:
-                angle = tools::math::angle(Elem->position().x - position().x, Elem->position().y - position().y);
+                angle = tools::math::angle(_targetedItem->position().x - position().x, _targetedItem->position().y - position().y);
                 break;
             case Behaviors::REGEN :
-                MouvementChasse(Elem);
+                MouvementChasse(_targetedItem);
                 break;
             default:
                 break;
@@ -159,6 +152,7 @@ int Individu::Gestion()
     }
 
     NouveauComportement = Behaviors::Random;
+    _targetedItem = nullptr;
 
     for (auto& i : seenItems)
     {
@@ -189,7 +183,7 @@ int Individu::Gestion()
                             if (Behaviors::Attacking > NouveauComportement)
                             {
                                 NouveauComportement = Behaviors::Attacking;
-                                tmp = i.first;
+                                _targetedItem = i.first;
                                 attackToUse = attack;
                             }
                         }
@@ -200,12 +194,12 @@ int Individu::Gestion()
                         if (Behaviors::Hunting > NouveauComportement && !angleFixed())
                         {
                             NouveauComportement = Behaviors::Hunting;
-                            tmp = i.first;
+                            _targetedItem = i.first;
                         }
                         else if (NouveauComportement == Behaviors::Hunting)
                         {
-                            if (tools::math::Vector2d::distance(position(), i.first->position()) < tools::math::Vector2d::distance(position(), tmp->position()))
-                                tmp = i.first;
+                            if (tools::math::Vector2d::distance(position(), i.first->position()) < tools::math::Vector2d::distance(position(), _targetedItem->position()))
+                                _targetedItem = i.first;
                         }
                     }
                 }
@@ -215,11 +209,6 @@ int Individu::Gestion()
         }
     }
 
-    if (tmp != NULL)
-    {
-        ElementVision = tmp->Id;
-        Elem = tmp;
-    }
 
     if (NouveauComportement == Behaviors::Attacking)
         Set_Activite(attackToUse);
@@ -228,7 +217,7 @@ int Individu::Gestion()
 
 	if (Get_Num() == 0 && NouveauComportement == Behaviors::Attacking)
 	{
-		Individu *ennemi = dynamic_cast<Individu*>(Elem);
+		Individu *ennemi = dynamic_cast<Individu*>(_targetedItem);
 
 		//On vérifie que l'ennemi est toujours à portée, avant de lancer le combat :
 		if (ennemi != NULL)
