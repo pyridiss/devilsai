@@ -47,20 +47,6 @@ int LUA_cout(lua_State* L)
 	return 0;
 }
 
-int LUA_getElementById(lua_State* L)
-{
-    MESSAGE("LUA_getElementById() called", LUA)
-
-    Element_Carte* elem = gamedata::findElement(lua_tonumber(L, 1));
-
-    if (elem != NULL)
-        lua_pushlightuserdata(L, (void*)elem);
-    else
-        lua_pushnumber(L, 0);
-
-	return 1;
-}
-
 int LUA_getElementInteraction(lua_State* L)
 {
     MESSAGE("LUA_getElementInteraction() called", LUA)
