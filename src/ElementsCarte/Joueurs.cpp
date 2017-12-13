@@ -40,6 +40,7 @@ Joueur::Joueur()
      : Individu(),
      selectedIndividual(nullptr)
 {
+    _fakeIndividual.size.circle(tools::math::Vector2d(0, 0), 10);
 }
 
 void Joueur::otherItemDeleted(Element_Carte* other)

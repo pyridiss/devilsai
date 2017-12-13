@@ -355,7 +355,7 @@ void Individu::updateAngle(const tools::math::Vector2d& p)
     angle = tools::math::angle(p.x - position().x, p.y - position().y);
 }
 
-void Individu::findPath(const tools::math::Vector2d& destination)
+void Individu::findPath(const tools::math::Vector2d& destination, int nodesNumber, bool reduceCollisionWithIndividuals)
 {
     tools::aStar::clear();
 
@@ -364,7 +364,9 @@ void Individu::findPath(const tools::math::Vector2d& destination)
 
     tools::math::Shape node;
     node.circle(tools::math::Vector2d(0, 0), size.radius1);
-    tools::aStar::setNodesProperties(node, 8, 30, 150);
+    tools::aStar::setNodesProperties(node, nodesNumber, 30, 150);
+
+    int weightOfIndividuals = (reduceCollisionWithIndividuals) ? 3000 : 10000;
 
     vector<pair<tools::math::Shape*, int>> obstacles;
     for (auto& i : seenItems)
@@ -375,7 +377,7 @@ void Individu::findPath(const tools::math::Vector2d& destination)
                 obstacles.emplace_back(&i.first->size, 100000);
                 break;
             case COLL_PRIM_MVT :
-                obstacles.emplace_back(&i.first->size, 3000);
+                obstacles.emplace_back(&i.first->size, weightOfIndividuals);
                 break;
             default:
                 break;

@@ -92,13 +92,13 @@ int Individu::Gestion()
                 MouvementAleatoire(Iteration);
                 break;
             case Behaviors::Hunting :
-                MouvementChasse(_targetedItem);
+                MouvementChasse(_targetedItem, 8, true);
                 break;
             case Behaviors::Attacking:
                 angle = tools::math::angle(_targetedItem->position().x - position().x, _targetedItem->position().y - position().y);
                 break;
             case Behaviors::REGEN :
-                MouvementChasse(_targetedItem);
+                MouvementChasse(_targetedItem, 8, true);
                 break;
             default:
                 break;
@@ -251,7 +251,7 @@ void Individu::MouvementAleatoire(bool newDirection)
     move(cos(angle)*_currentSkill->step, sin(angle)*_currentSkill->step);
 }
 
-bool Individu::MouvementChasse(Element_Carte *elem)
+bool Individu::MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals)
 {
     if (!tools::math::intersection(elem->size, validityOfPath))
     {
@@ -270,7 +270,7 @@ bool Individu::MouvementChasse(Element_Carte *elem)
 
         if (obstacle)
         {
-            findPath(elem->position());
+            findPath(elem->position(), nodesNumber, reduceCollisionWithIndividuals);
             validityOfPath.circle(elem->position(), 20);
         }
         else

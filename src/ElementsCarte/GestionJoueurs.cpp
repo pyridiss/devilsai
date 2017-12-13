@@ -80,7 +80,7 @@ int Joueur::Gestion()
 
     if (_automove)
     {
-        angle = tools::math::angle(_automoveEndpoint.x - position().x, _automoveEndpoint.y - position().y);
+        _fakeIndividual.move(_automoveEndpoint.x - _fakeIndividual.position().x, _automoveEndpoint.y - _fakeIndividual.position().y);
         skillToUse = behavior(Behaviors::Hunting);
 
         //Check if we are close enough to the endPoint
@@ -100,32 +100,42 @@ int Joueur::Gestion()
 
     if (findNewPosition)
     {
-        double step = skill(skillToUse)->step;
-
-        move(cos(angle)*step, sin(angle)*step);
+        Set_Activite(skillToUse);
+        if (_hunting)
+            MouvementChasse(_hunted, 16, false);
+        else
+            MouvementChasse(&_fakeIndividual, 16, false);
 
         bool collision = false;
-        for (auto& i : seenItems)
+        int Iteration2 = 0;
+        while (Iteration2 < 5)
         {
-            if (tools::math::intersection(size, i.first->size))
+            collision = false;
+            Element_Carte* other;
+            for (auto& i : seenItems)
             {
-                int c = i.first->Collision(this, false);
-                if (c == COLL_PRIM || c == COLL_PRIM_MVT)
+                if (tools::math::intersection(size, i.first->size))
                 {
-                    collision = true;
-                    break;
+                    int c = i.first->Collision(this, false);
+                    if (c == COLL_PRIM || c == COLL_PRIM_MVT)
+                    {
+                        collision = true;
+                        other = i.first;
+                        break;
+                    }
                 }
             }
+            if (collision == false) break;
+
+            double angleWithOther = tools::math::angle(other->position().x - position().x, other->position().y - position().y);
+            move(-2 * cos(angleWithOther), -2 * sin(angleWithOther));
+            ++Iteration2;
         }
 
         if (collision)
         {
             move(oldPosition.x - position().x, oldPosition.y - position().y);
             Set_Activite(behavior(Behaviors::Blocked));
-        }
-        else
-        {
-            Set_Activite(skillToUse);
         }
     }
 

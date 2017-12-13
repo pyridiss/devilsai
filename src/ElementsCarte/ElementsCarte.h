@@ -252,8 +252,8 @@ class Individu : public Element_Carte
 		int Gestion();
         int GestionElementMouvant();
         void MouvementAleatoire(bool newDirection);
-        void findPath(const tools::math::Vector2d& destination);
-		bool MouvementChasse(Element_Carte *elem);
+        void findPath(const tools::math::Vector2d& destination, int nodesNumber, bool reduceCollisionWithIndividuals);
+        bool MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals);
 		virtual void Gestion_Recuperation();
         bool Set_Activite(string nv);
 		int Collision(Individu *elem, bool apply);
@@ -291,6 +291,7 @@ class Joueur : public Individu
         tools::math::Vector2d _automoveEndpoint;
         bool _hunting = false;
         Individu* _hunted;
+        Individu _fakeIndividual;
         string _skillForHunted;
 
 	public:
