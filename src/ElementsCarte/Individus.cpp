@@ -77,6 +77,10 @@ Individu::~Individu()
         delete _extraDataFile;
 }
 
+void Individu::otherItemDeleted(Element_Carte* other)
+{
+}
+
 string& Individu::behavior(Behaviors b)
 {
     if (_behaviors != nullptr)

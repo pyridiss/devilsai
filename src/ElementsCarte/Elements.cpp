@@ -52,6 +52,10 @@ int Element_Carte::Gestion()
 	return ETAT_CONTINUER;
 }
 
+void Element_Carte::otherItemDeleted(Element_Carte* other)
+{
+}
+
 void Element_Carte::move(double x, double y)
 {
     _position.x += x;

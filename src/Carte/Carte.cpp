@@ -134,6 +134,10 @@ Coffre* Carte::AjouterCoffre(string liste, int x, int y)
 void Carte::SupprimerElement(Element_Carte* elem)
 {
     removeItem(elem);
+
+    for (auto& item : elements)
+        item->otherItemDeleted(elem);
+
 	delete elem;
 }
 

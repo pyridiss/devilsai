@@ -135,6 +135,7 @@ class Element_Carte
 		virtual int Gestion();
 
 		virtual int Collision(Individu *elem, bool apply) =0;
+        virtual void otherItemDeleted(Element_Carte* other);
 
         void move(double x, double y);
 
@@ -255,6 +256,7 @@ class Individu : public Element_Carte
 		virtual void Gestion_Recuperation();
         bool Set_Activite(string nv);
 		int Collision(Individu *elem, bool apply);
+        void otherItemDeleted(Element_Carte* other);
 		void IncrementNum(bool RaZ = false);
         void updateAngle(const tools::math::Vector2d& p);
         void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
