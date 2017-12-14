@@ -30,6 +30,7 @@ double speed = 0;
 double FrameNumber = 1;
 Time FrameTime;
 Clock FrameClock;
+Clock _timeElapsed;
 bool NewStart = true;
 
 void setSpeed(double s)
@@ -63,6 +64,10 @@ double getFPS()
     return 1000.0 * FrameNumber / FrameTime.asMilliseconds();
 }
 
+long timeElapsed()
+{
+    return _timeElapsed.getElapsedTime().asMilliseconds();
+}
 
 } //namespace timeManager
 

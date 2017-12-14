@@ -30,6 +30,7 @@ void setSpeed(double s);
 void frameDone();
 double I(double i);
 double getFPS();
+long timeElapsed();
 
 } //namespace timeManager
 
