@@ -60,6 +60,7 @@ class Carte
          */
     private:
         vector <Element_Carte*> collidingItems;
+        list <Element_Carte*> onScreenItems;
 
     public:
         list <pair<Element_Carte*, string>> places;
@@ -74,6 +75,7 @@ class Carte
          * _stopManagement must be set when elements are modified outside this class.
          */
         bool _stopManagement;
+        Clock _clock;
 
 	//Constructeurs / Destructeurs :
 	public:

@@ -138,6 +138,8 @@ void Carte::SupprimerElement(Element_Carte* elem)
     for (auto& item : elements)
         item->otherItemDeleted(elem);
 
+    onScreenItems.remove(elem);
+
 	delete elem;
 }
 
@@ -231,19 +233,32 @@ void Carte::GestionElements(const View& worldView)
         if (_stopManagement) break;
 	}
 
-	elements.sort(comparisonBetweenElements);
+    if (_clock.getElapsedTime().asMilliseconds() > 200)
+    {
+        int onScreenWidth = worldView.getSize().x + 300;
+        onScreenItems.clear();
+        for (auto& tmp : elements)
+        {
+            if (abs((int)(tmp->position().x - worldView.getCenter().x)) <= onScreenWidth &&
+                abs((int)(tmp->position().y - worldView.getCenter().y)) <= onScreenWidth)
+            {
+                onScreenItems.push_back(tmp);
+            }
+        }
+
+        onScreenItems.sort(comparisonBetweenElements);
+
+        _clock.restart();
+    }
 
 	if (ASupprimer != NULL) SupprimerElement(ASupprimer);
 }
 
 void Carte::display(RenderTarget& target)
 {
-    int max = target.getView().getSize().x + 300;
-    for (auto& tmp : elements)
+    for (auto& tmp : onScreenItems)
     {
-        if (abs((int)(tmp->position().x - target.getView().getCenter().x)) <= max &&
-            abs((int)(tmp->position().y - target.getView().getCenter().y)) <= max)
-            tmp->Disp(target);
+        tmp->Disp(target);
     }
 }
 
