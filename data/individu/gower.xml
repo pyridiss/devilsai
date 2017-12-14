@@ -3,7 +3,7 @@
     <uniqueData name="gower">
         <addImageArchiveFile file="img/Gower.img"/>
         <shape type="circle" radius="20"/>
-        <viewField type="circle" radius="500"/>
+        <viewField type="circle" radius="200"/>
         <properties diplomacy="1" corpseImageKey="gower:die/6/1/08.png"/>
         <attributes strength="400" power="500" agility="65" intellect="8" constitution="30" dodge="5" charisma="10" healingPower="40"/>
         <skill name="attack" owner="gower">

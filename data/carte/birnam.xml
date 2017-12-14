@@ -199,7 +199,11 @@
         <shape type="rectangle" x1="400" y1="-293" x2="520" y2="329"/>
         <individual species="warrior1" quantity="4"/>
     </randomZone>
-    <randomZone tag="TheGladeOfTheSaints-Monsters" place="birnam-glade-saints">
+    <randomZone tag="TheGladeOfTheSaints-Monsters" customZone="1">
+        <shape type="complex">
+            <shape type="triangle" x1="1970" y1="-1590" x2="1970" y2="1410" x3="3615" y3="-230"/>
+            <shape type="rectangle" x1="990" y1="-1310" x2="1970" y2="1410"/>
+        </shape>
         <individual species="spider1" quantity="32"/>
         <individual species="spider2" quantity="2"/>
         <individual species="orc1" quantity="23"/>
