@@ -149,7 +149,10 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
             if (elem->Attribute("blocked"))
                 _behaviors[Behaviors::Blocked] = elem->Attribute("blocked");
             if (elem->Attribute("hunting"))
+            {
                 _behaviors[Behaviors::Hunting] = elem->Attribute("hunting");
+                _behaviors[Behaviors::LookingForLife] = elem->Attribute("hunting");
+            }
             if (elem->Attribute("hurt"))
                 _behaviors[Behaviors::Hurt] = elem->Attribute("hurt");
             if (elem->Attribute("dying"))

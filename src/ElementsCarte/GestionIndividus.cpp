@@ -97,7 +97,7 @@ int Individu::Gestion()
             case Behaviors::Attacking:
                 angle = tools::math::angle(_targetedItem->position().x - position().x, _targetedItem->position().y - position().y);
                 break;
-            case Behaviors::REGEN :
+            case Behaviors::LookingForLife :
                 MouvementChasse(_targetedItem, 8, true);
                 break;
             default:
@@ -204,6 +204,15 @@ int Individu::Gestion()
                     }
                 }
                 break;
+            case COLL_LIFE:
+                if (currentHealthStatus(Life) < 150 || currentHealthStatus(Healing) < -15)
+                {
+                    if (Behaviors::LookingForLife > NouveauComportement)
+                    {
+                        NouveauComportement = Behaviors::LookingForLife;
+                        _targetedItem = i.first;
+                    }
+                }
             default:
                 break;
         }

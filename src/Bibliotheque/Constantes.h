@@ -75,6 +75,7 @@ using namespace std;
 #define COLL_PRIM_MVT	3
 #define COLL_INTER		4
 #define COLL_ATT		6
+#define COLL_LIFE       7
 #define COLL_VIS		8
 
 //Action de l'utilisateur & états des individus

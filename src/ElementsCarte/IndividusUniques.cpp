@@ -141,7 +141,10 @@ void Individu::loadFromXML(XMLHandle &handle)
             if (elem->Attribute("blocked"))
                 behavior(Behaviors::Blocked) = elem->Attribute("blocked");
             if (elem->Attribute("hunting"))
+            {
                 behavior(Behaviors::Hunting) = elem->Attribute("hunting");
+                behavior(Behaviors::LookingForLife) = elem->Attribute("hunting");
+            }
             if (elem->Attribute("hurt"))
                 behavior(Behaviors::Hurt) = elem->Attribute("hurt");
             if (elem->Attribute("dying"))

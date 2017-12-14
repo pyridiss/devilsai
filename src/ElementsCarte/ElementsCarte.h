@@ -51,7 +51,7 @@ enum Behaviors
     Defense,
     Hunting,
     Attacking,
-    REGEN,
+    LookingForLife,
     Hurt,
     Dying,
     enumSize
