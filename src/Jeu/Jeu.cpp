@@ -450,7 +450,7 @@ void mainLoop()
                     gamedata::player()->stopHunting();
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->value());
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->value(), false);
             }
             else if (Mouse::isButtonPressed(Mouse::Right) || rightClick)
             {
@@ -460,7 +460,7 @@ void mainLoop()
                     gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->value());
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value());
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value(), true);
             }
             else gamedata::player()->selectedIndividual = nullptr;
 

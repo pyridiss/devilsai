@@ -226,7 +226,7 @@ void Joueur::automove(const tools::math::Vector2d& p)
     _automoveEndpoint = p;
 }
 
-void Joueur::hunt(Element_Carte* item, const string& skill)
+void Joueur::hunt(Element_Carte* item, const string& skill, bool force)
 {
     Individu* ind = dynamic_cast<Individu*>(item);
 
@@ -234,7 +234,12 @@ void Joueur::hunt(Element_Carte* item, const string& skill)
     {
         _hunting = true;
         _hunted = ind;
-        _skillForHunted = skill;
+        if (ind->Diplomatie == DIPLOM_NEUTRE)
+            _skillForHunted = behavior(Behaviors::Random);
+        else if (force || ind->Diplomatie != Diplomatie)
+            _skillForHunted = skill;
+        else
+            _skillForHunted = behavior(Behaviors::Random);
         angle = tools::math::angle(ind->position().x - position().x, ind->position().y - position().y);
     }
 }

@@ -319,7 +319,7 @@ class Joueur : public Individu
         void resetDisplayedAttributes();
 
         void automove(const tools::math::Vector2d& p);
-        void hunt(Element_Carte* item, const string& skill);
+        void hunt(Element_Carte* item, const string& skill, bool force);
         void stopAutomoving();
         void stopHunting();
 

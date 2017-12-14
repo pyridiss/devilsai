@@ -68,6 +68,7 @@ int Joueur::Gestion()
             if (tools::math::intersection(s2, _hunted->size))
             {
                 _hunting = false;
+                _automove = false;
                 Set_Activite(_skillForHunted);
             }
             else
