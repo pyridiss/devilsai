@@ -50,6 +50,7 @@ using namespace std;
 #define DIPLOM_NEUTRE	0
 #define DIPLOM_ALLIE	1
 #define DIPLOM_ENNEMI	2
+#define DIPLOM_BREAKABLE 3
 
 //Types de classement
 #define CLASSEMENT_SOL		0

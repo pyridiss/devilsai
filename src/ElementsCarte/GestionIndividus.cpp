@@ -163,7 +163,7 @@ int Individu::Gestion()
         switch (i.second)
         {
             case COLL_PRIM_MVT:
-                if (i.first->Diplomatie != 0 && i.first->Diplomatie != Diplomatie)
+                if (i.first->Diplomatie != DIPLOM_NEUTRE && i.first->Diplomatie != DIPLOM_BREAKABLE && i.first->Diplomatie != Diplomatie)
                 {
                     bool canUseAttack = false;
                     for (auto& attack : attacks())

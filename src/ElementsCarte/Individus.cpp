@@ -406,7 +406,7 @@ void Individu::Disp(RenderTarget& target)
 
 void Individu::displayLifeGauge(RenderTarget& target)
 {
-    if (Diplomatie == DIPLOM_NEUTRE) return;
+    if (Diplomatie == DIPLOM_NEUTRE || Diplomatie == DIPLOM_BREAKABLE) return;
 
     //x and y are used to convert position to integers; otherwise, the text may be blurred
     int x = position().x;
