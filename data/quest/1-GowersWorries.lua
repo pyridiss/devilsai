@@ -24,6 +24,8 @@ checkPoint1 = 0
 
 questStep = "0"
 
+remainingMonsters = 1
+timer = 0
 
 -- functions
 -- ---------
@@ -55,7 +57,13 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-        if getNumberOfItemsByTag("birnam", "GowersWorries-Enemies") == 0 then
+
+        if getTimeElapsed(timer) > 1000 then
+            timer = resetTimer()
+            remainingMonsters = getNumberOfItemsByTag("birnam", "GowersWorries-Enemies")
+        end
+
+        if remainingMonsters == 0 then
 			addExperience(4000)
 			pushDialog("mis_1.13_ccl")
 			pushDialog("mis_1.14_intro")

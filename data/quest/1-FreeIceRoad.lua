@@ -14,6 +14,9 @@ fluellen_ptr = 0
 
 questStep = "0"
 
+remainingMonsters = 1
+timer = 0
+
 
 -- functions
 -- ---------
@@ -35,7 +38,13 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if getNumberOfItemsByTag("birnam", "IceRoad-Monsters") == 0 then
+
+        if getTimeElapsed(timer) > 1000 then
+            timer = resetTimer()
+            remainingMonsters = getNumberOfItemsByTag("birnam", "IceRoad-Monsters")
+        end
+
+        if remainingMonsters == 0 then
 			pushDialog("1-FreeIceRoad-GoToFluellen")
 			questStep = "2"
 		end

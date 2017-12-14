@@ -613,3 +613,23 @@ int LUA_moveItemTo(lua_State* L)
 
     return 1;
 }
+
+int LUA_resetTimer(lua_State* L)
+{
+    tools::debug::message("LUA_resetTimer() called", "lua", __FILENAME__, __LINE__);
+
+    lua_pushnumber(L, tools::timeManager::timeElapsed());
+
+    return 1;
+}
+
+int LUA_getTimeElapsed(lua_State* L)
+{
+    tools::debug::message("LUA_getTimeElapsed() called", "lua", __FILENAME__, __LINE__);
+
+    long old = lua_tonumber(L, 1);
+
+    lua_pushnumber(L, tools::timeManager::timeElapsed() - old);
+
+    return 1;
+}

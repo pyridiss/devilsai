@@ -22,7 +22,10 @@ questStep = "0"
 hasTalkedToGower = false
 hasReachedTheCheckPoint = false
 
+remainingMonsters = 1
 remainingMonstersDisplayed = 0
+
+timer = 0
 
 -- functions
 -- ---------
@@ -64,14 +67,19 @@ function questManage()
     end
 
 	if questStep == "1" then
-		remainingEnemies = getNumberOfItemsByTag("birnam", "TheGladeOfTheSaints-Monsters")
-		if remainingEnemies <= 5 and remainingEnemies > 0 then
-			if remainingEnemies ~= remainingMonstersDisplayed then
-				dispRemainingEnemies(remainingEnemies)
-				remainingMonstersDisplayed = remainingEnemies
+
+        if getTimeElapsed(timer) > 1000 then
+            timer = resetTimer()
+            remainingMonsters = getNumberOfItemsByTag("birnam", "TheGladeOfTheSaints-Monsters")
+        end
+
+        if remainingMonsters <= 5 and remainingMonsters > 0 then
+            if remainingMonsters ~= remainingMonstersDisplayed then
+                dispRemainingEnemies(remainingMonsters)
+                remainingMonstersDisplayed = remainingMonsters
 			end
 		end
-		if remainingEnemies == 0 then
+        if remainingMonsters == 0 then
 			questStep = "2"
 			pushDialog("1-InvasionGlade-1")
 			journalEntryDone("1-InvasionGlade-Intro2")

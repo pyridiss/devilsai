@@ -25,7 +25,10 @@ checkPoint4 = 0 -- Noirefontaine entrance
 
 questStep = "0"
 
+remainingMonsters = 1
 remainingMonstersDisplayed = 0
+
+timer = 0
 
 -- functions
 -- ---------
@@ -71,14 +74,19 @@ function questManage()
 		end
 
 	elseif questStep == "2" then
-        remainingEnemies = getNumberOfItemsByTag("birnam", "AncientLands-Monsters")
-		if remainingEnemies <= 5 and remainingEnemies > 0 then
-			if remainingEnemies ~= remainingMonstersDisplayed then
-				dispRemainingEnemies(remainingEnemies)
-				remainingMonstersDisplayed = remainingEnemies
+
+        if getTimeElapsed(timer) > 1000 then
+            timer = resetTimer()
+            remainingMonsters = getNumberOfItemsByTag("birnam", "AncientLands-Monsters")
+        end
+
+        if remainingMonsters <= 5 and remainingMonsters > 0 then
+            if remainingMonsters ~= remainingMonstersDisplayed then
+                dispRemainingEnemies(remainingMonsters)
+                remainingMonstersDisplayed = remainingMonsters
 			end
 		end
-		if remainingEnemies == 0 then
+        if remainingMonsters == 0 then
 			deleteList("Gate-FluellensCamp")
 			questStep = "3"
 			pushDialog("1-RescueFluellensCamp-GoToCamp")

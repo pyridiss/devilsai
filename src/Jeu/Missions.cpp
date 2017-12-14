@@ -86,6 +86,8 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "questRunning", LUA_questRunning);
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "set", LUA_set);
+    lua_register(L, "resetTimer", LUA_resetTimer);
+    lua_register(L, "getTimeElapsed", LUA_getTimeElapsed);
 
 	lua_getglobal(L, "questBegin");
 	lua_pushstring(L, args.c_str());
