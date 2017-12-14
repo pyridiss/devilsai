@@ -8,6 +8,7 @@
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="FluellensCamp-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheBirnamForest-Items"/>
+    <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Warriors"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheIceRoad-Monsters"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheAncientLands-Monsters"/>

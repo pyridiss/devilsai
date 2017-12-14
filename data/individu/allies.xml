@@ -31,7 +31,7 @@
         </skill>
         <skillsManagement randomBehavior="run" blocked="pause" hunting="run" dying="die" attacks="attack"/>
         <inventory>
-            <addObject slot="inventory01" design="spidervenom" quality="1"/>
+            <addObject slot="inventory01" design="healpotion" quality="1"/>
         </inventory>
     </species>
 </world>

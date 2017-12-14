@@ -196,7 +196,7 @@
         <inertItem design="tree14" quantity="3"/>
     </randomZone>
     <randomZone tag="TheGladeOfTheSaints-Warriors" customZone="1">
-        <shape type="rectangle" x1="480" y1="-63" x2="520" y2="92"/>
+        <shape type="rectangle" x1="400" y1="-293" x2="520" y2="329"/>
         <individual species="warrior1" quantity="4"/>
     </randomZone>
     <randomZone tag="TheGladeOfTheSaints-Monsters" place="birnam-glade-saints">
