@@ -30,12 +30,12 @@ namespace tinyxml2{
     class XMLElement;
     class XMLHandle;
     class XMLDocument;
-};
+}
 
 namespace sf{
     class RenderTarget;
     class Color;
-};
+}
 
 namespace tools{
 
@@ -55,8 +55,8 @@ struct Shape
         Complex
     };
 
-    Profiles profile = Profiles::None;
-    const Vector2d* origin = nullptr;
+    Profiles profile;
+    const Vector2d* origin;
     std::vector<Vector2d> points;
 
     pair<Vector2d, Vector2d> box;
@@ -65,9 +65,22 @@ struct Shape
     double length1, length2;
     double angle1, angle2;
 
-    Shape* next = nullptr;
+    Shape* next;
 
-    Shape() = default;
+    Shape()
+      : profile(Profiles::None),
+        origin(nullptr),
+        points(),
+        box(),
+        radius1(0),
+        radius2(0),
+        length1(0),
+        length2(0),
+        angle1(0),
+        angle2(0),
+        next(nullptr)
+    {
+    }
 
     Shape(const Shape& s)
         : profile(s.profile),
@@ -79,13 +92,15 @@ struct Shape
           length1(s.length1),
           length2(s.length2),
           angle1(s.angle1),
-          angle2(s.angle2)
+        angle2(s.angle2),
+        next(nullptr)
     {
         if (s.next != nullptr)
             next = new Shape(*(s.next));
     }
 
     Shape(Shape&& s)
+      : Shape()
     {
         swap(*this, s);
     }

@@ -178,12 +178,12 @@ void Shape::polyline(vector<Vector2d>& p, int thickness)
     box.second.x = points[0].x;
     box.second.y = points[0].y;
 
-    for (auto& p : points)
+    for (auto& pt : points)
     {
-        if (p.x - radius1 < box.first.x) box.first.x = p.x - radius1;
-        if (p.y - radius1 < box.first.y) box.first.y = p.y - radius1;
-        if (p.x + radius1 > box.second.x) box.second.x = p.x + radius1;
-        if (p.y + radius1 > box.second.y) box.second.y = p.y + radius1;
+        if (pt.x - radius1 < box.first.x) box.first.x = pt.x - radius1;
+        if (pt.y - radius1 < box.first.y) box.first.y = pt.y - radius1;
+        if (pt.x + radius1 > box.second.x) box.second.x = pt.x + radius1;
+        if (pt.y + radius1 > box.second.y) box.second.y = pt.y + radius1;
     }
 }
 
@@ -236,6 +236,7 @@ double Shape::area()
         case Profiles::Arc:
             return angle2 * radius1 * radius1;
         case Profiles::Complex:
+        {
             //Simple addition of areas... does not take into account overlap
             double value = 0;
             for (Shape* s = next ; s != nullptr ; s = s->next)
@@ -243,6 +244,9 @@ double Shape::area()
                 value += s->area();
             }
             return value;
+        }
+        default:
+            return 0;
     }
 
     return 0;
@@ -489,6 +493,8 @@ void Shape::saveToXML(XMLDocument& doc, XMLHandle& handle)
                 root->InsertEndChild(elem);
             }
             break;
+        default:
+            break;
     }
 }
 
@@ -576,12 +582,16 @@ void Shape::display(RenderTarget& target, const Color& color)
             }
             break;
         case Profiles::Complex:
+        {
             Shape* current = next;
             while (current != nullptr)
             {
                 current->display(target, color);
                 current = current->next;
             }
+            break;
+        }
+        default:
             break;
     }
 }
