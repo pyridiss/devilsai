@@ -30,6 +30,8 @@
 
 #include "tools/signals.h"
 
+#include "gui/style.h"
+
 using namespace std;
 using namespace sf;
 
@@ -48,11 +50,19 @@ class Widget
             void (*foregroundShader)(RenderWindow&, int, int, int, int) = nullptr;
             string bShader;
             string fShader;
+
+            minimalistWidget()
+              : text(),
+                background(),
+                bShader(),
+                fShader()
+            {
+            }
         };
 
     protected:
-        int xTopLeft = 0, yTopLeft = 0;
-        int xCenter = 0, yCenter = 0;
+        int _x, _y;
+        uint16_t _flags;
         int xOrigin = 0, yOrigin = 0;
         int width = 0, height = 0;
 
@@ -65,6 +75,7 @@ class Widget
         bool _needsFocus = false;
 
     public:
+        Widget();
         virtual ~Widget() = default;
 
     public:
@@ -89,7 +100,6 @@ class Widget
         void setTextFont(const Font& f, float s);
         void setTextOutline(Color c, float t);
         void setTextColor(string state, const Color& c);
-        void addOffsetToText(string state, int x, int y);
         void setBackground(string state, string b);
         void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));

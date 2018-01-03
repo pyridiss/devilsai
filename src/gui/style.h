@@ -29,6 +29,12 @@ using namespace sf;
 
 namespace gui{
 
+enum Flags
+{
+    TopLeftCoordinates = 1 << 0,
+    CenterCoordinates = 1 << 1
+};
+
 namespace style{
 
 void initStyle();

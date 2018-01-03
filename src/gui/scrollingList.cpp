@@ -23,14 +23,15 @@
 namespace gui{
 
 ScrollingList::ScrollingList()
+  : entries(),
+    index(0),
+    firstEntryDisplayed(0)
 {
     addState("normal");
 
     setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
 
     setTextColor("normal", Color::Black);
-
-    index = 0;
 }
 
 void ScrollingList::addEntry(String32& entry, string data)
@@ -126,7 +127,7 @@ void ScrollingList::display(RenderWindow& app)
     cursor.setOutlineThickness(1);
     app.draw(cursor);
 
-    int i = 0;
+    unsigned i = 0;
     int currentY = 0;
 
     int maxEntriesDisplayed = (height - 25) / 20;

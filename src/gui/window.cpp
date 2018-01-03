@@ -40,6 +40,23 @@ using namespace tinyxml2;
 
 namespace gui{
 
+Window::Window()
+  : widgets(),
+    signals(),
+    keyboardSignals(),
+    exitWindowSignals(),
+    signalListeners(),
+    _x(0),
+    _y(0),
+    _flags(0),
+    backgroundImage(),
+    backgroundFullscreenShader(),
+    backgroundShader(),
+    foregroundShader(),
+    music()
+{
+}
+
 Window::Window(string path, RenderWindow& app) : Window()
 {
     loadFromFile(path, app);
@@ -53,18 +70,16 @@ Window::~Window()
 
 void Window::setTopLeftCoordinates(int x, int y)
 {
-    xTopLeft = x;
-    yTopLeft = y;
-    xCenter = -1;
-    yCenter = -1;
+    _x = x;
+    _y = y;
+    _flags |= TopLeftCoordinates;
 }
 
 void Window::setCenterCoordinates(int x, int y)
 {
-    xCenter = x;
-    yCenter = y;
-    xTopLeft = -1;
-    yTopLeft = -1;
+    _x = x;
+    _y = y;
+    _flags |= CenterCoordinates;
 }
 
 void Window::setSize(int w, int h)
@@ -75,34 +90,34 @@ void Window::setSize(int w, int h)
 
 int Window::getXTopLeft()
 {
-    if (xTopLeft == -1)
-        return xCenter - width/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return _x - width/2;
 
-    return xTopLeft;
+    return _x;
 }
 
 int Window::getYTopLeft()
 {
-    if (yTopLeft == -1)
-        return yCenter - height/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return _y - height/2;
 
-    return yTopLeft;
+    return _y;
 }
 
 int Window::getXCenter()
 {
-    if (xCenter == -1)
-        return xTopLeft + width/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return _x;
 
-    return xCenter;
+    return _x + width/2;
 }
 
 int Window::getYCenter()
 {
-    if (yCenter == -1)
-        return yTopLeft + height/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return _y;
 
-    return yCenter;
+    return _y + height/2;
 }
 
 void Window::startWindow(RenderWindow& app)
@@ -299,11 +314,11 @@ void Window::loadFromFile(string path, RenderWindow& app)
         if (elemName == "loadImage")
         {
             string key = elem->Attribute("key");
-            string path = elem->Attribute("path");
+            string pathToImage = elem->Attribute("path");
             double scale = 1;
             elem->QueryAttribute("scale", &scale);
             imageManager::addContainer("gui");
-            imageManager::addImage("gui", key, path, Vector2i(0, 0), scale);
+            imageManager::addImage("gui", key, pathToImage, Vector2i(0, 0), scale);
         }
 
         if (elemName == "properties")

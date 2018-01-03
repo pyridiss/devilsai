@@ -33,10 +33,10 @@ class ScrollingList : public Widget
 {
     private:
         vector<pair<String32, string>> entries;
-        int index;
+        unsigned index;
         double scrolling = 0;
         bool mouseScrolling = false;
-        int firstEntryDisplayed = 0;
+        unsigned firstEntryDisplayed;
 
     public:
         ScrollingList();

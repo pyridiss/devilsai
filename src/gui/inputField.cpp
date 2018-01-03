@@ -25,9 +25,8 @@
 namespace gui{
 
 InputField::InputField()
+  : input()
 {
-    input.clear();
-
     addState("normal");
 
     setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());

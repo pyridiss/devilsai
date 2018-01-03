@@ -26,20 +26,27 @@
 
 namespace gui{
 
+Widget::Widget()
+  : _x(0),
+    _y(0),
+    _flags(0),
+    states(),
+    _embeddedData()
+{
+}
+
 void Widget::setTopLeftCoordinates(int x, int y)
 {
-    xTopLeft = x;
-    yTopLeft = y;
-    xCenter = -1;
-    yCenter = -1;
+    _x = x;
+    _y = y;
+    _flags = TopLeftCoordinates;
 }
 
 void Widget::setCenterCoordinates(int x, int y)
 {
-    xCenter = x;
-    yCenter = y;
-    xTopLeft = -1;
-    yTopLeft = -1;
+    _x = x;
+    _y = y;
+    _flags = CenterCoordinates;
 }
 
 void Widget::setOriginCoordinates(int x, int y)
@@ -72,34 +79,34 @@ void Widget::setCurrentState(string state)
 
 int Widget::getXTopLeft()
 {
-    if (xTopLeft == -1)
-        return xOrigin + xCenter - width/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return xOrigin + _x - width/2;
 
-    return xOrigin + xTopLeft;
+    return xOrigin + _x;
 }
 
 int Widget::getYTopLeft()
 {
-    if (yTopLeft == -1)
-        return yOrigin + yCenter - height/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return yOrigin + _y - height/2;
 
-    return yOrigin + yTopLeft;
+    return yOrigin + _y;
 }
 
 int Widget::getXCenter()
 {
-    if (xCenter == -1)
-        return xOrigin + xTopLeft + width/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return xOrigin + _x;
 
-    return xOrigin + xCenter;
+    return xOrigin + _x + width/2;
 }
 
 int Widget::getYCenter()
 {
-    if (yCenter == -1)
-        return yOrigin + yTopLeft + height/2;
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        return yOrigin + _y;
 
-    return yOrigin + yCenter;
+    return yOrigin + _y + height/2;
 }
 
 void Widget::setAllText(String32& t)
@@ -161,14 +168,6 @@ void Widget::setTextOutline(Color c, float t)
 void Widget::setTextColor(string state, const Color& c)
 {
     states.find(state)->second.text.setFillColor(c);
-}
-
-void Widget::addOffsetToText(string state, int x, int y)
-{
-    states.find(state)->second.text.setPosition(
-        states.find(state)->second.text.getPosition().x + x,
-        states.find(state)->second.text.getPosition().y + y
-    );
 }
 
 void Widget::setBackground(string state, string b)

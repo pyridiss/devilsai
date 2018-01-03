@@ -23,6 +23,8 @@
 namespace gui{
 
 DropDownList::DropDownList()
+  : entries(),
+    index(0)
 {
     addState("normal");
     addState("developed");
@@ -31,7 +33,6 @@ DropDownList::DropDownList()
 
     setTextColor("normal", Color::Black);
 
-    index = 0;
 }
 
 void DropDownList::addEntry(String32& entry, string data)
@@ -41,8 +42,8 @@ void DropDownList::addEntry(String32& entry, string data)
 
 bool DropDownList::mouseHovering(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
-        Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
+    if ((int)Mouse::getPosition(app).x >= getXTopLeft() && (int)Mouse::getPosition(app).x <= getXTopLeft() + width &&
+        (int)Mouse::getPosition(app).y >= getYTopLeft() && (int)Mouse::getPosition(app).y <= getYTopLeft() + height)
     {
         return true;
     }
@@ -52,8 +53,8 @@ bool DropDownList::mouseHovering(RenderWindow& app)
 
 bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
-        Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height * (1 + entries.size()))
+    if ((int)Mouse::getPosition(app).x >= getXTopLeft() && (int)Mouse::getPosition(app).x <= getXTopLeft() + width &&
+        (int)Mouse::getPosition(app).y >= getYTopLeft() && (int)Mouse::getPosition(app).y <= getYTopLeft() + height * (1 + (int)entries.size()))
     {
         return true;
     }

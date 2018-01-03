@@ -34,7 +34,7 @@ class DropDownList : public Widget
 {
     private:
         vector<pair<String32, string>> entries;
-        int index;
+        unsigned index;
 
     public:
         DropDownList();

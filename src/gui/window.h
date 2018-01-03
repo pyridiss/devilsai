@@ -27,7 +27,9 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <tools/signals.h>
+#include "tools/signals.h"
+
+#include "gui/style.h"
 
 using namespace std;
 using namespace sf;
@@ -50,8 +52,8 @@ class Window
 
         bool exitWindow = false;
 
-        int xTopLeft = 0, yTopLeft = 0;
-        int xCenter = 0, yCenter = 0;
+        int _x, _y;
+        uint16_t _flags;
         bool xCenterOfScreen = false, yCenterOfScreen = false;
         int width = 0, height = 0;
 
@@ -62,7 +64,7 @@ class Window
         string music;
 
     public:
-        Window() = default;
+        Window();
         Window(string path, RenderWindow& app);
         ~Window();
 
