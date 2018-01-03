@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="attackpotion">Potion d'attaque</text>
+    <text id="attackpotion-description">Améliore les capacités d'attaque @n(Clic droit pour utiliser)</text>
+    <text id="bascinet">Bassinet</text>
+    <text id="cuirass">Cuirasse</text>
+    <text id="cuirass0">Cuirasse</text>
+    <text id="defensepotion">Potion de défense</text>
+    <text id="defensepotion-description">Améliore les capacités de défense @n(Clic droit pour utiliser)</text>
+    <text id="diamondring">Bague de Diamants</text>
+    <text id="diamondring0">Bague de Diamants</text>
+    <text id="fabricboots">Bottes de Tissu</text>
+    <text id="gladius">Glaive</text>
+    <text id="gladius0">Glaive</text>
+    <text id="greathelm">Heaume</text>
+    <text id="greathelm0">Heaume</text>
+    <text id="healpotion">Potion de soin</text>
+    <text id="healpotion-description">Régénère la vitalité @n(Clic droit pour utiliser)</text>
+    <text id="pavis">Pavois</text>
+    <text id="platearmor">Armure de Plaques</text>
+    <text id="sabaton">Solerets</text>
+    <text id="sabaton0">Solerets</text>
+    <text id="sapphirering">Bague de Saphirs</text>
+    <text id="shield">Écu</text>
+    <text id="shield0">Écu</text>
+    <text id="spatha">Spatha</text>
+    <text id="speedpotion">Potion de défense</text>
+    <text id="speedpotion-description">Augmente la vitesse @n(Clic droit pour utiliser)</text>
+    <text id="spidervenom">Venin d'araignée</text>
+    <text id="spidervenom-description">À placer sur une arme pour augmenter les dégâts @n(Clic droit pour utiliser)</text>
+    <text id="steelboots">Bottes d'Acier</text>
+    <text id="steelhelmet">Casque d'Acier</text>
+    <text id="steelplatearmor">Armure de Plaques d'Acier</text>
+    <text id="steelshield">Bouclier d'Acier</text>
+    <text id="steelsword">Épée d'Acier</text>
+    <text id="stoneofhighlands">Pierre des Hautes-Terres</text>
+    <text id="unidentifiedstone">Pierre non identifiée</text>
+    <text id="unidentifiedstone-description">Une étrange pierre qui bourdonne d'énergie</text>
+</texts>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="attackpotion">Attack potion</text>
+    <text id="attackpotion-description">Improves attack capabilities @n(Right click to use)</text>
+    <text id="bascinet">Bascinet</text>
+    <text id="cuirass">Cuirass</text>
+    <text id="cuirass0">Cuirass</text>
+    <text id="defensepotion">Defense potion</text>
+    <text id="defensepotion-description">Improves defense capabilities @n(Right click to use)</text>
+    <text id="diamondring">Diamond Ring</text>
+    <text id="diamondring0">Diamond Ring</text>
+    <text id="fabricboots">Fabric Boots</text>
+    <text id="gladius">Gladius</text>
+    <text id="gladius0">Gladius</text>
+    <text id="greathelm">Great Helm</text>
+    <text id="greathelm0">Great Helm</text>
+    <text id="healpotion">Heal potion</text>
+    <text id="healpotion-description">Regenerates the vitality @n(Right click to use)</text>
+    <text id="pavis">Pavis</text>
+    <text id="platearmor">Plate Armor</text>
+    <text id="sabaton">Sabaton</text>
+    <text id="sabaton0">Sabaton</text>
+    <text id="sapphirering">Sapphire Ring</text>
+    <text id="shield">Shield</text>
+    <text id="shield0">Shield</text>
+    <text id="spatha">Spatha</text>
+    <text id="speedpotion">Speed potion</text>
+    <text id="speedpotion-description">Increases speed @n(Right click to use)</text>
+    <text id="spidervenom">Spider venom</text>
+    <text id="spidervenom-description">To place on a weapon to increase damage @n(Right click to use)</text>
+    <text id="steelboots">Steel Boots</text>
+    <text id="steelhelmet">Steel Helmet</text>
+    <text id="steelplatearmor">Steel Plate Armor</text>
+    <text id="steelshield">Steel Shield</text>
+    <text id="steelsword">Steel Sword</text>
+    <text id="stoneofhighlands">Stone of Highlands</text>
+    <text id="unidentifiedstone">Unidentified stone</text>
+    <text id="unidentifiedstone-description">A strange stone that buzzes with energy</text>
+</texts>

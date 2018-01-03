@@ -129,10 +129,6 @@ bool Disp_Repos(RenderTarget& target);
 
 /* Fonctions définies dans le fichier Langues.cpp */
 
-String32 getTranslatedNameOfObject(int);
-String32 getTranslatedNameOfObject(string);
-String32 getTranslatedNameOfSkill(string);
-String32 getTranslatedDescriptionOfObject(int);
 void cutParagraph(Paragraph*);
 void displayJournal();
 

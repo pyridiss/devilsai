@@ -36,58 +36,6 @@
 
 /** GESTION DES FICHIERS DE TYPE PHRASES **/
 
-template <class T>
-String32 getTranslatedName(string fichier, T Indice)
-{
-	//Cette fonction peut gérer les indices numériques ou alphanumériques
-	ifstream fileStream(fichier, ios_base::in);
-
-	if (!fileStream.good()) Erreur("Le fichier suivant n'a pu être chargé :", fichier);
-	if (fileStream.good()) MESSAGE(" Fichier \"" + fichier + "\" ouvert", FICHIER)
-
-	String32 Nom;
-	bool NomTrouve = false;
-	T NumCourant = Indice;
-	string TypeDonnee; string Buffer;
-
-	while (fileStream.rdstate() == 0 && !NomTrouve)
-	{
-		fileStream >> TypeDonnee;
-
-		if (TypeDonnee == "#") getline(fileStream, Buffer); //Comments
-
-		else if (TypeDonnee == "*") fileStream >> NumCourant;
-        else if (TypeDonnee == options::option<string>(tools::math::sdbm_hash("language")) && Indice == NumCourant)
-		{
-			fileStream.get();
-			fileStream >> Nom;
-		}
-		else getline(fileStream, Buffer);
-		TypeDonnee = ""; Buffer = "";
-	}
-
-	fileStream.close();
-
-	return Nom;
-}
-
-String32 getTranslatedNameOfObject(int Indice)
-{
-	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_objets.lng", Indice);
-}
-String32 getTranslatedNameOfObject(string Indice)
-{
-	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_objets.lng", Indice);
-}
-String32 getTranslatedNameOfSkill(string Indice)
-{
-	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/noms_competences.lng", Indice);
-}
-String32 getTranslatedDescriptionOfObject(int Indice)
-{
-	return getTranslatedName(tools::filesystem::dataDirectory() + "lng/desc_objets.lng", Indice);
-}
-
 void cutParagraph(Paragraph* paragraph)
 {
 	Text text("", gui::style::defaultTextFont(), 12);

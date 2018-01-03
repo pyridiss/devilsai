@@ -46,24 +46,15 @@ void Load_Decorations_Objets()
 	}
 }
 
-void Disp_Skill(lua_State* skill)
-{
-	static int LigneCourante = PosDescY;
-
-	string internalNumber = getStringFromLUA(skill, "getInternalNumber");
-
-	String32 nom = getTranslatedNameOfSkill(internalNumber);
-	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., gui::style::fontFromString("dayroman"));
-}
 
 void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 {
 	static int LigneCourante = PosDescY;
 	if (MaJ) LigneCourante = PosDescY;
 
-	int internalNumber = getIntFromLUA(obj, "getInternalNumber");
+    string internalNumber = getStringFromLUA(obj, "getFileName");
 
-	String32 nom = getTranslatedNameOfObject(internalNumber);
+    String32 nom = textManager::getText("objects", internalNumber);
 	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., gui::style::fontFromString("dayroman"));
 
 	LigneCourante += 26;
@@ -72,7 +63,7 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
 	{
 		//Pour ne pas surcharger, on désactive les descriptions manuelles des objets supplémentaires
 		Paragraph replique;
-		replique.characters = getTranslatedDescriptionOfObject(internalNumber);
+        replique.characters = textManager::getText("objects", internalNumber + "-description");
 		replique.rectangle = IntRect(0, 0, 2*(Options.ScreenW - PosDescX) - 20, 0);
 		cutParagraph(&replique);
 		for (ListString32::iterator i = replique.lines.begin() ; i != replique.lines.end() ; ++i)

@@ -68,6 +68,7 @@ void Load_Decorations()
     tools::textManager::loadFile("places", "lng/places_FR.xml");
 
 	Load_Decorations_Objets();
+    tools::textManager::loadFile("objects", "lng/objects_FR.xml");
 
     musicManager::addSound("Click");
 
@@ -189,7 +190,7 @@ void Disp_JaugesVie(RenderTarget& target)
 		{
 			if (getStringFromLUA(i->second, "getCategorieObjet") == "temporaire")
 			{
-				String32 name = getTranslatedNameOfObject(getIntFromLUA(i->second, "getInternalNumber"));
+                String32 name = textManager::getText("objects", getStringFromLUA(i->second, "getInternalNumber"));
 				Disp_Texte(tools::textManager::getFormattedText("devilsai", "SOUS_EFFET", name), 160, y, Color(255, 255, 128, 255), 11.f);
 				y += 12;
 			}
