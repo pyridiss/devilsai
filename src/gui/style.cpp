@@ -53,16 +53,16 @@ void initStyle()
     contrastShader.setUniform("texture", Shader::CurrentTexture);
 }
 
-const Font& defaultTextFont()
+Font* defaultTextFont()
 {
-    return liberation;
+    return &liberation;
 }
 
-const Font& fontFromString(string s)
+Font* fontFromString(string s)
 {
-    if (s == "liberation") return liberation;
-    if (s == "liberation-bold") return liberationBold;
-    if (s == "dayroman") return dayroman;
+    if (s == "liberation") return &liberation;
+    if (s == "liberation-bold") return &liberationBold;
+    if (s == "dayroman") return &dayroman;
 
     return defaultTextFont();
 }
@@ -79,14 +79,14 @@ int defaultTextSize()
     return 10;
 }
 
-const Font& buttonTextFont()
+string buttonTextFont()
 {
-    return liberationBold;
+    return "liberation-bold";
 }
 
 int buttonTextSize()
 {
-    return 11;
+    return 12;
 }
 
 Color normalButtonTextColor()

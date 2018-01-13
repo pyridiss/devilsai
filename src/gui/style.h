@@ -51,11 +51,11 @@ namespace style{
 
 void initStyle();
 
-const Font& defaultTextFont();
-const Font& fontFromString(string f);
+Font* defaultTextFont();
+Font* fontFromString(string f);
 Color colorFromString(string s);
 int defaultTextSize();
-const Font& buttonTextFont();
+string buttonTextFont();
 int buttonTextSize();
 Color normalButtonTextColor();
 Color activeButtonTextColor();
