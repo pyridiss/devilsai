@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <properties Fullscreen="1" backgroundImage="Fond" music="Gates_Of_Heaven"/>
-    <widget name="question" type="text" xWindowCenter="1" yCenter="120" allText="main-menu-title" textSize="45" textFont="dayroman"/>
-    <widget name="button-new-game" type="button" xWindowCenter="1" yCenter="238" allText="main-menu-new-game" textSize="28" textFont="dayroman"/>
-    <widget name="button-load-game" type="button" xWindowCenter="1" yCenter="298" allText="main-menu-load-game" textSize="28" textFont="dayroman"/>
-    <widget name="button-options" type="button" xWindowCenter="1" yCenter="358" allText="main-menu-options" textSize="28" textFont="dayroman"/>
-    <widget name="button-exit" type="button" xWindowCenter="1" yCenter="418" allText="main-menu-exit" textSize="28" textFont="dayroman"/>
+    <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120"  allText="main-menu-title"/>
+    <widget name="button-new-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="238" AdjustSizeToText="1" allText="main-menu-new-game"/>
+    <widget name="button-load-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="298" AdjustSizeToText="1" allText="main-menu-load-game"/>
+    <widget name="button-options" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="358" AdjustSizeToText="1" allText="main-menu-options"/>
+    <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="418" AdjustSizeToText="1" allText="main-menu-exit"/>
     <signal emitter="button-new-game" signal="new-game"/>
     <signal emitter="button-load-game" signal="load-game"/>
     <signal emitter="button-options" signal="options"/>

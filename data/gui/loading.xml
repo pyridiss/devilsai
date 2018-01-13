@@ -2,5 +2,5 @@
 <window>
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308"/>
-    <widget name="text" type="text" xCenter="244" yCenter="154" allText="loading-text" textSize="28" textFont="dayroman"/>
+    <widget name="text" type="text" OriginCenter="1" PositionRelativeToCenter="1" allText="loading-text"/>
 </window>

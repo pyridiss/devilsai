@@ -4,13 +4,13 @@
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <loadImage key="input-field-background-356x46" path="img/gui-input-field-background-356x46.png"/>
     <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
-    <widget name="question" type="text" xCenter="244" yCenter="50" allText="new-game-title" textSize="24" textFont="dayroman"/>
-    <widget name="answer" type = "input-field" xCenter="244" yCenter="120" width="356" height="46" allBackground="input-field-background-356x46" textSize="18" textFont="dayroman"/>
-    <widget name="button-back" type="button" xTopLeft="20" yTopLeft="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-tutorial" type="button" xTopLeft="312" yTopLeft="192" width="156" height="46" allBackground="button-background-156x46" allText="new-game-tutorial" textSize="12" textFont="liberation-bold">
+    <widget name="question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="new-game-title"/>
+    <widget name="answer" type = "input-field" OriginCenter="1" XPositionRelativeToCenter="1" y="120" width="356" height="46" allBackground="input-field-background-356x46" textSize="18" textFont="dayroman"/>
+    <widget name="button-back" type="button" x="20" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
+    <widget name="button-tutorial" type="button" x="312" y="192" width="156" height="46" allBackground="button-background-156x46" allText="new-game-tutorial">
         <addEmbeddedData name="value" value="chapitre/tutorial.xml"/>
     </widget>
-    <widget name="button-devilsai" type="button" xTopLeft="312" yTopLeft="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1" textSize="12" textFont="liberation-bold">
+    <widget name="button-devilsai" type="button" x="312" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1">
         <addEmbeddedData name="value" value="chapitre/devilsai.xml"/>
     </widget>
     <signal emitter="button-back" signal="main-menu"/>

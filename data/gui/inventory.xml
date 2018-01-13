@@ -4,172 +4,172 @@
     <loadImage key="gui-object-background-50x50" path="img/FondObjet_50_50.png"/>
     <loadImage key="gui-object-background-75x75" path="img/FondObjet_75_75.png"/>
     <loadImage key="gui-object-background-75x100" path="img/FondObjet_75_100.png"/>
-    <properties xTopLeft="0" yTopLeft="50" width="512" height="668" backgroundImage="gui-left-screen-background-512x668"/>
-    <widget name="equipment-helmet" type="button" xCenter="256" yCenter="77" width="75" height="75" allBackground="gui-object-background-75x75">
+    <properties x="0" y="50" width="512" height="668" backgroundImage="gui-left-screen-background-512x668"/>
+    <widget name="equipment-helmet" type="button" OriginCenter="1" x="256" y="77" width="75" height="75" allBackground="gui-object-background-75x75">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="casque"/>
     </widget>
-    <widget name="equipment-weapon" type="button" xCenter="171" yCenter="175" width="75" height="100" allBackground="gui-object-background-75x100">
+    <widget name="equipment-weapon" type="button" OriginCenter="1" x="171" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="arme"/>
     </widget>
-    <widget name="equipment-armor" type="button" xCenter="256" yCenter="175" width="75" height="100" allBackground="gui-object-background-75x100">
+    <widget name="equipment-armor" type="button" OriginCenter="1" x="256" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="armure"/>
     </widget>
-    <widget name="equipment-shield" type="button" xCenter="341" yCenter="175" width="75" height="100" allBackground="gui-object-background-75x100">
+    <widget name="equipment-shield" type="button" OriginCenter="1" x="341" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="bouclier"/>
     </widget>
-    <widget name="equipment-boots" type="button" xCenter="256" yCenter="285" width="75" height="100" allBackground="gui-object-background-75x100">
+    <widget name="equipment-boots" type="button" OriginCenter="1" x="256" y="285" width="75" height="100" allBackground="gui-object-background-75x100">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="bottes"/>
     </widget>
-    <widget name="equipment-ring" type="button" xCenter="341" yCenter="260" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="equipment-ring" type="button" OriginCenter="1" x="341" y="260" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="bague"/>
     </widget>
-    <widget name="equipment-weapon-improver" type="button" xCenter="159" yCenter="200" width="50" height="50">
+    <widget name="equipment-weapon-improver" type="button" OriginCenter="1" x="159" y="200" width="50" height="50">
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="none"/>
     </widget>
-    <widget name="inventory01" type="button" xCenter="50" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory01" type="button" OriginCenter="1" x="50" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory02" type="button" xCenter="101" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory02" type="button" OriginCenter="1" x="101" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory03" type="button" xCenter="152" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory03" type="button" OriginCenter="1" x="152" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory04" type="button" xCenter="203" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory04" type="button" OriginCenter="1" x="203" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory05" type="button" xCenter="254" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory05" type="button" OriginCenter="1" x="254" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory06" type="button" xCenter="305" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory06" type="button" OriginCenter="1" x="305" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory07" type="button" xCenter="356" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory07" type="button" OriginCenter="1" x="356" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory08" type="button" xCenter="407" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory08" type="button" OriginCenter="1" x="407" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory09" type="button" xCenter="458" yCenter="450" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory09" type="button" OriginCenter="1" x="458" y="450" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory10" type="button" xCenter="50" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory10" type="button" OriginCenter="1" x="50" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory11" type="button" xCenter="101" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory11" type="button" OriginCenter="1" x="101" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory12" type="button" xCenter="152" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory12" type="button" OriginCenter="1" x="152" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory13" type="button" xCenter="203" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory13" type="button" OriginCenter="1" x="203" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory14" type="button" xCenter="254" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory14" type="button" OriginCenter="1" x="254" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory15" type="button" xCenter="305" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory15" type="button" OriginCenter="1" x="305" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory16" type="button" xCenter="356" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory16" type="button" OriginCenter="1" x="356" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory17" type="button" xCenter="407" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory17" type="button" OriginCenter="1" x="407" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory18" type="button" xCenter="458" yCenter="501" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory18" type="button" OriginCenter="1" x="458" y="501" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory19" type="button" xCenter="50" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory19" type="button" OriginCenter="1" x="50" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory20" type="button" xCenter="101" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory20" type="button" OriginCenter="1" x="101" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory21" type="button" xCenter="152" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory21" type="button" OriginCenter="1" x="152" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory22" type="button" xCenter="203" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory22" type="button" OriginCenter="1" x="203" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory23" type="button" xCenter="254" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory23" type="button" OriginCenter="1" x="254" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory24" type="button" xCenter="305" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory24" type="button" OriginCenter="1" x="305" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory25" type="button" xCenter="356" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory25" type="button" OriginCenter="1" x="356" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory26" type="button" xCenter="407" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory26" type="button" OriginCenter="1" x="407" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>
     </widget>
-    <widget name="inventory27" type="button" xCenter="458" yCenter="552" width="50" height="50" allBackground="gui-object-background-50x50">
+    <widget name="inventory27" type="button" OriginCenter="1" x="458" y="552" width="50" height="50" allBackground="gui-object-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="image-container" value="objectsIcons"/>
         <addEmbeddedData name="allowed-object" value="all"/>

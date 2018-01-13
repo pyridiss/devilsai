@@ -3,80 +3,80 @@
     <loadImage key="gui-skillbar-background-1024x56" path="img/gui-skillbar-background-1024x56.jpg"/>
     <loadImage key="gui-skillbar-skills-background-50x50" path="img/gui-skillbar-skills-background-50x50.jpg"/>
     <properties OriginBottom="1" YPositionRelativeToBottom="1" width="800" height="56" backgroundImage="gui-skillbar-background-1024x56"/>
-    <widget name="left-click" type="button" xTopLeft="2" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="left-click" type="button" x="2" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-sword-handling"/>
     </widget>
-    <widget name="left-click-text" type="text" xCenter="27" yCenter="13" allText="ingame-skillbar-leftclick" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="tab" type="button" xTopLeft="65" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="left-click-text" type="text" OriginCenter="1" x="27" y="13" allText="ingame-skillbar-leftclick"/>
+    <widget name="tab" type="button" x="65" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="use-healpotion"/>
     </widget>
-    <widget name="tab-text" type="text" xCenter="90" yCenter="13" allText="ingame-skillbar-tab" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="left-shift" type="button" xTopLeft="115" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="tab-text" type="text" OriginCenter="1" x="90" y="13" allText="ingame-skillbar-tab"/>
+    <widget name="left-shift" type="button" x="115" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-fireball"/>
     </widget>
-    <widget name="left-shift-text" type="text" xCenter="140" yCenter="13" allText="ingame-skillbar-leftshift" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="left-ctrl" type="button" xTopLeft="165" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="left-shift-text" type="text" OriginCenter="1" x="140" y="13" allText="ingame-skillbar-leftshift"/>
+    <widget name="left-ctrl" type="button" x="165" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-sword-handling"/>
     </widget>
-    <widget name="left-ctrl-text" type="text" xCenter="190" yCenter="13" allText="ingame-skillbar-leftctrl" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="1" type="button" xTopLeft="228" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="left-ctrl-text" type="text" OriginCenter="1" x="190" y="13" allText="ingame-skillbar-leftctrl"/>
+    <widget name="1" type="button" x="228" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="1-text" type="text" xCenter="253" yCenter="13" allText="ingame-skillbar-1" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="2" type="button" xTopLeft="278" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="1-text" type="text" OriginCenter="1" x="253" y="13" allText="ingame-skillbar-1"/>
+    <widget name="2" type="button" x="278" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="2-text" type="text" xCenter="303" yCenter="13" allText="ingame-skillbar-2" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="3" type="button" xTopLeft="328" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="2-text" type="text" OriginCenter="1" x="303" y="13" allText="ingame-skillbar-2"/>
+    <widget name="3" type="button" x="328" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="3-text" type="text" xCenter="353" yCenter="13" allText="ingame-skillbar-3" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="4" type="button" xTopLeft="378" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="3-text" type="text" OriginCenter="1" x="353" y="13" allText="ingame-skillbar-3"/>
+    <widget name="4" type="button" x="378" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="4-text" type="text" xCenter="403" yCenter="13" allText="ingame-skillbar-4" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="5" type="button" xTopLeft="428" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="4-text" type="text" OriginCenter="1" x="403" y="13" allText="ingame-skillbar-4"/>
+    <widget name="5" type="button" x="428" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="5-text" type="text" xCenter="453" yCenter="13" allText="ingame-skillbar-5" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="6" type="button" xTopLeft="478" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="5-text" type="text" OriginCenter="1" x="453" y="13" allText="ingame-skillbar-5"/>
+    <widget name="6" type="button" x="478" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="6-text" type="text" xCenter="503" yCenter="13" allText="ingame-skillbar-6" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="7" type="button" xTopLeft="528" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="6-text" type="text" OriginCenter="1" x="503" y="13" allText="ingame-skillbar-6"/>
+    <widget name="7" type="button" x="528" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="7-text" type="text" xCenter="553" yCenter="13" allText="ingame-skillbar-7" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="8" type="button" xTopLeft="578" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="7-text" type="text" OriginCenter="1" x="553" y="13" allText="ingame-skillbar-7"/>
+    <widget name="8" type="button" x="578" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="8-text" type="text" xCenter="603" yCenter="13" allText="ingame-skillbar-8" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="9" type="button" xTopLeft="628" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="8-text" type="text" OriginCenter="1" x="603" y="13" allText="ingame-skillbar-8"/>
+    <widget name="9" type="button" x="628" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="9-text" type="text" xCenter="653" yCenter="13" allText="ingame-skillbar-9" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="0" type="button" xTopLeft="678" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="9-text" type="text" OriginCenter="1" x="653" y="13" allText="ingame-skillbar-9"/>
+    <widget name="0" type="button" x="678" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="0-text" type="text" xCenter="703" yCenter="13" allText="ingame-skillbar-0" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="right-shift" type="button" xTopLeft="741" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="0-text" type="text" OriginCenter="1" x="703" y="13" allText="ingame-skillbar-0"/>
+    <widget name="right-shift" type="button" x="741" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-charge-part1"/>
     </widget>
-    <widget name="right-shift-text" type="text" xCenter="766" yCenter="13" allText="ingame-skillbar-rightshift" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="right-ctrl" type="button" xTopLeft="791" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="right-shift-text" type="text" OriginCenter="1" x="766" y="13" allText="ingame-skillbar-rightshift"/>
+    <widget name="right-ctrl" type="button" x="791" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="right-ctrl-text" type="text" xCenter="816" yCenter="13" allText="ingame-skillbar-rightctrl" textSize="7" textFont="liberation-bold" allTextColor="white"/>
-    <widget name="right-click" type="button" xTopLeft="841" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
+    <widget name="right-ctrl-text" type="text" OriginCenter="1" x="816" y="13" allText="ingame-skillbar-rightctrl"/>
+    <widget name="right-click" type="button" x="841" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-fireball"/>
     </widget>
-    <widget name="right-click-text" type="text" xCenter="866" yCenter="13" allText="ingame-skillbar-rightclick" textSize="7" textFont="liberation-bold" allTextColor="white"/>
+    <widget name="right-click-text" type="text" OriginCenter="1" x="866" y="13" allText="ingame-skillbar-rightclick"/>
     <keyboardSignal key="60" signal="player-skill" dataProvider="tab" event="whileKeyPressed"/> <!-- 'Tab' -->
     <keyboardSignal key="38" signal="player-skill" dataProvider="left-shift" event="whileKeyPressed"/> <!-- 'Left Shift' -->
     <keyboardSignal key="37" signal="player-skill" dataProvider="left-ctrl" event="whileKeyPressed"/> <!-- 'Left Ctrl' -->

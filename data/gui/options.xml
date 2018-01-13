@@ -4,30 +4,30 @@
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <loadImage key="dropdownlist-background-156x34" path="img/gui-dropdownlist-background-156x34.png"/>
     <properties OriginCenter="1" PositionRelativeToCenter="1" width="608" height="383" backgroundImage="dialog-background-608x383" backgroundFullscreenShader="disable"/>
-    <widget name="title" type="text" xCenter="304" yCenter="50" allText="options-title" textSize="24" textFont="dayroman"/>
-    <widget name="question-language" type="text" xCenter="184" yCenter="100" allText="options-choose-language" textSize="14"/>
-    <widget name="question-resolution" type="text" xCenter="184" yCenter="150" allText="options-choose-resolution" textSize="14"/>
-    <widget name="question-fullscreen" type="text" xCenter="184" yCenter="200" allText="options-choose-fullscreen" textSize="14"/>
-    <widget name="question-console" type="text" xCenter="184" yCenter="250" allText="options-choose-console-display" textSize="14"/>
-    <widget name="chooser-language" type="drop-down-list" xCenter="424" yCenter="100" width="156" height="34" allBackground="dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+    <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="options-title"/>
+    <widget name="question-language" type="text" OriginCenter="1" x="184" y="100" allText="options-choose-language"/>
+    <widget name="question-resolution" type="text" OriginCenter="1" x="184" y="150" allText="options-choose-resolution"/>
+    <widget name="question-fullscreen" type="text" OriginCenter="1" x="184" y="200" allText="options-choose-fullscreen"/>
+    <widget name="question-console" type="text" OriginCenter="1" x="184" y="250" allText="options-choose-console-display"/>
+    <widget name="chooser-language" type="drop-down-list" OriginCenter="1" x="424" y="100" width="156" height="34" allBackground="dropdownlist-background-156x34">
         <addEntry text="options-language-en" data="EN"/>
         <addEntry text="options-language-fr" data="FR"/>
     </widget>
-    <widget name="chooser-resolution" type="drop-down-list" xCenter="424" yCenter="150" width="156" height="34" allBackground="dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+    <widget name="chooser-resolution" type="drop-down-list" OriginCenter="1" x="424" y="150" width="156" height="34" allBackground="dropdownlist-background-156x34">
         <addEntry text="options-resolution-1" data="800x600"/>
         <addEntry text="options-resolution-2" data="1024x768"/>
         <addEntry text="options-resolution-3" data="1280x800"/>
     </widget>
-    <widget name="chooser-fullscreen" type="drop-down-list" xCenter="424" yCenter="200" width="156" height="34" allBackground="dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+    <widget name="chooser-fullscreen" type="drop-down-list" OriginCenter="1" x="424" y="200" width="156" height="34" allBackground="dropdownlist-background-156x34">
         <addEntry text="options-enabled" data="enabled"/>
         <addEntry text="options-disabled" data="disabled"/>
     </widget>
-    <widget name="chooser-console" type="drop-down-list" xCenter="424" yCenter="250" width="156" height="34" allBackground="dropdownlist-background-156x34" textSize="12" textFont="liberation-bold">
+    <widget name="chooser-console" type="drop-down-list" OriginCenter="1" x="424" y="250" width="156" height="34" allBackground="dropdownlist-background-156x34">
         <addEntry text="options-enabled" data="enabled"/>
         <addEntry text="options-disabled" data="disabled"/>
     </widget>
-    <widget name="button-back" type="button" xTopLeft="20" yTopLeft="317" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back" textSize="12" textFont="liberation-bold"/>
-    <widget name="button-apply" type="button" xTopLeft="432" yTopLeft="317" width="156" height="46" allBackground="button-background-156x46" allText="options-apply" textSize="12" textFont="liberation-bold"/>
+    <widget name="button-back" type="button" x="20" y="317" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
+    <widget name="button-apply" type="button" x="432" y="317" width="156" height="46" allBackground="button-background-156x46" allText="options-apply"/>
     <signal emitter="button-back" signal="main-menu"/>
     <signal emitter="button-apply" signal="option-change-language" dataProvider="chooser-language"/>
     <signal emitter="button-apply" signal="option-change-resolution" dataProvider="chooser-resolution"/>

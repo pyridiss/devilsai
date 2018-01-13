@@ -7,25 +7,25 @@
     <loadImage key="button-journal" path="img/BoutonJournal.png" scale="0.38"/>
     <loadImage key="button-rest" path="img/gui-rest-button.png" scale="0.38"/>
     <properties width="800" height="50"/>
-    <widget name="button-ingame-menu" type="button" xTopLeft="10" yTopLeft="2" width="41" height="41" allBackground="button-ingame-menu">
+    <widget name="button-ingame-menu" type="button" x="10" y="2" width="41" height="41" allBackground="button-ingame-menu">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-character" type="button" xTopLeft="60" yTopLeft="2" width="41" height="41" allBackground="button-character">
+    <widget name="button-character" type="button" x="60" y="2" width="41" height="41" allBackground="button-character">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-equipment" type="button" xTopLeft="110" yTopLeft="2" width="41" height="41" allBackground="button-equipment">
+    <widget name="button-equipment" type="button" x="110" y="2" width="41" height="41" allBackground="button-equipment">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-skills" type="button" xTopLeft="160" yTopLeft="2" width="41" height="41" allBackground="button-skills">
+    <widget name="button-skills" type="button" x="160" y="2" width="41" height="41" allBackground="button-skills">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-journal" type="button" xTopLeft="210" yTopLeft="2" width="41" height="41" allBackground="button-journal">
+    <widget name="button-journal" type="button" x="210" y="2" width="41" height="41" allBackground="button-journal">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="warn-journal" type="text" xTopLeft="210" yTopLeft="2" width="41" height="41">
+    <widget name="warn-journal" type="text" x="210" y="2" width="41" height="41">
         <state name="warn" foregroundShader="warn"/>
     </widget>
-    <widget name="button-rest" type="button" xTopLeft="260" yTopLeft="2" width="41" height="41" allBackground="button-rest">
+    <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest">
         <state name="hover" foregroundShader="highlight"/>
         <state name="disabled" foregroundShader="disable"/>
     </widget>
