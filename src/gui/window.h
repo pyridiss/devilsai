@@ -53,8 +53,8 @@ class Window
         bool exitWindow = false;
 
         int _x, _y;
+        int _width, _height;
         uint16_t _flags;
-        int width = 0, height = 0;
 
         string backgroundImage;
         string backgroundFullscreenShader;
@@ -72,6 +72,8 @@ class Window
         int top(RenderTarget& target);
 
     public:
+        int width();
+        int height();
         void startWindow(RenderWindow& app);
         void display(RenderWindow& app);
         void manage(RenderWindow& app);

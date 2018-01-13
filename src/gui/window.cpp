@@ -48,6 +48,8 @@ Window::Window()
     signalListeners(),
     _x(0),
     _y(0),
+    _width(0),
+    _height(0),
     _flags(0),
     backgroundImage(),
     backgroundFullscreenShader(),
@@ -82,9 +84,9 @@ int Window::left(RenderTarget& target)
         x *= target.getSize().x / 100.0;
 
     if ((_flags & OriginXCenter) == OriginXCenter)
-        return x - width/2;
+        return x - width()/2;
     if ((_flags & OriginRight) == OriginRight)
-        return x - width;
+        return x - width();
 
     return x;
 }
@@ -103,11 +105,27 @@ int Window::top(RenderTarget& target)
         y *= target.getSize().y / 100.0;
 
     if ((_flags & OriginYCenter) == OriginYCenter)
-        return y - height/2;
+        return y - height()/2;
     if ((_flags & OriginBottom) == OriginBottom)
-        return y - height;
+        return y - height();
 
     return y;
+}
+
+int Window::width()
+{
+    if ((_flags & Fullscreen) == Fullscreen)
+        return _screen->getSize().x;
+
+    return _width;
+}
+
+int Window::height()
+{
+    if ((_flags & Fullscreen) == Fullscreen)
+        return _screen->getSize().y;
+
+    return _height;
 }
 
 void Window::startWindow(RenderWindow& app)
@@ -131,12 +149,6 @@ void Window::display(RenderWindow& app)
                 get<0>(l).signalSent = false;
             }
         }
-    }
-
-    if ((_flags & Fullscreen) == Fullscreen)
-    {
-        width = app.getSize().x;
-        height = app.getSize().y;
     }
 
     if (!backgroundShader.empty())
@@ -346,8 +358,8 @@ void Window::loadFromFile(string path, RenderWindow& app)
             if (elem->Attribute("Fullscreen"))
                 _flags |= Fullscreen;
 
-            elem->QueryAttribute("width", &width);
-            elem->QueryAttribute("height", &height);
+            elem->QueryAttribute("width", &_width);
+            elem->QueryAttribute("height", &_height);
 
             if (elem->Attribute("backgroundImage"))
                 backgroundImage = elem->Attribute("backgroundImage");
