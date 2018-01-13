@@ -62,7 +62,7 @@ class Widget
     protected:
         int _x, _y;
         uint16_t _flags;
-        int xOrigin = 0, yOrigin = 0;
+        Window* _parent;
         int width = 0, height = 0;
 
         map < string, minimalistWidget> states;
@@ -80,7 +80,7 @@ class Widget
     public:
         void setTopLeftCoordinates(int x, int y);
         void setCenterCoordinates(int x, int y);
-        void setOriginCoordinates(int x, int y);
+        void setParent(Window* p);
         void setSize(int w, int h);
 
         void addState(string state);

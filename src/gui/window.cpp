@@ -132,8 +132,6 @@ void Window::startWindow(RenderWindow& app)
 {
     exitWindow = false;
 
-    for (auto& widget : widgets)
-        widget.second->setOriginCoordinates(left(app), top(app));
 }
 
 void Window::display(RenderWindow& app)
@@ -390,6 +388,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
 
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
+            widget->setParent(this);
             if (elem->Attribute("xTopLeft"))
             {
                 int x = 0, y = 0;

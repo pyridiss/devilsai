@@ -30,6 +30,7 @@ Widget::Widget()
   : _x(0),
     _y(0),
     _flags(0),
+    _parent(nullptr),
     states(),
     _embeddedData()
 {
@@ -49,10 +50,9 @@ void Widget::setCenterCoordinates(int x, int y)
     _flags = CenterCoordinates;
 }
 
-void Widget::setOriginCoordinates(int x, int y)
+void Widget::setParent(Window* p)
 {
-    xOrigin = x;
-    yOrigin = y;
+    _parent = p;
 }
 
 void Widget::setSize(int w, int h)
