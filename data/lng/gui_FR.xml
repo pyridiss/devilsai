@@ -3,6 +3,10 @@
     <text id="confirm-exit-game-question">Êtes-vous sûr de vouloir quitter le jeu ?</text>
     <text id="confirm-exit-game-exit">Quitter le jeu</text>
     <text id="confirm-exit-game-return-to-game">Retour au jeu</text>
+    <text id="dialog-restart">Recommencer</text>
+    <text id="dialog-ok">OK</text>
+    <text id="dialog-faster">+</text>
+    <text id="dialog-slower">-</text>
     <text id="ingame-menu-return-to-game">Reprendre la partie</text>
     <text id="ingame-menu-savegame">Sauvegarder la partie</text>
     <text id="ingame-menu-exit">Quitter le jeu</text>

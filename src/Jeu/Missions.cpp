@@ -122,12 +122,6 @@ void manageQuests()
 		}
 		else ++i;
 	}
-
-	if (!gamedata::listDialogs().empty())
-	{
-		bool done = gamedata::listDialogs().begin()->display();
-		if (done) gamedata::listDialogs().pop_front();
-	}
 }
 
 /** not yet implemented with LUA :

@@ -54,7 +54,7 @@ Carte* _currentWorld = nullptr;
 pair<Element_Carte*, string>* _currentPlace = nullptr;
 
 Journal _journal;
-list<Dialog> _listDialogs;
+list<textManager::RichText> _listDialogs;
 
 void addWorld(const string& id)
 {
@@ -172,7 +172,7 @@ Journal& journal()
     return _journal;
 }
 
-list<Dialog>& listDialogs()
+list<textManager::RichText>& listDialogs()
 {
     return _listDialogs;
 }

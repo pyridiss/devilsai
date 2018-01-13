@@ -33,6 +33,7 @@
 #include "Bibliotheque.h"
 
 #include "gamedata.h"
+#include "Jeu/options.h"
 
 int LUA_panic(lua_State* L)
 {
@@ -260,10 +261,16 @@ int LUA_pushDialog(lua_State* L)
 {
     MESSAGE("LUA_pushDialog() called", LUA)
 
-	string newDialog = lua_tostring(L, 1);
-	Dialog dialog;
-	gamedata::listDialogs().push_back(dialog);
-	gamedata::listDialogs().back().load(newDialog + ".lng");
+    string container = lua_tostring(L, 1);
+    string newDialog = lua_tostring(L, 2);
+    textManager::PlainText plain = textManager::getText(container, newDialog);
+    textManager::RichText rich;
+    rich.setSize(options::option<unsigned>(tools::math::sdbm_hash("dialog-width")), 0);
+    rich.setDefaultProperties("liberation", 12, Color(255, 255, 255));
+    rich.addFlags(textManager::HAlignJustify);
+    rich.setSource(&plain);
+
+    gamedata::listDialogs().push_back(std::move(rich));
 	return 0;
 }
 
@@ -285,15 +292,7 @@ int LUA_dialogDisplayed(lua_State* L)
 {
     MESSAGE("LUA_dialogDisplayed() called", LUA)
 
-	string dialog = lua_tostring(L, 1);
-	for (auto& i : gamedata::listDialogs())
-		if (i.id == dialog + ".lng")
-		{
-			lua_pushboolean(L, false);
-			return 1;
-		}
-
-	lua_pushboolean(L, true);
+    lua_pushboolean(L, gamedata::listDialogs().empty());
 	return 1;
 }
 

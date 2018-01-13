@@ -38,6 +38,7 @@
 #include "inventoryScreenManager.h"
 #include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
+#include "devilsai-screens/dialogScreen.h"
 
 #include "gamedata.h"
 #include "options.h"
@@ -94,6 +95,7 @@ void mainLoop(RenderWindow& app)
     gui::Window inventoryWindow("gui/inventory.xml");
     gui::Window storageBoxWindow("gui/storage-box.xml");
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml");
+    gui::Window dialogScreen("gui/dialog-screen.xml");
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
@@ -110,7 +112,9 @@ void mainLoop(RenderWindow& app)
     inventoryWindow.startWindow(app);
     storageBoxWindow.startWindow(app);
     ingameSkillbar.startWindow(app);
+    dialogScreen.startWindow(app);
 
+    startDialogScreen(dialogScreen, app);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -137,6 +141,7 @@ void mainLoop(RenderWindow& app)
     bool cursorIsInWorld = false;
     bool move = false;
     bool showTooltip = false;
+    bool cinematicMode = false;
 
     enum LeftScreens { None, Inventory };
     LeftScreens currentLeftScreen = LeftScreens::None;
@@ -153,7 +158,7 @@ void mainLoop(RenderWindow& app)
         Event event;
         while (app.pollEvent(event))
         {
-            if (event.type == Event::MouseButtonPressed && cursorIsInWorld)
+            if (event.type == Event::MouseButtonPressed && cursorIsInWorld && !cinematicMode)
             {
                 if (event.mouseButton.button == Mouse::Button::Left)
                     leftClick = true;
@@ -184,6 +189,8 @@ void mainLoop(RenderWindow& app)
 
             ingameToolbar.manage(app, event);
             ingameSkillbar.manage(app, event);
+
+            manageDialogScreen(app, event);
 
             switch (currentLeftScreen)
             {
@@ -216,10 +223,13 @@ void mainLoop(RenderWindow& app)
                     openStorageBox = nullptr;
                 }
                 selectedStorageBox = -1;
+
+                if (event.key.code == Keyboard::Escape) cout << endl;
             }
         }
 
         ingameSkillbar.checkKeyboardState();
+        manageDialogScreen(app);
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
@@ -361,6 +371,12 @@ void mainLoop(RenderWindow& app)
                 tooltip.setAllText(tools::textManager::getText("places", signal.second));
                 showTooltip = true;
             }
+            if (signal.first == "enable-cinematic-mode") {
+                cinematicMode = true;
+            }
+            if (signal.first == "disable-cinematic-mode") {
+                cinematicMode = false;
+            }
 
             tools::signals::removeSignal();
             signal = tools::signals::getNextSignal();
@@ -434,7 +450,7 @@ void mainLoop(RenderWindow& app)
             }
         }
 
-        if (cursorIsInWorld)
+        if (!cinematicMode && cursorIsInWorld)
         {
             if (move)
             {
@@ -518,6 +534,7 @@ void mainLoop(RenderWindow& app)
 
         ingameToolbar.display(app);
         displaySkillbar(ingameSkillbar, app);
+        displayDialogScreen(dialogScreen, app);
 
         switch (currentLeftScreen)
         {

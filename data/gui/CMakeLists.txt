@@ -1,6 +1,7 @@
 
 set(gui
     confirm-exit-game.xml
+    dialog-screen.xml
     ingame-menu.xml
     ingame-skillbar.xml
     ingame-toolbar.xml

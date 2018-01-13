@@ -40,6 +40,10 @@ namespace tinyxml2{
     class XMLDocument;
 }
 
+namespace textManager{
+    class RichText;
+}
+
 using namespace std;
 
 namespace gamedata{
@@ -56,7 +60,7 @@ lua_State* sharedTrigger(string name);
 unordered_map<string, lua_State*>& quests();
 Joueur* player();
 Journal& journal();
-list<Dialog>& listDialogs();
+list<textManager::RichText>& listDialogs();
 void setPlayerName(string s);
 Carte* currentWorld();
 void clear();
