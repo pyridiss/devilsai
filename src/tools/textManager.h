@@ -27,8 +27,6 @@ using namespace sf;
 
 typedef basic_string<Uint32> String32;
 
-namespace tools{
-
 namespace textManager{
 
 class PlainText;
@@ -61,7 +59,5 @@ string toStdString(const String32& original);
 int toInt(const string& original);
 
 } //namespace textManager
-
-} //namespace tools
 
 #endif // TOOLS_TEXTMANAGER_H

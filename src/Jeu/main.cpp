@@ -142,7 +142,7 @@ int main(int n, char *params[])
     tools::debug::addDebugCategory("devilsai");
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
-    tools::textManager::initLibrary();
+    textManager::initLibrary();
 
 	PHYSFS_init(params[0]);
 

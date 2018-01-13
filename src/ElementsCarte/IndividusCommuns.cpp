@@ -90,7 +90,7 @@ void Classe_Commune::setAngleFixed(double angle)
 void Classe_Commune::loadFromXML(XMLHandle &handle)
 {
     Type = handle.ToElement()->Attribute("name");
-    _displayedName = tools::textManager::getText("species", Type);
+    _displayedName = textManager::getText("species", Type);
 
     string archiveFile;
 

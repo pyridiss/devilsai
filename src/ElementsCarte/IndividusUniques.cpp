@@ -43,7 +43,7 @@ void Individu::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("name"))
     {
         Type = elem->Attribute("name");
-        setCustomDisplayedName(tools::textManager::getText("species", Type));
+        setCustomDisplayedName(textManager::getText("species", Type));
     }
 
     if (elem->Attribute("species"))

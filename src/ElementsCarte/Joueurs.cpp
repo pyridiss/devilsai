@@ -86,7 +86,7 @@ void Joueur::Gestion_Statistiques()
 
 		//Application
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
-			Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), true);
+			Disp_Information(textManager::getText("devilsai", "FATIGUE"), true);
 	}
 
     //Update interactionField of skills
@@ -108,7 +108,7 @@ void Joueur::CoupCritique(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
-		Disp_Information(tools::textManager::getText("devilsai", "CRITIQUE"), true);
+		Disp_Information(textManager::getText("devilsai", "CRITIQUE"), true);
 }
 
 void Joueur::BlessureGrave(Individu* ennemi)
@@ -123,7 +123,7 @@ void Joueur::BlessureGrave(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(tools::textManager::getText("devilsai", "BLESSURE"), true);
+		Disp_Information(textManager::getText("devilsai", "BLESSURE"), true);
 }
 
 void Joueur::CoupEsquive(Individu* ennemi)
@@ -134,7 +134,7 @@ void Joueur::CoupEsquive(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
-		Disp_Information(tools::textManager::getText("devilsai", "ESQUIVE"), true);
+		Disp_Information(textManager::getText("devilsai", "ESQUIVE"), true);
 }
 
 void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
@@ -181,7 +181,7 @@ void Joueur::BlessuresMultiples(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(tools::textManager::getText("devilsai", "BLESSURE"), true);
+		Disp_Information(textManager::getText("devilsai", "BLESSURE"), true);
 }
 
 bool Joueur::ApplicationAmeliorations()
@@ -269,29 +269,29 @@ void Disp_Personnage()
 {
     Disp_Texte(gamedata::player()->displayedName(), 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., gui::style::fontFromString("dayroman"));
 
-	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
     Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
 
-	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ENERGIE"), 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(textManager::getText("devilsai", "PERSO_ENERGIE"), 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
     Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Energy)), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
 
-	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
     if (gamedata::player()->currentHealthStatus(Healing) >= 0)
         Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
     if (gamedata::player()->currentHealthStatus(Healing) < 0)
         Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
 
-	Disp_Texte(tools::textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
+	Disp_Texte(textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
     Disp_Texte(intToString((int)gamedata::player()->experience()), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
 
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_INTELLI"), 280, Options.ScreenH - 180 + 45, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CONSTIT"), 280, Options.ScreenH - 180 + 60, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(tools::textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_INTELLI"), 280, Options.ScreenH - 180 + 45, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_CONSTIT"), 280, Options.ScreenH - 180 + 60, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
+    Disp_Texte(textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
 
 	int numberChar = 0;
     for (int a = Strength ; a != RunSpeed ; ++a)

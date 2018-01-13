@@ -171,7 +171,7 @@ void Load_Options()
             s.directory = elem->Attribute("directory");
             s.version = elem->Attribute("version");
             string n = elem->Attribute("playerName");
-            s.playerName = tools::textManager::fromStdString(n);
+            s.playerName = textManager::fromStdString(n);
             savedGames.push_back(std::move(s));
         }
         elem = elem->NextSiblingElement();
@@ -215,7 +215,7 @@ void Save_Options()
         XMLElement* savedGame = file.NewElement("savedGame");
         savedGame->SetAttribute("directory", s.directory.c_str());
         savedGame->SetAttribute("version", s.version.c_str());
-        savedGame->SetAttribute("playerName", tools::textManager::toStdString(s.playerName).c_str());
+        savedGame->SetAttribute("playerName", textManager::toStdString(s.playerName).c_str());
         elem->InsertEndChild(savedGame);
     }
 
@@ -232,8 +232,8 @@ void changeOption(string name, string value)
     else if (name == "option-change-resolution")
     {
         size_t x = value.find("x");
-        unsigned newWidth = tools::textManager::toInt(value);
-        unsigned newHeight = tools::textManager::toInt(value.substr(x+1));
+        unsigned newWidth = textManager::toInt(value);
+        unsigned newHeight = textManager::toInt(value.substr(x+1));
 
         if (newWidth != option<unsigned>(tools::math::sdbm_hash("screen-width")) || newHeight != option<unsigned>(tools::math::sdbm_hash("screen-height")))
         {

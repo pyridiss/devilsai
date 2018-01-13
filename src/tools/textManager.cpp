@@ -28,7 +28,6 @@
 
 using namespace tinyxml2;
 
-namespace tools{
 
 namespace textManager{
 
@@ -200,4 +199,3 @@ int toInt(const string& original)
 
 } //namespace textManager
 
-} //namespace tools

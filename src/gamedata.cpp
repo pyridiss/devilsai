@@ -179,7 +179,7 @@ list<Dialog>& listDialogs()
 
 void setPlayerName(string s)
 {
-    _player->setCustomDisplayedName(tools::textManager::fromStdString(s));
+    _player->setCustomDisplayedName(textManager::fromStdString(s));
 }
 
 Carte* currentWorld()
@@ -405,7 +405,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             _player->loadFromXML(playerHandle);
 
             if (elem->Attribute("playerName"))
-                _player->setCustomDisplayedName(tools::textManager::fromStdString(elem->Attribute("playerName")));
+                _player->setCustomDisplayedName(textManager::fromStdString(elem->Attribute("playerName")));
         }
 
         if (elemName == "quest")

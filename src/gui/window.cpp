@@ -428,7 +428,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
                     if (elem2->Attribute("text"))
                     {
                         string t = elem2->Attribute("text");
-                        widget->setText(stateName, tools::textManager::getText("gui", t));
+                        widget->setText(stateName, textManager::getText("gui", t));
                     }
 
                     if (elem2->Attribute("backgroundShader"))
@@ -455,7 +455,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
                     DropDownList* d = dynamic_cast<DropDownList*>(widget);
                     string t = elem2->Attribute("text");
                     string data = elem2->Attribute("data");
-                    d->addEntry(tools::textManager::getText("gui", t), data);
+                    d->addEntry(textManager::getText("gui", t), data);
                 }
 
                 elem2 = elem2->NextSiblingElement();

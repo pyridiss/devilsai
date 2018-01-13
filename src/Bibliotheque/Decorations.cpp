@@ -62,12 +62,12 @@ void Load_Decorations()
     imageManager::addAnimation("playerEnergyGaugeBackground", "img/BarreEnergie.png");
     imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
-    tools::textManager::loadFile("gui", "lng/gui_FR.xml");
-    tools::textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
-    tools::textManager::loadFile("species", "lng/species_FR.xml");
-    tools::textManager::loadFile("places", "lng/places_FR.xml");
+    textManager::loadFile("gui", "lng/gui_FR.xml");
+    textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
+    textManager::loadFile("species", "lng/species_FR.xml");
+    textManager::loadFile("places", "lng/places_FR.xml");
+    textManager::loadFile("objects", "lng/objects_FR.xml");
 
-    tools::textManager::loadFile("objects", "lng/objects_FR.xml");
 
     musicManager::addSound("Click");
 
@@ -103,7 +103,7 @@ void Disp_Menu(RenderTarget& target)
 	//Erreur éventuelle
     if (options::option<bool>(tools::math::sdbm_hash("error-occured")))
 	{
-        Disp_Texte(tools::textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
+        Disp_Texte(textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
 	}
 }
 
