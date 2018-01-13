@@ -371,7 +371,7 @@ void Window::setValue(const string& widget, const string& d)
     }
 }
 
-void Window::loadFromFile(string path, RenderWindow& app)
+void Window::loadFromFile(string path)
 {
     path = tools::filesystem::dataDirectory() + path;
 
@@ -463,24 +463,43 @@ void Window::loadFromFile(string path, RenderWindow& app)
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
             widget->setParent(this);
-            if (elem->Attribute("xTopLeft"))
-            {
-                int x = 0, y = 0;
-                elem->QueryAttribute("xTopLeft", &x);
-                elem->QueryAttribute("yTopLeft", &y);
-                widget->setTopLeftCoordinates(x, y);
-            }
-            if (elem->Attribute("xCenter") || elem->Attribute("yCenter") || elem->Attribute("xWindowCenter") || elem->Attribute("yWindowCenter"))
-            {
-                int x = 0, y = 0;
-                elem->QueryAttribute("xCenter", &x);
-                elem->QueryAttribute("yCenter", &y);
-                if (x == 0 && elem->Attribute("xWindowCenter"))
-                    x = app.getSize().x / 2;
-                if (y == 0 && elem->Attribute("yWindowCenter"))
-                    y = app.getSize().y / 2;
-                widget->setCenterCoordinates(x, y);
-            }
+
+            int x = 0, y = 0;
+            elem->QueryAttribute("x", &x);
+            elem->QueryAttribute("y", &y);
+            widget->setPosition(x, y);
+
+            if (elem->Attribute("OriginXCenter"))
+                widget->addFlags(OriginXCenter);
+            if (elem->Attribute("OriginRight"))
+                widget->addFlags(OriginRight);
+            if (elem->Attribute("OriginYCenter"))
+                widget->addFlags(OriginYCenter);
+            if (elem->Attribute("OriginBottom"))
+                widget->addFlags(OriginBottom);
+            if (elem->Attribute("OriginCenter"))
+                widget->addFlags(OriginXCenter | OriginYCenter);
+
+            if (elem->Attribute("XPositionRelativeToCenter"))
+                widget->addFlags(XPositionRelativeToCenter);
+            if (elem->Attribute("XPositionRelativeToRight"))
+                widget->addFlags(XPositionRelativeToRight);
+            if (elem->Attribute("YPositionRelativeToCenter"))
+                widget->addFlags(YPositionRelativeToCenter);
+            if (elem->Attribute("YPositionRelativeToBottom"))
+                widget->addFlags(YPositionRelativeToBottom);
+            if (elem->Attribute("PositionRelativeToCenter"))
+                widget->addFlags(XPositionRelativeToCenter | YPositionRelativeToCenter);
+            if (elem->Attribute("XPositionRelativeToScreenSize"))
+                widget->addFlags(XPositionRelativeToScreenSize);
+            if (elem->Attribute("YPositionRelativeToScreenSize"))
+                widget->addFlags(YPositionRelativeToScreenSize);
+            if (elem->Attribute("PositionRelativeToScreenSize"))
+                widget->addFlags(XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
+            if (elem->Attribute("Fullscreen"))
+                widget->addFlags(Fullscreen);
+            if (elem->Attribute("AdjustSizeToText"))
+                widget->addFlags(AdjustSizeToText);
 
             int w = 0, h = 0;
             elem->QueryAttribute("width", &w);

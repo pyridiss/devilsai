@@ -86,7 +86,7 @@ class Window
         const map<string,Widget*>& getWidgets();
         void setValue(const string& widget, const string& d);
 
-        void loadFromFile(string path, RenderWindow& app);
+        void loadFromFile(string path);
 };
 
 } //namespace gui

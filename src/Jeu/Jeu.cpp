@@ -82,18 +82,18 @@ void mainLoop(RenderWindow& app)
     bool managementActivated = false;
     bool playerResting = false;
 
-    gui::Window mainMenuWindow("gui/main-menu.xml", Jeu.App);
-    gui::Window newGameWindow("gui/new-game.xml", Jeu.App);
-    gui::Window loadGameWindow("gui/load-game.xml", Jeu.App);
-    gui::Window optionsWindow("gui/options.xml", Jeu.App);
-    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", Jeu.App);
-    gui::Window ingameMenuWindow("gui/ingame-menu.xml", Jeu.App);
-    gui::Window ingameToolbar("gui/ingame-toolbar.xml", Jeu.App);
-    gui::Window loadingWindow("gui/loading.xml", Jeu.App);
-    gui::Window playerDeadWindow("gui/player-dead.xml", Jeu.App);
-    gui::Window inventoryWindow("gui/inventory.xml", Jeu.App);
-    gui::Window storageBoxWindow("gui/storage-box.xml", Jeu.App);
-    gui::Window ingameSkillbar("gui/ingame-skillbar.xml", Jeu.App);
+    gui::Window mainMenuWindow("gui/main-menu.xml");
+    gui::Window newGameWindow("gui/new-game.xml");
+    gui::Window loadGameWindow("gui/load-game.xml");
+    gui::Window optionsWindow("gui/options.xml");
+    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml");
+    gui::Window ingameMenuWindow("gui/ingame-menu.xml");
+    gui::Window ingameToolbar("gui/ingame-toolbar.xml");
+    gui::Window loadingWindow("gui/loading.xml");
+    gui::Window playerDeadWindow("gui/player-dead.xml");
+    gui::Window inventoryWindow("gui/inventory.xml");
+    gui::Window storageBoxWindow("gui/storage-box.xml");
+    gui::Window ingameSkillbar("gui/ingame-skillbar.xml");
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
