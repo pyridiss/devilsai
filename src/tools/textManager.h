@@ -31,6 +31,23 @@ namespace tools{
 
 namespace textManager{
 
+class PlainText;
+class RichText;
+
+enum Flags
+{
+    HAlignRight = 1 << 0,
+    HAlignCenter = 1 << 1,
+    HAlignJustify = 1 << 2,
+    OriginRight = 1 << 3,
+    OriginXCenter = 1 << 4,
+    OriginTop = 1 << 5,
+    OriginBottom = 1 << 6,
+    OriginYCenter = 1 << 7,
+    FixedHeight = 1 << 8,
+    VAlignCenter = 1 << 9
+};
+
 void initLibrary();
 String32& FORM();
 String32& EOL();
