@@ -125,49 +125,17 @@ void Widget::setAllBackground(string b)
     }
 }
 
-void Widget::setAllTextColor(const Color& c)
-{
-    for (auto& state : states)
-        setTextColor(state.first, c);
-}
-
 void Widget::setText(string state, String32& t)
 {
     const auto& s = states.find(state);
 
-    s->second.text.setString(t);
+    s->second.text.setSize(max(0, width - 12), height);
+    if ((_flags & CenterCoordinates) == CenterCoordinates)
+        s->second.text.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter);
+    s->second.text.setSource(&t);
 
-    updateTextPosition();
-    updateSize();
-}
-
-void Widget::setTextFont(const Font& f, float s)
-{
-    for (auto& state : states)
-    {
-        state.second.text.setFont(f);
-        state.second.text.setCharacterSize(s);
-    }
-
-    updateTextPosition();
-    updateSize();
-}
-
-void Widget::setTextOutline(Color c, float t)
-{
-    for (auto& state : states)
-    {
-        state.second.text.setOutlineColor(c);
-        state.second.text.setOutlineThickness(t);
-    }
-
-    updateTextPosition();
-    updateSize();
-}
-
-void Widget::setTextColor(string state, const Color& c)
-{
-    states.find(state)->second.text.setFillColor(c);
+    if ((_flags & AdjustSizeToText) == AdjustSizeToText)
+        updateSize();
 }
 
 void Widget::setBackground(string state, string b)
@@ -195,23 +163,12 @@ void Widget::setForegroundShader(string state, string s)
     states.find(state)->second.fShader = s;
 }
 
-void Widget::updateTextPosition()
-{
-    for (auto& state : states)
-    {
-        FloatRect rect = state.second.text.getGlobalBounds();
-        state.second.text.setPosition((int)(getXCenter() - rect.width/2 - 1), (int)(getYCenter() - rect.height/2 - 3));
-    }
-}
-
 void Widget::updateSize()
 {
     for (auto& state : states)
     {
-        FloatRect rect = state.second.text.getGlobalBounds();
-
-        width = max(width, (int)rect.width + 12);
-        height = max(height, (int)rect.height + 6);
+        width = max(width, state.second.text.width() + 12);
+        height = max(height, state.second.text.height() + 6);
     }
 }
 
@@ -244,7 +201,7 @@ void Widget::display(RenderWindow& app)
     else if (!state->second.bShader.empty())
         gui::style::displayShader(app, state->second.bShader, getXTopLeft(), getYTopLeft(), width, height);
 
-    app.draw(state->second.text);
+    state->second.text.displayFullText(app, getXCenter(), getYCenter());
 
     if (state->second.foregroundShader != nullptr)
         state->second.foregroundShader(app, getXTopLeft(), getYTopLeft(), width, height);

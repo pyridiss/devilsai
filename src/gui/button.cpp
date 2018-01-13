@@ -30,13 +30,13 @@ Button::Button()
     addState("hover");
     addState("disabled");
 
-    setTextFont(gui::style::buttonTextFont(), gui::style::buttonTextSize());
+    states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+    states.find("active")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::activeButtonTextColor());
+    states.find("hover")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::hoverButtonTextColor());
+    states.find("disabled")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::disabledButtonTextColor());
 
-    setTextColor("normal",   gui::style::normalButtonTextColor());
-    setTextColor("active",   gui::style::activeButtonTextColor());
-    setTextColor("hover",    gui::style::hoverButtonTextColor());
-    setTextColor("disabled", gui::style::disabledButtonTextColor());
-
+    for (auto& s : states)
+        s.second.text.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter | textManager::FixedHeight | textManager::VAlignCenter);
 }
 
 void Button::setAutoRelease(bool a)

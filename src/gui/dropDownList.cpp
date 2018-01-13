@@ -29,9 +29,8 @@ DropDownList::DropDownList()
     addState("normal");
     addState("developed");
 
-    setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
-
-    setTextColor("normal", Color::Black);
+    states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+    states.find("developed")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
 
 }
 
@@ -85,6 +84,7 @@ bool DropDownList::activated(RenderWindow& app, Event event)
         {
             int i = Mouse::getPosition(app).y - (getYTopLeft() + height);
             index = i / height;
+            setAllText(entries[index].first);
             currentState = "normal";
             _needsFocus = false;
         }
@@ -104,6 +104,7 @@ void DropDownList::setValue(const string& d)
     index = 0;
     while (index < entries.size() && entries[index].second != d)
         ++index;
+    setAllText(entries[index].first);
 }
 
 string DropDownList::value()
@@ -113,9 +114,6 @@ string DropDownList::value()
 
 void DropDownList::display(RenderWindow& app)
 {
-    setAllText(entries[index].first);
-    updateTextPosition();
-
     Widget::display(app);
 
     if (currentState == "developed")
@@ -130,15 +128,17 @@ void DropDownList::display(RenderWindow& app)
         int i = 1;
         for (auto& e : entries)
         {
-            Text t;
-            t.setString(e.first);
-            t.setFont(gui::style::defaultTextFont());
-            t.setCharacterSize(gui::style::defaultTextSize());
+            textManager::RichText t;
+            t.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter | textManager::FixedHeight | textManager::VAlignCenter);
+            t.setSize(width, height);
 
-            FloatRect rect = t.getGlobalBounds();
-            t.setPosition((int)(getXTopLeft() + width/2 - rect.width/2 - 1), (int)(getYTopLeft() + i*height + height/2 - rect.height/2 - 3));
+            if (i == index + 1)
+                t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+            else
+                t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::activeButtonTextColor());
 
-            app.draw(t);
+            t.setSource(&e.first);
+            t.displayFullText(app, getXCenter(), getYCenter() + i * height);
 
             ++i;
         }

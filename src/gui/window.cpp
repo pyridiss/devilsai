@@ -115,10 +115,7 @@ void Window::startWindow(RenderWindow& app)
     exitWindow = false;
 
     for (auto& widget : widgets)
-    {
         widget.second->setOriginCoordinates(left(app), top(app));
-        widget.second->updateTextPosition();
-    }
 }
 
 void Window::display(RenderWindow& app)
@@ -414,16 +411,7 @@ void Window::loadFromFile(string path, RenderWindow& app)
             if (elem->Attribute("allText"))
             {
                 string t = elem->Attribute("allText");
-                widget->setAllText(tools::textManager::getText("gui", t));
-            }
-            int textSize = gui::style::defaultTextSize();
-            elem->QueryAttribute("textSize", &textSize);
-            string font;
-            if (elem->Attribute("textFont")) font = elem->Attribute("textFont");
-            widget->setTextFont(gui::style::fontFromString(font), textSize);
-            if (elem->Attribute("allTextColor"))
-            {
-                widget->setAllTextColor(gui::style::colorFromString(elem->Attribute("allTextColor")));
+                widget->setAllText(textManager::getText("gui", t));
             }
 
             XMLHandle hdl2(elem);

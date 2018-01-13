@@ -29,9 +29,7 @@ InputField::InputField()
 {
     addState("normal");
 
-    setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
-
-    setTextColor("normal", Color::Black);
+    states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
 }
 
 bool InputField::mouseHovering(RenderWindow& app)
@@ -61,25 +59,23 @@ bool InputField::activated(RenderWindow& app, Event event)
         }
     }
 
+    textManager::PlainText a;
+    a.set(input);
+    setAllText(a);
+
     return false;
 }
 
 void InputField::setValue(const string& d)
 {
-    input = tools::textManager::fromStdString(d);
+    input = textManager::fromStdString(d).aggregatedText();
 }
 
 string InputField::value()
 {
-    return tools::textManager::toStdString(input);
-}
-
-void InputField::display(RenderWindow& app)
-{
-    setAllText(input);
-    updateTextPosition();
-
-    Widget::display(app);
+    textManager::PlainText a;
+    a.set(input);
+    return textManager::toStdString(a);
 }
 
 } //namespace gui

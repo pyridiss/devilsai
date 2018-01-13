@@ -32,7 +32,7 @@ namespace gui{
 class InputField : public Widget
 {
     private:
-        String32 input;
+        basic_string<unsigned int> input;
 
     public:
         InputField();
@@ -44,8 +44,6 @@ class InputField : public Widget
 
         void setValue(const string& d);
         string value();
-
-        void display(RenderWindow& app);
 };
 
 } //namespace gui

@@ -43,7 +43,8 @@ enum Flags
     YPositionRelativeToScreenSize = 1 << 9,
     Fullscreen = 1 << 10,
     TopLeftCoordinates = 1 << 11,
-    CenterCoordinates = 1 << 12
+    CenterCoordinates = 1 << 12,
+    AdjustSizeToText = 1 << 13
 };
 
 namespace style{

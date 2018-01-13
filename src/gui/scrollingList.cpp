@@ -29,9 +29,7 @@ ScrollingList::ScrollingList()
 {
     addState("normal");
 
-    setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
-
-    setTextColor("normal", Color::Black);
+    states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
 }
 
 void ScrollingList::addEntry(String32& entry, string data)
@@ -143,7 +141,7 @@ void ScrollingList::display(RenderWindow& app)
         }
 
         Text t;
-        t.setString(e.first);
+        t.setString(e.first.aggregatedText());
         t.setFont(gui::style::defaultTextFont());
         t.setCharacterSize(16);
 

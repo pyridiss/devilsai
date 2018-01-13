@@ -29,13 +29,12 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "tools/signals.h"
+#include "textManager/richText.h"
 
 #include "gui/style.h"
 
 using namespace std;
 using namespace sf;
-
-typedef basic_string<Uint32> String32;
 
 namespace gui{
 
@@ -44,7 +43,7 @@ class Widget
     protected:
         struct minimalistWidget
         {
-            Text text;
+            textManager::RichText text;
             string background;
             void (*backgroundShader)(RenderWindow&, int, int, int, int) = nullptr;
             void (*foregroundShader)(RenderWindow&, int, int, int, int) = nullptr;
@@ -94,19 +93,14 @@ class Widget
 
         void setAllText(String32& t);
         void setAllBackground(string b);
-        void setAllTextColor(const Color& c);
 
         void setText(string state, String32& t);
-        void setTextFont(const Font& f, float s);
-        void setTextOutline(Color c, float t);
-        void setTextColor(string state, const Color& c);
         void setBackground(string state, string b);
         void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setBackgroundShader(string state, string s);
         void setForegroundShader(string state, string s);
 
-        void updateTextPosition();
         void updateSize();
 
         void addEmbeddedData(string name, string value);

@@ -27,9 +27,9 @@ TextWidget::TextWidget()
 {
     addState("normal");
 
-    setTextFont(gui::style::defaultTextFont(), gui::style::defaultTextSize());
+    states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
 
-    setTextColor("normal", Color::Black);
+    _flags |= AdjustSizeToText;
 }
 
 bool TextWidget::mouseHovering(RenderWindow& app)
