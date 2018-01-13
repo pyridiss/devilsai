@@ -83,9 +83,10 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
     else if (event.type == Event::MouseWheelScrolled)
     {
         scrolling -= 0.1 * event.mouseWheelScroll.delta;
-        scrolling = min(1., scrolling);
-        scrolling = max(0., scrolling);
     }
+
+    scrolling = min(0.99, scrolling);
+    scrolling = max(0., scrolling);
 
     return false;
 }
@@ -140,13 +141,10 @@ void ScrollingList::display(RenderWindow& app)
             continue;
         }
 
-        Text t;
-        t.setString(e.first.aggregatedText());
-        t.setFont(gui::style::defaultTextFont());
-        t.setCharacterSize(16);
-
-        FloatRect rect = t.getGlobalBounds();
-        t.setPosition((int)(left() + 5), (int)(top() + 5 + currentY));
+        textManager::RichText t;
+        t.setSize(width() - 20, 20);
+        t.setDefaultProperties(gui::style::buttonTextFont(), 16, Color::White);
+        t.setSource(&e.first);
 
         if (i == index)
         {
@@ -156,7 +154,7 @@ void ScrollingList::display(RenderWindow& app)
             app.draw(highlight);
         }
 
-        app.draw(t);
+        t.displayFullText(app, (int)(left() + 5), (int)(top() + 5 + currentY));
 
         ++i;
         currentY += 20;

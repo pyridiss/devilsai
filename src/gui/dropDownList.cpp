@@ -31,7 +31,6 @@ DropDownList::DropDownList()
 
     states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
     states.find("developed")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
-
 }
 
 void DropDownList::addEntry(String32& entry, string data)
