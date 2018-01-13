@@ -30,6 +30,7 @@
 #include "tools/math.h"
 #include "tools/aStar.h"
 #include "imageManager/imageManager.h"
+#include "textManager/richText.h"
 
 #include "Jeu/options.h"
 #include "gamedata.h"
@@ -187,17 +188,17 @@ Activite* Individu::skill(const string& s)
     return &i->second;
 }
 
-const String32& Individu::displayedName()
+textManager::PlainText* Individu::displayedName()
 {
     if (_displayedName != nullptr)
-        return *_displayedName;
+        return _displayedName;
 
     if (_species != nullptr)
-        return _species->_displayedName;
+        return &_species->_displayedName;
 
     //In case there is no custom name nor species...
     setCustomDisplayedName(String32());
-    return *_displayedName;
+    return _displayedName;
 }
 
 unsigned int Individu::experience()
@@ -412,10 +413,17 @@ void Individu::displayLifeGauge(RenderTarget& target)
     int x = position().x;
     int y = position().y;
 
-    Color color;
-    if (Diplomatie == DIPLOM_ALLIE) color = Color(128, 255, 128, 255);
-    if (Diplomatie == DIPLOM_ENNEMI) color = Color(255, 255, 255, 255);
-    Disp_TexteCentre(displayedName(), x, y + 25, color, 10.f);
+    textManager::RichText individualName;
+    individualName.setSize(160, 0);
+
+    if (Diplomatie == DIPLOM_ALLIE)
+        individualName.setDefaultProperties("liberation", 10, Color(128, 255, 128));
+    else
+        individualName.setDefaultProperties("liberation", 10, Color(255, 255, 255));
+
+    individualName.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
+    individualName.setSource(displayedName());
+    individualName.displayFullText(target, x, y + 20);
 
     RectangleShape background(Vector2f(50, 4));
     background.setPosition(x - 25, y + 35);

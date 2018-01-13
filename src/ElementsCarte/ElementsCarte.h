@@ -42,7 +42,7 @@ class Paysage;
 namespace tinyxml2{
     class XMLHandle;
     class XMLDocument;
-};
+}
 
 enum Behaviors
 {
@@ -242,7 +242,7 @@ class Individu : public Element_Carte
         Element_Carte* targetedItem();
         Statistiques& attributes();
         Activite* skill(const string& s);
-        const String32& displayedName();
+        textManager::PlainText* displayedName();
         unsigned int experience();
         bool angleFixed();
 
