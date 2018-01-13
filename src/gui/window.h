@@ -56,6 +56,8 @@ class Window
         int _width, _height;
         uint16_t _flags;
 
+        RenderWindow* _screen;
+
         string backgroundImage;
         string backgroundFullscreenShader;
         string backgroundShader;
@@ -64,16 +66,17 @@ class Window
 
     public:
         Window();
-        Window(string path, RenderWindow& app);
+        Window(string path);
+        Window(const Window& other);
+        Window& operator=(const Window& right);
         ~Window();
 
-    private:
-        int left(RenderTarget& target);
-        int top(RenderTarget& target);
-
     public:
+        int left();
+        int top();
         int width();
         int height();
+        const RenderWindow* screen();
         void startWindow(RenderWindow& app);
         void display(RenderWindow& app);
         void manage(RenderWindow& app);

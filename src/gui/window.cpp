@@ -19,6 +19,7 @@
 
 #include <tinyxml2.h>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
@@ -51,6 +52,7 @@ Window::Window()
     _width(0),
     _height(0),
     _flags(0),
+    _screen(nullptr),
     backgroundImage(),
     backgroundFullscreenShader(),
     backgroundShader(),
@@ -59,9 +61,51 @@ Window::Window()
 {
 }
 
-Window::Window(string path, RenderWindow& app) : Window()
+Window::Window(const Window& other)
+  : widgets(other.widgets),
+    signals(other.signals),
+    keyboardSignals(other.keyboardSignals),
+    exitWindowSignals(other.exitWindowSignals),
+    signalListeners(other.signalListeners),
+    _x(other._x),
+    _y(other._y),
+    _width(other._width),
+    _height(other._height),
+    _flags(other._flags),
+    _screen(other._screen),
+    backgroundImage(other.backgroundImage),
+    backgroundFullscreenShader(other.backgroundFullscreenShader),
+    backgroundShader(other.backgroundShader),
+    foregroundShader(other.foregroundShader),
+    music(other.music)
 {
-    loadFromFile(path, app);
+}
+
+Window::Window(string path) : Window()
+{
+    loadFromFile(path);
+}
+
+Window& Window::operator=(const Window& right)
+{
+    widgets = right.widgets;
+    signals = right.signals;
+    keyboardSignals = right.keyboardSignals;
+    exitWindowSignals = right.exitWindowSignals;
+    signalListeners = right.signalListeners;
+    _x = right._x;
+    _y = right._y;
+    _width = right._width;
+    _height = right._height;
+    _flags = right._flags;
+    _screen = right._screen;
+    backgroundImage = right.backgroundImage;
+    backgroundFullscreenShader = right.backgroundFullscreenShader;
+    backgroundShader = right.backgroundShader;
+    foregroundShader = right.foregroundShader;
+    music = right.music;
+
+    return *this;
 }
 
 Window::~Window()
@@ -70,18 +114,24 @@ Window::~Window()
         delete w.second;
 }
 
-int Window::left(RenderTarget& target)
+int Window::left()
 {
+    if (_screen == nullptr)
+    {
+        tools::debug::error("A window has been badly started", "gui", __FILENAME__, __LINE__);
+        return 0;
+    }
+
     int x = _x;
 
     if ((_flags & Fullscreen) == Fullscreen)
         return 0;
     if ((_flags & XPositionRelativeToCenter) == XPositionRelativeToCenter)
-        x = target.getSize().x/2 + x;
+        x = _screen->getSize().x/2 + x;
     if ((_flags & XPositionRelativeToRight) == XPositionRelativeToRight)
-        x = target.getSize().x - x;
+        x = _screen->getSize().x - x;
     if ((_flags & XPositionRelativeToScreenSize) == XPositionRelativeToScreenSize)
-        x *= target.getSize().x / 100.0;
+        x *= _screen->getSize().x / 100.0;
 
     if ((_flags & OriginXCenter) == OriginXCenter)
         return x - width()/2;
@@ -91,18 +141,24 @@ int Window::left(RenderTarget& target)
     return x;
 }
 
-int Window::top(RenderTarget& target)
+int Window::top()
 {
+    if (_screen == nullptr)
+    {
+        tools::debug::error("A window has been badly started", "gui", __FILENAME__, __LINE__);
+        return 0;
+    }
+
     int y = _y;
 
     if ((_flags & Fullscreen) == Fullscreen)
         return 0;
     if ((_flags & YPositionRelativeToCenter) == YPositionRelativeToCenter)
-        y = target.getSize().y/2 + y;
+        y = _screen->getSize().y/2 + y;
     if ((_flags & YPositionRelativeToBottom) == YPositionRelativeToBottom)
-        y = target.getSize().y - y;
+        y = _screen->getSize().y - y;
     if ((_flags & YPositionRelativeToScreenSize) == YPositionRelativeToScreenSize)
-        y *= target.getSize().y / 100.0;
+        y *= _screen->getSize().y / 100.0;
 
     if ((_flags & OriginYCenter) == OriginYCenter)
         return y - height()/2;
@@ -114,6 +170,12 @@ int Window::top(RenderTarget& target)
 
 int Window::width()
 {
+    if (_screen == nullptr)
+    {
+        tools::debug::error("A window has been badly started", "gui", __FILENAME__, __LINE__);
+        return 0;
+    }
+
     if ((_flags & Fullscreen) == Fullscreen)
         return _screen->getSize().x;
 
@@ -122,16 +184,28 @@ int Window::width()
 
 int Window::height()
 {
+    if (_screen == nullptr)
+    {
+        tools::debug::error("A window has been badly started", "gui", __FILENAME__, __LINE__);
+        return 0;
+    }
+
     if ((_flags & Fullscreen) == Fullscreen)
         return _screen->getSize().y;
 
     return _height;
 }
 
+const RenderWindow* Window::screen()
+{
+    return _screen;
+}
+
 void Window::startWindow(RenderWindow& app)
 {
-    exitWindow = false;
+    _screen = &app;
 
+    exitWindow = false;
 }
 
 void Window::display(RenderWindow& app)
@@ -150,10 +224,10 @@ void Window::display(RenderWindow& app)
     }
 
     if (!backgroundShader.empty())
-        gui::style::displayShader(app, backgroundShader, left(app), top(app), width, height);
+        gui::style::displayShader(app, backgroundShader, left(), top(), width(), height());
 
     if (!backgroundImage.empty())
-        imageManager::display(app, "gui", backgroundImage, left(app), top(app));
+        imageManager::display(app, "gui", backgroundImage, left(), top());
 
     Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
@@ -190,7 +264,7 @@ void Window::manage(RenderWindow& app)
         display(app);
 
         if (!foregroundShader.empty())
-            gui::style::displayShader(app, foregroundShader, left(app), top(app), width, height);
+            gui::style::displayShader(app, foregroundShader, left(), top(), width(), height());
 
         tools::timeManager::frameDone();
         app.display();
