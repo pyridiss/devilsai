@@ -48,7 +48,7 @@ extern Classe_Jeu::Classe_Options Options;
 
 void createWindow();
 
-void mainLoop();
+void mainLoop(RenderWindow& app);
 void Clean_Partie();
 
 void Save_Partie();

@@ -68,7 +68,7 @@ void changeCurrentUserScreen(UserScreen* _new)
 
 /** FONCTIONS DE GESTION DE LA PARTIE **/
 
-void mainLoop()
+void mainLoop(RenderWindow& app)
 {
     screenCharacter.dispFunction = Disp_Personnage;
     screenCharacter.manageFunction = nullptr;
@@ -105,12 +105,12 @@ void mainLoop()
     tooltip.setBackgroundShader("normal", "textBackground");
     tooltip.setTextFont(gui::style::fontFromString("liberation-bold"), 15);
     tooltip.setTextColor("normal", Color(255, 255, 255));
+    ingameToolbar.startWindow(app);
+    loadingWindow.startWindow(app);
+    inventoryWindow.startWindow(app);
+    storageBoxWindow.startWindow(app);
+    ingameSkillbar.startWindow(app);
 
-    ingameToolbar.startWindow(Jeu.App);
-    loadingWindow.startWindow(Jeu.App);
-    inventoryWindow.startWindow(Jeu.App);
-    storageBoxWindow.startWindow(Jeu.App);
-    ingameSkillbar.startWindow(Jeu.App);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -118,7 +118,7 @@ void mainLoop()
     tools::signals::addSignal("main-menu");
     tools::signals::addSignal("main-menu:disable-load-game");
 
-    View worldView(FloatRect(0, 0, Options.ScreenW, Options.ScreenH));
+    View worldView(FloatRect(0, 0, app.getSize().x, app.getSize().y));
     worldView.setViewport(sf::FloatRect(0, 0, 1, 1));
 
     Individu cursor;
@@ -127,7 +127,7 @@ void mainLoop()
 
     Individu screen;
     screen.Type = "intern";
-    screen.size.circle(tools::math::Vector2d(0, 0), Options.ScreenW/2);
+    screen.size.circle(tools::math::Vector2d(0, 0), app.getSize().x/2);
 
     Individu* underCursor = nullptr;
     Coffre* storageBoxUnderCursor = nullptr;
@@ -151,7 +151,7 @@ void mainLoop()
         bool leftClick = false, rightClick = false;
 
         Event event;
-        while (Jeu.App.pollEvent(event))
+        while (app.pollEvent(event))
         {
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld)
             {
@@ -182,13 +182,13 @@ void mainLoop()
                 }
             }
 
-            ingameToolbar.manage(Jeu.App, event);
-            ingameSkillbar.manage(Jeu.App, event);
+            ingameToolbar.manage(app, event);
+            ingameSkillbar.manage(app, event);
 
             switch (currentLeftScreen)
             {
                 case LeftScreens::Inventory :
-                    manageInventoryScreen(inventoryWindow, Jeu.App, event, selectedObject);
+                    manageInventoryScreen(inventoryWindow, app, event, selectedObject);
                 default:
                     break;
             }
@@ -196,7 +196,7 @@ void mainLoop()
             switch (currentBottomScreen)
             {
                 case BottomScreens::StorageBox :
-                    manageStorageBoxScreen(storageBoxWindow, Jeu.App, event, openStorageBox);
+                    manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
                 default:
                     break;
             }
@@ -221,18 +221,18 @@ void mainLoop()
 
         ingameSkillbar.checkKeyboardState();
 
-        worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 106));
-        worldView.setViewport(FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH-106)/(float)Options.ScreenH));
+        worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
+        worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
 
         if (currentLeftScreen != LeftScreens::None)
         {
-            worldView.reset(FloatRect(0, 0, Options.ScreenW/2.f, Options.ScreenH - 106));
-            worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)Options.ScreenH, 0.5f, (float)(Options.ScreenH-106)/(float)Options.ScreenH));
+            worldView.reset(FloatRect(0, 0, app.getSize().x/2.f, app.getSize().y - 106));
+            worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)app.getSize().y, 0.5f, (float)(app.getSize().y-106)/(float)app.getSize().y));
         }
         if (currentBottomScreen != BottomScreens::NoBottomScreen)
         {
-            worldView.reset(FloatRect(0, 0, Options.ScreenW, Options.ScreenH - 306));
-            worldView.setViewport(sf::FloatRect(0, 50.f/(float)Options.ScreenH, 1, (float)(Options.ScreenH - 306)/(float)Options.ScreenH));
+            worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 306));
+            worldView.setViewport(sf::FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y - 306)/(float)app.getSize().y));
         }
 
         tools::signals::Signal signal = tools::signals::getNextSignal();
@@ -240,7 +240,7 @@ void mainLoop()
         {
             if (signal.first == "main-menu")
             {
-                mainMenuWindow.manage(Jeu.App);
+                mainMenuWindow.manage(app);
                 managementActivated = false;
             }
 
@@ -262,19 +262,19 @@ void mainLoop()
             }
             if (signal.first == "player-dead")
             {
-                playerDeadWindow.manage(Jeu.App);
+                playerDeadWindow.manage(app);
                 Clean_Partie();
             }
 
             if (signal.first == "new-game")
             {
-                newGameWindow.manage(Jeu.App);
+                newGameWindow.manage(app);
             }
 
             if (signal.first == "start-new-game") {
                 gamedata::clear();
-                loadingWindow.display(Jeu.App);
-                Jeu.App.display();
+                loadingWindow.display(app);
+                app.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
                 managementActivated = true;
             }
@@ -283,7 +283,7 @@ void mainLoop()
             }
             if (signal.first == "load-game")
             {
-                loadGameWindow.manage(Jeu.App);
+                loadGameWindow.manage(app);
             }
 
             if (signal.first == "delete-game")
@@ -300,7 +300,7 @@ void mainLoop()
 
             if (signal.first == "options")
             {
-                optionsWindow.manage(Jeu.App);
+                optionsWindow.manage(app);
             }
 
             if (signal.first.find("option-change") != string::npos)
@@ -310,7 +310,7 @@ void mainLoop()
 
             if (signal.first == "ask-menu")
             {
-                ingameMenuWindow.manage(Jeu.App);
+                ingameMenuWindow.manage(app);
             }
 
             if (signal.first == "screen-character")
@@ -338,7 +338,7 @@ void mainLoop()
 
             if (signal.first == "ask-exit")
             {
-                confirmExitGameWindow.manage(Jeu.App);
+                confirmExitGameWindow.manage(app);
             }
 
             if (signal.first == "exit")
@@ -385,13 +385,13 @@ void mainLoop()
                     -screen.position().y + gamedata::player()->position().y);
 
         //Mouse cursor
-        cursor.move(-cursor.position().x + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x,
-                    -cursor.position().y + Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y);
+        cursor.move(-cursor.position().x + app.mapPixelToCoords(Mouse::getPosition(app), worldView).x,
+                    -cursor.position().y + app.mapPixelToCoords(Mouse::getPosition(app), worldView).y);
 
-        if (Mouse::getPosition(Jeu.App).x >= Jeu.App.getSize().x * worldView.getViewport().left &&
-            Mouse::getPosition(Jeu.App).y >= Jeu.App.getSize().y * worldView.getViewport().top &&
-            Mouse::getPosition(Jeu.App).x <= Jeu.App.getSize().x * (worldView.getViewport().left + worldView.getViewport().width) &&
-            Mouse::getPosition(Jeu.App).y <= Jeu.App.getSize().y * (worldView.getViewport().top + worldView.getViewport().height))
+        if (Mouse::getPosition(app).x >= app.getSize().x * worldView.getViewport().left &&
+            Mouse::getPosition(app).y >= app.getSize().y * worldView.getViewport().top &&
+            Mouse::getPosition(app).x <= app.getSize().x * (worldView.getViewport().left + worldView.getViewport().width) &&
+            Mouse::getPosition(app).y <= app.getSize().y * (worldView.getViewport().top + worldView.getViewport().height))
             cursorIsInWorld = true;
         else cursorIsInWorld = false;
 
@@ -468,20 +468,20 @@ void mainLoop()
 
         //3. Display
 
-        Jeu.App.clear();
-        Jeu.App.setView(worldView);
+        app.clear();
+        app.setView(worldView);
 
-        gamedata::currentWorld()->displayBackground(Jeu.App);
-        gamedata::currentWorld()->display(Jeu.App);
+        gamedata::currentWorld()->displayBackground(app);
+        gamedata::currentWorld()->display(app);
 
-        if (underCursor != nullptr) underCursor->displayLifeGauge(Jeu.App);
+        if (underCursor != nullptr) underCursor->displayLifeGauge(app);
 
-        if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(Jeu.App);
+        if (storageBoxUnderCursor != nullptr) storageBoxUnderCursor->highlight(app);
 
         if (showTooltip)
         {
-            int x = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).x + 10;
-            int y = Jeu.App.mapPixelToCoords(Mouse::getPosition(Jeu.App), worldView).y + 10;
+            int x = app.mapPixelToCoords(Mouse::getPosition(app), worldView).x + 10;
+            int y = app.mapPixelToCoords(Mouse::getPosition(app), worldView).y + 10;
             tooltip.setTopLeftCoordinates(x, y);
             tooltip.updateTextPosition();
             tooltip.display(Jeu.App);
@@ -496,7 +496,7 @@ void mainLoop()
                 if (v.second == COLL_INTER)
                 {
                     Coffre* c = dynamic_cast<Coffre*>(v.first);
-                    if (c != nullptr) c->highlight(Jeu.App);
+                    if (c != nullptr) c->highlight(app);
                 }
             }
         }
@@ -504,25 +504,25 @@ void mainLoop()
         if (gamedata::player()->targetedItem() != nullptr)
         {
             Individu* ind = dynamic_cast<Individu*>(gamedata::player()->targetedItem());
-            if (ind != nullptr && ind != underCursor) ind->displayLifeGauge(Jeu.App);
+            if (ind != nullptr && ind != underCursor) ind->displayLifeGauge(app);
         }
 
-        Jeu.App.setView(Jeu.App.getDefaultView());
+        app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
 
         if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
         {
-            Disp_Menu(Jeu.App);
-            Disp_JaugesVie(Jeu.App);
+            Disp_Menu(app);
+            Disp_JaugesVie(app);
             Disp_Consoles();
         }
 
-        ingameToolbar.display(Jeu.App);
-        displaySkillbar(ingameSkillbar, Jeu.App);
+        ingameToolbar.display(app);
+        displaySkillbar(ingameSkillbar, app);
 
         switch (currentLeftScreen)
         {
             case LeftScreens::Inventory :
-                displayInventoryScreen(inventoryWindow, Jeu.App, selectedObject);
+                displayInventoryScreen(inventoryWindow, app, selectedObject);
             default:
                 break;
         }
@@ -530,7 +530,7 @@ void mainLoop()
         switch (currentBottomScreen)
         {
             case BottomScreens::StorageBox :
-                displayStorageBoxScreen(storageBoxWindow, Jeu.App, openStorageBox);
+                displayStorageBoxScreen(storageBoxWindow, app, openStorageBox);
             default:
                 break;
         }
@@ -538,11 +538,11 @@ void mainLoop()
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();
 
-        Disp_FonduNoir(0, Jeu.App);
+        Disp_FonduNoir(0, app);
 
         if (playerResting)
         {
-            bool animationFinished = Disp_Repos(Jeu.App);
+            bool animationFinished = Disp_Repos(app);
             if (animationFinished)
             {
                 playerResting = false;
@@ -550,7 +550,7 @@ void mainLoop()
             }
         }
 
-        Disp_FPS(Jeu.App);
+        Disp_FPS(app);
 
 		//2. GESTION DES MISSIONS
 
@@ -585,7 +585,7 @@ void mainLoop()
 		}
 
         tools::timeManager::frameDone();
-		Jeu.App.display();
+        app.display();
         musicManager::manageRunningMusics();
 	}
 

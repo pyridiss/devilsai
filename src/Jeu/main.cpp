@@ -165,7 +165,7 @@ int main(int n, char *params[])
     imageManager::addContainer("paysage");
     imageManager::addContainer("skills");
 
-    mainLoop();
+    mainLoop(Jeu.App);
     Clean_Partie();
 
 	Supprimer_Decorations();
