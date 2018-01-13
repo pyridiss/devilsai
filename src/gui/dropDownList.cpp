@@ -125,7 +125,18 @@ void DropDownList::display(RenderWindow& app)
         drawing.setOutlineThickness(1);
         app.draw(drawing);
 
-        int i = 1;
+        if (mouseHoveringDeveloped(app) && currentState == "developed")
+        {
+            int i = (Mouse::getPosition(app).y - (getYTopLeft() + height)) / height;
+            i = min(i, (int)entries.size()-1);
+            i = max(i, 0);
+            RectangleShape drawing2(Vector2f(width, height));
+            drawing2.setPosition(getXTopLeft(), getYTopLeft() + height * (i+1));
+            drawing2.setFillColor(Color(100, 100, 100));
+            app.draw(drawing2);
+        }
+
+        unsigned i = 1;
         for (auto& e : entries)
         {
             textManager::RichText t;
