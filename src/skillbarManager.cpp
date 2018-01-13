@@ -44,7 +44,7 @@ void displaySkillbar(gui::Window& window, RenderWindow& target)
         string skillName = skill.second->value();
         if (!skillName.empty())
         {
-            imageManager::display(target, "skills", skillName, skill.second->getXTopLeft(), skill.second->getYTopLeft());
+            imageManager::display(target, "skills", skillName, skill.second->left(), skill.second->top());
         }
     }
 }

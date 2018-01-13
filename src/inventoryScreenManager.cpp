@@ -102,12 +102,12 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
         {
             string objectName = getStringFromLUA(obj->second, "getFileName");
             string imageContainer = slot.second->embeddedData("image-container");
-            imageManager::display(target, imageContainer, objectName, slot.second->getXTopLeft(), slot.second->getYTopLeft());
+            imageManager::display(target, imageContainer, objectName, slot.second->left(), slot.second->top());
 
             if (getBoolFromLUA(obj->second, "getCumul"))
             {
                 string StrNombre = intToString(getIntFromLUA(obj->second, "getQuantite"));
-                Disp_Texte(StrNombre, slot.second->getXTopLeft() + 30, slot.second->getYTopLeft() + 30, Color(255,255,255), 12.);
+                Disp_Texte(StrNombre, slot.second->left() + 30, slot.second->top() + 30, Color(255,255,255), 12.);
             }
 
             if (slot.second->mouseHovering(target))

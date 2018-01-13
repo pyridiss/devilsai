@@ -44,8 +44,8 @@ void ScrollingList::removeAllEntries()
 
 bool ScrollingList::mouseHovering(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
-        Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
+    if (Mouse::getPosition(app).x >= left() && Mouse::getPosition(app).x <= left() + width() &&
+        Mouse::getPosition(app).y >= top() && Mouse::getPosition(app).y <= top() + height())
     {
         return true;
     }
@@ -59,22 +59,22 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
     {
         if (mouseHovering(app))
         {
-            if (Mouse::getPosition(app).x <= getXTopLeft() + width - 20)
+            if (Mouse::getPosition(app).x <= left() + width() - 20)
             {
-                index = (Mouse::getPosition(app).y - (getYTopLeft() + 5))/20 + firstEntryDisplayed;
+                index = (Mouse::getPosition(app).y - (top() + 5))/20 + firstEntryDisplayed;
                 if (index >= entries.size()) index = entries.size() - 1;
                 return false;
             }
             else
             {
                 mouseScrolling = true;
-                scrolling = (double)(Mouse::getPosition(app).y - getYTopLeft()) / (double)height;
+                scrolling = (double)(Mouse::getPosition(app).y - top()) / (double)height();
             }
         }
     }
     else if (event.type == Event::MouseMoved && mouseHovering(app) && mouseScrolling)
     {
-        scrolling = (double)(Mouse::getPosition(app).y - getYTopLeft()) / (double)height;
+        scrolling = (double)(Mouse::getPosition(app).y - top()) / (double)height();
     }
     else if (event.type == Event::MouseButtonReleased)
     {
@@ -106,20 +106,20 @@ void ScrollingList::display(RenderWindow& app)
 {
     Widget::display(app);
 
-    RectangleShape drawing(Vector2f(width, height));
-    drawing.setPosition(getXTopLeft(), getYTopLeft());
+    RectangleShape drawing(Vector2f(width(), height()));
+    drawing.setPosition(left(), top());
     drawing.setFillColor(Color::Black);
     drawing.setOutlineColor(Color(48, 48, 48, 255));
     drawing.setOutlineThickness(1);
     app.draw(drawing);
 
-    RectangleShape bar(Vector2f(4, height - 16));
-    bar.setPosition(getXTopLeft() + width - 12, getYTopLeft() + 8);
+    RectangleShape bar(Vector2f(4, height() - 16));
+    bar.setPosition(left() + width() - 12, top() + 8);
     bar.setFillColor(Color::White);
     app.draw(bar);
 
     CircleShape cursor(6);
-    cursor.setPosition(getXTopLeft() + width - 16, getYTopLeft() + scrolling * (height-12));
+    cursor.setPosition(left() + width() - 16, top() + scrolling * (height()-12));
     cursor.setFillColor(Color::White);
     cursor.setOutlineColor(Color(48, 48, 48, 255));
     cursor.setOutlineThickness(1);
@@ -128,7 +128,7 @@ void ScrollingList::display(RenderWindow& app)
     unsigned i = 0;
     int currentY = 0;
 
-    int maxEntriesDisplayed = (height - 25) / 20;
+    int maxEntriesDisplayed = (height() - 25) / 20;
     int firstEntryDisplayedAtMaxScrolling = max(0, (int)(entries.size() - maxEntriesDisplayed));
     firstEntryDisplayed = max(0., firstEntryDisplayedAtMaxScrolling * scrolling);
 
@@ -146,12 +146,12 @@ void ScrollingList::display(RenderWindow& app)
         t.setCharacterSize(16);
 
         FloatRect rect = t.getGlobalBounds();
-        t.setPosition((int)(getXTopLeft() + 5), (int)(getYTopLeft() + 5 + currentY));
+        t.setPosition((int)(left() + 5), (int)(top() + 5 + currentY));
 
         if (i == index)
         {
-            RectangleShape highlight(Vector2f(width - 20, 20));
-            highlight.setPosition(getXTopLeft(), getYTopLeft() + 5 + currentY);
+            RectangleShape highlight(Vector2f(width() - 20, 20));
+            highlight.setPosition(left(), top() + 5 + currentY);
             highlight.setFillColor(Color::Red);
             app.draw(highlight);
         }
@@ -161,7 +161,7 @@ void ScrollingList::display(RenderWindow& app)
         ++i;
         currentY += 20;
 
-        if (currentY > height - 20 - 5)
+        if (currentY > height() - 20 - 5)
             break;
     }
 }

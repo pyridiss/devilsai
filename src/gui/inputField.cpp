@@ -34,8 +34,8 @@ InputField::InputField()
 
 bool InputField::mouseHovering(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= getXTopLeft() && Mouse::getPosition(app).x <= getXTopLeft() + width &&
-        Mouse::getPosition(app).y >= getYTopLeft() && Mouse::getPosition(app).y <= getYTopLeft() + height)
+    if (Mouse::getPosition(app).x >= left() && Mouse::getPosition(app).x <= left() + width() &&
+        Mouse::getPosition(app).y >= top() && Mouse::getPosition(app).y <= top() + height())
     {
         return true;
     }

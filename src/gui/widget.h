@@ -38,6 +38,8 @@ using namespace sf;
 
 namespace gui{
 
+class Window;
+
 class Widget
 {
     protected:
@@ -61,9 +63,9 @@ class Widget
 
     protected:
         int _x, _y;
+        int _width, _height;
         uint16_t _flags;
         Window* _parent;
-        int width = 0, height = 0;
 
         map < string, minimalistWidget> states;
 
@@ -75,21 +77,25 @@ class Widget
 
     public:
         Widget();
+        Widget(const Widget& other);
+        Widget& operator=(const Widget& right);
         virtual ~Widget() = default;
 
     public:
-        void setTopLeftCoordinates(int x, int y);
-        void setCenterCoordinates(int x, int y);
+        void setPosition(int x, int y);
         void setParent(Window* p);
         void setSize(int w, int h);
+        void addFlags(uint16_t newFlags);
 
         void addState(string state);
         void setCurrentState(string state);
 
-        int getXTopLeft();
-        int getYTopLeft();
+        int left();
+        int top();
         int getXCenter();
         int getYCenter();
+        int width();
+        int height();
 
         void setAllText(String32& t);
         void setAllBackground(string b);

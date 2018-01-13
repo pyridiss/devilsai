@@ -48,8 +48,8 @@ bool Button::mouseHovering(RenderWindow& app)
 {
     if (currentState == "disabled") return false;
 
-    if ((int)Mouse::getPosition(app).x >= getXTopLeft() && (int)Mouse::getPosition(app).x <= getXTopLeft() + width &&
-        (int)Mouse::getPosition(app).y >= getYTopLeft() && (int)Mouse::getPosition(app).y <= getYTopLeft() + height)
+    if ((int)Mouse::getPosition(app).x >= left() && (int)Mouse::getPosition(app).x <= left() + width() &&
+        (int)Mouse::getPosition(app).y >= top() && (int)Mouse::getPosition(app).y <= top() + height())
     {
         if (currentState == "normal") currentState = "hover";
         return true;

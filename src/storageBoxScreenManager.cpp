@@ -139,12 +139,12 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
         if (obj != playerInventory->end() && obj != storageBox->end())
         {
             string objectName = getStringFromLUA(obj->second, "getFileName");
-            imageManager::display(target, "objectsIcons", objectName, slot.second->getXTopLeft(), slot.second->getYTopLeft());
+            imageManager::display(target, "objectsIcons", objectName, slot.second->left(), slot.second->top());
 
             if (getBoolFromLUA(obj->second, "getCumul"))
             {
                 string StrNombre = intToString(getIntFromLUA(obj->second, "getQuantite"));
-                Disp_Texte(StrNombre, slot.second->getXTopLeft() + 30, slot.second->getYTopLeft() + 30, Color(255,255,255), 12.);
+                Disp_Texte(StrNombre, slot.second->left() + 30, slot.second->top() + 30, Color(255,255,255), 12.);
             }
 
             if (slot.second->mouseHovering(target))
