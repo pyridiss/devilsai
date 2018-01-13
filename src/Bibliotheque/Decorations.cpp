@@ -119,7 +119,11 @@ void Disp_JaugesVie(RenderTarget& target)
     static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
     static imageManager::Animation* playerRecoveryGauge = imageManager::getAnimation("playerRecoveryGauge");
 
-    Disp_TexteCentre(gamedata::player()->displayedName(), 92, 60, Color(128, 255, 128, 255), 12.f);
+    textManager::PlainText playerStateText;
+
+    playerStateText += "@c[128,255,128]";
+    playerStateText += *gamedata::player()->displayedName();
+    playerStateText += " @d@n[30]"; //Make place for the gauges.
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 
@@ -161,42 +165,51 @@ void Disp_JaugesVie(RenderTarget& target)
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
-    if      (gamedata::player()->currentHealthStatus(Life) == 0)
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-6"), 92, 105, Color(168, 168, 168, 255), 11.f);
-    else if (gamedata::player()->currentHealthStatus(Life) + Recup * 10 >= 900)
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-1"), 92, 105, Color(128, 255, 128, 255), 11.f);
-    else if (gamedata::player()->currentHealthStatus(Life) + Recup * 10 >= 650)
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-2"), 92, 105, Color(255, 220, 30, 255), 11.f);
-    else if (gamedata::player()->currentHealthStatus(Life) + Recup * 10 >= 300)
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-3"), 92, 105, Color(255, 190, 10, 255), 11.f);
-    else if (gamedata::player()->currentHealthStatus(Life) + Recup * 10 >= 100)
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-4"), 92, 105, Color(255, 80, 10, 255), 11.f);
+    int l = gamedata::player()->currentHealthStatus(Life) + Recup * 10;
+
+    if (gamedata::player()->currentHealthStatus(Life) == 0)
+        playerStateText += textManager::getText("devilsai", "player-health-6");
+    else if (l >= 900)
+        playerStateText += textManager::getText("devilsai", "player-health-1");
+    else if (l >= 650)
+        playerStateText += textManager::getText("devilsai", "player-health-2");
+    else if (l >= 300)
+        playerStateText += textManager::getText("devilsai", "player-health-3");
+    else if (l >= 100)
+        playerStateText += textManager::getText("devilsai", "player-health-4");
     else
-        Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-5"), 92, 105, Color(255, 0, 0, 255), 11.f);
+        playerStateText += textManager::getText("devilsai", "player-health-5");
 
 	if (gamedata::player()->currentHealthStatus(Energy) < 140)
 	{
-		if (PersoEnePrec >= 140) Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), true);
-		Disp_TexteCentre(tools::textManager::getText("devilsai", "player-health-tired"), 92, 120, Color(255, 255, 128, 255), 11.f);
+        if (PersoEnePrec >= 140) Disp_Information(textManager::getText("devilsai", "FATIGUE"), true);
+        playerStateText += " @n";
+        playerStateText += textManager::getText("devilsai", "player-health-tired");
 	}
 	PersoEnePrec = gamedata::player()->currentHealthStatus(Energy);
 
 	//Effets dûs aux objets temporaires
-	int y = 70;
 	for (mapObjects::iterator i = gamedata::player()->inventory.objects.begin() ; i != gamedata::player()->inventory.objects.end() ; ++i)
 	{
 		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first)
 		{
 			if (getStringFromLUA(i->second, "getCategorieObjet") == "temporaire")
 			{
-                String32 name = textManager::getText("objects", getStringFromLUA(i->second, "getInternalNumber"));
-				Disp_Texte(tools::textManager::getFormattedText("devilsai", "SOUS_EFFET", name), 160, y, Color(255, 255, 128, 255), 11.f);
-				y += 12;
+                playerStateText += " @n";
+                playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
+                playerStateText.addParameter(textManager::getText("objects", getStringFromLUA(i->second, "getInternalNumber")));
 			}
 		}
 	}
 
-	Disp_Information(tools::textManager::getText("devilsai", "FATIGUE"), false);
+    textManager::RichText playerState;
+    playerState.setSize(160, 0);
+    playerState.setDefaultProperties("liberation", 11, Color(255, 255, 255));
+    playerState.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
+    playerState.setSource(&playerStateText);
+    playerState.displayFullText(target, 92, 55);
+
+    Disp_Information(textManager::getText("devilsai", "FATIGUE"), false);
 }
 
 void Ajouter_LignePerso(String32 ligne, Color couleur)
