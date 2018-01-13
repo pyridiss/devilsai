@@ -70,6 +70,7 @@ add_subdirectory(tools)
 add_subdirectory(imageManager)
 add_subdirectory(gui)
 add_subdirectory(musicManager)
+add_subdirectory(textManager)
 
 add_executable(devilsai ${devilsai_SRCS})
 
@@ -79,6 +80,7 @@ target_link_libraries(devilsai
     imageManager
     gui
     musicManager
+    textManager
 )
 
 SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++17 -O3" CACHE INTERNAL "" FORCE)
