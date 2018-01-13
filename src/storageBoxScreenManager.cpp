@@ -31,7 +31,7 @@
 #include "inventoryScreenManager.h"
 
 //Defined in Attributs/Objets.cpp
-void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
+void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj);
 
 void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& event, Coffre* box)
 {
@@ -120,12 +120,14 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
 void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)
 {
     gui::TextWidget* boxName = dynamic_cast<gui::TextWidget*>(window.widget("storagebox-name"));
-    boxName->setValue(tools::textManager::toStdString(box->Nom));
+    boxName->setValue(textManager::toStdString(box->Nom));
 
     window.display(target);
 
     mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
     mapObjects* storageBox = &(box->objects.objects);
+
+    lua_State* hovering = nullptr;
 
     const auto& slots = window.getWidgets();
 
@@ -146,7 +148,10 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
             }
 
             if (slot.second->mouseHovering(target))
-                Disp_Caracs_Objet(obj->second, true);
+                hovering = obj->second;
         }
     }
+
+    if (hovering != nullptr)
+        Disp_Caracs_Objet(target, hovering);
 }

@@ -67,7 +67,6 @@ void Load_Decorations()
     tools::textManager::loadFile("species", "lng/species_FR.xml");
     tools::textManager::loadFile("places", "lng/places_FR.xml");
 
-	Load_Decorations_Objets();
     tools::textManager::loadFile("objects", "lng/objects_FR.xml");
 
     musicManager::addSound("Click");

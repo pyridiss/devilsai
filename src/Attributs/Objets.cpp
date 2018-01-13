@@ -19,63 +19,31 @@
 
 #include <lua.hpp>
 
+#include "textManager/richText.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Jeu/Jeu.h"
-#include "../Carte/Carte.h"
-#include "../ElementsCarte/ElementsCarte.h"
+#include "Attributs/Attributs.h"
 
-#include "tools/textManager.h"
-
-#include "imageManager/imageManager.h"
-#include "gui/button.h"
-
-#include "gamedata.h"
-
-int PosDescX = 0, PosDescY = 0;
-
-void Load_Decorations_Objets()
+void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj)
 {
-
-	if (Options.ScreenW > 150 + 610 + 250) //Assez de place à droite de l'inventaire
-	{
-		PosDescX = Options.ScreenW - 145; PosDescY = Options.ScreenH - 290;
-	}
-	else
-	{
-		PosDescX = Options.ScreenW - 145; PosDescY = 100;
-	}
-}
-
-
-void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
-{
-	static int LigneCourante = PosDescY;
-	if (MaJ) LigneCourante = PosDescY;
+    textManager::PlainText description;
 
     string internalNumber = getStringFromLUA(obj, "getFileName");
 
-    String32 nom = textManager::getText("objects", internalNumber);
-	Disp_TexteCentre(nom, PosDescX, LigneCourante, Color(255, 220, 220, 255), 20., gui::style::fontFromString("dayroman"));
+    description += "@f[dayroman]@s[20]@c[255,220,255]";
+    description += textManager::getText("objects", internalNumber);
+    description += " @d";
 
-	LigneCourante += 26;
-
-	if (getBoolFromLUA(obj, "getDescriptionManuelle") && MaJ)
+    if (getBoolFromLUA(obj, "getDescriptionManuelle"))
 	{
-		//Pour ne pas surcharger, on désactive les descriptions manuelles des objets supplémentaires
-		Paragraph replique;
-        replique.characters = textManager::getText("objects", internalNumber + "-description");
-		replique.rectangle = IntRect(0, 0, 2*(Options.ScreenW - PosDescX) - 20, 0);
-		cutParagraph(&replique);
-		for (ListString32::iterator i = replique.lines.begin() ; i != replique.lines.end() ; ++i)
-		{
-			Disp_TexteCentre(*i, PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
-			LigneCourante += 14;
-		}
+        description += " @n";
+        description += textManager::getText("objects", internalNumber + "-description");
 	}
 	if (getDoubleFromLUA(obj, "getDuree") > 0)
 	{
-		Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", "EQUIP_DUREE", (int)(getDoubleFromLUA(obj, "getDuree")/60.f)), PosDescX, LigneCourante-4, Color(255, 220, 220), 12.);
-		LigneCourante += 16;
+        description += " @n";
+        description += textManager::getText("devilsai", "EQUIP_DUREE");
+        description.addParameter((int)(getDoubleFromLUA(obj, "getDuree")/60.f));
 	}
 
     if (getBoolFromLUA(obj, "getDescriptionAutomatique"))
@@ -88,8 +56,9 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
             int value = lua_tonumber(obj, -1);
             if (value != 0)
             {
-                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", string("object-property-") + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
-                LigneCourante += 14;
+                description += " @n";
+                description += textManager::getText("devilsai", string("object-property-") + p);
+                description.addParameter(value);
             }
         }
         for (auto& p : AttributesAmplifiersNames)
@@ -100,11 +69,28 @@ void Disp_Caracs_Objet(lua_State* obj, bool MaJ)
             int value = lua_tonumber(obj, -1);
             if (value != 0)
             {
-                Disp_TexteCentre(tools::textManager::getFormattedText("devilsai", string("object-property-") + p, value), PosDescX, LigneCourante, Color(255, 255, 255), 11.);
-                LigneCourante += 14;
+                description += " @n";
+                description += textManager::getText("devilsai", string("object-property-") + p);
+                description.addParameter(value);
             }
         }
     }
 
-	LigneCourante += 26;
+    textManager::RichText rich;
+    rich.setSize(300, 0);
+    rich.setDefaultProperties("liberation", 12, Color(255, 255, 255));
+    rich.addFlags(textManager::HAlignCenter);
+    rich.setSource(&description);
+
+    float x = Mouse::getPosition(target).x;
+    float y = Mouse::getPosition(target).y;
+    float w = 300;
+    float h = rich.height();
+
+    if (y + h > target.getSize().y)
+        y -= h;
+
+    gui::style::textBackgroundShader(target, x - 10, y - 10, w + 2*10, h + 2*10);
+
+    rich.displayFullText(target, x, y);
 }

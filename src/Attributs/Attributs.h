@@ -204,7 +204,4 @@ static constexpr AttributeAmplifier stringToAttributeAmplifier(string_view a)
     return static_cast<AttributeAmplifier>(numberOfAttributes);
 }
 
-void Disp_Equipement();
-void Load_Decorations_Objets();
-
 #endif

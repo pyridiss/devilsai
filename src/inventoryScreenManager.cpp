@@ -29,7 +29,7 @@
 #include "inventoryScreenManager.h"
 
 //Defined in Attributs/Objets.cpp
-void Disp_Caracs_Objet(lua_State* obj, bool MaJ);
+void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj);
 
 void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event, lua_State*& selectedObject)
 {
@@ -91,6 +91,8 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
 
     mapObjects* objects = &(gamedata::player()->inventory.objects);
 
+    lua_State* hovering = nullptr;
+
     const auto& slots = window.getWidgets();
 
     for (const auto& slot : slots)
@@ -109,9 +111,12 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
             }
 
             if (slot.second->mouseHovering(target))
-                Disp_Caracs_Objet(obj->second, true);
+                hovering = obj->second;
         }
     }
+
+    if (hovering != nullptr)
+        Disp_Caracs_Objet(target, hovering);
 
     if (selectedObject != nullptr)
     {
