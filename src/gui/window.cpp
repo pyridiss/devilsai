@@ -68,68 +68,55 @@ Window::~Window()
         delete w.second;
 }
 
-void Window::setTopLeftCoordinates(int x, int y)
+int Window::left(RenderTarget& target)
 {
-    _x = x;
-    _y = y;
-    _flags |= TopLeftCoordinates;
+    int x = _x;
+
+    if ((_flags & Fullscreen) == Fullscreen)
+        return 0;
+    if ((_flags & XPositionRelativeToCenter) == XPositionRelativeToCenter)
+        x = target.getSize().x/2 + x;
+    if ((_flags & XPositionRelativeToRight) == XPositionRelativeToRight)
+        x = target.getSize().x - x;
+    if ((_flags & XPositionRelativeToScreenSize) == XPositionRelativeToScreenSize)
+        x *= target.getSize().x / 100.0;
+
+    if ((_flags & OriginXCenter) == OriginXCenter)
+        return x - width/2;
+    if ((_flags & OriginRight) == OriginRight)
+        return x - width;
+
+    return x;
 }
 
-void Window::setCenterCoordinates(int x, int y)
+int Window::top(RenderTarget& target)
 {
-    _x = x;
-    _y = y;
-    _flags |= CenterCoordinates;
-}
+    int y = _y;
 
-void Window::setSize(int w, int h)
-{
-    width = w;
-    height = h;
-}
+    if ((_flags & Fullscreen) == Fullscreen)
+        return 0;
+    if ((_flags & YPositionRelativeToCenter) == YPositionRelativeToCenter)
+        y = target.getSize().y/2 + y;
+    if ((_flags & YPositionRelativeToBottom) == YPositionRelativeToBottom)
+        y = target.getSize().y - y;
+    if ((_flags & YPositionRelativeToScreenSize) == YPositionRelativeToScreenSize)
+        y *= target.getSize().y / 100.0;
 
-int Window::getXTopLeft()
-{
-    if ((_flags & CenterCoordinates) == CenterCoordinates)
-        return _x - width/2;
+    if ((_flags & OriginYCenter) == OriginYCenter)
+        return y - height/2;
+    if ((_flags & OriginBottom) == OriginBottom)
+        return y - height;
 
-    return _x;
-}
-
-int Window::getYTopLeft()
-{
-    if ((_flags & CenterCoordinates) == CenterCoordinates)
-        return _y - height/2;
-
-    return _y;
-}
-
-int Window::getXCenter()
-{
-    if ((_flags & CenterCoordinates) == CenterCoordinates)
-        return _x;
-
-    return _x + width/2;
-}
-
-int Window::getYCenter()
-{
-    if ((_flags & CenterCoordinates) == CenterCoordinates)
-        return _y;
-
-    return _y + height/2;
+    return y;
 }
 
 void Window::startWindow(RenderWindow& app)
 {
     exitWindow = false;
 
-    if (xCenterOfScreen) setCenterCoordinates(app.getSize().x / 2, getYCenter());
-    if (yCenterOfScreen) setCenterCoordinates(getXCenter(), app.getSize().y / 2);
-
     for (auto& widget : widgets)
     {
-        widget.second->setOriginCoordinates(getXTopLeft(), getYTopLeft());
+        widget.second->setOriginCoordinates(left(app), top(app));
         widget.second->updateTextPosition();
     }
 }
@@ -149,8 +136,17 @@ void Window::display(RenderWindow& app)
         }
     }
 
+    if ((_flags & Fullscreen) == Fullscreen)
+    {
+        width = app.getSize().x;
+        height = app.getSize().y;
+    }
+
+    if (!backgroundShader.empty())
+        gui::style::displayShader(app, backgroundShader, left(app), top(app), width, height);
+
     if (!backgroundImage.empty())
-        imageManager::display(app, "gui", backgroundImage, getXTopLeft(), getYTopLeft());
+        imageManager::display(app, "gui", backgroundImage, left(app), top(app));
 
     Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
@@ -174,9 +170,6 @@ void Window::manage(RenderWindow& app)
     if (!backgroundFullscreenShader.empty())
         gui::style::displayShader(app, backgroundFullscreenShader, 0, 0, app.getSize().x, app.getSize().y);
 
-    if (!backgroundShader.empty())
-        gui::style::displayShader(app, backgroundShader, getXTopLeft(), getYTopLeft(), width, height);
-
     while (!exitWindow)
     {
         Event event;
@@ -190,7 +183,7 @@ void Window::manage(RenderWindow& app)
         display(app);
 
         if (!foregroundShader.empty())
-            gui::style::displayShader(app, foregroundShader, getXTopLeft(), getYTopLeft(), width, height);
+            gui::style::displayShader(app, foregroundShader, left(app), top(app), width, height);
 
         tools::timeManager::frameDone();
         app.display();
@@ -323,40 +316,41 @@ void Window::loadFromFile(string path, RenderWindow& app)
 
         if (elemName == "properties")
         {
-            if (elem->Attribute("xTopLeft"))
-            {
-                int x = 0, y = 0;
-                elem->QueryAttribute("xTopLeft", &x);
-                elem->QueryAttribute("yTopLeft", &y);
-                setTopLeftCoordinates(x, y);
-            }
-            if (elem->Attribute("xCenter"))
-            {
-                int x = 0, y = 0;
-                elem->QueryAttribute("xCenter", &x);
-                elem->QueryAttribute("yCenter", &y);
-                setCenterCoordinates(x, y);
-            }
-            if (elem->Attribute("xCenterOfScreen"))
-            {
-                xCenterOfScreen = true;
-            }
-            if (elem->Attribute("yCenterOfScreen"))
-            {
-                yCenterOfScreen = true;
-            }
-            if (elem->Attribute("width"))
-            {
-                int w = 0, h = 0;
-                elem->QueryAttribute("width", &w);
-                elem->QueryAttribute("height", &h);
-                setSize(w, h);
-            }
-            if (elem->Attribute("fullscreen"))
-            {
-                setTopLeftCoordinates(0, 0);
-                setSize(app.getSize().x, app.getSize().y);
-            }
+            elem->QueryAttribute("x", &_x);
+            elem->QueryAttribute("y", &_y);
+
+            if (elem->Attribute("OriginXCenter"))
+                _flags |= OriginXCenter;
+            if (elem->Attribute("OriginRight"))
+                _flags |= OriginRight;
+            if (elem->Attribute("OriginYCenter"))
+                _flags |= OriginYCenter;
+            if (elem->Attribute("OriginBottom"))
+                _flags |= OriginBottom;
+            if (elem->Attribute("OriginCenter"))
+                _flags |= (OriginXCenter | OriginYCenter);
+
+            if (elem->Attribute("XPositionRelativeToCenter"))
+                _flags |= XPositionRelativeToCenter;
+            if (elem->Attribute("XPositionRelativeToRight"))
+                _flags |= XPositionRelativeToRight;
+            if (elem->Attribute("YPositionRelativeToCenter"))
+                _flags |= YPositionRelativeToCenter;
+            if (elem->Attribute("YPositionRelativeToBottom"))
+                _flags |= YPositionRelativeToBottom;
+            if (elem->Attribute("PositionRelativeToCenter"))
+                _flags |= (XPositionRelativeToCenter | YPositionRelativeToCenter);
+            if (elem->Attribute("XPositionRelativeToScreenSize"))
+                _flags |= XPositionRelativeToScreenSize;
+            if (elem->Attribute("YPositionRelativeToScreenSize"))
+                _flags |= YPositionRelativeToScreenSize;
+            if (elem->Attribute("PositionRelativeToScreenSize"))
+                _flags |= (XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
+            if (elem->Attribute("Fullscreen"))
+                _flags |= Fullscreen;
+
+            elem->QueryAttribute("width", &width);
+            elem->QueryAttribute("height", &height);
 
             if (elem->Attribute("backgroundImage"))
                 backgroundImage = elem->Attribute("backgroundImage");

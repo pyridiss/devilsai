@@ -2,7 +2,7 @@
 <window>
     <loadImage key="gui-bottom-screen-background-1024x200" path="img/gui-bottom-screen-background-1024x200.png"/>
     <loadImage key="gui-object-background-50x50" path="img/FondObjet_50_50.png"/>
-    <properties xTopLeft="0" yTopLeft="512" width="1024" height="200" backgroundImage="gui-bottom-screen-background-1024x200"/>
+    <properties x="0" y="56" OriginBottom="1" YPositionRelativeToBottom="1" width="1024" height="200" backgroundImage="gui-bottom-screen-background-1024x200"/>
     <widget name="inventory-name" type="text" xCenter="256" yCenter="12" allText="storage-box-screen-inventory-name" textSize="12" textFont="liberation-bold"/>
     <widget name="storagebox-name" type="text" xCenter="768" yCenter="12" allText="storage-box-screen-inventory-name" textSize="12" textFont="liberation-bold"/>
     <widget name="inventory01" type="button" xCenter="50" yCenter="50" width="50" height="50" allBackground="gui-object-background-50x50">

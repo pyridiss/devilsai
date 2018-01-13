@@ -6,7 +6,7 @@
     <loadImage key="button-skills" path="img/BoutonCompetences.png" scale="0.38"/>
     <loadImage key="button-journal" path="img/BoutonJournal.png" scale="0.38"/>
     <loadImage key="button-rest" path="img/gui-rest-button.png" scale="0.38"/>
-    <properties xTopLeft="0" yTopLeft="0" width="800" height="50"/>
+    <properties width="800" height="50"/>
     <widget name="button-ingame-menu" type="button" xTopLeft="10" yTopLeft="2" width="41" height="41" allBackground="button-ingame-menu">
         <state name="hover" foregroundShader="highlight"/>
     </widget>

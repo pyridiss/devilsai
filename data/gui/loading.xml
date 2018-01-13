@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
-    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="dialog-background-488x308"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308"/>
     <widget name="text" type="text" xCenter="244" yCenter="154" allText="loading-text" textSize="28" textFont="dayroman"/>
 </window>

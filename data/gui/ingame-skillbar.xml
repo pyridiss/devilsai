@@ -2,7 +2,7 @@
 <window>
     <loadImage key="gui-skillbar-background-1024x56" path="img/gui-skillbar-background-1024x56.jpg"/>
     <loadImage key="gui-skillbar-skills-background-50x50" path="img/gui-skillbar-skills-background-50x50.jpg"/>
-    <properties xTopLeft="0" yTopLeft="712" width="800" height="56" backgroundImage="gui-skillbar-background-1024x56"/>
+    <properties OriginBottom="1" YPositionRelativeToBottom="1" width="800" height="56" backgroundImage="gui-skillbar-background-1024x56"/>
     <widget name="left-click" type="button" xTopLeft="2" yTopLeft="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <state name="hover" foregroundShader="highlight"/>
         <addEmbeddedData name="value" value="skill-sword-handling"/>

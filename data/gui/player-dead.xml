@@ -2,7 +2,7 @@
 <window>
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
-    <properties xCenterOfScreen="1" yCenterOfScreen="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
     <widget name="text" type="text" xCenter="244" yCenter="65" allText="player-dead-text" textSize="24" textFont="dayroman"/>
     <widget name="button-load-game" type="button" xCenter="244" yCenter="154" width="156" height="46" allBackground="button-background-156x46" allText="player-dead-load-game" textSize="12" textFont="liberation-bold"/>
     <widget name="button-main-menu" type="button" xCenter="137" yCenter="242" width="156" height="46" allBackground="button-background-156x46" allText="player-dead-main-menu" textSize="12" textFont="liberation-bold"/>

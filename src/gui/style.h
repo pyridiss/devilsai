@@ -31,8 +31,19 @@ namespace gui{
 
 enum Flags
 {
-    TopLeftCoordinates = 1 << 0,
-    CenterCoordinates = 1 << 1
+    OriginXCenter = 1 << 0,
+    OriginRight = 1 << 1,
+    OriginYCenter = 1 << 2,
+    OriginBottom = 1 << 3,
+    XPositionRelativeToCenter = 1 << 4,
+    XPositionRelativeToRight = 1 << 5,
+    YPositionRelativeToCenter = 1 << 6,
+    YPositionRelativeToBottom = 1 << 7,
+    XPositionRelativeToScreenSize = 1 << 8,
+    YPositionRelativeToScreenSize = 1 << 9,
+    Fullscreen = 1 << 10,
+    TopLeftCoordinates = 1 << 11,
+    CenterCoordinates = 1 << 12
 };
 
 namespace style{

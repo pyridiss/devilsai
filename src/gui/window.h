@@ -54,7 +54,6 @@ class Window
 
         int _x, _y;
         uint16_t _flags;
-        bool xCenterOfScreen = false, yCenterOfScreen = false;
         int width = 0, height = 0;
 
         string backgroundImage;
@@ -69,14 +68,8 @@ class Window
         ~Window();
 
     private:
-        void setTopLeftCoordinates(int x, int y);
-        void setCenterCoordinates(int x, int y);
-        void setSize(int w, int h);
-
-        int getXTopLeft();
-        int getYTopLeft();
-        int getXCenter();
-        int getYCenter();
+        int left(RenderTarget& target);
+        int top(RenderTarget& target);
 
     public:
         void startWindow(RenderWindow& app);
