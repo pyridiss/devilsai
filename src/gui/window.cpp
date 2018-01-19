@@ -126,8 +126,6 @@ int Window::left()
 
     int x = _x;
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return 0;
     if ((_flags & XPositionRelativeToCenter) == XPositionRelativeToCenter)
         x = _screen->getSize().x/2 + x;
     if ((_flags & XPositionRelativeToRight) == XPositionRelativeToRight)
@@ -153,8 +151,6 @@ int Window::top()
 
     int y = _y;
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return 0;
     if ((_flags & YPositionRelativeToCenter) == YPositionRelativeToCenter)
         y = _screen->getSize().y/2 + y;
     if ((_flags & YPositionRelativeToBottom) == YPositionRelativeToBottom)
@@ -178,8 +174,11 @@ int Window::width()
         return 0;
     }
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return _screen->getSize().x;
+    if ((_flags & WidthRelativeToScreenSize) == WidthRelativeToScreenSize)
+        return _screen->getSize().x * _width / 100.0;
+
+    if ((_flags & WidthMeansFixedMargin) == WidthMeansFixedMargin)
+        return _screen->getSize().x - _width;
 
     return _width;
 }
@@ -192,8 +191,11 @@ int Window::height()
         return 0;
     }
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return _screen->getSize().y;
+    if ((_flags & HeightRelativeToScreenSize) == HeightRelativeToScreenSize)
+        return _screen->getSize().y * _height / 100.0;
+
+    if ((_flags & HeightMeansFixedMargin) == HeightMeansFixedMargin)
+        return _screen->getSize().y - _height;
 
     return _height;
 }
@@ -461,11 +463,25 @@ void Window::loadFromFile(string path)
                 _flags |= YPositionRelativeToScreenSize;
             if (elem->Attribute("PositionRelativeToScreenSize"))
                 _flags |= (XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
-            if (elem->Attribute("Fullscreen"))
-                _flags |= Fullscreen;
 
             elem->QueryAttribute("width", &_width);
             elem->QueryAttribute("height", &_height);
+
+            if (elem->Attribute("WidthRelativeToScreenSize"))
+                _flags |= WidthRelativeToScreenSize;
+            if (elem->Attribute("WidthMeansFixedMargin"))
+                _flags |= WidthMeansFixedMargin;
+            if (elem->Attribute("HeightRelativeToScreenSize"))
+                _flags |= HeightRelativeToScreenSize;
+            if (elem->Attribute("HeightMeansFixedMargin"))
+                _flags |= HeightMeansFixedMargin;
+
+            if (elem->Attribute("Fullscreen"))
+            {
+                _width = 100;
+                _height = 100;
+                _flags |= (WidthRelativeToScreenSize | HeightRelativeToScreenSize);
+            }
 
             if (elem->Attribute("backgroundImage"))
                 backgroundImage = elem->Attribute("backgroundImage");
@@ -535,8 +551,6 @@ void Window::loadFromFile(string path)
                 widget->addFlags(YPositionRelativeToScreenSize);
             if (elem->Attribute("PositionRelativeToScreenSize"))
                 widget->addFlags(XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
-            if (elem->Attribute("Fullscreen"))
-                widget->addFlags(Fullscreen);
             if (elem->Attribute("AdjustSizeToText"))
                 widget->addFlags(AdjustSizeToText);
 
@@ -544,6 +558,21 @@ void Window::loadFromFile(string path)
             elem->QueryAttribute("width", &w);
             elem->QueryAttribute("height", &h);
             widget->setSize(w, h);
+
+            if (elem->Attribute("WidthRelativeToScreenSize"))
+                widget->addFlags(WidthRelativeToScreenSize);
+            if (elem->Attribute("WidthMeansFixedMargin"))
+                widget->addFlags(WidthMeansFixedMargin);
+            if (elem->Attribute("HeightRelativeToScreenSize"))
+                widget->addFlags(HeightRelativeToScreenSize);
+            if (elem->Attribute("HeightMeansFixedMargin"))
+                widget->addFlags(HeightMeansFixedMargin);
+
+            if (elem->Attribute("Fullscreen"))
+            {
+                widget->setSize(100, 100);
+                widget->addFlags(WidthRelativeToScreenSize | HeightRelativeToScreenSize);
+            }
 
             if (elem->Attribute("allBackground"))
             {

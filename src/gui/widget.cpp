@@ -128,8 +128,6 @@ int Widget::left()
 
     int x = _x + _parent->left();
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return 0;
     if ((_flags & XPositionRelativeToCenter) == XPositionRelativeToCenter)
         x = _parent->width()/2 + x;
     if ((_flags & XPositionRelativeToRight) == XPositionRelativeToRight)
@@ -155,8 +153,6 @@ int Widget::top()
 
     int y = _y + _parent->top();
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return 0;
     if ((_flags & YPositionRelativeToCenter) == YPositionRelativeToCenter)
         y = _parent->height()/2 + y;
     if ((_flags & YPositionRelativeToBottom) == YPositionRelativeToBottom)
@@ -190,10 +186,15 @@ int Widget::width()
         return 0;
     }
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return _parent->width();
+    int w = _width;
 
-    return _width;
+    if ((_flags & WidthRelativeToScreenSize) == WidthRelativeToScreenSize)
+        w = _parent->width() * _width / 100.0;
+
+    if ((_flags & WidthMeansFixedMargin) == WidthMeansFixedMargin)
+        w = _parent->width() - _width;
+
+    return max(0, w);
 }
 
 int Widget::height()
@@ -204,10 +205,20 @@ int Widget::height()
         return 0;
     }
 
-    if ((_flags & Fullscreen) == Fullscreen)
-        return _parent->height();
+    int h = _height;
 
-    return _height;
+    if ((_flags & HeightRelativeToScreenSize) == HeightRelativeToScreenSize)
+        h = _parent->height() * _height / 100.0;
+
+    if ((_flags & HeightMeansFixedMargin) == HeightMeansFixedMargin)
+        h = _parent->height() - _height;
+
+    if (h < 0)
+    {
+        cout << "widget avec height() < 0 : _parent->height() " << _parent->height() << ", " << _height << endl;
+    }
+
+    return max(0, h);
 }
 
 void Widget::setAllText(String32& t)

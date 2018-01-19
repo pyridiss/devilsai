@@ -41,8 +41,11 @@ enum Flags
     YPositionRelativeToBottom = 1 << 7,
     XPositionRelativeToScreenSize = 1 << 8,
     YPositionRelativeToScreenSize = 1 << 9,
-    Fullscreen = 1 << 10,
-    AdjustSizeToText = 1 << 11
+    WidthRelativeToScreenSize = 1 << 10,
+    WidthMeansFixedMargin = 1 << 11,
+    HeightRelativeToScreenSize = 1 << 12,
+    HeightMeansFixedMargin = 1 << 13,
+    AdjustSizeToText = 1 << 14,
     AdjustBackgroundToSize = 1 << 15,
     RepeatBackgroundToFitSize = 1 << 16
 };
