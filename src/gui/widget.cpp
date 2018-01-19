@@ -33,6 +33,7 @@ Widget::Widget()
     _width(0),
     _height(0),
     _flags(0),
+    _textFlags(0),
     _parent(nullptr),
     states(),
     _embeddedData()
@@ -45,6 +46,7 @@ Widget::Widget(const Widget& other)
     _width(other._width),
     _height(other._height),
     _flags(other._flags),
+    _textFlags(other._textFlags),
     _parent(other._parent),
     states(other.states),
     _embeddedData(other._embeddedData)
@@ -58,6 +60,7 @@ Widget& Widget::operator=(const Widget& right)
     _width = right._width;
     _height = right._height;
     _flags = right._flags;
+    _textFlags = right._textFlags;
     _parent = right._parent;
     states = right.states;
     _embeddedData = right._embeddedData;
@@ -80,11 +83,22 @@ void Widget::setSize(int w, int h)
 {
     _width = w;
     _height = h;
+
+    if (_width != 0 && _height != 0)
+        _flags &= ~AdjustSizeToText;
+
+    if (_height != 0)
+        _textFlags |= textManager::FixedHeight;
 }
 
 void Widget::addFlags(uint32_t newFlags)
 {
     _flags |= newFlags;
+}
+
+void Widget::addTextFlags(uint16_t newFlags)
+{
+    _textFlags |= newFlags;
 }
 
 void Widget::addState(string state)
@@ -197,10 +211,19 @@ int Widget::height()
 
 void Widget::setAllText(String32& t)
 {
+    if ((_flags & AdjustSizeToText) == AdjustSizeToText)
+        _textFlags &= ~textManager::FixedHeight;
+
     for (auto& state : states)
     {
         setText(state.first, t);
     }
+
+    if ((_flags & AdjustSizeToText) == AdjustSizeToText)
+        for (auto& state : states)
+        {
+            setText(state.first, t);
+        }
 }
 
 void Widget::setAllBackground(string b)
@@ -215,17 +238,16 @@ void Widget::setText(string state, String32& t)
 {
     const auto& s = states.find(state);
 
-    s->second.text.setSize(max(0, _width - 12), _height);
-
-    if ((_flags & OriginXCenter) == OriginXCenter)
-        s->second.text.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
-    if ((_flags & OriginYCenter) == OriginYCenter)
-        s->second.text.addFlags(textManager::OriginYCenter);
+    s->second.text.setSize(width(), height());
+    s->second.text.addFlags(_textFlags);
 
     s->second.text.setSource(&t);
 
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
-        updateSize();
+    {
+        _width = max(_width, s->second.text.width());
+        _height = max(_height, s->second.text.height());
+    }
 }
 
 void Widget::setBackground(string state, string b)
@@ -251,15 +273,6 @@ void Widget::setBackgroundShader(string state, string s)
 void Widget::setForegroundShader(string state, string s)
 {
     states.find(state)->second.fShader = s;
-}
-
-void Widget::updateSize()
-{
-    for (auto& state : states)
-    {
-        _width = max(_width, state.second.text.width() + 12);
-        _height = max(_height, state.second.text.height() + 6);
-    }
 }
 
 void Widget::addEmbeddedData(string name, string value)
@@ -291,7 +304,7 @@ void Widget::display(RenderWindow& app)
     else if (!state->second.bShader.empty())
         gui::style::displayShader(app, state->second.bShader, left(), top(), width(), height());
 
-    state->second.text.displayFullText(app, getXCenter(), getYCenter());
+    state->second.text.displayFullText(app, left(), top());
 
     if (state->second.foregroundShader != nullptr)
         state->second.foregroundShader(app, left(), top(), width(), height());

@@ -65,6 +65,7 @@ class Widget
         int _x, _y;
         int _width, _height;
         uint32_t _flags;
+        uint16_t _textFlags;
         Window* _parent;
 
         map < string, minimalistWidget> states;
@@ -86,6 +87,7 @@ class Widget
         void setParent(Window* p);
         void setSize(int w, int h);
         void addFlags(uint32_t newFlags);
+        void addTextFlags(uint16_t newFlags);
 
         void addState(string state);
         void setCurrentState(string state);
@@ -106,8 +108,6 @@ class Widget
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setBackgroundShader(string state, string s);
         void setForegroundShader(string state, string s);
-
-        void updateSize();
 
         void addEmbeddedData(string name, string value);
         string embeddedData(string name);
