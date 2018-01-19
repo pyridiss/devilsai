@@ -62,7 +62,7 @@ void RichText::alignCurrentLine(vector<sf::Text*>& line, bool endOfParagraph)
 {
     //Auto set width if it has not be done yet (so there is only one line)
     if (_width == 0)
-        _width = line.back()->getPosition().x + line.back()->getLocalBounds().width + 12;
+        _width = line.back()->getPosition().x + line.back()->getLocalBounds().width;
 
     //Horizontal alignment
     //By default, the line is left-aligned. Only check other alignments.
@@ -125,7 +125,7 @@ void RichText::reduceHeight()
     {
         float realHeight = 0;
         for (auto& i : _words)
-            realHeight = max(realHeight, i.getGlobalBounds().top + i.getGlobalBounds().height);
+            realHeight = max(realHeight, i.getGlobalBounds().top + i.getCharacterSize());
 
         for (auto& i : _words)
             i.move(0, (height() - (int)realHeight)/2);
@@ -295,7 +295,7 @@ int RichText::height()
     if (_height == 0)
     {
         for (auto& i : _words)
-            _height = max(_height, (int)i.getGlobalBounds().top + (int)i.getGlobalBounds().height);
+            _height = max(_height, (int)i.getGlobalBounds().top + (int)i.getCharacterSize());
     }
 
     return _height;
