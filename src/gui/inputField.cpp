@@ -29,7 +29,9 @@ InputField::InputField()
 {
     addState("normal");
 
-    states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
+    states.find("normal")->second.text.setDefaultProperties("liberation", 15, Color::Black);
+
+    _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
 bool InputField::mouseHovering(RenderWindow& app)

@@ -213,11 +213,6 @@ int Widget::height()
     if ((_flags & HeightMeansFixedMargin) == HeightMeansFixedMargin)
         h = _parent->height() - _height;
 
-    if (h < 0)
-    {
-        cout << "widget avec height() < 0 : _parent->height() " << _parent->height() << ", " << _height << endl;
-    }
-
     return max(0, h);
 }
 

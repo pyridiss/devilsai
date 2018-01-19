@@ -35,8 +35,7 @@ Button::Button()
     states.find("hover")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::hoverButtonTextColor());
     states.find("disabled")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::disabledButtonTextColor());
 
-    for (auto& s : states)
-        s.second.text.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter | textManager::FixedHeight | textManager::VAlignCenter);
+    _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
 void Button::setAutoRelease(bool a)
