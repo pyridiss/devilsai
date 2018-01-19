@@ -64,7 +64,7 @@ class Widget
     protected:
         int _x, _y;
         int _width, _height;
-        uint16_t _flags;
+        uint32_t _flags;
         Window* _parent;
 
         map < string, minimalistWidget> states;
@@ -85,7 +85,7 @@ class Widget
         void setPosition(int x, int y);
         void setParent(Window* p);
         void setSize(int w, int h);
-        void addFlags(uint16_t newFlags);
+        void addFlags(uint32_t newFlags);
 
         void addState(string state);
         void setCurrentState(string state);

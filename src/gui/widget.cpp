@@ -82,7 +82,7 @@ void Widget::setSize(int w, int h)
     _height = h;
 }
 
-void Widget::addFlags(uint16_t newFlags)
+void Widget::addFlags(uint32_t newFlags)
 {
     _flags |= newFlags;
 }
