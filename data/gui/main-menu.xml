@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties Fullscreen="1" backgroundImage="Fond" music="Gates_Of_Heaven"/>
-    <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120"  allText="main-menu-title"/>
+    <loadImage key="main-menu-background" path="img/Fond.png"/>
+    <properties Fullscreen="1" backgroundImage="main-menu-background" AdjustBackgroundToSize="1" music="Gates_Of_Heaven"/>
+    <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120" allText="main-menu-title"/>
     <widget name="button-new-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="238" AdjustSizeToText="1" allText="main-menu-new-game"/>
     <widget name="button-load-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="298" AdjustSizeToText="1" allText="main-menu-load-game"/>
     <widget name="button-options" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="358" AdjustSizeToText="1" allText="main-menu-options"/>

@@ -47,7 +47,6 @@ void Load_Decorations()
 {
     imageManager::addContainer("misc");
     imageManager::addContainer("gui");
-    imageManager::addImage("gui", "Fond", "img/Fond.png", Vector2i(0, 0), (float)Options.ScreenW/400.f);
     imageManager::addImage("gui", "FondObjet_75_100", "img/FondObjet_75_100.png");
     imageManager::addImage("gui", "FondObjet_75_75", "img/FondObjet_75_75.png");
     imageManager::addImage("gui", "FondObjet_50_50", "img/FondObjet_50_50.png");
