@@ -54,7 +54,7 @@ class Window
 
         int _x, _y;
         int _width, _height;
-        uint16_t _flags;
+        uint32_t _flags;
 
         RenderWindow* _screen;
 
