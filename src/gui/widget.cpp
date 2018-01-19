@@ -120,7 +120,7 @@ void Widget::setCurrentState(string state)
 
 int Widget::left()
 {
-    if (_parent == nullptr || _parent->screen() == nullptr)
+    if (_parent == nullptr)
     {
         tools::debug::error("A widget has been badly started", "gui", __FILENAME__, __LINE__);
         return 0;
@@ -145,7 +145,7 @@ int Widget::left()
 
 int Widget::top()
 {
-    if (_parent == nullptr || _parent->screen() == nullptr)
+    if (_parent == nullptr)
     {
         tools::debug::error("A widget has been badly started", "gui", __FILENAME__, __LINE__);
         return 0;
@@ -180,7 +180,7 @@ int Widget::getYCenter()
 
 int Widget::width()
 {
-    if (_parent == nullptr || _parent->screen() == nullptr)
+    if (_parent == nullptr)
     {
         tools::debug::error("A widget has been badly started", "gui", __FILENAME__, __LINE__);
         return 0;
@@ -199,7 +199,7 @@ int Widget::width()
 
 int Widget::height()
 {
-    if (_parent == nullptr || _parent->screen() == nullptr)
+    if (_parent == nullptr)
     {
         tools::debug::error("A widget has been badly started", "gui", __FILENAME__, __LINE__);
         return 0;
