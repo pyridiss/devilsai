@@ -389,10 +389,8 @@ void Window::loadFromFile(string path)
         {
             string key = elem->Attribute("key");
             string pathToImage = elem->Attribute("path");
-            double scale = 1;
-            elem->QueryAttribute("scale", &scale);
             imageManager::addContainer("gui");
-            imageManager::addImage("gui", key, pathToImage, Vector2i(0, 0), scale);
+            imageManager::addImage("gui", key, pathToImage);
         }
 
         if (elemName == "properties")

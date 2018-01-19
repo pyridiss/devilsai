@@ -48,7 +48,7 @@ void addContainer(string container)
     }
 }
 
-void addImage(string container, string key, string file, Vector2i of, float scale)
+void addImage(string container, string key, string file, Vector2i of)
 {
     Database::iterator c = images.find(container);
 
@@ -76,7 +76,7 @@ void addImage(string container, string key, string file, Vector2i of, float scal
             }
             ++j;
         }
-        result.first->second.set(file, reference, of, scale);
+        result.first->second.set(file, reference, of);
         tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
 }

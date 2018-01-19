@@ -26,7 +26,7 @@
 
 namespace imageManager{
 
-void Image::set(string file, Image* reference, Vector2i of, float scale)
+void Image::set(string file, Image* reference, Vector2i of)
 {
     offset = of;
 
@@ -69,8 +69,6 @@ void Image::set(string file, Image* reference, Vector2i of, float scale)
     }
 
     texture.setSmooth(false);
-
-    if (scale != 1) sprite.setScale(scale, scale);
 }
 
 void Image::applyShader(string file)

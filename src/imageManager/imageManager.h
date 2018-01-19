@@ -33,7 +33,7 @@ class Image;
 class Animation;
 
 void addContainer(string container);
-void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0), float scale = 1);
+void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0));
 void addArchiveFile(string path);
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);

@@ -39,7 +39,7 @@ class Image
         Vector2i offset;
 
     public:
-        void set(string file, Image* reference, Vector2i of, float scale = 1);
+        void set(string file, Image* reference, Vector2i of);
         void applyShader(string file);
         const Vector2u getSize();
         void display(RenderTarget& target, float x, float y, bool atCenter = false, const Shader* shader = nullptr);
