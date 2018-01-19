@@ -262,6 +262,7 @@ void Window::manage(RenderWindow& app)
 
         checkKeyboardState();
 
+        app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
         display(app);
 
         if (!foregroundShader.empty())
