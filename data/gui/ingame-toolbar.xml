@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <loadImage key="button-ingame-menu" path="img/gui-menu-button.png" scale="0.38"/>
-    <loadImage key="button-character" path="img/BoutonPersonnage.png" scale="0.38"/>
-    <loadImage key="button-equipment" path="img/BoutonEquipement.png" scale="0.38"/>
-    <loadImage key="button-skills" path="img/BoutonCompetences.png" scale="0.38"/>
-    <loadImage key="button-journal" path="img/BoutonJournal.png" scale="0.38"/>
-    <loadImage key="button-rest" path="img/gui-rest-button.png" scale="0.38"/>
-    <properties width="800" height="50"/>
-    <widget name="button-ingame-menu" type="button" x="10" y="2" width="41" height="41" allBackground="button-ingame-menu">
+    <loadImage key="gui-top-border" path="img/gui-top-border.png"/>
+    <loadImage key="button-ingame-menu" path="img/gui-menu-button.png"/>
+    <loadImage key="button-character" path="img/BoutonPersonnage.png"/>
+    <loadImage key="button-equipment" path="img/BoutonEquipement.png"/>
+    <loadImage key="button-skills" path="img/BoutonCompetences.png"/>
+    <loadImage key="button-journal" path="img/BoutonJournal.png"/>
+    <loadImage key="button-rest" path="img/gui-rest-button.png"/>
+    <properties width="100" WidthRelativeToScreenSize="1" height="50" backgroundImage="gui-top-border" RepeatBackgroundToFitSize="1"/>
+    <widget name="button-ingame-menu" type="button" x="10" y="2" width="41" height="41" allBackground="button-ingame-menu" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-character" type="button" x="60" y="2" width="41" height="41" allBackground="button-character">
+    <widget name="button-character" type="button" x="60" y="2" width="41" height="41" allBackground="button-character" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-equipment" type="button" x="110" y="2" width="41" height="41" allBackground="button-equipment">
+    <widget name="button-equipment" type="button" x="110" y="2" width="41" height="41" allBackground="button-equipment" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-skills" type="button" x="160" y="2" width="41" height="41" allBackground="button-skills">
+    <widget name="button-skills" type="button" x="160" y="2" width="41" height="41" allBackground="button-skills" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="button-journal" type="button" x="210" y="2" width="41" height="41" allBackground="button-journal">
+    <widget name="button-journal" type="button" x="210" y="2" width="41" height="41" allBackground="button-journal" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="warn-journal" type="text" x="210" y="2" width="41" height="41">
         <state name="warn" foregroundShader="warn"/>
     </widget>
-    <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest">
+    <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest" AdjustBackgroundToSize="1">
         <state name="hover" foregroundShader="highlight"/>
         <state name="disabled" foregroundShader="disable"/>
     </widget>

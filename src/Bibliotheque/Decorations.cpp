@@ -53,7 +53,6 @@ void Load_Decorations()
     imageManager::addImage("misc", "FondCoffre", "img/FondCoffre.png");
     imageManager::addImage("misc", "FondInventaire", "img/FondInventaire.png");
     imageManager::addImage("misc", "Repos", "img/Repos.png");
-    imageManager::addImage("misc", "gui-top-border", "img/gui-top-border.png");
 
     imageManager::addAnimation("playerLifeGauge", "img/BarreVie.png");
     imageManager::addAnimation("playerLifeGaugeBackground", "img/BarreVie.png");
@@ -94,11 +93,6 @@ void Disp_FPS(RenderTarget& target)
 
 void Disp_Menu(RenderTarget& target)
 {
-	for (unsigned short a = 0 ; a < target.getSize().x/220 + 1 ; ++a)
-    {
-		imageManager::display(target, "misc", "gui-top-border", 220*a, 0);
-    }
-
 	//Erreur éventuelle
     if (options::option<bool>(tools::math::sdbm_hash("error-occured")))
 	{
