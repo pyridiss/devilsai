@@ -25,6 +25,7 @@
 #include "tools/timeManager.h"
 #include "tools/textManager.h"
 
+#include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
 #include "musicManager/musicManager.h"
@@ -228,7 +229,40 @@ void Window::display(RenderWindow& app)
         gui::style::displayShader(app, backgroundShader, left(), top(), width(), height());
 
     if (!backgroundImage.empty())
-        imageManager::display(app, "gui", backgroundImage, left(), top());
+    {
+        if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
+        {
+            imageManager::Image* image = imageManager::getImage("gui", backgroundImage);
+            View currentView = app.getView();
+
+            View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
+            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
+
+            app.setView(newView);
+            imageManager::display(app, "gui", backgroundImage, 0, 0);
+
+            app.setView(currentView);
+        }
+        else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
+        {
+            imageManager::Image* image = imageManager::getImage("gui", backgroundImage);
+            View currentView = app.getView();
+
+            View newView(FloatRect(0, 0, width(), height()));
+            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
+
+            app.setView(newView);
+            for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
+                    for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
+                        imageManager::display(app, "gui", backgroundImage, i * image->getSize().x, j * image->getSize().y);
+
+            app.setView(currentView);
+        }
+        else
+        {
+            imageManager::display(app, "gui", backgroundImage, left(), top());
+        }
+    }
 
     Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
@@ -445,6 +479,11 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("foregroundShader"))
                 foregroundShader = elem->Attribute("foregroundShader");
 
+            if (elem->Attribute("AdjustBackgroundToSize"))
+                _flags |= AdjustBackgroundToSize;
+            if (elem->Attribute("RepeatBackgroundToFitSize"))
+                _flags |= RepeatBackgroundToFitSize;
+
             if (elem->Attribute("music"))
                 music = elem->Attribute("music");
         }
@@ -511,6 +550,11 @@ void Window::loadFromFile(string path)
                 string b = elem->Attribute("allBackground");
                 widget->setAllBackground(b);
             }
+
+            if (elem->Attribute("AdjustBackgroundToSize"))
+                widget->addFlags(AdjustBackgroundToSize);
+            if (elem->Attribute("RepeatBackgroundToFitSize"))
+                widget->addFlags(RepeatBackgroundToFitSize);
 
             if (elem->Attribute("allText"))
             {

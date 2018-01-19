@@ -43,6 +43,8 @@ enum Flags
     YPositionRelativeToScreenSize = 1 << 9,
     Fullscreen = 1 << 10,
     AdjustSizeToText = 1 << 11
+    AdjustBackgroundToSize = 1 << 15,
+    RepeatBackgroundToFitSize = 1 << 16
 };
 
 namespace style{

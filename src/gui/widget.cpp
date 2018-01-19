@@ -23,6 +23,7 @@
 #include "gui/widget.h"
 #include "gui/style.h"
 
+#include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
 namespace gui{
@@ -297,7 +298,40 @@ void Widget::display(RenderWindow& app)
     const auto& state = states.find(currentState);
 
     if (!state->second.background.empty())
-        imageManager::display(app, "gui", state->second.background, left(), top());
+    {
+        if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
+        {
+            imageManager::Image* image = imageManager::getImage("gui", state->second.background);
+            View currentView = app.getView();
+
+            View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
+            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
+
+            app.setView(newView);
+            imageManager::display(app, "gui", state->second.background, 0, 0);
+
+            app.setView(currentView);
+        }
+        else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
+        {
+            imageManager::Image* image = imageManager::getImage("gui", state->second.background);
+            View currentView = app.getView();
+
+            View newView(FloatRect(0, 0, width(), height()));
+            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
+
+            app.setView(newView);
+            for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
+                    for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
+                        imageManager::display(app, "gui", state->second.background, i * image->getSize().x, j * image->getSize().y);
+
+            app.setView(currentView);
+        }
+        else
+        {
+            imageManager::display(app, "gui", state->second.background, left(), top());
+        }
+    }
 
     if (state->second.backgroundShader != nullptr)
         state->second.backgroundShader(app, left(), top(), width(), height());
