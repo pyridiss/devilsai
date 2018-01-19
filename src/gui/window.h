@@ -66,7 +66,7 @@ class Window
 
     public:
         Window();
-        Window(string path);
+        Window(string path, RenderWindow& window);
         Window(const Window& other);
         Window& operator=(const Window& right);
         ~Window();

@@ -81,8 +81,9 @@ Window::Window(const Window& other)
 {
 }
 
-Window::Window(string path) : Window()
+Window::Window(string path, RenderWindow& window) : Window()
 {
+    _screen = &window;
     loadFromFile(path);
 }
 

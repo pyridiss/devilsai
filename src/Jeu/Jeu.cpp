@@ -83,19 +83,19 @@ void mainLoop(RenderWindow& app)
     bool managementActivated = false;
     bool playerResting = false;
 
-    gui::Window mainMenuWindow("gui/main-menu.xml");
-    gui::Window newGameWindow("gui/new-game.xml");
-    gui::Window loadGameWindow("gui/load-game.xml");
-    gui::Window optionsWindow("gui/options.xml");
-    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml");
-    gui::Window ingameMenuWindow("gui/ingame-menu.xml");
-    gui::Window ingameToolbar("gui/ingame-toolbar.xml");
-    gui::Window loadingWindow("gui/loading.xml");
-    gui::Window playerDeadWindow("gui/player-dead.xml");
-    gui::Window inventoryWindow("gui/inventory.xml");
-    gui::Window storageBoxWindow("gui/storage-box.xml");
-    gui::Window ingameSkillbar("gui/ingame-skillbar.xml");
-    gui::Window dialogScreen("gui/dialog-screen.xml");
+    gui::Window mainMenuWindow("gui/main-menu.xml", app);
+    gui::Window newGameWindow("gui/new-game.xml", app);
+    gui::Window loadGameWindow("gui/load-game.xml", app);
+    gui::Window optionsWindow("gui/options.xml", app);
+    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
+    gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
+    gui::Window ingameToolbar("gui/ingame-toolbar.xml", app);
+    gui::Window loadingWindow("gui/loading.xml", app);
+    gui::Window playerDeadWindow("gui/player-dead.xml", app);
+    gui::Window inventoryWindow("gui/inventory.xml", app);
+    gui::Window storageBoxWindow("gui/storage-box.xml", app);
+    gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
+    gui::Window dialogScreen("gui/dialog-screen.xml", app);
 
     gui::TextWidget placeName;
     placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
@@ -107,12 +107,6 @@ void mainLoop(RenderWindow& app)
     tooltip.setBackgroundShader("normal", "textBackground");
     tooltip.setTextFont(gui::style::fontFromString("liberation-bold"), 15);
     tooltip.setTextColor("normal", Color(255, 255, 255));
-    ingameToolbar.startWindow(app);
-    loadingWindow.startWindow(app);
-    inventoryWindow.startWindow(app);
-    storageBoxWindow.startWindow(app);
-    ingameSkillbar.startWindow(app);
-    dialogScreen.startWindow(app);
 
     startDialogScreen(dialogScreen, app);
 
