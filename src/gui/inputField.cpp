@@ -59,11 +59,9 @@ bool InputField::activated(RenderWindow& app, Event event)
             default :   input += event.text.unicode;
                         break;
         }
-    }
 
-    textManager::PlainText a;
-    a.set(input);
-    setAllText(a);
+        setAllText(textManager::PlainText(input));
+    }
 
     return false;
 }
@@ -75,9 +73,7 @@ void InputField::setValue(const string& d)
 
 string InputField::value()
 {
-    textManager::PlainText a;
-    a.set(input);
-    return textManager::toStdString(a);
+    return textManager::PlainText(input).toStdString();
 }
 
 } //namespace gui
