@@ -149,7 +149,7 @@ void DropDownList::display(RenderWindow& app)
             else
                 t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::activeButtonTextColor());
 
-            t.setSource(&e.first);
+            t.create(e.first);
             t.displayFullText(app, getXCenter(), getYCenter() + i * height());
 
             ++i;

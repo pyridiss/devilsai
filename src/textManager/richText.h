@@ -38,7 +38,6 @@ namespace textManager{
 class RichText
 {
     private:
-        PlainText* _source;
         vector<sf::Text> _words;
         int _width, _height;
         Font* _defaultFont;
@@ -55,13 +54,12 @@ class RichText
         void alignCurrentLine(vector<sf::Text*>& line, bool endOfParagraph);
         unsigned lineHeight(vector<sf::Text*>& line);
         void reduceHeight();
-        void cutParagraph();
 
     public:
-        void setSource(PlainText* src);
         void setSize(int w, int h);
         void setDefaultProperties(const string& f, int s, Color c);
         void addFlags(uint16_t newFlags);
+        void create(const PlainText& src);
         int width();
         int height();
         void displayToView(RenderTarget& target, View view);

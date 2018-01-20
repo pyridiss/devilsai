@@ -268,7 +268,7 @@ int LUA_pushDialog(lua_State* L)
     rich.setSize(options::option<unsigned>(tools::math::sdbm_hash("dialog-width")), 0);
     rich.setDefaultProperties("liberation", 12, Color(255, 255, 255));
     rich.addFlags(textManager::HAlignJustify);
-    rich.setSource(&plain);
+    rich.create(plain);
 
     gamedata::listDialogs().push_back(std::move(rich));
 	return 0;

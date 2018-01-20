@@ -80,7 +80,7 @@ void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj)
     rich.setSize(300, 0);
     rich.setDefaultProperties("liberation", 12, Color(255, 255, 255));
     rich.addFlags(textManager::HAlignCenter);
-    rich.setSource(&description);
+    rich.create(description);
 
     float x = Mouse::getPosition(target).x;
     float y = Mouse::getPosition(target).y;

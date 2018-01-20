@@ -30,6 +30,7 @@
 #include "imageManager/animation.h"
 #include "gui/button.h"
 #include "musicManager/musicManager.h"
+#include "textManager/richText.h"
 
 #include "gamedata.h"
 
@@ -199,7 +200,7 @@ void Disp_JaugesVie(RenderTarget& target)
     playerState.setSize(160, 0);
     playerState.setDefaultProperties("liberation", 11, Color(255, 255, 255));
     playerState.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
-    playerState.setSource(&playerStateText);
+    playerState.create(playerStateText);
     playerState.displayFullText(target, 92, 55);
 
     Disp_Information(textManager::getText("devilsai", "FATIGUE"), false);

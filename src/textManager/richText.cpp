@@ -22,8 +22,7 @@
 namespace textManager{
 
 RichText::RichText()
-  : _source(nullptr),
-    _words(),
+  : _words(),
     _width(0),
     _height(0),
     _defaultFont(nullptr),
@@ -34,8 +33,7 @@ RichText::RichText()
 }
 
 RichText::RichText(const RichText& other)
-  : _source(other._source),
-    _words(other._words),
+  : _words(other._words),
     _width(other._width),
     _height(other._height),
     _defaultFont(other._defaultFont),
@@ -47,7 +45,6 @@ RichText::RichText(const RichText& other)
 
 RichText& RichText::operator=(const RichText& right)
 {
-    _source = right._source;
     _words = right._words;
     _width = right._width;
     _height = right._height;
@@ -132,12 +129,14 @@ void RichText::reduceHeight()
     }
 }
 
-void RichText::cutParagraph()
+void RichText::create(const PlainText& src)
 {
-    if (_source == nullptr || _defaultFont == nullptr)
+    _words.clear();
+
+    if (_defaultFont == nullptr)
         return;
 
-    const basic_string<unsigned int>& str = _source->aggregatedText();
+    const basic_string<unsigned int>& str = src.aggregatedText();
     if (str.empty()) return;
 
     unsigned spaceCharacter = 32; // ' ' (space)
@@ -257,14 +256,6 @@ void RichText::cutParagraph()
 
     if ((_flags & FixedHeight) == 0)
         _height = 0;
-}
-
-void RichText::setSource(PlainText* src)
-{
-    _source = src;
-    _words.clear();
-
-    cutParagraph();
 }
 
 void RichText::setSize(int w, int h)

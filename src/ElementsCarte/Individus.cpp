@@ -422,7 +422,7 @@ void Individu::displayLifeGauge(RenderTarget& target)
         individualName.setDefaultProperties("liberation", 10, Color(255, 255, 255));
 
     individualName.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
-    individualName.setSource(displayedName());
+    individualName.create(*displayedName());
     individualName.displayFullText(target, x, y + 20);
 
     RectangleShape background(Vector2f(50, 4));

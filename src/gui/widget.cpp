@@ -255,7 +255,7 @@ void Widget::setText(string state, String32& t)
 
     s->second.text.addFlags(_textFlags);
 
-    s->second.text.setSource(&t);
+    s->second.text.create(t);
 
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
     {

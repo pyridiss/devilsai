@@ -144,7 +144,7 @@ void ScrollingList::display(RenderWindow& app)
         textManager::RichText t;
         t.setSize(width() - 20, 20);
         t.setDefaultProperties(gui::style::buttonTextFont(), 16, Color::White);
-        t.setSource(&e.first);
+        t.create(e.first);
 
         if (i == index)
         {
