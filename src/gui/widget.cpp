@@ -216,7 +216,7 @@ int Widget::height()
     return max(0, h);
 }
 
-void Widget::setAllText(String32& t)
+void Widget::setAllText(const textManager::PlainText& t)
 {
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
         _textFlags &= ~textManager::FixedHeight;
@@ -241,7 +241,7 @@ void Widget::setAllBackground(string b)
     }
 }
 
-void Widget::setText(string state, String32& t)
+void Widget::setText(string state, const textManager::PlainText& t)
 {
     const auto& s = states.find(state);
 

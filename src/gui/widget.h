@@ -99,10 +99,10 @@ class Widget
         int width();
         int height();
 
-        void setAllText(String32& t);
+        void setAllText(const textManager::PlainText& t);
         void setAllBackground(string b);
 
-        void setText(string state, String32& t);
+        void setText(string state, const textManager::PlainText& t);
         void setBackground(string state, string b);
         void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
