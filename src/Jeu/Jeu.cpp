@@ -101,10 +101,9 @@ void mainLoop(RenderWindow& app)
     if (placeName == nullptr)
         tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named place-name.", "gui", __FILENAME__, __LINE__);
 
-    gui::TextWidget tooltip;
-    tooltip.setBackgroundShader("normal", "textBackground");
-    tooltip.setTextFont(gui::style::fontFromString("liberation-bold"), 15);
-    tooltip.setTextColor("normal", Color(255, 255, 255));
+    gui::Widget* tooltip = ingameToolbar.widget("tooltip");
+    if (tooltip == nullptr)
+        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named tooltip.", "gui", __FILENAME__, __LINE__);
 
     startDialogScreen(dialogScreen, app);
 
@@ -360,8 +359,9 @@ void mainLoop(RenderWindow& app)
                 gamedata::player()->Set_Activite(signal.second);
             }
             if (signal.first == "add-tooltip") {
-                tooltip.setSize(0, 0);
-                tooltip.setAllText(tools::textManager::getText("places", signal.second));
+                textManager::PlainText t = textManager::getText("devilsai", tooltip->embeddedData("format"));
+                t.addParameter(textManager::getText("places", signal.second));
+                tooltip->setValue(t.toStdString());
                 showTooltip = true;
             }
             if (signal.first == "enable-cinematic-mode") {
@@ -489,12 +489,13 @@ void mainLoop(RenderWindow& app)
 
         if (showTooltip)
         {
-            int x = app.mapPixelToCoords(Mouse::getPosition(app), worldView).x + 10;
-            int y = app.mapPixelToCoords(Mouse::getPosition(app), worldView).y + 10;
-            tooltip.setTopLeftCoordinates(x, y);
-            tooltip.updateTextPosition();
-            tooltip.display(Jeu.App);
+            int x = Mouse::getPosition(app).x + 10;
+            int y = Mouse::getPosition(app).y + 10;
+            tooltip->setPosition(x, y);
+            tooltip->show();
         }
+        else tooltip->hide();
+
         showTooltip = false;
 
         if (Keyboard::isKeyPressed(Keyboard::LAlt))

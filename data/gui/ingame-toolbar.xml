@@ -33,6 +33,10 @@
     <widget name="place-name" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120">
         <addEmbeddedData name="format" value="format-place-name"/>
     </widget>
+    <widget name="tooltip" type="text">
+        <state name="normal" backgroundShader="textBackground"/>
+        <addEmbeddedData name="format" value="format-tooltip"/>
+    </widget>
     <signal emitter="button-ingame-menu" signal="ask-menu"/>
     <signal emitter="button-character" signal="screen-character"/>
     <signal emitter="button-equipment" signal="screen-equipment"/>
