@@ -585,6 +585,9 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("RepeatBackgroundToFitSize"))
                 widget->addFlags(RepeatBackgroundToFitSize);
 
+            if (elem->Attribute("VerticalScrollBar"))
+                widget->addFlags(VerticalScrollBar);
+
             if (elem->Attribute("allText"))
             {
                 string t = elem->Attribute("allText");

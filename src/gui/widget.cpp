@@ -194,6 +194,9 @@ int Widget::width()
     if ((_flags & WidthMeansFixedMargin) == WidthMeansFixedMargin)
         w = _parent->width() - _width;
 
+    if ((_flags & VerticalScrollBar) == VerticalScrollBar)
+        w -= 20;
+
     return max(0, w);
 }
 
@@ -219,6 +222,8 @@ int Widget::height()
 void Widget::setAllText(const textManager::PlainText& t)
 {
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
+        _textFlags &= ~textManager::FixedHeight;
+    if ((_flags & VerticalScrollBar) == VerticalScrollBar)
         _textFlags &= ~textManager::FixedHeight;
 
     for (auto& state : states)

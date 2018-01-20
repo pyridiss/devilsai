@@ -48,7 +48,9 @@ enum Flags
     AdjustSizeToText = 1 << 14,
     AdjustBackgroundToSize = 1 << 15,
     RepeatBackgroundToFitSize = 1 << 16,
-    Hidden = 1 << 17
+    VerticalScrollBar = 1 << 17,
+    VerticalScrollBarInUse = 1 << 18,
+    Hidden = 1 << 19
 };
 
 namespace style{

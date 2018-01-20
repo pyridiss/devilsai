@@ -31,16 +31,23 @@ namespace gui{
 
 class TextWidget : public Widget
 {
+    private:
+        int _verticalScrolling;
+
     public:
         TextWidget();
         ~TextWidget() = default;
 
     public:
+        void setVerticalScrolling(int percentage);
         bool mouseHovering(RenderWindow& app);
+        bool mouseHoveringVerticalScrollBar(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);
 
         void setValue(const string& d);
         string value();
+
+        void display(RenderWindow& app);
 };
 
 } //namespace gui
