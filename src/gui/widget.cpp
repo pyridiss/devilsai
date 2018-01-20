@@ -245,7 +245,14 @@ void Widget::setText(string state, String32& t)
 {
     const auto& s = states.find(state);
 
-    s->second.text.setSize(width(), height());
+    if ((_flags & AdjustSizeToText) == AdjustSizeToText)
+    {
+        s->second.text.setSize(0, 0);
+        setSize(0, 0);
+    }
+    else
+        s->second.text.setSize(width(), height());
+
     s->second.text.addFlags(_textFlags);
 
     s->second.text.setSource(&t);
