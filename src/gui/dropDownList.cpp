@@ -31,6 +31,8 @@ DropDownList::DropDownList()
 
     states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
     states.find("developed")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+
+    _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
 void DropDownList::addEntry(String32& entry, string data)
@@ -52,7 +54,7 @@ bool DropDownList::mouseHovering(RenderWindow& app)
 bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
 {
     if ((int)Mouse::getPosition(app).x >= left() && (int)Mouse::getPosition(app).x <= left() + width() &&
-        (int)Mouse::getPosition(app).y >= top() && (int)Mouse::getPosition(app).y <= top() + height() * (1 + (int)entries.size()))
+        (int)Mouse::getPosition(app).y >= top() + height() && (int)Mouse::getPosition(app).y <= top() + height() * (1 + (int)entries.size()))
     {
         return true;
     }

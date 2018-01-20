@@ -155,7 +155,7 @@ void PlainText::resetParameters()
     _aggregatedText.clear();
 }
 
-const basic_string<unsigned int>& PlainText::aggregatedText()
+const basic_string<unsigned int>& PlainText::aggregatedText() const
 {
     if (_parameters.size() < _parametersNeeded)
     {
@@ -168,9 +168,6 @@ const basic_string<unsigned int>& PlainText::aggregatedText()
 
     if (_parametersNeeded == 0)
         return _originalText;
-
-    if (_aggregatedText.empty())
-        aggregate();
 
     return _aggregatedText;
 }

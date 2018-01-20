@@ -60,7 +60,7 @@ class PlainText
         void addParameter(const PlainText& d);
         void clear();
         void resetParameters();
-        const basic_string<unsigned int>& aggregatedText();
+        const basic_string<unsigned int>& aggregatedText() const;
         string toStdString();
 };
 
