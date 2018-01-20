@@ -121,6 +121,9 @@ class Widget
         virtual string value() = 0;
 
         virtual void display(RenderWindow& app);
+
+        void show();
+        void hide();
 };
 
 } //namespace gui

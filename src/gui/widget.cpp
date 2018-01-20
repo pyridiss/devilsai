@@ -301,6 +301,9 @@ bool Widget::needsFocus()
 
 void Widget::display(RenderWindow& app)
 {
+    if ((_flags & Hidden) == Hidden)
+        return;
+
     const auto& state = states.find(currentState);
 
     if (!state->second.background.empty())
@@ -350,6 +353,16 @@ void Widget::display(RenderWindow& app)
         state->second.foregroundShader(app, left(), top(), width(), height());
     else if (!state->second.fShader.empty())
         gui::style::displayShader(app, state->second.fShader, left(), top(), width(), height());
+}
+
+void Widget::show()
+{
+    _flags &= ~Hidden;
+}
+
+void Widget::hide()
+{
+    _flags |= Hidden;
 }
 
 } //namespace gui

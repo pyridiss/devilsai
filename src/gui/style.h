@@ -47,7 +47,8 @@ enum Flags
     HeightMeansFixedMargin = 1 << 13,
     AdjustSizeToText = 1 << 14,
     AdjustBackgroundToSize = 1 << 15,
-    RepeatBackgroundToFitSize = 1 << 16
+    RepeatBackgroundToFitSize = 1 << 16,
+    Hidden = 1 << 17
 };
 
 namespace style{
