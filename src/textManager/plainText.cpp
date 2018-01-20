@@ -160,7 +160,9 @@ const basic_string<unsigned int>& PlainText::aggregatedText()
     if (_parameters.size() < _parametersNeeded)
     {
         tools::debug::error("This text needs more parameters:", "textManager", __FILENAME__, __LINE__);
-        tools::debug::error(toStdString(), "textManager", __FILENAME__, __LINE__);
+        string str;
+        Utf32::toUtf8(_originalText.begin(), _originalText.end(), back_inserter(str));
+        tools::debug::error(str, "textManager", __FILENAME__, __LINE__);
         return _originalText;
     }
 
@@ -173,11 +175,14 @@ const basic_string<unsigned int>& PlainText::aggregatedText()
     return _aggregatedText;
 }
 
-string PlainText::toStdString() const
+string PlainText::toStdString()
 {
+    if (_aggregatedText.empty())
+        aggregate();
+
     string str;
 
-    Utf32::toUtf8(_originalText.begin(), _originalText.end(), back_inserter(str));
+    Utf32::toUtf8(_aggregatedText.begin(), _aggregatedText.end(), back_inserter(str));
 
     return str;
 }

@@ -61,7 +61,7 @@ class PlainText
         void clear();
         void resetParameters();
         const basic_string<unsigned int>& aggregatedText();
-        string toStdString() const;
+        string toStdString();
 };
 
 } //namespace textManager
