@@ -77,7 +77,7 @@ void mainLoop(RenderWindow& app)
     screenJournal.dispFunction = displayJournal;
     screenJournal.manageFunction = nullptr;
 
-	float ChangementLieu = 255;
+    float ChangementLieu = 0;
 	float SauvegardeEffectuee = 255;
 
     bool managementActivated = false;
@@ -97,11 +97,9 @@ void mainLoop(RenderWindow& app)
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
     gui::Window dialogScreen("gui/dialog-screen.xml", app);
 
-    gui::TextWidget placeName;
-    placeName.setCenterCoordinates(Options.ScreenW / 2, 120);
-    placeName.setTextFont(gui::style::fontFromString("dayroman"), 30);
-    placeName.setTextOutline(Color(0, 0, 0), 1);
-    placeName.setTextColor("normal", Color(192, 0, 0));
+    gui::Widget* placeName = ingameToolbar.widget("place-name");
+    if (placeName == nullptr)
+        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named place-name.", "gui", __FILENAME__, __LINE__);
 
     gui::TextWidget tooltip;
     tooltip.setBackgroundShader("normal", "textBackground");
@@ -350,11 +348,12 @@ void mainLoop(RenderWindow& app)
                 return;
             }
 
-            if (signal.first == "place-changed")
-            {
-                ChangementLieu = 254;
-                placeName.setAllText(tools::textManager::getText("places", signal.second));
-                placeName.updateTextPosition();
+            if (signal.first == "place-changed") {
+                ChangementLieu = 100;
+                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData("format"));
+                t.addParameter(textManager::getText("places", signal.second));
+                placeName->setValue(t.toStdString());
+                placeName->show();
             }
 
             if (signal.first == "player-skill") {
@@ -571,15 +570,12 @@ void mainLoop(RenderWindow& app)
 
         gamedata::updateCurrentPlace();
 
-		if (ChangementLieu != 255)
-		{
-			ChangementLieu -= tools::timeManager::I((256-ChangementLieu)/24);
-			if (ChangementLieu <= 0) ChangementLieu = 255;
-			else
-			{
-                placeName.display(Jeu.App);
-			}
-		}
+        if (ChangementLieu > 0)
+        {
+            ChangementLieu -= tools::timeManager::I(1);
+            if (ChangementLieu <= 0)
+                placeName->hide();
+        }
 
 		//5. SAUVEGARDE EFFECTUÉE
 

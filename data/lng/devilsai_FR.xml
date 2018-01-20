@@ -70,4 +70,5 @@
     <text id="player-health-5">Agonisant</text>
     <text id="player-health-6">Mort</text>
     <text id="player-health-tired">Fatigué</text>
+    <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
 </texts>
