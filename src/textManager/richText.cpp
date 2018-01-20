@@ -319,10 +319,10 @@ void RichText::displayToView(RenderTarget& target, View view)
 
 void RichText::displayFullText(RenderTarget& target, int x, int y)
 {
-    x = target.mapCoordsToPixel(Vector2f(x, y)).x;
-    y = target.mapCoordsToPixel(Vector2f(x, y)).y;
-    float w = width();
-    float h = height();
+    x = target.mapCoordsToPixel(Vector2f(x, y)).x - 2;
+    y = target.mapCoordsToPixel(Vector2f(x, y)).y - 2;
+    float w = width() + 4;
+    float h = height() + 4;
 
     if ((_flags & OriginRight) == OriginRight)
         x -= w;
@@ -335,7 +335,7 @@ void RichText::displayFullText(RenderTarget& target, int x, int y)
         y -= h/2;
 
     View newView(FloatRect(0, 0, w, h));
-    newView.setViewport(FloatRect((float)x/(float)target.getSize().x, (float)y/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
+    newView.setViewport(FloatRect((float)(x+2)/(float)target.getSize().x, (float)(y+2)/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
 
     displayToView(target, newView);
 }
