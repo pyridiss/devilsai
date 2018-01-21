@@ -27,6 +27,11 @@
     <text id="ingame-skillbar-rightshift">Maj. D.</text>
     <text id="ingame-skillbar-rightctrl">Ctrl D.</text>
     <text id="ingame-skillbar-rightclick">Clic D.</text>
+    <text id="journal-title">@f[dayroman]@s[28]Journal @d</text>
+    <text id="journal-first">&lt;&lt; Première</text>
+    <text id="journal-previous">&lt; Précédente</text>
+    <text id="journal-next">Suivante &gt;</text>
+    <text id="journal-last">Dernière &gt;&gt;</text>
     <text id="load-game-start">Lancer la partie</text>
     <text id="load-game-delete">Supprimer la partie</text>
     <text id="load-game-title">Charger une partie</text>

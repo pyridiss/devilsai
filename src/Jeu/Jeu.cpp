@@ -39,6 +39,7 @@
 #include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
 #include "devilsai-screens/dialogScreen.h"
+#include "devilsai-screens/journal.h"
 
 #include "gamedata.h"
 #include "options.h"
@@ -106,6 +107,7 @@ void mainLoop(RenderWindow& app)
         tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named tooltip.", "gui", __FILENAME__, __LINE__);
 
     startDialogScreen(dialogScreen, app);
+    initJournal(app);
 
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
@@ -134,7 +136,7 @@ void mainLoop(RenderWindow& app)
     bool showTooltip = false;
     bool cinematicMode = false;
 
-    enum LeftScreens { None, Inventory };
+    enum LeftScreens { None, Inventory, Journal };
     LeftScreens currentLeftScreen = LeftScreens::None;
 
     enum BottomScreens { NoBottomScreen, StorageBox };
@@ -187,6 +189,10 @@ void mainLoop(RenderWindow& app)
             {
                 case LeftScreens::Inventory :
                     manageInventoryScreen(inventoryWindow, app, event, selectedObject);
+                    break;
+                case LeftScreens::Journal :
+                    manageJournal(app, event);
+                    break;
                 default:
                     break;
             }
@@ -333,7 +339,11 @@ void mainLoop(RenderWindow& app)
 
             if (signal.first == "screen-journal")
             {
-                changeCurrentUserScreen(&screenJournal);
+                if (currentLeftScreen == LeftScreens::Journal)
+                    currentLeftScreen = LeftScreens::None;
+                else
+                    currentLeftScreen = LeftScreens::Journal;
+
                 tools::signals::addSignal("ingame-toolbar:remove-warn-journal");
             }
 
@@ -526,14 +536,15 @@ void mainLoop(RenderWindow& app)
             Disp_Consoles();
         }
 
-        ingameToolbar.display(app);
-        displaySkillbar(ingameSkillbar, app);
         displayDialogScreen(dialogScreen, app);
 
         switch (currentLeftScreen)
         {
             case LeftScreens::Inventory :
                 displayInventoryScreen(inventoryWindow, app, selectedObject);
+                break;
+            case LeftScreens::Journal :
+                displayJournal(app);
             default:
                 break;
         }
@@ -545,6 +556,9 @@ void mainLoop(RenderWindow& app)
             default:
                 break;
         }
+
+        ingameToolbar.display(app);
+        displaySkillbar(ingameSkillbar, app);
 
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();

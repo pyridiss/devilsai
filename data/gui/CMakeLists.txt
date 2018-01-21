@@ -6,6 +6,7 @@ set(gui
     ingame-skillbar.xml
     ingame-toolbar.xml
     inventory.xml
+    journal.xml
     load-game.xml
     loading.xml
     main-menu.xml

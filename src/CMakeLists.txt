@@ -34,6 +34,7 @@ set(devilsai_SRCS
 	Carte/Carte.h
 	Carte/Interactions.cpp
     devilsai-screens/dialogScreen.cpp
+    devilsai-screens/journal.cpp
 	gamedata.cpp
     inventoryScreenManager.cpp
     skillbarManager.cpp

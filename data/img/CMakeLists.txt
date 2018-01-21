@@ -45,6 +45,7 @@ set(img
     gui-left-screen-background-512x668.png
     gui-menu-button.png
     gui-rest-button.png
+    gui-screen-background.png
     gui-skillbar-background-1024x56.jpg
     gui-skillbar-skills-background-50x50.jpg
     gui-top-border.png
