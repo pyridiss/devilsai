@@ -28,6 +28,8 @@
 
 #include "musicManager/musicManager.h"
 
+#include "devilsai-screens/journal.h"
+
 #include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"
 
@@ -317,6 +319,11 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 
         root->InsertEndChild(quest);
     }
+
+    XMLElement* journal = doc.NewElement("journal");
+    XMLHandle h(journal);
+    saveJournalToXML(doc, h);
+    root->InsertEndChild(journal);
 }
 
 void loadFromXML(const string& dataDirectory, const string& mainFile)
@@ -429,6 +436,12 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
                 }
                 else tools::debug::error("Error while loading quest " + questFile, "files", __FILENAME__, __LINE__);
             }
+        }
+
+        if (elemName == "journal")
+        {
+            XMLHandle h(elem);
+            loadJournalFromXML(h);
         }
 
         elem = elem->NextSiblingElement();

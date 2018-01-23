@@ -17,11 +17,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "gui/widget.h"
 #include "gui/window.h"
 
 #include "devilsai-screens/journal.h"
 
+using namespace tinyxml2;
 
 void updateState();
 
@@ -31,6 +34,7 @@ gui::Widget* _first = nullptr, *_previous = nullptr, *_next = nullptr, *_last = 
 
 vector<JournalPage> _journal;
 unsigned _currentPage = 0;
+string currentWorld;
 
 void initJournal(RenderWindow& target)
 {
@@ -65,6 +69,8 @@ void initJournal(RenderWindow& target)
 
 void addJournalEntry(string world, string questName, string newEntry)
 {
+    currentWorld = world;
+
     JournalPage* page = nullptr;
     for (auto& p : _journal)
     {
@@ -150,4 +156,40 @@ void manageJournal(RenderWindow& target, Event& event)
 void displayJournal(RenderWindow& target)
 {
     _window.display(target);
+}
+
+void loadJournalFromXML(XMLHandle &handle)
+{
+    XMLElement *elem = handle.FirstChildElement().ToElement();
+
+    while (elem)
+    {
+        string elemName = elem->Name();
+
+        if (elemName == "entry")
+        {
+            string w = elem->Attribute("world");
+            string q = elem->Attribute("quest");
+            string v = elem->Attribute("value");
+
+            addJournalEntry(w, q, v);
+        }
+    }
+}
+
+void saveJournalToXML(XMLDocument& doc, XMLHandle& handle)
+{
+    XMLElement* root = handle.ToElement();
+
+    for (auto& p : _journal)
+        for (auto& pg : p.paragraphs)
+        {
+            XMLElement* entry = doc.NewElement("entry");
+
+            entry->SetAttribute("world", currentWorld.c_str());
+            entry->SetAttribute("quest", p.quest.c_str());
+            entry->SetAttribute("value", pg.c_str());
+
+            root->InsertEndChild(entry);
+        }
 }

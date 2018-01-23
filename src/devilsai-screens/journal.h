@@ -24,6 +24,12 @@
 
 using namespace std;
 
+namespace tinyxml2{
+    class XMLElement;
+    class XMLHandle;
+    class XMLDocument;
+}
+
 namespace sf
 {
     class RenderWindow;
@@ -58,3 +64,5 @@ void initJournal(RenderWindow& target);
 void addJournalEntry(string world, string questName, string newEntry);
 void manageJournal(RenderWindow& target, Event& event);
 void displayJournal(RenderWindow& target);
+void loadJournalFromXML(tinyxml2::XMLHandle &handle);
+void saveJournalToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
