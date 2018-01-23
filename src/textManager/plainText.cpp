@@ -55,8 +55,15 @@ PlainText& PlainText::operator+=(const PlainText& right)
 
 PlainText& PlainText::operator+=(const char* right)
 {
-    PlainText r(right);
-    return operator+=(r);
+    _aggregatedText.clear();
+
+    string_view str(right);
+    Utf8::toUtf32(str.begin(), str.end(), back_inserter(_originalText));
+
+    cleanup();
+    findParametersNeeded();
+
+    return *this;
 }
 
 PlainText::~PlainText()
@@ -96,11 +103,31 @@ void PlainText::findParametersNeeded()
     }
 }
 
+void PlainText::cleanup()
+{
+    //Remove the LF (line feed) used in the XML files
+    while (_originalText.find(10) != basic_string<unsigned int>::npos)
+        _originalText.erase(_originalText.find(10), 1);
+
+    //Remove the spaces at the begin and at the end
+    while (_originalText[0] == 32)
+        _originalText.erase(0, 1);
+    while (_originalText[_originalText.size() - 1] == 32)
+        _originalText.pop_back();
+
+    //Replace two spaces with only one
+    basic_string<unsigned int> twoSpaces = {32, 32};
+    while (_originalText.find(twoSpaces) != basic_string<unsigned int>::npos)
+        _originalText.erase(_originalText.find(twoSpaces), 1);
+}
+
 void PlainText::set(const string& str)
 {
     clear();
 
     Utf8::toUtf32(str.begin(), str.end(), back_inserter(_originalText));
+
+    cleanup();
 
     findParametersNeeded();
 }
@@ -110,6 +137,8 @@ void PlainText::set(const basic_string<unsigned int>& str)
     clear();
 
     _originalText = str;
+
+    cleanup();
 
     findParametersNeeded();
 }

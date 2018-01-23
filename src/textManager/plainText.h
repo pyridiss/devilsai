@@ -49,6 +49,7 @@ class PlainText
         ~PlainText();
 
     private:
+        void cleanup();
         void aggregate();
         void findParametersNeeded();
 
