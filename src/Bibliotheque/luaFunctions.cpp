@@ -274,20 +274,6 @@ int LUA_pushDialog(lua_State* L)
 	return 0;
 }
 
-int LUA_popDialog(lua_State* L)
-{
-    MESSAGE("LUA_popDialog() called", LUA)
-
-	string dialog = lua_tostring(L, 1);
-	for (auto i = gamedata::listDialogs().begin() ; i != gamedata::listDialogs().end() ; ++i)
-		if (i->id == dialog + ".lng")
-		{
-			gamedata::listDialogs().erase(i);
-			break;
-		}
-	return 0;
-}
-
 int LUA_dialogDisplayed(lua_State* L)
 {
     MESSAGE("LUA_dialogDisplayed() called", LUA)

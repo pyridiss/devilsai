@@ -39,7 +39,6 @@ int LUA_getQuantityOf(lua_State*);
 int LUA_getNumberOfItemsByTag(lua_State*);
 int LUA_getElement(lua_State*);
 int LUA_pushDialog(lua_State*);
-int LUA_popDialog(lua_State*);
 int LUA_dialogDisplayed(lua_State*);
 int LUA_interact(lua_State*);
 int LUA_loadWorld(lua_State* L);
