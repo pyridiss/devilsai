@@ -303,7 +303,7 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 
     _player->saveToXML(doc, handle);
     root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
-    root->LastChildElement()->SetAttribute("playerName", tools::textManager::toStdString(_player->displayedName()).c_str());
+    root->LastChildElement()->SetAttribute("playerName", _player->displayedName().toStdString().c_str());
 
     for (auto& i : _quests)
     {

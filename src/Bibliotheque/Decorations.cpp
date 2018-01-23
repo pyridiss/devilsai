@@ -116,7 +116,7 @@ void Disp_JaugesVie(RenderTarget& target)
     textManager::PlainText playerStateText;
 
     playerStateText += "@c[128,255,128]";
-    playerStateText += *gamedata::player()->displayedName();
+    playerStateText += gamedata::player()->displayedName();
     playerStateText += " @d@n[30]"; //Make place for the gauges.
 
 	//1. Jauges de vitalité, d'énergie, de récupération

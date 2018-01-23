@@ -188,17 +188,17 @@ Activite* Individu::skill(const string& s)
     return &i->second;
 }
 
-textManager::PlainText* Individu::displayedName()
+const textManager::PlainText& Individu::displayedName()
 {
     if (_displayedName != nullptr)
-        return _displayedName;
+        return *_displayedName;
 
     if (_species != nullptr)
-        return &_species->_displayedName;
+        return _species->_displayedName;
 
     //In case there is no custom name nor species...
     setCustomDisplayedName(String32());
-    return _displayedName;
+    return *_displayedName;
 }
 
 unsigned int Individu::experience()
@@ -422,7 +422,7 @@ void Individu::displayLifeGauge(RenderTarget& target)
         individualName.setDefaultProperties("liberation", 10, Color(255, 255, 255));
 
     individualName.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
-    individualName.create(*displayedName());
+    individualName.create(displayedName());
     individualName.displayFullText(target, x, y + 20);
 
     RectangleShape background(Vector2f(50, 4));

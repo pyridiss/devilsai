@@ -242,7 +242,7 @@ class Individu : public Element_Carte
         Element_Carte* targetedItem();
         Statistiques& attributes();
         Activite* skill(const string& s);
-        textManager::PlainText* displayedName();
+        const textManager::PlainText& displayedName();
         unsigned int experience();
         bool angleFixed();
 

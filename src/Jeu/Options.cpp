@@ -215,7 +215,7 @@ void Save_Options()
         XMLElement* savedGame = file.NewElement("savedGame");
         savedGame->SetAttribute("directory", s.directory.c_str());
         savedGame->SetAttribute("version", s.version.c_str());
-        savedGame->SetAttribute("playerName", textManager::toStdString(s.playerName).c_str());
+        savedGame->SetAttribute("playerName", s.playerName.toStdString().c_str());
         elem->InsertEndChild(savedGame);
     }
 
@@ -265,7 +265,7 @@ void createNewSavedGamePack()
     SavedGame s;
 
     s.directory = intToString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
-    s.playerName = *gamedata::player()->displayedName();
+    s.playerName = gamedata::player()->displayedName();
     s.version = "master";
 
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);
