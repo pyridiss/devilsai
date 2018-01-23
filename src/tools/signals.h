@@ -21,23 +21,21 @@
 #define TOOLS_SIGNALS_H
 
 #include <string>
-#include <list>
-
-#include <SFML/System/Utf.hpp>
 
 using namespace std;
-using namespace sf;
 
-typedef basic_string<Uint32> String32;
-
-namespace tools{
-
-namespace signals{
+namespace tools::signals{
 
 struct SignalListener
 {
     string signal;
-    bool signalSent = false;
+    bool signalSent;
+
+    SignalListener()
+      : signal(),
+        signalSent(false)
+    {
+    }
 };
 
 typedef pair < string , string > Signal;
@@ -47,9 +45,7 @@ void addSignal(string s, string d = string());
 Signal& getNextSignal();
 void removeSignal();
 
-} //namespace signals
-
-} //namespace tools
+} //namespace tools::signals
 
 #endif // TOOLS_SIGNALS_H
 
