@@ -264,7 +264,7 @@ void Disp_Consoles(RenderTarget& target)
                 rich.setSize(500, 0);
                 rich.setDefaultProperties("liberation", 13, ConsolePerso[a].Couleur);
                 rich.create(ConsolePerso[a].Ligne);
-                rich.displayFullText(target, target.size().x - 500, 390+15*ConsolePerso[a].NumLigne);
+                rich.displayFullText(target, target.getSize().x - 500, 390+15*ConsolePerso[a].NumLigne);
             }
 			if (ConsolePerso[a].Temps == 300) ConsolePerso[a].Affichage = false;
 		}
