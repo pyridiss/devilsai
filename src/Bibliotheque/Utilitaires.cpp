@@ -202,7 +202,7 @@ void Verbose(const string &Message, const short &Type)
 
 void Erreur(const string &Message1, const string &Message2)
 {
-    options::addOption<bool>(tools::math::sdbm_hash("error-occured"), true);
+    tools::signals::addSignal("error-occured");
 
 	ofstream FichierErreurs("Devilsai_Errors", ios_base::out | ios_base::app);
 

@@ -30,6 +30,7 @@
         <state name="hover" foregroundShader="highlight"/>
         <state name="disabled" foregroundShader="disable"/>
     </widget>
+    <widget name="error" type="text" x="80" XPositionRelativeToCenter="1" OriginXCenter="1" y="16" allText="ingame-toolbar-error"/>
     <widget name="fps" type="text" x="100" XPositionRelativeToRight="1" y="16">
         <addEmbeddedData name="format" value="format-fps"/>
     </widget>

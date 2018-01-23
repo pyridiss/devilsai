@@ -27,6 +27,7 @@
     <text id="ingame-skillbar-rightshift">Maj. D.</text>
     <text id="ingame-skillbar-rightctrl">Ctrl D.</text>
     <text id="ingame-skillbar-rightclick">Clic D.</text>
+    <text id="ingame-toolbar-error">@c[255,0,0]UNE ERREUR S'EST PRODUITE. VOIR LE FICHIER "devilsai.log" POUR PLUS DE DÉTAILS.</text>
     <text id="journal-title">@f[dayroman]@s[28]Journal @d</text>
     <text id="journal-first">&lt;&lt; Première</text>
     <text id="journal-previous">&lt; Précédente</text>

@@ -24,6 +24,7 @@
 #include <SFML/System.hpp>
 
 #include "tools/filesystem.h"
+#include "tools/signals.h"
 #include "tools/debug.h"
 
 using namespace sf;
@@ -78,6 +79,7 @@ void fatal(const string& str, const string& category, const string& file, int li
 
 void error(const string& str, const string& category, const string& file, int line)
 {
+    tools::signals::addSignal("error-occured");
     writeToDebugFile("(EE) " + str, file, line);
 }
 

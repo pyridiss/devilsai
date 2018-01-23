@@ -14,7 +14,6 @@
     <text id="ENERGIE_INSUFFISANTE">Insufficient energy!</text>
     <text id="EQUIP_DUREE">Duration: %%s</text>
     <text id="EQUIP_VIDE">Empty slot (%%)</text>
-    <text id="ERREUR">AN ERROR OCCURRED. SEE THE FILE "Devilsai_Errors".</text>
     <text id="ESQUIVE">Dodged strike!</text>
     <text id="FATIGUE">Extremely tired!</text>
     <text id="INVENTAIRE">Inventory</text>

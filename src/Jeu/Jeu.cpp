@@ -98,6 +98,12 @@ void mainLoop(RenderWindow& app)
     if (fps == nullptr)
         tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named fps.", "gui", __FILENAME__, __LINE__);
 
+    gui::Widget* error = ingameToolbar.widget("error");
+    if (error == nullptr)
+        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named error.", "gui", __FILENAME__, __LINE__);
+    else
+        error->hide();
+
     gui::Widget* placeName = ingameToolbar.widget("place-name");
     if (placeName == nullptr)
         tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named place-name.", "gui", __FILENAME__, __LINE__);
@@ -245,6 +251,9 @@ void mainLoop(RenderWindow& app)
         tools::signals::Signal signal = tools::signals::getNextSignal();
         while (signal.first != "")
         {
+            if (signal.first == "error-occured") {
+                error->show();
+            }
             if (signal.first == "main-menu")
             {
                 mainMenuWindow.manage(app);
@@ -531,7 +540,6 @@ void mainLoop(RenderWindow& app)
 
         if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
         {
-            Disp_Menu(app);
             Disp_JaugesVie(app);
             Disp_Consoles(app);
         }

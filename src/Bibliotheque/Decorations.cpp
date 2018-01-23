@@ -74,17 +74,6 @@ void Supprimer_Decorations()
 }
 
 
-/** MENU SUPÉRIEUR **/
-
-void Disp_Menu(RenderTarget& target)
-{
-	//Erreur éventuelle
-    if (options::option<bool>(tools::math::sdbm_hash("error-occured")))
-	{
-        Disp_Texte(textManager::getText("devilsai", "ERREUR"), 350, 16, Color(255,0,0,255), 10.);
-	}
-}
-
 /** CONSOLES DU PERSONNAGE **/
 
 void Disp_JaugesVie(RenderTarget& target)
