@@ -201,14 +201,12 @@ const basic_string<unsigned int>& PlainText::aggregatedText() const
     return _aggregatedText;
 }
 
-string PlainText::toStdString()
+string PlainText::toStdString() const
 {
-    if (_aggregatedText.empty())
-        aggregate();
-
+    auto& t = aggregatedText();
     string str;
 
-    Utf32::toUtf8(_aggregatedText.begin(), _aggregatedText.end(), back_inserter(str));
+    Utf32::toUtf8(t.begin(), t.end(), back_inserter(str));
 
     return str;
 }
