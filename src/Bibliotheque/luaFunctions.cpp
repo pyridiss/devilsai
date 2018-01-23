@@ -192,14 +192,6 @@ int LUA_useObject(lua_State* L)
 	return 0;
 }
 
-int LUA_dispText(lua_State* L)
-{
-    MESSAGE("LUA_dispText() called", LUA)
-
-	Disp_Texte(lua_tostring(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3), Color(255,255,255), 12.);
-	return 0;
-}
-
 int LUA_addTooltip(lua_State* L)
 {
     tools::signals::addSignal("add-tooltip", lua_tostring(L, 1));

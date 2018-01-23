@@ -33,7 +33,6 @@ int LUA_set(lua_State*);
 int LUA_get(lua_State*);
 int LUA_individual_copy(lua_State*);
 int LUA_useObject(lua_State*);
-int LUA_dispText(lua_State*);
 int LUA_addTooltip(lua_State* L);
 int LUA_getQuantityOf(lua_State*);
 int LUA_getNumberOfItemsByTag(lua_State*);
