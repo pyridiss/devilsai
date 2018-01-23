@@ -120,7 +120,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
 void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)
 {
     gui::TextWidget* boxName = dynamic_cast<gui::TextWidget*>(window.widget("storagebox-name"));
-    boxName->setValue(textManager::toStdString(box->Nom));
+    boxName->setValue(box->Nom.toStdString());
 
     window.display(target);
 

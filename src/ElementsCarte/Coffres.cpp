@@ -132,7 +132,7 @@ void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
     properties->SetAttribute("ignoreCollision", ignoreCollision);
     properties->SetAttribute("classement", TypeClassement);
     properties->SetAttribute("imageContainer", imageContainer.c_str());
-    properties->SetAttribute("inlineName", textManager::toStdString(Nom).c_str());
+    properties->SetAttribute("inlineName", Nom.toStdString().c_str());
     properties->SetAttribute("closeWhenEmpty", _closeWhenEmpty);
     storageBox->InsertEndChild(properties);
 
@@ -180,7 +180,8 @@ void Coffre::close()
 
 void Coffre::Set_Individu(string species, string key)
 {
-    Nom = tools::textManager::getFormattedText("devilsai", "CADAVRE", tools::textManager::getText("species", species));
+    Nom = textManager::getText("devilsai", "CADAVRE");
+    Nom.addParameter(textManager::getText("species", species));
     imageContainer = "individuals";
     Type = key;
     TypeClassement = CLASSEMENT_CADAVRE;
