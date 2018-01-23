@@ -17,19 +17,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <fstream>
-
 #include <lua.hpp>
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/luaFunctions.h"
 #include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu/options.h"
+
+#include "devilsai-screens/journal.h"
 
 #include "gamedata.h"
 

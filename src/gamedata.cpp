@@ -32,7 +32,6 @@
 #include "ElementsCarte/ElementsCarte.h"
 
 #include "Bibliotheque/luaFunctions.h"
-#include "Bibliotheque/Bibliotheque.h"
 
 #include "gamedata.h"
 
@@ -53,7 +52,6 @@ Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
 pair<Element_Carte*, string>* _currentPlace = nullptr;
 
-Journal _journal;
 list<textManager::RichText> _listDialogs;
 
 void addWorld(const string& id)
@@ -167,11 +165,6 @@ Joueur* player()
     return _player;
 }
 
-Journal& journal()
-{
-    return _journal;
-}
-
 list<textManager::RichText>& listDialogs()
 {
     return _listDialogs;
@@ -213,7 +206,6 @@ void clear()
     _currentWorld = nullptr;
     _currentPlace = nullptr;
 
-    _journal.entries.clear();
     _listDialogs.clear();
 }
 

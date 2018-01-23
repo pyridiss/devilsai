@@ -32,12 +32,6 @@ using namespace sf;
 class lua_State;
 class Element_Carte;
 class Individu;
-struct Paragraph;
-
-//Type de base pour les string contenant des textes à afficher
-typedef basic_string<Uint32> String32;
-typedef list<String32> ListString32;
-typedef list<Paragraph> ListParagraph;
 
 
 /** CLASSES **/
@@ -49,64 +43,6 @@ struct LigneConsole
 	float Temps		= 0;
 	short NumLigne	= 0;
 	bool Affichage	= false;
-};
-
-struct Language
-{
-	string shortName;
-	String32 name;
-};
-
-struct Paragraph
-{
-	public:
-		String32 name;
-		String32 characters;
-		ListString32 lines;
-		IntRect rectangle;
-		bool centered = false;
-
-	public:
-		Paragraph();
-};
-
-class JournalEntry : public Paragraph
-{
-	public:
-		string reference = "";
-		bool done = false;
-
-	public:
-		JournalEntry();
-};
-
-class Journal
-{
-	public:
-		list<JournalEntry> entries;
-
-	public:
-		void addEntry(string _ref);
-		void setDone(string _ref);
-};
-
-class Dialog
-{
-	private:
-		ListParagraph::iterator paragraphNumber;
-		float duration = 0;
-		ListParagraph paragraphs;
-
-	public:
-		string id = "";
-
-	public:
-		void load(string str);
-		bool display();
-		void setPosition(int x, int y, bool c);
-
-	private:
-		void unload();
 };
 
 
@@ -126,11 +62,6 @@ void SupprimerLignesConsoles();
 void Disp_Information(const String32&, bool);
 void Disp_FonduNoir(int, RenderTarget& target);
 bool Disp_Repos(RenderTarget& target);
-
-/* Fonctions définies dans le fichier Langues.cpp */
-
-void cutParagraph(Paragraph*);
-void displayJournal();
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 

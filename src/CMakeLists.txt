@@ -26,8 +26,6 @@ set(devilsai_SRCS
 	Bibliotheque/Bibliotheque.h
 	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
-	Bibliotheque/Langues.cpp
-	Bibliotheque/Templates.h
 	Bibliotheque/Utilitaires.cpp
 	Bibliotheque/luaFunctions.cpp
 	Carte/Carte.cpp

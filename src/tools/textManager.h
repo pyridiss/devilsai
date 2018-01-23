@@ -21,11 +21,10 @@
 #define TOOLS_TEXTMANAGER_H
 
 #include <SFML/System/Utf.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace sf;
-
-typedef basic_string<Uint32> String32;
 
 namespace textManager{
 
@@ -46,16 +45,9 @@ enum Flags
     VAlignCenter = 1 << 9
 };
 
-void initLibrary();
-String32& FORM();
-String32& EOL();
-String32& SPACE();
 void loadFile(string container, string path);
-String32& getText(string file, string id);
-String32 getFormattedText(string file, string id, const String32& arg);
-String32 getFormattedText(string file, string id, double arg);
-String32 fromStdString(const string& original);
-string toStdString(const String32& original);
+PlainText& getText(string file, string id);
+PlainText fromStdString(const string& original);
 int toInt(const string& original);
 
 } //namespace textManager

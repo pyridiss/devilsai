@@ -29,7 +29,6 @@
 #include "tools/timeManager.h"
 #include "tools/math.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
@@ -142,7 +141,6 @@ int main(int n, char *params[])
     tools::debug::addDebugCategory("devilsai");
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
-    textManager::initLibrary();
 
 	PHYSFS_init(params[0]);
 

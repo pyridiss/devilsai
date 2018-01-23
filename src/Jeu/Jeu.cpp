@@ -53,7 +53,6 @@ class UserScreen
 };
 
 UserScreen screenCharacter;
-UserScreen screenJournal;
 UserScreen *currentUserScreen = nullptr;
 
 void changeCurrentUserScreen(UserScreen* _new)
@@ -74,9 +73,6 @@ void mainLoop(RenderWindow& app)
 {
     screenCharacter.dispFunction = Disp_Personnage;
     screenCharacter.manageFunction = nullptr;
-
-    screenJournal.dispFunction = displayJournal;
-    screenJournal.manageFunction = nullptr;
 
     float ChangementLieu = 0;
 	float SauvegardeEffectuee = 255;

@@ -26,8 +26,9 @@
 #include "tools/filesystem.h"
 #include "tools/textManager.h"
 
-using namespace tinyxml2;
+#include <textManager/plainText.h>
 
+using namespace tinyxml2;
 
 namespace textManager{
 
@@ -36,47 +37,7 @@ typedef map < string, Container > Database;
 
 Database texts;
 String32 emptyString;
-String32 charForm;
-String32 charEOL;
-String32 charSpace;
 
-
-template <class charT, class Traits>
-basic_istream<charT, Traits> &operator>> (basic_istream<charT, Traits> &flux, String32 &str)
-{
-	typename basic_istream<charT, Traits>::sentry init(flux);
-	if (init)
-	{
-		string Buffer;
-		getline(flux, Buffer);
-		str.clear();
-		Utf8::toUtf32(Buffer.begin(), Buffer.end(), back_inserter(str));
-	}
-	return flux;
-}
-
-void initLibrary()
-{
-    string form = "%%";
-    string eol = "\\";
-    string space = " ";
-    Utf8::toUtf32(form.begin(), form.end(), back_inserter(charForm));
-    Utf8::toUtf32(eol.begin(), eol.end(), back_inserter(charEOL));
-    Utf8::toUtf32(space.begin(), space.end(), back_inserter(charSpace));
-}
-
-String32& FORM()
-{
-    return charForm;
-}
-String32& EOL()
-{
-    return charEOL;
-}
-String32& SPACE()
-{
-    return charSpace;
-}
 
 void loadFile(string container, string path)
 {
@@ -106,13 +67,10 @@ void loadFile(string container, string path)
         {
             string id = "", text = "";
             id = elem->Attribute("id");
-            text = elem->GetText();
-            stringstream ss;
-            ss << text;
-            String32 text32;
-            ss >> text32;
+            if (elem->GetText())
+                text = elem->GetText();
 
-            c->second.insert(Container::value_type(id, text32));
+            c->second.emplace(id, text);
         }
 
         elem = elem->NextSiblingElement();
@@ -140,52 +98,9 @@ String32& getText(string file, string id)
     return i->second;
 }
 
-String32 getFormattedText(string file, string id, const String32& arg)
+PlainText fromStdString(const string& original)
 {
-    String32 f = getText(file, id);
-
-    String32::size_type posForm = f.find(charForm);
-
-    if (posForm != String32::npos)
-    {
-        f.erase(posForm, charForm.size());
-        f.insert(posForm, arg);
-    }
-
-    return f;
-}
-
-String32 getFormattedText(string file, string id, double arg)
-{
-    String32 str;
-    stringstream out;
-
-    out << arg;
-    string tmp = out.str();
-    Utf8::toUtf32(tmp.begin(), tmp.end(), back_inserter(str));
-
-    return getFormattedText(file, id, str);
-}
-
-String32 fromStdString(const string& original)
-{
-    String32 str;
-    stringstream out;
-
-    out << original;
-    string tmp = out.str();
-    Utf8::toUtf32(tmp.begin(), tmp.end(), back_inserter(str));
-
-    return str;
-}
-
-string toStdString(const String32& original)
-{
-    string str;
-
-    Utf32::toUtf8(original.begin(), original.end(), back_inserter(str));
-
-    return str;
+    return PlainText(original);
 }
 
 int toInt(const string& original)
@@ -198,4 +113,3 @@ int toInt(const string& original)
 }
 
 } //namespace textManager
-
