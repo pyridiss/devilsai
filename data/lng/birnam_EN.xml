@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+
+    <!-- Quest "Desecration" -->
+
+    <text id="dialog-desecration-introduction">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nBienvenue, guerrier. Je suis Gower, chef de ce campement. Nous nous sommes rencontré juste après l'attaque de l'Académie militaire, et je suis heureux de voir que vous n'en gardez aucune séquelle. Malheureusement, les jeunes recrues et les professeurs que vous y avez rencontré n'ont pas eu cette chance.
+        @nCe camp était un refuge et un lieu de ravitaillement pour les marchands venus de l'ouest, et nous nous en servons aujourd'hui comme camp militaire pour surveiller l'avancée des démons dans toute la région. Nous avons été attaqués par surprise par les démons il y a deux jours, et nos pertes sont lourdes. Nous n'étions pas préparés à un tel assaut. Nous avons perdu le contact avec l'un de nos postes avancés et j'ai peur qu'il n'y ait plus aucun survivant.
+        @nIl n'est pour le moment pas possible d'accéder au poste avancé, et nous faisons face à un autre problème. Les démons sont désormais aux portes de ce campement. Mes hommes ont pu couper la route à l'est d'ici afin de les freiner, mais de nombreux démons rôdent encore dans la clairière à la sortie du camp. J'ai besoin de vous pour sécuriser la clairière et venir en aide à mes soldats qui s'y battent actuellement. Dès que nous serons en sécurité, nous pourrons rejoindre le poste avancé et aider les survivants, s'il en reste.
+        @nNos défenses pourront encore tenir quelques temps. Revenez au camp pour vous reposer si vous être blessé. Bien qu'il nous reste peu d'équipement, vous trouverez ici quelques objets qui pourront vous être utiles. N'hésitez pas à les prendre avant d'aller vous battre.
+    </text>
+    <text id="dialog-desecration-end">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nLe camp est désormais un peu plus en sécurité, nous allons pouvoir reprendre notre souffle.
+    </text>
+
+    <text id="checkpoint-desecration-pileofstones">
+        The road is blocked by a pile of stones.
+        @nIt will be necessary to release it before moving on.
+    </text>
+
+    <text id="journal-desecration-title">@f[dayroman]@s[20]@c[64,48,48]“Desecration” @d</text>
+    <text id="journal-desecration-text1">Je viens d'arriver au camp de Gower, assailli par des hordes de démons. Je devrais aller consulter Gower pour en savoir un peu plus.</text>
+    <text id="journal-desecration-text2">De nombreux démons rôdent dans la Clairière des Saints, à la sortie du campement, et menacent celui-ci. Gower m'a demandé d'aller aider les soldats qui tentent de mettre fin à cette menace.</text>
+    <text id="journal-desecration-text3">Tous les démons qui envahissaient la Clairière des Saints ont été vaincus. Il est temps de rentrer au camp de Gower.</text>
+    <text id="journal-desecration-text4">La Clairière des Saints est désormais libérée des démons. Le camp est à nouveau en sécurité.</text>
+    <text id="journal-desecration-end">@f[dayroman]@s[14]@c[64,48,48]Quest complete. @d</text>
+
+    <!-- Quest "Threatened Friend" -->
+
+    <text id="dialog-friend-introduction">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nMais je m'inquiète toujours pour notre poste avancé dans les Terres Anciennes. J'ai besoin de vous pour atteindre le poste et voir dans quelle situation il se trouve. Le chef du poste s'appelle Fluellen. J'espère qu'il est encore en vie.
+        @nDès que vous serez reposé, rejoignez la Route des Glaces à l'est de la clairière, puis suivez la route vers le Nord. Les démons occupent la route, et vous serez cette fois-ci seul. Bon courage.
+    </text>
+    <text id="dialog-friend-entrance">
+        Le camp de Fluellen est assiégé et ses défenses semblent s'affaiblir. Libérez les Terres Anciennes des démons qui les occupent.
+    </text>
+    <text id="dialog-friend-end">
+        @f[dayroman]@s[20]@c[255,220,220]Fluellen @d
+        @nVous avez repoussé seul l'attaque des démons, et mes hommes et moi vous devons la vie.
+    </text>
+
+    <text id="journal-friend-title">@f[dayroman]@s[20]@c[64,48,48]“Threatened Friend” @d</text>
+    <text id="journal-friend-text1">Gower m'a demandé de rejoindre le poste avancé dans les Terres Anciennes, gardé par son ami Fluellen, dont il est sans nouvelles depuis un certain temps.</text>
+    <text id="journal-friend-text2">Je suis arrivé aux Terres Anciennes. Fluellen est retranché dans le camp, mais celui-ci est assiégé par de nombreux monstres.</text>
+    <text id="journal-friend-text3">Meet Fluellen, in the outpost.</text>
+    <text id="journal-friend-end">@f[dayroman]@s[14]@c[64,48,48]Quest complete. @d</text>
+    <text id="journal-friend-checkpoint">En m'éloignant de la Route des Glaces, j'ai découvert un endroit curieusement calme. Je devrais peut-être y retourner plus tard, mais pour l'heure, il est urgent d'aller aider Fluellen.</text>
+
+    <!-- Quest "Trade route" -->
+
+    <text id="dialog-route-advice">
+        @f[dayroman]@s[20]@c[255,220,220]Fluellen @d
+        @nIl serait trop dangereux de s'attaquer à lui dès maintenant, l'armée qui le protège est bien plus entraînée que celle qui nous a attaqués. Il reste de dangereux démons sur la Route des Glaces, qui vous devriez pouvoir affronter sans trop de difficultés. Vous pouvez aussi explorer les environs avant de vous enfoncer dans la forêt de Birnam.
+    </text>
+    <text id="dialog-route-goseegower">
+        @f[dayroman]@s[20]@c[255,220,220]Fluellen @d
+        @nGower said he had in his possession an object that could interest you. You should go see him.
+    </text>
+    <text id="dialog-route-reward">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nBy eliminating all the monsters who invaded the Ice Road, you have allowed merchants to travel again towards the Fluellen's Camp safety.
+        @nThese merchants would like to thank you by offering you the content of the wooden box that is close to me.
+    </text>
+
+    <text id="journal-route-title">@f[dayroman]@s[20]@c[64,48,48]“Trade route” @d</text>
+    <text id="journal-route-text1">Tous les monstres qui envahissaient la Route des Glaces ont été tués. Fluellen sera heureux de l'apprendre.</text>
+    <text id="journal-route-text2">Fluellen m'a indiqué que Gower avait un objet qui pourrait m'intéresser.</text>
+    <text id="journal-route-text3">Les marchands qui empruntent la Route des Glaces m'ont remercié en m'offrant un précieux équipement.</text>
+    <text id="journal-route-end">@f[dayroman]@s[14]@c[64,48,48]Quest complete. @d</text>
+
+    <!-- Quest "First demon" -->
+
+    <text id="dialog-demon-introduction">
+        @f[dayroman]@s[20]@c[255,220,220]Fluellen @d
+        @nIl ne s'agissait malheureusement que de la première attaque des démons contre notre camp. Mes éclaireurs m'ont rapporté qu'un démon du nom de Stolas est responsable de ces attaques et qu'il continuera jusqu'à nous détruire. Nous ignorons quel est le but qu'il poursuit, mais nous savons où il se trouve actuellement. Son armée et lui s'organisent en ce moment-même dans la forêt de Birnam, tout près d'ici. J'espère que vous serez en mesure de le vaincre.
+    </text>
+    <text id="dialog-demon-end">
+        @f[dayroman]@s[20]@c[255,220,220]Fluellen @d
+        @nThanks to you, the Western Highlands will be protected at least some time to come.
+        @nUnfortunately I have to stay here and continue the fight: Birnam Forest is now a gateway to the Hell, and the monsters should be back soon. Without a leader at their head, I hope to hold them here.
+    </text>
+
+    <text id="journal-demon-title">@f[dayroman]@s[20]@c[64,48,48]“First Demon” @d</text>
+    <text id="journal-demon-text1">Fluellen m'a indiqué qu'un démon du nom de Stolas était responsable des attaques dans la province de Birnam. Il se cache dans la Forêt de Birnam, au sud-est des Terres Anciennes.</text>
+
+    <!-- Quest "Dark Energy" -->
+
+    <text id="dialog-energy-giventogower">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nCette pierre est bien étrange.
+    </text>
+    <text id="dialog-energy-givenback">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nJe vous rend la pierre que vous aviez trouvée dans la grotte au nord. Comme je le soupçonnais, cette pierre renferme un très grand pouvoir. Mieux vaut qu'elle ne tombe pas entre de mauvaises mains. Gardez-la, peut-être trouverez-vous des réponses au cours de votre voyage.
+    </text>
+    <text id="dialog-energy-goweradvice">
+        @f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nThe caves mentioned in this scroll are north of here. Follow the Ice Road north and look behind Fluellen's camp.
+    </text>
+
+    <text id="journal-energy-title">@f[dayroman]@s[20]@c[64,48,48]« Sombre énergie » @d</text>
+    <text id="journal-energy-text1">J'ai trouvé dans une grotte une étrange pierre qui dégage une puissante énergie. Cette pierre me met mal à l'aise. Gower en saura peut-être plus.</text>
+    <text id="journal-energy-end">J'ai récupéré la pierre étrange. Je vais la garder avec moi.</text>
+    <text id="journal-energy-scroll">Ce parchemin parle d'une pierre.</text>
+
+    <!-- Quest "Tortured mind" -->
+
+    <text id="dialog-mind-wizard">
+        @f[dayroman]@s[20]@c[255,220,220]Wizard @d
+        @nYou should get out of here while there is still time. You are too young to understand the power that protects this place, but it is shrinking more and more, and can not retain the monsters longer.
+        @nI am going to die, the energies that retain prisoners all the demons who have ventured here will disperse, and monsters will be able to return. I no longer have the strength to retain them, so get out now or face the demons and liberate this place from evil.
+    </text>
+
+    <!-- End of Game -->
+
+    <text id="EndOfGame">
+        Devilsai is finished. Other quests and other monsters will come with the game development.
+        @nYou can save your game now, and load it later when new adventures are available!
+        @n[20]Thank you for playing :-)
+    </text>
+
+</texts>

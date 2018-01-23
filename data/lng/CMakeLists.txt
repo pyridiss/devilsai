@@ -1,30 +1,7 @@
 
 set(lng
-    1-FreeIceRoad-Advice.lng
-    1-FreeIceRoad-GoToFluellen.lng
-    1-FreeIceRoad-GoToGower.lng
-    1-FreeIceRoad-Reward.lng
-    1-InvasionGlade-1.lng
-    1-InvasionGlade-2.lng
-    1-InvasionGlade-Intro1.lng
-    1-InvasionGlade-Intro2.lng
-    1-KillStolas-Beginning.lng
-    1-KillStolas-Fluellen.lng
-    1-KillStolas-GoToCamp.lng
-    1-RescueFluellensCamp-Beginning.lng
-    1-RescueFluellensCamp-Fluellen.lng
-    1-RescueFluellensCamp-GoToCamp.lng
-    1-RescueFluellensCamp-Reminder.lng
-    1-UnknownStone-Discovered.lng
-    1-UnknownStone-End.lng
-    1-UnknownStone-GivenBack.lng
-    1-UnknownStone-Given.lng
-    1-UnknownStone-Gower.lng
-    1-UnknownStone-Scroll.lng
-    1-Wizard-Beginning.lng
-    1-Wizard-Wizard.lng
-    actionneur_1_1.lng
-    actionneur_1_2.lng
+    birnam_EN.xml
+    birnam_FR.xml
     desc_objets.lng
     devilsai_EN.xml
     devilsai_FR.xml
