@@ -331,6 +331,9 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
     {
         string elemName = elem->Name();
 
+        if (elemName == "loadTextFile")
+            textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"));
+
         if (elemName == "species")
         {
             string speciesName = elem->Attribute("name");
