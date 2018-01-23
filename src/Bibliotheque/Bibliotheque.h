@@ -52,7 +52,6 @@ struct LigneConsole
 
 void Load_Decorations();
 void Supprimer_Decorations();
-void Disp_FPS(RenderTarget& target);
 void Disp_Menu(RenderTarget& target);
 void Disp_JaugesVie(RenderTarget& target);
 void Ajouter_LignePerso(String32, Color);

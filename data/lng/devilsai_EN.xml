@@ -63,6 +63,7 @@
     <text id="object-property-attackSpeed">Increase attack speed %%</text>
     <text id="object-property-runSpeed">Increase running speed %%</text>
     <text id="object-property-injurySpeed">Increase recovery speed after injury %%</text>
+    <text id="format-fps">@c[128,128,128]FPS : * @d</text>
     <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
     <text id="format-tooltip">@f[liberation-bold]@s[15]@c[255,255,255]* @d</text>
     <text id="player-health-1">Good health</text>

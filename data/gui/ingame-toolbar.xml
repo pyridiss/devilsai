@@ -30,6 +30,9 @@
         <state name="hover" foregroundShader="highlight"/>
         <state name="disabled" foregroundShader="disable"/>
     </widget>
+    <widget name="fps" type="text" x="100" XPositionRelativeToRight="1" y="16">
+        <addEmbeddedData name="format" value="format-fps"/>
+    </widget>
     <widget name="place-name" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120">
         <addEmbeddedData name="format" value="format-place-name"/>
     </widget>

@@ -94,6 +94,10 @@ void mainLoop(RenderWindow& app)
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
     gui::Window dialogScreen("gui/dialog-screen.xml", app);
 
+    gui::Widget* fps = ingameToolbar.widget("fps");
+    if (fps == nullptr)
+        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named fps.", "gui", __FILENAME__, __LINE__);
+
     gui::Widget* placeName = ingameToolbar.widget("place-name");
     if (placeName == nullptr)
         tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named place-name.", "gui", __FILENAME__, __LINE__);
@@ -553,6 +557,10 @@ void mainLoop(RenderWindow& app)
                 break;
         }
 
+        textManager::PlainText t = textManager::getText("devilsai", fps->embeddedData("format"));
+        t.addParameter(tools::timeManager::getFPS());
+        fps->setValue(t.toStdString());
+
         ingameToolbar.display(app);
         displaySkillbar(ingameSkillbar, app);
 
@@ -570,8 +578,6 @@ void mainLoop(RenderWindow& app)
                 managementActivated = true;
             }
         }
-
-        Disp_FPS(app);
 
 		//2. GESTION DES MISSIONS
 

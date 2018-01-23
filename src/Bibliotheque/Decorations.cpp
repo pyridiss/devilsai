@@ -74,17 +74,6 @@ void Supprimer_Decorations()
 }
 
 
-/** F.P.S. **/
-
-void Disp_FPS(RenderTarget& target)
-{
-    float Framerate = tools::timeManager::getFPS();
-    Text FPS("FPS : " + intToString(Framerate), gui::style::defaultTextFont(), 10);
-    FPS.setPosition(target.getSize().x - 100, 16);
-    target.draw(FPS);
-}
-
-
 /** MENU SUPÉRIEUR **/
 
 void Disp_Menu(RenderTarget& target)
