@@ -162,6 +162,7 @@ void PlainText::addParameter(T d)
 //Explicit instantiations for the linker
 template void PlainText::addParameter(int d);
 template void PlainText::addParameter(unsigned d);
+template void PlainText::addParameter(double d);
 
 void PlainText::addParameter(const PlainText& d)
 {
