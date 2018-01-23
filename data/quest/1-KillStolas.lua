@@ -1,6 +1,6 @@
 --[[
 
-Map 1 - Quest "Kill Stolas"
+Quest "First Demon" (birnam:demon)
 
 Steps:
 1 - Texts are displayed.
@@ -29,10 +29,15 @@ function questBegin(addNewElements)
 
 		player_ptr   = getElement("player")
 		fluellen_ptr = getElement("fluellen")
-		stolas_ptr   = getElement("400")
+        stolas_ptr   = getElement("stolas")
+
+        if addNewElements == "true" then
+            pushDialog("birnam", "dialog-demon-introduction")
+            addJournalEntry("birnam", "demon", "journal-demon-title")
+            addJournalEntry("birnam", "demon", "journal-demon-text1")
+        end
 
 		questStep = "1"
-		pushDialog("1-KillStolas-Beginning")
 	end
 
 end
@@ -44,7 +49,7 @@ function questManage()
 			questStep = "2"
 -- END OF GAME
 --			pushDialog("1-KillStolas-GoToCamp")
-			pushDialog("EndOfGame")
+            pushDialog("birnam", "EndOfGame")
 		end
 
 -- END OF GAME
@@ -72,10 +77,9 @@ function questRecoverState(data)
 	_, _, questStep = string.find(data, "(%d+)")
 
 	if questStep == "2" then
-		popDialog("1-KillStolas-Beginning")
 -- END OF GAME
 --		pushDialog("1-KillStolas-GoToCamp")
-		pushDialog("EndOfGame")
+        pushDialog("birnam", "EndOfGame")
 	end
 
 end

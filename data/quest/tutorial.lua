@@ -50,13 +50,13 @@ function questManage()
 		remainingTime1 = remainingTime1 - I()
 		if remainingTime1 <= 0 then
 			questStep = "2"
-			pushDialog("tutorial-01")
+            pushDialog("tutorial", "tutorial-01")
 		end
 
 	elseif questStep == "2" then
-		if dialogDisplayed("tutorial-01") then
+        if dialogDisplayed() then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-1")
-			pushDialog("tutorial-02")
+            pushDialog("tutorial", "tutorial-02")
 			questStep = "3"
 		end
 
@@ -67,10 +67,10 @@ function questManage()
             remainingMonsters = getNumberOfItemsByTag("tutorial", "tutorial-training-1")
         end
 
-        if remainingMonsters == 0 and dialogDisplayed("tutorial-02") then
+        if remainingMonsters == 0 and dialogDisplayed() then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-2")
-			pushDialog("tutorial-03")
-			pushDialog("tutorial-04")
+            pushDialog("tutorial", "tutorial-03")
+            pushDialog("tutorial", "tutorial-04")
 			questStep = "4"
 		end
 
@@ -81,10 +81,10 @@ function questManage()
             remainingMonsters = getNumberOfItemsByTag("tutorial", "tutorial-training-2")
         end
 
-        if remainingMonsters == 0 and dialogDisplayed("tutorial-04") then
+        if remainingMonsters == 0 and dialogDisplayed() then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-training-3")
-			pushDialog("tutorial-05")
-			pushDialog("tutorial-06")
+            pushDialog("tutorial", "tutorial-05")
+            pushDialog("tutorial", "tutorial-06")
 			questStep = "5"
 		end
 
@@ -95,22 +95,22 @@ function questManage()
             remainingMonsters = getNumberOfItemsByTag("tutorial", "tutorial-training-3")
         end
 
-        if remainingMonsters == 0 and dialogDisplayed("tutorial-06") then
-			pushDialog("tutorial-07")
-			pushDialog("tutorial-08")
+        if remainingMonsters == 0 and dialogDisplayed() then
+            pushDialog("tutorial", "tutorial-07")
+            pushDialog("tutorial", "tutorial-08")
 			questStep = "6"
 		end
 
 	elseif questStep == "6" then
-		if dialogDisplayed("tutorial-08") then
+        if dialogDisplayed() then
             loadWorld("tutorial", "carte/tutorial.xml", "tutorial-storagebox")
-			pushDialog("tutorial-09")
-			pushDialog("tutorial-10")
+            pushDialog("tutorial", "tutorial-09")
+            pushDialog("tutorial", "tutorial-10")
 			questStep = "7"
 		end
 
 	elseif questStep == "7" then
-		if dialogDisplayed("tutorial-10") then
+        if dialogDisplayed() then
 			enableCinematics(true)
 			questStep = "8"
 		end
@@ -122,11 +122,11 @@ function questManage()
 			bael_ptr = getElement("tutorial-bael")
 			set(curtis_ptr, "life", 0)
 			questStep = "9"
-			pushDialog("tutorial-11")
+            pushDialog("tutorial", "tutorial-11")
 		end
 
 	elseif questStep == "9" then
-		if dialogDisplayed("tutorial-11") then
+        if dialogDisplayed() then
 			setActivity(bael_ptr, 4)
 			questStep = "10"
 		end
@@ -135,11 +135,11 @@ function questManage()
 		remainingTime3 = remainingTime3 - I()
 		if remainingTime3 <= 0 then
 			questStep = "11"
-			pushDialog("tutorial-12")
+            pushDialog("tutorial", "tutorial-12")
 		end
 
 	elseif questStep == "11" then
-		if dialogDisplayed("tutorial-12") then
+        if dialogDisplayed() then
 			setActivity(bael_ptr, 6)
 			questStep = "12"
 		end
@@ -162,12 +162,12 @@ function questManage()
 	elseif questStep == "14" then
 		remainingTime6 = remainingTime6 - I()
 		if remainingTime6 <= 0 then
-			pushDialog("tutorial-13")
+            pushDialog("tutorial", "tutorial-13")
 			questStep = "15"
 		end
 
 	elseif questStep == "15" then
-		if dialogDisplayed("tutorial-13") then
+        if dialogDisplayed() then
 			enableCinematics(false)
 			toBlack(false)
 			questStep = "16"

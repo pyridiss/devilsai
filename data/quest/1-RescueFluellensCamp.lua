@@ -1,6 +1,6 @@
 --[[
 
-Map 1 - Quest "Rescue of Fluellen's Camp"
+Quest "Threatened Friend" (birnam:friend)
 
 Steps:
 1 - Texts are displayed.
@@ -47,18 +47,23 @@ function questBegin(addNewElements)
         checkPoint3 = addCheckPoint("birnam", 1790, -5301, 35, 100)
         checkPoint4 = addCheckPoint("birnam", 1450, -2281, 35, 200)
 
-		deleteList("Obstacle-GladeSaints-IceRoad")
+        if addNewElements == "true" then
+            deleteList("Obstacle-GladeSaints-IceRoad")
 
-        loadWorld("birnam", "carte/birnam.xml", "IceRoad-InertItems")
+            loadWorld("birnam", "carte/birnam.xml", "IceRoad-InertItems")
 
-        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Obstacle-AncientLands-Birnam")
-        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Gate-FluellensCamp")
-        loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "RescueFluellensCamp-ObstacleForEnemies")
+            loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Obstacle-AncientLands-Birnam")
+            loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "Gate-FluellensCamp")
+            loadWorld("birnam", "quest/birnam/RescueFluellensCamp.xml", "RescueFluellensCamp-ObstacleForEnemies")
 
-        loadWorld("birnam", "carte/birnam.xml", "IceRoad-Monsters")
-        loadWorld("birnam", "carte/birnam.xml", "AncientLands-Monsters")
+            loadWorld("birnam", "carte/birnam.xml", "IceRoad-Monsters")
+            loadWorld("birnam", "carte/birnam.xml", "AncientLands-Monsters")
 
-		pushDialog("1-RescueFluellensCamp-Beginning")
+            pushDialog("birnam", "dialog-friend-introduction")
+            addJournalEntry("birnam", "friend", "journal-friend-title")
+            addJournalEntry("birnam", "friend", "journal-friend-text1")
+        end
+
 		questStep = "1"
 	end
 
@@ -70,7 +75,8 @@ function questManage()
 		if interact(player_ptr, checkPoint1) or interact(player_ptr, checkPoint2) then
             deleteList("TheGladeOfTheSaints-Warriors")
 			questStep = "2"
-			pushDialog("1-RescueFluellensCamp-Reminder")
+            pushDialog("birnam", "dialog-friend-entrance")
+            addJournalEntry("birnam", "friend", "journal-friend-text2")
 		end
 
 	elseif questStep == "2" then
@@ -89,24 +95,25 @@ function questManage()
         if remainingMonsters == 0 then
 			deleteList("Gate-FluellensCamp")
 			questStep = "3"
-			pushDialog("1-RescueFluellensCamp-GoToCamp")
+            addJournalEntry("birnam", "friend", "journal-friend-text3")
 		end
 
 	elseif questStep == "3" then
 		if interact(player_ptr, fluellen_ptr) then
 			questStep = "4"
-			pushDialog("1-RescueFluellensCamp-Fluellen")
+            pushDialog("birnam", "dialog-friend-end")
+            addJournalEntry("birnam", "friend", "journal-friend-end")
 		end
 
 	elseif questStep == "4" then
-		if dialogDisplayed("1-RescueFluellensCamp-Fluellen") then
+        if dialogDisplayed() then
 			questStep = "5"
 		end
 
 	end
 
     if interact(player_ptr, checkPoint3) or interact(player_ptr, checkPoint4) then
-        pushDialog("actionneur_1_1")
+        addJournalEntry("birnam", "friend", "journal-friend-noirefontaine")
     end
 
 end
@@ -121,16 +128,6 @@ end
 
 function questRecoverState(data)
 	_, _, questStep = string.find(data, "(%d+)")
-
-	if questStep ~= "1" then
-		popDialog("1-RescueFluellensCamp-Beginning")
-	end
-
-	if questStep == "2" then
-		pushDialog("1-RescueFluellensCamp-Reminder")
-	elseif questStep == "3" then
-		pushDialog("1-RescueFluellensCamp-GoToCamp")
-	end
 end
 
 function questEnd()

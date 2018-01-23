@@ -1,6 +1,6 @@
 --[[
 
-Map 1 - Quest "Unknown Stone"
+Quest "Dark energy" (birnam:energy)
 
 ]]
 
@@ -47,7 +47,8 @@ function questManage()
 	if questStep == "1" then
 		if hasTheStone == false and possess(player_ptr, 700) == true then
 			hasTheStone = true
-			pushDialog("1-UnknownStone-Discovered")
+            addJournalEntry("birnam", "energy", "journal-energy-title")
+            addJournalEntry("birnam", "energy", "journal-energy-text1")
 		elseif hasTheStone == true and possess(player_ptr, 700) == false then
 			hasTheStone = false
 		end
@@ -56,7 +57,7 @@ function questManage()
 			transferObject(player_ptr, gower_ptr, 700)
 			hasTheStone = false
 			questStep = "2"
-			pushDialog("1-UnknownStone-Given")
+            pushDialog("birnam", "dialog-energy-giventogower")
 		end
 
 		if hasTheStone == false and gowersWorriesDone == true then
@@ -67,26 +68,27 @@ function questManage()
 	elseif questStep == "2" then
 		if gowersWorriesDone == true and interact(player_ptr, gower_ptr) == true then
 			transferObject(gower_ptr, player_ptr, 700)
-			pushDialog("1-UnknownStone-GivenBack")
+            pushDialog("birnam", "dialog-energy-givenback")
+            addJournalEntry("birnam", "energy", "journal-energy-end")
 			questStep = "3"
 		end
 
 	elseif questStep == "10" then
 		if interact(player_ptr, checkPoint1) == true then
 			deleteList("UnknownStone-Scroll")
-			pushDialog("1-UnknownStone-Scroll")
+            addJournalEntry("birnam", "energy", "journal-energy-scroll")
 			questStep = "11"
 		end
 
 	elseif questStep == "11" then
 		if interact(player_ptr, gower_ptr) == true then
-			pushDialog("1-UnknownStone-Gower")
+            pushDialog("birnam", "dialog-energy-goweradvice")
 			questStep = "12"
 		end
 
 	elseif questStep == "12" then
 		if possess(player_ptr, 700) == true then
-			pushDialog("1-UnknownStone-End")
+            addJournalEntry("birnam", "energy", "journal-energy-end")
 			questStep = "13"
 		end
 	end
@@ -140,12 +142,6 @@ function questRecoverState(data)
 		gowersWorriesDone = true
 	else
 		gowersWorriesDone = false
-	end
-
-	if questStep == "11" then
-		pushDialog("1-UnknownStone-Scroll")
-	elseif questStep == "12" then
-		pushDialog("1-UnknownStone-Gower")
 	end
 end
 

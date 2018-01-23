@@ -1,6 +1,6 @@
 --[[
 
-Map 1 - Quest "Wizard"
+Quest "Tortured mind" (birnam:mind)
 
 ]]
 
@@ -10,9 +10,6 @@ Map 1 - Quest "Wizard"
 
 player_ptr = 0
 wizard_ptr = 0
-
-checkPoint1 = 0
-checkPoint2 = 0
 
 questStep = "0"
 
@@ -32,9 +29,6 @@ function questBegin(addNewElements)
 		player_ptr = getElement("player")
         wizard_ptr = getElement("horst")
 
-        checkPoint1 = addCheckPoint("birnam", 1820, -5301, 10, 100)
-        checkPoint2 = addCheckPoint("birnam", 1480, -2281, 10, 200)
-
 		questStep = "1"
 	end
 
@@ -42,16 +36,9 @@ end
 
 function questManage()
 
-	if questStep == "1" then
-		if interact(player_ptr, checkPoint1) == true or interact(player_ptr, checkPoint2) == true then
-			deleteList("Actionneurs-Noirefontaine")
-			pushDialog("1-Wizard-Beginning")
-			questStep = "2"
-		end
-
 	elseif questStep == "2" then
 		if interact(player_ptr, wizard_ptr) == true then
-			pushDialog("1-Wizard-Wizard")
+            pushDialog("birnam", "dialog-mind-wizard")
 			questStep = "3"
 		end
 
@@ -75,10 +62,6 @@ end
 
 function questRecoverState(data)
 	_, _, questStep, remainingTime = string.find(data, "(%d+) (%d+)")
-
-	if questStep == "2" then
-		pushDialog("1-Wizard-Beginning")
-	end
 end
 
 function questEnd()

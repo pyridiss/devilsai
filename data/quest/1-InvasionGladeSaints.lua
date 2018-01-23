@@ -1,6 +1,6 @@
 --[[
 
-Quest "Invasion of the Glade of the Saints"
+Quest "Desecration" (birnam:desecration)
 
 Summary:
   The player must kill all monsters with tag "TheGladeOfTheSaints-Monsters".
@@ -39,8 +39,8 @@ function questBegin(addNewElements)
 
 		if addNewElements == "true" then
             loadWorld("birnam", "quest/birnam/FreeIceRoad.xml", "Obstacle-GladeSaints-IceRoad")
-			pushDialog("1-InvasionGlade-Intro1")
-			addJournalEntry("1-InvasionGlade-Intro1")
+            addJournalEntry("birnam", "desecration", "journal-desecration-title")
+            addJournalEntry("birnam", "desecration", "journal-desecration-text1")
 		end
 
 		questStep = "1"
@@ -54,15 +54,14 @@ function questManage()
 
 	if hasTalkedToGower == false then
 		if interact(player_ptr, gower_ptr) then
-			pushDialog("1-InvasionGlade-Intro2")
-			journalEntryDone("1-InvasionGlade-Intro1")
-			addJournalEntry("1-InvasionGlade-Intro2")
+            pushDialog("birnam", "dialog-desecration-introduction")
+            addJournalEntry("birnam", "desecration", "journal-desecration-text2")
 			hasTalkedToGower = true
 		end
 	end
 
     if hasReachedTheCheckPoint == false and interact(player_ptr, checkPoint) then
-        pushDialog("actionneur_1_2")
+        pushDialog("birnam", "checkpoint-desecration-pileofstones")
         hasReachedTheCheckPoint = true
     end
 
@@ -81,21 +80,19 @@ function questManage()
 		end
         if remainingMonsters == 0 then
 			questStep = "2"
-			pushDialog("1-InvasionGlade-1")
-			journalEntryDone("1-InvasionGlade-Intro2")
-			addJournalEntry("1-InvasionGlade-1")
+            addJournalEntry("birnam", "desecration", "journal-desecration-text3")
 		end
 
 	elseif questStep == "2" then
 		if interact(player_ptr, gower_ptr) then
 			questStep = "3"
-			pushDialog("1-InvasionGlade-2")
-			journalEntryDone("1-InvasionGlade-1")
-			addJournalEntry("1-InvasionGlade-2")
+            pushDialog("birnam", "dialog-desecration-end")
+            addJournalEntry("birnam", "desecration", "journal-desecration-text3")
+            addJournalEntry("birnam", "desecration", "journal-desecration-end")
 		end
 
 	elseif questStep == "3" then
-		if dialogDisplayed("1-InvasionGlade-2") then
+        if dialogDisplayed() then
 			questStep = "4"
 		end
 
