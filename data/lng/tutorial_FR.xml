@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="tutorial-01">
+        @f[dayroman]@s[20]@c[255,220,220]Curtis @d
+        @nBienvenue, guerrier. Je suis Curtis, et serai votre instructeur pendant votre séjour dans notre Académie militaire, dernière étape dans votre formation de guerrier.
+        @nJe n'avais aucun doute quant à votre venue ici. Je suis persuadé que vous serez une recrue exemplaire, étant le seul survivant du village de Illyrie, le lieu que les 67 démons ont choisi pour franchir la porte des Enfers et resurgir sur notre monde. Le village était à feu et à sang, les habitants étaient tous morts, et vous étiez là, au milieu de cet étrange dessin à l'intérieur duquel l'herbe était encore verte et vous encore vivant.
+        @nVous connaissez déjà l'histoire, vous ne vous en souvenez pas étant donné que vous n'aviez que 3 ans, mais on vous l'a déjà maintes fois racontée.
+        @nVous voilà maintenant suffisamment fort pour partir à l'aventure, découvrir quel sort vous a sauvé et ce que les démons sont venus chercher. Ces derniers se sont peu manifestés pendant ces 20 années sur notre Terre, mais ces derniers mois ont été plus sanglants. On nous a rapporté que les démons étaient rassemblés vers l'Est et creusaient d'étranges puits desquels remontaient d'étranges créatures qui pourraient bien se réveler dangereuses.
+        @nPar une curieuse coïncidence, cela fait aujourd'hui 20 ans jour pour jour que votre village a été détruit. Certains d'entre nous, à l'Académie, ont un mauvais pressentiment à l'égard de cet anniversaire, notamment car vous êtes à nos côtés, et qu'ils redoutent une nouvelle attaque. Pour ma part, je me rejouis de votre présence et je ferai de mon mieux pour vous apprendre quelques bases concernant le maniement des armes. 
+        @n[20]Que votre entraînement commence !
+    </text>
+    <text id="tutorial-02">
+        Essayez d'abord d'attaquer le mannequin qui se trouve à côté de vous avec votre épée. Approchez-vous suffisamment près de lui, en utilisant les touches fléchées de votre clavier, jusqu'à voir son état de santé apparaître à l'écran. Dès que vous êtes suffisamment proche, attaquez-le avec la touche Ctrl Gauche.
+    </text>
+    <text id="tutorial-03">
+        Félicitations !
+    </text>
+    <text id="tutorial-04">
+        Essayez maintenant de tuer le second mannequin à l'aide du sort «Boule de feu» que vous avez appris lors de votre formation initiale. Vous n'avez pas besoin d'être proche de la cible pour ce sort, mais vous devez être aligné avec elle et regarder dans sa direction. Dès que vous êtes bien placé, appuyez sur la touche Maj Gauche.
+    </text>
+    <text id="tutorial-05">
+        Très bien !
+    </text>
+    <text id="tutorial-06">
+        Notez que vous pouvez également vous déplacer, attaquer et lancer des boules de feu en diagonale, en maintenant plusieurs touches fléchées appuyées en même temps.
+        @nMalheureusement, les ennemis ne sont pas toujours aussi simples à combattre ; essayez de détruire, selon la manière que vous préférez, ce dernier mannequin.
+    </text>
+    <text id="tutorial-07">
+        Excellent !
+    </text>
+    <text id="tutorial-08">
+        Pour vous reposer quelques instants, étudions maintenant les informations dont vous disposez : en haut à gauche de votre écran est indiqué votre vitalité, c'est-à-dire votre état de santé général (barre rouge), votre énergie (barre bleue), ainsi que votre récupération actuelle, c'est-à-dire la vitesse à laquelle vous récupérez votre vitalité.
+        @nSi votre vitalité est basse, vos aptitudes de combat et de défenses seront amoindries. Tâchez de rester en forme le plus longtemps possible, ou vos combats n'en seront que plus difficiles. Faites attention également à votre énergie, une trop grande fatigue vous empêcherait de lancer des sorts et de vous régénerer naturellement.
+        @nEn ayant une vitalité et une énergie élevées, vous serez de plus apte à améliorer vos aptitudes, ce qui vous sera très certainement utile si vous voulez continuer l'aventure. Faites bien attention à ne pas laisser votre vitalité descendre à 0 ; ce serait la mort assurée.
+        @nLorsque vous êtes blessé, vous pouvez récupérer votre vitalité en buvant une potion de soin ou en buvant l'eau d'une fontaine. Si vous êtes fatigué, c'est-à-dire si votre énergie est faible, vous devrez vous reposer (à l'aide du bouton 'Repos') dans un camp, en sécurité.
+        @nVoyons maintenant vos caractéristiques. Appuyez sur la touche 'A', ou cliquez sur le bouton 'Personnage'. 
+        @nVotre vitalité, votre énergie et votre taux de récupération y sont à nouveau indiqués. L'expérience est acquise lorsque vous combattez et tuez des ennemis, et vous permettra par la suite d'utiliser des objets difficiles à manier. Vous avez enfin une estimation des dégâts que vous pouvez causer. Attention : les dégâts que vous causez dépendent énormément de votre cible ; ces valeurs vous permettent seulement d'avoir une idée de vos capacités d'attaque actuelles.
+        @nDans la colonne de droite, sont détaillées vos caractéristiques.
+        @nVotre force permet d'augmenter les dégâts infligés. Ces dégâts peuvent être attenués par les défenses de l'ennemi.
+        @nPlus votre puissance est importante, moins les défenses physiques de l'ennemis seront efficaces face à votre attaque.
+        @nPlus votre agilité est élevée face à l'agilité de l'ennemi, plus vous aurez de chances de le frapper lorsque vous lancez une attaque.
+        @nUne grande intelligence vous permettra de porter des coups très efficaces à l'ennemi. Cela vous permettra de plus d'améliorer plus rapidement vos autres caractéristiques.
+        @nVotre constitution est votre premier rempart face à une attaque ennemie.
+        @nVotre esquive vous permettra d'esquiver certains coups de l'ennemi.
+        @nUn bon charisme empêchera votre ennemi de vous porter des coups extrêmement puissants.
+        @nEnfin la récupération moyenne est la "valeur de base" pour votre récupération, celle-ci dépendant fortement de votre vitalité et de votre énergie.
+        @nVous remarquerez que les valeurs de vos caractéristiques sont en deux parties : la première est la valeur de base, la seconde est un bonus ou un malus qui dépend de votre équipement, de votre état de santé et de votre énergie.
+    </text>
+    <text id="tutorial-09">
+        Passons maintenant à votre inventaire. Appuyez sur la touche 'E' ou cliquez sur le bouton 'Équipement'.
+        @nDans la partie de gauche, vous pouvez voir les objets dont vous êtes actuellement équipé. Passez votre souris dessus pour avoir plus d'informations.
+        @nLa partie inférieure représente votre inventaire. Vous pouvez y placer 24 objets différents. Des objets se trouvent généralement dans les coffres, comme celui qui se trouve ici. Approchez-vous et prenez les objets qui s'y trouvent. Équipez-vous des bottes, et placez les potions dans votre inventaire.
+        @nVous pouvez utiliser les potions à l'aide de la touche Tab. Vous pouvez également faire un clic droit dessus dans votre inventaire.
+        @nNotez que vous pouvez aussi récupérer des objets sur les cadavres de vos ennemis.
+    </text>
+    <text id="tutorial-10">
+        Je pense vous avoir appris le plus important pour commencer votre quête. Je… Mais… Que se passe-t-il ?
+    </text>
+    <text id="tutorial-11">
+        @f[dayroman]@s[20]@c[255,220,220]Bael @d
+        @nMais ? Comment as-tu pu survivre à ma résurrection ?
+        @nCela n'aura été qu'un bref répit, pauvre créature. Tu seras la première victime que j'écraserais par ma magie.
+    </text>
+    <text id="tutorial-12">
+        Qui es-tu ? Comment peux-tu me résister ?
+        @nSache que tu paieras bientôt le prix de cet affront.
+    </text>
+    <text id="tutorial-13">
+        @f[dayroman]@s[20]@c[255,220,220]Infirmière @d
+        @nGower ! Venez vite ! Celui-ci est encore en vie !
+        @n@f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nC'est le survivant de Illyrie. Regardez ! Ce dessin au sol est le même que celui sur lequel on l'avait retrouvé, il y a 20 ans. Emmenez-le à l'infirmerie, et faites tout votre possible pour qu'il survive. Ce sera peut-être lui la clef de notre victoire.
+        @n@f[dayroman]@s[20]@c[255,220,220]Infirmière @d
+        @nIl est très mal en point. S'il survit, il lui faudra du temps avant de se remettre de ses blessures. 
+        @n@f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nNous n'avons pas d'autre espoir. C'est le seul qui ait survécut à ces démons. Je vais étudier de plus près ce dessin ; cette fois-ci, je vais pouvoir le reproduire et il nous permettra peut-être de trouver un moyen de lutter contre cette invasion.
+    </text>
+</texts>

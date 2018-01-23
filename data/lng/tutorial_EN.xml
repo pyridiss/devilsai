@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <text id="tutorial-01">
+        @f[dayroman]@s[20]@c[255,220,220]Curtis @d
+        @nWelcome, warrior. My name is Curtis, and I will be your instructor during your stay at our Military Academy, the last step in your training as a warrior.
+        @nI had no doubts about your coming here. I am sure you will be an exemplary recruit, being the only survivor of the village of Illyria, where the 67 demons chose to cross the door of Hell and reappear in our world. The village was ablaze, the people were all dead, and you were there, in the midst of this strange drawing within which the grass was still green and you still alive.
+        @nYou already know the story, you do not remember it because you were only 3 years old, as you have already been told many times.
+        @nYou are now strong enough to go on an adventure, discover what fate has saved you and for what the demons came. They have not come out apparent during these 20 years on Earth, but recent months have been the bloodiest. We were told that the demons had gathered to the east and dug wells where strange creatures ascended; they may well be dangerous.
+        @nBy a curious coincidence, it is now 20 years to the day that your village was destroyed. Some of us at the Academy have a bad feeling towards this anniversary, especially since you are on our side, and they fear another attack. For my part, I rejoice in your presence and I will do my best to teach you some basics about the use of weapons.
+        @n[20]Que votre entraînement commence !
+    </text>
+    <text id="tutorial-02">
+        First try to attack the mannequin that is next to you with your sword. Approach close enough to him, using the arrow keys on your keyboard to see his health appear on the screen. Once you are close enough, attack with Left Ctrl.
+    </text>
+    <text id="tutorial-03">
+        Congratulations!
+    </text>
+    <text id="tutorial-04">
+        Now try to kill the second mannequin using the spell "Fireball" that you learned during your initial training. You do not need to be close to the target for this spell, but you must be aligned with it and look in its direction. Once you're well positioned, press the Left Shift key.
+    </text>
+    <text id="tutorial-05">
+        Very good!
+    </text>
+    <text id="tutorial-06">
+        Note that you can also move, attack and throw fireballs diagonally, maintaining several arrow keys pressed simultaneously.
+        @nUnfortunately, the enemies are not always easy to fight; try to destroy the last model, depending on how you prefer.
+    </text>
+    <text id="tutorial-07">
+        Excellent!
+    </text>
+    <text id="tutorial-08">
+        To rest a few moments now study the information you have: at the top left of your screen is shown your vitality, that is to say, your general health (red bar), energy (blue bar) and your current recovery level, that is to say the speed at which you recover your vitality.
+        @nIf your vitality is low, your combat and defense abilities are weakened. Try to stay in shape as long as possible, or your battles will be even more difficult. Also, be careful of your energy, because excessive fatigue may prevent you from casting spells and regenerate naturally.
+        @nWith having a high vitality and energy, you will be able to improve your skills, which will certainly be useful if you want to continue the adventure. Be careful not to let your vitality down to 0, it would be certain death.
+        @nWhen you are injured, you can recover your vitality by drinking a potion or drinking water from a fountain. If you are tired, that is to say, if your energy is low, you should rest (with the button 'Rest') in a camp in safety.
+        @nSee now your characteristics. Press 'A', or click 'Character' button.
+        @nYour vitality, your energy and recovery rates are again indicated. Experience is gained when you fight and kill enemies, and will later let you use objects that are difficult to handle. You finally have an estimate of the damage you can cause. Warning: the damage you cause highly dependent on your target, these values only allow you to have an idea of your current attack capabilities.
+        @nYour characteristics are detailed in the right column.
+        @nYour strength will increase the damage. This damage can be mitigated through the defenses of the enemy.
+        @n The more your power is important, the less physical defenses of the enemies will be effective against your attack.
+        @nThe more your agility is high against the agility of enemy, the more likely you are to hit when you launch an attack.
+        @nA high intelligence will allow you to deliver very effective hurts to the enemy. This will allow you to implove more quickly your other characteristics.
+        @nYour constitution is your first line of defense against an enemy attack.
+        @nYour dodge will allow you to dodge some blows of the enemy.
+        @nA good charisma will prevent your enemy to attack you extremely powerfully.
+        @nFinally, the average recovery is the "base value" for your recovery rate, which depends heavily on your vitality and energy.
+        @nYou will notice that the values of your attributes are in two parts: the first is the base value, the second is a bonus or a penalty depending on your equipment, your health and your energy.
+    </text>
+    <text id="tutorial-09">
+        Now to your inventory. Press 'E' or click the 'Equipment' button.
+        @nIn the left side you can see the items that you are currently equipped. Hover your mouse over for more information.
+        @nThe lower part represents your inventory. You can place 24 different objects. Objects are usually found in chests, like the one here. Come and grab objects therein. Equip yourself with boots, and put the potions in your inventory.
+        @nYou can use potions using the Tab key. You can also right-click it in your inventory.
+        @nNote that you can also collect items from the corpses of your enemies.
+    </text>
+    <text id="tutorial-10">
+        I think I have teached you the most important to begin your quest. I… But… What's going on?
+    </text>
+    <text id="tutorial-11">
+        @f[dayroman]@s[20]@c[255,220,220]Bael @d
+        But? How could you survive my resurrection?
+        @nThis will have been a brief respite, poor creature. You will be the first victim I crush with my magic.
+    </text>
+    <text id="tutorial-12">
+        Who are you? How can you resist me?
+        @nKnow that soon you will pay the price for this affront.
+    </text>
+    <text id="tutorial-13">
+        @f[dayroman]@s[20]@c[255,220,220]Nurse @d
+        @nGower! Come! This one is still alive!
+        @n@f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nThis is the survivor of Illyria. Look! This drawing on the floor is the same as the one on which we had found him 20 years ago. Take him to the infirmary, and do everything you can to make him survive. He is maybe the key to our victory.
+        @n@f[dayroman]@s[20]@c[255,220,220]Nurse @d
+        @nHe is in very bad shape. If he survives, it will take time to recover from his injuries.
+        @n@f[dayroman]@s[20]@c[255,220,220]Gower @d
+        @nWe have no other hope. He is the only one who survived those demons. I will look more closely at this drawing; this time, I can reproduce it and maybe we will find a way to fight against this invasion.
+    </text>
+</texts>
