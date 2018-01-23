@@ -57,7 +57,7 @@ void Disp_Menu(RenderTarget& target);
 void Disp_JaugesVie(RenderTarget& target);
 void Ajouter_LignePerso(String32, Color);
 void Ajouter_LigneAmelioration(String32, Color);
-void Disp_Consoles();
+void Disp_Consoles(RenderTarget& target);
 void SupprimerLignesConsoles();
 void Disp_Information(const String32&, bool);
 void Disp_FonduNoir(int, RenderTarget& target);

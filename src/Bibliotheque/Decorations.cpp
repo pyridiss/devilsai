@@ -278,7 +278,7 @@ void Ajouter_LigneAmelioration(String32 ligne, Color couleur)
 	ConsoleAmeliorations[NouvelleLigne].Affichage = true;
 }
 
-void Disp_Consoles()
+void Disp_Consoles(RenderTarget& target)
 {
 	for (int a = 0 ; a < 10 ; ++a)
 	{
@@ -286,13 +286,14 @@ void Disp_Consoles()
 		{
 			ConsolePerso[a].Temps += tools::timeManager::I(1);
 			if (ConsolePerso[a].Temps < 300)
-				Disp_Texte(ConsolePerso[a].Ligne, Options.ScreenW - 115, 90+15*ConsolePerso[a].NumLigne, ConsolePerso[a].Couleur, 13.f);
-
+            {
+                textManager::RichText rich;
+                rich.setSize(500, 0);
+                rich.setDefaultProperties("liberation", 13, ConsolePerso[a].Couleur);
+                rich.create(ConsolePerso[a].Ligne);
+                rich.displayFullText(target, target.size().x - 500, 390+15*ConsolePerso[a].NumLigne);
+            }
 			if (ConsolePerso[a].Temps == 300) ConsolePerso[a].Affichage = false;
-
-			//Animation de dégradé :
-			if (ConsolePerso[a].Temps > 175 && (int)ConsolePerso[a].Temps % 5 == 0)
-				ConsolePerso[a].Couleur = Color(ConsolePerso[a].Couleur.r, ConsolePerso[a].Couleur.g, ConsolePerso[a].Couleur.b, 600-ConsolePerso[a].Temps*2);
 		}
 		if (ConsoleAmeliorations[a].Affichage)
 		{

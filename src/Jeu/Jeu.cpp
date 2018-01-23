@@ -529,7 +529,7 @@ void mainLoop(RenderWindow& app)
         {
             Disp_Menu(app);
             Disp_JaugesVie(app);
-            Disp_Consoles();
+            Disp_Consoles(app);
         }
 
         displayDialogScreen(dialogScreen, app);
