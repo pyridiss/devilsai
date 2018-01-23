@@ -325,8 +325,8 @@ void RichText::displayFullText(RenderTarget& target, int x, int y)
     else if ((_flags & OriginYCenter) == OriginYCenter)
         y -= h/2;
 
-    View newView(FloatRect(0, 0, w, h));
-    newView.setViewport(FloatRect((float)(x+2)/(float)target.getSize().x, (float)(y+2)/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
+    View newView(FloatRect(-2, -2, w, h));
+    newView.setViewport(FloatRect((float)x/(float)target.getSize().x, (float)y/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
 
     displayToView(target, newView);
 }
