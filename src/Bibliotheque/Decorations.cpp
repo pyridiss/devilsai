@@ -48,11 +48,6 @@ void Load_Decorations()
 {
     imageManager::addContainer("misc");
     imageManager::addContainer("gui");
-    imageManager::addImage("gui", "FondObjet_75_100", "img/FondObjet_75_100.png");
-    imageManager::addImage("gui", "FondObjet_75_75", "img/FondObjet_75_75.png");
-    imageManager::addImage("gui", "FondObjet_50_50", "img/FondObjet_50_50.png");
-    imageManager::addImage("misc", "FondCoffre", "img/FondCoffre.png");
-    imageManager::addImage("misc", "FondInventaire", "img/FondInventaire.png");
     imageManager::addImage("misc", "Repos", "img/Repos.png");
 
     imageManager::addAnimation("playerLifeGauge", "img/BarreVie.png");
