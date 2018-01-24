@@ -55,6 +55,7 @@ Carte* _currentWorld = nullptr;
 pair<Element_Carte*, string>* _currentPlace = nullptr;
 
 list<textManager::RichText> _listDialogs;
+list< pair <string, string> > textFiles;
 
 void addWorld(const string& id)
 {
@@ -290,6 +291,14 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 
+    for (auto& t : textFiles)
+    {
+        XMLElement* textElem = doc.NewElement("loadTextFile");
+        textElem->SetAttribute("name", t.first.c_str());
+        textElem->SetAttribute("file", t.second.c_str());
+        root->InsertEndChild(textElem);
+    }
+
     for (auto& w : _worlds)
     {
         XMLElement* worldElem = doc.NewElement("loadWorld");
@@ -339,7 +348,10 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
         string elemName = elem->Name();
 
         if (elemName == "loadTextFile")
+        {
             textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"));
+            textFiles.emplace_back(elem->Attribute("name"), elem->Attribute("file"));
+        }
 
         if (elemName == "species")
         {
