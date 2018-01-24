@@ -73,7 +73,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 			if (Blesse == gamedata::player())
 			{
 				gamedata::player()->CoupEsquive(Attaquant);
-				Ajouter_LignePerso(tools::textManager::getText("devilsai", "ESQUIVE"), Color(128, 255, 128, 255));
+				Ajouter_LignePerso(textManager::getText("devilsai", "ESQUIVE"), Color(128, 255, 128, 255));
 			}
 		}
 		else
@@ -88,7 +88,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				if (Attaquant->Id == gamedata::player()->Id)
 				{
 					gamedata::player()->CoupCritique(Blesse);
-					Ajouter_LignePerso(tools::textManager::getText("devilsai", "CRITIQUE"), Color(240, 40, 40, 255));
+					Ajouter_LignePerso(textManager::getText("devilsai", "CRITIQUE"), Color(240, 40, 40, 255));
 				}
 				if (Blesse->Id == gamedata::player()->Id)
 				{
@@ -105,20 +105,37 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
         Attaquant->GainExperience(Blesse, Degats);
 
+        textManager::PlainText resultText = textManager::getText("devilsai", "console-damageDone");
+
+        textManager::PlainText a;
+        if (Attaquant->Diplomatie == DIPLOM_ALLIE)
+            a += "@c[128,255,128]";
+        if (Attaquant->Diplomatie == DIPLOM_ENNEMI)
+            a += "@c[255,128,128]";
+        a += Attaquant->displayedName();
+
+        textManager::PlainText b;
+        if (Blesse->Diplomatie == DIPLOM_ALLIE)
+            b += "@c[128,255,128]";
+        if (Blesse->Diplomatie == DIPLOM_ENNEMI)
+            b += "@c[255,128,128]";
+        b += Blesse->displayedName();
+
+        resultText.addParameter(a);
+        resultText.addParameter((int)Degats);
+        resultText.addParameter(b);
+
+        Ajouter_LignePerso(resultText, Color(255, 255, 255));
 		if (Attaquant == gamedata::player())
 		{
             gamedata::player()->ApplicationAmeliorations();
-			String32 Infliges = tools::textManager::getFormattedText("devilsai", "DEGATS_INFLIGES", (int)Degats);
-			Ajouter_LignePerso(Infliges, Color(0, 0, 0, 255));
 		}
 		if (Blesse == gamedata::player())
 		{
             if (gamedata::player()->_currentSkill->Id == Blesse->behavior(Behaviors::Hurt)) gamedata::player()->BlessuresMultiples(Attaquant);
-			String32 Recus = tools::textManager::getFormattedText("devilsai", "DEGATS_RECUS", (int)Degats);
-			Ajouter_LignePerso(Recus, Color(0, 0, 0, 255));
 		}
 
         if (Degats) Blesse->Set_Activite(Blesse->behavior(Behaviors::Hurt));
 	}
-	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(tools::textManager::getText("devilsai", "ECHEC"), Color(200, 10, 20, 255));
+	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(textManager::getText("devilsai", "ECHEC"), Color(200, 10, 20, 255));
 }
