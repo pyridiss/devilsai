@@ -384,7 +384,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             w->loadFromFile(dataDirectory + worldFile, tag);
         }
 
-        if ((elemName == "player" || elemName == "unique") && _player == nullptr)
+        if ((elemName == "individual") && _player == nullptr)
         {
             if (!elem->Attribute("world"))
             {

@@ -16,6 +16,6 @@
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheBirnamForest-Monsters"/>
     <loadWorld name="birnam-thecaveofthespider" file="carte/birnam-thecaveofthespider.xml" tag="TheCaveOfTheSpider-Items"/>
     <loadWorld name="birnam-thecaveofthespider" file="carte/birnam-thecaveofthespider.xml" tag="TheCaveOfTheSpider-Monsters"/>
-    <player name="player" world="birnam" loadFromDataFile="individu/player.xml" x="0" y="0"/>
+    <individual name="player" world="birnam" loadFromDataFile="individu/player.xml" x="0" y="0"/>
     <quest file="quest/1-InvasionGladeSaints.lua" initialData="true"/>
 </gamedata>
