@@ -174,6 +174,8 @@ void loadJournalFromXML(XMLHandle &handle)
 
             addJournalEntry(w, q, v);
         }
+
+        elem = elem->NextSiblingElement();
     }
 }
 
