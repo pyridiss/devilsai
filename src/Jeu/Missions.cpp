@@ -57,7 +57,13 @@ void addQuest(string newQuest, string args)
 
 	lua_register(L, "addQuest",			[](lua_State* L) { addQuest(lua_tostring(L, 1), "true"); return 0; });
 	lua_register(L, "addExperience",	[](lua_State* L) { gamedata::player()->GainExperience(NULL, 0, lua_tonumber(L, 1)); return 0; });
-	lua_register(L, "toBlack",			[](lua_State* L) { Disp_FonduNoir(lua_toboolean(L, 1) ? 1 : -1, Jeu.App); return 0; });
+
+    lua_register(L, "toBlack", [](lua_State* L)
+    {
+        tools::debug::warning("lua function 'toBlack' is not implemented.", "lua", __FILENAME__, __LINE__);
+        return 0;
+    });
+
     lua_register(L, "gameSuccessfullyEnded", [](lua_State* L) {
         tools::signals::addSignal("game-successfully-ended");
         tools::signals::addSignal("new-game");

@@ -563,8 +563,6 @@ void mainLoop(RenderWindow& app)
         if (currentUserScreen != NULL)
             currentUserScreen->dispFunction();
 
-        Disp_FonduNoir(0, app);
-
         if (playerResting)
         {
             bool animationFinished = Disp_Repos(app);

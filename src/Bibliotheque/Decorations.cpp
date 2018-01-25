@@ -307,26 +307,6 @@ void Disp_Information(const String32& info, bool reactiver)
 	}
 }
 
-void Disp_FonduNoir(int Commande, RenderTarget& target)
-{
-	static float Avancement = 0;
-
-	if (Commande > 0 && Avancement == 0)
-	{
-		Avancement = 1;
-	}
-	if (Commande < 0) Avancement = 0;
-	if (Avancement > 0 && Avancement <= 255)
-	{
-        static RectangleShape Fond(Vector2f(target.getSize().x, target.getSize().y));
-
-		Fond.setFillColor(Color(0, 0, 0, Avancement));
-        target.draw(Fond);
-		Avancement += tools::timeManager::I(1);
-		if (Avancement > 255) Avancement = 255;
-	}
-}
-
 bool Disp_Repos(RenderTarget& target)
 {
 	static float Animation = 0;

@@ -58,7 +58,6 @@ void Ajouter_LigneAmelioration(String32, Color);
 void Disp_Consoles(RenderTarget& target);
 void SupprimerLignesConsoles();
 void Disp_Information(const String32&, bool);
-void Disp_FonduNoir(int, RenderTarget& target);
 bool Disp_Repos(RenderTarget& target);
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
