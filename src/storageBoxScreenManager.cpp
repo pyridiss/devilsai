@@ -18,7 +18,7 @@
 */
 
 #include "tools/textManager.h"
-#include "gui/textWidget.h"
+#include "gui/widget.h"
 #include "gui/window.h"
 #include "imageManager/imageManager.h"
 
@@ -119,7 +119,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
 
 void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)
 {
-    gui::TextWidget* boxName = dynamic_cast<gui::TextWidget*>(window.widget("storagebox-name"));
+    gui::Widget* boxName = window.widget("storagebox-name");
     boxName->setValue(box->Nom.toStdString());
 
     window.display(target);
