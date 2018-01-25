@@ -17,7 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../Jeu/Jeu.h"
 #include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"

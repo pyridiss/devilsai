@@ -44,9 +44,8 @@
 /** VARIABLES GLOBALES **/
 
 //Création du jeu et de la partie :
-Classe_Jeu Jeu;
-Classe_Jeu::Classe_Options Options;
-
+Classe_Options Options;
+RenderWindow App;
 
 /** *** **/
 
@@ -115,16 +114,16 @@ void createWindow()
 
     if (options::option<bool>(tools::math::sdbm_hash("screen-fullscreen")) && vm.isValid())
     {
-        Jeu.App.create(vm, "devilsai", Style::Fullscreen);
+        App.create(vm, "devilsai", Style::Fullscreen);
     }
     else
     {
-        Jeu.App.create(vm, "devilsai");
+        App.create(vm, "devilsai");
     }
 
-    Jeu.App.setFramerateLimit(60);
-    Jeu.App.setKeyRepeatEnabled(false);
-    Jeu.App.setVerticalSyncEnabled(true);
+    App.setFramerateLimit(60);
+    App.setKeyRepeatEnabled(false);
+    App.setVerticalSyncEnabled(true);
 
 }
 
@@ -163,7 +162,7 @@ int main(int n, char *params[])
     imageManager::addContainer("paysage");
     imageManager::addContainer("skills");
 
-    mainLoop(Jeu.App);
+    mainLoop(App);
     Clean_Partie();
 
 	Supprimer_Decorations();

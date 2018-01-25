@@ -30,13 +30,13 @@
 
 #include "Bibliotheque.h"
 #include "Constantes.h"
-#include "../Jeu/Jeu.h"
 #include "Jeu/options.h"
 //#include "../Carte/Carte.h"
 //#include "../ElementsCarte/ElementsCarte.h"
 
 #define PI 3.1415926
 
+extern RenderWindow App;
 
 void getFromLUA(lua_State* L, string fct)
 {
@@ -227,7 +227,7 @@ void Disp_Texte(const String32 &str, int x, int y, Color couleur, float Size, co
 	Texte.setPosition(x, y);
 	Texte.setFillColor(couleur);
 
-	Jeu.App.draw(Texte);
+	App.draw(Texte);
 }
 
 void Disp_Texte(const string &str, int x, int y, Color couleur, float Size, const Font &CharFont)
@@ -236,7 +236,7 @@ void Disp_Texte(const string &str, int x, int y, Color couleur, float Size, cons
 	Texte.setPosition(x, y);
 	Texte.setFillColor(couleur);
 
-	Jeu.App.draw(Texte);
+	App.draw(Texte);
 }
 
 void Disp_TexteCentre(const String32 &str, int x, int y, Color couleur, float Size, const Font &CharFont)
@@ -245,7 +245,7 @@ void Disp_TexteCentre(const String32 &str, int x, int y, Color couleur, float Si
 	Texte.setPosition((int)(x - Texte.getGlobalBounds().width/2), (int)(y - Texte.getGlobalBounds().height/2));
 	Texte.setFillColor(couleur);
 
-	Jeu.App.draw(Texte);
+	App.draw(Texte);
 }
 
 string intToString(double number, int size)

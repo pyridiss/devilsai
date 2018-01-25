@@ -24,7 +24,6 @@
 
 #include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/luaFunctions.h"
-#include "../Jeu/Jeu.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu/options.h"
 

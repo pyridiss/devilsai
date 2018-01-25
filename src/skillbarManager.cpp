@@ -23,7 +23,6 @@
 #include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque/Bibliotheque.h"
-#include "Jeu/Jeu.h"
 
 #include "gamedata.h"
 
