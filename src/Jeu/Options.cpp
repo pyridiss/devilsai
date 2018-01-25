@@ -345,13 +345,8 @@ void initLoadGameWindow(gui::Window& window)
 
     scrollingList->removeAllEntries();
 
-    if (scrollingList != nullptr)
-    {
-        for (auto& s : savedGames)
-        {
-            scrollingList->addEntry(s.playerName, s.directory);
-        }
-    }
+    for (auto& s : savedGames)
+        scrollingList->addEntry(s.playerName, s.directory);
 
     if (!savedGames.empty())
         tools::signals::addSignal("main-menu:enable-load-game");

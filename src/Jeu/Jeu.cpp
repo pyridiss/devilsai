@@ -95,22 +95,10 @@ void mainLoop(RenderWindow& app)
     gui::Window dialogScreen("gui/dialog-screen.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
-    if (fps == nullptr)
-        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named fps.", "gui", __FILENAME__, __LINE__);
-
     gui::Widget* error = ingameToolbar.widget("error");
-    if (error == nullptr)
-        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named error.", "gui", __FILENAME__, __LINE__);
-    else
-        error->hide();
-
     gui::Widget* placeName = ingameToolbar.widget("place-name");
-    if (placeName == nullptr)
-        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named place-name.", "gui", __FILENAME__, __LINE__);
-
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
-    if (tooltip == nullptr)
-        tools::debug::error("The file gui/ingame-toolbar.xml does not contain a widget named tooltip.", "gui", __FILENAME__, __LINE__);
+    error->hide();
 
     startDialogScreen(dialogScreen, app);
     initJournal(app);

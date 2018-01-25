@@ -42,29 +42,11 @@ void initJournal(RenderWindow& target)
     _window.loadFromFile("gui/journal.xml");
 
     _text = _window.widget("text");
-    if (_text == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named text.", "gui", __FILENAME__, __LINE__);
-
     _number = _window.widget("number");
-    if (_text == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named number.", "gui", __FILENAME__, __LINE__);
-
     _first = _window.widget("first");
-    if (_first == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named text.", "gui", __FILENAME__, __LINE__);
-
     _previous = _window.widget("previous");
-    if (_previous == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named previous.", "gui", __FILENAME__, __LINE__);
-
     _next = _window.widget("next");
-    if (_next == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named next.", "gui", __FILENAME__, __LINE__);
-
     _last = _window.widget("last");
-    if (_last == nullptr)
-        tools::debug::error("The file gui/journal.xml does not contain a widget named last.", "gui", __FILENAME__, __LINE__);
-
 }
 
 void addJournalEntry(string world, string questName, string newEntry)
