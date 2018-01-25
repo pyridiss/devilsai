@@ -32,11 +32,11 @@ using namespace tinyxml2;
 
 namespace textManager{
 
-typedef map < string, String32 > Container;
+typedef map < string, textManager::PlainText > Container;
 typedef map < string, Container > Database;
 
 Database texts;
-String32 emptyString;
+textManager::PlainText emptyString;
 
 
 void loadFile(string container, string path)
@@ -77,7 +77,7 @@ void loadFile(string container, string path)
     }
 }
 
-String32& getText(string file, string id)
+textManager::PlainText& getText(string file, string id)
 {
     Database::iterator c = texts.find(file);
 

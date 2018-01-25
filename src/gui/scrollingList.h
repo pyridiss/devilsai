@@ -32,7 +32,7 @@ namespace gui{
 class ScrollingList : public Widget
 {
     private:
-        vector<pair<String32, string>> entries;
+        vector<pair<textManager::PlainText, string>> entries;
         unsigned index;
         double scrolling = 0;
         bool mouseScrolling = false;
@@ -43,7 +43,7 @@ class ScrollingList : public Widget
         ~ScrollingList() = default;
 
     public:
-        void addEntry(String32& entry, string data);
+        void addEntry(textManager::PlainText& entry, string data);
         void removeAllEntries();
 
         bool mouseHovering(RenderWindow& app);

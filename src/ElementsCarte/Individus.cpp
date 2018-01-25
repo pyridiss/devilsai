@@ -197,7 +197,7 @@ const textManager::PlainText& Individu::displayedName()
         return _species->_displayedName;
 
     //In case there is no custom name nor species...
-    setCustomDisplayedName(String32());
+    setCustomDisplayedName(textManager::PlainText());
     return *_displayedName;
 }
 
@@ -344,10 +344,10 @@ Activite* Individu::createSkill(string Id)
     return &(it->second);
 }
 
-void Individu::setCustomDisplayedName(const String32& newName)
+void Individu::setCustomDisplayedName(const textManager::PlainText& newName)
 {
     if (_displayedName == nullptr)
-        _displayedName = new String32;
+        _displayedName = new textManager::PlainText;
 
     *_displayedName = newName;
 }

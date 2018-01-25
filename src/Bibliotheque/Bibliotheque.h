@@ -38,7 +38,7 @@ class Individu;
 
 struct LigneConsole
 {
-	String32 Ligne;
+    textManager::PlainText Ligne;
 	Color Couleur;
 	float Temps		= 0;
 	short NumLigne	= 0;
@@ -53,11 +53,11 @@ struct LigneConsole
 void Load_Decorations();
 void Supprimer_Decorations();
 void Disp_JaugesVie(RenderTarget& target);
-void Ajouter_LignePerso(String32, Color);
-void Ajouter_LigneAmelioration(String32, Color);
+void Ajouter_LignePerso(textManager::PlainText, Color);
+void Ajouter_LigneAmelioration(textManager::PlainText, Color);
 void Disp_Consoles(RenderTarget& target);
 void SupprimerLignesConsoles();
-void Disp_Information(const String32&, bool);
+void Disp_Information(const textManager::PlainText&, bool);
 bool Disp_Repos(RenderTarget& target);
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
@@ -74,9 +74,9 @@ double ToSegment(double, int, int);
 void Verbose(const string&, const short&);
 void Erreur(const string&, const string&);
 void Erreur(const string&, const float&);
-void Disp_Texte(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_TexteCentre(const String32&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
-void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=gui::style::defaultTextFont());
+void Disp_Texte(const textManager::PlainText&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
+void Disp_TexteCentre(const textManager::PlainText&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
+void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
 string intToString(double, int size = -1);
 
 #endif

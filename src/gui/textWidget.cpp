@@ -96,7 +96,7 @@ bool TextWidget::activated(RenderWindow& app, Event event)
 void TextWidget::setValue(const string& d)
 {
     addEmbeddedData("value", d);
-    String32 text = textManager::fromStdString(d);
+    textManager::PlainText text = textManager::fromStdString(d);
     setAllText(text);
 }
 

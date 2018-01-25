@@ -46,7 +46,7 @@ namespace options{
 struct SavedGame
 {
     string directory;
-    String32 playerName;
+    textManager::PlainText playerName;
     string version;
 
     SavedGame()

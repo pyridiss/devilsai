@@ -51,7 +51,7 @@ void addQuest(string newQuest, string args)
 
     lua_register(L, "dispRemainingEnemies", [](lua_State* L)
     {
-        String32 a = textManager::getText("devilsai", "MONSTRES_RESTANTS");
+        textManager::PlainText a = textManager::getText("devilsai", "MONSTRES_RESTANTS");
         a.addParameter((unsigned)lua_tonumber(L,1));
         Ajouter_LigneAmelioration(a, Color(255, 255, 255, 255));
         return 0;

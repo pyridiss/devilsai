@@ -35,9 +35,9 @@ DropDownList::DropDownList()
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
-void DropDownList::addEntry(String32& entry, string data)
+void DropDownList::addEntry(textManager::PlainText& entry, string data)
 {
-    entries.push_back(pair<String32, string>(entry, data));
+    entries.push_back(pair<textManager::PlainText, string>(entry, data));
 }
 
 bool DropDownList::mouseHovering(RenderWindow& app)

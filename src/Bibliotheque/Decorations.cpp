@@ -178,7 +178,7 @@ void Disp_JaugesVie(RenderTarget& target)
     Disp_Information(textManager::getText("devilsai", "FATIGUE"), false);
 }
 
-void Ajouter_LignePerso(String32 ligne, Color couleur)
+void Ajouter_LignePerso(textManager::PlainText ligne, Color couleur)
 {
     if (!options::option<bool>(tools::math::sdbm_hash("show-console"))) return;
 
@@ -215,7 +215,7 @@ void Ajouter_LignePerso(String32 ligne, Color couleur)
 	ConsolePerso[NouvelleLigne].Affichage = true;
 }
 
-void Ajouter_LigneAmelioration(String32 ligne, Color couleur)
+void Ajouter_LigneAmelioration(textManager::PlainText ligne, Color couleur)
 {
 	for(int a = 0 ; a < 10 ; ++a)
 	{
@@ -289,10 +289,10 @@ void SupprimerLignesConsoles()
 
 /** SITUATIONS PARTICULIÈRES **/
 
-void Disp_Information(const String32& info, bool reactiver)
+void Disp_Information(const textManager::PlainText& info, bool reactiver)
 {
 	static float Temps = 0;
-	static String32 Information;
+	static textManager::PlainText Information;
 	if (reactiver)
 	{
 		Temps = 250;

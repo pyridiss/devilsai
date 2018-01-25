@@ -40,7 +40,6 @@ class Activite;
 class Individu;
 
 typedef map < string, lua_State* > mapObjects;
-typedef basic_string<Uint32> String32;
 typedef map < string, Activite > MapActivites;
 
 enum Attribute {

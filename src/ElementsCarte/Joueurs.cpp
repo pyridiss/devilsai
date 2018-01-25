@@ -188,7 +188,7 @@ bool Joueur::ApplicationAmeliorations()
 {
 	//Affichage & enregistrement des améliorations proposées :
 
-	String32 Final;
+	textManager::PlainText Final;
 	Color Positif(128, 255, 128, 255); Color Negatif(255, 128, 128, 255);
 	bool Retour = false;
 
@@ -201,7 +201,8 @@ bool Joueur::ApplicationAmeliorations()
         {
             char text[50] = "console-attributeImprovement-";
             strcat(text, attributeToString(att));
-            Final = tools::textManager::getFormattedText("devilsai", text, diff);
+            Final = textManager::getText("devilsai", text);
+            Final.addParameter(diff);
             (diff > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
         }
 
@@ -267,7 +268,7 @@ void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Disp_Personnage()
 {
-    Disp_Texte(gamedata::player()->displayedName(), 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., gui::style::fontFromString("dayroman"));
+    Disp_Texte(gamedata::player()->displayedName(), 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., *gui::style::fontFromString("dayroman"));
 
 	Disp_Texte(textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
     Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);

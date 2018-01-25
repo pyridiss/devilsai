@@ -32,9 +32,9 @@ ScrollingList::ScrollingList()
     states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
 }
 
-void ScrollingList::addEntry(String32& entry, string data)
+void ScrollingList::addEntry(textManager::PlainText& entry, string data)
 {
-    entries.push_back(pair<String32, string>(entry, data));
+    entries.push_back(pair<textManager::PlainText, string>(entry, data));
 }
 
 void ScrollingList::removeAllEntries()

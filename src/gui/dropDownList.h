@@ -33,7 +33,7 @@ namespace gui{
 class DropDownList : public Widget
 {
     private:
-        vector<pair<String32, string>> entries;
+        vector<pair<textManager::PlainText, string>> entries;
         unsigned index;
 
     public:
@@ -41,7 +41,7 @@ class DropDownList : public Widget
         ~DropDownList() = default;
 
     public:
-        void addEntry(String32& entry, string data);
+        void addEntry(textManager::PlainText& entry, string data);
 
         bool mouseHovering(RenderWindow& app);
         bool mouseHoveringDeveloped(RenderWindow& app);

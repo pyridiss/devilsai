@@ -62,7 +62,7 @@ enum Behaviors
 class Classe_Commune
 {
 	public:
-        String32 _displayedName;
+        textManager::PlainText _displayedName;
 		string Type             = "";
 		int Diplomatie          = 0;
         tools::math::Shape size;
@@ -154,7 +154,7 @@ class Coffre : public Element_Carte
 		Objects objects;
 
 		string NumeroNom = "";
-		String32 Nom;
+        textManager::PlainText Nom;
 
     private:
         bool _highlight;
@@ -205,7 +205,7 @@ class Individu : public Element_Carte
         vector<string>* _attacks;
         MapActivites* _skills;
         Classe_Commune* _species;
-        String32* _displayedName;
+        textManager::PlainText* _displayedName;
         string* _corpseImageKey;
         unsigned int _experience = 0;
         string* _extraDataFile;
@@ -268,7 +268,7 @@ class Individu : public Element_Carte
         void setSpecies(Classe_Commune* s);
         Classe_Commune* species();
         Activite* createSkill(string Id);
-        void setCustomDisplayedName(const String32& newName);
+        void setCustomDisplayedName(const textManager::PlainText& newName);
 
     public:
         void loadFromXML(tinyxml2::XMLHandle &handle);
