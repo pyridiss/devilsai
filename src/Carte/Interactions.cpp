@@ -20,7 +20,7 @@
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 
 #include "gamedata.h"
 

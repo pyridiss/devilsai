@@ -26,7 +26,7 @@
 #include "tools/variant.h"
 #include "tools/signals.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 
 #include "../Bibliotheque/Bibliotheque.h"
 #include "../ElementsCarte/ElementsCarte.h"

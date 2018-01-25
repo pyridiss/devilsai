@@ -23,11 +23,11 @@
 #include <SFML/Graphics.hpp>
 
 #include "tools/debug.h"
-#include "tools/textManager.h"
 
 #include "gui/style.h"
 
 #include "textManager/plainText.h"
+#include "textManager/textManager.h"
 
 
 using namespace std;

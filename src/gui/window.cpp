@@ -23,7 +23,7 @@
 #include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 
 #include "imageManager/image.h"
 #include "imageManager/imageManager.h"

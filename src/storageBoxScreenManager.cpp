@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 #include "gui/widget.h"
 #include "gui/window.h"
 #include "imageManager/imageManager.h"

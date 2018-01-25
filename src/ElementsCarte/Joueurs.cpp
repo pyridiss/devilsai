@@ -27,7 +27,7 @@
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
 #include "gamedata.h"

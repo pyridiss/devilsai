@@ -23,7 +23,7 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 
 #include "imageManager/imageManager.h"
 

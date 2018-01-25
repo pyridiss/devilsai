@@ -22,7 +22,7 @@
 #include "Bibliotheque.h"
 #include "Constantes.h"
 
-#include "tools/textManager.h"
+#include "textManager/textManager.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
 #include "imageManager/imageManager.h"
