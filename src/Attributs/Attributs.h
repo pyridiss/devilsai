@@ -168,6 +168,9 @@ class Activite
         map< pair<double , int> , string > Animation;
 
 	public:
+        Activite();
+        Activite(const Activite& other);
+        Activite& operator=(const Activite& right);
         ~Activite();
 
         void addImage(double angle, int num, string imageKey);

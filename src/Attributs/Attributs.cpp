@@ -201,6 +201,44 @@ void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 
 /** FONCTIONS DE LA CLASSE Activite **/
 
+Activite::Activite()
+  : scriptString(),
+    interactionField(),
+    Animation()
+{
+}
+Activite::Activite(const Activite& other)
+  : Id(other.Id),
+    numberOfImages(other.numberOfImages),
+    speed(other.speed),
+    step(other.step),
+    fightAtEnd(other.fightAtEnd),
+    scriptString(other.scriptString),
+    script(other.script),
+    speedImprover(other.speedImprover),
+    interactionField(other.interactionField),
+    priority(other.priority),
+    Animation(other.Animation)
+{
+}
+
+Activite& Activite::operator=(const Activite& right)
+{
+    Id = right.Id;
+    numberOfImages = right.numberOfImages;
+    speed = right.speed;
+    step = right.step;
+    fightAtEnd = right.fightAtEnd;
+    scriptString = right.scriptString;
+    script = right.script;
+    speedImprover = right.speedImprover;
+    interactionField = right.interactionField;
+    priority = right.priority;
+    Animation = right.Animation;
+
+    return *this;
+}
+
 Activite::~Activite()
 {
     if (script != nullptr) lua_close(script);
