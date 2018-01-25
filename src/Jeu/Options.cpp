@@ -49,6 +49,12 @@ struct SavedGame
     String32 playerName;
     string version;
 
+    SavedGame()
+      : directory(),
+        playerName(),
+        version()
+    {
+    }
     bool operator==(const SavedGame& right)
     {
         if (directory == right.directory)
@@ -310,8 +316,8 @@ void deleteSavedGamePack(string directory)
 
         if (elemName == "file")
         {
-            string file = elem->Attribute("path");
-            tools::filesystem::removeFile(path + file);
+            string filename = elem->Attribute("path");
+            tools::filesystem::removeFile(path + filename);
         }
 
         elem = elem->NextSiblingElement();
