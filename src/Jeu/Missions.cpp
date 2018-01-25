@@ -49,10 +49,13 @@ void addQuest(string newQuest, string args)
 
 	lua_atpanic(L, LUA_panic);
 
-	lua_register(L, "dispRemainingEnemies", [](lua_State* L) {
-		Ajouter_LigneAmelioration(tools::textManager::getFormattedText("devilsai", "MONSTRES_RESTANTS", (unsigned)lua_tonumber(L,1)), Color(255, 255, 255, 255));
-		return 0;
-	});
+    lua_register(L, "dispRemainingEnemies", [](lua_State* L)
+    {
+        String32 a = textManager::getText("devilsai", "MONSTRES_RESTANTS");
+        a.addParameter((unsigned)lua_tonumber(L,1));
+        Ajouter_LigneAmelioration(a, Color(255, 255, 255, 255));
+        return 0;
+    });
 
 	lua_register(L, "addQuest",			[](lua_State* L) { addQuest(lua_tostring(L, 1), "true"); return 0; });
 	lua_register(L, "addExperience",	[](lua_State* L) { gamedata::player()->GainExperience(NULL, 0, lua_tonumber(L, 1)); return 0; });
