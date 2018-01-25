@@ -87,14 +87,14 @@ private:
     size_t type_id;
     data_t data;
 public:
-    Variant() : type_id(invalid_type()) {   }
+    Variant() : type_id(invalid_type()), data() {   }
 
-    Variant(const Variant<Ts...>& old) : type_id(old.type_id)
+    Variant(const Variant<Ts...>& old) : type_id(old.type_id), data()
     {
         helper_t::copy(old.type_id, &old.data, &data);
     }
 
-    Variant(Variant<Ts...>&& old) : type_id(old.type_id)
+    Variant(Variant<Ts...>&& old) : type_id(old.type_id), data()
     {
         helper_t::move(old.type_id, &old.data, &data);
     }
