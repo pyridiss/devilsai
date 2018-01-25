@@ -391,8 +391,14 @@ Widget* Window::widget(string name)
     {
         return i->second;
     }
-
-    return nullptr;
+    else
+    {
+        tools::debug::error("Unknown widget: " + name, "gui", __FILENAME__, __LINE__);
+        auto result = widgets.emplace(name, new TextWidget());
+        result.first->second->setParent(this);
+        result.first->second->addFlags(Hidden);
+        return result.first->second;
+    }
 }
 
 const map<string,Widget*>& Window::getWidgets()
