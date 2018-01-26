@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="AMELIORATION_VIT_ATTAQUE">Vitesse d'attaque %%</text>
-    <text id="AMELIORATION_VIT_BLESSE">Vitesse de récupération après un coup %%</text>
-    <text id="AMELIORATION_VIT_COURSE">Vitesse de course %%</text>
     <text id="BLESSURE">Blessure grave !</text>
     <text id="CADAVRE">Cadavre de %%</text>
-    <text id="COMPETENCES">Compétences</text>
     <text id="CRITIQUE">Coup Critique !</text>
-    <text id="DEMANDE_REDEMARRAGE">Redémarrez le programme pour que les changements soient correctement pris en compte</text>
     <text id="ECHEC">Échec !</text>
     <text id="ENERGIE_INSUFFISANTE">Énergie insuffisante !</text>
     <text id="EQUIP_DUREE">Durée : %%s</text>
-    <text id="EQUIP_VIDE">Emplacement vide (%%)</text>
     <text id="ESQUIVE">Coup esquivé !</text>
     <text id="FATIGUE">Fatigue extrême !</text>
-    <text id="INVENTAIRE">Inventaire</text>
     <text id="MONTRES_RESTANTS">Monstres restants : %%</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>
     <text id="SAUVEGARDE">Sauvegarde effectuée</text>
