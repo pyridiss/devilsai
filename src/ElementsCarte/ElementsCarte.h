@@ -267,7 +267,7 @@ class Individu : public Element_Carte
         virtual void modifyHealthStatus(Attribute a, double value);
         void setSpecies(Classe_Commune* s);
         Classe_Commune* species();
-        Activite* createSkill(string Id);
+        Activite* createSkill(string skillName);
         void setCustomDisplayedName(const textManager::PlainText& newName);
 
     public:

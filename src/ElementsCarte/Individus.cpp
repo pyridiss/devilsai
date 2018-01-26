@@ -333,15 +333,15 @@ Classe_Commune* Individu::species()
     return _species;
 }
 
-Activite* Individu::createSkill(string Id)
+Activite* Individu::createSkill(string skillName)
 {
     if (_skills == nullptr)
         _skills = new MapActivites;
 
-    auto [it, result] = _skills->try_emplace(Id);
-    it->second.Id = Id;
+    auto result = _skills->try_emplace(skillName);
+    result.first->second.Id = skillName;
 
-    return &(it->second);
+    return &(result.first->second);
 }
 
 void Individu::setCustomDisplayedName(const textManager::PlainText& newName)
