@@ -389,6 +389,11 @@ void Individu::findPath(const tools::math::Vector2d& destination, int nodesNumbe
     tools::aStar::setObstacles(obstacles);
 
     pathToTarget = tools::aStar::aStar();
+
+    //If A* doesn't find a way, try the straight line
+    if (pathToTarget.profile == tools::math::Shape::Profiles::None)
+        pathToTarget.line(position(), destination, size.radius1);
+
     pathToTarget.setOrigin(tools::math::absoluteOrigin());
     pathToTarget.radius1 = size.radius1;
 }
