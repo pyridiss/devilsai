@@ -66,11 +66,11 @@
         @n@s[16]Dodge: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
         @n@s[16]Healing power: @t[200]* @d
     </text>
-    <text id="player-health-1">Good health</text>
-    <text id="player-health-2">Slightly injured</text>
-    <text id="player-health-3">Injured</text>
-    <text id="player-health-4">Seriously injured</text>
-    <text id="player-health-5">Dying</text>
-    <text id="player-health-6">Dead</text>
-    <text id="player-health-tired">Tired</text>
+    <text id="player-health-1">@c[128,255,128]Good health @d</text>
+    <text id="player-health-2">@c[255,220,30]Slightly injured @d</text>
+    <text id="player-health-3">@c[255,190,10]Injured @d</text>
+    <text id="player-health-4">@c[255,80,10]Seriously injured @d</text>
+    <text id="player-health-5">@c[255,0,0]Dying @d</text>
+    <text id="player-health-dead">@c[168,168,168]Dead @d</text>
+    <text id="player-health-tired">@c[255,255,128]Tired @d</text>
 </texts>

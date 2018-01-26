@@ -134,7 +134,7 @@ void Disp_JaugesVie(RenderTarget& target)
     int l = gamedata::player()->currentHealthStatus(Life) + Recup * 10;
 
     if (gamedata::player()->currentHealthStatus(Life) == 0)
-        playerStateText += textManager::getText("devilsai", "player-health-6");
+        playerStateText += textManager::getText("devilsai", "player-health-dead");
     else if (l >= 900)
         playerStateText += textManager::getText("devilsai", "player-health-1");
     else if (l >= 650)

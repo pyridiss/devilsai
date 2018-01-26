@@ -47,13 +47,6 @@
     <text id="object-property-attackSpeed">Augmente la vitesse d'attaque %%</text>
     <text id="object-property-runSpeed">Augmente la vitesse de course %%</text>
     <text id="object-property-injurySpeed">Augmente la vitesse de récupération après une blessure %%</text>
-    <text id="player-health-1">Bonne santé</text>
-    <text id="player-health-2">Légèrement blessé</text>
-    <text id="player-health-3">Blessé</text>
-    <text id="player-health-4">Gravement blessé</text>
-    <text id="player-health-5">Agonisant</text>
-    <text id="player-health-6">Mort</text>
-    <text id="player-health-tired">Fatigué</text>
     <text id="console-damageDone">@f[liberation-bold]* @da infligé @f[liberation-bold]* @dpoints de dégâts à @f[liberation-bold]* @d</text>
     <text id="format-fps">@c[128,128,128]FPS : * @d</text>
     <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
@@ -73,4 +66,11 @@
         @n@s[16]Esquive : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
         @n@s[16]Récupération moyenne : @t[200]* @d
     </text>
+    <text id="player-health-1">@c[128,255,128]Bonne santé @d</text>
+    <text id="player-health-2">@c[255,220,30]Légèrement blessé @d</text>
+    <text id="player-health-3">@c[255,190,10]Blessé @d</text>
+    <text id="player-health-4">@c[255,80,10]Gravement blessé @d</text>
+    <text id="player-health-5">@c[255,0,0]Agonisant @d</text>
+    <text id="player-health-dead">@c[168,168,168]Mort @d</text>
+    <text id="player-health-tired">@c[255,255,128]Fatigué @d</text>
 </texts>
