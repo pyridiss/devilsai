@@ -41,13 +41,9 @@
 
 #include "options.h"
 
-/** VARIABLES GLOBALES **/
 
-//Création du jeu et de la partie :
-Classe_Options Options;
 RenderWindow App;
 
-/** *** **/
 
 void GestionArguments(int n, char *params[])
 {

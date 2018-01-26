@@ -25,19 +25,6 @@
 using namespace std;
 using namespace sf;
 
-/**
- * Contient les données du programme : fenêtre d'affichage, polices, phrases, arguments et options. 
-*/
-
-	struct Classe_Options
-	{
-		unsigned ScreenW            = 800;
-		unsigned ScreenH            = 600;
-	};
-
-//Objets globaux Jeu et Partie :
-extern Classe_Options Options;
-
 
 //Fonctions définies dans les fichiers dépendants de Jeu
 

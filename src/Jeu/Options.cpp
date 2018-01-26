@@ -182,9 +182,6 @@ void Load_Options()
         }
         elem = elem->NextSiblingElement();
     }
-
-    Options.ScreenW = option<unsigned>(tools::math::sdbm_hash("screen-width"));
-    Options.ScreenH = option<unsigned>(tools::math::sdbm_hash("screen-height"));
 }
 
 void Save_Options()
@@ -246,8 +243,6 @@ void changeOption(string name, string value)
             addOption<unsigned>(tools::math::sdbm_hash("screen-width"), newWidth);
             addOption<unsigned>(tools::math::sdbm_hash("screen-height"), newHeight);
             createWindow();
-            Options.ScreenW = newWidth;
-            Options.ScreenH = newHeight;
         }
     }
     else if (name == "option-change-fullscreen")
@@ -366,7 +361,7 @@ void initOptionsWindow(gui::Window& window)
     else d = "EN";
     window.setValue("chooser-language", d);
 
-    d = intToString(Options.ScreenW) + "x" + intToString(Options.ScreenH);
+    d = intToString(option<unsigned>(tools::math::sdbm_hash("screen-width"))) + "x" + intToString(option<unsigned>(tools::math::sdbm_hash("screen-height")));
     window.setValue("chooser-resolution", d);
 
     d = (option<bool>(tools::math::sdbm_hash("screen-fullscreen")) ? "enabled" : "disabled");
