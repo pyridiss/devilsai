@@ -174,8 +174,6 @@ void Disp_JaugesVie(RenderTarget& target)
     playerState.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
     playerState.create(playerStateText);
     playerState.displayFullText(target, 92, 55);
-
-    Disp_Information(textManager::getText("devilsai", "FATIGUE"), false);
 }
 
 void Ajouter_LignePerso(textManager::PlainText ligne, Color couleur)
@@ -291,19 +289,7 @@ void SupprimerLignesConsoles()
 
 void Disp_Information(const textManager::PlainText& info, bool reactiver)
 {
-	static float Temps = 0;
-	static textManager::PlainText Information;
-	if (reactiver)
-	{
-		Temps = 250;
-		Information = info;
-		return;
-	}
-	if (Temps > 0)
-	{
-		Disp_TexteCentre(Information, Options.ScreenW/2, Options.ScreenH/2 - 100, Color(255,255,255,Temps), 20., gui::style::fontFromString("dayroman"));
-		Temps -= tools::timeManager::I((256-Temps)/24);
-	}
+    Ajouter_LigneAmelioration(info, Color(255, 255, 255));
 }
 
 bool Disp_Repos(RenderTarget& target)
