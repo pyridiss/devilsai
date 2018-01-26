@@ -45,35 +45,8 @@
 #include "options.h"
 
 
-class UserScreen
-{
-	public:
-		void (*dispFunction)(void);
-		void (*manageFunction)(Event&);
-};
-
-UserScreen screenCharacter;
-UserScreen *currentUserScreen = nullptr;
-
-void changeCurrentUserScreen(UserScreen* _new)
-{
-	if (_new == nullptr) currentUserScreen = nullptr;
-	else
-	{
-		if (currentUserScreen != _new)
-			currentUserScreen = _new;
-		else currentUserScreen = nullptr;
-	}
-}
-
-
-/** FONCTIONS DE GESTION DE LA PARTIE **/
-
 void mainLoop(RenderWindow& app)
 {
-    screenCharacter.dispFunction = Disp_Personnage;
-    screenCharacter.manageFunction = nullptr;
-
     float ChangementLieu = 0;
 	float SauvegardeEffectuee = 255;
 
@@ -93,11 +66,14 @@ void mainLoop(RenderWindow& app)
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
     gui::Window dialogScreen("gui/dialog-screen.xml", app);
+    gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
     gui::Widget* error = ingameToolbar.widget("error");
     gui::Widget* placeName = ingameToolbar.widget("place-name");
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
+    gui::Widget* playerName = characterWindow.widget("player-name");
+    gui::Widget* playerDescription = characterWindow.widget("text");
     error->hide();
 
     startDialogScreen(dialogScreen, app);
@@ -130,7 +106,7 @@ void mainLoop(RenderWindow& app)
     bool showTooltip = false;
     bool cinematicMode = false;
 
-    enum LeftScreens { None, Inventory, Journal };
+    enum LeftScreens { None, Inventory, Journal, Character };
     LeftScreens currentLeftScreen = LeftScreens::None;
 
     enum BottomScreens { NoBottomScreen, StorageBox };
@@ -198,9 +174,6 @@ void mainLoop(RenderWindow& app)
                 default:
                     break;
             }
-
-            if (currentUserScreen != nullptr && currentUserScreen->manageFunction != nullptr)
-                currentUserScreen->manageFunction(event);
 
             if (event.type == Event::Closed || (event.type == Event::KeyReleased && Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
                 tools::signals::addSignal("ask-exit");
@@ -284,6 +257,9 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
+                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData("format"));
+                t.addParameter(signal.second);
+                playerName->setValue(t.toStdString());
             }
             if (signal.first == "load-game")
             {
@@ -317,11 +293,12 @@ void mainLoop(RenderWindow& app)
                 ingameMenuWindow.manage(app);
             }
 
-            if (signal.first == "screen-character")
-            {
-                changeCurrentUserScreen(&screenCharacter);
+            if (signal.first == "screen-character") {
+                if (currentLeftScreen == LeftScreens::Character)
+                    currentLeftScreen = LeftScreens::None;
+                else
+                    currentLeftScreen = LeftScreens::Character;
             }
-
             if (signal.first == "screen-equipment")
             {
                 if (currentLeftScreen == LeftScreens::Inventory)
@@ -541,6 +518,11 @@ void mainLoop(RenderWindow& app)
                 break;
             case LeftScreens::Journal :
                 displayJournal(app);
+                break;
+            case LeftScreens::Character:
+                playerDescription->setValue(gamedata::player()->characterDescription().toStdString());
+                characterWindow.display(app);
+                break;
             default:
                 break;
         }
@@ -559,9 +541,6 @@ void mainLoop(RenderWindow& app)
 
         ingameToolbar.display(app);
         displaySkillbar(ingameSkillbar, app);
-
-        if (currentUserScreen != NULL)
-            currentUserScreen->dispFunction();
 
         if (playerResting)
         {
@@ -615,8 +594,6 @@ void mainLoop(RenderWindow& app)
 
 void Clean_Partie()
 {
-	currentUserScreen = nullptr;
-
 	SupprimerLignesConsoles();
 
     gamedata::clear();

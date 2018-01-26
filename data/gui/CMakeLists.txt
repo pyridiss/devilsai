@@ -1,5 +1,6 @@
 
 set(gui
+    character.xml
     confirm-exit-game.xml
     dialog-screen.xml
     ingame-menu.xml

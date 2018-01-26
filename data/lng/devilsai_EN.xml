@@ -16,19 +16,6 @@
     <text id="FATIGUE">Extremely tired!</text>
     <text id="INVENTAIRE">Inventory</text>
     <text id="MONTRES_RESTANTS">Remaining monsters: %%</text>
-    <text id="PERSO_AGILITE">Agility:</text>
-    <text id="PERSO_CHARISM">Charisma:</text>
-    <text id="PERSO_CONSTIT">Constitution:</text>
-    <text id="PERSO_DEGATS">Average damages:</text>
-    <text id="PERSO_ENERGIE">Energy:</text>
-    <text id="PERSO_ESQUIVE">Dodge:</text>
-    <text id="PERSO_EXP">Experience:</text>
-    <text id="PERSO_FORCE">Strength:</text>
-    <text id="PERSO_INTELLI">Intellect:</text>
-    <text id="PERSO_PUISS">Power:</text>
-    <text id="PERSO_RECUP">Healing:</text>
-    <text id="PERSO_RECUPMOY">Healing power:</text>
-    <text id="PERSO_VITALITE">Vitality:</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
     <text id="SAUVEGARDE">Game saved</text>
     <text id="SOUS_EFFET">Under the effect of: %%</text>
@@ -63,7 +50,22 @@
     <text id="console-damageDone">@f[liberation-bold]* @dinflicted @f[liberation-bold]* @dpoints of damage to @f[liberation-bold]* @d</text>
     <text id="format-fps">@c[128,128,128]FPS : * @d</text>
     <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
+    <text id="format-player-name">@f[dayroman]@[30]@c[255,220,220] *@d</text>
     <text id="format-tooltip">@f[liberation-bold]@s[15]@c[255,255,255]* @d</text>
+    <text id="player-description">
+        @s[16]Vitality: @t[200]@c[255,64,64]* @d
+        @n@s[16]Energy: @t[200]@c[64,160,255]* @d
+        @n@s[16]Healing: @t[200]@c[64,255,64]* @d
+        @n@s[16]Experience: @t[200]* @d
+        @n[40]@s[16]Strength: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Power: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Agility: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Intellect: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n[40]@s[16]Constitution: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Charisma: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Dodge: @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Healing power: @t[200]* @d
+    </text>
     <text id="player-health-1">Good health</text>
     <text id="player-health-2">Slightly injured</text>
     <text id="player-health-3">Injured</text>

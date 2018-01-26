@@ -221,6 +221,13 @@ void RichText::create(const PlainText& src)
                     customColor = Color(r, g, b);
                     break;
                 }
+                case  116 : // 't', tabulation
+                {
+                    string tab = i.getString().substring(parameterBegin + 1, parameterEnd - parameterBegin - 1);
+                    int t = textManager::toInt(tab);
+                    if (currentX < t) currentX = t;
+                    break;
+                }
                 case 100 : // 'd', back to default
                     customFont = _defaultFont;
                     customSize = _defaultSize;

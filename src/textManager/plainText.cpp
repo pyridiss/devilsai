@@ -163,6 +163,7 @@ void PlainText::addParameter(T d)
 template void PlainText::addParameter(int d);
 template void PlainText::addParameter(unsigned d);
 template void PlainText::addParameter(double d);
+template void PlainText::addParameter(string d);
 
 void PlainText::addParameter(const PlainText& d)
 {

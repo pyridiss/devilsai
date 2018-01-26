@@ -266,47 +266,31 @@ void Joueur::saveToXML(XMLDocument& doc, XMLHandle& handle)
     Individu::saveToXML(doc, handle);
 }
 
-void Disp_Personnage()
+textManager::PlainText Joueur::characterDescription()
 {
-    Disp_Texte(gamedata::player()->displayedName(), 50, Options.ScreenH - 220, Color(255, 220, 220, 255), 35., *gui::style::fontFromString("dayroman"));
+    textManager::PlainText d = textManager::getText("devilsai", "player-description");
 
-	Disp_Texte(textManager::getText("devilsai", "PERSO_VITALITE"), 50, Options.ScreenH - 170, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Life)), 180, Options.ScreenH - 170, Color(255, 64, 64, 255), 12.);
+    d.addParameter(currentHealthStatus(Life));
+    d.addParameter(currentHealthStatus(Energy));
+    d.addParameter(currentHealthStatus(Healing));
+    d.addParameter(experience());
 
-	Disp_Texte(textManager::getText("devilsai", "PERSO_ENERGIE"), 50, Options.ScreenH - 155, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Energy)), 180, Options.ScreenH - 155, Color(64, 160, 255, 255), 12.);
+    d.addParameter(currentHealthStatus(Strength));
+    d.addParameter(attributes()[Strength]);
+    d.addParameter(currentHealthStatus(Power));
+    d.addParameter(attributes()[Power]);
+    d.addParameter(currentHealthStatus(Agility));
+    d.addParameter(attributes()[Agility]);
+    d.addParameter(currentHealthStatus(Intellect));
+    d.addParameter(attributes()[Intellect]);
 
-	Disp_Texte(textManager::getText("devilsai", "PERSO_RECUP"), 50, Options.ScreenH - 140, Color(255, 255, 255, 255), 12.);
-    if (gamedata::player()->currentHealthStatus(Healing) >= 0)
-        Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(64, 255, 64, 255), 12.);
-    if (gamedata::player()->currentHealthStatus(Healing) < 0)
-        Disp_Texte(intToString((int)gamedata::player()->currentHealthStatus(Healing)), 180, Options.ScreenH - 140, Color(255, 64, 255, 255), 12.);
+    d.addParameter(currentHealthStatus(Constitution));
+    d.addParameter(attributes()[Constitution]);
+    d.addParameter(currentHealthStatus(Charisma));
+    d.addParameter(attributes()[Charisma]);
+    d.addParameter(currentHealthStatus(Dodge));
+    d.addParameter(attributes()[Dodge]);
+    d.addParameter(currentHealthStatus(HealingPower));
 
-	Disp_Texte(textManager::getText("devilsai", "PERSO_EXP"), 50, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(intToString((int)gamedata::player()->experience()), 180, Options.ScreenH - 125, Color(255, 255, 255, 255), 12.);
-
-    Disp_Texte(textManager::getText("devilsai", "PERSO_FORCE"), 280, Options.ScreenH - 180, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_PUISS"), 280, Options.ScreenH - 180 + 15, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_AGILITE"), 280, Options.ScreenH - 180 + 30, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_INTELLI"), 280, Options.ScreenH - 180 + 45, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_CONSTIT"), 280, Options.ScreenH - 180 + 60, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_CHARISM"), 280, Options.ScreenH - 180 + 75, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_ESQUIVE"), 280, Options.ScreenH - 180 + 90, Color(255, 255, 255, 255), 12.);
-    Disp_Texte(textManager::getText("devilsai", "PERSO_RECUPMOY"), 280, Options.ScreenH - 180 + 105, Color(255, 255, 255, 255), 12.);
-
-	int numberChar = 0;
-    for (int a = Strength ; a != RunSpeed ; ++a)
-	{
-        int absoluteQty = gamedata::player()->attributes()[static_cast<Attribute>(a)];
-        int diffQty = gamedata::player()->currentHealthStatus(static_cast<Attribute>(a)) - absoluteQty;
-
-		Disp_Texte(intToString(absoluteQty), 430, Options.ScreenH - 180 + 15*numberChar, Color(255, 255, 255, 255), 12.);
-
-		if (diffQty > 0)
-			Disp_Texte("+" + intToString(diffQty), 460, Options.ScreenH - 180 + 15*numberChar, Color(64, 255, 64, 255), 12.);
-		if (diffQty < 0)
-			Disp_Texte(intToString(diffQty), 460, Options.ScreenH - 180 + 15*numberChar, Color(255, 64, 255, 255), 12.);
-
-		++numberChar;
-	}
+    return d;
 }

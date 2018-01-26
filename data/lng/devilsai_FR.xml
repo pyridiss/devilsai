@@ -16,19 +16,6 @@
     <text id="FATIGUE">Fatigue extrême !</text>
     <text id="INVENTAIRE">Inventaire</text>
     <text id="MONTRES_RESTANTS">Monstres restants : %%</text>
-    <text id="PERSO_AGILITE">Agilité :</text>
-    <text id="PERSO_CHARISM">Charisme :</text>
-    <text id="PERSO_CONSTIT">Constitution :</text>
-    <text id="PERSO_DEGATS">Dégâts moyens :</text>
-    <text id="PERSO_ENERGIE">Énergie :</text>
-    <text id="PERSO_ESQUIVE">Esquive :</text>
-    <text id="PERSO_EXP">Expérience :</text>
-    <text id="PERSO_FORCE">Force :</text>
-    <text id="PERSO_INTELLI">Intelligence :</text>
-    <text id="PERSO_PUISS">Puissance :</text>
-    <text id="PERSO_RECUP">Taux de récupération :</text>
-    <text id="PERSO_RECUPMOY">Récupération moyenne :</text>
-    <text id="PERSO_VITALITE">Vitalité :</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>
     <text id="SAUVEGARDE">Sauvegarde effectuée</text>
     <text id="SOUS_EFFET">Sous l'effet de : %%</text>
@@ -70,5 +57,20 @@
     <text id="console-damageDone">@f[liberation-bold]* @da infligé @f[liberation-bold]* @dpoints de dégâts à @f[liberation-bold]* @d</text>
     <text id="format-fps">@c[128,128,128]FPS : * @d</text>
     <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
+    <text id="format-player-name">@f[dayroman]@[30]@c[255,220,220] *@d</text>
     <text id="format-tooltip">@f[liberation-bold]@s[15]@c[255,255,255]* @d</text>
+    <text id="player-description">
+        @s[16]Vitalité : @t[200]@c[255,64,64]* @d
+        @n@s[16]Énergie : @t[200]@c[64,160,255]* @d
+        @n@s[16]Taux de récupération : @t[200]@c[64,255,64]* @d
+        @n@s[16]Expérience : @t[200]* @d
+        @n[40]@s[16]Force : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Puissance : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Agilité : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Intelligence : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n[40]@s[16]Constitution : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Charisme : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Esquive : @t[200]* @t[260]@c[64,64,128]@s[13](*) @d
+        @n@s[16]Récupération moyenne : @t[200]* @d
+    </text>
 </texts>

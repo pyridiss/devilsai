@@ -325,6 +325,8 @@ class Joueur : public Individu
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
+        textManager::PlainText characterDescription();
 };
 
 class Paysage : public Element_Carte
@@ -382,7 +384,5 @@ class Trigger : public Element_Carte
 	public:
 		void Disp(RenderTarget& target);
 };
-
-void Disp_Personnage();
 
 #endif
