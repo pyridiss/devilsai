@@ -299,7 +299,7 @@ int RichText::height()
     return _height;
 }
 
-void RichText::displayToView(RenderTarget& target, View view)
+void RichText::displayToView(RenderTarget& target, View view, const Shader* shader)
 {
     View currentView = target.getView();
     target.setView(view);
@@ -309,13 +309,13 @@ void RichText::displayToView(RenderTarget& target, View view)
     for (auto& i : _words)
     {
         if (i.getPosition().y > minY && i.getPosition().y < maxY)
-            target.draw(i);
+            target.draw(i, shader);
     }
 
     target.setView(currentView);
 }
 
-void RichText::displayFullText(RenderTarget& target, int x, int y)
+void RichText::displayFullText(RenderTarget& target, int x, int y, const Shader* shader)
 {
     x = target.mapCoordsToPixel(Vector2f(x, y)).x - 2;
     y = target.mapCoordsToPixel(Vector2f(x, y)).y - 2;
@@ -335,7 +335,7 @@ void RichText::displayFullText(RenderTarget& target, int x, int y)
     View newView(FloatRect(-2, -2, w, h));
     newView.setViewport(FloatRect((float)x/(float)target.getSize().x, (float)y/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
 
-    displayToView(target, newView);
+    displayToView(target, newView, shader);
 }
 
 } //namespace textManager

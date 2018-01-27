@@ -62,8 +62,8 @@ class RichText
         void create(const PlainText& src);
         int width();
         int height();
-        void displayToView(RenderTarget& target, View view);
-        void displayFullText(RenderTarget& target, int x, int y);
+        void displayToView(RenderTarget& target, View view, const Shader* shader = nullptr);
+        void displayFullText(RenderTarget& target, int x, int y, const Shader* shader = nullptr);
 };
 
 } //namespace textManager
