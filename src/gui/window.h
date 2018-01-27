@@ -61,7 +61,6 @@ class Window
         string backgroundImage;
         string backgroundFullscreenShader;
         string backgroundShader;
-        string foregroundShader;
         string music;
 
     public:

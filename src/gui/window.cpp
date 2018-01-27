@@ -57,7 +57,6 @@ Window::Window()
     backgroundImage(),
     backgroundFullscreenShader(),
     backgroundShader(),
-    foregroundShader(),
     music()
 {
 }
@@ -77,7 +76,6 @@ Window::Window(const Window& other)
     backgroundImage(other.backgroundImage),
     backgroundFullscreenShader(other.backgroundFullscreenShader),
     backgroundShader(other.backgroundShader),
-    foregroundShader(other.foregroundShader),
     music(other.music)
 {
 }
@@ -104,7 +102,6 @@ Window& Window::operator=(const Window& right)
     backgroundImage = right.backgroundImage;
     backgroundFullscreenShader = right.backgroundFullscreenShader;
     backgroundShader = right.backgroundShader;
-    foregroundShader = right.foregroundShader;
     music = right.music;
 
     return *this;
@@ -303,9 +300,6 @@ void Window::manage(RenderWindow& app)
         app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
         display(app);
 
-        if (!foregroundShader.empty())
-            gui::style::displayShader(app, foregroundShader, left(), top(), width(), height());
-
         tools::timeManager::frameDone();
         app.display();
         musicManager::manageRunningMusics();
@@ -499,9 +493,6 @@ void Window::loadFromFile(string path)
 
             if (elem->Attribute("backgroundShader"))
                 backgroundShader = elem->Attribute("backgroundShader");
-
-            if (elem->Attribute("foregroundShader"))
-                foregroundShader = elem->Attribute("foregroundShader");
 
             if (elem->Attribute("AdjustBackgroundToSize"))
                 _flags |= AdjustBackgroundToSize;
