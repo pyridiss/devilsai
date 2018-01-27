@@ -42,8 +42,8 @@ void DropDownList::addEntry(textManager::PlainText& entry, string data)
 
 bool DropDownList::mouseHovering(RenderWindow& app)
 {
-    if ((int)Mouse::getPosition(app).x >= left() && (int)Mouse::getPosition(app).x <= left() + width() &&
-        (int)Mouse::getPosition(app).y >= top() && (int)Mouse::getPosition(app).y <= top() + height())
+    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
+        (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
     {
         return true;
     }
@@ -53,8 +53,8 @@ bool DropDownList::mouseHovering(RenderWindow& app)
 
 bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
 {
-    if ((int)Mouse::getPosition(app).x >= left() && (int)Mouse::getPosition(app).x <= left() + width() &&
-        (int)Mouse::getPosition(app).y >= top() + height() && (int)Mouse::getPosition(app).y <= top() + height() * (1 + (int)entries.size()))
+    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
+        (int)mousePosition().y >= top() + height() && (int)mousePosition().y <= top() + height() * (1 + (int)entries.size()))
     {
         return true;
     }
@@ -83,7 +83,7 @@ bool DropDownList::activated(RenderWindow& app, Event event)
         }
         else if (mouseHoveringDeveloped(app) && currentState == "developed")
         {
-            int i = Mouse::getPosition(app).y - (top() + height());
+            int i = mousePosition().y - (top() + height());
             index = i / height();
             setAllText(entries[index].first);
             currentState = "normal";
@@ -128,7 +128,7 @@ void DropDownList::display(RenderWindow& app)
 
         if (mouseHoveringDeveloped(app) && currentState == "developed")
         {
-            int i = (Mouse::getPosition(app).y - (top() + height())) / height();
+            int i = (mousePosition().y - (top() + height())) / height();
             i = min(i, (int)entries.size()-1);
             i = max(i, 0);
             RectangleShape drawing2(Vector2f(width(), height()));

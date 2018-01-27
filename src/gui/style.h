@@ -76,6 +76,9 @@ void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h)
 
 } //namespace style
 
+void updateMousePosition(RenderWindow & app);
+const Vector2i& mousePosition();
+
 } //namespace gui
 
 #endif // GUI_STYLE_H

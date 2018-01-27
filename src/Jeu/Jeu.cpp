@@ -121,6 +121,7 @@ void mainLoop(RenderWindow& app)
         Event event;
         while (app.pollEvent(event))
         {
+            gui::updateMousePosition(app);
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld && !cinematicMode)
             {
                 if (event.mouseButton.button == Mouse::Button::Left)
@@ -378,13 +379,13 @@ void mainLoop(RenderWindow& app)
                     -screen.position().y + gamedata::player()->position().y);
 
         //Mouse cursor
-        cursor.move(-cursor.position().x + app.mapPixelToCoords(Mouse::getPosition(app), worldView).x,
-                    -cursor.position().y + app.mapPixelToCoords(Mouse::getPosition(app), worldView).y);
+        cursor.move(-cursor.position().x + app.mapPixelToCoords(gui::mousePosition(), worldView).x,
+                    -cursor.position().y + app.mapPixelToCoords(gui::mousePosition(), worldView).y);
 
-        if (Mouse::getPosition(app).x >= app.getSize().x * worldView.getViewport().left &&
-            Mouse::getPosition(app).y >= app.getSize().y * worldView.getViewport().top &&
-            Mouse::getPosition(app).x <= app.getSize().x * (worldView.getViewport().left + worldView.getViewport().width) &&
-            Mouse::getPosition(app).y <= app.getSize().y * (worldView.getViewport().top + worldView.getViewport().height))
+        if (gui::mousePosition().x >= app.getSize().x * worldView.getViewport().left &&
+            gui::mousePosition().y >= app.getSize().y * worldView.getViewport().top &&
+            gui::mousePosition().x <= app.getSize().x * (worldView.getViewport().left + worldView.getViewport().width) &&
+            gui::mousePosition().y <= app.getSize().y * (worldView.getViewport().top + worldView.getViewport().height))
             cursorIsInWorld = true;
         else cursorIsInWorld = false;
 
@@ -473,8 +474,8 @@ void mainLoop(RenderWindow& app)
 
         if (showTooltip)
         {
-            int x = Mouse::getPosition(app).x + 10;
-            int y = Mouse::getPosition(app).y + 10;
+            int x = gui::mousePosition().x + 10;
+            int y = gui::mousePosition().y + 10;
             tooltip->setPosition(x, y);
             tooltip->show();
         }

@@ -121,6 +121,6 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
     if (selectedObject != nullptr)
     {
         string objectName = getStringFromLUA(selectedObject, "getFileName");
-        imageManager::display(target, "objects", objectName, Mouse::getPosition(target).x, Mouse::getPosition(target).y, true);
+        imageManager::display(target, "objects", objectName, gui::mousePosition().x, gui::mousePosition().y, true);
     }
 }

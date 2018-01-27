@@ -82,8 +82,8 @@ void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj)
     rich.addFlags(textManager::HAlignCenter);
     rich.create(description);
 
-    float x = Mouse::getPosition(target).x;
-    float y = Mouse::getPosition(target).y;
+    float x = gui::mousePosition().x;
+    float y = gui::mousePosition().y;
     float w = 300;
     float h = rich.height();
 

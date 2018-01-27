@@ -293,6 +293,8 @@ void Window::manage(RenderWindow& app)
         Event event;
         while (app.pollEvent(event))
         {
+            gui::updateMousePosition(app);
+
             manage(app, event);
         }
 

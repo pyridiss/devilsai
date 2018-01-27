@@ -32,6 +32,8 @@
 
 namespace gui{
 
+Vector2i MousePosition;
+
 namespace style{
 
 Font liberation;
@@ -180,5 +182,15 @@ void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h)
 }
 
 } //namespace style
+
+void updateMousePosition(RenderWindow & app)
+{
+    MousePosition = Mouse::getPosition(app);
+}
+
+const Vector2i& mousePosition()
+{
+    return MousePosition;
+}
 
 } //namespace gui

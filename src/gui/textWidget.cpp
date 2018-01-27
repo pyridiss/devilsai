@@ -45,8 +45,8 @@ void TextWidget::setVerticalScrolling(int percentage)
 
 bool TextWidget::mouseHovering(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= left() && Mouse::getPosition(app).x <= left() + width() &&
-        Mouse::getPosition(app).y >= top() && Mouse::getPosition(app).y <= top() + height())
+    if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
+        mousePosition().y >= top() && mousePosition().y <= top() + height())
     {
         return true;
     }
@@ -56,8 +56,8 @@ bool TextWidget::mouseHovering(RenderWindow& app)
 
 bool TextWidget::mouseHoveringVerticalScrollBar(RenderWindow& app)
 {
-    if (Mouse::getPosition(app).x >= left() + width() && Mouse::getPosition(app).x <= left() + width() + 20 &&
-        Mouse::getPosition(app).y >= top() && Mouse::getPosition(app).y <= top() + height())
+    if (mousePosition().x >= left() + width() && mousePosition().x <= left() + width() + 20 &&
+        mousePosition().y >= top() && mousePosition().y <= top() + height())
     {
         return true;
     }
@@ -69,14 +69,14 @@ bool TextWidget::activated(RenderWindow& app, Event event)
 {
     if (event.type == Event::MouseButtonPressed && mouseHoveringVerticalScrollBar(app))
     {
-        setVerticalScrolling((float)(Mouse::getPosition(app).y - top()) / (float)height() * 100);
+        setVerticalScrolling((float)(mousePosition().y - top()) / (float)height() * 100);
         _flags |= VerticalScrollBarInUse;
     }
     else if (event.type == Event::MouseMoved &&
         (mouseHovering(app) || mouseHoveringVerticalScrollBar(app)) &&
         (_flags & VerticalScrollBarInUse) == VerticalScrollBarInUse)
     {
-        setVerticalScrolling((float)(Mouse::getPosition(app).y - top()) / (float)height() * 100);
+        setVerticalScrolling((float)(mousePosition().y - top()) / (float)height() * 100);
     }
     else if (event.type == Event::MouseButtonReleased)
     {
