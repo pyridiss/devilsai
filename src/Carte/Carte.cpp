@@ -58,7 +58,8 @@ void Carte::insertItem(Element_Carte *elem)
 {
     if (elem == nullptr) return;
 
-	elements.push_back(elem);
+    elements.push_back(elem);
+    onScreenItems.push_back(elem);
 
     if (!elem->ignoreCollision)
         collidingItems.push_back(elem);
