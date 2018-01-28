@@ -40,7 +40,7 @@ class Image
 
     public:
         void set(string file, Vector2i of);
-        void applyShader(string file);
+        void applyShader(const Shader* shader);
         const Vector2u getSize();
         void display(RenderTarget& target, float x, float y, bool atCenter = false, const Shader* shader = nullptr);
 };

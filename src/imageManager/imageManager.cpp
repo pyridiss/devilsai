@@ -22,6 +22,8 @@
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 
+#include "gui/style.h"
+
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
@@ -36,6 +38,8 @@ typedef map < string, imageManager::Animation > AnimationDatabase;
 Database images;
 AnimationDatabase animations;
 string currentArchiveFile;
+bool Colorize = false;
+Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
 
 void addContainer(string container)
 {
@@ -62,9 +66,12 @@ void addImage(string container, string key, string file, Vector2i of)
 
     if (i == (*c).second.end())
     {
-        imageManager::Image img;
-        const auto& result = (*c).second.insert(Container::value_type(key, img));
+        const auto& result = c->second.emplace(key, Image());
         result.first->second.set(file, of);
+
+        if (Colorize)
+            result.first->second.applyShader(gui::style::getColorizeShader(ColorizeRed, ColorizeGreen, ColorizeBlue));
+
         tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
 }
@@ -82,6 +89,19 @@ void addArchiveFile(string path)
         tools::debug::message("File \"" + path + "\" open", "files", __FILENAME__, __LINE__);
         currentArchiveFile = path;
     }
+}
+
+void setColorizeParameters(Vector3f r, Vector3f g, Vector3f b)
+{
+    ColorizeRed = std::move(r);
+    ColorizeGreen = std::move(g);
+    ColorizeBlue = std::move(b);
+    Colorize = true;
+}
+
+void removeColorizeShader()
+{
+    Colorize = false;
 }
 
 string getCurrentArchiveFile()

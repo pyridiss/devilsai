@@ -35,6 +35,8 @@ class Animation;
 void addContainer(string container);
 void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0));
 void addArchiveFile(string path);
+void setColorizeParameters(Vector3f r, Vector3f g, Vector3f b);
+void removeColorizeShader();
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);
 imageManager::Image* getImage(string container, string key);

@@ -65,15 +65,14 @@ void Image::set(string file, Vector2i of)
     texture.setSmooth(false);
 }
 
-void Image::applyShader(string file)
+void Image::applyShader(const Shader* shader)
 {
     RenderTexture tex;
     tex.create(texture.getSize().x, texture.getSize().y);
+    tex.clear(Color(0, 0, 0, 0));
 
-    Shader shader;
-    shader.loadFromFile(tools::filesystem::dataDirectory() + file, Shader::Type::Fragment);
-
-    tex.draw(sprite, &shader);
+    tex.draw(sprite, shader);
+    tex.display();
 
     texture = tex.getTexture();
 }
