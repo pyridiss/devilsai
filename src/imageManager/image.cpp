@@ -26,21 +26,15 @@
 
 namespace imageManager{
 
-void Image::set(string file, Image* reference, Vector2i of)
+void Image::set(string file, Vector2i of)
 {
     offset = of;
 
     //Images can be loaded from a file or from an archive.
     bool fromFile = tools::filesystem::checkFile(tools::filesystem::dataDirectory() + file);
     bool fromArch = PHYSFS_exists(file.c_str());
-    bool fromRef  = (reference != nullptr);
 
-    if (fromRef)
-    {
-        sprite.setTexture(reference->texture);
-        sourceFile = reference->sourceFile;
-    }
-    else if (fromFile)
+    if (fromFile)
     {
         texture.loadFromFile(tools::filesystem::dataDirectory() + file);
         sprite.setTexture(texture);
@@ -63,7 +57,7 @@ void Image::set(string file, Image* reference, Vector2i of)
         PHYSFS_close(physfsFile);
     }
 
-    if (!fromRef && !fromFile && !fromArch)
+    if (!fromFile && !fromArch)
     {
         tools::debug::error("Unable to load file: " + file, "images", __FILENAME__, __LINE__);
     }

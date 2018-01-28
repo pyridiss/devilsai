@@ -63,20 +63,8 @@ void addImage(string container, string key, string file, Vector2i of)
     if (i == (*c).second.end())
     {
         imageManager::Image img;
-        imageManager::Image* reference = nullptr;
         const auto& result = (*c).second.insert(Container::value_type(key, img));
-        Container::iterator j = (*c).second.begin();
-        while (j != (*c).second.end())
-        {
-            if (j->second.sourceFile == file) reference = &(j->second);
-            if (getCurrentArchiveFile() != "")
-            {
-                string s = getCurrentArchiveFile() + "/" + file;
-                if (j->second.sourceFile == s) reference = &(j->second);
-            }
-            ++j;
-        }
-        result.first->second.set(file, reference, of);
+        result.first->second.set(file, of);
         tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
 }
