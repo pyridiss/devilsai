@@ -179,7 +179,7 @@ void addAnimation(string name, string file)
     {
         imageManager::Animation ani;
         const auto& result = animations.insert(AnimationDatabase::value_type(name, ani));
-        result.first->second.image.set(file, nullptr, Vector2i(0, 0));
+        result.first->second.image.set(file, Vector2i(0, 0));
     }
 }
 
