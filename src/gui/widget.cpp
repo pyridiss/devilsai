@@ -274,24 +274,9 @@ void Widget::setBackground(string state, string b)
     states.find(state)->second.background = b;
 }
 
-void Widget::setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int))
-{
-    states.find(state)->second.backgroundShader = s;
-}
-
-void Widget::setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int))
-{
-    states.find(state)->second.foregroundShader = s;
-}
-
 void Widget::setBackgroundShader(string state, string s)
 {
     states.find(state)->second.bShader = s;
-}
-
-void Widget::setForegroundShader(string state, string s)
-{
-    states.find(state)->second.fShader = s;
 }
 
 void Widget::addEmbeddedData(string name, string value)
@@ -354,17 +339,11 @@ void Widget::display(RenderWindow& app)
         }
     }
 
-    if (state->second.backgroundShader != nullptr)
-        state->second.backgroundShader(app, left(), top(), width(), height());
     else if (!state->second.bShader.empty())
         gui::style::displayShader(app, state->second.bShader, left(), top(), width(), height());
 
     state->second.text.displayFullText(app, left(), top());
 
-    if (state->second.foregroundShader != nullptr)
-        state->second.foregroundShader(app, left(), top(), width(), height());
-    else if (!state->second.fShader.empty())
-        gui::style::displayShader(app, state->second.fShader, left(), top(), width(), height());
 }
 
 void Widget::show()

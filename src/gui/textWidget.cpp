@@ -148,8 +148,6 @@ void TextWidget::display(RenderWindow& app)
         }
     }
 
-    if (state->second.backgroundShader != nullptr)
-        state->second.backgroundShader(app, left(), top(), width(), height());
     else if (!state->second.bShader.empty())
         gui::style::displayShader(app, state->second.bShader, left(), top(), width(), height());
 
@@ -178,11 +176,6 @@ void TextWidget::display(RenderWindow& app)
     {
         state->second.text.displayFullText(app, left(), top());
     }
-
-    if (state->second.foregroundShader != nullptr)
-        state->second.foregroundShader(app, left(), top(), width(), height());
-    else if (!state->second.fShader.empty())
-        gui::style::displayShader(app, state->second.fShader, left(), top(), width(), height());
 }
 
 } //namespace gui

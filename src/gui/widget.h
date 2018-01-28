@@ -47,16 +47,12 @@ class Widget
         {
             textManager::RichText text;
             string background;
-            void (*backgroundShader)(RenderWindow&, int, int, int, int) = nullptr;
-            void (*foregroundShader)(RenderWindow&, int, int, int, int) = nullptr;
             string bShader;
-            string fShader;
 
             minimalistWidget()
               : text(),
                 background(),
                 bShader(),
-                fShader()
             {
             }
         };
@@ -104,10 +100,7 @@ class Widget
 
         void setText(string state, const textManager::PlainText& t);
         void setBackground(string state, string b);
-        void setBackgroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
-        void setForegroundShader(string state, void (*s)(RenderWindow&, int, int, int, int));
         void setBackgroundShader(string state, string s);
-        void setForegroundShader(string state, string s);
 
         void addEmbeddedData(string name, string value);
         string embeddedData(string name);
