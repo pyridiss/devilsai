@@ -67,6 +67,7 @@ string buttonTextFont();
 int buttonTextSize();
 Color normalButtonTextColor();
 const Shader* getContrastShader(float r, float g, float b);
+const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b);
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
 void highlightShader(RenderWindow& app, int x, int y, int w, int h);
 void disableShader(RenderWindow& app, int x, int y, int w, int h);

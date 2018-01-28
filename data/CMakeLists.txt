@@ -24,6 +24,7 @@ set(data
     defaut.opt
     devilsai.png
     blurShader.frag
+    colorizeShader.frag
     contrastShader.frag
 )
 

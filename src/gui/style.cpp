@@ -42,6 +42,7 @@ Font dayroman;
 
 Shader blurShader;
 Shader contrastShader;
+Shader colorizeShader;
 
 void initStyle()
 {
@@ -50,9 +51,11 @@ void initStyle()
     dayroman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
     blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
+    colorizeShader.loadFromFile(tools::filesystem::dataDirectory() + "colorizeShader.frag", Shader::Type::Fragment);
 
     blurShader.setUniform("texture", Shader::CurrentTexture);
     contrastShader.setUniform("texture", Shader::CurrentTexture);
+    colorizeShader.setUniform("texture", Shader::CurrentTexture);
 }
 
 Font* defaultTextFont()
@@ -94,6 +97,14 @@ const Shader* getContrastShader(float r, float g, float b)
 {
     contrastShader.setUniform("luminosity", Glsl::Vec3(r, g, b));
     return &contrastShader;
+}
+
+const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b)
+{
+    colorizeShader.setUniform("red", r);
+    colorizeShader.setUniform("green", g);
+    colorizeShader.setUniform("blue", b);
+    return &colorizeShader;
 }
 
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
