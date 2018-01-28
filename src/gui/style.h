@@ -62,14 +62,10 @@ void initStyle();
 
 Font* defaultTextFont();
 Font* fontFromString(string f);
-Color colorFromString(string s);
 int defaultTextSize();
 string buttonTextFont();
 int buttonTextSize();
 Color normalButtonTextColor();
-Color activeButtonTextColor();
-Color hoverButtonTextColor();
-Color disabledButtonTextColor();
 const Shader* getContrastShader(float r, float g, float b);
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
 void highlightShader(RenderWindow& app, int x, int y, int w, int h);

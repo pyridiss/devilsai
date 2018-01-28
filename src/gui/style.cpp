@@ -69,13 +69,6 @@ Font* fontFromString(string s)
     return defaultTextFont();
 }
 
-Color colorFromString(string s)
-{
-    if (s == "white") return Color(255, 255, 255, 255);
-
-    return Color(0, 0, 0, 255);
-}
-
 int defaultTextSize()
 {
     return 10;
@@ -95,23 +88,6 @@ Color normalButtonTextColor()
 {
     //Color 'brick red4' from Oxygen color palette
     return Color(226, 8, 0, 255);
-}
-
-Color activeButtonTextColor()
-{
-    //Color 'brick red3' from Oxygen color palette
-    return Color(232, 87, 82, 255);
-}
-
-Color hoverButtonTextColor()
-{
-    //Color 'brick red5' from Oxygen color palette
-    return Color(191, 3, 3, 255);
-}
-
-Color disabledButtonTextColor()
-{
-    return Color(100, 100, 100, 192);
 }
 
 const Shader* getContrastShader(float r, float g, float b)
