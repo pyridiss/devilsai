@@ -87,23 +87,23 @@ void updateState()
 {
     if (_currentPage == 0)
     {
-        _first->setCurrentState("disabled");
-        _previous->setCurrentState("disabled");
+        _first->addFlags(gui::Disabled);
+        _previous->addFlags(gui::Disabled);
     }
     else
     {
-        _first->setCurrentState("normal");
-        _previous->setCurrentState("normal");
+        _first->addFlags(gui::Disabled);
+        _previous->addFlags(gui::Disabled);
     }
     if (_currentPage == _journal.size() - 1)
     {
-        _next->setCurrentState("disabled");
-        _last->setCurrentState("disabled");
+        _next->addFlags(gui::Disabled);
+        _last->addFlags(gui::Disabled);
     }
     else
     {
-        _next->setCurrentState("normal");
-        _last->setCurrentState("normal");
+        _next->addFlags(gui::Disabled);
+        _last->addFlags(gui::Disabled);
     }
 
     if (_journal.size() > _currentPage)

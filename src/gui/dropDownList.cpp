@@ -26,11 +26,7 @@ DropDownList::DropDownList()
   : entries(),
     index(0)
 {
-    addState("normal");
-    addState("developed");
-
-    states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
-    states.find("developed")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+    _text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
 
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
@@ -42,17 +38,25 @@ void DropDownList::addEntry(textManager::PlainText& entry, string data)
 
 bool DropDownList::mouseHovering(RenderWindow& app)
 {
+    if ((_flags & Disabled) == Disabled)
+        return false;
+
     if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
         (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
     {
+        _flags |= MouseOver;
         return true;
     }
+    else _flags &= ~MouseOver;
 
     return false;
 }
 
 bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
 {
+    if ((_flags & Activated) == 0)
+        return false;
+
     if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
         (int)mousePosition().y >= top() + height() && (int)mousePosition().y <= top() + height() * (1 + (int)entries.size()))
     {
@@ -64,34 +68,28 @@ bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
 
 bool DropDownList::activated(RenderWindow& app, Event event)
 {
+    if ((_flags & Disabled) == Disabled)
+        return false;
+
     if (event.type == Event::MouseButtonPressed)
     {
         if (mouseHovering(app))
         {
-            if (currentState == "normal")
-            {
-                currentState = "developed";
-                _needsFocus = true;
-                return false;
-            }
-            if (currentState == "developed")
-            {
-                currentState = "normal";
-                _needsFocus = false;
-                return false;
-            }
+            _flags ^= Activated;
+            _needsFocus = ((_flags & Activated) == Activated);
+            return false;
         }
-        else if (mouseHoveringDeveloped(app) && currentState == "developed")
+        else if (mouseHoveringDeveloped(app))
         {
             int i = mousePosition().y - (top() + height());
             index = i / height();
-            setAllText(entries[index].first);
-            currentState = "normal";
+            setText(entries[index].first);
+            _flags &= ~Activated;
             _needsFocus = false;
         }
-        else if (currentState == "developed")
+        else if ((_flags & Activated) == Activated)
         {
-            currentState = "normal";
+            _flags &= ~Activated;
             _needsFocus = false;
             return false;
         }
@@ -105,7 +103,7 @@ void DropDownList::setValue(const string& d)
     index = 0;
     while (index < entries.size() && entries[index].second != d)
         ++index;
-    setAllText(entries[index].first);
+    setText(entries[index].first);
 }
 
 string DropDownList::value()
@@ -115,9 +113,11 @@ string DropDownList::value()
 
 void DropDownList::display(RenderWindow& app)
 {
+    mouseHovering(app);
+
     Widget::display(app);
 
-    if (currentState == "developed")
+    if ((_flags & Activated) == Activated)
     {
         RectangleShape drawing(Vector2f(width(), height() * entries.size()));
         drawing.setPosition(left(), top() + height());
@@ -126,7 +126,7 @@ void DropDownList::display(RenderWindow& app)
         drawing.setOutlineThickness(1);
         app.draw(drawing);
 
-        if (mouseHoveringDeveloped(app) && currentState == "developed")
+        if (mouseHoveringDeveloped(app))
         {
             int i = (mousePosition().y - (top() + height())) / height();
             i = min(i, (int)entries.size()-1);
@@ -143,14 +143,14 @@ void DropDownList::display(RenderWindow& app)
             textManager::RichText t;
             t.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter | textManager::FixedHeight | textManager::VAlignCenter);
             t.setSize(width(), height());
-
-            if (i == index + 1)
-                t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
-            else
-                t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::activeButtonTextColor());
+            t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
 
             t.create(e.first);
-            t.displayFullText(app, getXCenter(), getYCenter() + i * height());
+
+            if (i == index + 1)
+                t.displayFullText(app, getXCenter(), getYCenter() + i * height(), style::getContrastShader(1, 0, 0));
+            else
+                t.displayFullText(app, getXCenter(), getYCenter() + i * height());
 
             ++i;
         }

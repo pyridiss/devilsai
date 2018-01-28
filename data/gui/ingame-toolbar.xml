@@ -9,27 +9,17 @@
     <loadImage key="button-rest" path="img/gui-rest-button.png"/>
     <properties width="100" WidthRelativeToScreenSize="1" height="50" backgroundImage="gui-top-border" RepeatBackgroundToFitSize="1"/>
     <widget name="button-ingame-menu" type="button" x="10" y="2" width="41" height="41" allBackground="button-ingame-menu" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="button-character" type="button" x="60" y="2" width="41" height="41" allBackground="button-character" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="button-equipment" type="button" x="110" y="2" width="41" height="41" allBackground="button-equipment" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="button-skills" type="button" x="160" y="2" width="41" height="41" allBackground="button-skills" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
     </widget>
     <widget name="button-journal" type="button" x="210" y="2" width="41" height="41" allBackground="button-journal" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
     </widget>
-    <widget name="warn-journal" type="text" x="210" y="2" width="41" height="41">
-        <state name="warn" foregroundShader="warn"/>
-    </widget>
-    <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest" AdjustBackgroundToSize="1">
-        <state name="hover" foregroundShader="highlight"/>
-        <state name="disabled" foregroundShader="disable"/>
-    </widget>
+    <widget name="warn-journal" type="text" x="210" y="2" width="41" height="41" backgroundShader="warn"/>
+    <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest" AdjustBackgroundToSize="1"/>
     <widget name="error" type="text" x="80" XPositionRelativeToCenter="1" OriginXCenter="1" y="16" allText="ingame-toolbar-error"/>
     <widget name="fps" type="text" x="100" XPositionRelativeToRight="1" y="16">
         <addEmbeddedData name="format" value="format-fps"/>
@@ -37,8 +27,7 @@
     <widget name="place-name" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120">
         <addEmbeddedData name="format" value="format-place-name"/>
     </widget>
-    <widget name="tooltip" type="text">
-        <state name="normal" backgroundShader="textBackground"/>
+    <widget name="tooltip" type="text" backgroundShader="textBackground">
         <addEmbeddedData name="format" value="format-tooltip"/>
     </widget>
     <signal emitter="button-ingame-menu" signal="ask-menu"/>
@@ -55,8 +44,8 @@
     <keyboardSignal key="4" signal="screen-equipment"/> <!-- 'E' -->
     <keyboardSignal key="10" signal="screen-skills"/> <!-- 'K' -->
     <keyboardSignal key="9" signal="screen-journal"/> <!-- 'J' -->
-    <signalListener signal="ingame-toolbar:disable-rest" widget="button-rest" state="disabled"/>
-    <signalListener signal="ingame-toolbar:enable-rest" widget="button-rest" state="normal"/>
-    <signalListener signal="ingame-toolbar:warn-journal" widget="warn-journal" state="warn"/>
-    <signalListener signal="ingame-toolbar:remove-warn-journal" widget="warn-journal" state="normal"/>
+    <signalListener signal="ingame-toolbar:disable-rest" widget="button-rest" action="disable"/>
+    <signalListener signal="ingame-toolbar:enable-rest" widget="button-rest" action="enable"/>
+    <signalListener signal="ingame-toolbar:warn-journal" widget="warn-journal" action="show"/>
+    <signalListener signal="ingame-toolbar:remove-warn-journal" widget="warn-journal" action="hide"/>
 </window>

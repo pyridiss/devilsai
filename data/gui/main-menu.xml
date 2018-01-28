@@ -11,8 +11,8 @@
     <signal emitter="button-load-game" signal="load-game"/>
     <signal emitter="button-options" signal="options"/>
     <signal emitter="button-exit" signal="exit"/>
-    <signalListener signal="main-menu:disable-load-game" widget="button-load-game" state="disabled"/>
-    <signalListener signal="main-menu:enable-load-game" widget="button-load-game" state="normal"/>
+    <signalListener signal="main-menu:disable-load-game" widget="button-load-game" action="disable"/>
+    <signalListener signal="main-menu:enable-load-game" widget="button-load-game" action="enable"/>
     <exitWindowSignal emitter="button-new-game"/>
     <exitWindowSignal emitter="button-load-game"/>
     <exitWindowSignal emitter="button-options"/>

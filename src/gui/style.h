@@ -50,7 +50,10 @@ enum Flags
     RepeatBackgroundToFitSize = 1 << 16,
     VerticalScrollBar = 1 << 17,
     VerticalScrollBarInUse = 1 << 18,
-    Hidden = 1 << 19
+    Hidden = 1 << 19,
+    Disabled = 1 << 20,
+    Activated = 1 << 21,
+    MouseOver = 1 << 22
 };
 
 namespace style{

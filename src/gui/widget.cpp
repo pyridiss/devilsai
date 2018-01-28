@@ -36,7 +36,9 @@ Widget::Widget()
     _flags(0),
     _textFlags(0),
     _parent(nullptr),
-    states(),
+    _text(),
+    _background(),
+    _backgroundShader(),
     _embeddedData()
 {
 }
@@ -49,7 +51,9 @@ Widget::Widget(const Widget& other)
     _flags(other._flags),
     _textFlags(other._textFlags),
     _parent(other._parent),
-    states(other.states),
+    _text(other._text),
+    _background(other._background),
+    _backgroundShader(other._backgroundShader),
     _embeddedData(other._embeddedData)
 {
 }
@@ -63,7 +67,9 @@ Widget& Widget::operator=(const Widget& right)
     _flags = right._flags;
     _textFlags = right._textFlags;
     _parent = right._parent;
-    states = right.states;
+    _text =  right._text;
+    _background = right._background;
+    _backgroundShader = right._backgroundShader;
     _embeddedData = right._embeddedData;
 
     return *this;
@@ -97,25 +103,14 @@ void Widget::addFlags(uint32_t newFlags)
     _flags |= newFlags;
 }
 
+void Widget::removeFlags(uint32_t newFlags)
+{
+    _flags &= ~newFlags;
+}
+
 void Widget::addTextFlags(uint16_t newFlags)
 {
     _textFlags |= newFlags;
-}
-
-void Widget::addState(string state)
-{
-    states.emplace(state, minimalistWidget());
-}
-
-void Widget::setCurrentState(string state)
-{
-    if (states.find(state) == states.end())
-    {
-        tools::debug::warning("gui", "An unknown state (" + state + ") has been asked to a widget; aborting.", __FILENAME__, __LINE__);
-        return;
-    }
-
-    currentState = state;
 }
 
 int Widget::left()
@@ -219,64 +214,40 @@ int Widget::height()
     return max(0, h);
 }
 
-void Widget::setAllText(const textManager::PlainText& t)
+void Widget::setText(const textManager::PlainText& t)
 {
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
         _textFlags &= ~textManager::FixedHeight;
     if ((_flags & VerticalScrollBar) == VerticalScrollBar)
         _textFlags &= ~textManager::FixedHeight;
 
-    for (auto& state : states)
-    {
-        setText(state.first, t);
-    }
-
-    if ((_flags & AdjustSizeToText) == AdjustSizeToText)
-        for (auto& state : states)
-        {
-            setText(state.first, t);
-        }
-}
-
-void Widget::setAllBackground(string b)
-{
-    for (auto& state : states)
-    {
-        setBackground(state.first, b);
-    }
-}
-
-void Widget::setText(string state, const textManager::PlainText& t)
-{
-    const auto& s = states.find(state);
-
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
     {
-        s->second.text.setSize(0, 0);
+        _text.setSize(0, 0);
         setSize(0, 0);
     }
     else
-        s->second.text.setSize(width(), height());
+        _text.setSize(width(), height());
 
-    s->second.text.addFlags(_textFlags);
+    _text.addFlags(_textFlags);
 
-    s->second.text.create(t);
+    _text.create(t);
 
     if ((_flags & AdjustSizeToText) == AdjustSizeToText)
     {
-        _width = max(_width, s->second.text.width());
-        _height = max(_height, s->second.text.height());
+        _width = max(_width, _text.width());
+        _height = max(_height, _text.height());
     }
 }
 
-void Widget::setBackground(string state, string b)
+void Widget::setBackground(string b)
 {
-    states.find(state)->second.background = b;
+    _background = std::move(b);
 }
 
-void Widget::setBackgroundShader(string state, string s)
+void Widget::setBackgroundShader(string s)
 {
-    states.find(state)->second.bShader = s;
+    _backgroundShader = std::move(s);
 }
 
 void Widget::addEmbeddedData(string name, string value)
@@ -296,31 +267,38 @@ bool Widget::needsFocus()
     return _needsFocus;
 }
 
-void Widget::display(RenderWindow& app)
+void Widget::displayBackground(RenderWindow& app)
 {
-    if ((_flags & Hidden) == Hidden)
-        return;
+    //Lambda function to display the background image which shaders according to flags.
+    auto backgroundImage = [this, &app](int x, int y)
+    {
+        if ((_flags & Disabled) == Disabled)
+            imageManager::display(app, "gui", _background, x, y, false, style::getContrastShader(0.25, 0.25, 0.25));
+        else if ((_flags & MouseOver) == MouseOver)
+            imageManager::display(app, "gui", _background, x, y, false, style::getContrastShader(1, 1, 1));
+        else
+            imageManager::display(app, "gui", _background, x, y);
+    };
 
-    const auto& state = states.find(currentState);
-
-    if (!state->second.background.empty())
+    if (!_background.empty())
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", state->second.background);
+            imageManager::Image* image = imageManager::getImage("gui", _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
             newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
 
             app.setView(newView);
-            imageManager::display(app, "gui", state->second.background, 0, 0);
+
+            backgroundImage(0, 0);
 
             app.setView(currentView);
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", state->second.background);
+            imageManager::Image* image = imageManager::getImage("gui", _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, width(), height()));
@@ -329,21 +307,38 @@ void Widget::display(RenderWindow& app)
             app.setView(newView);
             for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
                     for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
-                        imageManager::display(app, "gui", state->second.background, i * image->getSize().x, j * image->getSize().y);
+                        backgroundImage(i * image->getSize().x, j * image->getSize().y);
 
             app.setView(currentView);
         }
         else
         {
-            imageManager::display(app, "gui", state->second.background, left(), top());
+            backgroundImage(left(), top());
         }
     }
 
-    else if (!state->second.bShader.empty())
-        gui::style::displayShader(app, state->second.bShader, left(), top(), width(), height());
+    if (!_backgroundShader.empty())
+        gui::style::displayShader(app, _backgroundShader, left(), top(), width(), height());
+}
 
-    state->second.text.displayFullText(app, left(), top());
+void Widget::displayText(RenderWindow& app)
+{
+    if ((_flags & MouseOver) == MouseOver)
+        _text.displayFullText(app, left(), top(), style::getContrastShader(1, 0, 0));
+    else if ((_flags & Disabled) == Disabled)
+        _text.displayFullText(app, left(), top(), style::getContrastShader(0.25, 0.25, 0.25));
+    else
+        _text.displayFullText(app, left(), top());
+}
 
+void Widget::display(RenderWindow& app)
+{
+    if ((_flags & Hidden) == Hidden)
+        return;
+
+    displayBackground(app);
+
+    displayText(app);
 }
 
 void Widget::show()

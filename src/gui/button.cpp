@@ -25,16 +25,7 @@ namespace gui{
 
 Button::Button()
 {
-    addState("normal");
-    addState("active");
-    addState("hover");
-    addState("disabled");
-
-    states.find("normal")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
-    states.find("active")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::activeButtonTextColor());
-    states.find("hover")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::hoverButtonTextColor());
-    states.find("disabled")->second.text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::disabledButtonTextColor());
-
+    _text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
@@ -45,24 +36,27 @@ void Button::setAutoRelease(bool a)
 
 bool Button::mouseHovering(RenderWindow& app)
 {
-    if (currentState == "disabled") return false;
+    if ((_flags & Disabled) == Disabled)
+        return false;
 
     if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
         (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
     {
-        if (currentState == "normal") currentState = "hover";
+        _flags |= MouseOver;
         return true;
     }
+    else _flags &= ~MouseOver;
 
-    if (autoRelease) currentState = "normal";
-    else if (currentState == "hover") currentState = "normal";
+//     if (autoRelease) currentState = "normal";
+//     else if (currentState == "hover") currentState = "normal";
 
     return false;
 }
 
 bool Button::activated(RenderWindow& app, Event event)
 {
-    if (currentState == "disabled") return false;
+    if ((_flags & Disabled) == Disabled)
+        return false;
 
     if (mouseHovering(app))
     {
@@ -72,44 +66,42 @@ bool Button::activated(RenderWindow& app, Event event)
 
             if (autoRelease)
             {
-                currentState = "active";
+                _flags |= Activated;
                 return false; //We wait for MouseButtonReleased
             }
             else
             {
-                if (currentState == "active") currentState = "normal";
-                else currentState = "active";
+                _flags ^= Activated;
                 return true;
             }
         }
         if (event.type == Event::MouseButtonReleased)
         {
-            if (currentState == "active")
+            if ((_flags & Activated) == Activated)
             {
                 if (autoRelease)
                 {
-                    currentState = "normal";
+                    _flags &= ~Activated;
                     return true;
                 }
                 else //MouseButtonReleased must not be used
                 {
-                    if (currentState == "active") return true;
-                    else return false;
+                    return (_flags & Activated);
                 }
             }
             else return false;
         }
 
-        if (!autoRelease && currentState == "active")
+        if (!autoRelease && (_flags & Activated) == Activated)
             return true;
 
         return false;
     }
 
-    if (autoRelease)
-        currentState = "normal";
+//     if (autoRelease)
+//         currentState = "normal";
 
-    if (!autoRelease && currentState == "active")
+    if (!autoRelease && (_flags & Activated) == Activated)
         return true;
 
     return false;

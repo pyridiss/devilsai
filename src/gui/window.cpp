@@ -218,7 +218,14 @@ void Window::display(RenderWindow& app)
             auto i = widgets.find(get<1>(l));
             if (i != widgets.end())
             {
-                i->second->setCurrentState(get<2>(l));
+                if (get<2>(l) == "enable")
+                    i->second->removeFlags(Disabled);
+                else if (get<2>(l) == "disable")
+                    i->second->addFlags(Disabled);
+                else if (get<2>(l) == "show")
+                    i->second->removeFlags(Hidden);
+                else if (get<2>(l) == "hide")
+                    i->second->addFlags(Hidden);
                 get<0>(l).signalSent = false;
             }
         }
@@ -574,10 +581,7 @@ void Window::loadFromFile(string path)
             }
 
             if (elem->Attribute("allBackground"))
-            {
-                string b = elem->Attribute("allBackground");
-                widget->setAllBackground(b);
-            }
+                widget->setBackground(elem->Attribute("allBackground"));
 
             if (elem->Attribute("AdjustBackgroundToSize"))
                 widget->addFlags(AdjustBackgroundToSize);
@@ -588,10 +592,10 @@ void Window::loadFromFile(string path)
                 widget->addFlags(VerticalScrollBar);
 
             if (elem->Attribute("allText"))
-            {
-                string t = elem->Attribute("allText");
-                widget->setAllText(textManager::getText("gui", t));
-            }
+                widget->setText(textManager::getText("gui", elem->Attribute("allText")));
+
+            if (elem->Attribute("backgroundShader"))
+                widget->setBackgroundShader(elem->Attribute("backgroundShader"));
 
             XMLHandle hdl2(elem);
             XMLElement *elem2 = hdl2.FirstChildElement().ToElement();
@@ -599,29 +603,6 @@ void Window::loadFromFile(string path)
             {
                 string elem2Name = elem2->Name();
 
-                if (elem2Name == "state")
-                {
-                    string stateName = elem2->Attribute("name");
-                    widget->addState(stateName);
-
-                    if (elem2->Attribute("text"))
-                    {
-                        string t = elem2->Attribute("text");
-                        widget->setText(stateName, textManager::getText("gui", t));
-                    }
-
-                    if (elem2->Attribute("backgroundShader"))
-                    {
-                        string s = elem2->Attribute("backgroundShader");
-                        widget->setBackgroundShader(stateName, s);
-                    }
-
-                    if (elem2->Attribute("foregroundShader"))
-                    {
-                        string s = elem2->Attribute("foregroundShader");
-                        widget->setForegroundShader(stateName, s);
-                    }
-                }
                 if (elem2Name == "addEmbeddedData")
                 {
                     string name, value;
@@ -679,11 +660,11 @@ void Window::loadFromFile(string path)
         {
             string signal = elem->Attribute("signal");
             string widget = elem->Attribute("widget");
-            string state = elem->Attribute("state");
+            string action = elem->Attribute("action");
 
             tools::signals::SignalListener l;
             l.signal = signal;
-            signalListeners.push_back(tuple<tools::signals::SignalListener, string, string>(l, widget, state));
+            signalListeners.push_back(tuple<tools::signals::SignalListener, string, string>(l, widget, action));
             tools::signals::registerListener(&(get<0>(signalListeners.back())));
         }
 

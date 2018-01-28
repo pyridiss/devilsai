@@ -27,9 +27,7 @@ ScrollingList::ScrollingList()
     index(0),
     firstEntryDisplayed(0)
 {
-    addState("normal");
-
-    states.find("normal")->second.text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
+    _text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
 }
 
 void ScrollingList::addEntry(textManager::PlainText& entry, string data)

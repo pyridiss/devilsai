@@ -27,9 +27,7 @@ namespace gui{
 InputField::InputField()
   : input()
 {
-    addState("normal");
-
-    states.find("normal")->second.text.setDefaultProperties("liberation", 15, Color::Black);
+    _text.setDefaultProperties("liberation", 15, Color::Black);
 
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
@@ -60,7 +58,7 @@ bool InputField::activated(RenderWindow& app, Event event)
                         break;
         }
 
-        setAllText(textManager::PlainText(input));
+        setText(textManager::PlainText(input));
     }
 
     return false;

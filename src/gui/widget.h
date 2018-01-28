@@ -43,30 +43,15 @@ class Window;
 class Widget
 {
     protected:
-        struct minimalistWidget
-        {
-            textManager::RichText text;
-            string background;
-            string bShader;
-
-            minimalistWidget()
-              : text(),
-                background(),
-                bShader(),
-            {
-            }
-        };
-
-    protected:
         int _x, _y;
         int _width, _height;
         uint32_t _flags;
         uint16_t _textFlags;
         Window* _parent;
 
-        map < string, minimalistWidget> states;
-
-        string currentState = "normal";
+        textManager::RichText _text;
+        string _background;
+        string _backgroundShader;
 
         map<string, string> _embeddedData;
 
@@ -78,15 +63,17 @@ class Widget
         Widget& operator=(const Widget& right);
         virtual ~Widget() = default;
 
+    protected:
+        void displayBackground(RenderWindow& app);
+        void displayText(RenderWindow& app);
+
     public:
         void setPosition(int x, int y);
         void setParent(Window* p);
         void setSize(int w, int h);
         void addFlags(uint32_t newFlags);
+        void removeFlags(uint32_t newFlags);
         void addTextFlags(uint16_t newFlags);
-
-        void addState(string state);
-        void setCurrentState(string state);
 
         int left();
         int top();
@@ -95,12 +82,9 @@ class Widget
         int width();
         int height();
 
-        void setAllText(const textManager::PlainText& t);
-        void setAllBackground(string b);
-
-        void setText(string state, const textManager::PlainText& t);
-        void setBackground(string state, string b);
-        void setBackgroundShader(string state, string s);
+        void setText(const textManager::PlainText& t);
+        void setBackground(string b);
+        void setBackgroundShader(string s);
 
         void addEmbeddedData(string name, string value);
         string embeddedData(string name);

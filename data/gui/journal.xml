@@ -3,9 +3,7 @@
     <loadImage key="gui-screen-background" path="img/gui-screen-background.png"/>
     <properties x="0" y="0" WidthRelativeToScreenSize="1" width="50" HeightRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1" backgroundImage="gui-screen-background"/>
     <widget name="title" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="60" allText="journal-title"/>
-    <widget name="text" type="text" OriginCenter="1" XPositionRelativeToScreenSize="1" x="50" YPositionRelativeToCenter="1" y="-20" width="20" WidthMeansFixedMargin="1" height="250" HeightMeansFixedMargin="1" VerticalScrollBar="1">
-        <state name="normal" backgroundShader="textBackground"/>
-    </widget>
+    <widget name="text" type="text" OriginCenter="1" XPositionRelativeToScreenSize="1" x="50" YPositionRelativeToCenter="1" y="-20" width="20" WidthMeansFixedMargin="1" height="250" HeightMeansFixedMargin="1" VerticalScrollBar="1" backgroundShader="textBackground"/>
     <widget name="number" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="125" YPositionRelativeToBottom="1"/>
     <widget name="first" type="button" OriginXCenter="1" x="100" y="100" YPositionRelativeToBottom="1" AdjustSizeToText="1" allText="journal-first"/>
     <widget name="previous" type="button" OriginXCenter="1" x="200" y="100" YPositionRelativeToBottom="1" AdjustSizeToText="1" allText="journal-previous"/>
