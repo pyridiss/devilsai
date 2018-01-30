@@ -255,6 +255,7 @@ class Individu : public Element_Carte
         bool MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals);
 		virtual void Gestion_Recuperation();
         bool Set_Activite(string nv);
+        bool Set_Activite(Behaviors b);
 		int Collision(Individu *elem, bool apply);
         void otherItemDeleted(Element_Carte* other);
         void nextAnimationFrame(bool RaZ = false);

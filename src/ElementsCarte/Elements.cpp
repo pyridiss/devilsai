@@ -101,6 +101,11 @@ bool Individu::Set_Activite(string nv)
 	return true;
 }
 
+bool Individu::Set_Activite(Behaviors b)
+{
+    return Set_Activite(behavior(b));
+}
+
 int Individu::Collision(Individu *elem, bool apply)
 {
 	return COLL_PRIM_MVT;

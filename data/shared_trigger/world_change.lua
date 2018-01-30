@@ -13,13 +13,14 @@ function collision(item, apply, data)
         if movementDone then
             if item == getElement("player") then
                 updateCurrentWorld(w)
+                stopPlayer()
             end
         end
 
         return 0
     end
 
-    return 0
+    return 4
 end
 
 function mouseHovering(data)
