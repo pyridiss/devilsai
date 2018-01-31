@@ -66,13 +66,31 @@ void CheckPoint::Disp(RenderTarget& target)
 
 /** FONCTIONS DE LA CLASSE Trigger **/
 
-Trigger::Trigger() : Element_Carte()
+Trigger::Trigger()
+  : Element_Carte(),
+    triggerScript(),
+    data(),
+    script(nullptr)
 {
-	Element_Carte::Type = "ACTIONNEUR";
+    Element_Carte::Type = "ACTIONNEUR";
     inert = true;
 }
-Trigger::~Trigger()
+Trigger::Trigger(const Trigger& other)
+  : Element_Carte(other),
+    triggerScript(other.triggerScript),
+    data(other.data),
+    script(other.script)
 {
+}
+
+Trigger& Trigger::operator=(const Trigger& right)
+{
+    Element_Carte::operator=(right);
+    triggerScript = right.triggerScript;
+    data = right.data;
+    script = right.script;
+
+    return *this;
 }
 
 int Trigger::Gestion()
@@ -157,5 +175,5 @@ void Trigger::Disp(RenderTarget& target)
 {
     if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
         size.display(target, Color(0, 255, 0, 50));
-	return;
+    return;
 }

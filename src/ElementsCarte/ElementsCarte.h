@@ -372,8 +372,9 @@ class Trigger : public Element_Carte
         lua_State* script;
 
 	public:
-		Trigger();
-		~Trigger();
+        Trigger();
+        Trigger(const Trigger& other);
+        Trigger& operator=(const Trigger& right);
 
 	public:
 		int Gestion();
