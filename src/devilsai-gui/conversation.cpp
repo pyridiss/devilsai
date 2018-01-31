@@ -30,7 +30,7 @@
 #include "gamedata.h"
 #include "Jeu/options.h"
 
-#include "devilsai-gui/dialogScreen.h"
+#include "devilsai-gui/conversation.h"
 
 using namespace std;
 using namespace sf;

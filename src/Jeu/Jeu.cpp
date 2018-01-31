@@ -38,7 +38,7 @@
 #include "inventoryScreenManager.h"
 #include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
-#include "devilsai-gui/dialogScreen.h"
+#include "devilsai-gui/conversation.h"
 #include "devilsai-gui/journal.h"
 
 #include "gamedata.h"
@@ -65,7 +65,7 @@ void mainLoop(RenderWindow& app)
     gui::Window inventoryWindow("gui/inventory.xml", app);
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
-    gui::Window dialogScreen("gui/dialog-screen.xml", app);
+    gui::Window dialogScreen("gui/conversation.xml", app);
     gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");

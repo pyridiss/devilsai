@@ -2,7 +2,7 @@
 set(gui
     character.xml
     confirm-exit-game.xml
-    dialog-screen.xml
+    conversation.xml
     ingame-menu.xml
     ingame-skillbar.xml
     ingame-toolbar.xml
