@@ -32,9 +32,9 @@ set(devilsai_SRCS
 	Carte/Carte.h
 	Carte/Interactions.cpp
     devilsai-gui/conversation.cpp
+    devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
 	gamedata.cpp
-    inventoryScreenManager.cpp
     skillbarManager.cpp
     storageBoxScreenManager.cpp
 	ElementsCarte/Actionneurs.cpp

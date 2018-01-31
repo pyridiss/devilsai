@@ -26,7 +26,6 @@
 
 #include "gamedata.h"
 
-#include "inventoryScreenManager.h"
 
 //Defined in Attributs/Objets.cpp
 void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj);

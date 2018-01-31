@@ -35,10 +35,10 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
-#include "inventoryScreenManager.h"
 #include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
 #include "devilsai-gui/conversation.h"
+#include "devilsai-gui/inventory.h"
 #include "devilsai-gui/journal.h"
 
 #include "gamedata.h"
