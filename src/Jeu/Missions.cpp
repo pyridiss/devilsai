@@ -27,7 +27,7 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu/options.h"
 
-#include "devilsai-screens/journal.h"
+#include "devilsai-gui/journal.h"
 
 #include "gamedata.h"
 

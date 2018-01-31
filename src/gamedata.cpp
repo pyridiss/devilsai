@@ -28,7 +28,7 @@
 
 #include "musicManager/musicManager.h"
 
-#include "devilsai-screens/journal.h"
+#include "devilsai-gui/journal.h"
 
 #include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"

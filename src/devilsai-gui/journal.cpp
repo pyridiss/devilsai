@@ -22,7 +22,7 @@
 #include "gui/widget.h"
 #include "gui/window.h"
 
-#include "devilsai-screens/journal.h"
+#include "devilsai-gui/journal.h"
 
 using namespace tinyxml2;
 

@@ -38,8 +38,8 @@
 #include "inventoryScreenManager.h"
 #include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
-#include "devilsai-screens/dialogScreen.h"
-#include "devilsai-screens/journal.h"
+#include "devilsai-gui/dialogScreen.h"
+#include "devilsai-gui/journal.h"
 
 #include "gamedata.h"
 #include "options.h"
