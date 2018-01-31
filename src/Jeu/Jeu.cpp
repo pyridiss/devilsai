@@ -65,7 +65,6 @@ void mainLoop(RenderWindow& app)
     gui::Window inventoryWindow("gui/inventory.xml", app);
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
-    gui::Window dialogScreen("gui/conversation.xml", app);
     gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
@@ -76,7 +75,7 @@ void mainLoop(RenderWindow& app)
     gui::Widget* playerDescription = characterWindow.widget("text");
     error->hide();
 
-    startDialogScreen(dialogScreen, app);
+    initConversation(app);
     initJournal(app);
 
     options::initLoadGameWindow(loadGameWindow);
@@ -153,8 +152,7 @@ void mainLoop(RenderWindow& app)
 
             ingameToolbar.manage(app, event);
             ingameSkillbar.manage(app, event);
-
-            manageDialogScreen(app, event);
+            manageConversation(app, event);
 
             switch (currentLeftScreen)
             {
@@ -194,7 +192,7 @@ void mainLoop(RenderWindow& app)
         }
 
         ingameSkillbar.checkKeyboardState();
-        manageDialogScreen(app);
+        manageConversation(app);
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
@@ -510,7 +508,7 @@ void mainLoop(RenderWindow& app)
             Disp_Consoles(app);
         }
 
-        displayDialogScreen(dialogScreen, app);
+        displayConversation(app);
 
         switch (currentLeftScreen)
         {

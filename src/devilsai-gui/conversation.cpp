@@ -35,20 +35,25 @@
 using namespace std;
 using namespace sf;
 
+gui::Window Gui;
+
 textManager::RichText* _currentDialog = nullptr;
 float _x = 0, _y = 0, _w = 0, _h = 0;
 float _currentOffset = 0;
 int _currentSpeed = 0;
 gui::Button *_restart = nullptr, *_ok = nullptr, *_faster = nullptr, *_slower = nullptr;
 
-void startDialogScreen(gui::Window& window, RenderWindow& target)
+void initConversation(RenderWindow& target)
 {
-    _restart = dynamic_cast<gui::Button*>(window.widget("restart"));
-    _ok = dynamic_cast<gui::Button*>(window.widget("ok"));
-    _faster = dynamic_cast<gui::Button*>(window.widget("faster"));
-    _slower = dynamic_cast<gui::Button*>(window.widget("slower"));
+    Gui.startWindow(target);
+    Gui.loadFromFile("gui/conversation.xml");
 
-    gui::TextWidget* text = dynamic_cast<gui::TextWidget*>(window.widget("text"));
+    _restart = dynamic_cast<gui::Button*>(Gui.widget("restart"));
+    _ok = dynamic_cast<gui::Button*>(Gui.widget("ok"));
+    _faster = dynamic_cast<gui::Button*>(Gui.widget("faster"));
+    _slower = dynamic_cast<gui::Button*>(Gui.widget("slower"));
+
+    gui::TextWidget* text = dynamic_cast<gui::TextWidget*>(Gui.widget("text"));
 
     _x = text->left();
     _y = text->top();
@@ -62,7 +67,7 @@ void startDialogScreen(gui::Window& window, RenderWindow& target)
     _currentSpeed = options::option<unsigned>(tools::math::sdbm_hash("dialog-speed"));
 }
 
-void manageDialogScreen(RenderWindow& target, Event& event)
+void manageConversation(RenderWindow& target, Event& event)
 {
     if (_currentDialog != nullptr)
     {
@@ -95,7 +100,7 @@ void manageDialogScreen(RenderWindow& target, Event& event)
     }
 }
 
-void manageDialogScreen(RenderWindow& target)
+void manageConversation(RenderWindow& target)
 {
     if (!gamedata::listDialogs().empty() && _currentDialog == nullptr)
     {
@@ -117,12 +122,12 @@ void manageDialogScreen(RenderWindow& target)
     }
 }
 
-void displayDialogScreen(gui::Window& window, RenderWindow& target)
+void displayConversation(RenderWindow& target)
 {
     if (_currentDialog == nullptr)
         return;
 
-    window.display(target);
+    Gui.display(target);
 
     View newView(FloatRect(0, (int)_currentOffset, _w, _h));
     newView.setViewport(FloatRect(_x/(float)target.getSize().x, _y/(float)target.getSize().y, _w/(float)target.getSize().x, _h/(float)target.getSize().y));

@@ -31,9 +31,9 @@ namespace gui
     class Window;
 }
 
-void startDialogScreen(gui::Window& window, sf::RenderWindow& target);
-void manageDialogScreen(sf::RenderWindow& target, sf::Event& event);
-void manageDialogScreen(sf::RenderWindow& target);
-void displayDialogScreen(gui::Window& window, RenderWindow& target);
+void initConversation(sf::RenderWindow& target);
+void manageConversation(sf::RenderWindow& target, sf::Event& event);
+void manageConversation(sf::RenderWindow& target);
+void displayConversation(RenderWindow& target);
 
 #endif // DEVILSAICREENS_DIALOGSCREEN_H
