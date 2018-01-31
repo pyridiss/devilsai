@@ -121,6 +121,7 @@ void mainLoop(RenderWindow& app)
         while (app.pollEvent(event))
         {
             gui::updateMousePosition(app);
+
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld && !cinematicMode)
             {
                 if (event.mouseButton.button == Mouse::Button::Left)
@@ -186,8 +187,6 @@ void mainLoop(RenderWindow& app)
                     openStorageBox = nullptr;
                 }
                 selectedStorageBox = -1;
-
-                if (event.key.code == Keyboard::Escape) cout << endl;
             }
         }
 
