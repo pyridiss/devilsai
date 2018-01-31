@@ -269,8 +269,13 @@ void Disp_Consoles(RenderTarget& target)
 		{
 			ConsoleAmeliorations[a].Temps += tools::timeManager::I(1);
 			if (ConsoleAmeliorations[a].Temps < 345)
-				Disp_Texte(ConsoleAmeliorations[a].Ligne, 210, 400-16*ConsoleAmeliorations[a].NumLigne, ConsoleAmeliorations[a].Couleur, 13.f);
-
+            {
+                textManager::RichText rich;
+                rich.setSize(500, 0);
+                rich.setDefaultProperties("liberation", 13, ConsoleAmeliorations[a].Couleur);
+                rich.create(ConsoleAmeliorations[a].Ligne);
+                rich.displayFullText(target, 210, 400-16*ConsoleAmeliorations[a].NumLigne);
+            }
 			if (ConsoleAmeliorations[a].Temps == 300) ConsoleAmeliorations[a].Affichage = false;
 		}
 	}
