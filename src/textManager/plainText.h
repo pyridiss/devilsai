@@ -44,8 +44,10 @@ class PlainText
         PlainText();
         PlainText(const string& str);
         PlainText(const basic_string<unsigned int>& str);
+        PlainText(int i);
         PlainText& operator+=(const PlainText& right);
         PlainText& operator+=(const char* right);
+        PlainText& operator+=(int i);
         ~PlainText();
 
     private:

@@ -43,6 +43,14 @@ PlainText::PlainText(const basic_string<unsigned int>& str)
     set(str);
 }
 
+PlainText::PlainText(int i)
+  : PlainText()
+{
+    stringstream out;
+    out << i;
+    set(out.str());
+}
+
 PlainText& PlainText::operator+=(const PlainText& right)
 {
     _originalText += right._originalText;
@@ -64,6 +72,16 @@ PlainText& PlainText::operator+=(const char* right)
     findParametersNeeded();
 
     return *this;
+}
+
+PlainText& PlainText::operator+=(int i)
+{
+    _aggregatedText.clear();
+
+    stringstream out;
+    out << i;
+    string a = out.str();
+    return operator+=(a);
 }
 
 PlainText::~PlainText()
