@@ -106,8 +106,11 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
 
             if (getBoolFromLUA(obj->second, "getCumul"))
             {
-                string StrNombre = intToString(getIntFromLUA(obj->second, "getQuantite"));
-                Disp_Texte(StrNombre, slot.second->left() + 30, slot.second->top() + 30, Color(255,255,255), 12.);
+                textManager::RichText number;
+                number.setSize(50, 0);
+                number.setDefaultProperties("liberation", 12, Color(255, 255, 255));
+                number.create(getIntFromLUA(obj->second, "getQuantite"));
+                number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
             }
 
             if (slot.second->mouseHovering(target))
