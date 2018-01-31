@@ -74,9 +74,7 @@ double ToSegment(double, int, int);
 void Verbose(const string&, const short&);
 void Erreur(const string&, const string&);
 void Erreur(const string&, const float&);
-void Disp_Texte(const textManager::PlainText&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
 void Disp_TexteCentre(const textManager::PlainText&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
-void Disp_Texte(const string&, int, int, Color couleur=Color(255,255,255,255), float Size=16.f, const Font &CharFont=*gui::style::defaultTextFont());
 string intToString(double, int size = -1);
 
 #endif

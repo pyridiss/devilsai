@@ -221,24 +221,6 @@ void Erreur(const string &Message1, const float &Num)
 	Erreur(Message1, intToString(Num));
 }
 
-void Disp_Texte(const textManager::PlainText &str, int x, int y, Color couleur, float Size, const Font &CharFont)
-{
-	Text Texte(str.aggregatedText(), CharFont, Size);
-	Texte.setPosition(x, y);
-	Texte.setFillColor(couleur);
-
-	App.draw(Texte);
-}
-
-void Disp_Texte(const string &str, int x, int y, Color couleur, float Size, const Font &CharFont)
-{
-	Text Texte(str, CharFont, Size);
-	Texte.setPosition(x, y);
-	Texte.setFillColor(couleur);
-
-	App.draw(Texte);
-}
-
 void Disp_TexteCentre(const textManager::PlainText &str, int x, int y, Color couleur, float Size, const Font &CharFont)
 {
 	Text Texte(str.aggregatedText(), CharFont, Size);
