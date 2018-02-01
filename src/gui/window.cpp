@@ -603,12 +603,22 @@ void Window::loadFromFile(string path)
             {
                 string elem2Name = elem2->Name();
 
-                if (elem2Name == "addEmbeddedData")
+                if (elem2Name == "addEmbeddedData" && elem2->Attribute("name") && elem2->Attribute("value"))
                 {
-                    string name, value;
-                    if (elem2->Attribute("name")) name = elem2->Attribute("name");
-                    if (elem2->Attribute("value")) value = elem2->Attribute("value");
-                    widget->addEmbeddedData<string>(name, value);
+                    string name = elem2->Attribute("name");
+
+                    if (elem2->Attribute("type"))
+                    {
+                        string_view dataType = elem2->Attribute("type");
+                        if (dataType == "plaintext")
+                            widget->addEmbeddedData<textManager::PlainText>(name, textManager::PlainText(elem2->Attribute("value")));
+                        else if (dataType == "string")
+                            widget->addEmbeddedData<string>(name, elem2->Attribute("value"));
+                    }
+                    else
+                    {
+                        widget->addEmbeddedData<string>(name, elem2->Attribute("value"));
+                    }
                 }
                 if (elem2Name == "addEntry" && type == "drop-down-list")
                 {
