@@ -9,6 +9,9 @@
     Copyright (C) Tibor Djurica Potpara
 */
 
+#ifndef TOOLS_VARIANT_H
+#define TOOLS_VARIANT_H
+
 #include <utility>
 #include <typeinfo>
 
@@ -144,3 +147,5 @@ public:
 } //namespace math
 
 } //namespace tools
+
+#endif // TOOLS_VARIANT_H
