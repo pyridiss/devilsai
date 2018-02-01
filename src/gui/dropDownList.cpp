@@ -33,7 +33,7 @@ DropDownList::DropDownList()
 
 void DropDownList::addEntry(textManager::PlainText& entry, string data)
 {
-    entries.push_back(pair<textManager::PlainText, string>(entry, data));
+    entries.emplace_back(entry, data);
 }
 
 bool DropDownList::mouseHovering(RenderWindow& app)
@@ -98,17 +98,12 @@ bool DropDownList::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void DropDownList::setValue(const string& d)
+void DropDownList::setValue(optionType v)
 {
     index = 0;
-    while (index < entries.size() && entries[index].second != d)
+    while (index < entries.size() && entries[index].second != v.get<string>())
         ++index;
     setText(entries[index].first);
-}
-
-string DropDownList::value()
-{
-    return entries[index].second;
 }
 
 void DropDownList::display(RenderWindow& app)

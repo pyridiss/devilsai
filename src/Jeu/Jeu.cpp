@@ -255,9 +255,11 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
-                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData("format"));
+                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData<string>("format"));
                 t.addParameter(signal.second);
-                playerName->setValue(t.toStdString());
+                gui::optionType o;
+                o.set<textManager::PlainText>(t);
+                playerName->setValue(o);
             }
             if (signal.first == "load-game")
             {
@@ -331,9 +333,11 @@ void mainLoop(RenderWindow& app)
 
             if (signal.first == "place-changed") {
                 ChangementLieu = 100;
-                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData("format"));
+                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData<string>("format"));
                 t.addParameter(textManager::getText("places", signal.second));
-                placeName->setValue(t.toStdString());
+                gui::optionType o;
+                o.set<textManager::PlainText>(t);
+                placeName->setValue(o);
                 placeName->show();
             }
 
@@ -341,9 +345,11 @@ void mainLoop(RenderWindow& app)
                 gamedata::player()->Set_Activite(signal.second);
             }
             if (signal.first == "add-tooltip") {
-                textManager::PlainText t = textManager::getText("devilsai", tooltip->embeddedData("format"));
+                textManager::PlainText t = textManager::getText("devilsai", tooltip->embeddedData<string>("format"));
                 t.addParameter(textManager::getText("places", signal.second));
-                tooltip->setValue(t.toStdString());
+                gui::optionType o;
+                o.set<textManager::PlainText>(t);
+                tooltip->setValue(o);
                 showTooltip = true;
             }
             if (signal.first == "enable-cinematic-mode") {
@@ -441,17 +447,17 @@ void mainLoop(RenderWindow& app)
                     gamedata::player()->stopHunting();
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->value(), false);
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->embeddedData<string>("value"), false);
             }
             else if (Mouse::isButtonPressed(Mouse::Right) || rightClick)
             {
                 if (gamedata::player()->selectedIndividual == nullptr)
                 {
                     gamedata::player()->updateAngle(cursor.position());
-                    gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->value());
+                    gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->embeddedData<string>("value"));
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->value(), true);
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->embeddedData<string>("value"), true);
             }
             else gamedata::player()->selectedIndividual = nullptr;
 
@@ -518,9 +524,13 @@ void mainLoop(RenderWindow& app)
                 displayJournal(app);
                 break;
             case LeftScreens::Character:
-                playerDescription->setValue(gamedata::player()->characterDescription().toStdString());
+            {
+                gui::optionType o;
+                o.set<textManager::PlainText>(gamedata::player()->characterDescription());
+                playerDescription->setValue(o);
                 characterWindow.display(app);
                 break;
+            }
             default:
                 break;
         }
@@ -533,9 +543,11 @@ void mainLoop(RenderWindow& app)
                 break;
         }
 
-        textManager::PlainText t = textManager::getText("devilsai", fps->embeddedData("format"));
+        textManager::PlainText t = textManager::getText("devilsai", fps->embeddedData<string>("format"));
         t.addParameter(tools::timeManager::getFPS());
-        fps->setValue(t.toStdString());
+        gui::optionType o;
+        o.set<textManager::PlainText>(t);
+        fps->setValue(o);
 
         ingameToolbar.display(app);
         displaySkillbar(ingameSkillbar, app);

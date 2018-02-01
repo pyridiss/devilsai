@@ -339,7 +339,7 @@ void Window::manage(RenderWindow& app, Event &event)
                     string d;
 
                     if (!get<2>(signal).empty() && widgets.find(get<2>(signal)) != widgets.end())
-                        d = widgets.find(get<2>(signal))->second->value();
+                        d = widgets.find(get<2>(signal))->second->embeddedData<string>("value");
 
                     tools::signals::addSignal(get<1>(signal), d);
                 }
@@ -365,7 +365,7 @@ void Window::manage(RenderWindow& app, Event &event)
         string d;
 
         if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
-            d = widgets.find(get<3>(k))->second->value();
+            d = widgets.find(get<3>(k))->second->embeddedData<string>("value");
 
         tools::signals::addSignal(get<2>(k), d);
     }
@@ -381,7 +381,7 @@ void Window::checkKeyboardState()
         string d;
 
         if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
-            d = widgets.find(get<3>(k))->second->value();
+            d = widgets.find(get<3>(k))->second->embeddedData<string>("value");
 
         tools::signals::addSignal(get<2>(k), d);
     }
@@ -409,12 +409,12 @@ const map<string,Widget*>& Window::getWidgets()
     return widgets;
 }
 
-void Window::setValue(const string& widget, const string& d)
+void Window::setValue(const string& widget, optionType v)
 {
     auto i = widgets.find(widget);
     if (i != widgets.end())
     {
-        i->second->setValue(d);
+        i->second->setValue(v);
     }
 }
 
@@ -608,7 +608,7 @@ void Window::loadFromFile(string path)
                     string name, value;
                     if (elem2->Attribute("name")) name = elem2->Attribute("name");
                     if (elem2->Attribute("value")) value = elem2->Attribute("value");
-                    widget->addEmbeddedData(name, value);
+                    widget->addEmbeddedData<string>(name, value);
                 }
                 if (elem2Name == "addEntry" && type == "drop-down-list")
                 {

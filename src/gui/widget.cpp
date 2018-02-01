@@ -250,17 +250,34 @@ void Widget::setBackgroundShader(string s)
     _backgroundShader = std::move(s);
 }
 
-void Widget::addEmbeddedData(string name, string value)
+template<typename T>
+void Widget::addEmbeddedData(string name, const T& value)
 {
-    _embeddedData.emplace(std::move(name), std::move(value));
+    optionType o;
+    o.set<T>(value);
+    _embeddedData.erase(name);
+    _embeddedData.emplace(std::move(name), std::move(o));
 }
 
-string Widget::embeddedData(string name)
+//Explicit instantiations for the linker
+template void Widget::addEmbeddedData(string name, const string& value);
+template void Widget::addEmbeddedData(string name, const textManager::PlainText& value);
+
+template<typename T>
+T& Widget::embeddedData(const string& name)
 {
     if (_embeddedData.find(name) != _embeddedData.end())
-        return _embeddedData.find(name)->second;
-    return string();
+        return _embeddedData.find(name)->second.get<T>();
+    else
+    {
+        addEmbeddedData<T>(name, T());
+        return _embeddedData.find(name)->second.get<T>();
+    }
 }
+
+//Explicit instantiations for the linker
+template string& Widget::embeddedData(const string& name);
+template textManager::PlainText& Widget::embeddedData(const string& name);
 
 bool Widget::needsFocus()
 {

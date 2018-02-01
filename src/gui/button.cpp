@@ -107,14 +107,8 @@ bool Button::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void Button::setValue(const string& d)
+void Button::setValue(optionType v)
 {
-    addEmbeddedData("value", d);
-}
-
-string Button::value()
-{
-    return embeddedData("value");
 }
 
 } //namespace gui

@@ -46,7 +46,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
         if (!slot.second->activated(target, event)) continue;
 
         //Click founded in the player inventory; we will try to transfer the object in the storage box
-        if (slot.second->embeddedData("owner") == "player")
+        if (slot.second->embeddedData<string>("owner") == "player")
         {
             currentObject = playerInventory->find(slot.first);
             if (currentObject == playerInventory->end()) break;
@@ -69,7 +69,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
             //Try to find an empty slot
             for (const auto& slot2 : slots)
             {
-                if (slot2.second->embeddedData("owner") == "storage-box" && storageBox->find(slot2.first) == storageBox->end())
+                if (slot2.second->embeddedData<string>("owner") == "storage-box" && storageBox->find(slot2.first) == storageBox->end())
                 {
                     storageBox->emplace(slot2.first, currentObject->second);
                     setStringToLUA(currentObject->second, "setKey", slot2.first);
@@ -80,7 +80,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
         }
 
         //Click founded in the storage box; we will try to transfer the object in the player inventory
-        if (slot.second->embeddedData("owner") == "storage-box")
+        if (slot.second->embeddedData<string>("owner") == "storage-box")
         {
             currentObject = storageBox->find(slot.first);
             if (currentObject == storageBox->end()) break;
@@ -103,7 +103,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
             //Try to find an empty slot
             for (const auto& slot2 : slots)
             {
-                if (slot2.second->embeddedData("owner") == "player" && playerInventory->find(slot2.first) == playerInventory->end())
+                if (slot2.second->embeddedData<string>("owner") == "player" && playerInventory->find(slot2.first) == playerInventory->end())
                 {
                     playerInventory->emplace(slot2.first, currentObject->second);
                     setStringToLUA(currentObject->second, "setKey", slot2.first);
@@ -119,7 +119,9 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
 void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)
 {
     gui::Widget* boxName = window.widget("storagebox-name");
-    boxName->setValue(box->Nom.toStdString());
+    gui::optionType o;
+    o.set<textManager::PlainText>(box->Nom);
+    boxName->setValue(o);
 
     window.display(target);
 
@@ -133,8 +135,8 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
     for (const auto& slot : slots)
     {
         mapObjects::iterator obj = playerInventory->end();
-        if (slot.second->embeddedData("owner") == "player") obj = playerInventory->find(slot.first);
-        if (slot.second->embeddedData("owner") == "storage-box") obj = storageBox->find(slot.first);
+        if (slot.second->embeddedData<string>("owner") == "player") obj = playerInventory->find(slot.first);
+        if (slot.second->embeddedData<string>("owner") == "storage-box") obj = storageBox->find(slot.first);
         if (obj != playerInventory->end() && obj != storageBox->end())
         {
             string objectName = getStringFromLUA(obj->second, "getFileName");

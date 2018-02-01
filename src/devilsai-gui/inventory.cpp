@@ -72,8 +72,8 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
                 }
             }
             else if (objects->find(slot.first) == objects->end() &&
-                     (slot.second->embeddedData("allowed-object") == "all" ||
-                      slot.second->embeddedData("allowed-object") == getStringFromLUA(selectedObject, "getTypeObject")))
+                     (slot.second->embeddedData<string>("allowed-object") == "all" ||
+                      slot.second->embeddedData<string>("allowed-object") == getStringFromLUA(selectedObject, "getTypeObject")))
             {
                 setStringToLUA(selectedObject, "setKey", slot.first);
                 objects->emplace(slot.first, selectedObject);
@@ -99,8 +99,8 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State
         mapObjects::iterator obj = objects->find(slot.first);
         if (obj != objects->end())
         {
-            string objectName = getStringFromLUA(obj->second, "getFileName");
-            string imageContainer = slot.second->embeddedData("image-container");
+            const string& objectName = getStringFromLUA(obj->second, "getFileName");
+            const string& imageContainer = slot.second->embeddedData<string>("image-container");
             imageManager::display(target, imageContainer, objectName, slot.second->left(), slot.second->top());
 
             if (getBoolFromLUA(obj->second, "getCumul"))

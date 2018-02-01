@@ -58,20 +58,17 @@ bool InputField::activated(RenderWindow& app, Event event)
                         break;
         }
 
-        setText(textManager::PlainText(input));
+        setText(input);
+        addEmbeddedData<string>("value", textManager::PlainText(input).toStdString());
     }
 
     return false;
 }
 
-void InputField::setValue(const string& d)
+void InputField::setValue(optionType v)
 {
-    input = textManager::fromStdString(d).aggregatedText();
-}
-
-string InputField::value()
-{
-    return textManager::PlainText(input).toStdString();
+    if (v.is<textManager::PlainText>())
+        input = v.get<textManager::PlainText>().aggregatedText();
 }
 
 } //namespace gui

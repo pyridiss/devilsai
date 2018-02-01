@@ -40,7 +40,7 @@ void displaySkillbar(gui::Window& window, RenderWindow& target)
 
     for (const auto& skill : skills)
     {
-        string skillName = skill.second->value();
+        const string& skillName = skill.second->embeddedData<string>("value");
         if (!skillName.empty())
         {
             imageManager::display(target, "skills", skillName, skill.second->left(), skill.second->top());

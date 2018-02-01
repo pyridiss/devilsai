@@ -30,13 +30,12 @@
 #include "tools/signals.h"
 
 #include "gui/style.h"
+#include "gui/widget.h"
 
 using namespace std;
 using namespace sf;
 
 namespace gui{
-
-class Widget;
 
 class Window
 {
@@ -83,7 +82,7 @@ class Window
         void checkKeyboardState();
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
-        void setValue(const string& widget, const string& d);
+        void setValue(const string& widget, optionType v);
 
         void loadFromFile(string path);
 };

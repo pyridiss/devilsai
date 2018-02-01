@@ -107,12 +107,18 @@ void updateState()
     }
 
     if (_journal.size() > _currentPage)
-        _text->setValue(_journal[_currentPage].plainText.toStdString());
+    {
+        gui::optionType o;
+        o.set<textManager::PlainText>(_journal[_currentPage].plainText);
+        _text->setValue(o);
+    }
 
     textManager::PlainText number("* / *");
     number.addParameter((int)(_currentPage + 1));
     number.addParameter((int)(_journal.size()));
-    _number->setValue(number.toStdString());
+    gui::optionType o;
+    o.set<textManager::PlainText>(number);
+    _number->setValue(o);
 }
 
 void manageJournal(RenderWindow& target, Event& event)

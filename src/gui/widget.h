@@ -29,6 +29,7 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "tools/signals.h"
+#include "tools/variant.h"
 #include "textManager/richText.h"
 
 #include "gui/style.h"
@@ -37,6 +38,8 @@ using namespace std;
 using namespace sf;
 
 namespace gui{
+
+typedef tools::math::Variant<string, textManager::PlainText> optionType;
 
 class Window;
 
@@ -53,7 +56,7 @@ class Widget
         string _background;
         string _backgroundShader;
 
-        map<string, string> _embeddedData;
+        map<string, optionType> _embeddedData;
 
         bool _needsFocus = false;
 
@@ -86,16 +89,17 @@ class Widget
         void setBackground(string b);
         void setBackgroundShader(string s);
 
-        void addEmbeddedData(string name, string value);
-        string embeddedData(string name);
+        template<typename T>
+        void addEmbeddedData(string name, const T& value);
+        template<typename T>
+        T& embeddedData(const string& name);
 
         bool needsFocus();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event event) = 0;
 
-        virtual void setValue(const string& d) = 0;
-        virtual string value() = 0;
+        virtual void setValue(optionType v) = 0;
 
         virtual void display(RenderWindow& app);
 

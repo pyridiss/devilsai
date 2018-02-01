@@ -97,16 +97,10 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void TextWidget::setValue(const string& d)
+void TextWidget::setValue(optionType v)
 {
-    addEmbeddedData("value", d);
-    textManager::PlainText text = textManager::fromStdString(d);
-    setText(text);
-}
-
-string TextWidget::value()
-{
-    return embeddedData("value");
+    if (v.is<textManager::PlainText>())
+        setText(v.get<textManager::PlainText>());
 }
 
 void TextWidget::display(RenderWindow& app)

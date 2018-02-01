@@ -32,7 +32,7 @@ ScrollingList::ScrollingList()
 
 void ScrollingList::addEntry(textManager::PlainText& entry, string data)
 {
-    entries.push_back(pair<textManager::PlainText, string>(entry, data));
+    entries.emplace_back(entry, data);
 }
 
 void ScrollingList::removeAllEntries()
@@ -89,16 +89,11 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
     return false;
 }
 
-void ScrollingList::setValue(const string& d)
+void ScrollingList::setValue(optionType v)
 {
     index = 0;
-    while (index < entries.size() && entries[index].second != d)
+    while (index < entries.size() && entries[index].second != v.get<string>())
         ++index;
-}
-
-string ScrollingList::value()
-{
-    return entries[index].second;
 }
 
 void ScrollingList::display(RenderWindow& app)
