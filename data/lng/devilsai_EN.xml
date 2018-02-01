@@ -22,10 +22,6 @@
     <text id="console-attributeImprovement-dodge">Dodge *</text>
     <text id="console-attributeImprovement-healingPower">Healing power *</text>
     <text id="console-damageDone">@f[liberation-bold]* @dinflicted @f[liberation-bold]* @dpoints of damage to @f[liberation-bold]* @d</text>
-    <text id="format-fps">@c[128,128,128]FPS : * @d</text>
-    <text id="format-place-name">@f[dayroman]@s[30]@c[192,0,0]* @d</text>
-    <text id="format-player-name">@f[dayroman]@[30]@c[255,220,220] *@d</text>
-    <text id="format-tooltip">@f[liberation-bold]@s[15]@c[255,255,255]* @d</text>
     <text id="object-property-strength">Strength *</text>
     <text id="object-property-power">Power *</text>
     <text id="object-property-agility">Agility *</text>

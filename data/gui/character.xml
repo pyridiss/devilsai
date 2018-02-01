@@ -2,6 +2,8 @@
 <window>
     <loadImage key="gui-screen-background" path="img/gui-screen-background.png"/>
     <properties x="0" y="0" WidthRelativeToScreenSize="1" width="50" HeightRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1" backgroundImage="gui-screen-background"/>
-    <widget name="player-name" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="60"/>
+    <widget name="player-name" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="60">
+        <addEmbeddedData name="format" type="plaintext" value="@f[dayroman]@s[30]@c[192,0,0]* @d"/>
+    </widget>
     <widget name="text" type="text" OriginCenter="1" XPositionRelativeToScreenSize="1" x="50" YPositionRelativeToCenter="1" y="20" width="20" WidthMeansFixedMargin="1" height="180" HeightMeansFixedMargin="1" backgroundShader="textBackground"/>
 </window>

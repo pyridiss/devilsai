@@ -100,7 +100,16 @@ bool TextWidget::activated(RenderWindow& app, Event event)
 void TextWidget::setValue(optionType v)
 {
     if (v.is<textManager::PlainText>())
-        setText(v.get<textManager::PlainText>());
+    {
+        if (_embeddedData.find("format") != _embeddedData.end())
+        {
+            textManager::PlainText& t = embeddedData<textManager::PlainText>("format");
+            t.resetParameters();
+            t.addParameter(v.get<textManager::PlainText>());
+            setText(t);
+        }
+        else setText(v.get<textManager::PlainText>());
+    }
 }
 
 void TextWidget::display(RenderWindow& app)

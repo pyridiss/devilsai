@@ -22,13 +22,13 @@
     <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest" AdjustBackgroundToSize="1"/>
     <widget name="error" type="text" x="80" XPositionRelativeToCenter="1" OriginXCenter="1" y="16" allText="ingame-toolbar-error"/>
     <widget name="fps" type="text" x="100" XPositionRelativeToRight="1" y="16">
-        <addEmbeddedData name="format" value="format-fps"/>
+        <addEmbeddedData name="format" type="plaintext" value="@c[128,128,128]FPS : * @d"/>
     </widget>
     <widget name="place-name" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120">
-        <addEmbeddedData name="format" value="format-place-name"/>
+        <addEmbeddedData name="format" type="plaintext" value="@f[dayroman]@s[30]@c[192,0,0]* @d"/>
     </widget>
     <widget name="tooltip" type="text" backgroundShader="textBackground">
-        <addEmbeddedData name="format" value="format-tooltip"/>
+        <addEmbeddedData name="format" type="plaintext" value="@f[liberation-bold]@s[15]@c[255,255,255]* @d"/>
     </widget>
     <signal emitter="button-ingame-menu" signal="ask-menu"/>
     <signal emitter="button-character" signal="screen-character"/>

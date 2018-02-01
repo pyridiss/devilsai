@@ -255,10 +255,8 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
-                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData<string>("format"));
-                t.addParameter(signal.second);
                 gui::optionType o;
-                o.set<textManager::PlainText>(t);
+                o.set<textManager::PlainText>(signal.second);
                 playerName->setValue(o);
             }
             if (signal.first == "load-game")
@@ -333,10 +331,8 @@ void mainLoop(RenderWindow& app)
 
             if (signal.first == "place-changed") {
                 ChangementLieu = 100;
-                textManager::PlainText t = textManager::getText("devilsai", placeName->embeddedData<string>("format"));
-                t.addParameter(textManager::getText("places", signal.second));
                 gui::optionType o;
-                o.set<textManager::PlainText>(t);
+                o.set<textManager::PlainText>(textManager::getText("places", signal.second));
                 placeName->setValue(o);
                 placeName->show();
             }
@@ -345,10 +341,8 @@ void mainLoop(RenderWindow& app)
                 gamedata::player()->Set_Activite(signal.second);
             }
             if (signal.first == "add-tooltip") {
-                textManager::PlainText t = textManager::getText("devilsai", tooltip->embeddedData<string>("format"));
-                t.addParameter(textManager::getText("places", signal.second));
                 gui::optionType o;
-                o.set<textManager::PlainText>(t);
+                o.set<textManager::PlainText>(textManager::getText("places", signal.second));
                 tooltip->setValue(o);
                 showTooltip = true;
             }
@@ -543,10 +537,8 @@ void mainLoop(RenderWindow& app)
                 break;
         }
 
-        textManager::PlainText t = textManager::getText("devilsai", fps->embeddedData<string>("format"));
-        t.addParameter(tools::timeManager::getFPS());
         gui::optionType o;
-        o.set<textManager::PlainText>(t);
+        o.set<textManager::PlainText>(tools::timeManager::getFPS());
         fps->setValue(o);
 
         ingameToolbar.display(app);
