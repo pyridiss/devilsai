@@ -32,6 +32,10 @@ ScrollingList::ScrollingList()
 
 void ScrollingList::addEntry(textManager::PlainText& entry, string data)
 {
+    //The first entry is auto-selected.
+    if (entries.empty())
+        addEmbeddedData<string>("value", data);
+
     entries.emplace_back(entry, data);
 }
 
@@ -61,6 +65,7 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
             {
                 index = (mousePosition().y - (top() + 5))/20 + firstEntryDisplayed;
                 if (index >= entries.size()) index = entries.size() - 1;
+                addEmbeddedData<string>("value", entries[index].second);
                 return false;
             }
             else
@@ -94,6 +99,8 @@ void ScrollingList::setValue(optionType v)
     index = 0;
     while (index < entries.size() && entries[index].second != v.get<string>())
         ++index;
+
+    addEmbeddedData<string>("value", entries[index].second);
 }
 
 void ScrollingList::display(RenderWindow& app)
