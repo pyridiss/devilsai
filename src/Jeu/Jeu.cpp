@@ -78,11 +78,12 @@ void mainLoop(RenderWindow& app)
     initConversation(app);
     initJournal(app);
 
+    tools::signals::addSignal("main-menu:disable-load-game");
+
     options::initLoadGameWindow(loadGameWindow);
     options::initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
-    tools::signals::addSignal("main-menu:disable-load-game");
 
     View worldView(FloatRect(0, 0, app.getSize().x, app.getSize().y));
     worldView.setViewport(sf::FloatRect(0, 0, 1, 1));

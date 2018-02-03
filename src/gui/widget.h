@@ -39,7 +39,7 @@ using namespace sf;
 
 namespace gui{
 
-typedef tools::math::Variant<string, textManager::PlainText, Keyboard::Key, float> optionType;
+typedef tools::math::Variant<string, textManager::PlainText, Keyboard::Key, float, tools::signals::Signal> optionType;
 
 class Window;
 

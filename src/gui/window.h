@@ -37,15 +37,15 @@ using namespace sf;
 
 namespace gui{
 
-enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, NoEvent };
-enum Actions { SendSignal, ModifyEmbeddedData, ExitWindow, NoAction };
+enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, SignalCaptured, NoEvent };
+enum Actions { SendSignal, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, NoAction };
 
 class Window
 {
     private:
         struct Trigger
         {
-            Widget* sender, *dataProvider;
+            Widget *sender, *dataProvider, *target;
             EventTypes event;
             optionType eventData;
             Actions action;
@@ -55,6 +55,7 @@ class Window
             Trigger()
               : sender(nullptr),
                 dataProvider(nullptr),
+                target(nullptr),
                 event(NoEvent),
                 eventData(),
                 action(NoAction),
@@ -65,6 +66,7 @@ class Window
             Trigger(const Trigger& other)
               : sender(other.sender),
                 dataProvider(other.dataProvider),
+                target(other.target),
                 event(other.event),
                 eventData(other.eventData),
                 action(other.action),
@@ -76,6 +78,7 @@ class Window
             {
                 sender = right.sender;
                 dataProvider = right.dataProvider;
+                target = right.target;
                 event = right.event;
                 eventData = right.eventData;
                 action = right.action;
@@ -124,7 +127,7 @@ class Window
         vector<Trigger> _triggers;
         vector<WindowEvent> _events;
         vector<Keyboard::Key> _watchedKeys;
-        list < tuple<tools::signals::SignalListener, string, string> > signalListeners;
+        queue<tools::signals::Signal> _capturedSignals;
 
         bool exitWindow = false;
 

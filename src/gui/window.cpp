@@ -47,7 +47,7 @@ Window::Window()
     _triggers(),
     _events(),
     _watchedKeys(),
-    signalListeners(),
+    _capturedSignals(),
     _x(0),
     _y(0),
     _width(0),
@@ -66,7 +66,7 @@ Window::Window(const Window& other)
     _triggers(other._triggers),
     _events(other._events),
     _watchedKeys(other._watchedKeys),
-    signalListeners(other.signalListeners),
+    _capturedSignals(other._capturedSignals),
     _x(other._x),
     _y(other._y),
     _width(other._width),
@@ -92,7 +92,7 @@ Window& Window::operator=(const Window& right)
     _triggers = right._triggers;
     _events = right._events;
     _watchedKeys = right._watchedKeys;
-    signalListeners = right.signalListeners;
+    _capturedSignals = right._capturedSignals;
     _x = right._x;
     _y = right._y;
     _width = right._width;
@@ -211,26 +211,6 @@ void Window::startWindow(RenderWindow& app)
 
 void Window::display(RenderWindow& app)
 {
-    for (auto& l : signalListeners)
-    {
-        if (get<0>(l).signalSent)
-        {
-            auto i = widgets.find(get<1>(l));
-            if (i != widgets.end())
-            {
-                if (get<2>(l) == "enable")
-                    i->second->removeFlags(Disabled);
-                else if (get<2>(l) == "disable")
-                    i->second->addFlags(Disabled);
-                else if (get<2>(l) == "show")
-                    i->second->removeFlags(Hidden);
-                else if (get<2>(l) == "hide")
-                    i->second->addFlags(Hidden);
-                get<0>(l).signalSent = false;
-            }
-        }
-    }
-
     if (!backgroundShader.empty())
         gui::style::displayShader(app, backgroundShader, left(), top(), width(), height());
 
@@ -358,11 +338,24 @@ void Window::manage(RenderWindow& app, Event &event)
 
 void Window::checkTriggers()
 {
+    while (!_capturedSignals.empty())
+    {
+        optionType o;
+        o.set<tools::signals::Signal>(_capturedSignals.front());
+        addEvent(nullptr, SignalCaptured, o);
+        _capturedSignals.pop();
+    }
+
     for (auto& e : _events) for (auto& t : _triggers) if (e.widget == t.sender && e.event == t.event)
     {
         if (t.event == KeyPressed || t.event == KeyReleased || t.event == KeyHeld)
         {
             if (t.eventData.get<Keyboard::Key>() != e.data.get<Keyboard::Key>())
+                continue;
+        }
+        if (t.event == SignalCaptured)
+        {
+            if (t.eventData.get<string>() != e.data.get<tools::signals::Signal>().first)
                 continue;
         }
 
@@ -381,9 +374,26 @@ void Window::checkTriggers()
                 optionType o;
                 if (t.dataProvider != nullptr)
                     o = t.dataProvider->embeddedData<optionType>(t.dataName);
-                t.sender->addEmbeddedData<optionType>(t.signal, o);
+                if (t.target != nullptr)
+                    t.target->addEmbeddedData<optionType>(t.signal, o);
                 break;
             }
+            case Enable:
+                if (t.target != nullptr)
+                    t.target->removeFlags(Disabled);
+                break;
+            case Disable:
+                if (t.target != nullptr)
+                    t.target->addFlags(Disabled);
+                break;
+            case Show:
+                if (t.target != nullptr)
+                    t.target->removeFlags(Hidden);
+                break;
+            case Hide:
+                if (t.target != nullptr)
+                    t.target->addFlags(Hidden);
+                break;
             case ExitWindow:
                 exitWindow = true;
                 break;
@@ -661,12 +671,17 @@ void Window::loadFromFile(string path)
             else if (elem->Attribute("event", "KeyPressed")) t.event = KeyPressed;
             else if (elem->Attribute("event", "KeyReleased")) t.event = KeyReleased;
             else if (elem->Attribute("event", "KeyHeld")) t.event = KeyHeld;
+            else if (elem->Attribute("event", "SignalCaptured")) t.event = SignalCaptured;
 
             if (elem->Attribute("eventDataType") && elem->Attribute("eventData"))
             {
                 string_view dataType = elem->Attribute("eventDataType");
 
-                if (dataType == "key")
+                if (dataType == "string")
+                {
+                    t.eventData.set<string>(string(elem->Attribute("eventData")));
+                }
+                else if (dataType == "key")
                 {
                     int k = 0;
                     elem->QueryAttribute("eventData", &k);
@@ -677,6 +692,10 @@ void Window::loadFromFile(string path)
 
             if (elem->Attribute("action", "SendSignal")) t.action = SendSignal;
             else if (elem->Attribute("action", "ModifyEmbeddedData")) t.action = ModifyEmbeddedData;
+            else if (elem->Attribute("action", "Enable")) t.action = Enable;
+            else if (elem->Attribute("action", "Disable")) t.action = Disable;
+            else if (elem->Attribute("action", "Show")) t.action = Show;
+            else if (elem->Attribute("action", "Hide")) t.action = Hide;
             else if (elem->Attribute("action", "ExitWindow")) t.action = ExitWindow;
 
             if (elem->Attribute("signal"))
@@ -688,19 +707,13 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("dataName"))
                 t.dataName = elem->Attribute("dataName");
 
+            if (elem->Attribute("target"))
+                t.target = widget(elem->Attribute("target"));
+
+            if (t.event == SignalCaptured)
+                tools::signals::registerListener(t.eventData.get<string>(), &_capturedSignals);
+
             _triggers.push_back(std::move(t));
-        }
-
-        if (elemName == "signalListener")
-        {
-            string signal = elem->Attribute("signal");
-            string widget = elem->Attribute("widget");
-            string action = elem->Attribute("action");
-
-            tools::signals::SignalListener l;
-            l.signal = signal;
-            signalListeners.push_back(tuple<tools::signals::SignalListener, string, string>(l, widget, action));
-            tools::signals::registerListener(&(get<0>(signalListeners.back())));
         }
 
         elem = elem->NextSiblingElement();
