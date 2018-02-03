@@ -39,6 +39,9 @@ class Image
         Vector2i offset;
 
     public:
+        Image();
+
+    public:
         void set(string file, Vector2i of);
         void applyShader(const Shader* shader);
         const Vector2u getSize();

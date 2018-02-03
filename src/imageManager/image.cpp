@@ -26,6 +26,14 @@
 
 namespace imageManager{
 
+Image::Image()
+  : texture(),
+    sprite(),
+    sourceFile(),
+    offset()
+{
+}
+
 void Image::set(string file, Vector2i of)
 {
     offset = of;
