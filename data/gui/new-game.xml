@@ -13,12 +13,12 @@
     <widget name="button-devilsai" type="button" x="312" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1">
         <addEmbeddedData name="value" value="chapitre/devilsai.xml"/>
     </widget>
-    <signal emitter="button-back" signal="main-menu"/>
-    <signal emitter="button-tutorial" signal="start-new-game" dataProvider="button-tutorial"/>
-    <signal emitter="button-devilsai" signal="start-new-game" dataProvider="button-devilsai"/>
-    <signal emitter="button-tutorial" signal="change-player-name" dataProvider="answer"/>
-    <signal emitter="button-devilsai" signal="change-player-name" dataProvider="answer"/>
-    <exitWindowSignal emitter="button-back"/>
-    <exitWindowSignal emitter="button-tutorial"/>
-    <exitWindowSignal emitter="button-devilsai"/>
+    <trigger sender="button-back" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-back" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-tutorial" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="answer" dataName="value"/>
+    <trigger sender="button-tutorial" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="button-devilsai" dataName="value"/>
+    <trigger sender="button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="answer" dataName="value"/>
+    <trigger sender="button-devilsai" event="WidgetActivated" action="ExitWindow"/>
 </window>

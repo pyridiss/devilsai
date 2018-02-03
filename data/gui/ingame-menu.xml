@@ -6,9 +6,9 @@
     <widget name="button-return-to-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="65" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-return-to-game"/>
     <widget name="button-savegame" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="154" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-savegame"/>
     <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit"/>
-    <signal emitter="button-savegame" signal="savegame"/>
-    <signal emitter="button-exit" signal="ask-exit"/>
-    <exitWindowSignal emitter="button-return-to-game"/>
-    <exitWindowSignal emitter="button-savegame"/>
-    <exitWindowSignal emitter="button-exit"/>
+    <trigger sender="button-savegame" event="WidgetActivated" action="SendSignal" signal="savegame"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="ask-exit"/>
+    <trigger sender="button-return-to-game" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-savegame" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="ExitWindow"/>
 </window>

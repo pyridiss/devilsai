@@ -60,19 +60,19 @@
         <addEmbeddedData name="value" value="skill-fireball"/>
     </widget>
     <widget name="right-click-text" type="text" OriginCenter="1" x="866" y="13" allText="ingame-skillbar-rightclick"/>
-    <keyboardSignal key="60" signal="player-skill" dataProvider="tab" event="whileKeyPressed"/> <!-- 'Tab' -->
-    <keyboardSignal key="38" signal="player-skill" dataProvider="left-shift" event="whileKeyPressed"/> <!-- 'Left Shift' -->
-    <keyboardSignal key="37" signal="player-skill" dataProvider="left-ctrl" event="whileKeyPressed"/> <!-- 'Left Ctrl' -->
-    <keyboardSignal key="27" signal="player-skill" dataProvider="1" event="whileKeyPressed"/> <!-- '1' -->
-    <keyboardSignal key="28" signal="player-skill" dataProvider="2" event="whileKeyPressed"/> <!-- '2' -->
-    <keyboardSignal key="29" signal="player-skill" dataProvider="3" event="whileKeyPressed"/> <!-- '3' -->
-    <keyboardSignal key="51" signal="player-skill" dataProvider="4" event="whileKeyPressed"/> <!-- '4' -->
-    <keyboardSignal key="31" signal="player-skill" dataProvider="5" event="whileKeyPressed"/> <!-- '5' -->
-    <keyboardSignal key="32" signal="player-skill" dataProvider="6" event="whileKeyPressed"/> <!-- '6' -->
-    <keyboardSignal key="33" signal="player-skill" dataProvider="7" event="whileKeyPressed"/> <!-- '7' -->
-    <keyboardSignal key="34" signal="player-skill" dataProvider="8" event="whileKeyPressed"/> <!-- '8' -->
-    <keyboardSignal key="35" signal="player-skill" dataProvider="9" event="whileKeyPressed"/> <!-- '9' -->
-    <keyboardSignal key="26" signal="player-skill" dataProvider="0" event="whileKeyPressed"/> <!-- '0' -->
-    <keyboardSignal key="42" signal="player-skill" dataProvider="right-shift" event="whileKeyPressed"/> <!-- 'Right Shift' -->
-    <keyboardSignal key="41" signal="player-skill" dataProvider="right-ctrl" event="whileKeyPressed"/> <!-- 'Right Ctrl' -->
+    <trigger event="KeyHeld" eventDataType="key" eventData="60" action="SendSignal" signal="player-skill" dataProvider="tab" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="38" action="SendSignal" signal="player-skill" dataProvider="left-shift" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="37" action="SendSignal" signal="player-skill" dataProvider="left-ctrl" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="27" action="SendSignal" signal="player-skill" dataProvider="1" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="28" action="SendSignal" signal="player-skill" dataProvider="2" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="29" action="SendSignal" signal="player-skill" dataProvider="3" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="51" action="SendSignal" signal="player-skill" dataProvider="4" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="31" action="SendSignal" signal="player-skill" dataProvider="5" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="32" action="SendSignal" signal="player-skill" dataProvider="6" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="33" action="SendSignal" signal="player-skill" dataProvider="7" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="34" action="SendSignal" signal="player-skill" dataProvider="8" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="35" action="SendSignal" signal="player-skill" dataProvider="9" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="26" action="SendSignal" signal="player-skill" dataProvider="0" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="42" action="SendSignal" signal="player-skill" dataProvider="right-shift" dataName="value"/>
+    <trigger event="KeyHeld" eventDataType="key" eventData="41" action="SendSignal" signal="player-skill" dataProvider="right-ctrl" dataName="value"/>
 </window>

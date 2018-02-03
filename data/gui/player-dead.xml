@@ -7,10 +7,10 @@
     <widget name="button-load-game" type="button" OriginCenter="1" x="244" y="154" width="156" height="46" allBackground="button-background-156x46" allText="player-dead-load-game"/>
     <widget name="button-main-menu" type="button" OriginCenter="1" x="137" y="242" width="156" height="46" allBackground="button-background-156x46" allText="player-dead-main-menu"/>
     <widget name="button-exit" type="button" OriginCenter="1" x="351" y="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit"/>
-    <signal emitter="button-main-menu" signal="main-menu"/>
-    <signal emitter="button-load-game" signal="load-game"/>
-    <signal emitter="button-exit" signal="exit"/>
-    <exitWindowSignal emitter="button-main-menu"/>
-    <exitWindowSignal emitter="button-load-game"/>
-    <exitWindowSignal emitter="button-exit"/>
+    <trigger sender="button-main-menu" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-main-menu" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-load-game" event="WidgetActivated" action="SendSignal" signal="load-game"/>
+    <trigger sender="button-load-game" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="ExitWindow"/>
 </window>

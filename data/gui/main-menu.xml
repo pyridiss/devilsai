@@ -7,14 +7,14 @@
     <widget name="button-load-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="298" AdjustSizeToText="1" allText="main-menu-load-game"/>
     <widget name="button-options" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="358" AdjustSizeToText="1" allText="main-menu-options"/>
     <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="418" AdjustSizeToText="1" allText="main-menu-exit"/>
-    <signal emitter="button-new-game" signal="new-game"/>
-    <signal emitter="button-load-game" signal="load-game"/>
-    <signal emitter="button-options" signal="options"/>
-    <signal emitter="button-exit" signal="exit"/>
-    <signalListener signal="main-menu:disable-load-game" widget="button-load-game" action="disable"/>
-    <signalListener signal="main-menu:enable-load-game" widget="button-load-game" action="enable"/>
-    <exitWindowSignal emitter="button-new-game"/>
-    <exitWindowSignal emitter="button-load-game"/>
-    <exitWindowSignal emitter="button-options"/>
-    <exitWindowSignal emitter="button-exit"/>
+    <trigger sender="button-new-game" event="WidgetActivated" action="SendSignal" signal="new-game"/>
+    <trigger sender="button-new-game" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-load-game" event="WidgetActivated" action="SendSignal" signal="load-game"/>
+    <trigger sender="button-load-game" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-options" event="WidgetActivated" action="SendSignal" signal="options"/>
+    <trigger sender="button-options" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
+    <trigger sender="button-exit" event="WidgetActivated" action="ExitWindow"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="button-load-game"/>
 </window>

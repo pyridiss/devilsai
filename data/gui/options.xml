@@ -28,12 +28,12 @@
     </widget>
     <widget name="button-back" type="button" x="20" y="317" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
     <widget name="button-apply" type="button" x="432" y="317" width="156" height="46" allBackground="button-background-156x46" allText="options-apply"/>
-    <signal emitter="button-back" signal="main-menu"/>
-    <signal emitter="button-apply" signal="option-change-language" dataProvider="chooser-language"/>
-    <signal emitter="button-apply" signal="option-change-resolution" dataProvider="chooser-resolution"/>
-    <signal emitter="button-apply" signal="option-change-fullscreen" dataProvider="chooser-fullscreen"/>
-    <signal emitter="button-apply" signal="option-change-console" dataProvider="chooser-console"/>
-    <signal emitter="button-apply" signal="main-menu"/>
-    <exitWindowSignal emitter="button-back"/>
-    <exitWindowSignal emitter="button-apply"/>
+    <trigger sender="button-back" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-back" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-language" dataProvider="chooser-language" dataName="value"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-resolution" dataProvider="chooser-resolution" dataName="value"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-fullscreen" dataProvider="chooser-fullscreen" dataName="value"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-console" dataProvider="chooser-console" dataName="value"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-apply" event="WidgetActivated" action="ExitWindow"/>
 </window>

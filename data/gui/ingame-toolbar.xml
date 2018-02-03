@@ -30,22 +30,22 @@
     <widget name="tooltip" type="text" backgroundShader="textBackground">
         <addEmbeddedData name="format" type="plaintext" value="@f[liberation-bold]@s[15]@c[255,255,255]* @d"/>
     </widget>
-    <signal emitter="button-ingame-menu" signal="ask-menu"/>
-    <signal emitter="button-character" signal="screen-character"/>
-    <signal emitter="button-equipment" signal="screen-equipment"/>
-    <signal emitter="button-skills" signal="screen-skills"/>
-    <signal emitter="button-journal" signal="screen-journal"/>
-    <signal emitter="button-rest" signal="rest"/>
-    <keyboardSignal key="12" signal="ask-menu"/> <!-- 'M' -->
-    <keyboardSignal key="18" signal="savegame"/> <!-- 'S' -->
-    <keyboardSignal key="17" signal="rest"/> <!-- 'R' -->
-    <keyboardSignal key="16" signal="ask-exit"/> <!-- 'Q' -->
-    <keyboardSignal key="0" signal="screen-character"/> <!-- 'A' -->
-    <keyboardSignal key="4" signal="screen-equipment"/> <!-- 'E' -->
-    <keyboardSignal key="10" signal="screen-skills"/> <!-- 'K' -->
-    <keyboardSignal key="9" signal="screen-journal"/> <!-- 'J' -->
-    <signalListener signal="ingame-toolbar:disable-rest" widget="button-rest" action="disable"/>
-    <signalListener signal="ingame-toolbar:enable-rest" widget="button-rest" action="enable"/>
-    <signalListener signal="ingame-toolbar:warn-journal" widget="warn-journal" action="show"/>
-    <signalListener signal="ingame-toolbar:remove-warn-journal" widget="warn-journal" action="hide"/>
+    <trigger sender="button-ingame-menu" event="WidgetActivated" action="SendSignal" signal="ask-menu"/>
+    <trigger sender="button-character" event="WidgetActivated" action="SendSignal" signal="screen-character"/>
+    <trigger sender="button-equipment" event="WidgetActivated" action="SendSignal" signal="screen-equipment"/>
+    <trigger sender="button-skills" event="WidgetActivated" action="SendSignal" signal="screen-skills"/>
+    <trigger sender="button-journal" event="WidgetActivated" action="SendSignal" signal="screen-journal"/>
+    <trigger sender="button-rest" event="WidgetActivated" action="SendSignal" signal="rest"/>
+    <trigger event="KeyReleased" eventDataType="key" eventData="12" action="SendSignal" signal="ask-menu"/> <!-- 'M' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="18" action="SendSignal" signal="savegame"/> <!-- 'S' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="17" action="SendSignal" signal="rest"/> <!-- 'R' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="16" action="SendSignal" signal="ask-exit"/> <!-- 'Q' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="0" action="SendSignal" signal="screen-character"/> <!-- 'A' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="4" action="SendSignal" signal="screen-equipment"/> <!-- 'E' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="10" action="SendSignal" signal="screen-skills"/> <!-- 'K' -->
+    <trigger event="KeyReleased" eventDataType="key" eventData="9" action="SendSignal" signal="screen-journal"/> <!-- 'J' -->
+    <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:disable-rest" action="Disable" target="button-rest"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:enable-rest" action="Enable" target="button-rest"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:warn-journal" action="Show" target="warn-journal"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:remove-warn-journal" action="Hide" target="warn-journal"/>
 </window>
