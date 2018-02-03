@@ -42,7 +42,8 @@ enum Flags
     OriginBottom = 1 << 6,
     OriginYCenter = 1 << 7,
     FixedHeight = 1 << 8,
-    VAlignCenter = 1 << 9
+    VAlignCenter = 1 << 9,
+    Shaded = 1 << 10
 };
 
 void loadFile(string container, string path);

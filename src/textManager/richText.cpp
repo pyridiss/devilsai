@@ -308,6 +308,18 @@ void RichText::displayToView(RenderTarget& target, View view, const Shader* shad
     int maxY = view.getCenter().y + view.getSize().y + 40;
     for (auto& i : _words)
     {
+        if ((_flags & Shaded) == Shaded)
+        {
+            Color originalColor = i.getFillColor();
+            i.setFillColor(Color(0, 0, 0, 192));
+
+            i.move(1, 1);
+            target.draw(i, shader);
+
+            i.move(-1, -1);
+            i.setFillColor(originalColor);
+        }
+
         if (i.getPosition().y > minY && i.getPosition().y < maxY)
             target.draw(i, shader);
     }
