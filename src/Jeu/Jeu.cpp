@@ -190,7 +190,8 @@ void mainLoop(RenderWindow& app)
             }
         }
 
-        ingameSkillbar.checkKeyboardState();
+        ingameToolbar.checkTriggers();
+        ingameSkillbar.checkTriggers();
         manageConversation(app);
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));

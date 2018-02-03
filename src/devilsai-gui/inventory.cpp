@@ -82,6 +82,8 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
             break;
         }
     }
+
+    window.checkTriggers();
 }
 
 void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State*& selectedObject)

@@ -259,9 +259,16 @@ void Widget::addEmbeddedData(string name, const T& value)
     _embeddedData.emplace(std::move(name), std::move(o));
 }
 
+template<> void Widget::addEmbeddedData(string name, const optionType& value)
+{
+    _embeddedData.emplace(std::move(name), value);
+}
+
 //Explicit instantiations for the linker
 template void Widget::addEmbeddedData(string name, const string& value);
 template void Widget::addEmbeddedData(string name, const textManager::PlainText& value);
+template void Widget::addEmbeddedData(string name, const Keyboard::Key& value);
+template void Widget::addEmbeddedData(string name, const float& value);
 
 template<typename T>
 T& Widget::embeddedData(const string& name)
@@ -275,9 +282,22 @@ T& Widget::embeddedData(const string& name)
     }
 }
 
+template<> optionType& Widget::embeddedData(const string& name)
+{
+    if (_embeddedData.find(name) != _embeddedData.end())
+        return _embeddedData.find(name)->second;
+    else
+    {
+        addEmbeddedData<optionType>(name, optionType());
+        return _embeddedData.find(name)->second;
+    }
+}
+
 //Explicit instantiations for the linker
 template string& Widget::embeddedData(const string& name);
 template textManager::PlainText& Widget::embeddedData(const string& name);
+template Keyboard::Key& Widget::embeddedData(const string& name);
+template float& Widget::embeddedData(const string& name);
 
 bool Widget::needsFocus()
 {

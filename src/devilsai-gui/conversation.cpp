@@ -98,6 +98,8 @@ void manageConversation(RenderWindow& target, Event& event)
             }
         }
     }
+
+    Gui.checkTriggers();
 }
 
 void manageConversation(RenderWindow& target)

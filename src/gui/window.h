@@ -37,16 +37,93 @@ using namespace sf;
 
 namespace gui{
 
+enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, NoEvent };
+enum Actions { SendSignal, ModifyEmbeddedData, ExitWindow, NoAction };
+
 class Window
 {
     private:
-        enum keyboardEvents { onKeyPressed, onKeyReleased, whileKeyPressed };
+        struct Trigger
+        {
+            Widget* sender, *dataProvider;
+            EventTypes event;
+            optionType eventData;
+            Actions action;
+            string signal;
+            string dataName;
+
+            Trigger()
+              : sender(nullptr),
+                dataProvider(nullptr),
+                event(NoEvent),
+                eventData(),
+                action(NoAction),
+                signal(),
+                dataName()
+            {
+            }
+            Trigger(const Trigger& other)
+              : sender(other.sender),
+                dataProvider(other.dataProvider),
+                event(other.event),
+                eventData(other.eventData),
+                action(other.action),
+                signal(other.signal),
+                dataName(other.dataName)
+            {
+            }
+            Trigger& operator=(const Trigger& right)
+            {
+                sender = right.sender;
+                dataProvider = right.dataProvider;
+                event = right.event;
+                eventData = right.eventData;
+                action = right.action;
+                signal = right.signal;
+                dataName = right.dataName;
+
+                return *this;
+            }
+        };
+        struct WindowEvent
+        {
+            Widget* widget;
+            EventTypes event;
+            optionType data;
+
+            WindowEvent()
+              : widget(nullptr),
+                event(NoEvent),
+                data()
+            {
+            }
+            WindowEvent(Widget* s, EventTypes e, optionType d)
+              : widget(s),
+                event(e),
+                data(d)
+            {
+            }
+            WindowEvent(const WindowEvent& other)
+              : widget(other.widget),
+                event(other.event),
+                data(other.data)
+            {
+            }
+            WindowEvent& operator=(const WindowEvent& right)
+            {
+                widget = right.widget;
+                event = right.event;
+                data = right.data;
+
+                return *this;
+            }
+        };
 
     private:
         map < string, Widget* > widgets;
-        list < tuple<string, string, string> > signals;
-        list < tuple<int, keyboardEvents, string, string> > keyboardSignals;
-        list < string > exitWindowSignals;
+        vector<Trigger> _triggers;
+        vector<WindowEvent> _events;
+        vector<Keyboard::Key> _watchedKeys;
         list < tuple<tools::signals::SignalListener, string, string> > signalListeners;
 
         bool exitWindow = false;
@@ -79,10 +156,11 @@ class Window
         void display(RenderWindow& app);
         void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
-        void checkKeyboardState();
+        void checkTriggers();
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
         void setValue(const string& widget, optionType v);
+        void addEvent(Widget* s, EventTypes e, optionType d);
 
         void loadFromFile(string path);
 };

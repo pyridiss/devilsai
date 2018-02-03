@@ -39,7 +39,7 @@ using namespace sf;
 
 namespace gui{
 
-typedef tools::math::Variant<string, textManager::PlainText> optionType;
+typedef tools::math::Variant<string, textManager::PlainText, Keyboard::Key, float> optionType;
 
 class Window;
 
@@ -91,8 +91,10 @@ class Widget
 
         template<typename T>
         void addEmbeddedData(string name, const T& value);
+        void addEmbeddedData(string name, const optionType& value);
         template<typename T>
         T& embeddedData(const string& name);
+        optionType& embeddedData(const string& name);
 
         bool needsFocus();
 

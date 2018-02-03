@@ -114,6 +114,8 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
         }
         break;
     }
+
+    window.checkTriggers();
 }
 
 void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* box)

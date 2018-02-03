@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "gui/window.h"
 #include "gui/button.h"
 #include "gui/style.h"
 #include "musicManager/musicManager.h"
@@ -72,6 +73,7 @@ bool Button::activated(RenderWindow& app, Event event)
             else
             {
                 _flags ^= Activated;
+                _parent->addEvent(this, WidgetActivated, embeddedData<optionType>("value"));
                 return true;
             }
         }
@@ -82,6 +84,7 @@ bool Button::activated(RenderWindow& app, Event event)
                 if (autoRelease)
                 {
                     _flags &= ~Activated;
+                    _parent->addEvent(this, WidgetActivated, embeddedData<optionType>("value"));
                     return true;
                 }
                 else //MouseButtonReleased must not be used
@@ -97,9 +100,6 @@ bool Button::activated(RenderWindow& app, Event event)
 
         return false;
     }
-
-//     if (autoRelease)
-//         currentState = "normal";
 
     if (!autoRelease && (_flags & Activated) == Activated)
         return true;

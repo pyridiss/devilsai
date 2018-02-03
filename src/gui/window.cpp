@@ -44,9 +44,9 @@ namespace gui{
 
 Window::Window()
   : widgets(),
-    signals(),
-    keyboardSignals(),
-    exitWindowSignals(),
+    _triggers(),
+    _events(),
+    _watchedKeys(),
     signalListeners(),
     _x(0),
     _y(0),
@@ -63,9 +63,9 @@ Window::Window()
 
 Window::Window(const Window& other)
   : widgets(other.widgets),
-    signals(other.signals),
-    keyboardSignals(other.keyboardSignals),
-    exitWindowSignals(other.exitWindowSignals),
+    _triggers(other._triggers),
+    _events(other._events),
+    _watchedKeys(other._watchedKeys),
     signalListeners(other.signalListeners),
     _x(other._x),
     _y(other._y),
@@ -89,9 +89,9 @@ Window::Window(string path, RenderWindow& window) : Window()
 Window& Window::operator=(const Window& right)
 {
     widgets = right.widgets;
-    signals = right.signals;
-    keyboardSignals = right.keyboardSignals;
-    exitWindowSignals = right.exitWindowSignals;
+    _triggers = right._triggers;
+    _events = right._events;
+    _watchedKeys = right._watchedKeys;
     signalListeners = right.signalListeners;
     _x = right._x;
     _y = right._y;
@@ -302,7 +302,7 @@ void Window::manage(RenderWindow& app)
             manage(app, event);
         }
 
-        checkKeyboardState();
+        checkTriggers();
 
         app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
         display(app);
@@ -330,61 +330,69 @@ void Window::manage(RenderWindow& app, Event &event)
         if (priorityWidget != nullptr && widget.second != priorityWidget)
             continue;
 
-        if (widget.second->activated(app, event))
-        {
-            for (auto& signal : signals)
-            {
-                if (get<0>(signal) == widget.first)
-                {
-                    string d;
-
-                    if (!get<2>(signal).empty() && widgets.find(get<2>(signal)) != widgets.end())
-                        d = widgets.find(get<2>(signal))->second->embeddedData<string>("value");
-
-                    tools::signals::addSignal(get<1>(signal), d);
-                }
-            }
-            for (auto& exitWindowSignal : exitWindowSignals)
-            {
-                if (exitWindowSignal == widget.first)
-                {
-                    exitWindow = true;
-                }
-            }
-        }
+        widget.second->activated(app, event);
     }
 
-    for (auto& k : keyboardSignals)
+    for (auto i : _watchedKeys)
     {
-        if (get<1>(k) == Window::whileKeyPressed) continue; //Managed in checkKeyboardState()
-        if (get<1>(k) == Window::onKeyPressed && event.type != Event::KeyPressed) continue;
-        if (get<1>(k) == Window::onKeyReleased && event.type != Event::KeyReleased) continue;
-
-        if (event.key.code != get<0>(k)) continue;
-
-        string d;
-
-        if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
-            d = widgets.find(get<3>(k))->second->embeddedData<string>("value");
-
-        tools::signals::addSignal(get<2>(k), d);
+        if (event.type == Event::KeyPressed && event.key.code == i)
+        {
+            optionType o;
+            o.set<Keyboard::Key>(i);
+            addEvent(nullptr, KeyPressed, o);
+        }
+        if (event.type == Event::KeyReleased && event.key.code == i)
+        {
+            optionType o;
+            o.set<Keyboard::Key>(i);
+            addEvent(nullptr, KeyReleased, o);
+        }
+        if (Keyboard::isKeyPressed(i))
+        {
+            optionType o;
+            o.set<Keyboard::Key>(i);
+            addEvent(nullptr, KeyHeld, o);
+        }
     }
 }
 
-void Window::checkKeyboardState()
+void Window::checkTriggers()
 {
-    for (auto& k : keyboardSignals)
+    for (auto& e : _events) for (auto& t : _triggers) if (e.widget == t.sender && e.event == t.event)
     {
-        if (get<1>(k) != Window::whileKeyPressed) continue;
-        if (!Keyboard::isKeyPressed(static_cast<Keyboard::Key>(get<0>(k)))) continue;
+        if (t.event == KeyPressed || t.event == KeyReleased || t.event == KeyHeld)
+        {
+            if (t.eventData.get<Keyboard::Key>() != e.data.get<Keyboard::Key>())
+                continue;
+        }
 
-        string d;
-
-        if (!get<3>(k).empty() && widgets.find(get<3>(k)) != widgets.end())
-            d = widgets.find(get<3>(k))->second->embeddedData<string>("value");
-
-        tools::signals::addSignal(get<2>(k), d);
+        switch (t.action)
+        {
+            case SendSignal:
+            {
+                string value;
+                if (t.dataProvider != nullptr)
+                    value = t.dataProvider->embeddedData<string>(t.dataName);
+                tools::signals::addSignal(t.signal, value);
+                break;
+            }
+            case ModifyEmbeddedData:
+            {
+                optionType o;
+                if (t.dataProvider != nullptr)
+                    o = t.dataProvider->embeddedData<optionType>(t.dataName);
+                t.sender->addEmbeddedData<optionType>(t.signal, o);
+                break;
+            }
+            case ExitWindow:
+                exitWindow = true;
+                break;
+            default:
+                break;
+        }
     }
+
+    _events.clear();
 }
 
 Widget* Window::widget(string name)
@@ -416,6 +424,11 @@ void Window::setValue(const string& widget, optionType v)
     {
         i->second->setValue(v);
     }
+}
+
+void Window::addEvent(Widget* s, EventTypes e, optionType d)
+{
+    _events.emplace_back(s, e, d);
 }
 
 void Window::loadFromFile(string path)
@@ -636,37 +649,46 @@ void Window::loadFromFile(string path)
 
         }
 
-        if (elemName == "signal")
+        if (elemName == "trigger")
         {
-            string emitter = elem->Attribute("emitter");
-            string signal = elem->Attribute("signal");
+            Trigger t;
 
-            string dataProvider = "";
+            if (elem->Attribute("sender"))
+                t.sender = widget(elem->Attribute("sender"));
+
+            if (elem->Attribute("event", "WidgetActivated")) t.event = WidgetActivated;
+            else if (elem->Attribute("event", "WidgetValueChanged")) t.event = WidgetValueChanged;
+            else if (elem->Attribute("event", "KeyPressed")) t.event = KeyPressed;
+            else if (elem->Attribute("event", "KeyReleased")) t.event = KeyReleased;
+            else if (elem->Attribute("event", "KeyHeld")) t.event = KeyHeld;
+
+            if (elem->Attribute("eventDataType") && elem->Attribute("eventData"))
+            {
+                string_view dataType = elem->Attribute("eventDataType");
+
+                if (dataType == "key")
+                {
+                    int k = 0;
+                    elem->QueryAttribute("eventData", &k);
+                    t.eventData.set<Keyboard::Key>(static_cast<Keyboard::Key>(k));
+                    _watchedKeys.push_back(static_cast<Keyboard::Key>(k));
+                }
+            }
+
+            if (elem->Attribute("action", "SendSignal")) t.action = SendSignal;
+            else if (elem->Attribute("action", "ModifyEmbeddedData")) t.action = ModifyEmbeddedData;
+            else if (elem->Attribute("action", "ExitWindow")) t.action = ExitWindow;
+
+            if (elem->Attribute("signal"))
+                t.signal = elem->Attribute("signal");
+
             if (elem->Attribute("dataProvider"))
-                dataProvider = elem->Attribute("dataProvider");
+                t.dataProvider = widget(elem->Attribute("dataProvider"));
 
-            signals.push_back(tuple<string, string, string>(emitter, signal, dataProvider));
-        }
+            if (elem->Attribute("dataName"))
+                t.dataName = elem->Attribute("dataName");
 
-        if (elemName == "keyboardSignal")
-        {
-            int key = 0;
-            elem->QueryAttribute("key", &key);
-            string signal = elem->Attribute("signal");
-
-            Window::keyboardEvents e = Window::onKeyReleased;
-            if (elem->Attribute("event", "onKeyPressed"))
-                e = Window::onKeyPressed;
-            else if (elem->Attribute("event", "onKeyReleased"))
-                e = Window::onKeyReleased;
-            else if (elem->Attribute("event", "whileKeyPressed"))
-                e = Window::whileKeyPressed;
-
-            string dataProvider = "";
-            if (elem->Attribute("dataProvider"))
-                dataProvider = elem->Attribute("dataProvider");
-
-            keyboardSignals.emplace_back(key, e, signal, dataProvider);
+            _triggers.push_back(std::move(t));
         }
 
         if (elemName == "signalListener")
@@ -679,12 +701,6 @@ void Window::loadFromFile(string path)
             l.signal = signal;
             signalListeners.push_back(tuple<tools::signals::SignalListener, string, string>(l, widget, action));
             tools::signals::registerListener(&(get<0>(signalListeners.back())));
-        }
-
-        if (elemName == "exitWindowSignal")
-        {
-            string emitter = elem->Attribute("emitter");
-            exitWindowSignals.push_back(emitter);
         }
 
         elem = elem->NextSiblingElement();

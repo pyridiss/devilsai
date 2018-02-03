@@ -139,6 +139,8 @@ void manageJournal(RenderWindow& target, Event& event)
 
     if (_currentPage != oldPage)
         updateState();
+
+    _window.checkTriggers();
 }
 
 void displayJournal(RenderWindow& target)
