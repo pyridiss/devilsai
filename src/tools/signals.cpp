@@ -26,25 +26,22 @@ namespace tools{
 namespace signals{
 
 list<Signal> signals;
-list<SignalListener*> listeners;
+vector< pair<string, queue<Signal>*> > listeners;
 
 Signal emptySignal;
 
 
-void registerListener(SignalListener* l)
+void registerListener(string s, queue<Signal>* v)
 {
-    listeners.push_back(l);
+    listeners.emplace_back(std::move(s), v);
 }
 
 void addSignal(string s, string d)
 {
     for (auto& l : listeners)
     {
-        if (l->signal == s)
-        {
-            l->signalSent = true;
-            return;
-        }
+        if (l.first == s)
+            l.second->emplace(s, d);
     }
 
     signals.push_back(Signal(s, d));

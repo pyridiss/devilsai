@@ -21,26 +21,15 @@
 #define TOOLS_SIGNALS_H
 
 #include <string>
+#include <queue>
 
 using namespace std;
 
 namespace tools::signals{
 
-struct SignalListener
-{
-    string signal;
-    bool signalSent;
-
-    SignalListener()
-      : signal(),
-        signalSent(false)
-    {
-    }
-};
-
 typedef pair < string , string > Signal;
 
-void registerListener(SignalListener* l);
+void registerListener(string s, queue<Signal>* v);
 void addSignal(string s, string d = string());
 Signal& getNextSignal();
 void removeSignal();
