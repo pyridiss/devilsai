@@ -33,6 +33,14 @@ struct Node
 {
     double costFromStart, costToEnd, costSum;
     math::Vector2d parent;
+
+    Node()
+      : costFromStart(0),
+        costToEnd(0),
+        costSum(0),
+        parent()
+    {
+    }
 };
 
 struct compare
@@ -109,8 +117,8 @@ void addAdjacentNodes(math::Vector2d& n)
             continue;
 
         bool free = true;
-        for (auto& n : _closedSet)
-            if (math::Vector2d::distanceSquare(newNode, n.first) < 0.9 * _distance * _distance)
+        for (auto& c : _closedSet)
+            if (math::Vector2d::distanceSquare(newNode, c.first) < 0.9 * _distance * _distance)
             {
                 free = false;
                 break;
