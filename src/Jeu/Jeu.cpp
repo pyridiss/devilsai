@@ -71,7 +71,6 @@ void mainLoop(RenderWindow& app)
     gui::Widget* error = ingameToolbar.widget("error");
     gui::Widget* placeName = ingameToolbar.widget("place-name");
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
-    gui::Widget* playerName = characterWindow.widget("player-name");
     gui::Widget* playerDescription = characterWindow.widget("text");
     error->hide();
 
@@ -193,6 +192,7 @@ void mainLoop(RenderWindow& app)
 
         ingameToolbar.checkTriggers();
         ingameSkillbar.checkTriggers();
+        characterWindow.checkTriggers();
         manageConversation(app);
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
@@ -257,9 +257,6 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
-                gui::optionType o;
-                o.set<textManager::PlainText>(signal.second);
-                playerName->setValue(o);
             }
             if (signal.first == "load-game")
             {
