@@ -68,11 +68,9 @@ void mainLoop(RenderWindow& app)
     gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
-    gui::Widget* error = ingameToolbar.widget("error");
     gui::Widget* placeName = ingameToolbar.widget("place-name");
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
     gui::Widget* playerDescription = characterWindow.widget("text");
-    error->hide();
 
     initConversation(app);
     initJournal(app);
@@ -213,7 +211,7 @@ void mainLoop(RenderWindow& app)
         while (signal.first != "")
         {
             if (signal.first == "error-occured") {
-                error->show();
+                //TODO: Do something here
             }
             if (signal.first == "main-menu")
             {

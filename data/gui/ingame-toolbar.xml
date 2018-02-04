@@ -20,7 +20,7 @@
     </widget>
     <widget name="warn-journal" type="text" x="210" y="2" width="41" height="41" backgroundShader="warn"/>
     <widget name="button-rest" type="button" x="260" y="2" width="41" height="41" allBackground="button-rest" AdjustBackgroundToSize="1"/>
-    <widget name="error" type="text" x="80" XPositionRelativeToCenter="1" OriginXCenter="1" y="16" allText="ingame-toolbar-error"/>
+    <widget name="error" type="text" x="80" XPositionRelativeToCenter="1" OriginXCenter="1" y="16" allText="ingame-toolbar-error" textShaded="1" Hidden="1"/>
     <widget name="fps" type="text" x="100" XPositionRelativeToRight="1" y="16">
         <addEmbeddedData name="format" type="plaintext" value="@c[128,128,128]FPS : * @d"/>
     </widget>
@@ -48,4 +48,5 @@
     <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:enable-rest" action="Enable" target="button-rest"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:warn-journal" action="Show" target="warn-journal"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="ingame-toolbar:remove-warn-journal" action="Hide" target="warn-journal"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="error-occured" action="Show" target="error"/>
 </window>

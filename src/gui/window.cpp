@@ -628,6 +628,9 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("RepeatBackgroundToFitSize"))
                 widget->addFlags(RepeatBackgroundToFitSize);
 
+            if (elem->Attribute("Hidden"))
+                widget->addFlags(Hidden);
+
             if (elem->Attribute("VerticalScrollBar"))
                 widget->addFlags(VerticalScrollBar);
 
