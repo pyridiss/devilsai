@@ -103,10 +103,12 @@ public:
     }
 
     // Serves as both the move and the copy asignment operator.
-    Variant<Ts...>& operator= (Variant<Ts...> old)
+    Variant<Ts...>& operator= (const Variant<Ts...>& old)
     {
-        std::swap(type_id, old.type_id);
-        std::swap(data, old.data);
+        helper_t::destroy(type_id, &data);
+
+        type_id = old.type_id;
+        helper_t::copy(type_id, &old.data, &data);
 
         return *this;
     }
