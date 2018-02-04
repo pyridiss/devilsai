@@ -15,7 +15,7 @@
     </widget>
     <trigger sender="button-back" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
     <trigger sender="button-back" event="WidgetActivated" action="ExitWindow"/>
-    <trigger sender="button-tutorial" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="button-tutorial" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="button-tutorial" dataName="value"/>
     <trigger sender="button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="answer" dataName="value"/>
     <trigger sender="button-tutorial" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="button-devilsai" dataName="value"/>
