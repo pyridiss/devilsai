@@ -369,13 +369,30 @@ void Window::checkTriggers()
                 tools::signals::addSignal(t.signal, value);
                 break;
             }
-            case ModifyEmbeddedData:
+            case ModifyValue:
             {
-                optionType o;
+                optionType o = e.data;
                 if (t.dataProvider != nullptr)
                     o = t.dataProvider->embeddedData<optionType>(t.dataName);
+                if (e.data.is<tools::signals::Signal>())
+                    o.set<string>(e.data.get<tools::signals::Signal>().second);
+
+                if (t.target != nullptr)
+                    t.target->setValue(o);
+
+                break;
+            }
+            case ModifyEmbeddedData:
+            {
+                optionType o = e.data;
+                if (t.dataProvider != nullptr)
+                    o = t.dataProvider->embeddedData<optionType>(t.dataName);
+                if (e.data.is<tools::signals::Signal>())
+                    e.data.set<string>(e.data.get<tools::signals::Signal>().second);
+
                 if (t.target != nullptr)
                     t.target->addEmbeddedData<optionType>(t.signal, o);
+
                 break;
             }
             case Enable:
@@ -691,6 +708,7 @@ void Window::loadFromFile(string path)
             }
 
             if (elem->Attribute("action", "SendSignal")) t.action = SendSignal;
+            else if (elem->Attribute("action", "ModifyValue")) t.action = ModifyValue;
             else if (elem->Attribute("action", "ModifyEmbeddedData")) t.action = ModifyEmbeddedData;
             else if (elem->Attribute("action", "Enable")) t.action = Enable;
             else if (elem->Attribute("action", "Disable")) t.action = Disable;

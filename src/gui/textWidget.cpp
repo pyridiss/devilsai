@@ -99,6 +99,9 @@ bool TextWidget::activated(RenderWindow& app, Event event)
 
 void TextWidget::setValue(optionType v)
 {
+    if (v.is<string>())
+        v.set<textManager::PlainText>(textManager::PlainText(v.get<string>()));
+
     if (v.is<textManager::PlainText>())
     {
         if (_embeddedData.find("format") != _embeddedData.end())

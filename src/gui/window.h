@@ -38,7 +38,7 @@ using namespace sf;
 namespace gui{
 
 enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, SignalCaptured, NoEvent };
-enum Actions { SendSignal, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, NoAction };
+enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, NoAction };
 
 class Window
 {
