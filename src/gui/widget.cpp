@@ -261,6 +261,7 @@ void Widget::addEmbeddedData(string name, const T& value)
 
 template<> void Widget::addEmbeddedData(string name, const optionType& value)
 {
+    _embeddedData.erase(name);
     _embeddedData.emplace(std::move(name), value);
 }
 

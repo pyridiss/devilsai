@@ -374,7 +374,7 @@ void Window::checkTriggers()
                 optionType o = e.data;
                 if (t.dataProvider != nullptr)
                     o = t.dataProvider->embeddedData<optionType>(t.dataName);
-                if (e.data.is<tools::signals::Signal>())
+                else if (e.data.is<tools::signals::Signal>())
                     o.set<string>(e.data.get<tools::signals::Signal>().second);
 
                 if (t.target != nullptr)
@@ -387,8 +387,8 @@ void Window::checkTriggers()
                 optionType o = e.data;
                 if (t.dataProvider != nullptr)
                     o = t.dataProvider->embeddedData<optionType>(t.dataName);
-                if (e.data.is<tools::signals::Signal>())
-                    e.data.set<string>(e.data.get<tools::signals::Signal>().second);
+                else if (e.data.is<tools::signals::Signal>())
+                    o.set<string>(e.data.get<tools::signals::Signal>().second);
 
                 if (t.target != nullptr)
                     t.target->addEmbeddedData<optionType>(t.signal, o);
@@ -660,6 +660,12 @@ void Window::loadFromFile(string path)
                             widget->addEmbeddedData<textManager::PlainText>(name, textManager::PlainText(elem2->Attribute("value")));
                         else if (dataType == "string")
                             widget->addEmbeddedData<string>(name, elem2->Attribute("value"));
+                        else if (dataType == "float")
+                        {
+                            float f = 0;
+                            elem2->QueryAttribute("value", &f);
+                            widget->addEmbeddedData<float>(name, f);
+                        }
                     }
                     else
                     {
