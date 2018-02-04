@@ -27,6 +27,7 @@
 #include <cmath>
 
 #include "tools/filesystem.h"
+#include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "gui/style.h"
 
@@ -43,6 +44,7 @@ Font dayroman;
 Shader blurShader;
 Shader contrastShader;
 Shader colorizeShader;
+Shader fadeShader;
 
 void initStyle()
 {
@@ -52,10 +54,12 @@ void initStyle()
     blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
     colorizeShader.loadFromFile(tools::filesystem::dataDirectory() + "colorizeShader.frag", Shader::Type::Fragment);
+    fadeShader.loadFromFile(tools::filesystem::dataDirectory() + "fadeShader.frag", Shader::Type::Fragment);
 
     blurShader.setUniform("texture", Shader::CurrentTexture);
     contrastShader.setUniform("texture", Shader::CurrentTexture);
     colorizeShader.setUniform("texture", Shader::CurrentTexture);
+    fadeShader.setUniform("texture", Shader::CurrentTexture);
 }
 
 Font* defaultTextFont()
@@ -105,6 +109,19 @@ const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b)
     colorizeShader.setUniform("green", g);
     colorizeShader.setUniform("blue", b);
     return &colorizeShader;
+}
+
+const Shader* getFadeShader(float& value)
+{
+    if (value > 0)
+        value -= tools::timeManager::I((256-value)/24);
+
+    fadeShader.setUniform("value", value/256.f);
+
+    if (value < 0)
+        tools::signals::addSignal("fade-shader:end");
+
+    return &fadeShader;
 }
 
 void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h)
