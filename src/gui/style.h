@@ -53,7 +53,8 @@ enum Flags
     Hidden = 1 << 19,
     Disabled = 1 << 20,
     Activated = 1 << 21,
-    MouseOver = 1 << 22
+    MouseOver = 1 << 22,
+    CustomTextShader = 1 << 23
 };
 
 namespace style{

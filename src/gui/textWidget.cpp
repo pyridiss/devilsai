@@ -145,7 +145,7 @@ void TextWidget::display(RenderWindow& app)
     }
     else
     {
-        _text.displayFullText(app, left(), top());
+        displayText(app);
     }
 }
 

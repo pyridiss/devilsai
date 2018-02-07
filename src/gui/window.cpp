@@ -634,6 +634,9 @@ void Window::loadFromFile(string path)
             if (elem->Attribute("VerticalScrollBar"))
                 widget->addFlags(VerticalScrollBar);
 
+            if (elem->Attribute("CustomTextShader"))
+                widget->addFlags(CustomTextShader);
+
             if (elem->Attribute("textShaded"))
                 widget->addTextFlags(textManager::Shaded);
 

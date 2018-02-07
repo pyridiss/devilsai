@@ -365,8 +365,16 @@ void Widget::displayText(RenderWindow& app)
         _text.displayFullText(app, left(), top(), style::getContrastShader(1, 0, 0));
     else if ((_flags & Disabled) == Disabled)
         _text.displayFullText(app, left(), top(), style::getContrastShader(0.25, 0.25, 0.25));
+    else if ((_flags & CustomTextShader) == CustomTextShader)
+    {
+        string_view shader = embeddedData<string>("custom-shader");
+        if (shader == "fade")
+            _text.displayFullText(app, left(), top(), style::getFadeShader(embeddedData<float>("fade-value")));
+    }
     else
+    {
         _text.displayFullText(app, left(), top());
+    }
 }
 
 void Widget::display(RenderWindow& app)
