@@ -32,11 +32,15 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Coffre **/
 
-Coffre::Coffre() : Element_Carte()
+Coffre::Coffre()
+  : Element_Carte(),
+    imageContainer(),
+    objects(),
+    Nom(),
+    _highlight(false),
+    _closeWhenEmpty(false)
 {
     inert = false;
-    _highlight = false;
-    _closeWhenEmpty = false;
 }
 
 int Coffre::Gestion()

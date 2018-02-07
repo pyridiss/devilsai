@@ -24,7 +24,6 @@
 #include "tools/math.h"
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Bibliotheque.h"
 #include "../Carte/Carte.h"
 #include "ElementsCarte.h"
 

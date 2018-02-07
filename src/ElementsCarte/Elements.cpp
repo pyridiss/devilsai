@@ -30,10 +30,11 @@
 /** FONCTIONS DE LA CLASSE Element_Carte **/
 
 Element_Carte::Element_Carte()
+  : _position(),
+    size(),
+    inert(false)
 {
     Id = tools::math::newUniqueIdentifier();
-    _position.x = 0;
-    _position.y = 0;
     size.setOrigin(&_position);
 }
 

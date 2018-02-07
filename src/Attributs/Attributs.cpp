@@ -202,7 +202,8 @@ void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 /** FONCTIONS DE LA CLASSE Activite **/
 
 Activite::Activite()
-  : scriptString(),
+  : numberOfImages(0),
+    scriptString(),
     interactionField(),
     Animation()
 {
@@ -327,7 +328,7 @@ void Activite::loadFromXML(XMLHandle &handle, Individu* owner)
             {
                 string pathPattern = elem->Attribute("pathToImages");
 
-                for (int i = 0 ; i < numberOfImages ; ++i)
+                for (unsigned i = 0 ; i < numberOfImages ; ++i)
                 {
                     string path = pathPattern;
                     string number = intToString(i, 2);

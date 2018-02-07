@@ -154,7 +154,7 @@ class Activite
 {
 	public:
         string Id          = "-1";
-        int numberOfImages = 0;
+        unsigned numberOfImages;
         int speed          = 0;
         int step           = 0;
         bool fightAtEnd    = false;

@@ -38,8 +38,16 @@ using namespace tinyxml2;
 /** FONCTIONS DE LA CLASSE Carte **/
 
 Carte::Carte()
+  : elements(),
+    collidingItems(),
+    onScreenItems(),
+    places(),
+    paths(),
+    dataFiles(),
+    commonDataLoaded(false),
+    _stopManagement(false),
+    _clock()
 {
-    commonDataLoaded = false;
 }
 
 Carte::~Carte()
@@ -582,9 +590,9 @@ void Carte::loadFromFile(string path, string tag)
 
                         //2. The item must not collide with paths
                         bool c = false;
-                        for (auto& path : paths)
+                        for (auto& p : paths)
                         {
-                            if (tools::math::intersection(newItem->size, path.second))
+                            if (tools::math::intersection(newItem->size, p.second))
                                 c = true;
                         }
                         if (c) continue;
