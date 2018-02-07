@@ -28,6 +28,7 @@
     <text id="ingame-skillbar-rightctrl">@f[liberation-bold]@s[7]@c[255,255,255]Ctrl D. @d</text>
     <text id="ingame-skillbar-rightclick">@f[liberation-bold]@s[7]@c[255,255,255]Clic D. @d</text>
     <text id="ingame-toolbar-error">@c[255,0,0]UNE ERREUR S'EST PRODUITE. VOIR LE FICHIER "devilsai.log" POUR PLUS DE DÉTAILS.</text>
+    <text id="ingame-toolbar-gamesaved">@f[dayroman]@s[30]@c[225,0,0]Sauvegarde effectuée @d</text>
     <text id="journal-title">@f[dayroman]@s[28]Journal @d</text>
     <text id="journal-first">&lt;&lt; Première</text>
     <text id="journal-previous">&lt; Précédente</text>

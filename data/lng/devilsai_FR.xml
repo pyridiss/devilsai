@@ -10,7 +10,6 @@
     <text id="FATIGUE">Fatigue extrême !</text>
     <text id="MONTRES_RESTANTS">Monstres restants : *</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>
-    <text id="SAUVEGARDE">Sauvegarde effectuée</text>
     <text id="SOUS_EFFET">@c[255,255,128]Sous l'effet de : * @d</text>
     <text id="VERSION_INCOMPATIBLE">Cette sauvegarde n'est pas compatible avec cette version du jeu.</text>
     <text id="console-attributeImprovement-strength">Force *</text>

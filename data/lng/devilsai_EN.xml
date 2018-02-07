@@ -10,7 +10,6 @@
     <text id="FATIGUE">Extremely tired!</text>
     <text id="MONTRES_RESTANTS">Remaining monsters: *</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
-    <text id="SAUVEGARDE">Game saved</text>
     <text id="SOUS_EFFET">Under the effect of: *</text>
     <text id="VERSION_INCOMPATIBLE">This saved game is not compatible with this version of the program.</text>
     <text id="console-attributeImprovement-strength">Strength *</text>

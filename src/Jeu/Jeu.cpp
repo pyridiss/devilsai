@@ -47,9 +47,6 @@
 
 void mainLoop(RenderWindow& app)
 {
-    float ChangementLieu = 0;
-	float SauvegardeEffectuee = 255;
-
     bool managementActivated = false;
     bool playerResting = false;
 
@@ -68,7 +65,6 @@ void mainLoop(RenderWindow& app)
     gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
-    gui::Widget* placeName = ingameToolbar.widget("place-name");
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
     gui::Widget* playerDescription = characterWindow.widget("text");
 
@@ -218,13 +214,9 @@ void mainLoop(RenderWindow& app)
                 mainMenuWindow.manage(app);
                 managementActivated = false;
             }
-
-            if (signal.first == "savegame")
-            {
-                SauvegardeEffectuee = 254;
+            if (signal.first == "savegame") {
                 Save_Partie();
             }
-
             if (signal.first == "rest")
             {
                 managementActivated = false;
@@ -325,15 +317,6 @@ void mainLoop(RenderWindow& app)
             {
                 return;
             }
-
-            if (signal.first == "place-changed") {
-                ChangementLieu = 100;
-                gui::optionType o;
-                o.set<textManager::PlainText>(textManager::getText("places", signal.second));
-                placeName->setValue(o);
-                placeName->show();
-            }
-
             if (signal.first == "player-skill") {
                 gamedata::player()->Set_Activite(signal.second);
             }
@@ -558,26 +541,6 @@ void mainLoop(RenderWindow& app)
 		//4. CHANGEMENTS DE LIEU
 
         gamedata::updateCurrentPlace();
-
-        if (ChangementLieu > 0)
-        {
-            ChangementLieu -= tools::timeManager::I(1);
-            if (ChangementLieu <= 0)
-                placeName->hide();
-        }
-
-		//5. SAUVEGARDE EFFECTUÉE
-
-		if (SauvegardeEffectuee != 255)
-		{
-			SauvegardeEffectuee -= tools::timeManager::I((256-SauvegardeEffectuee)/24);
-			if (SauvegardeEffectuee <= 0) SauvegardeEffectuee = 255;
-			else
-			{
-                Disp_TexteCentre(textManager::getText("devilsai", "SAUVEGARDE"), app.getSize().x/2 + 1, 161, Color(0, 0, 0, SauvegardeEffectuee), 30., *gui::style::fontFromString("dayroman"));
-                Disp_TexteCentre(textManager::getText("devilsai", "SAUVEGARDE"), app.getSize().x/2, 160, Color(225, 0, 0, SauvegardeEffectuee), 30., *gui::style::fontFromString("dayroman"));
-			}
-		}
 
         tools::timeManager::frameDone();
         app.display();

@@ -274,7 +274,7 @@ void updateCurrentPlace()
                 else
                     tools::signals::addSignal("ingame-toolbar:enable-rest");
 
-                tools::signals::addSignal("place-changed", p.first->Type);
+                tools::signals::addSignal("place-changed", textManager::getText("places", p.first->Type).toStdString());
                 if (!p.second.empty())
                     musicManager::playMusic(p.second);
 
