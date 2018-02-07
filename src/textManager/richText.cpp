@@ -299,7 +299,7 @@ int RichText::height()
     return _height;
 }
 
-void RichText::displayToView(RenderTarget& target, View view, const Shader* shader)
+void RichText::displayToView(RenderTarget& target, View view)
 {
     View currentView = target.getView();
     target.setView(view);
@@ -314,14 +314,14 @@ void RichText::displayToView(RenderTarget& target, View view, const Shader* shad
             i.setFillColor(Color(0, 0, 0, 192));
 
             i.move(1, 1);
-            target.draw(i, shader);
+            target.draw(i);
 
             i.move(-1, -1);
             i.setFillColor(originalColor);
         }
 
         if (i.getPosition().y > minY && i.getPosition().y < maxY)
-            target.draw(i, shader);
+            target.draw(i);
     }
 
     target.setView(currentView);
@@ -345,9 +345,25 @@ void RichText::displayFullText(RenderTarget& target, int x, int y, const Shader*
         y -= h/2;
 
     View newView(FloatRect(-2, -2, w, h));
-    newView.setViewport(FloatRect((float)x/(float)target.getSize().x, (float)y/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
 
-    displayToView(target, newView, shader);
+    if (shader == nullptr)
+    {
+        newView.setViewport(FloatRect((float)x/(float)target.getSize().x, (float)y/(float)target.getSize().y, w/(float)target.getSize().x, h/(float)target.getSize().y));
+        displayToView(target, newView);
+    }
+    else
+    {
+        RenderTexture& tex = gui::style::temporaryTexture();
+        tex.clear(Color::Transparent);
+
+        newView.setViewport(FloatRect((float)x/(float)tex.getSize().x, (float)y/(float)tex.getSize().y, w/(float)tex.getSize().x, h/(float)tex.getSize().y));
+        displayToView(tex, newView);
+
+        tex.display();
+
+        Sprite sprite(tex.getTexture());
+        target.draw(sprite, shader);
+    }
 }
 
 } //namespace textManager

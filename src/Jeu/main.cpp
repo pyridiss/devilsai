@@ -148,7 +148,7 @@ int main(int n, char *params[])
 
 	srand(time(NULL));
 
-    gui::style::initStyle();
+    gui::style::initStyle(&App);
 
 	Load_Decorations();
 	MESSAGE("Décorations chargées", FICHIER)
