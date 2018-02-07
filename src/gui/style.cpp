@@ -46,7 +46,10 @@ Shader contrastShader;
 Shader colorizeShader;
 Shader fadeShader;
 
-void initStyle()
+RenderTexture TemporaryTexture;
+RenderWindow* MainWindow = nullptr;
+
+void initStyle(RenderWindow* w)
 {
     liberation.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Regular.ttf");
     liberationBold.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Bold.ttf");
@@ -60,6 +63,12 @@ void initStyle()
     contrastShader.setUniform("texture", Shader::CurrentTexture);
     colorizeShader.setUniform("texture", Shader::CurrentTexture);
     fadeShader.setUniform("texture", Shader::CurrentTexture);
+
+    MainWindow = w;
+    if (w != nullptr)
+        TemporaryTexture.create(w->getSize().x, w->getSize().y);
+    TemporaryTexture.setSmooth(true);
+
 }
 
 Font* defaultTextFont()
@@ -183,6 +192,14 @@ void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h)
         disableShader(app, x, y, w, h);
     else if (shader == "warn")
         warnShader(app, x, y, w, h);
+}
+
+RenderTexture& temporaryTexture()
+{
+    if (MainWindow->getSize() != TemporaryTexture.getSize())
+        TemporaryTexture.create(MainWindow->getSize().x, MainWindow->getSize().y);
+
+    return TemporaryTexture;
 }
 
 } //namespace style
