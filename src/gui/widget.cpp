@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "tools/debug.h"
 
 #include "gui/window.h"
@@ -25,6 +27,8 @@
 
 #include "imageManager/image.h"
 #include "imageManager/imageManager.h"
+
+using namespace tinyxml2;
 
 namespace gui{
 
@@ -385,6 +389,88 @@ void Widget::display(RenderWindow& app)
     displayBackground(app);
 
     displayText(app);
+}
+
+void Widget::loadFromXMLElement(tinyxml2::XMLElement* elem)
+{
+    elem->QueryAttribute("x", &_x);
+    elem->QueryAttribute("y", &_y);
+
+    if (elem->Attribute("OriginXCenter"))
+        addFlags(OriginXCenter);
+    if (elem->Attribute("OriginRight"))
+        addFlags(OriginRight);
+    if (elem->Attribute("OriginYCenter"))
+        addFlags(OriginYCenter);
+    if (elem->Attribute("OriginBottom"))
+        addFlags(OriginBottom);
+    if (elem->Attribute("OriginCenter"))
+        addFlags(OriginXCenter | OriginYCenter);
+
+    if (elem->Attribute("XPositionRelativeToCenter"))
+        addFlags(XPositionRelativeToCenter);
+    if (elem->Attribute("XPositionRelativeToRight"))
+        addFlags(XPositionRelativeToRight);
+    if (elem->Attribute("YPositionRelativeToCenter"))
+        addFlags(YPositionRelativeToCenter);
+    if (elem->Attribute("YPositionRelativeToBottom"))
+        addFlags(YPositionRelativeToBottom);
+    if (elem->Attribute("PositionRelativeToCenter"))
+        addFlags(XPositionRelativeToCenter | YPositionRelativeToCenter);
+    if (elem->Attribute("XPositionRelativeToScreenSize"))
+        addFlags(XPositionRelativeToScreenSize);
+    if (elem->Attribute("YPositionRelativeToScreenSize"))
+        addFlags(YPositionRelativeToScreenSize);
+    if (elem->Attribute("PositionRelativeToScreenSize"))
+        addFlags(XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
+    if (elem->Attribute("AdjustSizeToText"))
+        addFlags(AdjustSizeToText);
+
+    int w = 0, h = 0;
+    elem->QueryAttribute("width", &w);
+    elem->QueryAttribute("height", &h);
+    setSize(w, h);
+
+    if (elem->Attribute("WidthRelativeToScreenSize"))
+        addFlags(WidthRelativeToScreenSize);
+    if (elem->Attribute("WidthMeansFixedMargin"))
+        addFlags(WidthMeansFixedMargin);
+    if (elem->Attribute("HeightRelativeToScreenSize"))
+        addFlags(HeightRelativeToScreenSize);
+    if (elem->Attribute("HeightMeansFixedMargin"))
+        addFlags(HeightMeansFixedMargin);
+
+    if (elem->Attribute("Fullscreen"))
+    {
+        setSize(100, 100);
+        addFlags(WidthRelativeToScreenSize | HeightRelativeToScreenSize);
+    }
+
+    if (elem->Attribute("allBackground"))
+        setBackground(elem->Attribute("allBackground"));
+
+    if (elem->Attribute("AdjustBackgroundToSize"))
+        addFlags(AdjustBackgroundToSize);
+    if (elem->Attribute("RepeatBackgroundToFitSize"))
+        addFlags(RepeatBackgroundToFitSize);
+
+    if (elem->Attribute("Hidden"))
+        addFlags(Hidden);
+
+    if (elem->Attribute("VerticalScrollBar"))
+        addFlags(VerticalScrollBar);
+
+    if (elem->Attribute("CustomTextShader"))
+        addFlags(CustomTextShader);
+
+    if (elem->Attribute("textShaded"))
+        addTextFlags(textManager::Shaded);
+
+    if (elem->Attribute("allText"))
+        setText(textManager::getText("gui", elem->Attribute("allText")));
+
+    if (elem->Attribute("backgroundShader"))
+        setBackgroundShader(elem->Attribute("backgroundShader"));
 }
 
 void Widget::show()

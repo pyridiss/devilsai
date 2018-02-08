@@ -37,6 +37,10 @@
 using namespace std;
 using namespace sf;
 
+namespace tinyxml2{
+    class XMLElement;
+}
+
 namespace gui{
 
 typedef tools::math::Variant<string, textManager::PlainText, Keyboard::Key, float, tools::signals::Signal> optionType;
@@ -104,6 +108,8 @@ class Widget
         virtual void setValue(optionType v) = 0;
 
         virtual void display(RenderWindow& app);
+
+        void loadFromXMLElement(tinyxml2::XMLElement* elem);
 
         void show();
         void hide();
