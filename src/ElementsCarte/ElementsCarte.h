@@ -305,7 +305,8 @@ class Joueur : public Individu
 
 	public:
 		Joueur();
-		virtual ~Joueur() {}
+        Joueur(const Joueur& other) = delete;
+        Joueur* operator=(const Joueur& right) = delete;
 
 	public:
 		int Gestion();
