@@ -138,6 +138,7 @@ class Objects
         list<objectDesign> designs;
 
 	public:
+        Objects();
 		~Objects();
 
 	public:

@@ -35,6 +35,11 @@ using namespace tinyxml2;
 
 /* Manager for objects */
 
+Objects::Objects()
+  : objects(),
+    designs()
+{
+}
 Objects::~Objects()
 {
 	deleteObjects();
