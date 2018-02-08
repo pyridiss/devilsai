@@ -141,8 +141,8 @@ class Window : public Widget
     public:
         Window();
         Window(string path, RenderWindow& window);
-        Window(const Window& other);
-        Window& operator=(const Window& right);
+        Window(const Window& other) = delete;
+        Window& operator=(const Window& right) = delete;
         ~Window();
 
     public:

@@ -56,40 +56,10 @@ Window::Window()
 {
 }
 
-Window::Window(const Window& other)
-  : Widget(other),
-    widgets(other.widgets),
-    _triggers(other._triggers),
-    _events(other._events),
-    _watchedKeys(other._watchedKeys),
-    _capturedSignals(other._capturedSignals),
-    _screen(other._screen),
-    _focusedWidget(other._focusedWidget),
-    backgroundFullscreenShader(other.backgroundFullscreenShader),
-    music(other.music)
-{
-}
-
 Window::Window(string path, RenderWindow& window) : Window()
 {
     _screen = &window;
     loadFromFile(path);
-}
-
-Window& Window::operator=(const Window& right)
-{
-    Widget::operator=(right);
-    widgets = right.widgets;
-    _triggers = right._triggers;
-    _events = right._events;
-    _watchedKeys = right._watchedKeys;
-    _capturedSignals = right._capturedSignals;
-    _screen = right._screen;
-    _focusedWidget = right._focusedWidget;
-    backgroundFullscreenShader = right.backgroundFullscreenShader;
-    music = right.music;
-
-    return *this;
 }
 
 Window::~Window()
