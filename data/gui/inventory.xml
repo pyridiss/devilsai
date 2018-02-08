@@ -4,7 +4,7 @@
     <loadImage key="gui-object-background-50x50" path="img/FondObjet_50_50.png"/>
     <loadImage key="gui-object-background-75x75" path="img/FondObjet_75_75.png"/>
     <loadImage key="gui-object-background-75x100" path="img/FondObjet_75_100.png"/>
-    <properties x="0" y="50" width="512" height="668" backgroundImage="gui-left-screen-background-512x668"/>
+    <properties x="0" y="50" width="512" height="668" allBackground="gui-left-screen-background-512x668"/>
     <widget name="equipment-helmet" type="button" OriginCenter="1" x="256" y="77" width="75" height="75" allBackground="gui-object-background-75x75">
         <addEmbeddedData name="image-container" value="objects"/>
         <addEmbeddedData name="allowed-object" value="casque"/>

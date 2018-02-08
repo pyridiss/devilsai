@@ -43,39 +43,27 @@ using namespace tinyxml2;
 namespace gui{
 
 Window::Window()
-  : widgets(),
+  : Widget(),
+    widgets(),
     _triggers(),
     _events(),
     _watchedKeys(),
     _capturedSignals(),
-    _x(0),
-    _y(0),
-    _width(0),
-    _height(0),
-    _flags(0),
     _screen(nullptr),
-    backgroundImage(),
     backgroundFullscreenShader(),
-    backgroundShader(),
     music()
 {
 }
 
 Window::Window(const Window& other)
-  : widgets(other.widgets),
+  : Widget(other),
+    widgets(other.widgets),
     _triggers(other._triggers),
     _events(other._events),
     _watchedKeys(other._watchedKeys),
     _capturedSignals(other._capturedSignals),
-    _x(other._x),
-    _y(other._y),
-    _width(other._width),
-    _height(other._height),
-    _flags(other._flags),
     _screen(other._screen),
-    backgroundImage(other.backgroundImage),
     backgroundFullscreenShader(other.backgroundFullscreenShader),
-    backgroundShader(other.backgroundShader),
     music(other.music)
 {
 }
@@ -88,20 +76,14 @@ Window::Window(string path, RenderWindow& window) : Window()
 
 Window& Window::operator=(const Window& right)
 {
+    Widget::operator=(right);
     widgets = right.widgets;
     _triggers = right._triggers;
     _events = right._events;
     _watchedKeys = right._watchedKeys;
     _capturedSignals = right._capturedSignals;
-    _x = right._x;
-    _y = right._y;
-    _width = right._width;
-    _height = right._height;
-    _flags = right._flags;
     _screen = right._screen;
-    backgroundImage = right.backgroundImage;
     backgroundFullscreenShader = right.backgroundFullscreenShader;
-    backgroundShader = right.backgroundShader;
     music = right.music;
 
     return *this;
@@ -211,27 +193,27 @@ void Window::startWindow(RenderWindow& app)
 
 void Window::display(RenderWindow& app)
 {
-    if (!backgroundShader.empty())
-        gui::style::displayShader(app, backgroundShader, left(), top(), width(), height());
+    if (!_backgroundShader.empty())
+        gui::style::displayShader(app, _backgroundShader, left(), top(), width(), height());
 
-    if (!backgroundImage.empty())
+    if (!_background.empty())
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", backgroundImage);
+            imageManager::Image* image = imageManager::getImage("gui", _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
             newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
 
             app.setView(newView);
-            imageManager::display(app, "gui", backgroundImage, 0, 0);
+            imageManager::display(app, "gui", _background, 0, 0);
 
             app.setView(currentView);
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", backgroundImage);
+            imageManager::Image* image = imageManager::getImage("gui", _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, width(), height()));
@@ -240,13 +222,13 @@ void Window::display(RenderWindow& app)
             app.setView(newView);
             for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
                     for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
-                        imageManager::display(app, "gui", backgroundImage, i * image->getSize().x, j * image->getSize().y);
+                        imageManager::display(app, "gui", _background, i * image->getSize().x, j * image->getSize().y);
 
             app.setView(currentView);
         }
         else
         {
-            imageManager::display(app, "gui", backgroundImage, left(), top());
+            imageManager::display(app, "gui", _background, left(), top());
         }
     }
 
@@ -444,6 +426,10 @@ const map<string,Widget*>& Window::getWidgets()
     return widgets;
 }
 
+void Window::setValue(optionType v)
+{
+}
+
 void Window::setValue(const string& widget, optionType v)
 {
     auto i = widgets.find(widget);
@@ -456,6 +442,16 @@ void Window::setValue(const string& widget, optionType v)
 void Window::addEvent(Widget* s, EventTypes e, optionType d)
 {
     _events.emplace_back(s, e, d);
+}
+
+bool Window::mouseHovering(RenderWindow& app)
+{
+    return false;
+}
+
+bool Window::activated(RenderWindow& app, Event event)
+{
+    return false;
 }
 
 void Window::loadFromFile(string path)
@@ -482,69 +478,10 @@ void Window::loadFromFile(string path)
 
         if (elemName == "properties")
         {
-            elem->QueryAttribute("x", &_x);
-            elem->QueryAttribute("y", &_y);
-
-            if (elem->Attribute("OriginXCenter"))
-                _flags |= OriginXCenter;
-            if (elem->Attribute("OriginRight"))
-                _flags |= OriginRight;
-            if (elem->Attribute("OriginYCenter"))
-                _flags |= OriginYCenter;
-            if (elem->Attribute("OriginBottom"))
-                _flags |= OriginBottom;
-            if (elem->Attribute("OriginCenter"))
-                _flags |= (OriginXCenter | OriginYCenter);
-
-            if (elem->Attribute("XPositionRelativeToCenter"))
-                _flags |= XPositionRelativeToCenter;
-            if (elem->Attribute("XPositionRelativeToRight"))
-                _flags |= XPositionRelativeToRight;
-            if (elem->Attribute("YPositionRelativeToCenter"))
-                _flags |= YPositionRelativeToCenter;
-            if (elem->Attribute("YPositionRelativeToBottom"))
-                _flags |= YPositionRelativeToBottom;
-            if (elem->Attribute("PositionRelativeToCenter"))
-                _flags |= (XPositionRelativeToCenter | YPositionRelativeToCenter);
-            if (elem->Attribute("XPositionRelativeToScreenSize"))
-                _flags |= XPositionRelativeToScreenSize;
-            if (elem->Attribute("YPositionRelativeToScreenSize"))
-                _flags |= YPositionRelativeToScreenSize;
-            if (elem->Attribute("PositionRelativeToScreenSize"))
-                _flags |= (XPositionRelativeToScreenSize | YPositionRelativeToScreenSize);
-
-            elem->QueryAttribute("width", &_width);
-            elem->QueryAttribute("height", &_height);
-
-            if (elem->Attribute("WidthRelativeToScreenSize"))
-                _flags |= WidthRelativeToScreenSize;
-            if (elem->Attribute("WidthMeansFixedMargin"))
-                _flags |= WidthMeansFixedMargin;
-            if (elem->Attribute("HeightRelativeToScreenSize"))
-                _flags |= HeightRelativeToScreenSize;
-            if (elem->Attribute("HeightMeansFixedMargin"))
-                _flags |= HeightMeansFixedMargin;
-
-            if (elem->Attribute("Fullscreen"))
-            {
-                _width = 100;
-                _height = 100;
-                _flags |= (WidthRelativeToScreenSize | HeightRelativeToScreenSize);
-            }
-
-            if (elem->Attribute("backgroundImage"))
-                backgroundImage = elem->Attribute("backgroundImage");
+            loadFromXMLElement(elem);
 
             if (elem->Attribute("backgroundFullscreenShader"))
                 backgroundFullscreenShader = elem->Attribute("backgroundFullscreenShader");
-
-            if (elem->Attribute("backgroundShader"))
-                backgroundShader = elem->Attribute("backgroundShader");
-
-            if (elem->Attribute("AdjustBackgroundToSize"))
-                _flags |= AdjustBackgroundToSize;
-            if (elem->Attribute("RepeatBackgroundToFitSize"))
-                _flags |= RepeatBackgroundToFitSize;
 
             if (elem->Attribute("music"))
                 music = elem->Attribute("music");

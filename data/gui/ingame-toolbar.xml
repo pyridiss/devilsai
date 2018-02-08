@@ -7,7 +7,7 @@
     <loadImage key="button-skills" path="img/BoutonCompetences.png"/>
     <loadImage key="button-journal" path="img/BoutonJournal.png"/>
     <loadImage key="button-rest" path="img/gui-rest-button.png"/>
-    <properties width="100" WidthRelativeToScreenSize="1" height="50" backgroundImage="gui-top-border" RepeatBackgroundToFitSize="1"/>
+    <properties width="100" WidthRelativeToScreenSize="1" height="50" allBackground="gui-top-border" RepeatBackgroundToFitSize="1"/>
     <widget name="button-ingame-menu" type="button" x="10" y="2" width="41" height="41" allBackground="button-ingame-menu" AdjustBackgroundToSize="1">
     </widget>
     <widget name="button-character" type="button" x="60" y="2" width="41" height="41" allBackground="button-character" AdjustBackgroundToSize="1">

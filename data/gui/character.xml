@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <loadImage key="gui-screen-background" path="img/gui-screen-background.png"/>
-    <properties x="0" y="0" WidthRelativeToScreenSize="1" width="50" HeightRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1" backgroundImage="gui-screen-background"/>
+    <properties x="0" y="0" WidthRelativeToScreenSize="1" width="50" HeightRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1" allBackground="gui-screen-background"/>
     <widget name="player-name" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="60" textShaded="1">
         <addEmbeddedData name="format" type="plaintext" value="@f[dayroman]@s[30]@c[192,0,0]* @d"/>
     </widget>

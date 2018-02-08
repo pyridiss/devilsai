@@ -2,7 +2,7 @@
 <window>
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
-    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308"/>
     <widget name="question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="100" allText="confirm-exit-game-question"/>
     <widget name="button-return" type="button" x="58" y="200" width="156" height="46" allBackground="button-background-156x46" allText="confirm-exit-game-return-to-game"/>
     <widget name="button-exit" type="button" x="274" y="200" width="156" height="46" allBackground="button-background-156x46" allText="confirm-exit-game-exit"/>

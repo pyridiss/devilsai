@@ -90,8 +90,6 @@ class Widget
         int height();
 
         void setText(const textManager::PlainText& t);
-        void setBackground(string b);
-        void setBackgroundShader(string s);
 
         template<typename T>
         void addEmbeddedData(string name, const T& value);

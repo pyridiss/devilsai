@@ -244,16 +244,6 @@ void Widget::setText(const textManager::PlainText& t)
     }
 }
 
-void Widget::setBackground(string b)
-{
-    _background = std::move(b);
-}
-
-void Widget::setBackgroundShader(string s)
-{
-    _backgroundShader = std::move(s);
-}
-
 template<typename T>
 void Widget::addEmbeddedData(string name, const T& value)
 {
@@ -447,7 +437,7 @@ void Widget::loadFromXMLElement(tinyxml2::XMLElement* elem)
     }
 
     if (elem->Attribute("allBackground"))
-        setBackground(elem->Attribute("allBackground"));
+        _background = elem->Attribute("allBackground");
 
     if (elem->Attribute("AdjustBackgroundToSize"))
         addFlags(AdjustBackgroundToSize);
@@ -470,7 +460,7 @@ void Widget::loadFromXMLElement(tinyxml2::XMLElement* elem)
         setText(textManager::getText("gui", elem->Attribute("allText")));
 
     if (elem->Attribute("backgroundShader"))
-        setBackgroundShader(elem->Attribute("backgroundShader"));
+        _backgroundShader = elem->Attribute("backgroundShader");
 }
 
 void Widget::show()

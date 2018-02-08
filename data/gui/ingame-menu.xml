@@ -2,7 +2,7 @@
 <window>
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
-    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" backgroundFullscreenShader="disable"/>
     <widget name="button-return-to-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="65" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-return-to-game"/>
     <widget name="button-savegame" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="154" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-savegame"/>
     <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit"/>

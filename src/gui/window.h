@@ -40,7 +40,7 @@ namespace gui{
 enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, SignalCaptured, NoEvent };
 enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, NoAction };
 
-class Window
+class Window : public Widget
 {
     private:
         struct Trigger
@@ -131,15 +131,9 @@ class Window
 
         bool exitWindow = false;
 
-        int _x, _y;
-        int _width, _height;
-        uint32_t _flags;
-
         RenderWindow* _screen;
 
-        string backgroundImage;
         string backgroundFullscreenShader;
-        string backgroundShader;
         string music;
 
     public:
@@ -162,8 +156,12 @@ class Window
         void checkTriggers();
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
+        void setValue(optionType v);
         void setValue(const string& widget, optionType v);
         void addEvent(Widget* s, EventTypes e, optionType d);
+
+        bool mouseHovering(RenderWindow& app);
+        bool activated(RenderWindow& app, Event event);
 
         void loadFromFile(string path);
 };

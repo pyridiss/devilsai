@@ -3,7 +3,7 @@
     <loadImage key="dialog-background-608x383" path="img/gui-dialog-background-608x383.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <loadImage key="dropdownlist-background-156x34" path="img/gui-dropdownlist-background-156x34.png"/>
-    <properties OriginCenter="1" PositionRelativeToCenter="1" width="608" height="383" backgroundImage="dialog-background-608x383" backgroundFullscreenShader="disable"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="608" height="383" allBackground="dialog-background-608x383" backgroundFullscreenShader="disable"/>
     <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="options-title"/>
     <widget name="question-language" type="text" OriginCenter="1" x="184" y="100" allText="options-choose-language"/>
     <widget name="question-resolution" type="text" OriginCenter="1" x="184" y="150" allText="options-choose-resolution"/>

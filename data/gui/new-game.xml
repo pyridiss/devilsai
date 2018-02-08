@@ -3,7 +3,7 @@
     <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <loadImage key="input-field-background-356x46" path="img/gui-input-field-background-356x46.png"/>
-    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" backgroundImage="dialog-background-488x308" backgroundFullscreenShader="disable"/>
+    <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" backgroundFullscreenShader="disable"/>
     <widget name="question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="new-game-title"/>
     <widget name="answer" type = "input-field" OriginCenter="1" XPositionRelativeToCenter="1" y="120" width="356" height="46" allBackground="input-field-background-356x46" textSize="18" textFont="dayroman"/>
     <widget name="button-back" type="button" x="20" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
