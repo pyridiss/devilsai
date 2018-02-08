@@ -41,13 +41,22 @@ Individu::Individu()
     _animationFrame(0),
     _targetedItem(nullptr),
     _currentSkill(nullptr),
+    _currentHealthStatus(),
+    _attributes(),
     _behaviors(nullptr),
     _attacks(nullptr),
     _skills(nullptr),
     _species(nullptr),
     _displayedName(nullptr),
     _corpseImageKey(nullptr),
-    _extraDataFile(nullptr)
+    _extraDataFile(nullptr),
+    _clock(),
+    interactionField(),
+    viewField(),
+    seenItems(),
+    pathToTarget(),
+    validityOfPath(),
+    inventory()
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     angle = tools::math::randomNumber(0.0, 2 * M_PI);
@@ -57,6 +66,153 @@ Individu::Individu()
     pathToTarget.profile = tools::math::Shape::Profiles::None;
     validityOfPath.circle(tools::math::Vector2d(0, 0), 20);
     validityOfPath.setOrigin(tools::math::absoluteOrigin());
+}
+
+Individu::Individu(const Individu& other)
+  : Element_Carte(other),
+    angle(other.angle),
+    ActEffectue(other.ActEffectue),
+    Temps(other.Temps),
+    Comportement(other.Comportement),
+    NouveauComportement(other.NouveauComportement),
+    _animationFrame(other._animationFrame),
+    _targetedItem(other._targetedItem),
+    _currentSkill(other._currentSkill),
+    _currentHealthStatus(other._currentHealthStatus),
+    _attributes(other._attributes),
+    _behaviors(nullptr),
+    _attacks(nullptr),
+    _skills(nullptr),
+    _species(other._species),
+    _displayedName(nullptr),
+    _corpseImageKey(nullptr),
+    _experience(other._experience),
+    _extraDataFile(nullptr),
+    _clock(other._clock),
+    RecuperationFixe(other.RecuperationFixe),
+    EnergieMax(other.EnergieMax),
+    interactionField(other.interactionField),
+    viewField(other.viewField),
+    seenItems(other.seenItems),
+    pathToTarget(other.pathToTarget),
+    validityOfPath(other.validityOfPath),
+    inventory(other.inventory)
+{
+    if (other._behaviors != nullptr)
+    {
+        _behaviors = new string[Behaviors::enumSize];
+        for (unsigned i = 0 ; i < Behaviors::enumSize ; ++i)
+            _behaviors[i] = other._behaviors[i];
+    }
+    if (other._attacks != nullptr)
+    {
+        _attacks = new vector<string>;
+        *_attacks = *(other._attacks);
+    }
+    if (other._skills != nullptr)
+    {
+        _skills = new MapActivites;
+        *_skills = *(other._skills);
+    }
+    if (other._displayedName != nullptr)
+    {
+        _displayedName = new textManager::PlainText;
+        *_displayedName = *(other._displayedName);
+    }
+    if (other._corpseImageKey != nullptr)
+    {
+        _corpseImageKey = new string;
+        *_corpseImageKey = *(other._corpseImageKey);
+    }
+    if (other._extraDataFile != nullptr)
+    {
+        _extraDataFile = new string;
+        *_extraDataFile = *(other._extraDataFile);
+    }
+
+    interactionField.setOrigin(&position());
+    viewField.setOrigin(&position());
+    validityOfPath.setOrigin(tools::math::absoluteOrigin());
+}
+
+Individu& Individu::operator=(const Individu& right)
+{
+    Element_Carte::operator=(right);
+
+    angle = right.angle;
+    ActEffectue = right.ActEffectue;
+    Temps = right.Temps;
+    Comportement = right.Comportement;
+    NouveauComportement = right.NouveauComportement;
+    _animationFrame = right._animationFrame;
+    _targetedItem = right._targetedItem;
+    _currentSkill = right._currentSkill;
+    _currentHealthStatus = right._currentHealthStatus;
+    _attributes = right._attributes;
+
+    if (right._behaviors != nullptr)
+    {
+        _behaviors = new string[Behaviors::enumSize];
+        for (unsigned i = 0 ; i < Behaviors::enumSize ; ++i)
+            _behaviors[i] = right._behaviors[i];
+    }
+    else _behaviors = nullptr;
+
+    if (right._attacks != nullptr)
+    {
+        _attacks = new vector<string>;
+        *_attacks = *(right._attacks);
+    }
+    else _attacks = nullptr;
+
+    if (right._skills != nullptr)
+    {
+        _skills = new MapActivites;
+        *_skills = *(right._skills);
+    }
+    else _skills = nullptr;
+
+    _species = right._species;
+
+    if (right._displayedName != nullptr)
+    {
+        _displayedName = new textManager::PlainText;
+        *_displayedName = *(right._displayedName);
+    }
+    else _displayedName = nullptr;
+
+    if (right._corpseImageKey != nullptr)
+    {
+        _corpseImageKey = new string;
+        *_corpseImageKey = *(right._corpseImageKey);
+    }
+    else _corpseImageKey = nullptr;
+
+    _experience = right._experience;
+
+    if (right._extraDataFile != nullptr)
+    {
+        _extraDataFile = new string;
+        *_extraDataFile = *(right._extraDataFile);
+    }
+    else _extraDataFile = nullptr;
+
+    _clock = right._clock;
+
+    RecuperationFixe = right.RecuperationFixe;
+    EnergieMax = right.EnergieMax;
+    interactionField = right.interactionField;
+    viewField = right.viewField;
+    seenItems = right.seenItems;
+    pathToTarget = right.pathToTarget;
+    validityOfPath = right.validityOfPath;
+    inventory = right.inventory;
+
+    interactionField.setOrigin(&position());
+    viewField.setOrigin(&position());
+    validityOfPath.setOrigin(tools::math::absoluteOrigin());
+
+    return *this;
 }
 
 Individu::~Individu()

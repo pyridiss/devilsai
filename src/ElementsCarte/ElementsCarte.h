@@ -227,6 +227,8 @@ class Individu : public Element_Carte
 	//Constructeurs / Destructeurs :
 	public:
 		Individu();
+        Individu(const Individu& other);
+        Individu& operator=(const Individu& right);
         virtual ~Individu();
 
 	//Getters :
