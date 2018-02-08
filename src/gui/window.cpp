@@ -50,6 +50,7 @@ Window::Window()
     _watchedKeys(),
     _capturedSignals(),
     _screen(nullptr),
+    _focusedWidget(nullptr),
     backgroundFullscreenShader(),
     music()
 {
@@ -63,6 +64,7 @@ Window::Window(const Window& other)
     _watchedKeys(other._watchedKeys),
     _capturedSignals(other._capturedSignals),
     _screen(other._screen),
+    _focusedWidget(other._focusedWidget),
     backgroundFullscreenShader(other.backgroundFullscreenShader),
     music(other.music)
 {
@@ -83,6 +85,7 @@ Window& Window::operator=(const Window& right)
     _watchedKeys = right._watchedKeys;
     _capturedSignals = right._capturedSignals;
     _screen = right._screen;
+    _focusedWidget = right._focusedWidget;
     backgroundFullscreenShader = right.backgroundFullscreenShader;
     music = right.music;
 
@@ -232,16 +235,13 @@ void Window::display(RenderWindow& app)
         }
     }
 
-    Widget* priorityWidget = nullptr;
     for (auto& widget : widgets)
     {
-        if (widget.second->needsFocus())
-            priorityWidget = widget.second;
-        else
+        if (widget.second != _focusedWidget)
             widget.second->display(app);
     }
-    if (priorityWidget != nullptr)
-        priorityWidget->display(app);
+    if (_focusedWidget != nullptr)
+        _focusedWidget->display(app);
 }
 
 void Window::manage(RenderWindow& app)
@@ -277,22 +277,12 @@ void Window::manage(RenderWindow& app)
 
 void Window::manage(RenderWindow& app, Event &event)
 {
-    Widget* priorityWidget = nullptr;
-
-    for (auto& widget : widgets)
+    if (_focusedWidget != nullptr)
+        _focusedWidget->activated(app, event);
+    else
     {
-        if (widget.second->needsFocus())
-        {
-            priorityWidget = widget.second;
-        }
-    }
-
-    for (auto& widget : widgets)
-    {
-        if (priorityWidget != nullptr && widget.second != priorityWidget)
-            continue;
-
-        widget.second->activated(app, event);
+        for (auto& widget : widgets)
+            widget.second->activated(app, event);
     }
 
     for (auto i : _watchedKeys)
@@ -442,6 +432,14 @@ void Window::setValue(const string& widget, optionType v)
 void Window::addEvent(Widget* s, EventTypes e, optionType d)
 {
     _events.emplace_back(s, e, d);
+}
+
+void Window::askFocus(Widget* w, bool value)
+{
+    if (_focusedWidget != nullptr && _focusedWidget != w)
+        return;
+
+    _focusedWidget = (value) ? w : nullptr;
 }
 
 bool Window::mouseHovering(RenderWindow& app)

@@ -18,6 +18,7 @@
 */
 
 #include "gui/dropDownList.h"
+#include "gui/window.h"
 #include "gui/style.h"
 
 namespace gui{
@@ -76,7 +77,7 @@ bool DropDownList::activated(RenderWindow& app, Event event)
         if (mouseHovering(app))
         {
             _flags ^= Activated;
-            _needsFocus = ((_flags & Activated) == Activated);
+            _parent->askFocus(this, (_flags & Activated) == Activated);
             return false;
         }
         else if (mouseHoveringDeveloped(app))
@@ -85,12 +86,12 @@ bool DropDownList::activated(RenderWindow& app, Event event)
             index = i / height();
             setText(entries[index].first);
             _flags &= ~Activated;
-            _needsFocus = false;
+            _parent->askFocus(this, false);
         }
         else if ((_flags & Activated) == Activated)
         {
             _flags &= ~Activated;
-            _needsFocus = false;
+            _parent->askFocus(this, false);
             return false;
         }
     }

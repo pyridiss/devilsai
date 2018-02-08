@@ -294,11 +294,6 @@ template textManager::PlainText& Widget::embeddedData(const string& name);
 template Keyboard::Key& Widget::embeddedData(const string& name);
 template float& Widget::embeddedData(const string& name);
 
-bool Widget::needsFocus()
-{
-    return _needsFocus;
-}
-
 void Widget::displayBackground(RenderWindow& app)
 {
     //Lambda function to display the background image which shaders according to flags.

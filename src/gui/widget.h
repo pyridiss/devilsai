@@ -62,8 +62,6 @@ class Widget
 
         map<string, optionType> _embeddedData;
 
-        bool _needsFocus = false;
-
     public:
         Widget();
         Widget(const Widget& other);
@@ -97,8 +95,6 @@ class Widget
         template<typename T>
         T& embeddedData(const string& name);
         optionType& embeddedData(const string& name);
-
-        bool needsFocus();
 
         virtual bool mouseHovering(RenderWindow& app) = 0;
         virtual bool activated(RenderWindow& app, Event event) = 0;

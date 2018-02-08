@@ -133,6 +133,8 @@ class Window : public Widget
 
         RenderWindow* _screen;
 
+        Widget* _focusedWidget;
+
         string backgroundFullscreenShader;
         string music;
 
@@ -159,6 +161,7 @@ class Window : public Widget
         void setValue(optionType v);
         void setValue(const string& widget, optionType v);
         void addEvent(Widget* s, EventTypes e, optionType d);
+        void askFocus(Widget* w, bool value);
 
         bool mouseHovering(RenderWindow& app);
         bool activated(RenderWindow& app, Event event);
