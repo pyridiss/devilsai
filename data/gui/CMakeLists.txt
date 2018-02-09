@@ -10,7 +10,6 @@ set(gui
     journal.xml
     loading.xml
     main-menu.xml
-    new-game.xml
     options.xml
     player-dead.xml
     storage-box.xml

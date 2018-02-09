@@ -51,7 +51,6 @@ void mainLoop(RenderWindow& app)
     bool playerResting = false;
 
     gui::Window mainMenuWindow("gui/main-menu.xml", app);
-    gui::Window newGameWindow("gui/new-game.xml", app);
     gui::Window optionsWindow("gui/options.xml", app);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
@@ -231,12 +230,6 @@ void mainLoop(RenderWindow& app)
                 playerDeadWindow.manage(app);
                 Clean_Partie();
             }
-
-            if (signal.first == "new-game")
-            {
-                newGameWindow.manage(app);
-            }
-
             if (signal.first == "start-new-game") {
                 gamedata::clear();
                 loadingWindow.display(app);

@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <loadImage key="main-menu-background" path="img/Fond.png"/>
+    <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
     <loadImage key="dialog-background-608x383" path="img/gui-dialog-background-608x383.png"/>
     <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
+    <loadImage key="input-field-background-356x46" path="img/gui-input-field-background-356x46.png"/>
     <properties Fullscreen="1" allBackground="main-menu-background" AdjustBackgroundToSize="1" music="Gates_Of_Heaven"/>
     <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120" allText="main-menu-title"/>
     <widget name="button-new-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="238" AdjustSizeToText="1" allText="main-menu-new-game"/>
     <widget name="button-load-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="298" AdjustSizeToText="1" allText="main-menu-load-game"/>
     <widget name="button-options" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="358" AdjustSizeToText="1" allText="main-menu-options"/>
     <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="418" AdjustSizeToText="1" allText="main-menu-exit"/>
+
+    <!-- "New game" window -->
+
+    <subwindow name="new-game">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="new-game-question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="new-game-title"/>
+        <widget name="new-game-answer" type = "input-field" OriginCenter="1" XPositionRelativeToCenter="1" y="120" width="356" height="46" allBackground="input-field-background-356x46" textSize="18" textFont="dayroman"/>
+        <widget name="new-game-button-back" type="button" x="20" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
+        <widget name="new-game-button-tutorial" type="button" x="312" y="192" width="156" height="46" allBackground="button-background-156x46" allText="new-game-tutorial">
+            <addEmbeddedData name="value" value="chapitre/tutorial.xml"/>
+        </widget>
+        <widget name="new-game-button-devilsai" type="button" x="312" y="242" width="156" height="46" allBackground="button-background-156x46" allText="new-game-chapter1">
+            <addEmbeddedData name="value" value="chapitre/devilsai.xml"/>
+        </widget>
+    </subwindow>
 
     <!-- "Load game" window -->
 
@@ -23,8 +40,16 @@
 
     <!-- Triggers -->
 
-    <trigger sender="button-new-game" event="WidgetActivated" action="SendSignal" signal="new-game"/>
-    <trigger sender="button-new-game" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="button-new-game" event="WidgetActivated" action="Show" target="new-game"/>
+    <trigger sender="button-new-game" event="WidgetActivated" action="Focus" target="new-game"/>
+    <trigger sender="new-game-button-back" event="WidgetActivated" action="Hide" target="new-game"/>
+    <trigger sender="new-game-button-back" event="WidgetActivated" action="Unfocus" target="new-game"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-tutorial" dataName="value"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-devilsai" dataName="value"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger sender="button-load-game" event="WidgetActivated" action="Show" target="load-game"/>
     <trigger sender="button-load-game" event="WidgetActivated" action="Focus" target="load-game"/>
