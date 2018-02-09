@@ -52,7 +52,6 @@ void mainLoop(RenderWindow& app)
 
     gui::Window mainMenuWindow("gui/main-menu.xml", app);
     gui::Window newGameWindow("gui/new-game.xml", app);
-    gui::Window loadGameWindow("gui/load-game.xml", app);
     gui::Window optionsWindow("gui/options.xml", app);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
@@ -73,7 +72,7 @@ void mainLoop(RenderWindow& app)
 
     tools::signals::addSignal("main-menu:disable-load-game");
 
-    options::initLoadGameWindow(loadGameWindow);
+    options::initLoadGameWindow(mainMenuWindow);
     options::initOptionsWindow(optionsWindow);
 
     tools::signals::addSignal("main-menu");
@@ -248,15 +247,11 @@ void mainLoop(RenderWindow& app)
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
             }
-            if (signal.first == "load-game")
-            {
-                loadGameWindow.manage(app);
-            }
 
             if (signal.first == "delete-game")
             {
                 options::deleteSavedGamePack(signal.second);
-                options::initLoadGameWindow(loadGameWindow);
+                options::initLoadGameWindow(mainMenuWindow);
             }
 
             if (signal.first == "start-loaded-game")

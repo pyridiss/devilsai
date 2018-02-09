@@ -342,7 +342,7 @@ string getCurrentSavedGameDirectory()
 
 void initLoadGameWindow(gui::Window& window)
 {
-    gui::ScrollingList* scrollingList = dynamic_cast<gui::ScrollingList*>(window.widget("savedgames-list"));
+    gui::ScrollingList* scrollingList = dynamic_cast<gui::ScrollingList*>(window.widget("load-game-savedgames-list"));
 
     scrollingList->removeAllEntries();
 

@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <loadImage key="main-menu-background" path="img/Fond.png"/>
+    <loadImage key="dialog-background-608x383" path="img/gui-dialog-background-608x383.png"/>
+    <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <properties Fullscreen="1" allBackground="main-menu-background" AdjustBackgroundToSize="1" music="Gates_Of_Heaven"/>
     <widget name="title" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="120" allText="main-menu-title"/>
     <widget name="button-new-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="238" AdjustSizeToText="1" allText="main-menu-new-game"/>
     <widget name="button-load-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="298" AdjustSizeToText="1" allText="main-menu-load-game"/>
     <widget name="button-options" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="358" AdjustSizeToText="1" allText="main-menu-options"/>
     <widget name="button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="418" AdjustSizeToText="1" allText="main-menu-exit"/>
+
+    <!-- "Load game" window -->
+
+    <subwindow name="load-game">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="608" height="383" allBackground="dialog-background-608x383" Hidden="1"/>
+        <widget name="load-game-question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="50" allText="load-game-title"/>
+        <widget name="load-game-savedgames-list" type="scrolling-list" x="20" y="100" width="284" height="263"/>
+        <widget name="load-game-button-back" type="button" x="368" y="310" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
+        <widget name="load-game-button-start" type="button" x="368" y="110" width="156" height="46" allBackground="button-background-156x46" allText="load-game-start"/>
+        <widget name="load-game-button-delete" type="button" x="368" y="210" width="156" height="46" allBackground="button-background-156x46" allText="load-game-delete"/>
+    </subwindow>
+
+    <!-- Triggers -->
+
     <trigger sender="button-new-game" event="WidgetActivated" action="SendSignal" signal="new-game"/>
     <trigger sender="button-new-game" event="WidgetActivated" action="ExitWindow"/>
-    <trigger sender="button-load-game" event="WidgetActivated" action="SendSignal" signal="load-game"/>
-    <trigger sender="button-load-game" event="WidgetActivated" action="ExitWindow"/>
+
+    <trigger sender="button-load-game" event="WidgetActivated" action="Show" target="load-game"/>
+    <trigger sender="button-load-game" event="WidgetActivated" action="Focus" target="load-game"/>
+    <trigger sender="load-game-button-back" event="WidgetActivated" action="Hide" target="load-game"/>
+    <trigger sender="load-game-button-back" event="WidgetActivated" action="Unfocus" target="load-game"/>
+    <trigger sender="load-game-button-start" event="WidgetActivated" action="SendSignal" signal="start-loaded-game" dataProvider="load-game-savedgames-list" dataName="value"/>
+    <trigger sender="load-game-button-start" event="WidgetActivated" action="ExitWindow"/>
+    <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="delete-game" dataProvider="load-game-savedgames-list" dataName="value"/>
+    <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="load-game-button-delete" event="WidgetActivated" action="ExitWindow"/>
+
     <trigger sender="button-options" event="WidgetActivated" action="SendSignal" signal="options"/>
     <trigger sender="button-options" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>

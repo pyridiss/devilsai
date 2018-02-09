@@ -8,7 +8,6 @@ set(gui
     ingame-toolbar.xml
     inventory.xml
     journal.xml
-    load-game.xml
     loading.xml
     main-menu.xml
     new-game.xml
