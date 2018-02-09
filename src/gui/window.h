@@ -38,7 +38,7 @@ using namespace sf;
 namespace gui{
 
 enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, SignalCaptured, NoEvent };
-enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, NoAction };
+enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, Focus, Unfocus, NoAction };
 
 class Window : public Widget
 {
@@ -124,6 +124,7 @@ class Window : public Widget
 
     private:
         map < string, Widget* > widgets;
+        map < string, Window* > _subwindows;
         vector<Trigger> _triggers;
         vector<WindowEvent> _events;
         vector<Keyboard::Key> _watchedKeys;
@@ -167,6 +168,7 @@ class Window : public Widget
         bool activated(RenderWindow& app, Event event);
 
         void loadFromFile(string path);
+        void loadFromXML(tinyxml2::XMLElement* elem);
 };
 
 } //namespace gui

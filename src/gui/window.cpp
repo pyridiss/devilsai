@@ -45,6 +45,7 @@ namespace gui{
 Window::Window()
   : Widget(),
     widgets(),
+    _subwindows(),
     _triggers(),
     _events(),
     _watchedKeys(),
@@ -166,6 +167,9 @@ void Window::startWindow(RenderWindow& app)
 
 void Window::display(RenderWindow& app)
 {
+    if ((_flags & Hidden) == Hidden)
+        return;
+
     if (!_backgroundShader.empty())
         gui::style::displayShader(app, _backgroundShader, left(), top(), width(), height());
 
@@ -210,6 +214,12 @@ void Window::display(RenderWindow& app)
         if (widget.second != _focusedWidget)
             widget.second->display(app);
     }
+    for (auto& subwindow : _subwindows)
+    {
+        if (subwindow.second != _focusedWidget)
+            subwindow.second->display(app);
+    }
+
     if (_focusedWidget != nullptr)
         _focusedWidget->display(app);
 }
@@ -353,6 +363,14 @@ void Window::checkTriggers()
                 if (t.target != nullptr)
                     t.target->addFlags(Hidden);
                 break;
+            case Focus:
+                if (t.target != nullptr)
+                    askFocus(t.target, true);
+                break;
+            case Unfocus:
+                if (t.target != nullptr)
+                    askFocus(t.target, false);
+                break;
             case ExitWindow:
                 exitWindow = true;
                 break;
@@ -368,17 +386,24 @@ Widget* Window::widget(string name)
 {
     auto i = widgets.find(name);
     if (i != widgets.end())
-    {
         return i->second;
-    }
-    else
+
+    auto j = _subwindows.find(name);
+    if (j != _subwindows.end())
+        return j->second;
+
+    for (auto& s : _subwindows)
     {
-        tools::debug::error("Unknown widget: " + name, "gui", __FILENAME__, __LINE__);
-        auto result = widgets.emplace(name, new TextWidget());
-        result.first->second->setParent(this);
-        result.first->second->addFlags(Hidden);
-        return result.first->second;
+        auto w = s.second->widgets.find(name);
+        if (w != s.second->widgets.end())
+            return w->second;
     }
+
+    tools::debug::error("Unknown widget: " + name, "gui", __FILENAME__, __LINE__);
+    auto result = widgets.emplace(name, new TextWidget());
+    result.first->second->setParent(this);
+    result.first->second->addFlags(Hidden);
+    return result.first->second;
 }
 
 const map<string,Widget*>& Window::getWidgets()
@@ -401,7 +426,15 @@ void Window::setValue(const string& widget, optionType v)
 
 void Window::addEvent(Widget* s, EventTypes e, optionType d)
 {
-    _events.emplace_back(s, e, d);
+    if (_parent != nullptr)
+    {
+        Window* w = dynamic_cast<Window*>(_parent);
+        if (w != nullptr) w->addEvent(s, e, d);
+    }
+    else
+    {
+        _events.emplace_back(s, e, d);
+    }
 }
 
 void Window::askFocus(Widget* w, bool value)
@@ -419,6 +452,7 @@ bool Window::mouseHovering(RenderWindow& app)
 
 bool Window::activated(RenderWindow& app, Event event)
 {
+    manage(app, event);
     return false;
 }
 
@@ -430,8 +464,11 @@ void Window::loadFromFile(string path)
     file.LoadFile(path.c_str());
 
     XMLHandle hdl(file);
-    XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
+    loadFromXML(hdl.FirstChildElement().FirstChildElement().ToElement());
+}
 
+void Window::loadFromXML(XMLElement *elem)
+{
     while (elem)
     {
         string elemName = elem->Name();
@@ -514,6 +551,20 @@ void Window::loadFromFile(string path)
 
         }
 
+        if (elemName == "subwindow")
+        {
+            string_view subwindowName = elem->Attribute("name");
+
+            Window* subwindow = new Window();
+
+            _subwindows.emplace(subwindowName, subwindow);
+
+            subwindow->setParent(this);
+            subwindow->_screen = _screen;
+
+            subwindow->loadFromXML(elem->FirstChildElement());
+        }
+
         if (elemName == "trigger")
         {
             Trigger t;
@@ -552,6 +603,8 @@ void Window::loadFromFile(string path)
             else if (elem->Attribute("action", "Disable")) t.action = Disable;
             else if (elem->Attribute("action", "Show")) t.action = Show;
             else if (elem->Attribute("action", "Hide")) t.action = Hide;
+            else if (elem->Attribute("action", "Focus")) t.action = Focus;
+            else if (elem->Attribute("action", "Unfocus")) t.action = Unfocus;
             else if (elem->Attribute("action", "ExitWindow")) t.action = ExitWindow;
 
             if (elem->Attribute("signal"))
