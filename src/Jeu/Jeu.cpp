@@ -55,7 +55,6 @@ void mainLoop(RenderWindow& app)
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", app);
-    gui::Window loadingWindow("gui/loading.xml", app);
     gui::Window playerDeadWindow("gui/player-dead.xml", app);
     gui::Window inventoryWindow("gui/inventory.xml", app);
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
@@ -232,10 +231,10 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "start-new-game") {
                 gamedata::clear();
-                loadingWindow.display(app);
                 app.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
                 managementActivated = true;
+                tools::signals::addSignal("game-started");
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
@@ -251,6 +250,7 @@ void mainLoop(RenderWindow& app)
             {
                 Load_Partie(signal.second);
                 managementActivated = true;
+                tools::signals::addSignal("game-started");
             }
 
             if (signal.first == "options")

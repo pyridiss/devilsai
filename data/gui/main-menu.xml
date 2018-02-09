@@ -38,6 +38,13 @@
         <widget name="load-game-button-delete" type="button" x="368" y="210" width="156" height="46" allBackground="button-background-156x46" allText="load-game-delete"/>
     </subwindow>
 
+    <!-- "Loading..." window -->
+
+    <subwindow name="loading">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="loading-text" type="text" OriginCenter="1" PositionRelativeToCenter="1" allText="loading-text"/>
+    </subwindow>
+
     <!-- Triggers -->
 
     <trigger sender="button-new-game" event="WidgetActivated" action="Show" target="new-game"/>
@@ -46,9 +53,15 @@
     <trigger sender="new-game-button-back" event="WidgetActivated" action="Unfocus" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-tutorial" dataName="value"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Unfocus" target="new-game"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Hide" target="new-game"/>
+    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-devilsai" dataName="value"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Unfocus" target="new-game"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Hide" target="new-game"/>
+    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger sender="button-load-game" event="WidgetActivated" action="Show" target="load-game"/>
@@ -56,6 +69,9 @@
     <trigger sender="load-game-button-back" event="WidgetActivated" action="Hide" target="load-game"/>
     <trigger sender="load-game-button-back" event="WidgetActivated" action="Unfocus" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="SendSignal" signal="start-loaded-game" dataProvider="load-game-savedgames-list" dataName="value"/>
+    <trigger sender="load-game-button-start" event="WidgetActivated" action="Unfocus" target="load-game"/>
+    <trigger sender="load-game-button-start" event="WidgetActivated" action="Hide" target="load-game"/>
+    <trigger sender="load-game-button-start" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="delete-game" dataProvider="load-game-savedgames-list" dataName="value"/>
     <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
@@ -67,4 +83,5 @@
     <trigger sender="button-exit" event="WidgetActivated" action="ExitWindow"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="button-load-game"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="Hide" target="loading"/>
 </window>
