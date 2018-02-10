@@ -9,7 +9,6 @@ set(gui
     inventory.xml
     journal.xml
     main-menu.xml
-    options.xml
     player-dead.xml
     storage-box.xml
 )

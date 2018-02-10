@@ -51,7 +51,6 @@ void mainLoop(RenderWindow& app)
     bool playerResting = false;
 
     gui::Window mainMenuWindow("gui/main-menu.xml", app);
-    gui::Window optionsWindow("gui/options.xml", app);
     gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
     gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", app);
@@ -71,7 +70,7 @@ void mainLoop(RenderWindow& app)
     tools::signals::addSignal("main-menu:disable-load-game");
 
     options::initLoadGameWindow(mainMenuWindow);
-    options::initOptionsWindow(optionsWindow);
+    options::initOptionsWindow(mainMenuWindow);
 
     tools::signals::addSignal("main-menu");
 
@@ -252,12 +251,6 @@ void mainLoop(RenderWindow& app)
                 managementActivated = true;
                 tools::signals::addSignal("game-started");
             }
-
-            if (signal.first == "options")
-            {
-                optionsWindow.manage(app);
-            }
-
             if (signal.first.find("option-change") != string::npos)
             {
                 options::changeOption(signal.first, signal.second);
