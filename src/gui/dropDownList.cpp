@@ -85,6 +85,7 @@ bool DropDownList::activated(RenderWindow& app, Event event)
             int i = mousePosition().y - (top() + height());
             index = i / height();
             setText(entries[index].first);
+            addEmbeddedData("value", entries[index].second);
             _flags &= ~Activated;
             _parent->askFocus(this, false);
         }
@@ -105,6 +106,7 @@ void DropDownList::setValue(optionType v)
     while (index < entries.size() && entries[index].second != v.get<string>())
         ++index;
     setText(entries[index].first);
+    addEmbeddedData("value", entries[index].second);
 }
 
 void DropDownList::display(RenderWindow& app)
