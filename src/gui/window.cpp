@@ -415,13 +415,9 @@ void Window::setValue(optionType v)
 {
 }
 
-void Window::setValue(const string& widget, optionType v)
+void Window::setValue(const string& w, optionType v)
 {
-    auto i = widgets.find(widget);
-    if (i != widgets.end())
-    {
-        i->second->setValue(v);
-    }
+    widget(w)->setValue(v);
 }
 
 void Window::addEvent(Widget* s, EventTypes e, optionType d)

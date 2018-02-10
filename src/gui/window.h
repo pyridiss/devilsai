@@ -160,7 +160,7 @@ class Window : public Widget
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
         void setValue(optionType v);
-        void setValue(const string& widget, optionType v);
+        void setValue(const string& w, optionType v);
         void addEvent(Widget* s, EventTypes e, optionType d);
         void askFocus(Widget* w, bool value);
 
