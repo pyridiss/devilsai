@@ -361,11 +361,17 @@ void Window::checkTriggers()
                 break;
             case Hide:
                 if (t.target != nullptr)
+                {
                     t.target->addFlags(Hidden);
+                    askFocus(t.target, false);
+                }
                 break;
             case Focus:
                 if (t.target != nullptr)
+                {
+                    t.target->removeFlags(Hidden);
                     askFocus(t.target, true);
+                }
                 break;
             case Unfocus:
                 if (t.target != nullptr)

@@ -47,29 +47,22 @@
 
     <!-- Triggers -->
 
-    <trigger sender="button-new-game" event="WidgetActivated" action="Show" target="new-game"/>
     <trigger sender="button-new-game" event="WidgetActivated" action="Focus" target="new-game"/>
     <trigger sender="new-game-button-back" event="WidgetActivated" action="Hide" target="new-game"/>
-    <trigger sender="new-game-button-back" event="WidgetActivated" action="Unfocus" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-tutorial" dataName="value"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
-    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Unfocus" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-devilsai" dataName="value"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
-    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Unfocus" target="new-game"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="ExitWindow"/>
 
-    <trigger sender="button-load-game" event="WidgetActivated" action="Show" target="load-game"/>
     <trigger sender="button-load-game" event="WidgetActivated" action="Focus" target="load-game"/>
     <trigger sender="load-game-button-back" event="WidgetActivated" action="Hide" target="load-game"/>
-    <trigger sender="load-game-button-back" event="WidgetActivated" action="Unfocus" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="SendSignal" signal="start-loaded-game" dataProvider="load-game-savedgames-list" dataName="value"/>
-    <trigger sender="load-game-button-start" event="WidgetActivated" action="Unfocus" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="Hide" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="ExitWindow"/>
