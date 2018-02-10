@@ -51,10 +51,7 @@ void mainLoop(RenderWindow& app)
     bool playerResting = false;
 
     gui::Window mainMenuWindow("gui/main-menu.xml", app);
-    gui::Window confirmExitGameWindow("gui/confirm-exit-game.xml", app);
-    gui::Window ingameMenuWindow("gui/ingame-menu.xml", app);
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", app);
-    gui::Window playerDeadWindow("gui/player-dead.xml", app);
     gui::Window inventoryWindow("gui/inventory.xml", app);
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
     gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
@@ -210,6 +207,12 @@ void mainLoop(RenderWindow& app)
                 mainMenuWindow.manage(app);
                 managementActivated = false;
             }
+            if (signal.first == "pause-game") {
+                managementActivated = false;
+            }
+            if (signal.first == "resume-game") {
+                managementActivated = true;
+            }
             if (signal.first == "savegame") {
                 Save_Partie();
             }
@@ -223,9 +226,10 @@ void mainLoop(RenderWindow& app)
             if (signal.first == "game-successfully-ended") {
                 //TODO: Do something here
             }
-            if (signal.first == "player-dead")
-            {
-                playerDeadWindow.manage(app);
+            if (signal.first == "player-dead") {
+                managementActivated = false;
+            }
+            if (signal.first == "clear-gamedata") {
                 Clean_Partie();
             }
             if (signal.first == "start-new-game") {
@@ -255,12 +259,6 @@ void mainLoop(RenderWindow& app)
             {
                 options::changeOption(signal.first, signal.second);
             }
-
-            if (signal.first == "ask-menu")
-            {
-                ingameMenuWindow.manage(app);
-            }
-
             if (signal.first == "screen-character") {
                 if (currentLeftScreen == LeftScreens::Character)
                     currentLeftScreen = LeftScreens::None;
@@ -288,12 +286,6 @@ void mainLoop(RenderWindow& app)
 
                 tools::signals::addSignal("ingame-toolbar:remove-warn-journal");
             }
-
-            if (signal.first == "ask-exit")
-            {
-                confirmExitGameWindow.manage(app);
-            }
-
             if (signal.first == "exit")
             {
                 return;

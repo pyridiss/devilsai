@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <loadImage key="gui-top-border" path="img/gui-top-border.png"/>
+    <loadImage key="dialog-background-488x308" path="img/gui-dialog-background-488x308.png"/>
+    <loadImage key="button-background-156x46" path="img/gui-button-background-156x46.png"/>
     <loadImage key="button-ingame-menu" path="img/gui-menu-button.png"/>
     <loadImage key="button-character" path="img/BoutonPersonnage.png"/>
     <loadImage key="button-equipment" path="img/BoutonEquipement.png"/>
@@ -30,7 +32,7 @@
         <addEmbeddedData name="fade-value" type="float" value="255"/>
         <addEmbeddedData name="fade-maxvalue" type="float" value="255"/>
     </widget>
-    <widget name="game-saved" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="160" allText="ingame-toolbar-gamesaved" textShaded="1" CustomTextShader="1">
+    <widget name="game-saved" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="160" allText="ingame-toolbar-gamesaved" textShaded="1" CustomTextShader="1" Hidden="1">
         <addEmbeddedData name="custom-shader" type="string" value="fade"/>
         <addEmbeddedData name="fade-value" type="float" value="255"/>
         <addEmbeddedData name="fade-maxvalue" type="float" value="255"/>
@@ -38,12 +40,60 @@
     <widget name="tooltip" type="text" backgroundShader="textBackground">
         <addEmbeddedData name="format" type="plaintext" value="@f[liberation-bold]@s[15]@c[255,255,255]* @d"/>
     </widget>
-    <trigger sender="button-ingame-menu" event="WidgetActivated" action="SendSignal" signal="ask-menu"/>
+
+    <!-- Menu -->
+
+    <subwindow name="menu">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="menu-button-return-to-game" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="65" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-return-to-game"/>
+        <widget name="menu-button-savegame" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="154" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-savegame"/>
+        <widget name="menu-button-exit" type="button" OriginCenter="1" XPositionRelativeToCenter="1" y="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit"/>
+    </subwindow>
+
+    <!-- "Confirm exit" menu -->
+
+    <subwindow name="confirm-exit">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="confirm-exit-question" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="100" allText="confirm-exit-game-question"/>
+        <widget name="confirm-exit-button-return" type="button" x="58" y="200" width="156" height="46" allBackground="button-background-156x46" allText="confirm-exit-game-return-to-game"/>
+        <widget name="confirm-exit-button-exit" type="button" x="274" y="200" width="156" height="46" allBackground="button-background-156x46" allText="confirm-exit-game-exit"/>
+    </subwindow>
+
+    <!-- "Player dead" menu -->
+
+    <subwindow name="player-dead">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="player-dead-text" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="65" allText="player-dead-text"/>
+        <widget name="player-dead-button-main-menu" type="button" OriginCenter="1" x="137" y="242" width="156" height="46" allBackground="button-background-156x46" allText="player-dead-main-menu"/>
+        <widget name="player-dead-button-exit" type="button" OriginCenter="1" x="351" y="242" width="156" height="46" allBackground="button-background-156x46" allText="ingame-menu-exit"/>
+    </subwindow>
+
+    <!-- Triggers -->
+
+    <trigger sender="button-ingame-menu" event="WidgetActivated" action="Focus" target="menu"/>
+    <trigger sender="button-ingame-menu" event="WidgetActivated" action="SendSignal" signal="pause-game"/>
     <trigger sender="button-character" event="WidgetActivated" action="SendSignal" signal="screen-character"/>
     <trigger sender="button-equipment" event="WidgetActivated" action="SendSignal" signal="screen-equipment"/>
     <trigger sender="button-skills" event="WidgetActivated" action="SendSignal" signal="screen-skills"/>
     <trigger sender="button-journal" event="WidgetActivated" action="SendSignal" signal="screen-journal"/>
     <trigger sender="button-rest" event="WidgetActivated" action="SendSignal" signal="rest"/>
+
+    <trigger sender="menu-button-return-to-game" event="WidgetActivated" action="Hide" target="menu"/>
+    <trigger sender="menu-button-return-to-game" event="WidgetActivated" action="SendSignal" signal="resume-game"/>
+    <trigger sender="menu-button-savegame" event="WidgetActivated" action="SendSignal" signal="savegame"/>
+    <trigger sender="menu-button-savegame" event="WidgetActivated" action="Hide" target="menu"/>
+    <trigger sender="menu-button-exit" event="WidgetActivated" action="Hide" target="menu"/>
+    <trigger sender="menu-button-exit" event="WidgetActivated" action="Focus" target="confirm-exit"/>
+
+    <trigger sender="confirm-exit-button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
+    <trigger sender="confirm-exit-button-return" event="WidgetActivated" action="Hide" target="confirm-exit"/>
+    <trigger sender="confirm-exit-button-return" event="WidgetActivated" action="SendSignal" signal="resume-game"/>
+
+    <trigger sender="player-dead-button-main-menu" event="WidgetActivated" action="SendSignal" signal="clear-gamedata"/>
+    <trigger sender="player-dead-button-main-menu" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
+    <trigger sender="player-dead-button-main-menu" event="WidgetActivated" action="Hide" target="player-dead"/>
+    <trigger sender="player-dead-button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
+
     <trigger event="KeyReleased" eventDataType="key" eventData="12" action="SendSignal" signal="ask-menu"/> <!-- 'M' -->
     <trigger event="KeyReleased" eventDataType="key" eventData="18" action="SendSignal" signal="savegame"/> <!-- 'S' -->
     <trigger event="KeyReleased" eventDataType="key" eventData="17" action="SendSignal" signal="rest"/> <!-- 'R' -->
@@ -66,5 +116,6 @@
     <trigger event="SignalCaptured" eventDataType="string" eventData="savegame" action="Show" target="game-saved"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="savegame" action="Hide" target="place-name"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="fade-shader:end" action="Hide" target="game-saved"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="player-dead" action="Focus" target="player-dead"/>
 
 </window>
