@@ -361,19 +361,19 @@ void initOptionsWindow(gui::Window& window)
     if (option<string>(tools::math::sdbm_hash("language")) == "fr=") d = "FR";
     else d = "EN";
     o.set<string>(d);
-    window.setValue("chooser-language", o);
+    window.setValue("options-chooser-language", o);
 
     d = intToString(option<unsigned>(tools::math::sdbm_hash("screen-width"))) + "x" + intToString(option<unsigned>(tools::math::sdbm_hash("screen-height")));
     o.set<string>(d);
-    window.setValue("chooser-resolution", o);
+    window.setValue("options-chooser-resolution", o);
 
     d = (option<bool>(tools::math::sdbm_hash("screen-fullscreen")) ? "enabled" : "disabled");
     o.set<string>(d);
-    window.setValue("chooser-fullscreen", o);
+    window.setValue("options-chooser-fullscreen", o);
 
     d = (option<bool>(tools::math::sdbm_hash("show-console")) ? "enabled" : "disabled");
     o.set<string>(d);
-    window.setValue("chooser-console", o);
+    window.setValue("options-chooser-console", o);
 }
 
 } //namespace options
