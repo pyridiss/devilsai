@@ -621,6 +621,8 @@ void Carte::loadFromFile(string path, string tag)
                         if (ignoreCollision) newItem->ignoreCollision = true;
                         itemsList.push_back(newItem);
                     }
+                    else delete newItem;
+
                     ++counter;
                 }
 
