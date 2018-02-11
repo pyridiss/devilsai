@@ -52,7 +52,6 @@ Window::Window()
     _capturedSignals(),
     _screen(nullptr),
     _focusedWidget(nullptr),
-    backgroundFullscreenShader(),
     music()
 {
 }
@@ -161,8 +160,6 @@ const RenderWindow* Window::screen()
 void Window::startWindow(RenderWindow& app)
 {
     _screen = &app;
-
-    exitWindow = false;
 }
 
 void Window::display(RenderWindow& app)
@@ -222,37 +219,6 @@ void Window::display(RenderWindow& app)
 
     if (_focusedWidget != nullptr)
         _focusedWidget->display(app);
-}
-
-void Window::manage(RenderWindow& app)
-{
-    startWindow(app);
-
-    if (!music.empty())
-        musicManager::playMusic(music);
-
-    if (!backgroundFullscreenShader.empty())
-        gui::style::displayShader(app, backgroundFullscreenShader, 0, 0, app.getSize().x, app.getSize().y);
-
-    while (!exitWindow)
-    {
-        Event event;
-        while (app.pollEvent(event))
-        {
-            gui::updateMousePosition(app);
-
-            manage(app, event);
-        }
-
-        checkTriggers();
-
-        app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
-        display(app);
-
-        tools::timeManager::frameDone();
-        app.display();
-        musicManager::manageRunningMusics();
-    }
 }
 
 void Window::manage(RenderWindow& app, Event &event)
@@ -377,9 +343,6 @@ void Window::checkTriggers()
                 if (t.target != nullptr)
                     askFocus(t.target, false);
                 break;
-            case ExitWindow:
-                exitWindow = true;
-                break;
             default:
                 break;
         }
@@ -486,9 +449,6 @@ void Window::loadFromXML(XMLElement *elem)
         if (elemName == "properties")
         {
             loadFromXMLElement(elem);
-
-            if (elem->Attribute("backgroundFullscreenShader"))
-                backgroundFullscreenShader = elem->Attribute("backgroundFullscreenShader");
 
             if (elem->Attribute("music"))
                 music = elem->Attribute("music");
@@ -607,7 +567,6 @@ void Window::loadFromXML(XMLElement *elem)
             else if (elem->Attribute("action", "Hide")) t.action = Hide;
             else if (elem->Attribute("action", "Focus")) t.action = Focus;
             else if (elem->Attribute("action", "Unfocus")) t.action = Unfocus;
-            else if (elem->Attribute("action", "ExitWindow")) t.action = ExitWindow;
 
             if (elem->Attribute("signal"))
                 t.signal = elem->Attribute("signal");

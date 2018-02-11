@@ -38,7 +38,7 @@ using namespace sf;
 namespace gui{
 
 enum EventTypes { WidgetActivated, WidgetValueChanged, KeyPressed, KeyReleased, KeyHeld, SignalCaptured, NoEvent };
-enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, ExitWindow, Enable, Disable, Show, Hide, Focus, Unfocus, NoAction };
+enum Actions { SendSignal, ModifyValue, ModifyEmbeddedData, Enable, Disable, Show, Hide, Focus, Unfocus, NoAction };
 
 class Window : public Widget
 {
@@ -130,13 +130,10 @@ class Window : public Widget
         vector<Keyboard::Key> _watchedKeys;
         queue<tools::signals::Signal> _capturedSignals;
 
-        bool exitWindow = false;
-
         RenderWindow* _screen;
 
         Widget* _focusedWidget;
 
-        string backgroundFullscreenShader;
         string music;
 
     public:
@@ -154,7 +151,6 @@ class Window : public Widget
         const RenderWindow* screen();
         void startWindow(RenderWindow& app);
         void display(RenderWindow& app);
-        void manage(RenderWindow& app);
         void manage(RenderWindow& app, Event &event);
         void checkTriggers();
         Widget* widget(string name);

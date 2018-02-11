@@ -84,22 +84,18 @@
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Show" target="loading"/>
-    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-devilsai" dataName="value"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Show" target="loading"/>
-    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger sender="button-load-game" event="WidgetActivated" action="Focus" target="load-game"/>
     <trigger sender="load-game-button-back" event="WidgetActivated" action="Hide" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="SendSignal" signal="start-loaded-game" dataProvider="load-game-savedgames-list" dataName="value"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="Hide" target="load-game"/>
     <trigger sender="load-game-button-start" event="WidgetActivated" action="Show" target="loading"/>
-    <trigger sender="load-game-button-start" event="WidgetActivated" action="ExitWindow"/>
     <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="delete-game" dataProvider="load-game-savedgames-list" dataName="value"/>
     <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
-    <trigger sender="load-game-button-delete" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger sender="button-options" event="WidgetActivated" action="Focus" target="options"/>
     <trigger sender="options-button-back" event="WidgetActivated" action="Hide" target="options"/>
@@ -109,10 +105,8 @@
     <trigger sender="options-button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-console" dataProvider="options-chooser-console" dataName="value"/>
     <trigger sender="options-button-apply" event="WidgetActivated" action="Hide" target="options"/>
     <trigger sender="options-button-apply" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
-    <trigger sender="options-button-apply" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
-    <trigger sender="button-exit" event="WidgetActivated" action="ExitWindow"/>
 
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="button-load-game"/>
