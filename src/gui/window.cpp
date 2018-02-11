@@ -394,14 +394,9 @@ void Window::setValue(const string& w, optionType v)
 void Window::addEvent(Widget* s, EventTypes e, optionType d)
 {
     if (_parent != nullptr)
-    {
-        Window* w = dynamic_cast<Window*>(_parent);
-        if (w != nullptr) w->addEvent(s, e, d);
-    }
+        _parent->addEvent(s, e, d);
     else
-    {
         _events.emplace_back(s, e, d);
-    }
 }
 
 void Window::askFocus(Widget* w, bool value)
