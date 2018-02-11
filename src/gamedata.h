@@ -69,6 +69,7 @@ list<Element_Carte*> getItemsByTag(const string& w, const string& tag);
 void updateCurrentPlace();
 void updateCurrentWorld(const string& newWorld);
 void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+void loadGameDataFileAsync(const string& dataDirectory, const string& mainFile);
 void loadFromXML(const string& dataDirectory, const string& mainFile);
 
 } //namespace gamedata

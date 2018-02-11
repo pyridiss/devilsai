@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <thread>
 #include <unordered_map>
 
 #include <lua.hpp>
@@ -56,6 +57,8 @@ pair<Element_Carte*, string>* _currentPlace = nullptr;
 
 list<textManager::RichText> _listDialogs;
 list< pair <string, string> > textFiles;
+
+thread LoadGameThread;
 
 void addWorld(const string& id)
 {
@@ -344,6 +347,18 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
     XMLHandle h(journal);
     saveJournalToXML(doc, h);
     root->InsertEndChild(journal);
+}
+
+void loadGameDataFileAsync(const string& dataDirectory, const string& mainFile)
+{
+    LoadGameThread = thread(loadFromXML, dataDirectory, mainFile);
+
+    thread t([]()
+    {
+        LoadGameThread.join();
+        tools::signals::addSignal("game-started");
+    });
+    t.detach();
 }
 
 void loadFromXML(const string& dataDirectory, const string& mainFile)
