@@ -81,11 +81,9 @@
     <trigger sender="button-new-game" event="WidgetActivated" action="Focus" target="new-game"/>
     <trigger sender="new-game-button-back" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-tutorial" dataName="value"/>
-    <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-tutorial" event="WidgetActivated" action="Show" target="loading"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="start-new-game" dataProvider="new-game-button-devilsai" dataName="value"/>
-    <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Hide" target="new-game"/>
     <trigger sender="new-game-button-devilsai" event="WidgetActivated" action="Show" target="loading"/>
 
@@ -111,4 +109,5 @@
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="button-load-game"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="Hide" target="loading"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
 </window>

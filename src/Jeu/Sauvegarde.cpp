@@ -87,6 +87,6 @@ void Save_Partie()
 
 bool Load_Partie(string path)
 {
-    gamedata::loadFromXML(tools::filesystem::getSaveDirectoryPath() + path, "gamedata.xml");
+    gamedata::loadGameDataFileAsync(tools::filesystem::getSaveDirectoryPath() + path, "gamedata.xml");
     options::updateCurrentSavedGamePack(path);
 }

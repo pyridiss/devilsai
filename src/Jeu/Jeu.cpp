@@ -28,6 +28,8 @@
 #include "gui/window.h"
 #include "gui/textWidget.h"
 
+#include "imageManager/imageManager.h"
+
 #include "musicManager/musicManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
@@ -88,6 +90,7 @@ void mainLoop(RenderWindow& app)
     lua_State* selectedObject = nullptr;
     int selectedStorageBox = -1;
     bool inGame = false;
+    bool loadingResources = false;
     bool cursorIsInWorld = false;
     bool move = false;
     bool showTooltip = false;
@@ -104,6 +107,8 @@ void mainLoop(RenderWindow& app)
         //1. Events & Signals
 
         bool leftClick = false, rightClick = false;
+
+        if (loadingResources) imageManager::lockGLMutex(1);
 
         Event event;
         while (app.pollEvent(event))
@@ -205,6 +210,8 @@ void mainLoop(RenderWindow& app)
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
 
+        if (loadingResources) imageManager::unlockGLMutex(1);
+
         if (currentLeftScreen != LeftScreens::None)
         {
             worldView.reset(FloatRect(0, 0, app.getSize().x/2.f, app.getSize().y - 106));
@@ -253,12 +260,12 @@ void mainLoop(RenderWindow& app)
                 Clean_Partie();
             }
             if (signal.first == "start-new-game") {
-                gamedata::clear();
-                app.display();
-                gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
+                gamedata::loadGameDataFileAsync(tools::filesystem::dataDirectory(), signal.second);
+                loadingResources = true;
+            }
+            if (signal.first == "game-started") {
                 inGame = true;
                 managementActivated = true;
-                tools::signals::addSignal("game-started");
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
@@ -270,11 +277,9 @@ void mainLoop(RenderWindow& app)
                 options::initLoadGameWindow(mainMenuWindow);
             }
 
-            if (signal.first == "start-loaded-game")
-            {
+            if (signal.first == "start-loaded-game") {
                 Load_Partie(signal.second);
-                managementActivated = true;
-                tools::signals::addSignal("game-started");
+                loadingResources = true;
             }
             if (signal.first.find("option-change") != string::npos)
             {
@@ -335,9 +340,13 @@ void mainLoop(RenderWindow& app)
         {
             managementActivated = false;
 
+            if (loadingResources) imageManager::lockGLMutex(2);
+
             mainMenuWindow.display(app);
             tools::timeManager::frameDone();
             app.display();
+
+            if (loadingResources) imageManager::unlockGLMutex(2);
 
             musicManager::manageRunningMusics();
 
