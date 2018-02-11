@@ -78,6 +78,7 @@ void Carte::removeItem(Element_Carte *elem)
     if (elem == nullptr) return;
 
     elements.remove(elem);
+    onScreenItems.remove(elem);
 
     if (!elem->ignoreCollision)
     {
