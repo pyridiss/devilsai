@@ -66,6 +66,8 @@ Window::~Window()
 {
     for (auto& w : widgets)
         delete w.second;
+    for (auto& s : _subwindows)
+        delete s.second;
 }
 
 int Window::left()
