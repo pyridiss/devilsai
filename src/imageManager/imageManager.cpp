@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <atomic>
+
 #include <physfs.h>
 
 #include "tools/debug.h"
@@ -40,6 +42,9 @@ AnimationDatabase animations;
 string currentArchiveFile;
 bool Colorize = false;
 Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
+
+atomic_bool Mutex;
+atomic_int LockerID;
 
 void addContainer(string container)
 {
@@ -66,11 +71,15 @@ void addImage(string container, string key, string file, Vector2i of)
 
     if (i == (*c).second.end())
     {
+        lockGLMutex(100);
+
         const auto& result = c->second.emplace(key, Image());
         result.first->second.set(file, of);
 
         if (Colorize)
             result.first->second.applyShader(gui::style::getColorizeShader(ColorizeRed, ColorizeGreen, ColorizeBlue));
+
+        unlockGLMutex(100);
 
         tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
@@ -194,6 +203,34 @@ imageManager::Animation* getAnimation(string name)
     }
 
     return &(a->second);
+}
+
+void lockGLMutex(int id)
+{
+    if (!Mutex)
+    {
+        Mutex = true;
+        LockerID = id;
+    }
+    else if (LockerID != id)
+    {
+        while (Mutex)
+            sleep(milliseconds(2));
+
+        Mutex = true;
+        LockerID = id;
+    }
+}
+
+void unlockGLMutex(int id)
+{
+    if (LockerID == id)
+    {
+        Mutex = false;
+        //We sleep during a short time in order to give the other threads a chance
+        //to do their job. Without this, the current thread could block others too much.
+        sleep(milliseconds(2));
+    }
 }
 
 } //namespace imageManager
