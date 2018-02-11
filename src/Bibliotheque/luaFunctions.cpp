@@ -301,7 +301,7 @@ int LUA_loadWorld(lua_State* L)
     string tag = lua_tostring(L, 3);
 
     Carte* w = gamedata::world(world);
-    if (w != nullptr)
+    if (w == nullptr)
     {
         gamedata::addWorld(world);
         w = gamedata::world(world);
