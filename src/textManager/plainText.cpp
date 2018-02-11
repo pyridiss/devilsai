@@ -109,6 +109,7 @@ void PlainText::aggregate()
 void PlainText::findParametersNeeded()
 {
     unsigned parameterCharacter = 42; // '*', parameter
+    _parametersNeeded = 0;
 
     size_t pos = _originalText.find(parameterCharacter);
     while(pos != string::npos)
