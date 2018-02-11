@@ -87,6 +87,7 @@ void mainLoop(RenderWindow& app)
     Coffre* openStorageBox = nullptr;
     lua_State* selectedObject = nullptr;
     int selectedStorageBox = -1;
+    bool inGame = false;
     bool cursorIsInWorld = false;
     bool move = false;
     bool showTooltip = false;
@@ -107,7 +108,11 @@ void mainLoop(RenderWindow& app)
         Event event;
         while (app.pollEvent(event))
         {
-            gui::updateMousePosition(app);
+            if (event.type == Event::MouseMoved)
+                gui::updateMousePosition(app);
+
+            if (event.type == Event::Resized)
+                app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
 
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld && !cinematicMode)
             {
@@ -138,32 +143,40 @@ void mainLoop(RenderWindow& app)
                 }
             }
 
-            ingameToolbar.manage(app, event);
-            ingameSkillbar.manage(app, event);
-            manageConversation(app, event);
-
-            switch (currentLeftScreen)
+            if (inGame)
             {
-                case LeftScreens::Inventory :
-                    manageInventoryScreen(inventoryWindow, app, event, selectedObject);
-                    break;
-                case LeftScreens::Journal :
-                    manageJournal(app, event);
-                    break;
-                default:
-                    break;
+                ingameToolbar.manage(app, event);
+                ingameSkillbar.manage(app, event);
+                manageConversation(app, event);
+
+                switch (currentLeftScreen)
+                {
+                    case LeftScreens::Inventory :
+                        manageInventoryScreen(inventoryWindow, app, event, selectedObject);
+                        break;
+                    case LeftScreens::Journal :
+                        manageJournal(app, event);
+                        break;
+                    default:
+                        break;
+                }
+
+                switch (currentBottomScreen)
+                {
+                    case BottomScreens::StorageBox :
+                        manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            switch (currentBottomScreen)
+            else
             {
-                case BottomScreens::StorageBox :
-                    manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
-                default:
-                    break;
+                mainMenuWindow.manage(app, event);
             }
 
             if (event.type == Event::Closed || (event.type == Event::KeyReleased && Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-                tools::signals::addSignal("ask-exit");
+                tools::signals::addSignal("exit");
 
             if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
             {
@@ -177,10 +190,17 @@ void mainLoop(RenderWindow& app)
             }
         }
 
-        ingameToolbar.checkTriggers();
-        ingameSkillbar.checkTriggers();
-        characterWindow.checkTriggers();
-        manageConversation(app);
+        if (inGame)
+        {
+            ingameToolbar.checkTriggers();
+            ingameSkillbar.checkTriggers();
+            characterWindow.checkTriggers();
+            manageConversation(app);
+        }
+        else
+        {
+            mainMenuWindow.checkTriggers();
+        }
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
@@ -204,7 +224,7 @@ void mainLoop(RenderWindow& app)
             }
             if (signal.first == "main-menu")
             {
-                mainMenuWindow.manage(app);
+                inGame = false;
                 managementActivated = false;
             }
             if (signal.first == "pause-game") {
@@ -236,6 +256,7 @@ void mainLoop(RenderWindow& app)
                 gamedata::clear();
                 app.display();
                 gamedata::loadFromXML(tools::filesystem::dataDirectory(), signal.second);
+                inGame = true;
                 managementActivated = true;
                 tools::signals::addSignal("game-started");
             }
@@ -310,9 +331,16 @@ void mainLoop(RenderWindow& app)
             signal = tools::signals::getNextSignal();
         }
 
-        if (gamedata::currentWorld() == NULL)
+        if (!inGame)
         {
             managementActivated = false;
+
+            mainMenuWindow.display(app);
+            tools::timeManager::frameDone();
+            app.display();
+
+            musicManager::manageRunningMusics();
+
             continue;
         }
 
