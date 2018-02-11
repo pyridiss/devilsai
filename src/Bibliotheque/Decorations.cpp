@@ -163,7 +163,7 @@ void Disp_JaugesVie(RenderTarget& target)
 			{
                 playerStateText += " @n";
                 playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
-                playerStateText.addParameter(textManager::getText("objects", getStringFromLUA(i->second, "getInternalNumber")));
+                playerStateText.addParameter(textManager::getText("objects", getStringFromLUA(i->second, "getFileName")));
 			}
 		}
 	}
