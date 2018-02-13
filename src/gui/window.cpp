@@ -36,6 +36,7 @@
 #include "gui/inputField.h"
 #include "gui/dropDownList.h"
 #include "gui/scrollingList.h"
+#include "gui/progressBar.h"
 #include "gui/style.h"
 
 using namespace tinyxml2;
@@ -461,6 +462,7 @@ void Window::loadFromXML(XMLElement *elem)
             if (type == "input-field")  widget = new InputField();
             if (type == "drop-down-list") widget = new DropDownList();
             if (type == "scrolling-list") widget = new ScrollingList();
+            if (type == "progress-bar") widget = new ProgressBar();
 
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
