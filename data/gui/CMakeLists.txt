@@ -1,6 +1,7 @@
 
 set(gui
     character.xml
+    console.xml
     conversation.xml
     ingame-skillbar.xml
     ingame-toolbar.xml

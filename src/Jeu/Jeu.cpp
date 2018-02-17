@@ -42,6 +42,7 @@
 #include "devilsai-gui/conversation.h"
 #include "devilsai-gui/inventory.h"
 #include "devilsai-gui/journal.h"
+#include "devilsai-gui/console.h"
 
 #include "gamedata.h"
 #include "options.h"
@@ -63,6 +64,7 @@ void mainLoop(RenderWindow& app)
     gui::Widget* tooltip = ingameToolbar.widget("tooltip");
     gui::Widget* playerDescription = characterWindow.widget("text");
 
+    initConsole(app);
     initConversation(app);
     initJournal(app);
 
@@ -99,8 +101,11 @@ void mainLoop(RenderWindow& app)
     enum LeftScreens { None, Inventory, Journal, Character };
     LeftScreens currentLeftScreen = LeftScreens::None;
 
-    enum BottomScreens { NoBottomScreen, StorageBox };
+    enum BottomScreens { NoBottomScreen, StorageBox, Console };
     BottomScreens currentBottomScreen = BottomScreens::NoBottomScreen;
+
+    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
+        currentBottomScreen = BottomScreens::Console;
 
 	while (true)
 	{
@@ -142,7 +147,10 @@ void mainLoop(RenderWindow& app)
                     if (openStorageBox != nullptr)
                     {
                         openStorageBox->close();
-                        currentBottomScreen = BottomScreens::NoBottomScreen;
+                        if (options::option<bool>(tools::math::sdbm_hash("show-console")))
+                            currentBottomScreen = BottomScreens::Console;
+                        else
+                            currentBottomScreen = BottomScreens::NoBottomScreen;
                         openStorageBox = nullptr;
                     }
                 }
@@ -171,6 +179,9 @@ void mainLoop(RenderWindow& app)
                     case BottomScreens::StorageBox :
                         manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
                         break;
+                    case BottomScreens::Console :
+                        manageConsole(app, event);
+                        break;
                     default:
                         break;
                 }
@@ -188,7 +199,10 @@ void mainLoop(RenderWindow& app)
                 if (openStorageBox != nullptr)
                 {
                     openStorageBox->close();
-                    currentBottomScreen = BottomScreens::NoBottomScreen;
+                    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
+                            currentBottomScreen = BottomScreens::Console;
+                        else
+                            currentBottomScreen = BottomScreens::NoBottomScreen;
                     openStorageBox = nullptr;
                 }
                 selectedStorageBox = -1;
@@ -408,7 +422,10 @@ void mainLoop(RenderWindow& app)
                 else
                 {
                     openStorageBox->close();
-                    currentBottomScreen = BottomScreens::NoBottomScreen;
+                    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
+                            currentBottomScreen = BottomScreens::Console;
+                        else
+                            currentBottomScreen = BottomScreens::NoBottomScreen;
                     openStorageBox = nullptr;
                     selectedStorageBox = -1;
                 }
@@ -523,6 +540,10 @@ void mainLoop(RenderWindow& app)
         {
             case BottomScreens::StorageBox :
                 displayStorageBoxScreen(storageBoxWindow, app, openStorageBox);
+                break;
+            case BottomScreens::Console :
+                displayConsole(app);
+                break;
             default:
                 break;
         }
