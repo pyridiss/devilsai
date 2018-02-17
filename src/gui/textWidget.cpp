@@ -54,7 +54,7 @@ bool TextWidget::mouseHovering(RenderWindow& app)
 
 bool TextWidget::mouseHoveringVerticalScrollBar(RenderWindow& app)
 {
-    if ((_flags & VerticalScrollBarInUse) == 0)
+    if ((_flags & VerticalScrollBar) == 0)
         return false;
 
     if (mousePosition().x >= left() + width() && mousePosition().x <= left() + width() + 20 &&
@@ -68,7 +68,7 @@ bool TextWidget::mouseHoveringVerticalScrollBar(RenderWindow& app)
 
 bool TextWidget::activated(RenderWindow& app, Event event)
 {
-    if ((_flags & VerticalScrollBarInUse) == 0)
+    if ((_flags & VerticalScrollBar) == 0)
         return false;
 
     if (event.type == Event::MouseButtonPressed && mouseHoveringVerticalScrollBar(app))
@@ -86,7 +86,7 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     {
         _flags &= ~VerticalScrollBarInUse;
     }
-    else if (event.type == Event::MouseWheelScrolled)
+    else if (event.type == Event::MouseWheelScrolled && (mouseHovering(app) || mouseHoveringVerticalScrollBar(app)))
     {
         _verticalScrolling -= 10 * event.mouseWheelScroll.delta;
     }
