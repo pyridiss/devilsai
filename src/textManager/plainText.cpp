@@ -63,10 +63,9 @@ PlainText& PlainText::operator+=(const PlainText& right)
 
 PlainText& PlainText::operator+=(const char* right)
 {
-    _aggregatedText.clear();
-
     string_view str(right);
     Utf8::toUtf32(str.begin(), str.end(), back_inserter(_originalText));
+    aggregate();
 
     cleanup();
     findParametersNeeded();
