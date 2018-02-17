@@ -34,18 +34,6 @@ class Element_Carte;
 class Individu;
 
 
-/** CLASSES **/
-
-struct LigneConsole
-{
-    textManager::PlainText Ligne;
-	Color Couleur;
-	float Temps		= 0;
-	short NumLigne	= 0;
-	bool Affichage	= false;
-};
-
-
 /** DÉCLARATION DES FONCTIONS **/
 
 /* Fonctions définies dans le fichier Decorations.cpp */
@@ -53,11 +41,6 @@ struct LigneConsole
 void Load_Decorations();
 void Supprimer_Decorations();
 void Disp_JaugesVie(RenderTarget& target);
-void Ajouter_LignePerso(textManager::PlainText, Color);
-void Ajouter_LigneAmelioration(textManager::PlainText, Color);
-void Disp_Consoles(RenderTarget& target);
-void SupprimerLignesConsoles();
-void Disp_Information(const textManager::PlainText&, bool);
 bool Disp_Repos(RenderTarget& target);
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */

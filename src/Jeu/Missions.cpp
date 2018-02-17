@@ -28,6 +28,7 @@
 #include "Jeu/options.h"
 
 #include "devilsai-gui/journal.h"
+#include "devilsai-gui/console.h"
 
 #include "gamedata.h"
 
@@ -53,7 +54,7 @@ void addQuest(string newQuest, string args)
     {
         textManager::PlainText a = textManager::getText("devilsai", "MONSTRES_RESTANTS");
         a.addParameter((unsigned)lua_tonumber(L,1));
-        Ajouter_LigneAmelioration(a, Color(255, 255, 255, 255));
+        addConsoleEntry(a);
         return 0;
     });
 

@@ -30,6 +30,7 @@
 #include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
+#include "devilsai-gui/console.h"
 #include "gamedata.h"
 
 using namespace tinyxml2;
@@ -86,7 +87,7 @@ void Joueur::Gestion_Statistiques()
 
 		//Application
 		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
-			Disp_Information(textManager::getText("devilsai", "FATIGUE"), true);
+            addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
 	}
 
     //Update interactionField of skills
@@ -108,7 +109,7 @@ void Joueur::CoupCritique(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
-		Disp_Information(textManager::getText("devilsai", "CRITIQUE"), true);
+        addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
 }
 
 void Joueur::BlessureGrave(Individu* ennemi)
@@ -123,7 +124,7 @@ void Joueur::BlessureGrave(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(textManager::getText("devilsai", "BLESSURE"), true);
+        addConsoleEntry(textManager::getText("devilsai", "BLESSURE"));
 }
 
 void Joueur::CoupEsquive(Individu* ennemi)
@@ -134,7 +135,7 @@ void Joueur::CoupEsquive(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
-		Disp_Information(textManager::getText("devilsai", "ESQUIVE"), true);
+        addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
 }
 
 void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
@@ -181,7 +182,7 @@ void Joueur::BlessuresMultiples(Individu* ennemi)
 
 	//Application
 	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-		Disp_Information(textManager::getText("devilsai", "BLESSURE"), true);
+        addConsoleEntry(textManager::getText("devilsai", "BLESSURE"));
 }
 
 bool Joueur::ApplicationAmeliorations()
@@ -189,7 +190,6 @@ bool Joueur::ApplicationAmeliorations()
 	//Affichage & enregistrement des améliorations proposées :
 
 	textManager::PlainText Final;
-	Color Positif(128, 255, 128, 255); Color Negatif(255, 128, 128, 255);
 	bool Retour = false;
 
     for (int a = Strength ; a != numberOfAttributes ; ++a)
@@ -203,7 +203,7 @@ bool Joueur::ApplicationAmeliorations()
             strcat(text, attributeToString(att));
             Final = textManager::getText("devilsai", text);
             Final.addParameter(diff);
-            (diff > 0) ? Ajouter_LigneAmelioration(Final, Positif) : Ajouter_LigneAmelioration(Final, Negatif);
+            addConsoleEntry(Final);
         }
 
         _displayedAttributes.set(att, floor(_attributes[att]));

@@ -511,7 +511,6 @@ void mainLoop(RenderWindow& app)
         if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
         {
             Disp_JaugesVie(app);
-            Disp_Consoles(app);
         }
 
         displayConversation(app);
@@ -587,7 +586,5 @@ void mainLoop(RenderWindow& app)
 
 void Clean_Partie()
 {
-	SupprimerLignesConsoles();
-
     gamedata::clear();
 }

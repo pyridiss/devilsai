@@ -31,14 +31,11 @@
 #include "musicManager/musicManager.h"
 #include "textManager/richText.h"
 
+#include "devilsai-gui/console.h"
+
 #include "gamedata.h"
 
 #include "Jeu/options.h"
-
-/** VARIABLES GLOBALES **/
-
-LigneConsole ConsolePerso[10];
-LigneConsole ConsoleAmeliorations[10];
 
 
 /** GESTION DES DÉCORATIONS **/
@@ -148,7 +145,7 @@ void Disp_JaugesVie(RenderTarget& target)
 
 	if (gamedata::player()->currentHealthStatus(Energy) < 140)
 	{
-        if (PersoEnePrec >= 140) Disp_Information(textManager::getText("devilsai", "FATIGUE"), true);
+        if (PersoEnePrec >= 140) addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
         playerStateText += " @n";
         playerStateText += textManager::getText("devilsai", "player-health-tired");
 	}
@@ -176,126 +173,7 @@ void Disp_JaugesVie(RenderTarget& target)
     playerState.displayFullText(target, 92, 55);
 }
 
-void Ajouter_LignePerso(textManager::PlainText ligne, Color couleur)
-{
-    if (!options::option<bool>(tools::math::sdbm_hash("show-console"))) return;
-
-	for(int a = 0 ; a < 10 ; ++a)
-	{
-		if (ConsolePerso[a].Affichage) --ConsolePerso[a].NumLigne;
-	}
-
-	short NouvelleLigne = -1;
-
-	for (int b = 0 ; b < 10 ; ++b)
-	{
-		if (!ConsolePerso[b].Affichage) NouvelleLigne = b;
-	}
-
-	if (NouvelleLigne == -1)
-	{
-		int TempsMax = 0; int Remplacement = 0;
-		for (int c = 0 ; c < 10 ; ++c)
-		{
-			if (ConsolePerso[c].Temps > TempsMax)
-			{
-				Remplacement = c;
-				TempsMax = ConsolePerso[c].Temps;
-			}
-		}
-		NouvelleLigne = Remplacement;
-	}
-
-	ConsolePerso[NouvelleLigne].Ligne = ligne;
-	ConsolePerso[NouvelleLigne].Couleur = couleur;
-	ConsolePerso[NouvelleLigne].Temps = 0;
-	ConsolePerso[NouvelleLigne].NumLigne = 10;
-	ConsolePerso[NouvelleLigne].Affichage = true;
-}
-
-void Ajouter_LigneAmelioration(textManager::PlainText ligne, Color couleur)
-{
-	for(int a = 0 ; a < 10 ; ++a)
-	{
-		if (ConsoleAmeliorations[a].Affichage) --ConsoleAmeliorations[a].NumLigne;
-	}
-
-	short NouvelleLigne = -1;
-
-	for (int b = 0 ; b < 10 ; ++b)
-	{
-		if (!ConsoleAmeliorations[b].Affichage) NouvelleLigne = b;
-	}
-
-	if (NouvelleLigne == -1)
-	{
-		int TempsMax = 0; int Remplacement = 0;
-		for (int c = 0 ; c < 10 ; ++c)
-		{
-			if (ConsoleAmeliorations[c].Temps > TempsMax)
-			{
-				Remplacement = c;
-				TempsMax = ConsoleAmeliorations[c].Temps;
-			}
-		}
-		NouvelleLigne = Remplacement;
-	}
-
-	ConsoleAmeliorations[NouvelleLigne].Ligne = ligne;
-	ConsoleAmeliorations[NouvelleLigne].Couleur = couleur;
-	ConsoleAmeliorations[NouvelleLigne].Temps = 0;
-	ConsoleAmeliorations[NouvelleLigne].NumLigne = 10;
-	ConsoleAmeliorations[NouvelleLigne].Affichage = true;
-}
-
-void Disp_Consoles(RenderTarget& target)
-{
-	for (int a = 0 ; a < 10 ; ++a)
-	{
-		if (ConsolePerso[a].Affichage)
-		{
-			ConsolePerso[a].Temps += tools::timeManager::I(1);
-			if (ConsolePerso[a].Temps < 300)
-            {
-                textManager::RichText rich;
-                rich.setSize(500, 0);
-                rich.setDefaultProperties("liberation", 13, ConsolePerso[a].Couleur);
-                rich.create(ConsolePerso[a].Ligne);
-                rich.displayFullText(target, target.getSize().x - 500, 390+15*ConsolePerso[a].NumLigne);
-            }
-			if (ConsolePerso[a].Temps == 300) ConsolePerso[a].Affichage = false;
-		}
-		if (ConsoleAmeliorations[a].Affichage)
-		{
-			ConsoleAmeliorations[a].Temps += tools::timeManager::I(1);
-			if (ConsoleAmeliorations[a].Temps < 345)
-            {
-                textManager::RichText rich;
-                rich.setSize(500, 0);
-                rich.setDefaultProperties("liberation", 13, ConsoleAmeliorations[a].Couleur);
-                rich.create(ConsoleAmeliorations[a].Ligne);
-                rich.displayFullText(target, 210, 400-16*ConsoleAmeliorations[a].NumLigne);
-            }
-			if (ConsoleAmeliorations[a].Temps == 300) ConsoleAmeliorations[a].Affichage = false;
-		}
-	}
-}
-
-void SupprimerLignesConsoles()
-{
-	for (int a = 0 ; a < 10 ; ++a)
-	{
-		ConsolePerso[a].Affichage = false;
-		ConsoleAmeliorations[a].Affichage = false;
-	}
-}
-
 /** SITUATIONS PARTICULIÈRES **/
-
-void Disp_Information(const textManager::PlainText& info, bool reactiver)
-{
-    Ajouter_LigneAmelioration(info, Color(255, 255, 255));
-}
 
 bool Disp_Repos(RenderTarget& target)
 {

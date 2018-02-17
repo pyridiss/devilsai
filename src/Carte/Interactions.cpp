@@ -22,6 +22,8 @@
 
 #include "textManager/textManager.h"
 
+#include "devilsai-gui/console.h"
+
 #include "gamedata.h"
 
 void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
@@ -73,7 +75,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 			if (Blesse == gamedata::player())
 			{
 				gamedata::player()->CoupEsquive(Attaquant);
-				Ajouter_LignePerso(textManager::getText("devilsai", "ESQUIVE"), Color(128, 255, 128, 255));
+                addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
 			}
 		}
 		else
@@ -88,7 +90,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 				if (Attaquant->Id == gamedata::player()->Id)
 				{
 					gamedata::player()->CoupCritique(Blesse);
-					Ajouter_LignePerso(textManager::getText("devilsai", "CRITIQUE"), Color(240, 40, 40, 255));
+                    addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
 				}
 				if (Blesse->Id == gamedata::player()->Id)
 				{
@@ -125,7 +127,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
         resultText.addParameter((int)Degats);
         resultText.addParameter(b);
 
-        Ajouter_LignePerso(resultText, Color(255, 255, 255));
+        addConsoleEntry(resultText);
 		if (Attaquant == gamedata::player())
 		{
             gamedata::player()->ApplicationAmeliorations();
@@ -137,5 +139,5 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 
         if (Degats) Blesse->Set_Activite(Blesse->behavior(Behaviors::Hurt));
 	}
-	else if (Attaquant->Id == gamedata::player()->Id) Ajouter_LignePerso(textManager::getText("devilsai", "ECHEC"), Color(200, 10, 20, 255));
+    else if (Attaquant->Id == gamedata::player()->Id) addConsoleEntry(textManager::getText("devilsai", "ECHEC"));
 }
