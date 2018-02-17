@@ -140,6 +140,7 @@ void manageJournal(RenderWindow& target, Event& event)
     if (_currentPage != oldPage)
         updateState();
 
+    _text->activated(target, event);
     _window.checkTriggers();
 }
 
