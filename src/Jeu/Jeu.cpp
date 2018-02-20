@@ -47,9 +47,22 @@
 #include "gamedata.h"
 #include "options.h"
 
+enum GameState
+{
+    LeftPanelOpened = 1 << 0,
+    ShowCharacter   = (1 << 0) + (1 << 1),
+    ShowInventory   = (1 << 0) + (1 << 2),
+    ShowJournal     = (1 << 0) + (1 << 3),
+    ShowSkills      = (1 << 0) + (1 << 4),
+    LeftPanels      = (1 << 0) + (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4),
+    ShowConsole     = 1 << 5,
+    ShowStorageBox  = 1 << 6
+};
 
 void mainLoop(RenderWindow& app)
 {
+    uint16_t state = 0;
+
     bool managementActivated = false;
     bool playerResting = false;
 
@@ -98,14 +111,8 @@ void mainLoop(RenderWindow& app)
     bool showTooltip = false;
     bool cinematicMode = false;
 
-    enum LeftScreens { None, Inventory, Journal, Character };
-    LeftScreens currentLeftScreen = LeftScreens::None;
-
-    enum BottomScreens { NoBottomScreen, StorageBox, Console };
-    BottomScreens currentBottomScreen = BottomScreens::NoBottomScreen;
-
     if (options::option<bool>(tools::math::sdbm_hash("show-console")))
-        currentBottomScreen = BottomScreens::Console;
+        state |= ShowConsole;
 
 	while (true)
 	{
@@ -147,10 +154,7 @@ void mainLoop(RenderWindow& app)
                     if (openStorageBox != nullptr)
                     {
                         openStorageBox->close();
-                        if (options::option<bool>(tools::math::sdbm_hash("show-console")))
-                            currentBottomScreen = BottomScreens::Console;
-                        else
-                            currentBottomScreen = BottomScreens::NoBottomScreen;
+                        state &= ~ShowStorageBox;
                         openStorageBox = nullptr;
                     }
                 }
@@ -162,29 +166,14 @@ void mainLoop(RenderWindow& app)
                 ingameSkillbar.manage(app, event);
                 manageConversation(app, event);
 
-                switch (currentLeftScreen)
-                {
-                    case LeftScreens::Inventory :
-                        manageInventoryScreen(inventoryWindow, app, event, selectedObject);
-                        break;
-                    case LeftScreens::Journal :
-                        manageJournal(app, event);
-                        break;
-                    default:
-                        break;
-                }
-
-                switch (currentBottomScreen)
-                {
-                    case BottomScreens::StorageBox :
-                        manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
-                        break;
-                    case BottomScreens::Console :
-                        manageConsole(app, event);
-                        break;
-                    default:
-                        break;
-                }
+                if ((state & ShowInventory) == ShowInventory)
+                    manageInventoryScreen(inventoryWindow, app, event, selectedObject);
+                if ((state & ShowJournal) == ShowJournal)
+                    manageJournal(app, event);
+                if ((state & ShowStorageBox) == ShowStorageBox)
+                    manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
+                if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
+                    manageConsole(app, event);
             }
             else
             {
@@ -199,10 +188,7 @@ void mainLoop(RenderWindow& app)
                 if (openStorageBox != nullptr)
                 {
                     openStorageBox->close();
-                    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
-                            currentBottomScreen = BottomScreens::Console;
-                        else
-                            currentBottomScreen = BottomScreens::NoBottomScreen;
+                    state &= ~ShowStorageBox;
                     openStorageBox = nullptr;
                 }
                 selectedStorageBox = -1;
@@ -226,12 +212,12 @@ void mainLoop(RenderWindow& app)
 
         if (loadingResources) imageManager::unlockGLMutex(1);
 
-        if (currentLeftScreen != LeftScreens::None)
+        if ((state & LeftPanelOpened) == LeftPanelOpened)
         {
             worldView.reset(FloatRect(0, 0, app.getSize().x/2.f, app.getSize().y - 106));
             worldView.setViewport(sf::FloatRect(0.5f, 50.f/(float)app.getSize().y, 0.5f, (float)(app.getSize().y-106)/(float)app.getSize().y));
         }
-        if (currentBottomScreen != BottomScreens::NoBottomScreen)
+        if ((state & ShowStorageBox) == ShowStorageBox)
         {
             worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 306));
             worldView.setViewport(sf::FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y - 306)/(float)app.getSize().y));
@@ -300,30 +286,16 @@ void mainLoop(RenderWindow& app)
                 options::changeOption(signal.first, signal.second);
             }
             if (signal.first == "screen-character") {
-                if (currentLeftScreen == LeftScreens::Character)
-                    currentLeftScreen = LeftScreens::None;
-                else
-                    currentLeftScreen = LeftScreens::Character;
+                state = (state & ~LeftPanels) | (((state & ShowCharacter) == ShowCharacter) ? 0 : ShowCharacter);
             }
-            if (signal.first == "screen-equipment")
-            {
-                if (currentLeftScreen == LeftScreens::Inventory)
-                    currentLeftScreen = LeftScreens::None;
-                else
-                    currentLeftScreen = LeftScreens::Inventory;
+            if (signal.first == "screen-equipment") {
+                state = (state & ~LeftPanels) | (((state & ShowInventory) == ShowInventory) ? 0 : ShowInventory);
             }
-
-            if (signal.first == "screen-skills")
-            {
+            if (signal.first == "screen-skills") {
+                state = (state & ~LeftPanels) | (((state & ShowSkills) == ShowSkills) ? 0 : ShowSkills);
             }
-
-            if (signal.first == "screen-journal")
-            {
-                if (currentLeftScreen == LeftScreens::Journal)
-                    currentLeftScreen = LeftScreens::None;
-                else
-                    currentLeftScreen = LeftScreens::Journal;
-
+            if (signal.first == "screen-journal") {
+                state = (state & ~LeftPanels) | (((state & ShowJournal) == ShowJournal) ? 0 : ShowJournal);
                 tools::signals::addSignal("ingame-toolbar:remove-warn-journal");
             }
             if (signal.first == "exit")
@@ -369,13 +341,13 @@ void mainLoop(RenderWindow& app)
 
         //2. Management
 
-        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * (currentBottomScreen != NoBottomScreen));
+        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * ((state & ShowStorageBox) == ShowStorageBox));
 
         if (managementActivated)
             gamedata::currentWorld()->GestionElements(worldView);
 
         //Screen position update
-        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * (currentBottomScreen != NoBottomScreen));
+        worldView.setCenter((int)gamedata::player()->position().x, (int)gamedata::player()->position().y - 100 * ((state & ShowStorageBox) == ShowStorageBox));
         screen.move(-screen.position().x + gamedata::player()->position().x,
                     -screen.position().y + gamedata::player()->position().y);
 
@@ -412,8 +384,8 @@ void mainLoop(RenderWindow& app)
             {
                 gamedata::player()->stopAutomoving();
                 openStorageBox = dynamic_cast<Coffre*>(c);
-                currentBottomScreen = BottomScreens::StorageBox;
-                currentLeftScreen = LeftScreens::None;
+                state |= ShowStorageBox;
+                state &= ~LeftPanels;
             }
             else
             {
@@ -422,11 +394,7 @@ void mainLoop(RenderWindow& app)
                 else
                 {
                     openStorageBox->close();
-                    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
-                            currentBottomScreen = BottomScreens::Console;
-                        else
-                            currentBottomScreen = BottomScreens::NoBottomScreen;
-                    openStorageBox = nullptr;
+                    state &= ~ShowStorageBox;
                     selectedStorageBox = -1;
                 }
             }
@@ -515,37 +483,21 @@ void mainLoop(RenderWindow& app)
 
         displayConversation(app);
 
-        switch (currentLeftScreen)
+        if ((state & ShowInventory) == ShowInventory)
+            displayInventoryScreen(inventoryWindow, app, selectedObject);
+        if ((state & ShowJournal) == ShowJournal)
+            displayJournal(app);
+        if ((state & ShowCharacter) == ShowCharacter)
         {
-            case LeftScreens::Inventory :
-                displayInventoryScreen(inventoryWindow, app, selectedObject);
-                break;
-            case LeftScreens::Journal :
-                displayJournal(app);
-                break;
-            case LeftScreens::Character:
-            {
-                gui::optionType o;
-                o.set<textManager::PlainText>(gamedata::player()->characterDescription());
-                playerDescription->setValue(o);
-                characterWindow.display(app);
-                break;
-            }
-            default:
-                break;
+            gui::optionType o;
+            o.set<textManager::PlainText>(gamedata::player()->characterDescription());
+            playerDescription->setValue(o);
+            characterWindow.display(app);
         }
-
-        switch (currentBottomScreen)
-        {
-            case BottomScreens::StorageBox :
-                displayStorageBoxScreen(storageBoxWindow, app, openStorageBox);
-                break;
-            case BottomScreens::Console :
-                displayConsole(app);
-                break;
-            default:
-                break;
-        }
+        if ((state & ShowStorageBox) == ShowStorageBox)
+            displayStorageBoxScreen(storageBoxWindow, app, openStorageBox);
+        if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
+            displayConsole(app);
 
         gui::optionType o;
         o.set<textManager::PlainText>(tools::timeManager::getFPS());
