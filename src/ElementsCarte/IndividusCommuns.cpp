@@ -30,6 +30,14 @@ using namespace tinyxml2;
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
 
 Classe_Commune::Classe_Commune()
+  :  _displayedName(),
+    size(),
+    viewField(),
+    interactionField(),
+    _attacks(),
+    commonStats(),
+    inventory(),
+    _skills()
 {
 }
 
