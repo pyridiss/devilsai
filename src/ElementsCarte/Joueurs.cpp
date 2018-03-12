@@ -38,8 +38,13 @@ using namespace tinyxml2;
 /** FONCTIONS DE LA CLASSE Joueur **/
 
 Joueur::Joueur()
-     : Individu(),
-     selectedIndividual(nullptr)
+  : Individu(),
+    _automoveEndpoint(),
+    _hunted(nullptr),
+    _fakeIndividual(),
+    _skillForHunted(),
+     selectedIndividual(nullptr),
+    _displayedAttributes()
 {
     _fakeIndividual.size.circle(tools::math::Vector2d(0, 0), 10);
 }
