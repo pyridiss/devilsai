@@ -56,7 +56,9 @@ enum GameState
     ShowSkills      = (1 << 0) + (1 << 4),
     LeftPanels      = (1 << 0) + (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4),
     ShowConsole     = 1 << 5,
-    ShowStorageBox  = 1 << 6
+    ShowStorageBox  = 1 << 6,
+    LeftButtonPressed  = 1 << 7,
+    RightButtonPressed = 1 << 8
 };
 
 void mainLoop(RenderWindow& app)
@@ -118,25 +120,52 @@ void mainLoop(RenderWindow& app)
 	{
         //1. Events & Signals
 
-        bool leftClick = false, rightClick = false;
-
         if (loadingResources) imageManager::lockGLMutex(1);
 
         Event event;
         while (app.pollEvent(event))
         {
+            // Common window management
+
             if (event.type == Event::MouseMoved)
                 gui::updateMousePosition(app);
 
             if (event.type == Event::Resized)
                 app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
 
+            if (event.type == Event::Closed || (event.type == Event::KeyReleased && Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
+                tools::signals::addSignal("exit");
+
+            // Gui windows
+
+            if (inGame)
+            {
+                ingameToolbar.manage(app, event);
+                ingameSkillbar.manage(app, event);
+                manageConversation(app, event);
+
+                if ((state & ShowInventory) == ShowInventory)
+                    manageInventoryScreen(inventoryWindow, app, event, selectedObject);
+                if ((state & ShowJournal) == ShowJournal)
+                    manageJournal(app, event);
+                if ((state & ShowStorageBox) == ShowStorageBox)
+                    manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
+                if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
+                    manageConsole(app, event);
+            }
+            else
+            {
+                mainMenuWindow.manage(app, event);
+            }
+
+            // In-game events
+
             if (event.type == Event::MouseButtonPressed && cursorIsInWorld && !cinematicMode)
             {
                 if (event.mouseButton.button == Mouse::Button::Left)
-                    leftClick = true;
+                    state |= LeftButtonPressed;
                 if (event.mouseButton.button == Mouse::Button::Right)
-                    rightClick = true;
+                    state |= RightButtonPressed;
 
                 //Will force the player to stop the current activity (if possible) and adopt a new one immediately
                 move = true;
@@ -160,28 +189,8 @@ void mainLoop(RenderWindow& app)
                 }
             }
 
-            if (inGame)
-            {
-                ingameToolbar.manage(app, event);
-                ingameSkillbar.manage(app, event);
-                manageConversation(app, event);
-
-                if ((state & ShowInventory) == ShowInventory)
-                    manageInventoryScreen(inventoryWindow, app, event, selectedObject);
-                if ((state & ShowJournal) == ShowJournal)
-                    manageJournal(app, event);
-                if ((state & ShowStorageBox) == ShowStorageBox)
-                    manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
-                if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
-                    manageConsole(app, event);
-            }
-            else
-            {
-                mainMenuWindow.manage(app, event);
-            }
-
-            if (event.type == Event::Closed || (event.type == Event::KeyReleased && Keyboard::isKeyPressed(Keyboard::F4) && Keyboard::isKeyPressed(Keyboard::LAlt)))
-                tools::signals::addSignal("exit");
+            if (event.type == Event::MouseButtonReleased)
+                state &= ~(LeftButtonPressed | RightButtonPressed);
 
             if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
             {
@@ -408,7 +417,7 @@ void mainLoop(RenderWindow& app)
                 gamedata::player()->Temps = 1;
             }
 
-            if (Mouse::isButtonPressed(Mouse::Left) || leftClick)
+            if ((state & LeftButtonPressed) == LeftButtonPressed)
             {
                 if (gamedata::player()->selectedIndividual == nullptr)
                 {
@@ -418,7 +427,7 @@ void mainLoop(RenderWindow& app)
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
                     gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->embeddedData<string>("value"), false);
             }
-            else if (Mouse::isButtonPressed(Mouse::Right) || rightClick)
+            else if ((state & RightButtonPressed) == RightButtonPressed)
             {
                 if (gamedata::player()->selectedIndividual == nullptr)
                 {
