@@ -31,12 +31,12 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Paysage **/
 
-Paysage::Paysage() : Element_Carte()
+Paysage::Paysage()
+  : Element_Carte(),
+    extent(1, 1)
 {
 	TypeClassement = CLASSEMENT_NORMAL;
     inert = true;
-    extent.x = 1;
-    extent.y = 1;
     size.setOrigin(&position());
 }
 
