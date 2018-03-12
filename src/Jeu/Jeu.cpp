@@ -37,12 +37,12 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
-#include "storageBoxScreenManager.h"
 #include "skillbarManager.h"
 #include "devilsai-gui/conversation.h"
 #include "devilsai-gui/inventory.h"
 #include "devilsai-gui/journal.h"
 #include "devilsai-gui/console.h"
+#include "devilsai-gui/storageBox.h"
 
 #include "gamedata.h"
 #include "options.h"

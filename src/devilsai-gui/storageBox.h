@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STORAGEBOXSCREENMANAGER_H
-#define STORAGEBOXSCREENMANAGER_H
+#ifndef DEVILSAI_GUI_STORAGEBOX_H
+#define DEVILSAI_GUI_STORAGEBOX_H
 
 using namespace std;
 
@@ -38,4 +38,4 @@ class Coffre;
 void manageStorageBoxScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event, Coffre* box);
 void displayStorageBoxScreen(gui::Window& window, sf::RenderWindow& target, Coffre* box);
 
-#endif // STORAGEBOXSCREENMANAGER_H
+#endif // DEVILSAI_GUI_STORAGEBOX_H
