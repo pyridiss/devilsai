@@ -50,30 +50,50 @@ void addQuest(string newQuest, string args)
 
 	lua_atpanic(L, LUA_panic);
 
-    lua_register(L, "dispRemainingEnemies", [](lua_State* L)
+    lua_register(L, "dispRemainingEnemies", [](lua_State* S)
     {
         textManager::PlainText a = textManager::getText("devilsai", "MONSTRES_RESTANTS");
-        a.addParameter((unsigned)lua_tonumber(L,1));
+        a.addParameter((unsigned)lua_tonumber(S,1));
         addConsoleEntry(a);
         return 0;
     });
 
-	lua_register(L, "addQuest",			[](lua_State* L) { addQuest(lua_tostring(L, 1), "true"); return 0; });
-	lua_register(L, "addExperience",	[](lua_State* L) { gamedata::player()->GainExperience(NULL, 0, lua_tonumber(L, 1)); return 0; });
+    lua_register(L, "addQuest", [](lua_State* S)
+    {
+        addQuest(lua_tostring(S, 1), "true");
+        return 0;
+    });
 
-    lua_register(L, "toBlack", [](lua_State* L)
+    lua_register(L, "addExperience", [](lua_State* S)
+    {
+        gamedata::player()->GainExperience(NULL, 0, lua_tonumber(S, 1));
+        return 0;
+    });
+
+    lua_register(L, "toBlack", [](lua_State* S)
     {
         tools::debug::warning("lua function 'toBlack' is not implemented.", "lua", __FILENAME__, __LINE__);
         return 0;
     });
 
-    lua_register(L, "gameSuccessfullyEnded", [](lua_State* L) {
+    lua_register(L, "gameSuccessfullyEnded", [](lua_State* S)
+    {
         tools::signals::addSignal("game-successfully-ended");
         tools::signals::addSignal("new-game");
         return 0;
     });
-    lua_register(L, "enableCinematics",	[](lua_State* L) { options::addOption<bool>(tools::math::sdbm_hash("cinematic-mode"), lua_toboolean(L, 1)); return 0; });
-    lua_register(L, "addJournalEntry", [](lua_State* L) { addJournalEntry(lua_tostring(L, 1), lua_tostring(L, 2), lua_tostring(L, 3)); return 0; });
+
+    lua_register(L, "enableCinematics", [](lua_State* S)
+    {
+        options::addOption<bool>(tools::math::sdbm_hash("cinematic-mode"), lua_toboolean(S, 1));
+        return 0;
+    });
+
+    lua_register(L, "addJournalEntry", [](lua_State* S)
+    {
+        addJournalEntry(lua_tostring(S, 1), lua_tostring(S, 2), lua_tostring(S, 3));
+        return 0;
+    });
 
 	lua_register(L, "cout", LUA_cout);
 	lua_register(L, "getNumberOfItemsByTag", LUA_getNumberOfItemsByTag);
