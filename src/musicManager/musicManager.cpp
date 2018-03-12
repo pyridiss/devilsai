@@ -35,6 +35,13 @@ class Basic_Sound
 	SoundBuffer buffer;
 	Sound sound;
 
+    public:
+        Basic_Sound()
+          : buffer(),
+            sound()
+        {
+        }
+
 	public:
 		bool loadFromFile(string file);
 		void start();
@@ -52,6 +59,8 @@ class Basic_Music
 
 	public:
 		Basic_Music();
+        Basic_Music(const Basic_Music&) = delete;
+        Basic_Music& operator=(const Basic_Music&) = delete;
 		~Basic_Music();
 
 	public:
@@ -72,10 +81,7 @@ void addSound(string soundID)
 {
     if (sounds.find(soundID) != sounds.end()) return;
 
-    Basic_Sound sound;
-    const auto& result = sounds.insert(SoundClass::value_type(soundID, sound));
-
-    bool success = result.first->second.loadFromFile(tools::filesystem::dataDirectory() + "sound/" + soundID + ".ogg");
+    bool success = sounds[soundID].loadFromFile(tools::filesystem::dataDirectory() + "sound/" + soundID + ".ogg");
 
     if (success) tools::debug::message("Sound " + soundID + " has been loaded", "musics", __FILENAME__, __LINE__);
     else tools::debug::error("Failed to load sound: " + soundID, "files", __FILENAME__, __LINE__);
@@ -85,10 +91,7 @@ void addMusic(string musicID)
 {
     if (musics.find(musicID) != musics.end()) return;
 
-    Basic_Music music;
-    const auto& result = musics.insert(MusicClass::value_type(musicID, music));
-
-    bool success = result.first->second.openFromFile(tools::filesystem::dataDirectory() + "music/" + musicID + ".ogg");
+    bool success = musics[musicID].openFromFile(tools::filesystem::dataDirectory() + "music/" + musicID + ".ogg");
 
     if (success) tools::debug::message("Music " + musicID + " has been loaded", "musics", __FILENAME__, __LINE__);
     else tools::debug::error("Failed to load music: " + musicID, "files", __FILENAME__, __LINE__);
@@ -174,16 +177,15 @@ void Basic_Sound::start()
 /* 'Basic_Music' functions */
 
 Basic_Music::Basic_Music()
+  : music(nullptr),
+    musicState(Stopped),
+    currentVolume(100)
 {
-	music = nullptr;
-	currentVolume = 100;
-	musicState = Stopped;
 }
 
 Basic_Music::~Basic_Music()
 {
 	if (music != nullptr) delete music;
-	music = nullptr;
 }
 
 bool Basic_Music::openFromFile(string file)
