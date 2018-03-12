@@ -344,10 +344,6 @@ bool intersection(Shape& shape1, Shape& shape2)
     if (shape1.profile == Shape::Profiles::None || shape2.profile == Shape::Profiles::None)
         return false;
 
-    //Simplify the switches
-    if (shape2.profile < shape1.profile)
-        return intersection(shape2, shape1);
-
     //Shapes with no origin cannot intersect
     if (shape1.origin == nullptr || shape2.origin == nullptr)
     {
@@ -392,11 +388,14 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_point_line(shape1, shape2);
                 case Shape::Profiles::Arc:
                     return intersection_point_arc(shape1, shape2);
+                default: return false;
             }
             break;
         case Shape::Profiles::Circle:
             switch(shape2.profile)
             {
+                case Shape::Profiles::Point:
+                    return intersection_point_circle(shape2, shape1);
                 case Shape::Profiles::Circle:
                     return intersection_circle_circle(shape1, shape2);
                 case Shape::Profiles::Triangle:
@@ -407,11 +406,16 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_circle_line(shape1, shape2);
                 case Shape::Profiles::Arc:
                     return intersection_circle_arc(shape1, shape2);
+                default: return false;
             }
             break;
         case Shape::Profiles::Triangle:
             switch(shape2.profile)
             {
+                case Shape::Profiles::Point:
+                    return intersection_point_triangle(shape2, shape1);
+                case Shape::Profiles::Circle:
+                    return intersection_circle_triangle(shape2, shape1);
                 case Shape::Profiles::Triangle:
                     return intersection_triangle_triangle(shape1, shape2);
                 case Shape::Profiles::Rectangle:
@@ -420,34 +424,63 @@ bool intersection(Shape& shape1, Shape& shape2)
                     return intersection_triangle_line(shape1, shape2);
                 case Shape::Profiles::Arc:
                     return intersection_triangle_arc(shape1, shape2);
+                default: return false;
             }
             break;
         case Shape::Profiles::Rectangle:
             switch(shape2.profile)
             {
+                case Shape::Profiles::Point:
+                    return intersection_point_rectangle(shape2, shape1);
+                case Shape::Profiles::Circle:
+                    return intersection_circle_rectangle(shape2, shape1);
+                case Shape::Profiles::Triangle:
+                    return intersection_triangle_rectangle(shape2, shape1);
                 case Shape::Profiles::Rectangle:
                     return intersection_rectangle_rectangle(shape1, shape2);
                 case Shape::Profiles::Line:
                     return intersection_rectangle_line(shape1, shape2);
                 case Shape::Profiles::Arc:
                     return intersection_rectangle_arc(shape1, shape2);
+                default: return false;
             }
             break;
         case Shape::Profiles::Line:
             switch(shape2.profile)
             {
+                case Shape::Profiles::Point:
+                    return intersection_point_line(shape2, shape1);
+                case Shape::Profiles::Circle:
+                    return intersection_circle_line(shape2, shape1);
+                case Shape::Profiles::Triangle:
+                    return intersection_triangle_line(shape2, shape1);
+                case Shape::Profiles::Rectangle:
+                    return intersection_rectangle_line(shape2, shape1);
                 case Shape::Profiles::Line:
                     return intersection_line_line(shape1, shape2);
                 case Shape::Profiles::Arc:
                     return intersection_line_arc(shape1, shape2);
+                default: return false;
             }
             break;
         case Shape::Profiles::Arc:
             switch(shape2.profile)
             {
+                case Shape::Profiles::Point:
+                    return intersection_point_arc(shape2, shape1);
+                case Shape::Profiles::Circle:
+                    return intersection_circle_arc(shape2, shape1);
+                case Shape::Profiles::Triangle:
+                    return intersection_triangle_arc(shape2, shape1);
+                case Shape::Profiles::Rectangle:
+                    return intersection_rectangle_arc(shape2, shape1);
+                case Shape::Profiles::Line:
+                    return intersection_line_arc(shape2, shape1);
                 case Shape::Profiles::Arc:
                     return intersection_arc_arc(shape1, shape2);
+                default: return false;
             }
+        default: return false;
     }
 
     return false;
