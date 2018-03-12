@@ -116,6 +116,18 @@ void mainLoop(RenderWindow& app)
     if (options::option<bool>(tools::math::sdbm_hash("show-console")))
         state |= ShowConsole;
 
+    auto closeStorageBox = [&]()
+    {
+        selectedStorageBox = -1;
+        state &= ~ShowStorageBox;
+
+        if (openStorageBox != nullptr)
+        {
+            openStorageBox->close();
+            openStorageBox = nullptr;
+        }
+    };
+
 	while (true)
 	{
         //1. Events & Signals
@@ -176,32 +188,14 @@ void mainLoop(RenderWindow& app)
                 //Retrieve the current storage box under the cursor
                 if (storageBoxUnderCursor != nullptr && event.mouseButton.button == Mouse::Button::Left)
                     selectedStorageBox = storageBoxUnderCursor->Id;
-                else
-                {
-                    selectedStorageBox = -1;
-
-                    if (openStorageBox != nullptr)
-                    {
-                        openStorageBox->close();
-                        state &= ~ShowStorageBox;
-                        openStorageBox = nullptr;
-                    }
-                }
+                else closeStorageBox();
             }
 
             if (event.type == Event::MouseButtonReleased)
                 state &= ~(LeftButtonPressed | RightButtonPressed);
 
             if (event.type == Event::KeyPressed || event.type == Event::KeyReleased)
-            {
-                if (openStorageBox != nullptr)
-                {
-                    openStorageBox->close();
-                    state &= ~ShowStorageBox;
-                    openStorageBox = nullptr;
-                }
-                selectedStorageBox = -1;
-            }
+                closeStorageBox();
         }
 
         if (inGame)
@@ -400,12 +394,7 @@ void mainLoop(RenderWindow& app)
             {
                 if (openStorageBox == nullptr)
                     gamedata::player()->automove(c->position());
-                else
-                {
-                    openStorageBox->close();
-                    state &= ~ShowStorageBox;
-                    selectedStorageBox = -1;
-                }
+                else closeStorageBox();
             }
         }
 
