@@ -255,6 +255,13 @@ void Window::manage(RenderWindow& app, Event &event)
             addEvent(nullptr, KeyHeld, o);
         }
     }
+
+    if (event.type == Event::MouseButtonPressed && mouseHovering(app))
+    {
+        //If a mouse button has been pressed inside this window,
+        //the event must be disabled to avoid another window to use it.
+        event.type = Event::Count;
+    }
 }
 
 void Window::checkTriggers()
@@ -410,6 +417,15 @@ void Window::askFocus(Widget* w, bool value)
 
 bool Window::mouseHovering(RenderWindow& app)
 {
+    if ((_flags & Disabled) == Disabled)
+        return false;
+
+    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
+        (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
+    {
+        return true;
+    }
+
     return false;
 }
 
