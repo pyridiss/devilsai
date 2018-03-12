@@ -17,6 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef DEVILSAI_GUI_CONSOLE_H
+#define DEVILSAI_GUI_CONSOLE_H
+
 #include "textManager/plainText.h"
 
 using namespace std;
@@ -36,3 +39,5 @@ void initConsole(RenderWindow& target);
 void addConsoleEntry(const textManager::PlainText& newEntry);
 void manageConsole(RenderWindow& target, Event& event);
 void displayConsole(RenderWindow& target);
+
+#endif // DEVILSAI_GUI_CONSOLE_H

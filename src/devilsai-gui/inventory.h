@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef INVENTORYSCREENMANAGER_H
-#define INVENTORYSCREENMANAGER_H
+#ifndef DEVILSAI_GUI_INVENTORY_H
+#define DEVILSAI_GUI_INVENTORY_H
 
 using namespace std;
 
@@ -38,4 +38,4 @@ namespace gui
 void manageInventoryScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event, lua_State*& selectedObject);
 void displayInventoryScreen(gui::Window& window, sf::RenderWindow& target, lua_State*& selectedObject);
 
-#endif // INVENTORYSCREENMANAGER_H
+#endif // DEVILSAI_GUI_INVENTORY_H

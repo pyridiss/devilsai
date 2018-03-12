@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DEVILSAICREENS_DIALOGSCREEN_H
-#define DEVILSAICREENS_DIALOGSCREEN_H
+#ifndef DEVILSAI_GUI_CONVERSATION_H
+#define DEVILSAI_GUI_CONVERSATION_H
 
 namespace sf
 {
@@ -36,4 +36,4 @@ void manageConversation(sf::RenderWindow& target, sf::Event& event);
 void manageConversation(sf::RenderWindow& target);
 void displayConversation(RenderWindow& target);
 
-#endif // DEVILSAICREENS_DIALOGSCREEN_H
+#endif // DEVILSAI_GUI_CONVERSATION_H

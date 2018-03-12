@@ -17,6 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef DEVILSAI_GUI_JOURNAL_H
+#define DEVILSAI_GUI_JOURNAL_H
+
 #include <string>
 #include <list>
 
@@ -66,3 +69,5 @@ void manageJournal(RenderWindow& target, Event& event);
 void displayJournal(RenderWindow& target);
 void loadJournalFromXML(tinyxml2::XMLHandle &handle);
 void saveJournalToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
+
+#endif // DEVILSAI_GUI_JOURNAL_H
