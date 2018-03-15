@@ -357,6 +357,19 @@ bool intersection(Shape& shape1, Shape& shape2)
     if (shape1.origin->x + shape1.box.second.x < shape2.origin->x + shape2.box.first.x) return false;
     if (shape1.origin->y + shape1.box.second.y < shape2.origin->y + shape2.box.first.y) return false;
 
+    //if shape1 is a complex shape
+    if (shape1.profile == Shape::Profiles::Complex)
+    {
+        Shape* current = shape1.next;
+        while (current != nullptr)
+        {
+            if (intersection(*current, shape2))
+                return true;
+            current = current->next;
+        }
+        return false;
+    }
+
     //if shape2 is a complex shape
     if (shape2.profile == Shape::Profiles::Complex)
     {
