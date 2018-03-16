@@ -20,6 +20,8 @@
 #include <tinyxml2.h>
 #include <lua.hpp>
 
+#include <SFML/Graphics.hpp>
+
 #include "tools/filesystem.h"
 
 #include "Bibliotheque/luaFunctions.h"

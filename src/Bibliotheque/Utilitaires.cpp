@@ -23,146 +23,19 @@
 #include <cmath>
 #include <string>
 
-#include <lua.hpp>
+#include <SFML/Graphics.hpp>
 
+#include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "tools/math.h"
 
 #include "Bibliotheque.h"
 #include "Constantes.h"
 #include "Jeu/options.h"
-//#include "../Carte/Carte.h"
-//#include "../ElementsCarte/ElementsCarte.h"
 
 #define PI 3.1415926
 
 extern RenderWindow App;
-
-void getFromLUA(lua_State* L, string fct)
-{
-	lua_getglobal(L, fct.c_str());
-
-	if (lua_isfunction(L, -1))
-	{
-		lua_call(L, 0, 1);
-		MESSAGE("… OK", LUA)
-	}
-	else
-	{
-		lua_pop(L, 1);
-		Erreur("La fonction LUA n'est pas disponible :", fct);
-		MESSAGE("… FAIL", LUA)
-	}
-}
-
-bool getBoolFromLUA(lua_State* L, string fct)
-{
-	MESSAGE("getBoolFromLUA : appel de " + fct + "…", LUA)
-
-	getFromLUA(L, fct);
-
-	if (lua_isboolean(L, -1))
-		return lua_toboolean(L, -1);
-
-	Erreur("getBoolFromLUA : la valeur de retour de cette fonction n'est pas booléenne :", fct);
-	return false;
-}
-
-int getIntFromLUA(lua_State* L, string fct)
-{
-	return getDoubleFromLUA(L, fct);
-}
-
-double getDoubleFromLUA(lua_State* L, string fct)
-{
-	MESSAGE("getDoubleFromLUA : appel de " + fct + "…", LUA)
-
-	getFromLUA(L, fct);
-
-	if (lua_isnumber(L, -1))
-		return lua_tonumber(L, -1);
-
-	Erreur("getDoubleFromLUA : la valeur de retour de cette fonction n'est pas un nombre :", fct);
-	return 0;
-}
-
-string getStringFromLUA(lua_State* L, string fct)
-{
-	MESSAGE("getStringFromLUA : appel de " + fct + "…", LUA)
-
-	getFromLUA(L, fct);
-
-	if (lua_isstring(L, -1))
-		return lua_tostring(L, -1);
-
-	Erreur("getStringFromLUA : la valeur de retour de cette fonction n'est pas une chaîne de caractères :", fct);
-	return "";
-}
-
-void setBoolToLUA(lua_State* L, string fct, bool value)
-{
-	MESSAGE("setBoolToLUA : appel de " + fct + "…", LUA)
-
-	lua_getglobal(L, fct.c_str());
-
-	if (lua_isfunction(L, -1))
-	{
-		lua_pushboolean(L, value);
-		lua_call(L, 1, 0);
-		MESSAGE("… OK", LUA)
-	}
-	else
-	{
-		lua_pop(L, 1);
-		Erreur("La fonction LUA demandée n'est pas disponible :", fct);
-		MESSAGE("… FAIL", LUA)
-	}
-}
-
-void setIntToLUA(lua_State* L, string fct, int value)
-{
-	setDoubleToLUA(L, fct, value);
-}
-
-void setDoubleToLUA(lua_State* L, string fct, double value)
-{
-	MESSAGE("setDoubleToLUA : appel de " + fct + "…", LUA)
-
-	lua_getglobal(L, fct.c_str());
-
-	if (lua_isfunction(L, -1))
-	{
-		lua_pushnumber(L, value);
-		lua_call(L, 1, 0);
-		MESSAGE("… OK", LUA)
-	}
-	else
-	{
-		lua_pop(L, 1);
-		Erreur("La fonction LUA demandée n'est pas disponible :", fct);
-		MESSAGE("… FAIL", LUA)
-	}	
-}
-
-void setStringToLUA(lua_State* L, string fct, string value)
-{
-	MESSAGE("setStringToLUA : appel de " + fct + "…", LUA)
-
-	lua_getglobal(L, fct.c_str());
-
-	if (lua_isfunction(L, -1))
-	{
-		lua_pushstring(L, value.c_str());
-		lua_call(L, 1, 0);
-		MESSAGE("… OK", LUA)
-	}
-	else
-	{
-		lua_pop(L, 1);
-		Erreur("La fonction LUA demandée n'est pas disponible :", fct);
-		MESSAGE("… FAIL", LUA)
-	}
-}
 
 double ToSegment(double x, int min, int max)
 {

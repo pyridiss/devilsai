@@ -28,7 +28,6 @@
 #include <tinyxml2.h>
 
 #include "tools/shape.h"
-#include "gui/button.h"
 
 #include "devilsai-resources/wearableItem.h"
 

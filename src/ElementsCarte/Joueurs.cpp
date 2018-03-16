@@ -18,12 +18,10 @@
 */
 
 #include <tinyxml2.h>
-#include <lua.hpp>
 
 #include <cmath>
 
 #include "../Bibliotheque/Bibliotheque.h"
-#include "../Jeu/Jeu.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"

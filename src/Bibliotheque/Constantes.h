@@ -60,12 +60,6 @@ using namespace std;
 #define CLASSEMENT_NUAGE	4
 
 
-/** CONSTANTES RELATIVES AUX OBJETS **/
-
-//Clefs d'inventaire
-#define CLEF_INVENTAIRE	100
-
-
 /** CONSTANTES DIVERSES **/
 
 //Retours de Collision

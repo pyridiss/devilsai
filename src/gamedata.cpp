@@ -25,7 +25,10 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/signals.h"
+
 #include "textManager/textManager.h"
+#include "textManager/richText.h"
 
 #include "musicManager/musicManager.h"
 

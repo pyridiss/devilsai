@@ -21,7 +21,6 @@
 
 #include <physfs.h>
 
-#include <string.h>
 #include <iostream>
 
 #include "gui/style.h"
@@ -32,8 +31,6 @@
 
 #include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/Constantes.h"
-#include "../ElementsCarte/ElementsCarte.h"
-#include "../Carte/Carte.h"
 
 #include "Jeu.h"
 

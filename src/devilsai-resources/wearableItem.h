@@ -24,7 +24,7 @@ class lua_State;
 
 namespace sf
 {
-    class RenderTarget;
+    class RenderWindow;
 }
 
 

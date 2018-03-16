@@ -23,11 +23,13 @@
 #include <string>
 #include <fstream>
 
-#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 #include "tools/vector2d.h"
 #include "tools/shape.h"
 #include "tools/math.h"
+#include "textManager/plainText.h"
+
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
 

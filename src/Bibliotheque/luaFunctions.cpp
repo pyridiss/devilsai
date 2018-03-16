@@ -24,8 +24,10 @@
 #include <lua.hpp>
 
 #include "tools/debug.h"
+#include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "tools/filesystem.h"
+#include "textManager/richText.h"
 #include "musicManager/musicManager.h"
 
 #include "../Carte/Carte.h"

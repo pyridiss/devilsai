@@ -21,17 +21,14 @@
 #define header_bibliotheque
 
 #include <string>
-#include <list>
 
-#include "gui/style.h"
-#include "gui/button.h"
+namespace sf
+{
+    class RenderTarget;
+}
 
 using namespace std;
 using namespace sf;
-
-class lua_State;
-class Element_Carte;
-class Individu;
 
 
 /** DÉCLARATION DES FONCTIONS **/
@@ -45,14 +42,6 @@ bool Disp_Repos(RenderTarget& target);
 
 /* Fonctions définies dans le fichier Utilitaires.cpp */
 
-bool getBoolFromLUA(lua_State*, string);
-int getIntFromLUA(lua_State*, string);
-double getDoubleFromLUA(lua_State*, string);
-string getStringFromLUA(lua_State*, string);
-void setBoolToLUA(lua_State*, string, bool);
-void setIntToLUA(lua_State*, string, int);
-void setDoubleToLUA(lua_State*, string, double);
-void setStringToLUA(lua_State*, string, string);
 double ToSegment(double, int, int);
 void Verbose(const string&, const short&);
 void Erreur(const string&, const string&);

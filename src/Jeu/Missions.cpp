@@ -20,7 +20,9 @@
 #include <lua.hpp>
 
 #include "tools/debug.h"
+#include "tools/signals.h"
 #include "tools/filesystem.h"
+#include "textManager/textManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
 #include "../Bibliotheque/luaFunctions.h"
