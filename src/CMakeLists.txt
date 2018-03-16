@@ -20,8 +20,6 @@ include_directories(
 )
 
 set(devilsai_SRCS
-    Attributs/Attributs.cpp
-	Attributs/Attributs.h
 	Bibliotheque/Bibliotheque.h
 	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
@@ -35,6 +33,7 @@ set(devilsai_SRCS
     devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
     devilsai-gui/storageBox.cpp
+    devilsai-resources/pack.cpp
     devilsai-resources/skill.cpp
     devilsai-resources/stats.cpp
     devilsai-resources/wearableItem.cpp

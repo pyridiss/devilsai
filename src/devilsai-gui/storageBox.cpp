@@ -22,9 +22,9 @@
 #include "gui/window.h"
 #include "imageManager/imageManager.h"
 
-#include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "devilsai-resources/wearableItem.h"
+#include "devilsai-resources/pack.h"
 
 #include "gamedata.h"
 

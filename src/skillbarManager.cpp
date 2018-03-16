@@ -20,7 +20,7 @@
 #include "gui/window.h"
 #include "imageManager/imageManager.h"
 
-#include "Attributs/Attributs.h"
+#include "devilsai-resources/pack.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque/Bibliotheque.h"
 

@@ -1,7 +1,7 @@
 
 /*
-    Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2014  Quentin Henriet
+    devilsai - An Action-RPG game
+    Copyright (C) 2009-2018  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,23 +19,21 @@
 
 #include <tinyxml2.h>
 
-#include "../Bibliotheque/Bibliotheque.h"
-#include "Attributs.h"
-
 #include "tools/math.h"
 
+#include "devilsai-resources/pack.h"
+#include "../Bibliotheque/Bibliotheque.h"
 
 using namespace tinyxml2;
 
-/* Manager for objects */
 
-Objects::Objects()
+Pack::Pack()
   : objects(),
     designs()
 {
 }
 
-Objects::Objects(const Objects& other)
+Pack::Pack(const Pack& other)
   : objects(),
     designs(other.designs)
 {
@@ -46,7 +44,7 @@ Objects::Objects(const Objects& other)
     }
 }
 
-Objects& Objects::operator=(const Objects& right)
+Pack& Pack::operator=(const Pack& right)
 {
     designs = right.designs;
 
@@ -59,12 +57,12 @@ Objects& Objects::operator=(const Objects& right)
     return *this;
 }
 
-Objects::~Objects()
+Pack::~Pack()
 {
-	deleteObjects();
+    deleteObjects();
 }
 
-WearableItem& Objects::addObject(string newObject, string key, int qualityRandomObject)
+WearableItem& Pack::addObject(string newObject, string key, int qualityRandomObject)
 {
     WearableItem newItem;
     newItem.create(newObject);
@@ -76,7 +74,7 @@ WearableItem& Objects::addObject(string newObject, string key, int qualityRandom
     return objects.back();
 }
 
-void Objects::deleteObject(const WearableItem& w)
+void Pack::deleteObject(const WearableItem& w)
 {
     for (auto i = objects.begin() ; i != objects.end() ; ++i)
     {
@@ -88,12 +86,12 @@ void Objects::deleteObject(const WearableItem& w)
     }
 }
 
-void Objects::deleteObjects()
+void Pack::deleteObjects()
 {
-	objects.clear();
+    objects.clear();
 }
 
-WearableItem* Objects::at(const string& slot)
+WearableItem* Pack::at(const string& slot)
 {
     for (auto& i : objects)
         if (i.currentSlot() == slot)
@@ -102,7 +100,7 @@ WearableItem* Objects::at(const string& slot)
     return nullptr;
 }
 
-void Objects::loadFromXML(XMLElement* elem)
+void Pack::loadFromXML(XMLElement* elem)
 {
     deleteObjects();
 
@@ -164,7 +162,7 @@ void Objects::loadFromXML(XMLElement* elem)
     }
 }
 
-void Objects::createObjectsFromDesigns()
+void Pack::createObjectsFromDesigns()
 {
     int key = objects.size() + 1;
 
@@ -179,7 +177,7 @@ void Objects::createObjectsFromDesigns()
     designs.clear();
 }
 
-void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
+void Pack::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 {
     XMLElement* root = handle.ToElement();
 

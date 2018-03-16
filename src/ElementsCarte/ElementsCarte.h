@@ -32,7 +32,7 @@
 
 #include "devilsai-resources/skill.h"
 #include "devilsai-resources/stats.h"
-#include "../Attributs/Attributs.h"
+#include "devilsai-resources/pack.h"
 #include "../Bibliotheque/Constantes.h"
 
 using namespace std;
@@ -82,7 +82,7 @@ class Classe_Commune
 
 	public:
         Stats commonStats;
-        Objects inventory;
+        Pack inventory;
 
     public:
         string corpseImageKey = "";
@@ -155,7 +155,7 @@ class Coffre : public Element_Carte
 {
 	public:
         string imageContainer;
-		Objects objects;
+        Pack objects;
 
 		string NumeroNom = "";
         textManager::PlainText Nom;
@@ -226,7 +226,7 @@ class Individu : public Element_Carte
         tools::math::Shape pathToTarget;
         tools::math::Shape validityOfPath;
 
-        Objects inventory;
+        Pack inventory;
 
 	//Constructeurs / Destructeurs :
 	public:

@@ -1,7 +1,7 @@
 
 /*
-    Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2014  Quentin Henriet
+    devilsai - An Action-RPG game
+    Copyright (C) 2009-2018  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef header_attributs
-#define header_attributs
+#ifndef DEVILSAI_RESOURCES_INVENTORY
+#define DEVILSAI_RESOURCES_INVENTORY
 
 #include <string>
 #include <list>
@@ -35,7 +35,7 @@ namespace tinyxml2 {
 }
 
 
-class Objects
+class Pack
 {
     public:
         struct objectDesign
@@ -52,21 +52,21 @@ class Objects
             }
         };
 
-	public:
+    public:
         vector<WearableItem> objects;
         list<objectDesign> designs;
 
-	public:
-        Objects();
-        Objects(const Objects& other);
-        Objects& operator=(const Objects& right);
-		~Objects();
+    public:
+        Pack();
+        Pack(const Pack& other);
+        Pack& operator=(const Pack& right);
+        ~Pack();
 
-	public:
+    public:
         WearableItem& addObject(string newObject, string key, int qualityRandomObject = 0);
         void createObjectsFromDesigns();
         void deleteObject(const WearableItem& key);
-		void deleteObjects();
+        void deleteObjects();
 
         /**
          * Returns a pointer to the WearableItem whose current slot is given in parameter.
@@ -80,4 +80,4 @@ class Objects
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };
 
-#endif
+#endif // DEVILSAI_RESOURCES_INVENTORY
