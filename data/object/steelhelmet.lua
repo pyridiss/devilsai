@@ -1,18 +1,16 @@
 --[[
 
-Object "Steel Helmet" - Great Helm 3 (203.obj)
+Object "Steel Helmet" - Great Helm 3
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 203
+name = "steelhelmet"
 
 categoryObject = "regulier"
-typeObject     = "casque"
 classObject    = "casque"
+
+imageFile = "img/O203+.png"
+iconFile = "img/O203-.png"
 
 currentSlot = 0
 slotForUse = "equipment-helmet"
@@ -27,9 +25,9 @@ properties = {
 }
 
 duree    = -1
-cumul    = false
 quantite = 1
 qualite  = 1
+stackable = false
 
 descriptionManuelle    = false
 descriptionAutomatique = true
@@ -49,55 +47,8 @@ ameliorationVitesseBlesseQte    = 10
 ameliorationMultConstitutionQte = 5
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "steelhelmet"
-end
-
-function getImageFile()
-    return "img/O203+.png"
-end
-
-function getIconFile()
-    return "img/O203-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -112,18 +63,6 @@ function getCurrentObjectEffect(key)
         return getObjectProperty(key)
     end
     return 0
-end
-
-function getCumul()
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
 end
 
 function generateRandomObject(quality)

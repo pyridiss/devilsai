@@ -1,18 +1,16 @@
 --[[
 
-Object "Sapphire Ring" - Diamond Ring 2 (502.obj)
+Object "Sapphire Ring" - Diamond Ring 2
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 502
+name = "sapphirering"
 
 categoryObject = "regulier"
-typeObject     = "bague"
 classObject    = "bague"
+
+imageFile = "img/O502+.png"
+iconFile = "img/O502-.png"
 
 currentSlot = 0
 slotForUse = "equipment-ring"
@@ -25,9 +23,9 @@ properties = {
 }
 
 duree    = -1
-cumul    = false
 quantite = 1
 qualite  = 1
+stackable = false
 
 descriptionManuelle    = false
 descriptionAutomatique = true
@@ -43,55 +41,8 @@ ameliorationCharismeQte       = 2
 ameliorationRecuperationQte   = 3
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "sapphirering"
-end
-
-function getImageFile()
-    return "img/O502+.png"
-end
-
-function getIconFile()
-    return "img/O502-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -106,18 +57,6 @@ function getCurrentObjectEffect(key)
         return getObjectProperty(key)
     end
     return 0
-end
-
-function getCumul()
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
 end
 
 function generateRandomObject(quality)

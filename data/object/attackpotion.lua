@@ -1,18 +1,16 @@
 --[[
 
-Object "Attack Potion" - (601.obj)
+Object "Attack Potion"
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 601
+name = "attackpotion"
 
 categoryObject = "temporaire"
-typeObject     = "potion"
 classObject    = "potion"
+
+imageFile = "img/O601+.png"
+iconFile = "img/O601-.png"
 
 currentSlot = 0
 slotForUse = "equipment-potion"
@@ -25,62 +23,14 @@ properties = {
 }
 
 duree    = 7200
-cumul    = true
 quantite = 1
 
 descriptionManuelle    = true
 descriptionAutomatique = true
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "attackpotion"
-end
-
-function getImageFile()
-    return "img/O601+.png"
-end
-
-function getIconFile()
-    return "img/O601-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -97,19 +47,11 @@ function getCurrentObjectEffect(key)
     return 0
 end
 
-function getCumul()
+function stackable()
     if currentSlot == slotForUse then
         return false
     end
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
+    return true
 end
 
 function generateRandomObject(quality)

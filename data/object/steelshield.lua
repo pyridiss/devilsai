@@ -1,18 +1,16 @@
 --[[
 
-Object "Steel Shield" - Shield 3 (103.obj)
+Object "Steel Shield" - Shield 3
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 103
+name = "steelshield"
 
 categoryObject = "regulier"
-typeObject     = "bouclier"
 classObject    = "bouclier"
+
+imageFile = "img/O103+.png"
+iconFile = "img/O103-.png"
 
 currentSlot = 0
 slotForUse = "equipment-shield"
@@ -27,9 +25,9 @@ properties = {
 }
 
 duree    = -1
-cumul    = false
 quantite = 1
 qualite  = 1
+stackable = false
 
 descriptionManuelle    = false
 descriptionAutomatique = true
@@ -49,55 +47,8 @@ ameliorationVitesseBlesseQte  = 10
 ameliorationMultAgiliteQte    = 5
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "steelshield"
-end
-
-function getImageFile()
-    return "img/O103+.png"
-end
-
-function getIconFile()
-    return "img/O103-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -112,18 +63,6 @@ function getCurrentObjectEffect(key)
         return getObjectProperty(key)
     end
     return 0
-end
-
-function getCumul()
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
 end
 
 function generateRandomObject(quality)

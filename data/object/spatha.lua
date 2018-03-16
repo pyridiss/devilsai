@@ -1,18 +1,16 @@
 --[[
 
-Object "Spatha" - Gladius 2 (2.obj)
+Object "Spatha" - Gladius 2
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 2
+name = "spatha"
 
 categoryObject = "regulier"
-typeObject     = "arme"
 classObject    = "epee"
+
+imageFile = "img/O002+.png"
+iconFile = "img/O002-.png"
 
 currentSlot = 0
 slotForUse = "equipment-weapon"
@@ -26,9 +24,9 @@ properties = {
 }
 
 duree    = -1
-cumul    = false
 quantite = 1
 qualite  = 1
+stackable = false
 
 descriptionManuelle    = false
 descriptionAutomatique = true
@@ -46,55 +44,8 @@ ameliorationCharismeQte       = 2
 ameliorationVitesseAttaqueQte = 10
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "spatha"
-end
-
-function getImageFile()
-    return "img/O002+.png"
-end
-
-function getIconFile()
-    return "img/O002-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -109,18 +60,6 @@ function getCurrentObjectEffect(key)
         return getObjectProperty(key)
     end
     return 0
-end
-
-function getCumul()
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
 end
 
 function generateRandomObject(quality)

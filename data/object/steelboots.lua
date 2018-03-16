@@ -1,18 +1,16 @@
 --[[
 
-Object "Steel Boots" - Sabaton 3 (403.obj)
+Object "Steel Boots" - Sabaton 3
 
 ]]
 
-
--- global section
--- --------------
-
-internalNumber = 403
+name = "steelboots"
 
 categoryObject = "regulier"
-typeObject     = "bottes"
 classObject    = "bottes"
+
+imageFile = "img/O403+.png"
+iconFile = "img/O403-.png"
 
 currentSlot = 0
 slotForUse = "equipment-boots"
@@ -28,9 +26,9 @@ properties = {
 }
 
 duree    = -1
-cumul    = false
 quantite = 1
 qualite  = 1
+stackable = false
 
 descriptionManuelle    = false
 descriptionAutomatique = true
@@ -50,55 +48,8 @@ ameliorationMultConstitutionQte = 5
 ameliorationMultEsquiveQte      = 5
 
 
--- functions
--- ---------
-
-function getCategorieObjet()
-	return categoryObject
-end
-
-function getTypeObject()
-	return typeObject
-end
-
-function getIdEmplacement()
-	return slotForUse
-end
-
-function getInternalNumber()
-	return internalNumber
-end
-
-function getFileName()
-	return "steelboots"
-end
-
-function getImageFile()
-    return "img/O403+.png"
-end
-
-function getIconFile()
-    return "img/O403-.png"
-end
-
-function setKey(value)
-	currentSlot = value
-end
-
-function getDuree()
-	return duree
-end
-
-function setDuree(value)
-	duree = value
-end
-
-function getDescriptionManuelle()
-	return descriptionManuelle
-end
-
-function getDescriptionAutomatique()
-	return descriptionAutomatique
+function active()
+    return (currentSlot == slotForUse)
 end
 
 function getObjectProperty(key)
@@ -113,18 +64,6 @@ function getCurrentObjectEffect(key)
         return getObjectProperty(key)
     end
     return 0
-end
-
-function getCumul()
-	return cumul
-end
-
-function getQuantite()
-	return quantite
-end
-
-function setQuantite(value)
-	quantite = value
 end
 
 function generateRandomObject(quality)
