@@ -34,6 +34,7 @@ set(devilsai_SRCS
     devilsai-gui/journal.cpp
     devilsai-gui/storageBox.cpp
     devilsai-resources/pack.cpp
+    devilsai-resources/quests.cpp
     devilsai-resources/skill.cpp
     devilsai-resources/stats.cpp
     devilsai-resources/wearableItem.cpp
@@ -54,7 +55,6 @@ set(devilsai_SRCS
 	Jeu/Jeu.cpp
 	Jeu/Jeu.h
 	Jeu/main.cpp
-	Jeu/Missions.cpp
 	Jeu/Options.cpp
 	Jeu/Sauvegarde.cpp
 )
@@ -76,6 +76,10 @@ add_subdirectory(textManager)
 
 add_executable(devilsai ${devilsai_SRCS})
 
+if (WIN32)
+  add_executable(devilsai devilsai.rc)
+endif (WIN32)
+
 target_link_libraries(devilsai
     ${devilsaiTargetLibs}
     tools
@@ -85,8 +89,12 @@ target_link_libraries(devilsai
     textManager
 )
 
-SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++17 -O3" CACHE INTERNAL "" FORCE)
-SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++17 -Wall -g" CACHE INTERNAL "" FORCE)
+SET(CMAKE_CXX_FLAGS_RELEASE "-std=c++17 -pthread -O3 -fopt-info-all=optimisations.txt" CACHE INTERNAL "" FORCE)
+SET(CMAKE_CXX_FLAGS_DEBUG "-std=c++17 -pthread -Wall -Wextra -Wshadow -Wpedantic -Wformat-nonliteral \
+            -Wformat-security -Wswitch-default -Wuninitialized -Wundef \
+            -Wpointer-arith -Woverloaded-virtual -Wctor-dtor-privacy \
+            -Wnon-virtual-dtor -Woverloaded-virtual -Wsign-promo \
+            -Wno-unused-parameter -Weffc++ -g" CACHE INTERNAL "" FORCE)
 
 if (UNIX)
   set(exeDestination ${CMAKE_INSTALL_PREFIX}/bin)
