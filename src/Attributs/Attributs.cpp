@@ -372,7 +372,11 @@ void Activite::loadScript()
     script = luaL_newstate();
     luaL_openlibs(script);
 
-    lua_atpanic(script, LUA_panic);
+    lua_atpanic(script, [](lua_State* S)
+    {
+        tools::debug::error(lua_tostring(S, -1), "lua", __FILENAME__, __LINE__);
+        return 0;
+    });
 
     lua_register(script, "addSound", LUA_addSound);
     lua_register(script, "cout", LUA_cout);

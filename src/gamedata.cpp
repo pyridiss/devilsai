@@ -147,7 +147,12 @@ lua_State* sharedTrigger(string name)
         luaL_dofile(L, (tools::filesystem::dataDirectory() + name).c_str());
         _triggersScripts.emplace(name, L);
 
-        lua_atpanic(L, LUA_panic);
+        lua_atpanic(L, [](lua_State* S)
+        {
+            tools::debug::error(lua_tostring(S, -1), "lua", __FILENAME__, __LINE__);
+            return 0;
+        });
+
         lua_register(L, "cout", LUA_cout);
         lua_register(L, "set", LUA_set);
         lua_register(L, "get", LUA_get);

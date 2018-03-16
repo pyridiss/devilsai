@@ -50,7 +50,11 @@ void addQuest(string newQuest, string args)
 
 	luaL_dofile(L, (tools::filesystem::dataDirectory() + newQuest).c_str());
 
-	lua_atpanic(L, LUA_panic);
+    lua_atpanic(L, [](lua_State* S)
+    {
+        tools::debug::error(lua_tostring(S, -1), "lua", __FILENAME__, __LINE__);
+        return 0;
+    });
 
     lua_register(L, "dispRemainingEnemies", [](lua_State* S)
     {

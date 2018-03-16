@@ -37,13 +37,6 @@
 #include "gamedata.h"
 #include "Jeu/options.h"
 
-int LUA_panic(lua_State* L)
-{
-	Erreur("LUA PANIC: ", lua_tostring(L, -1));
-
-	return 0;
-}
-
 int LUA_cout(lua_State* L)
 {
 	cout << "LUA says: " << lua_tostring(L, 1) << endl;

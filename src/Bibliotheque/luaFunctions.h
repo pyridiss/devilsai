@@ -24,7 +24,6 @@ using namespace std;
 
 class lua_State;
 
-int LUA_panic(lua_State*);
 int LUA_cout(lua_State*);
 int LUA_getTargetedItem(lua_State*);
 int LUA_isIndividu(lua_State*);
