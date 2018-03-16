@@ -36,6 +36,7 @@ set(devilsai_SRCS
     devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
     devilsai-gui/storageBox.cpp
+    devilsai-resources/wearableItem.cpp
 	gamedata.cpp
     skillbarManager.cpp
 	ElementsCarte/Actionneurs.cpp
