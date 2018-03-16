@@ -331,7 +331,7 @@ void Individu::createCorpse()
     corpse->close();
 }
 
-Statistiques& Individu::attributes()
+Stats& Individu::attributes()
 {
     return _attributes;
 }

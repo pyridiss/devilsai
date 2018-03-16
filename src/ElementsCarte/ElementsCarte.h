@@ -30,6 +30,7 @@
 #include "tools/math.h"
 #include "textManager/plainText.h"
 
+#include "devilsai-resources/stats.h"
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
 
@@ -79,7 +80,7 @@ class Classe_Commune
         unsigned int _experience = 0;
 
 	public:
-        Statistiques commonStats;
+        Stats commonStats;
         Objects inventory;
 
     public:
@@ -201,8 +202,8 @@ class Individu : public Element_Carte
         unsigned _animationFrame;
         Element_Carte* _targetedItem;
         Activite* _currentSkill;
-        Statistiques _currentHealthStatus;
-        Statistiques _attributes;
+        Stats _currentHealthStatus;
+        Stats _attributes;
         string* _behaviors;
         vector<string>* _attacks;
         MapActivites* _skills;
@@ -244,7 +245,7 @@ class Individu : public Element_Carte
 
 	public:
         Element_Carte* targetedItem();
-        Statistiques& attributes();
+        Stats& attributes();
         Activite* skill(const string& s);
         const textManager::PlainText& displayedName();
         unsigned int experience();
@@ -303,7 +304,7 @@ class Joueur : public Individu
         Element_Carte* selectedIndividual;
 
     private:
-        Statistiques _displayedAttributes;
+        Stats _displayedAttributes;
 
 	public:
 		Joueur();

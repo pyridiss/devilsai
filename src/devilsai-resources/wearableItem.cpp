@@ -23,7 +23,7 @@
 #include "textManager/richText.h"
 #include "imageManager/imageManager.h"
 
-#include "Attributs/Attributs.h"
+#include "devilsai-resources/stats.h"
 #include "devilsai-resources/wearableItem.h"
 
 WearableItem::WearableItem()

@@ -29,6 +29,7 @@
 
 #include "tools/shape.h"
 
+#include "devilsai-resources/stats.h"
 #include "devilsai-resources/wearableItem.h"
 
 using namespace std;
@@ -42,79 +43,6 @@ class Individu;
 
 typedef map < string, Activite > MapActivites;
 
-enum Attribute {
-    Life = 0, Energy, Healing,
-    Strength, Power, Agility, Intellect,
-    Constitution, Charisma, Dodge, HealingPower,
-    RunSpeed, AttackSpeed, InjurySpeed,
-    numberOfAttributes
-};
-
-enum AttributeAmplifier {
-    LifeAmplifier = 0, EnergyAmplifier, HealingAmplifier,
-    StrengthAmplifier, PowerAmplifier, AgilityAmplifier, IntellectAmplifier,
-    ConstitutionAmplifier, CharismaAmplifier, DodgeAmplifier, HealingPowerAmplifier,
-    RunSpeedAmplifier, AttackSpeedAmplifier, InjurySpeedAmplifier
-};
-
-constexpr const char* AttributesNames[] = {
-    "life", "energy", "healing",
-    "strength", "power", "agility", "intellect",
-    "constitution", "charisma", "dodge", "healingPower",
-    "runSpeed", "attackSpeed", "injurySpeed"
-};
-
-constexpr const char* AttributesAmplifiersNames[] = {
-    "lifeAmplifier", "energyAmplifier", "healingAmplifier",
-    "strengthAmplifier", "powerAmplifier", "agilityAmplifier", "intellectAmplifier",
-    "constitutionAmplifier", "charismaAmplifier", "dodgeAmplifier", "healingPowerAmplifier",
-    "runSpeedAmplifier", "attackSpeedAmplifier", "injurySpeedAmplifier"
-};
-
-class Statistiques
-{
-	private:
-        double _stats[numberOfAttributes];
-
-	public:
-        Statistiques()
-            : _stats {1000, 1000} //Only Life and Energy are 1000 by default
-        {
-        }
-
-        constexpr double operator[](Attribute a)
-        {
-            if (a == numberOfAttributes) return 0;
-            return _stats[a];
-        }
-        void add(Attribute a, double value)
-        {
-            if (a == numberOfAttributes) return;
-            _stats[a] += value;
-        }
-        void set(Attribute a, double value)
-        {
-            if (a == numberOfAttributes) return;
-            _stats[a] = value;
-        }
-
-    public:
-        void loadFromXML(tinyxml2::XMLElement* elem)
-        {
-            for (int i = 0 ; i < numberOfAttributes ; ++i)
-                elem->QueryAttribute(AttributesNames[i], &_stats[i]);
-        }
-        void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
-        {
-            XMLElement* root = handle.ToElement();
-
-            for (int i = 0 ; i < numberOfAttributes ; ++i)
-            {
-                if (_stats[i])
-                    root->SetAttribute(AttributesNames[i], _stats[i]);
-            }
-        }
-};
 
 class Objects
 {
@@ -203,28 +131,5 @@ class Activite
         void atBegin(Individu* owner);
         void atEnd(Individu* owner);
 };
-
-static constexpr const char* attributeToString(Attribute a)
-{
-    return AttributesNames[static_cast<int>(a)];
-}
-static constexpr const char* attributeAmplifierToString(AttributeAmplifier a)
-{
-    return AttributesAmplifiersNames[static_cast<int>(a)];
-}
-static constexpr Attribute stringToAttribute(string_view a)
-{
-    for (int i = 0 ; i < numberOfAttributes ; ++i)
-        if (AttributesNames[i] == a)
-            return static_cast<Attribute>(i);
-    return numberOfAttributes;
-}
-static constexpr AttributeAmplifier stringToAttributeAmplifier(string_view a)
-{
-    for (int i = 0 ; i < numberOfAttributes ; ++i)
-        if (AttributesAmplifiersNames[i] == a)
-            return static_cast<AttributeAmplifier>(i);
-    return static_cast<AttributeAmplifier>(numberOfAttributes);
-}
 
 #endif
