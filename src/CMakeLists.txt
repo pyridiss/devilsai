@@ -35,9 +35,9 @@ set(devilsai_SRCS
     devilsai-gui/conversation.cpp
     devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
+    devilsai-gui/storageBox.cpp
 	gamedata.cpp
     skillbarManager.cpp
-    storageBoxScreenManager.cpp
 	ElementsCarte/Actionneurs.cpp
 	ElementsCarte/Coffres.cpp
 	ElementsCarte/Elements.cpp
