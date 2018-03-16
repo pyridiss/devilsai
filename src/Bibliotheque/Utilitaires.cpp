@@ -73,27 +73,6 @@ void Verbose(const string &Message, const short &Type)
 }
 #endif
 
-void Erreur(const string &Message1, const string &Message2)
-{
-    tools::signals::addSignal("error-occured");
-
-	ofstream FichierErreurs("Devilsai_Errors", ios_base::out | ios_base::app);
-
-	time_t rawtime;
-	struct tm * timeinfo;
-
-	time (&rawtime);
-	timeinfo = localtime (&rawtime);
-	FichierErreurs << "On " << asctime (timeinfo) << " >> " << Message1 << " " << Message2 << endl << endl;
-
-	FichierErreurs.close();
-}
-
-void Erreur(const string &Message1, const float &Num)
-{
-	Erreur(Message1, intToString(Num));
-}
-
 string intToString(double number, int size)
 {
 	stringstream out;

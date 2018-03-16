@@ -17,7 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../Bibliotheque/Bibliotheque.h"
+#include "tools/debug.h"
+
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "textManager/textManager.h"
@@ -37,7 +38,7 @@ void Combat(Individu *Attaquant, Individu *Blesse, string skill)
 
 	if (Attaquant == NULL || Blesse == NULL)
 	{
-		Erreur("Combat() :", "appelée avec l'un des deux individus NULL");
+        tools::debug::warning("The function Combat() has been called with a nullptr", "", __FILENAME__, __LINE__);
 		return;
 	}
 

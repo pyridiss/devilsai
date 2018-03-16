@@ -44,8 +44,6 @@ bool Disp_Repos(RenderTarget& target);
 
 double ToSegment(double, int, int);
 void Verbose(const string&, const short&);
-void Erreur(const string&, const string&);
-void Erreur(const string&, const float&);
 string intToString(double, int size = -1);
 
 #endif
