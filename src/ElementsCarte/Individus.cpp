@@ -336,7 +336,7 @@ Stats& Individu::attributes()
     return _attributes;
 }
 
-Activite* Individu::skill(const string& s)
+Skill* Individu::skill(const string& s)
 {
     auto i = skills().find(s);
     if (i == skills().end()) return nullptr;
@@ -479,7 +479,7 @@ Classe_Commune* Individu::species()
     return _species;
 }
 
-Activite* Individu::createSkill(string skillName)
+Skill* Individu::createSkill(string skillName)
 {
     if (_skills == nullptr)
         _skills = new MapActivites;

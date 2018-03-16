@@ -21,27 +21,18 @@
 #define header_attributs
 
 #include <string>
-#include <string_view>
-#include <map>
 #include <list>
+#include <vector>
 
-#include <tinyxml2.h>
-
-#include "tools/shape.h"
-
-#include "devilsai-resources/stats.h"
 #include "devilsai-resources/wearableItem.h"
 
 using namespace std;
-using namespace sf;
-using namespace tinyxml2;
 
-class lua_State;
-
-class Activite;
-class Individu;
-
-typedef map < string, Activite > MapActivites;
+namespace tinyxml2 {
+    class XMLDocument;
+    class XMLElement;
+    class XMLHandle;
+}
 
 
 class Objects
@@ -87,49 +78,6 @@ class Objects
 
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
-};
-
-class Activite
-{
-	public:
-        string Id          = "-1";
-        unsigned numberOfImages;
-        int speed          = 0;
-        int step           = 0;
-        bool fightAtEnd    = false;
-        string scriptString;
-        lua_State* script  = nullptr;
-        Attribute speedImprover = numberOfAttributes;
-        tools::math::Shape interactionField;
-
-        int priority       = 0;
-
-        map< pair<double , int> , string > Animation;
-
-	public:
-        Activite();
-        Activite(const Activite& other);
-        Activite& operator=(const Activite& right);
-        ~Activite();
-
-        void addImage(double angle, int num, string imageKey);
-        string getImageKey(double angle, int num);
-
-        void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
-        void loadScript();
-
-        /**
-         * Calls the getDegats() function of the script and returns its result.
-         */
-        double damage();
-
-        /**
-         * Calls the getAmplitude() function of the script and returns its result.
-         */
-        double amplitude();
-
-        void atBegin(Individu* owner);
-        void atEnd(Individu* owner);
 };
 
 #endif

@@ -30,6 +30,7 @@
 #include "tools/math.h"
 #include "textManager/plainText.h"
 
+#include "devilsai-resources/skill.h"
 #include "devilsai-resources/stats.h"
 #include "../Attributs/Attributs.h"
 #include "../Bibliotheque/Constantes.h"
@@ -93,7 +94,7 @@ class Classe_Commune
 		~Classe_Commune();
 
 	public:
-        Activite* Ajouter_Activite(string Id);
+        Skill* Ajouter_Activite(string Id);
 
 	public:
         void Copie_Element(Individu *elem);
@@ -201,7 +202,7 @@ class Individu : public Element_Carte
 	protected:
         unsigned _animationFrame;
         Element_Carte* _targetedItem;
-        Activite* _currentSkill;
+        Skill* _currentSkill;
         Stats _currentHealthStatus;
         Stats _attributes;
         string* _behaviors;
@@ -246,7 +247,7 @@ class Individu : public Element_Carte
 	public:
         Element_Carte* targetedItem();
         Stats& attributes();
-        Activite* skill(const string& s);
+        Skill* skill(const string& s);
         const textManager::PlainText& displayedName();
         unsigned int experience();
         bool angleFixed();
@@ -273,7 +274,7 @@ class Individu : public Element_Carte
         virtual void modifyHealthStatus(Attribute a, double value);
         void setSpecies(Classe_Commune* s);
         Classe_Commune* species();
-        Activite* createSkill(string skillName);
+        Skill* createSkill(string skillName);
         void setCustomDisplayedName(const textManager::PlainText& newName);
 
     public:

@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <tinyxml2.h>
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "ElementsCarte.h"
 
@@ -46,9 +48,9 @@ Classe_Commune::~Classe_Commune()
     _skills.clear();
 }
 
-Activite* Classe_Commune::Ajouter_Activite(string Id)
+Skill* Classe_Commune::Ajouter_Activite(string Id)
 {
-	Activite act;
+	Skill act;
     _skills.insert(MapActivites::value_type(Id, act));
     MapActivites::iterator i = _skills.find(Id);
 	i->second.Id = Id;
@@ -159,7 +161,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Activite *s = Ajouter_Activite(skillName);
+            Skill *s = Ajouter_Activite(skillName);
 
             XMLHandle hdl2(elem);
             s->loadFromXML(hdl2);

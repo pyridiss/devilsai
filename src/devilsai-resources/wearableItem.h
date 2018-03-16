@@ -20,6 +20,11 @@
 #ifndef DEVILSAI_RESOURCES_WEARABLEITEM
 #define DEVILSAI_RESOURCES_WEARABLEITEM
 
+#include <string>
+#include <string_view>
+
+using namespace std;
+
 class lua_State;
 
 namespace sf

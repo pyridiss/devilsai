@@ -128,7 +128,7 @@ void Individu::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Activite* s = createSkill(skillName);
+            Skill* s = createSkill(skillName);
 
             XMLHandle hdl2(elem);
             s->loadFromXML(hdl2, this);
