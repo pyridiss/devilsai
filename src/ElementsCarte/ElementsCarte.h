@@ -283,7 +283,7 @@ class Individu : public Element_Carte
         void displayLifeGauge(RenderTarget& target);
 
     friend class Classe_Commune;
-    friend void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L);
+    friend void Combat(Individu *Attaquant, Individu *Blesse, string skill);
 };
 
 class Joueur : public Individu

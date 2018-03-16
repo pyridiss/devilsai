@@ -114,6 +114,6 @@ class Carte
 };
 
 
-void Combat(Individu*, Individu*, lua_State* L = NULL);
+void Combat(Individu*, Individu*, string skill = string());
 
 #endif

@@ -82,7 +82,11 @@ int LUA_combat(lua_State* L)
     Individu* indA = dynamic_cast<Individu*>(a);
     Individu* indB = dynamic_cast<Individu*>(b);
 
-	Combat(indA, indB, L);
+    lua_getglobal(L, "name");
+    string name = lua_tostring(L, -1);
+    lua_pop(L, 1);
+
+    Combat(indA, indB, std::move(name));
 
 	return 0;
 }

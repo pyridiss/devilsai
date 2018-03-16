@@ -391,6 +391,32 @@ void Activite::loadScript()
     lua_pcall(script, 0, 0, 0);
 }
 
+double Activite::damage()
+{
+    if (script == nullptr)
+        return 0;
+
+    lua_getglobal(script, "getDegats");
+    lua_call(script, 0, 1);
+    double d = lua_tonumber(script, -1);
+    lua_pop(script, 1);
+
+    return d;
+}
+
+double Activite::amplitude()
+{
+    if (script == nullptr)
+        return 0;
+
+    lua_getglobal(script, "getAmplitude");
+    lua_call(script, 0, 1);
+    double d = lua_tonumber(script, -1);
+    lua_pop(script, 1);
+
+    return d;
+}
+
 void Activite::atBegin(Individu* owner)
 {
     if (script == nullptr)

@@ -26,7 +26,7 @@
 
 #include "gamedata.h"
 
-void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
+void Combat(Individu *Attaquant, Individu *Blesse, string skill)
 {
 	/*
 		0. Echec ou succès ? (Agilite + Vitalite)
@@ -64,7 +64,12 @@ void Combat(Individu *Attaquant, Individu *Blesse, lua_State *L)
 	if (Succes)
 	{
         double Degats = Attaquant->currentHealthStatus(Strength);
-		if (L != NULL) Degats += getDoubleFromLUA(L, "getDegats") - getDoubleFromLUA(L, "getAmplitude") + rand()%(2*getIntFromLUA(L, "getAmplitude"));
+        if (!skill.empty())
+        {
+            double d = Attaquant->skill(skill)->damage();
+            double a = Attaquant->skill(skill)->amplitude();
+            Degats += d - a + rand()%(2*int(a));
+        }
 
         double TauxEsquive = (1.0 + (Blesse->currentHealthStatus(Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
 		bool Esquive = (rand()%100 < TauxEsquive) ? true : false;

@@ -191,6 +191,16 @@ class Activite
         void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
         void loadScript();
 
+        /**
+         * Calls the getDegats() function of the script and returns its result.
+         */
+        double damage();
+
+        /**
+         * Calls the getAmplitude() function of the script and returns its result.
+         */
+        double amplitude();
+
         void atBegin(Individu* owner);
         void atEnd(Individu* owner);
 };
