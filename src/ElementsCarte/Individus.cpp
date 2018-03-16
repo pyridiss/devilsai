@@ -19,8 +19,6 @@
 
 #include <cmath>
 
-#include <lua.hpp>
-
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
 #include "Carte/Carte.h"
@@ -317,14 +315,15 @@ void Individu::createCorpse()
     {
         for (auto& i : _species->inventory.objects)
         {
-            corpse->objects.addObject(getStringFromLUA(i.second, "getFileName"), "storagebox" + intToString(key, 2));
+            corpse->objects.addObject(i.name(), "storagebox" + intToString(key, 2));
             ++key;
         }
     }
 
     for (auto& i : inventory.objects)
     {
-        corpse->objects.objects.emplace("storagebox" + intToString(key, 2), i.second);
+        i.setSlot("storagebox" + intToString(key, 2));
+        corpse->objects.objects.push_back(std::move(i));
         ++key;
     }
     inventory.objects.clear();
@@ -394,17 +393,15 @@ void Individu::Gestion_Recuperation()
     if (EnergieMax) setHealthStatus(Energy, 1000);
 
     //Diminue la durée de vie des objets utilisés
-    for (mapObjects::iterator i = inventory.objects.begin() ; i != inventory.objects.end() ; ++i)
+    for (auto& i : inventory.objects)
     {
-        if (getStringFromLUA(i->second, "getIdEmplacement") == i->first && getDoubleFromLUA(i->second, "getDuree") > 0)
+        if (i.active() && i.remainingDuration() > 0)
         {
-            setDoubleToLUA(i->second, "setDuree", getDoubleFromLUA(i->second, "getDuree") - tools::timeManager::I(1));
+            i.setRemainingDuration(i.remainingDuration() - tools::timeManager::I(1));
 
-            if (getDoubleFromLUA(i->second, "getDuree") <= 0)
+            if (i.remainingDuration() <= 0)
             {
-                lua_State *j = i->second;
-                i = inventory.objects.erase(i);
-                inventory.deleteObject(j);
+                inventory.deleteObject(i);
                 continue;
             }
         }
@@ -428,16 +425,9 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
 
             for (auto& o : inventory.objects)
             {
-                lua_getglobal(o.second, "getCurrentObjectEffect");
-                lua_pushstring(o.second, attributeToString(att));
-                lua_call(o.second, 1, 1);
-                _currentHealthStatus.add(att, lua_tonumber(o.second, -1));
-                lua_pop(o.second, 1);
-                lua_getglobal(o.second, "getCurrentObjectEffect");
-                lua_pushstring(o.second, attributeAmplifierToString(attAmplifier));
-                lua_call(o.second, 1, 1);
-                _currentHealthStatus.add(att, _attributes[att] * lua_tonumber(o.second, -1) / 100.0);
-                lua_pop(o.second, 1);
+                double add = o.currentObjectEffect(attributeToString(att));
+                double mul = o.currentObjectEffect(attributeAmplifierToString(attAmplifier));
+                _currentHealthStatus.add(att, add + _attributes[att] * mul / 100.0);
             }
         }
         _clock.restart();
