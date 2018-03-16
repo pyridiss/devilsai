@@ -30,6 +30,8 @@
 #include "tools/shape.h"
 #include "gui/button.h"
 
+#include "devilsai-resources/wearableItem.h"
+
 using namespace std;
 using namespace sf;
 using namespace tinyxml2;
@@ -39,7 +41,6 @@ class lua_State;
 class Activite;
 class Individu;
 
-typedef map < string, lua_State* > mapObjects;
 typedef map < string, Activite > MapActivites;
 
 enum Attribute {
@@ -134,18 +135,28 @@ class Objects
         };
 
 	public:
-		mapObjects objects;
+        vector<WearableItem> objects;
         list<objectDesign> designs;
 
 	public:
         Objects();
+        Objects(const Objects& other);
+        Objects& operator=(const Objects& right);
 		~Objects();
 
 	public:
-		lua_State* addObject(string newObject, string key, int qualityRandomObject = 0);
+        WearableItem& addObject(string newObject, string key, int qualityRandomObject = 0);
         void createObjectsFromDesigns();
-		void deleteObject(lua_State* obj);
+        void deleteObject(const WearableItem& key);
 		void deleteObjects();
+
+        /**
+         * Returns a pointer to the WearableItem whose current slot is given in parameter.
+         *
+         * \param slot the slot where to find the WearableItem.
+         * \return pointer to a WearableItem if any, nullptr otherwhise.
+         */
+        WearableItem* at(const string& slot);
 
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);

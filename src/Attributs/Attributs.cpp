@@ -40,60 +40,72 @@ Objects::Objects()
     designs()
 {
 }
+
+Objects::Objects(const Objects& other)
+  : objects(),
+    designs(other.designs)
+{
+    for (auto& i : other.objects)
+    {
+        WearableItem& o = addObject(i.name(), i.currentSlot());
+        o.recoverState(i.currentState());
+    }
+}
+
+Objects& Objects::operator=(const Objects& right)
+{
+    designs = right.designs;
+
+    for (auto& i : right.objects)
+    {
+        WearableItem& o = addObject(i.name(), i.currentSlot());
+        o.recoverState(i.currentState());
+    }
+
+    return *this;
+}
+
 Objects::~Objects()
 {
 	deleteObjects();
 }
 
-lua_State* Objects::addObject(string newObject, string key, int qualityRandomObject)
+WearableItem& Objects::addObject(string newObject, string key, int qualityRandomObject)
 {
-	MESSAGE("Chargement du l'objet " + newObject + "…", FICHIER)
+    WearableItem newItem;
+    newItem.create(newObject);
+    newItem.generateRandomItem(qualityRandomObject);
+    newItem.setSlot(key);
 
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
+    objects.push_back(std::move(newItem));
 
-	luaL_dofile(L, (tools::filesystem::dataDirectory() + "object/" + newObject + ".lua").c_str());
-
-	lua_atpanic(L, LUA_panic);
-
-	lua_register(L, "cout", LUA_cout);
-
-	if (qualityRandomObject > 0) setIntToLUA(L, "generateRandomObject", qualityRandomObject);
-
-    imageManager::addContainer("objects");
-    imageManager::addContainer("objectsIcons");
-
-    imageManager::addImage("objects", newObject, getStringFromLUA(L, "getImageFile"));
-    imageManager::addImage("objectsIcons", newObject, getStringFromLUA(L, "getIconFile"));
-
-	pair<mapObjects::iterator, bool> result = objects.insert(mapObjects::value_type(key, L));
-
-	if (result.second) setStringToLUA(L, "setKey", key);
-	else
-	{
-		Erreur("Impossible de créer l'objet demandé :", newObject + " / " + key);
-		MESSAGE("… FAIL", FICHIER)
-		lua_close(L);
-	}
-
-	MESSAGE("… OK", FICHIER)
-    return result.first->second;
+    return objects.back();
 }
 
-void Objects::deleteObject(lua_State* obj)
+void Objects::deleteObject(const WearableItem& w)
 {
-	lua_close(obj);
-	obj = NULL;
+    for (auto i = objects.begin() ; i != objects.end() ; ++i)
+    {
+        if ((*i) == w)
+        {
+            objects.erase(i);
+            break;
+        }
+    }
 }
 
 void Objects::deleteObjects()
 {
-	for (mapObjects::iterator i = objects.begin() ; i != objects.end() ; )
-	{
-		lua_State *j = i->second;
-		i = objects.erase(i);
-		lua_close(j);
-	}
+	objects.clear();
+}
+
+WearableItem* Objects::at(const string& slot)
+{
+    for (auto& i : objects)
+        if (i.currentSlot() == slot)
+            return &i;
+
+    return nullptr;
 }
 
 void Objects::loadFromXML(XMLElement* elem)
@@ -112,14 +124,10 @@ void Objects::loadFromXML(XMLElement* elem)
             string design = object->Attribute("design");
             int q = 0;
             object->QueryAttribute("quality", &q);
-            lua_State* L = addObject(design, slot, q);
+            WearableItem& o = addObject(design, slot, q);
 
             if (object->Attribute("data"))
-            {
-                lua_getglobal(L, "objectRecoverState");
-                lua_pushstring(L, object->Attribute("data"));
-                lua_call(L, 1, 0);
-            }
+                o.recoverState(object->Attribute("data"));
         }
         if (objectName == "objectDesign")
         {
@@ -187,15 +195,9 @@ void Objects::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
     {
         XMLElement* object = doc.NewElement("addObject");
 
-        object->SetAttribute("slot", o.first.c_str());
-
-        lua_getglobal(o.second, "getFileName");
-        lua_call(o.second, 0, 1);
-        object->SetAttribute("design", lua_tostring(o.second, -1));
-
-        lua_getglobal(o.second, "objectSave");
-        lua_call(o.second, 0, 1);
-        object->SetAttribute("data", lua_tostring(o.second, -1));
+        object->SetAttribute("slot", o.currentSlot().c_str());
+        object->SetAttribute("design", o.name().c_str());
+        object->SetAttribute("data", o.currentState().c_str());
 
         inventory->InsertEndChild(object);
     }
