@@ -1,7 +1,7 @@
 
 /*
-    Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2014  Quentin Henriet
+    devilsai - An Action-RPG game
+    Copyright (C) 2009-2018  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 */
 
 #include <lua.hpp>
+#include <tinyxml2.h>
 
 #include "tools/debug.h"
 #include "tools/signals.h"
@@ -34,17 +35,14 @@
 
 #include "gamedata.h"
 
+using namespace tinyxml2;
+
+namespace resources::quests {
+
+unordered_map<string, lua_State*> Quests;
 
 void addQuest(string newQuest, string args)
 {
-    if (!tools::filesystem::checkFile(tools::filesystem::dataDirectory() + newQuest))
-    {
-        tools::debug::error("Unable to load quest: checkFile failed (" + newQuest + ").", "files", __FILENAME__, __LINE__);
-        return;
-    }
-
-	MESSAGE("Ajout de la quête " + newQuest + " en cours…", FICHIER)
-
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 
@@ -55,6 +53,34 @@ void addQuest(string newQuest, string args)
         tools::debug::error(lua_tostring(S, -1), "lua", __FILENAME__, __LINE__);
         return 0;
     });
+
+    //Check if the file is well-formed
+
+    bool fileComplete = true;
+
+    auto check = [&](const char* f)
+    {
+        lua_getglobal(L, f);
+        if (lua_isnil(L, -1))
+        {
+            tools::debug::error("The quest '" + newQuest + "' does not define the symbol '" + string(f) + "'", "lua", __FILENAME__, __LINE__);
+            fileComplete = false;
+        }
+        lua_pop(L, 1);
+    };
+
+    check("questBegin");
+    check("questManage");
+    check("questIsDone");
+    check("questSave");
+    check("questRecoverState");
+    check("questEnd");
+
+    if (!fileComplete)
+    {
+        lua_close(L);
+        return;
+    }
 
     lua_register(L, "dispRemainingEnemies", [](lua_State* S)
     {
@@ -101,6 +127,19 @@ void addQuest(string newQuest, string args)
         return 0;
     });
 
+    lua_register(L, "questRunning", [](lua_State* S)
+    {
+        string quest = lua_tostring(S, 1);
+
+        bool result = false;
+
+        if (Quests.find(quest) != Quests.end())
+            result = true;
+
+        lua_pushboolean(S, result);
+        return 1;
+    });
+
 	lua_register(L, "cout", LUA_cout);
 	lua_register(L, "getNumberOfItemsByTag", LUA_getNumberOfItemsByTag);
 	lua_register(L, "getElement", LUA_getElement);
@@ -115,7 +154,6 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "setActivity", LUA_setActivity);
 	lua_register(L, "possess", LUA_possess);
 	lua_register(L, "transferObject", LUA_transferObject);
-	lua_register(L, "questRunning", LUA_questRunning);
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "set", LUA_set);
     lua_register(L, "resetTimer", LUA_resetTimer);
@@ -125,14 +163,12 @@ void addQuest(string newQuest, string args)
 	lua_pushstring(L, args.c_str());
 	lua_call(L, 1, 0);
 
-	gamedata::quests().insert(map<string, lua_State*>::value_type(newQuest, L));
-
-	MESSAGE("Quête " + newQuest + " ajoutée.", FICHIER)
+    Quests.insert(map<string, lua_State*>::value_type(newQuest, L));
 }
 
 void manageQuests()
 {
-	for (auto i = gamedata::quests().begin() ; i != gamedata::quests().end() ; )
+	for (auto i = Quests.begin() ; i != Quests.end() ; )
 	{
 		lua_getglobal(i->second, "questManage");
 		lua_call(i->second, 0, 0);
@@ -141,6 +177,7 @@ void manageQuests()
 		lua_call(i->second, 0, 1);
 
 		bool done = lua_toboolean(i->second, -1);
+        lua_pop(i->second, 1);
 
 		if (done)
 		{
@@ -148,7 +185,7 @@ void manageQuests()
 			lua_getglobal(j, "questEnd");
 			lua_call(j, 0, 0);
 
-			i = gamedata::quests().erase(i);
+			i = Quests.erase(i);
 
 			lua_close(j);
 		}
@@ -156,93 +193,55 @@ void manageQuests()
 	}
 }
 
-/** not yet implemented with LUA :
-int Mission::Gestion()
+void clear()
 {
-	int compteur = 0;
-	int Retour = 0;
-
-	Element_Carte *tmp = NULL;
-	Individu_Unique* ind = gamedata::player();
-	Individu_Unique* Donneur;
-	Individu_Unique* Receveur;
-	MapInventaire::iterator equ;
-	bool Cumuler = false;
-	int Resultat = COLL_OK;
-
-	bool FinMission = true;
-
-	switch (Objectif)
-	{
-
-		case OBJECTIF_COLLISION :	if (DonneesString.find(DONNEE_IND1) != DonneesString.end())
-									{
-										ind = Get_IndividuUnique(DonneesString[DONNEE_IND1]);
-										if (ind == NULL) break;
-									}
-									RaZ_Coll();
-									while(Resultat != COLL_END)
-									{
-										Resultat = ParcoursCollisions(ind);
-										if (Resultat == COLL_INTER)
-										{
-											tmp = Get_Current_Coll();
-											if (DonneesString.find(DONNEE_LISTE) != DonneesString.end())
-											{
-												if (tmp->Liste == DonneesString[DONNEE_LISTE])
-												{
-													MissionTerminee = true;
-													Objectif = 0;
-													Resultat = COLL_END;
-												}
-											}
-											else if (DonneesString.find(DONNEE_IND2) != DonneesString.end())
-											{
-												if (tmp->Type == DonneesString[DONNEE_IND2] ||
-													(tmp->Type == "TYPE_CADAVRE" && dynamic_cast<Cadavre*>(tmp)->Ind_Id == DonneesString[DONNEE_IND2]))
-												{
-													MissionTerminee = true;
-													Objectif = 0;
-													Resultat = COLL_END;
-												}
-											}
-										}
-									}
-									break;
-
-		case OBJECTIF_SUIVRE_PERSO :	if (DonneesString[DONNEE_CARTE] != gamedata::currentWorld()->Id) break;
-										tmp = gamedata::currentWorld()->head;
-										while (tmp != NULL)
-										{
-											if (tmp->Liste == DonneesString[DONNEE_LISTE])
-											{
-												tmp->PosX = gamedata::player()->PosX;
-												tmp->PosY = gamedata::player()->PosY;
-											}
-											tmp = tmp->next;
-										}
-										break;
-
-		default: FinMission = false;
-	}
-
-	if (MissionTerminee && FinMission)
-	{
-		for (ListeFinsMissions::iterator fm = Fins.begin() ; fm != Fins.end() ; ++fm)
-		{
-			switch (fm->Type)
-			{
-				case FIN_SUPPRIMER_MISSION :	for (ListeMissions::iterator i = Partie.Missions.begin() ; i != Partie.Missions.end() ; ++i)
-												{
-													if (i->Numero == fm->DonneeStr)
-													{
-														Partie.Missions.erase(i);
-														i = Partie.Missions.begin();
-													}
-												}	 
-												break;
-			}
-		}
-	}
+    for (auto& q : Quests)
+        lua_close(q.second);
+    Quests.clear();
 }
-**/
+
+void save(XMLDocument& doc, tinyxml2::XMLElement* root)
+{
+    for (auto& i : Quests)
+    {
+        XMLElement* quest = doc.NewElement("quest");
+        quest->SetAttribute("file", i.first.c_str());
+        quest->SetAttribute("initialData", "false");
+
+        lua_getglobal(i.second, "questSave");
+        lua_call(i.second, 0, 1);
+        quest->SetAttribute("currentState", lua_tostring(i.second, -1));
+
+        root->InsertEndChild(quest);
+    }
+}
+
+void load(XMLElement* elem)
+{
+    string questFile = elem->Attribute("file");
+    string initialData, currentState;
+    if (elem->Attribute("initialData"))
+    {
+        initialData = elem->Attribute("initialData");
+    }
+    if (elem->Attribute("currentState"))
+    {
+        currentState = elem->Attribute("currentState");
+    }
+
+    addQuest(questFile, initialData);
+
+    if (!currentState.empty())
+    {
+        auto i = Quests.find(questFile);
+        if (i != Quests.end())
+        {
+            lua_getglobal(i->second, "questRecoverState");
+            lua_pushstring(i->second, currentState.c_str());
+            lua_call(i->second, 1, 0);
+        }
+        else tools::debug::error("Error while loading quest " + questFile, "files", __FILENAME__, __LINE__);
+    }
+}
+
+} // namespace resources::quests

@@ -39,12 +39,10 @@
 
 #include "Bibliotheque/luaFunctions.h"
 
+#include "devilsai-resources/quests.h"
 #include "gamedata.h"
 
 using namespace tinyxml2;
-
-//Declared in Jeu.h, but will be removed later.
-void addQuest(string, string);
 
 namespace gamedata{
 
@@ -52,7 +50,6 @@ unordered_map<string, Carte*> _worlds;
 unordered_map<string, Classe_Commune*> _species;
 unordered_map<string, Paysage*> _inertItemDesigns;
 unordered_map<string, lua_State*> _triggersScripts;
-unordered_map<string, lua_State*> _quests;
 
 Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
@@ -177,11 +174,6 @@ lua_State* sharedTrigger(string name)
     else return _triggersScripts.at(name);
 }
 
-unordered_map<string, lua_State*>& quests()
-{
-    return _quests;
-}
-
 Joueur* player()
 {
     if (_player == nullptr)
@@ -223,9 +215,7 @@ void clear()
         lua_close(t.second);
     _triggersScripts.clear();
 
-    for (auto& q : _quests)
-        lua_close(q.second);
-    _quests.clear();
+    resources::quests::clear();
 
     _player = nullptr;
     _currentWorld = nullptr;
@@ -338,18 +328,7 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
     root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
     root->LastChildElement()->SetAttribute("playerName", _player->displayedName().toStdString().c_str());
 
-    for (auto& i : _quests)
-    {
-        XMLElement* quest = doc.NewElement("quest");
-        quest->SetAttribute("file", i.first.c_str());
-        quest->SetAttribute("initialData", "false");
-
-        lua_getglobal(i.second, "questSave");
-        lua_call(i.second, 0, 1);
-        quest->SetAttribute("currentState", lua_tostring(i.second, -1));
-
-        root->InsertEndChild(quest);
-    }
+    resources::quests::save(doc, root);
 
     XMLElement* journal = doc.NewElement("journal");
     XMLHandle h(journal);
@@ -458,30 +437,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
 
         if (elemName == "quest")
         {
-            string questFile = elem->Attribute("file");
-            string initialData, currentState;
-            if (elem->Attribute("initialData"))
-            {
-                initialData = elem->Attribute("initialData");
-            }
-            if (elem->Attribute("currentState"))
-            {
-                currentState = elem->Attribute("currentState");
-            }
-
-            addQuest(questFile, initialData);
-
-            if (!currentState.empty())
-            {
-                auto i = _quests.find(questFile);
-                if (i != _quests.end())
-                {
-                    lua_getglobal(i->second, "questRecoverState");
-                    lua_pushstring(i->second, currentState.c_str());
-                    lua_call(i->second, 1, 0);
-                }
-                else tools::debug::error("Error while loading quest " + questFile, "files", __FILENAME__, __LINE__);
-            }
+            resources::quests::load(elem);
         }
 
         if (elemName == "journal")

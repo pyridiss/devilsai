@@ -514,7 +514,7 @@ void mainLoop(RenderWindow& app)
 
 		//2. GESTION DES MISSIONS
 
-		manageQuests();
+        resources::quests::manageQuests();
 
 		//4. CHANGEMENTS DE LIEU
 

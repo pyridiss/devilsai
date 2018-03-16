@@ -437,21 +437,6 @@ int LUA_transferObject(lua_State* L)
     return 0;
 }
 
-int LUA_questRunning(lua_State* L)
-{
-    MESSAGE("LUA_questRunning() called", LUA)
-
-	string quest = lua_tostring(L, 1);
-
-	bool result = false;
-
-	if (gamedata::quests().find(quest) != gamedata::quests().end())
-		result = true;
-
-	lua_pushboolean(L, result);
-	return 1;
-}
-
 int LUA_addSound(lua_State* L)
 {
     MESSAGE("LUA_addSound() called", LUA)

@@ -1,7 +1,7 @@
 
 /*
-    Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2014  Quentin Henriet
+    devilsai - An Action-RPG game
+    Copyright (C) 2009-2018  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,23 +17,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef header_jeu
-#define header_jeu
+#ifndef DEVILSAI_RESOURCES_QUESTS
+#define DEVILSAI_RESOURCES_QUESTS
 
-#include <SFML/Graphics.hpp>
+#include <string>
 
-using namespace std;
-using namespace sf;
+namespace tinyxml2{
+    class XMLDocument;
+    class XMLElement;
+}
 
+namespace resources::quests {
 
-//Fonctions définies dans les fichiers dépendants de Jeu
+void addQuest(string newQuest, string args);
+void manageQuests();
+void clear();
+void save(tinyxml2::XMLDocument& doc, tinyxml2::XMLElement* root);
+void load(tinyxml2::XMLElement* elem);
 
-void createWindow();
+}
 
-void mainLoop(RenderWindow& app);
-void Clean_Partie();
-
-void Save_Partie();
-bool Load_Partie(string);
-
-#endif
+#endif // DEVILSAI_RESOURCES_QUESTS

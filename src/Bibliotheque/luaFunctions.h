@@ -47,7 +47,6 @@ int LUA_deleteElement(lua_State*);
 int LUA_setActivity(lua_State*);
 int LUA_possess(lua_State*);
 int LUA_transferObject(lua_State*);
-int LUA_questRunning(lua_State*);
 int LUA_addSound(lua_State*);
 int LUA_playSound(lua_State*);
 int LUA_createIndividual(lua_State* L);

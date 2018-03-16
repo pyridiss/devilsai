@@ -57,7 +57,6 @@ void addInertItemDesign(const string& design);
 Paysage* inertItemDesign(const string& type);
 void copyInertItemFromDesign(string t, Paysage *elem);
 lua_State* sharedTrigger(string name);
-unordered_map<string, lua_State*>& quests();
 Joueur* player();
 list<textManager::RichText>& listDialogs();
 void setPlayerName(string s);
