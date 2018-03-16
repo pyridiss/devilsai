@@ -17,8 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <lua.hpp>
-
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
@@ -104,7 +102,7 @@ void mainLoop(RenderWindow& app)
     Individu* underCursor = nullptr;
     Coffre* storageBoxUnderCursor = nullptr;
     Coffre* openStorageBox = nullptr;
-    lua_State* selectedObject = nullptr;
+    WearableItem selectedObject;
     int selectedStorageBox = -1;
     bool inGame = false;
     bool loadingResources = false;
@@ -526,12 +524,6 @@ void mainLoop(RenderWindow& app)
         app.display();
         musicManager::manageRunningMusics();
 	}
-
-    if (selectedObject != nullptr)
-    {
-        lua_close(selectedObject);
-        selectedObject = nullptr;
-    }
 }
 
 void Clean_Partie()

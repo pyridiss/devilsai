@@ -152,18 +152,15 @@ void Disp_JaugesVie(RenderTarget& target)
 	PersoEnePrec = gamedata::player()->currentHealthStatus(Energy);
 
 	//Effets dûs aux objets temporaires
-	for (mapObjects::iterator i = gamedata::player()->inventory.objects.begin() ; i != gamedata::player()->inventory.objects.end() ; ++i)
-	{
-		if (getStringFromLUA(i->second, "getIdEmplacement") == i->first)
-		{
-			if (getStringFromLUA(i->second, "getCategorieObjet") == "temporaire")
-			{
-                playerStateText += " @n";
-                playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
-                playerStateText.addParameter(textManager::getText("objects", getStringFromLUA(i->second, "getFileName")));
-			}
-		}
-	}
+    for (auto& i : gamedata::player()->inventory.objects)
+    {
+        if (i.active() && i.temporary())
+        {
+            playerStateText += " @n";
+            playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
+            playerStateText.addParameter(textManager::getText("objects", i.name()));
+        }
+    }
 
     textManager::RichText playerState;
     playerState.setSize(160, 0);
