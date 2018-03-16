@@ -165,26 +165,26 @@ int LUA_useObject(lua_State* L)
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
 
-	mapObjects* objects = &(ind->inventory.objects);
+    auto& objects = ind->inventory.objects;
 
-    for (auto& i : *objects)
+    for (auto& i : objects)
     {
-        if (getBoolFromLUA(i.second, "getCumul") && getStringFromLUA(i.second, "getFileName") == object)
+        if (i.stackable() && i.name() == object)
         {
             //TODO: Erase temporary objects instead of refusing the use of the object.
-            if (objects->find(getStringFromLUA(i.second, "getIdEmplacement")) != objects->end())
+            if (ind->inventory.at(i.requiredSlot()) != nullptr)
                 break;
 
-            if (getIntFromLUA(i.second, "getQuantite") > 1)
+            if (i.quantity() > 1)
             {
-                ind->inventory.addObject(getStringFromLUA(i.second, "getFileName"), getStringFromLUA(i.second, "getIdEmplacement"));
-                setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") - 1);
+                ind->inventory.addObject(i.name(), i.requiredSlot());
+                i.setQuantity(i.quantity() - 1);
             }
             else
             {
-                setStringToLUA(i.second, "setKey", getStringFromLUA(i.second, "getIdEmplacement"));
-                objects->emplace(getStringFromLUA(i.second, "getIdEmplacement"), i.second);
-                objects->erase(i.first);
+                i.setSlot(i.requiredSlot());
+                objects.push_back(std::move(i));
+                ind->inventory.deleteObject(i);
             }
         }
     }
@@ -206,14 +206,13 @@ int LUA_getQuantityOf(lua_State* L)
 	string object = lua_tostring(L, 2);
 	int result = 0;
 
-	mapObjects* objects = &(ind->inventory.objects);
+    auto& objects = ind->inventory.objects;
 
-	mapObjects::iterator i = objects->begin();
-	string key = intToString(CLEF_INVENTAIRE);
-	while (i != objects->end() && (getStringFromLUA(i->second, "getFileName") != object || i->first[0] != key[0])) ++i;
+    auto i = objects.begin();
+    while (i != objects.end() && (i->name() != object || i->active())) ++i;
 
-	if (i != objects->end())
-		result = getIntFromLUA(i->second, "getQuantite");
+    if (i != objects.end())
+        result = i->quantity();
 
 	lua_pushnumber(L, result);
 	return 1;
@@ -379,12 +378,12 @@ int LUA_possess(lua_State* L)
 
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
-	int object = lua_tonumber(L, 2);
+    string_view object = lua_tostring(L, 2);
 
 	bool result = false;
 	for (auto& i : ind->inventory.objects)
 	{
-		if (getIntFromLUA(i.second, "getInternalNumber") == object)
+        if (i.name() == object)
 		{
 			result = true;
 			break;
@@ -402,62 +401,41 @@ int LUA_transferObject(lua_State* L)
     Individu* indA = static_cast<Individu*>(lua_touserdata(L, 1));
     Individu* indB = static_cast<Individu*>(lua_touserdata(L, 2));
 
-	int object = lua_tonumber(L, 3);
+    string_view object = lua_tostring(L, 3);
 
-	mapObjects::iterator iObj = indA->inventory.objects.begin();
+    auto iObj = indA->inventory.objects.begin();
 
-    lua_State* tmp;
+    WearableItem tmp;
 
-    //1. On place l'objet en question dans tmp
-	while (iObj != indA->inventory.objects.end() && getIntFromLUA(iObj->second, "getInternalNumber") != object)
-		++iObj;
-	if (iObj == indA->inventory.objects.end()) return 0;
+    //Retrieve the item in the tmp variable
+    while (iObj != indA->inventory.objects.end() && iObj->name() != object)
+        ++iObj;
+    if (iObj == indA->inventory.objects.end()) return 0;
 
-    tmp = iObj->second;
-	setStringToLUA(iObj->second, "setKey", "0");
-	indA->inventory.objects.erase(iObj);
+    tmp = std::move(*iObj);
+    indA->inventory.objects.erase(iObj);
 
-	//2. On place l'objet dans l'inventaire du receveur
-	iObj = indB->inventory.objects.begin();
+    //Now, we check is the same object exists in the player inventory and can be stacked.
+    for (auto& i : indB->inventory.objects)
+    {
+        if (i.stackable() && i.name() == tmp.name())
+        {
+            i.setQuantity(i.quantity() + tmp.quantity());
+            //We're done, tmp will be destroyed
+            return 0;
+        }
+    }
 
-	bool cumulate = false;
+    //The item cannot be stacked, we try to find an empty slot
+    int key = 1;
+    while (indB->inventory.at("inventory" + intToString(key, 2)) != nullptr)
+        ++key;
+    //TODO: this function may push an item outside the inventory range; fix this
 
-    if (getBoolFromLUA(tmp, "getCumul"))
-	{
-		string key = intToString(CLEF_INVENTAIRE);
-		for (mapObjects::iterator k = indB->inventory.objects.begin() ; k != indB->inventory.objects.end() ; ++k)
-			if (k->first[0] == key[0] && 
-                getIntFromLUA(k->second, "getInternalNumber") == getIntFromLUA(tmp, "getInternalNumber"))
-			{
-				cumulate = true;
-				iObj = k;
-				break;
-			}
-	}
+    tmp.setSlot("inventory" + intToString(key, 2));
+    indB->inventory.objects.push_back(std::move(tmp));
 
-	if (cumulate)
-	{
-        setIntToLUA(iObj->second, "setQuantite", getIntFromLUA(iObj->second, "getQuantite") + getIntFromLUA(tmp, "getQuantite"));
-        tmp = nullptr;
-	}
-	else
-	{
-		int cell = 0;
-		string key = intToString(CLEF_INVENTAIRE);
-		while (indB->inventory.objects.find(key) != indB->inventory.objects.end())
-		{
-			++cell;
-			key = intToString(CLEF_INVENTAIRE + cell);
-		}
-        pair<mapObjects::iterator, bool> result = indB->inventory.objects.insert(mapObjects::value_type(key, tmp));
-		if (result.second)
-		{
-			setStringToLUA(result.first->second, "setKey",key);
-            tmp = nullptr;
-		}
-	}
-
-	return 0;
+    return 0;
 }
 
 int LUA_questRunning(lua_State* L)
