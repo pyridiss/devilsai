@@ -22,7 +22,6 @@ include_directories(
 set(devilsai_SRCS
     Attributs/Attributs.cpp
 	Attributs/Attributs.h
-	Attributs/Objets.cpp
 	Bibliotheque/Bibliotheque.h
 	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
