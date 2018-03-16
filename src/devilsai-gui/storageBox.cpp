@@ -24,20 +24,17 @@
 
 #include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
-#include "Bibliotheque/Bibliotheque.h"
+#include "devilsai-resources/wearableItem.h"
 
 #include "gamedata.h"
 
 
-//Defined in Attributs/Objets.cpp
-void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj);
-
 void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& event, Coffre* box)
 {
-    mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
-    mapObjects* storageBox = &(box->objects.objects);
+    auto& playerInventory = gamedata::player()->inventory;
+    auto& storageBox = box->objects;
 
-    mapObjects::iterator currentObject;
+    WearableItem* currentObject = nullptr;
 
     const auto& slots = window.getWidgets();
 
@@ -48,32 +45,31 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
         //Click founded in the player inventory; we will try to transfer the object in the storage box
         if (slot.second->embeddedData<string>("owner") == "player")
         {
-            currentObject = playerInventory->find(slot.first);
-            if (currentObject == playerInventory->end()) break;
+            currentObject = playerInventory.at(slot.first);
+            if (currentObject == nullptr) break;
 
             //First, we check is the same object exists in the storage box and can be accumulated
-            for (auto& i : *storageBox)
+            for (auto& i : storageBox.objects)
             {
-                if (getBoolFromLUA(i.second, "getCumul") && getIntFromLUA(i.second, "getInternalNumber") == getIntFromLUA(currentObject->second, "getInternalNumber"))
+                if (i.stackable() && i.name() == currentObject->name())
                 {
-                    setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") + getIntFromLUA(currentObject->second, "getQuantite"));
-                    gamedata::player()->inventory.deleteObject(currentObject->second);
-                    playerInventory->erase(currentObject);
-                    currentObject = playerInventory->end();
+                    i.setQuantity(i.quantity() + currentObject->quantity());
+                    playerInventory.deleteObject(*currentObject);
+                    currentObject = nullptr;
                     break;
                 }
             }
 
-            if (currentObject == playerInventory->end()) break;
+            if (currentObject == nullptr) break;
 
             //Try to find an empty slot
             for (const auto& slot2 : slots)
             {
-                if (slot2.second->embeddedData<string>("owner") == "storage-box" && storageBox->find(slot2.first) == storageBox->end())
+                if (slot2.second->embeddedData<string>("owner") == "storage-box" && storageBox.at(slot2.first) == nullptr)
                 {
-                    storageBox->emplace(slot2.first, currentObject->second);
-                    setStringToLUA(currentObject->second, "setKey", slot2.first);
-                    playerInventory->erase(currentObject);
+                    currentObject->setSlot(slot2.first);
+                    storageBox.objects.push_back(std::move(*currentObject));
+                    playerInventory.deleteObject(*currentObject);
                     break;
                 }
             }
@@ -82,32 +78,31 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
         //Click founded in the storage box; we will try to transfer the object in the player inventory
         if (slot.second->embeddedData<string>("owner") == "storage-box")
         {
-            currentObject = storageBox->find(slot.first);
-            if (currentObject == storageBox->end()) break;
+            currentObject = storageBox.at(slot.first);
+            if (currentObject == nullptr) break;
 
             //First, we check is the same object exists in the player inventory and can be accumulated.
-            for (auto& i : *playerInventory)
+            for (auto& i : playerInventory.objects)
             {
-                if (getBoolFromLUA(i.second, "getCumul") && getIntFromLUA(i.second, "getInternalNumber") == getIntFromLUA(currentObject->second, "getInternalNumber"))
+                if (i.stackable() && i.name() == currentObject->name())
                 {
-                    setIntToLUA(i.second, "setQuantite", getIntFromLUA(i.second, "getQuantite") + getIntFromLUA(currentObject->second, "getQuantite"));
-                    box->objects.deleteObject(currentObject->second);
-                    storageBox->erase(currentObject);
-                    currentObject = storageBox->end();
+                    i.setQuantity(i.quantity() + currentObject->quantity());
+                    storageBox.deleteObject(*currentObject);
+                    currentObject = nullptr;
                     break;
                 }
             }
 
-            if (currentObject == storageBox->end()) break;
+            if (currentObject == nullptr) break;
 
             //Try to find an empty slot
             for (const auto& slot2 : slots)
             {
-                if (slot2.second->embeddedData<string>("owner") == "player" && playerInventory->find(slot2.first) == playerInventory->end())
+                if (slot2.second->embeddedData<string>("owner") == "player" && playerInventory.at(slot2.first) == nullptr)
                 {
-                    playerInventory->emplace(slot2.first, currentObject->second);
-                    setStringToLUA(currentObject->second, "setKey", slot2.first);
-                    storageBox->erase(currentObject);
+                    currentObject->setSlot(slot2.first);
+                    playerInventory.objects.push_back(std::move(*currentObject));
+                    storageBox.deleteObject(*currentObject);
                     break;
                 }
             }
@@ -127,37 +122,36 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
 
     window.display(target);
 
-    mapObjects* playerInventory = &(gamedata::player()->inventory.objects);
-    mapObjects* storageBox = &(box->objects.objects);
+    auto& playerInventory = gamedata::player()->inventory;
+    auto& storageBox = box->objects;
 
-    lua_State* hovering = nullptr;
+    WearableItem* hovering = nullptr;
 
     const auto& slots = window.getWidgets();
 
     for (const auto& slot : slots)
     {
-        mapObjects::iterator obj = playerInventory->end();
-        if (slot.second->embeddedData<string>("owner") == "player") obj = playerInventory->find(slot.first);
-        if (slot.second->embeddedData<string>("owner") == "storage-box") obj = storageBox->find(slot.first);
-        if (obj != playerInventory->end() && obj != storageBox->end())
+        WearableItem* obj = nullptr;
+        if (slot.second->embeddedData<string>("owner") == "player") obj = playerInventory.at(slot.first);
+        if (slot.second->embeddedData<string>("owner") == "storage-box") obj = storageBox.at(slot.first);
+        if (obj != nullptr)
         {
-            string objectName = getStringFromLUA(obj->second, "getFileName");
-            imageManager::display(target, "objectsIcons", objectName, slot.second->left(), slot.second->top());
+            imageManager::display(target, "objectsIcons", obj->name(), slot.second->left(), slot.second->top());
 
-            if (getBoolFromLUA(obj->second, "getCumul"))
+            if (obj->stackable())
             {
                 textManager::RichText number;
                 number.setSize(50, 0);
                 number.setDefaultProperties("liberation", 12, Color(255, 255, 255));
-                number.create(getIntFromLUA(obj->second, "getQuantite"));
+                number.create(obj->quantity());
                 number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
             }
 
             if (slot.second->mouseHovering(target))
-                hovering = obj->second;
+                hovering = obj;
         }
     }
 
     if (hovering != nullptr)
-        Disp_Caracs_Objet(target, hovering);
+        hovering->displayDescription(target);
 }

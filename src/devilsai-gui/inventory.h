@@ -20,10 +20,6 @@
 #ifndef DEVILSAI_GUI_INVENTORY_H
 #define DEVILSAI_GUI_INVENTORY_H
 
-using namespace std;
-
-class lua_State;
-
 namespace sf
 {
     class RenderWindow;
@@ -35,7 +31,9 @@ namespace gui
     class Window;
 }
 
-void manageInventoryScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event, lua_State*& selectedObject);
-void displayInventoryScreen(gui::Window& window, sf::RenderWindow& target, lua_State*& selectedObject);
+class WearableItem;
+
+void manageInventoryScreen(gui::Window& window, sf::RenderWindow& target, sf::Event& event, WearableItem& selectedObject);
+void displayInventoryScreen(gui::Window& window, sf::RenderWindow& target, WearableItem& selectedObject);
 
 #endif // DEVILSAI_GUI_INVENTORY_H

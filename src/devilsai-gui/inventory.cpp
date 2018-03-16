@@ -22,18 +22,16 @@
 
 #include "Attributs/Attributs.h"
 #include "ElementsCarte/ElementsCarte.h"
-#include "Bibliotheque/Bibliotheque.h"
+#include "devilsai-resources/wearableItem.h"
 
 #include "gamedata.h"
 
 
-//Defined in Attributs/Objets.cpp
-void Disp_Caracs_Objet(RenderWindow& target, lua_State* obj);
-
-void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event, lua_State*& selectedObject)
+void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& event, WearableItem& selectedObject)
 {
-    mapObjects* objects = &(gamedata::player()->inventory.objects);
-    mapObjects::iterator currentObject = objects->end();
+    auto& inventory = gamedata::player()->inventory;
+    auto& objects = gamedata::player()->inventory.objects;
+    WearableItem* currentObject = nullptr;
 
     const auto& slots = window.getWidgets();
 
@@ -41,43 +39,40 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
     {
         if (slot.second->activated(target, event))
         {
-            if (selectedObject == nullptr)
+            if (!selectedObject.valid())
             {
-                currentObject = objects->find(slot.first);
-                if (currentObject != objects->end())
+                currentObject = inventory.at(slot.first);
+                if (currentObject != nullptr)
                 {
                     if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
                     {
-                        selectedObject = currentObject->second;
-                        objects->erase(currentObject);
+                        selectedObject = std::move(*currentObject);
+                        inventory.deleteObject(*currentObject);
                     }
                     if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Right)
                     {
                         //TODO: Erase temporary objects instead of refusing the use of the object.
-                        if (objects->find(getStringFromLUA(currentObject->second, "getIdEmplacement")) != objects->end())
+                        if (inventory.at(currentObject->requiredSlot()) != nullptr)
                             continue;
 
-                        if (getBoolFromLUA(currentObject->second, "getCumul") && getIntFromLUA(currentObject->second, "getQuantite") > 1)
+                        if (currentObject->stackable() && currentObject->quantity() > 1)
                         {
-                            gamedata::player()->inventory.addObject(getStringFromLUA(currentObject->second, "getFileName"), getStringFromLUA(currentObject->second, "getIdEmplacement"));
-                            setIntToLUA(currentObject->second, "setQuantite", getIntFromLUA(currentObject->second, "getQuantite") - 1);
+                            inventory.addObject(currentObject->name(), currentObject->requiredSlot());
+                            currentObject->setQuantity(currentObject->quantity() - 1);
                         }
                         else
                         {
-                            setStringToLUA(currentObject->second, "setKey", getStringFromLUA(currentObject->second, "getIdEmplacement"));
-                            objects->emplace(getStringFromLUA(currentObject->second, "getIdEmplacement"), currentObject->second);
-                            objects->erase(currentObject);
+                            currentObject->setSlot(currentObject->requiredSlot());
                         }
                     }
                 }
             }
-            else if (objects->find(slot.first) == objects->end() &&
+            else if (inventory.at(slot.first) == nullptr &&
                      (slot.second->embeddedData<string>("allowed-object") == "all" ||
-                      slot.second->embeddedData<string>("allowed-object") == getStringFromLUA(selectedObject, "getTypeObject")))
+                      slot.second->embeddedData<string>("allowed-object") == selectedObject.requiredSlot()))
             {
-                setStringToLUA(selectedObject, "setKey", slot.first);
-                objects->emplace(slot.first, selectedObject);
-                selectedObject = nullptr;
+                selectedObject.setSlot(slot.first);
+                objects.push_back(std::move(selectedObject));
             }
             break;
         }
@@ -86,45 +81,43 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
     window.checkTriggers();
 }
 
-void displayInventoryScreen(gui::Window& window, RenderWindow& target, lua_State*& selectedObject)
+void displayInventoryScreen(gui::Window& window, RenderWindow& target, WearableItem& selectedObject)
 {
     window.display(target);
 
-    mapObjects* objects = &(gamedata::player()->inventory.objects);
-
-    lua_State* hovering = nullptr;
+    WearableItem* hovering = nullptr;
 
     const auto& slots = window.getWidgets();
 
     for (const auto& slot : slots)
     {
-        mapObjects::iterator obj = objects->find(slot.first);
-        if (obj != objects->end())
+        auto obj = gamedata::player()->inventory.at(slot.first);
+        if (obj != nullptr)
         {
-            const string& objectName = getStringFromLUA(obj->second, "getFileName");
+            const string& objectName = obj->name();
             const string& imageContainer = slot.second->embeddedData<string>("image-container");
             imageManager::display(target, imageContainer, objectName, slot.second->left(), slot.second->top());
 
-            if (getBoolFromLUA(obj->second, "getCumul"))
+            if (obj->stackable())
             {
                 textManager::RichText number;
                 number.setSize(50, 0);
                 number.setDefaultProperties("liberation", 12, Color(255, 255, 255));
-                number.create(getIntFromLUA(obj->second, "getQuantite"));
+                number.create(obj->quantity());
                 number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
             }
 
             if (slot.second->mouseHovering(target))
-                hovering = obj->second;
+                hovering = obj;
         }
     }
 
     if (hovering != nullptr)
-        Disp_Caracs_Objet(target, hovering);
+        hovering->displayDescription(target);
 
-    if (selectedObject != nullptr)
+    if (selectedObject.valid())
     {
-        string objectName = getStringFromLUA(selectedObject, "getFileName");
+        string objectName = selectedObject.name();
         imageManager::display(target, "objects", objectName, gui::mousePosition().x, gui::mousePosition().y, true);
     }
 }

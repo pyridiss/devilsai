@@ -20,8 +20,6 @@
 #ifndef DEVILSAI_GUI_STORAGEBOX_H
 #define DEVILSAI_GUI_STORAGEBOX_H
 
-using namespace std;
-
 namespace sf
 {
     class RenderWindow;
