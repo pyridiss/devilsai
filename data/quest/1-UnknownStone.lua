@@ -45,16 +45,16 @@ function questManage()
 	end
 
 	if questStep == "1" then
-		if hasTheStone == false and possess(player_ptr, 700) == true then
+        if hasTheStone == false and possess(player_ptr, "unidentifiedstone") == true then
 			hasTheStone = true
             addJournalEntry("birnam", "energy", "journal-energy-title")
             addJournalEntry("birnam", "energy", "journal-energy-text1")
-		elseif hasTheStone == true and possess(player_ptr, 700) == false then
+        elseif hasTheStone == true and possess(player_ptr, "unidentifiedstone") == false then
 			hasTheStone = false
 		end
 
 		if hasTheStone == true and interact(player_ptr, gower_ptr) == true and gowersWorriesLaunched == false then
-			transferObject(player_ptr, gower_ptr, 700)
+			transferObject(player_ptr, gower_ptr, "unidentifiedstone")
 			hasTheStone = false
 			questStep = "2"
             pushDialog("birnam", "dialog-energy-giventogower")
@@ -67,7 +67,7 @@ function questManage()
 
 	elseif questStep == "2" then
 		if gowersWorriesDone == true and interact(player_ptr, gower_ptr) == true then
-			transferObject(gower_ptr, player_ptr, 700)
+			transferObject(gower_ptr, player_ptr, "unidentifiedstone")
             pushDialog("birnam", "dialog-energy-givenback")
             addJournalEntry("birnam", "energy", "journal-energy-end")
 			questStep = "3"
@@ -87,7 +87,7 @@ function questManage()
 		end
 
 	elseif questStep == "12" then
-		if possess(player_ptr, 700) == true then
+        if possess(player_ptr, "unidentifiedstone") == true then
             addJournalEntry("birnam", "energy", "journal-energy-end")
 			questStep = "13"
 		end
