@@ -23,6 +23,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "tools/filesystem.h"
+#include "tools/math.h"
 
 #include "Bibliotheque/luaFunctions.h"
 

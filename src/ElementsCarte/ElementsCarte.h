@@ -27,7 +27,6 @@
 
 #include "tools/vector2d.h"
 #include "tools/shape.h"
-#include "tools/math.h"
 #include "textManager/plainText.h"
 
 #include "devilsai-resources/skill.h"

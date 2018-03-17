@@ -26,6 +26,7 @@
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/signals.h"
+#include "tools/math.h"
 
 #include "textManager/textManager.h"
 #include "textManager/richText.h"

@@ -20,11 +20,9 @@
 #ifndef TOOLS_TEXTMANAGER_H
 #define TOOLS_TEXTMANAGER_H
 
-#include <SFML/System/Utf.hpp>
-#include <SFML/Graphics.hpp>
+#include <string>
 
 using namespace std;
-using namespace sf;
 
 namespace textManager{
 

@@ -27,7 +27,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <tools/math.h>
 #include <tools/shape.h>
 #include <tools/vector2d.h>
 

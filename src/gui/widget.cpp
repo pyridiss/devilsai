@@ -21,6 +21,8 @@
 
 #include "tools/debug.h"
 
+#include "textManager/textManager.h"
+
 #include "gui/window.h"
 #include "gui/widget.h"
 #include "gui/style.h"

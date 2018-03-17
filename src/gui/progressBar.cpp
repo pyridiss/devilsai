@@ -19,6 +19,7 @@
 
 #include "tools/timeManager.h"
 
+#include "textManager/plainText.h"
 #include "textManager/textManager.h"
 
 #include "imageManager/image.h"

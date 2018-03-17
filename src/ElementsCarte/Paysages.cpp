@@ -19,6 +19,7 @@
 
 #include <tinyxml2.h>
 
+#include "tools/math.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 

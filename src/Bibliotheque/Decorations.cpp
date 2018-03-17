@@ -24,10 +24,8 @@
 
 #include "textManager/textManager.h"
 #include "tools/timeManager.h"
-#include "tools/signals.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
-#include "gui/button.h"
 #include "musicManager/musicManager.h"
 #include "textManager/richText.h"
 

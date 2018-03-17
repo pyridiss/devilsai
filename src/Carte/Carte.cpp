@@ -23,6 +23,7 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/math.h"
 
 #include "imageManager/imageManager.h"
 #include "musicManager/musicManager.h"

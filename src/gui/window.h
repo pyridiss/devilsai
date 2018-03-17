@@ -29,6 +29,8 @@
 
 #include "tools/signals.h"
 
+#include "textManager/plainText.h"
+
 #include "gui/style.h"
 #include "gui/widget.h"
 

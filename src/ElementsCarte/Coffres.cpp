@@ -20,6 +20,7 @@
 #include <tinyxml2.h>
 
 #include "tools/timeManager.h"
+#include "tools/math.h"
 #include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 #include "gui/style.h"

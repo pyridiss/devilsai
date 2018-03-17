@@ -21,6 +21,8 @@
 
 #include <cmath>
 
+#include "tools/math.h"
+
 #include "../Bibliotheque/Bibliotheque.h"
 #include "ElementsCarte.h"
 

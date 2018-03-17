@@ -23,12 +23,7 @@
 #include <vector>
 #include <string>
 
-#include <SFML/System/Utf.hpp>
-
-#include "tools/debug.h"
-
 using namespace std;
-using namespace sf;
 
 namespace textManager{
 

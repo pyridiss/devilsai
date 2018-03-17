@@ -21,6 +21,7 @@
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
 #include "tools/signals.h"
+#include "tools/math.h"
 #include "textManager/textManager.h"
 
 #include "gui/window.h"
@@ -42,6 +43,7 @@
 #include "devilsai-gui/console.h"
 #include "devilsai-gui/storageBox.h"
 
+#include "devilsai-resources/quests.h"
 #include "gamedata.h"
 #include "options.h"
 

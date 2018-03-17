@@ -17,6 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "gui/style.h"
+
+#include "textManager/textManager.h"
+#include "textManager/plainText.h"
 #include "textManager/richText.h"
 
 namespace textManager{

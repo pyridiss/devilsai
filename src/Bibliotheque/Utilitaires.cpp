@@ -19,23 +19,16 @@
 
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <cmath>
 #include <string>
 
-#include <SFML/Graphics.hpp>
-
-#include "tools/signals.h"
-#include "tools/timeManager.h"
 #include "tools/math.h"
 
-#include "Bibliotheque.h"
 #include "Constantes.h"
 #include "Jeu/options.h"
 
 #define PI 3.1415926
 
-extern RenderWindow App;
 
 double ToSegment(double x, int min, int max)
 {

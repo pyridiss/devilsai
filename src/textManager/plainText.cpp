@@ -19,7 +19,13 @@
 
 #include <sstream>
 
+#include <SFML/System/Utf.hpp>
+
+#include "tools/debug.h"
+
 #include "textManager/plainText.h"
+
+using namespace sf;
 
 namespace textManager{
 

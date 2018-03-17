@@ -27,7 +27,9 @@
 #include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "tools/filesystem.h"
+#include "tools/math.h"
 #include "textManager/richText.h"
+#include "textManager/textManager.h"
 #include "musicManager/musicManager.h"
 
 #include "../Carte/Carte.h"

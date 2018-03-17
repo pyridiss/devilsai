@@ -29,6 +29,7 @@
 #include "tools/aStar.h"
 #include "imageManager/imageManager.h"
 #include "textManager/richText.h"
+#include "textManager/textManager.h"
 
 #include "Jeu/options.h"
 #include "gamedata.h"

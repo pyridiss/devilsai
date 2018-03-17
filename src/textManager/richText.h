@@ -22,18 +22,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "tools/debug.h"
-
-#include "gui/style.h"
-
-#include "textManager/plainText.h"
-#include "textManager/textManager.h"
-
-
 using namespace std;
 using namespace sf;
 
 namespace textManager{
+
+class PlainText;
 
 class RichText
 {

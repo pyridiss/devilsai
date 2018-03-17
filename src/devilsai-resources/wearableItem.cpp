@@ -19,8 +19,12 @@
 
 #include <lua.hpp>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "gui/style.h"
+#include "textManager/plainText.h"
 #include "textManager/richText.h"
+#include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
 #include "devilsai-resources/stats.h"

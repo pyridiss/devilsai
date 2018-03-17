@@ -30,6 +30,7 @@
 
 #include "tools/signals.h"
 #include "tools/variant.h"
+#include "textManager/plainText.h"
 #include "textManager/richText.h"
 
 #include "gui/style.h"

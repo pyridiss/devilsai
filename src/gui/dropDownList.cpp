@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "textManager/textManager.h"
 #include "gui/dropDownList.h"
 #include "gui/window.h"
 #include "gui/style.h"
