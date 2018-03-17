@@ -57,6 +57,8 @@
             <images angle="270" pathToImages="101/0/%%.png"/>
             <images angle="315" pathToImages="101/4/%%.png"/>
             <script>
+                name = "skill-sword-handling"
+
                 function atBegin(owner)
                     math.randomseed(os.time())
                     addSound("Sword_1")
@@ -138,6 +140,8 @@
             <images angle="270" pathToImages="charge-part2/0/%%.png"/>
             <images angle="315" pathToImages="charge-part2/4/%%.png"/>
             <script>
+                name = "skill-charge-part2"
+
                 function atBegin(owner)
                 end
 

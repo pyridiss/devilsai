@@ -208,6 +208,34 @@ void Skill::loadScript()
         return 0;
     });
 
+    //Check if the file is well-formed
+
+    bool fileComplete = true;
+
+    auto check = [&](const char* f)
+    {
+        lua_getglobal(script, f);
+        if (lua_isnil(script, -1))
+        {
+            tools::debug::error("The skill '" + Id + "' does not define the symbol '" + string(f) + "'", "lua", __FILENAME__, __LINE__);
+            fileComplete = false;
+        }
+        lua_pop(script, 1);
+    };
+
+    check("name");
+    check("atBegin");
+    check("atEnd");
+    check("getNeededEnergy");
+    check("getDegats");
+    check("getAmplitude");
+
+    if (!fileComplete)
+    {
+        lua_close(script);
+        return;
+    }
+
     lua_register(script, "addSound", LUA_addSound);
     lua_register(script, "cout", LUA_cout);
     lua_register(script, "createIndividual", LUA_createIndividual);
