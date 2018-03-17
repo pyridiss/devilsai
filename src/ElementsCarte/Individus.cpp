@@ -485,9 +485,7 @@ Skill* Individu::createSkill(string skillName)
     if (_skills == nullptr)
         _skills = new MapActivites;
 
-    auto result = _skills->try_emplace(skillName);
-    result.first->second.Id = skillName;
-
+    auto result = _skills->try_emplace(skillName, skillName);
     return &(result.first->second);
 }
 

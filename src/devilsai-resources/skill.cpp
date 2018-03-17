@@ -32,8 +32,8 @@
 
 using namespace tinyxml2;
 
-Skill::Skill()
-  : Id(),
+Skill::Skill(string id)
+  : Id(std::move(id)),
     interactionField(),
     Animation(),
     scriptString(),
@@ -58,7 +58,8 @@ Skill::Skill(const Skill& other)
     speedImprover(other.speedImprover),
     script(nullptr)
 {
-    loadScript();
+    if (!scriptString.empty())
+        loadScript();
 }
 
 Skill& Skill::operator=(const Skill& right)
@@ -73,8 +74,8 @@ Skill& Skill::operator=(const Skill& right)
     step = right.step;
     speedImprover = right.speedImprover;
 
-    loadScript();
-
+    if (!scriptString.empty())
+        loadScript();
     return *this;
 }
 
@@ -202,6 +203,9 @@ void Skill::loadScript()
     script = luaL_newstate();
     luaL_openlibs(script);
 
+    luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
+    lua_pcall(script, 0, 0, 0);
+
     lua_atpanic(script, [](lua_State* S)
     {
         tools::debug::error(lua_tostring(S, -1), "lua", __FILENAME__, __LINE__);
@@ -233,6 +237,7 @@ void Skill::loadScript()
     if (!fileComplete)
     {
         lua_close(script);
+        script = nullptr;
         return;
     }
 
@@ -248,9 +253,6 @@ void Skill::loadScript()
     lua_register(script, "isIndividu", LUA_isIndividu);
     lua_register(script, "playSound", LUA_playSound);
     lua_register(script, "useObject", LUA_useObject);
-
-    luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
-    lua_pcall(script, 0, 0, 0);
 }
 
 double Skill::damage()

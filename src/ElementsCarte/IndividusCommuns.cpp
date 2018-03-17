@@ -50,12 +50,8 @@ Classe_Commune::~Classe_Commune()
 
 Skill* Classe_Commune::Ajouter_Activite(string Id)
 {
-	Skill act;
-    _skills.insert(MapActivites::value_type(Id, act));
-    MapActivites::iterator i = _skills.find(Id);
-	i->second.Id = Id;
-
-    return &i->second;
+    auto s = _skills.try_emplace(Id, Id);
+    return &(s.first->second);
 }
 
 void Classe_Commune::Copie_Element(Individu *elem)

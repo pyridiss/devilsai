@@ -56,7 +56,7 @@ class Skill
         lua_State* script;
 
     public:
-        Skill();
+        Skill(string id);
         Skill(const Skill& other);
         Skill& operator=(const Skill& right);
         ~Skill();
