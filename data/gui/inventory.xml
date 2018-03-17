@@ -7,27 +7,27 @@
     <properties x="0" y="50" width="512" height="668" allBackground="gui-left-screen-background-512x668"/>
     <widget name="equipment-helmet" type="button" OriginCenter="1" x="256" y="77" width="75" height="75" allBackground="gui-object-background-75x75">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="casque"/>
+        <addEmbeddedData name="allowed-object" value="equipment-helmet"/>
     </widget>
     <widget name="equipment-weapon" type="button" OriginCenter="1" x="171" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="arme"/>
+        <addEmbeddedData name="allowed-object" value="equipment-weapon"/>
     </widget>
     <widget name="equipment-armor" type="button" OriginCenter="1" x="256" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="armure"/>
+        <addEmbeddedData name="allowed-object" value="equipment-armor"/>
     </widget>
     <widget name="equipment-shield" type="button" OriginCenter="1" x="341" y="175" width="75" height="100" allBackground="gui-object-background-75x100">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="bouclier"/>
+        <addEmbeddedData name="allowed-object" value="equipment-shield"/>
     </widget>
     <widget name="equipment-boots" type="button" OriginCenter="1" x="256" y="285" width="75" height="100" allBackground="gui-object-background-75x100">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="bottes"/>
+        <addEmbeddedData name="allowed-object" value="equipment-boots"/>
     </widget>
     <widget name="equipment-ring" type="button" OriginCenter="1" x="341" y="260" width="50" height="50" allBackground="gui-object-background-50x50">
         <addEmbeddedData name="image-container" value="objects"/>
-        <addEmbeddedData name="allowed-object" value="bague"/>
+        <addEmbeddedData name="allowed-object" value="equipment-ring"/>
     </widget>
     <widget name="equipment-weapon-improver" type="button" OriginCenter="1" x="159" y="200" width="50" height="50">
         <addEmbeddedData name="image-container" value="objectsIcons"/>
