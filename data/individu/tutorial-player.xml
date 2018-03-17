@@ -104,6 +104,8 @@
             <images angle="270" pathToImages="301/0/%%.png"/>
             <images angle="315" pathToImages="301/4/%%.png"/>
             <script>
+                name = "skill-fireball"
+
                 function atBegin(owner)
                     addSound("Fireball")
                 end
@@ -120,6 +122,18 @@
                         playSound("Fireball")
                     end
                 end
+
+                function getNeededEnergy(owner)
+                    return 0
+                end
+
+                function getDegats()
+                    return 0
+                end
+
+                function getAmplitude()
+                    return 0
+                end
             </script>
         </skill>
         <skill name="use-healpotion" owner="tutorial-player">
@@ -133,11 +147,25 @@
             <images angle="270" pathToImages="2/0/%%.png"/>
             <images angle="315" pathToImages="2/4/%%.png"/>
             <script>
+                name = "use-healpotion"
+
                 function atBegin(owner)
                 end
 
                 function atEnd(owner)
                     useObject(owner, "healpotion")
+                end
+
+                function getNeededEnergy(owner)
+                    return 0
+                end
+
+                function getDegats()
+                    return 0
+                end
+
+                function getAmplitude()
+                    return 0
                 end
             </script>
         </skill>
@@ -159,11 +187,25 @@
             <properties priority="0" speed="100" step="0" fightAtEnd="1" numberOfImages="1"/>
             <images angle="0" imageFile="img/10010000.png"/>
             <script>
+                name = "attack"
+
                 function atBegin(owner)
                 end
 
                 function atEnd(owner)
                     individual_set(owner, "life", 0)
+                end
+
+                function getNeededEnergy(owner)
+                    return 0
+                end
+
+                function getDegats()
+                    return 0
+                end
+
+                function getAmplitude()
+                    return 0
                 end
             </script>
         </skill>
