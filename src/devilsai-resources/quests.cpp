@@ -163,7 +163,7 @@ void addQuest(string newQuest, string args)
 	lua_pushstring(L, args.c_str());
 	lua_call(L, 1, 0);
 
-    Quests.insert(map<string, lua_State*>::value_type(newQuest, L));
+    Quests.emplace(newQuest, L);
 }
 
 void manageQuests()
