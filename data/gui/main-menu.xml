@@ -73,7 +73,8 @@
 
     <subwindow name="loading">
         <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
-        <widget name="loading-text" type="text" OriginCenter="1" PositionRelativeToCenter="1" allText="loading-text"/>
+        <widget name="loading-text" type="text" y="-50" OriginCenter="1" PositionRelativeToCenter="1" allText="loading-text"/>
+        <widget name="progress" type="progress-bar" y="50" OriginCenter="1" PositionRelativeToCenter="1" width="350" height="20"/>
     </subwindow>
 
     <!-- Triggers -->
