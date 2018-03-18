@@ -136,6 +136,7 @@ class Window : public Widget
 
         Widget* _focusedWidget;
 
+    public:
         string music;
 
     public:

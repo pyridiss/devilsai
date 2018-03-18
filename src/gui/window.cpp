@@ -465,7 +465,10 @@ void Window::loadFromXML(XMLElement *elem)
             loadFromXMLElement(elem);
 
             if (elem->Attribute("music"))
+            {
                 music = elem->Attribute("music");
+                musicManager::addMusic(music);
+            }
         }
 
         if (elemName == "widget")

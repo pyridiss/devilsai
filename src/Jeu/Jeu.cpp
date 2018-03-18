@@ -128,6 +128,8 @@ void mainLoop(RenderWindow& app)
         }
     };
 
+    musicManager::playMusic(mainMenuWindow.music);
+
 	while (true)
 	{
         //1. Events & Signals
@@ -236,6 +238,7 @@ void mainLoop(RenderWindow& app)
             {
                 inGame = false;
                 managementActivated = false;
+                musicManager::playMusic(mainMenuWindow.music);
             }
             if (signal.first == "pause-game") {
                 managementActivated = false;
