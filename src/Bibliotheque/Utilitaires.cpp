@@ -18,20 +18,9 @@
 */
 
 #include <sstream>
-#include <cmath>
 #include <string>
 
-#include "tools/math.h"
-
-#include "Jeu/options.h"
-
-#define PI 3.1415926
-
-
-double ToSegment(double x, int min, int max)
-{
-	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
-}
+using namespace std;
 
 string intToString(double number, int size)
 {

@@ -33,7 +33,16 @@
 #include "devilsai-gui/console.h"
 #include "gamedata.h"
 
+#define PI 3.1415926
+
+
 using namespace tinyxml2;
+
+
+double ToSegment(double x, int min, int max)
+{
+	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
+}
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
