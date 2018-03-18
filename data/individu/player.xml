@@ -39,6 +39,34 @@
             <images angle="225" pathToImages="5/5/%%.png"/>
             <images angle="270" pathToImages="5/0/%%.png"/>
             <images angle="315" pathToImages="5/4/%%.png"/>
+            <script>
+                name = "hurt"
+
+                function atBegin(owner)
+                    math.randomseed(os.time())
+                    addSound("player_hurt1")
+                    addSound("player_hurt2")
+                    addSound("player_hurt3")
+                    randomNumber = math.random(1, 3)
+                    playSound("player_hurt" .. randomNumber)
+                end
+
+                function atEnd(owner)
+
+                end
+
+                function getNeededEnergy(owner)
+                    return 0
+                end
+
+                function getDegats()
+                    return 0
+                end
+
+                function getAmplitude()
+                    return 0
+                end
+            </script>
         </skill>
         <skill name="die" owner="player">
             <properties priority="4" speed="6" step="0" numberOfImages="9"/>
