@@ -269,7 +269,7 @@ class Individu : public Element_Carte
         void findPath(const tools::math::Vector2d& destination, int nodesNumber, bool reduceCollisionWithIndividuals);
         bool MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals);
 		virtual void Gestion_Recuperation();
-        bool Set_Activite(string nv);
+        bool Set_Activite(const string& nv);
         bool Set_Activite(Behaviors b);
 		int Collision(Individu *elem, bool apply);
         void otherItemDeleted(Element_Carte* other);
