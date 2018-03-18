@@ -21,7 +21,7 @@
 
 #include "tools/filesystem.h"
 
-#include "../Carte/Carte.h"
+#include "devilsai-resources/Carte.h"
 
 #include "gamedata.h"
 #include "options.h"

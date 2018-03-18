@@ -17,7 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"
 #include "Constantes.h"
@@ -28,6 +27,8 @@
 #include "imageManager/animation.h"
 #include "musicManager/musicManager.h"
 #include "textManager/richText.h"
+
+#include "devilsai-resources/Carte.h"
 
 #include "devilsai-gui/console.h"
 

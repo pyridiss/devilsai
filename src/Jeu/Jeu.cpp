@@ -32,7 +32,6 @@
 #include "musicManager/musicManager.h"
 
 #include "Bibliotheque/Bibliotheque.h"
-#include "../Carte/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
@@ -43,6 +42,7 @@
 #include "devilsai-gui/console.h"
 #include "devilsai-gui/storageBox.h"
 
+#include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
 #include "gamedata.h"
 #include "options.h"

@@ -23,7 +23,7 @@
 #include "tools/math.h"
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Carte/Carte.h"
+#include "devilsai-resources/Carte.h"
 #include "ElementsCarte.h"
 
 #include "gamedata.h"

@@ -35,11 +35,11 @@
 
 #include "devilsai-gui/journal.h"
 
-#include "Carte/Carte.h"
 #include "ElementsCarte/ElementsCarte.h"
 
 #include "Bibliotheque/luaFunctions.h"
 
+#include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
 #include "gamedata.h"
 

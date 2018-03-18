@@ -25,13 +25,12 @@ set(devilsai_SRCS
 	Bibliotheque/Decorations.cpp
 	Bibliotheque/Utilitaires.cpp
 	Bibliotheque/luaFunctions.cpp
-	Carte/Carte.cpp
-	Carte/Carte.h
     devilsai-gui/console.cpp
     devilsai-gui/conversation.cpp
     devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
     devilsai-gui/storageBox.cpp
+    devilsai-resources/Carte.cpp
     devilsai-resources/pack.cpp
     devilsai-resources/quests.cpp
     devilsai-resources/skill.cpp

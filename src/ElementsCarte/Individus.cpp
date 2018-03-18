@@ -21,7 +21,6 @@
 
 #include "../Bibliotheque/Constantes.h"
 #include "../Bibliotheque/Bibliotheque.h"
-#include "Carte/Carte.h"
 #include "ElementsCarte.h"
 
 #include "tools/debug.h"
@@ -31,6 +30,8 @@
 #include "imageManager/imageManager.h"
 #include "textManager/richText.h"
 #include "textManager/textManager.h"
+
+#include "devilsai-resources/Carte.h"
 
 #include "devilsai-gui/console.h"
 

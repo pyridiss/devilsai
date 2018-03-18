@@ -32,7 +32,7 @@
 #include "textManager/textManager.h"
 #include "musicManager/musicManager.h"
 
-#include "../Carte/Carte.h"
+#include "devilsai-resources/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"
 
