@@ -52,7 +52,5 @@ int LUA_playSound(lua_State*);
 int LUA_createIndividual(lua_State* L);
 int LUA_changeCurrentSkill(lua_State* L);
 int LUA_moveItemTo(lua_State* L);
-int LUA_resetTimer(lua_State* L);
-int LUA_getTimeElapsed(lua_State* L);
 
 #endif

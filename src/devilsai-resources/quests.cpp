@@ -24,6 +24,7 @@
 #include "tools/signals.h"
 #include "tools/filesystem.h"
 #include "tools/math.h"
+#include "tools/timeManager.h"
 #include "textManager/textManager.h"
 
 #include "../Bibliotheque/luaFunctions.h"
@@ -127,6 +128,13 @@ void addQuest(string newQuest, string args)
         return 0;
     });
 
+    lua_register(L, "getTimeElapsed", [](lua_State* S)
+    {
+        long old = lua_tonumber(S, 1);
+        lua_pushnumber(S, tools::timeManager::timeElapsed() - old);
+        return 1;
+    });
+
     lua_register(L, "questRunning", [](lua_State* S)
     {
         string quest = lua_tostring(S, 1);
@@ -137,6 +145,12 @@ void addQuest(string newQuest, string args)
             result = true;
 
         lua_pushboolean(S, result);
+        return 1;
+    });
+
+    lua_register(L, "resetTimer", [](lua_State* S)
+    {
+        lua_pushnumber(S, tools::timeManager::timeElapsed());
         return 1;
     });
 
@@ -156,8 +170,6 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "transferObject", LUA_transferObject);
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "set", LUA_set);
-    lua_register(L, "resetTimer", LUA_resetTimer);
-    lua_register(L, "getTimeElapsed", LUA_getTimeElapsed);
 
 	lua_getglobal(L, "questBegin");
 	lua_pushstring(L, args.c_str());
