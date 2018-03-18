@@ -86,16 +86,6 @@ Trigger::Trigger(const Trigger& other)
 {
 }
 
-Trigger& Trigger::operator=(const Trigger& right)
-{
-    Element_Carte::operator=(right);
-    triggerScript = right.triggerScript;
-    data = right.data;
-    script = right.script;
-
-    return *this;
-}
-
 int Trigger::Gestion()
 {
     return ETAT_NORMAL;

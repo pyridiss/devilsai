@@ -41,10 +41,6 @@ Paysage::Paysage()
     size.setOrigin(&position());
 }
 
-Paysage::~Paysage()
-{
-}
-
 int Paysage::Gestion()
 {
     Element_Carte::Gestion();

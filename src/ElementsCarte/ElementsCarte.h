@@ -165,6 +165,11 @@ class Coffre : public Element_Carte
 
 	public:
 		Coffre();
+        Coffre(const Coffre& other) = default;
+        Coffre(Coffre&& other) noexcept = default;
+        Coffre& operator=(const Coffre& right) = delete;
+        Coffre& operator=(Coffre&& right) = delete;
+        ~Coffre() = default;
 
 	//Gestion :
 	public:
@@ -308,7 +313,10 @@ class Joueur : public Individu
 	public:
 		Joueur();
         Joueur(const Joueur& other) = delete;
-        Joueur* operator=(const Joueur& right) = delete;
+        Joueur(Joueur&& right) = delete;
+        Joueur& operator=(const Joueur& right) = delete;
+        Joueur& operator=(Joueur&& right) = delete;
+        ~Joueur() = default;
 
 	public:
 		int Gestion();
@@ -342,7 +350,11 @@ class Paysage : public Element_Carte
 
 	public:
 		Paysage();
-		~Paysage();
+        Paysage(const Paysage& other) = default;
+        Paysage(Paysage&& other) = default;
+        Paysage& operator=(const Paysage& right) = delete;
+        Paysage& operator=(Paysage&& right) = delete;
+        ~Paysage() = default;
 
 	public:
 		int Gestion();
@@ -359,6 +371,11 @@ class CheckPoint : public Element_Carte
 {
     public:
         CheckPoint();
+        CheckPoint(const CheckPoint& other) = default;
+        CheckPoint(CheckPoint&& other) noexcept = default;
+        CheckPoint& operator=(const CheckPoint& right) = delete;
+        CheckPoint& operator=(CheckPoint&& right) = delete;
+        ~CheckPoint() = default;
 
 		int Gestion();
 		int Collision(Individu* elem, bool apply);
@@ -379,7 +396,10 @@ class Trigger : public Element_Carte
 	public:
         Trigger();
         Trigger(const Trigger& other);
-        Trigger& operator=(const Trigger& right);
+        Trigger(Trigger&& other) noexcept = default;
+        Trigger& operator=(const Trigger& right) = delete;
+        Trigger& operator=(Trigger&& right) = delete;
+        ~Trigger() = default;
 
 	public:
 		int Gestion();
