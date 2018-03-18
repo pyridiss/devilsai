@@ -47,8 +47,6 @@ int LUA_cout(lua_State* L)
 
 int LUA_getTargetedItem(lua_State* L)
 {
-    MESSAGE("LUA_getTargetedItem() called", LUA)
-
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
     lua_pushlightuserdata(L, (void*)ind->targetedItem());
@@ -58,8 +56,6 @@ int LUA_getTargetedItem(lua_State* L)
 
 int LUA_isIndividu(lua_State* L)
 {
-    MESSAGE("LUA_isIndividu() called", LUA)
-
 	Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 
 	Individu* ind = dynamic_cast<Individu*>(elem);
@@ -72,8 +68,6 @@ int LUA_isIndividu(lua_State* L)
 
 int LUA_combat(lua_State* L)
 {
-    MESSAGE("LUA_combat() called", LUA)
-
     Element_Carte* a = (Element_Carte*)lua_touserdata(L, 1);
     Element_Carte* b = (Element_Carte*)lua_touserdata(L, 2);
     Individu* indA = dynamic_cast<Individu*>(a);
@@ -90,8 +84,6 @@ int LUA_combat(lua_State* L)
 
 int LUA_set(lua_State* L)
 {
-    MESSAGE("LUA_set() called", LUA)
-
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	string field = lua_tostring(L, 2);
 	double value = lua_tonumber(L, 3);
@@ -114,8 +106,6 @@ int LUA_set(lua_State* L)
 
 int LUA_get(lua_State* L)
 {
-    MESSAGE("LUA_get() called", LUA)
-
     double result = 0;
 
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
@@ -147,8 +137,6 @@ int LUA_get(lua_State* L)
 
 int LUA_individual_copy(lua_State* L)
 {
-    MESSAGE("LUA_individual_copy() called", LUA)
-
     Individu* i1 = (Individu*)lua_touserdata(L, 1);
     Individu* i2 = (Individu*)lua_touserdata(L, 2);
     string field = lua_tostring(L, 3);
@@ -161,8 +149,6 @@ int LUA_individual_copy(lua_State* L)
 
 int LUA_useObject(lua_State* L)
 {
-    MESSAGE("LUA_useObject() called", LUA)
-
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
 
@@ -201,8 +187,6 @@ int LUA_addTooltip(lua_State* L)
 
 int LUA_getQuantityOf(lua_State* L)
 {
-    MESSAGE("LUA_getQuantityOf() called", LUA)
-
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
 	int result = 0;
@@ -239,8 +223,6 @@ int LUA_getNumberOfItemsByTag(lua_State* L)
 
 int LUA_getElement(lua_State* L)
 {
-    MESSAGE("LUA_getElement() called", LUA)
-
     Individu* ind = gamedata::findIndividuUnique(lua_tostring(L, 1));
 	//A quest can ask for an element already dead (KillStolas for example)
 //	if (ind == NULL) Erreur("Un élément non chargé ou non Individu_Unique a été demandé", "");
@@ -251,8 +233,6 @@ int LUA_getElement(lua_State* L)
 
 int LUA_pushDialog(lua_State* L)
 {
-    MESSAGE("LUA_pushDialog() called", LUA)
-
     string container = lua_tostring(L, 1);
     string newDialog = lua_tostring(L, 2);
     textManager::PlainText plain = textManager::getText(container, newDialog);
@@ -268,16 +248,12 @@ int LUA_pushDialog(lua_State* L)
 
 int LUA_dialogDisplayed(lua_State* L)
 {
-    MESSAGE("LUA_dialogDisplayed() called", LUA)
-
     lua_pushboolean(L, gamedata::listDialogs().empty());
 	return 1;
 }
 
 int LUA_interact(lua_State* L)
 {
-    MESSAGE("LUA_interact() called", LUA)
-
     Individu* individual = (Individu*)lua_touserdata(L, 1);
     Element_Carte* element = (Element_Carte*)lua_touserdata(L, 2);
 
@@ -314,24 +290,18 @@ int LUA_loadWorld(lua_State* L)
 
 int LUA_deleteList(lua_State* L)
 {
-    MESSAGE("LUA_deleteList() called", LUA)
-
 	gamedata::currentWorld()->SupprimerListe(lua_tostring(L, 1));
 	return 0;
 }
 
 int LUA_I(lua_State* L)
 {
-    MESSAGE("LUA_I() called", LUA)
-
 	lua_pushnumber(L, tools::timeManager::I(1./60.));
 	return 1;
 }
 
 int LUA_addCheckPoint(lua_State* L)
 {
-    MESSAGE("LUA_addCheckPoint() called", LUA)
-
     string world = lua_tostring(L, 1);
     int x = lua_tonumber(L, 2);
     int y = lua_tonumber(L, 3);
@@ -355,8 +325,6 @@ int LUA_addCheckPoint(lua_State* L)
 
 int LUA_deleteElement(lua_State* L)
 {
-    MESSAGE("LUA_deleteElement() called", LUA)
-
     Element_Carte* elem = (Element_Carte*)lua_touserdata(L, 1);
 	gamedata::currentWorld()->SupprimerElement(elem);
 	return 0;
@@ -364,8 +332,6 @@ int LUA_deleteElement(lua_State* L)
 
 int LUA_setActivity(lua_State* L)
 {
-    MESSAGE("LUA_setActivity() called", LUA)
-
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
 	if (ind != NULL) ind->Set_Activite(lua_tostring(L, 2));
@@ -375,8 +341,6 @@ int LUA_setActivity(lua_State* L)
 
 int LUA_possess(lua_State* L)
 {
-    MESSAGE("LUA_possess() called", LUA)
-
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 
     string_view object = lua_tostring(L, 2);
@@ -397,8 +361,6 @@ int LUA_possess(lua_State* L)
 
 int LUA_transferObject(lua_State* L)
 {
-    MESSAGE("LUA_transferObject() called", LUA)
-
     Individu* indA = static_cast<Individu*>(lua_touserdata(L, 1));
     Individu* indB = static_cast<Individu*>(lua_touserdata(L, 2));
 
@@ -441,8 +403,6 @@ int LUA_transferObject(lua_State* L)
 
 int LUA_addSound(lua_State* L)
 {
-    MESSAGE("LUA_addSound() called", LUA)
-
 	string sound = lua_tostring(L, 1);
     musicManager::addSound(sound);
 	return 0;
@@ -450,8 +410,6 @@ int LUA_addSound(lua_State* L)
 
 int LUA_playSound(lua_State* L)
 {
-    MESSAGE("LUA_playSound() called", LUA)
-
 	string sound = lua_tostring(L, 1);
     musicManager::playSound(sound);
 	return 0;
@@ -459,8 +417,6 @@ int LUA_playSound(lua_State* L)
 
 int LUA_createIndividual(lua_State* L)
 {
-    MESSAGE("LUA_createIndividual() called", LUA)
-
     string type = lua_tostring(L, 1);
     double x = lua_tonumber(L, 2);
     double y = lua_tonumber(L, 3);

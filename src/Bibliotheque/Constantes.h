@@ -24,22 +24,6 @@ using namespace std;
 
 /** CONSTANTES RELATIVES AU JEU **/
 
-//Constantes de débogage
-#define DEBOGAGE 1
-
-#define FICHIER	1
-#define IMAGE	2
-#define LISTE	3
-#define LUA		4
-#define MUSIC	5
-
-//Macro for Verbose mode
-#ifdef DEBOGAGE
-  #define MESSAGE(a, b) Verbose(a, b);
-#else
-  #define MESSAGE(a, b) ;
-#endif
-
 //Value used to say "not found"
 #define MAX_VALUE 2147483647
 

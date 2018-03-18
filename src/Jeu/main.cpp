@@ -55,7 +55,6 @@ void GestionArguments(int n, char *params[])
 
 	for (int i = 0 ; i < n ; ++i)
 	{
-		#ifdef DEBOGAGE
 		if (strcmp(params[i], "-v") == 0 || strcmp(params[i], "--verbose") == 0)
 		{
             options::addOption<bool>(tools::math::sdbm_hash("verbose"), true);
@@ -94,7 +93,6 @@ void GestionArguments(int n, char *params[])
 		{
             options::addOption<bool>(tools::math::sdbm_hash("displayShapes"), true);
 		}
-		#endif
 	}
 }
 
@@ -123,10 +121,6 @@ void createWindow()
 /** DÉBUT DU PROGRAMME **/
 int main(int n, char *params[])
 {
-	#ifdef DEBOGAGE
-	cout << "Compilé avec DEBOGAGE activé" << endl;
-	#endif
-
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath());
 
     tools::debug::openDebugFile("devilsai", VERSION);
@@ -148,7 +142,6 @@ int main(int n, char *params[])
     gui::style::initStyle(&App);
 
 	Load_Decorations();
-	MESSAGE("Décorations chargées", FICHIER)
 
     imageManager::addContainer("individuals");
     imageManager::addContainer("movingObjects");

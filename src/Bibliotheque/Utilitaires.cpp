@@ -17,14 +17,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
 #include <sstream>
 #include <cmath>
 #include <string>
 
 #include "tools/math.h"
 
-#include "Constantes.h"
 #include "Jeu/options.h"
 
 #define PI 3.1415926
@@ -34,37 +32,6 @@ double ToSegment(double x, int min, int max)
 {
 	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
 }
-
-#ifdef DEBOGAGE
-void Verbose(const string &Message, const short &Type)
-{
-    if(!options::option<bool>(tools::math::sdbm_hash("verbose"))) return;
-
-	switch (Type)
-	{
-        case FICHIER :
-            if (!options::option<bool>(tools::math::sdbm_hash("verbose-files"))) return;
-            cout << "VERB.FICH : " << Message << endl;
-            break;
-        case IMAGE :
-            if (!options::option<bool>(tools::math::sdbm_hash("verbose-images"))) return;
-            cout << "VERB.IMG  : " << Message << endl;
-            break;
-        case LISTE :
-            if (!options::option<bool>(tools::math::sdbm_hash("verbose-lists"))) return;
-            cout << "VERB.LIST : " << Message << endl;
-            break;
-        case LUA :
-            if (!options::option<bool>(tools::math::sdbm_hash("verbose-lua"))) return;
-            cout << "VERB.LUA  : " << Message << endl;
-            break;
-        case MUSIC :
-            if (!options::option<bool>(tools::math::sdbm_hash("verbose-musics"))) return;
-            cout << "VERB.MUSIC  : " << Message << endl;
-            break;
-	}
-}
-#endif
 
 string intToString(double number, int size)
 {
