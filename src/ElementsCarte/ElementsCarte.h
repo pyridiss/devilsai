@@ -127,7 +127,11 @@ class Element_Carte
 	//Constructeurs / Destructeurs :
 	public:
 		Element_Carte();
-		virtual ~Element_Carte();
+        Element_Carte(const Element_Carte& other);
+        Element_Carte(Element_Carte&& other) noexcept;
+        Element_Carte& operator=(const Element_Carte& right) = delete;
+        Element_Carte& operator=(Element_Carte&& right) = delete;
+        virtual ~Element_Carte() = default;
 
 	//Getter :
 	public:

@@ -38,7 +38,32 @@ Element_Carte::Element_Carte()
     size.setOrigin(&_position);
 }
 
-Element_Carte::~Element_Carte()
+Element_Carte::Element_Carte(const Element_Carte& other)
+  : Id(tools::math::newUniqueIdentifier()),
+    Type(other.Type),
+    Liste(other.Liste),
+    Diplomatie(other.Diplomatie),
+    lifetime(other.lifetime),
+    _position(other._position),
+    size(other.size),
+    inert(other.inert),
+    ignoreCollision(other.ignoreCollision),
+    TypeClassement(other.TypeClassement)
+{
+    size.setOrigin(&_position);
+}
+
+Element_Carte::Element_Carte(Element_Carte&& other) noexcept
+  : Id(other.Id),
+    Type(std::move(other.Type)),
+    Liste(std::move(other.Liste)),
+    Diplomatie(other.Diplomatie),
+    lifetime(other.lifetime),
+    _position(std::move(other._position)),
+    size(std::move(other.size)),
+    inert(other.inert),
+    ignoreCollision(other.ignoreCollision),
+    TypeClassement(other.TypeClassement)
 {
 }
 
