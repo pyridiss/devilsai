@@ -110,7 +110,7 @@ Individu::Individu(const Individu& other)
     }
     if (other._skills != nullptr)
     {
-        _skills = new MapActivites;
+        _skills = new unordered_map<string, Skill>;
         *_skills = *(other._skills);
     }
     if (other._displayedName != nullptr)
@@ -166,7 +166,7 @@ Individu& Individu::operator=(const Individu& right)
 
     if (right._skills != nullptr)
     {
-        _skills = new MapActivites;
+        _skills = new unordered_map<string, Skill>;
         *_skills = *(right._skills);
     }
     else _skills = nullptr;
@@ -277,19 +277,6 @@ vector<string>& Individu::attacks()
     return *_attacks;
 }
 
-MapActivites& Individu::skills()
-{
-    if (_skills != nullptr)
-        return *_skills;
-
-    if (_species != nullptr)
-        return _species->_skills;
-
-    //In case there is no custom skills nor species...
-   _skills = new MapActivites;
-    return *_skills;
-}
-
 string& Individu::corpseImageKey()
 {
     if (_corpseImageKey != nullptr)
@@ -339,9 +326,19 @@ Stats& Individu::attributes()
 
 Skill* Individu::skill(const string& s)
 {
-    auto i = skills().find(s);
-    if (i == skills().end()) return nullptr;
-    return &i->second;
+    if (_skills != nullptr)
+    {
+        auto i = _skills->find(s);
+        if (i != _skills->end()) return &i->second;
+    }
+
+    if (_species != nullptr)
+    {
+        auto i = _species->_skills.find(s);
+        if (i != _species->_skills.end()) return &i->second;
+    }
+
+    return nullptr;
 }
 
 const textManager::PlainText& Individu::displayedName()
@@ -483,7 +480,7 @@ Classe_Commune* Individu::species()
 Skill* Individu::createSkill(string skillName)
 {
     if (_skills == nullptr)
-        _skills = new MapActivites;
+        _skills = new unordered_map<string, Skill>;
 
     auto result = _skills->try_emplace(skillName, skillName);
     return &(result.first->second);

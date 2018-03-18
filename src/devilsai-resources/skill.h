@@ -35,10 +35,7 @@ namespace tinyxml2 {
     class XMLHandle;
 }
 
-class Skill;
 class Individu;
-
-typedef map < string, Skill > MapActivites;
 
 class Skill
 {

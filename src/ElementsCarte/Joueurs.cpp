@@ -96,7 +96,7 @@ void Joueur::Gestion_Statistiques()
 	}
 
     //Update interactionField of skills
-    for (auto& s : skills())
+    if (_skills != nullptr) for (auto& s : *_skills)
     {
         s.second.interactionField.updateDirection(angle);
     }

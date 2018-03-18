@@ -19,6 +19,7 @@
 
 #include <list>
 #include <unordered_map>
+#include <fstream>
 
 #include <tinyxml2.h>
 

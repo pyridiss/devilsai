@@ -21,7 +21,7 @@
 #define header_elementscarte
 
 #include <string>
-#include <fstream>
+#include <unordered_map>
 
 #include <SFML/System.hpp>
 
@@ -86,7 +86,7 @@ class Classe_Commune
     public:
         string corpseImageKey = "";
 
-        MapActivites _skills;
+        unordered_map<string, Skill> _skills;
 
 	public:
 		Classe_Commune();
@@ -206,7 +206,7 @@ class Individu : public Element_Carte
         Stats _attributes;
         string* _behaviors;
         vector<string>* _attacks;
-        MapActivites* _skills;
+        unordered_map<string, Skill>* _skills;
         Classe_Commune* _species;
         textManager::PlainText* _displayedName;
         string* _corpseImageKey;
@@ -239,7 +239,6 @@ class Individu : public Element_Carte
         string& behavior(Behaviors b);
         vector<string>& attacks();
         void createCustomBehaviors();
-        MapActivites& skills();
         string& corpseImageKey();
         void createCorpse();
 

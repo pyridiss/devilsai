@@ -76,6 +76,7 @@ Skill& Skill::operator=(const Skill& right)
 
     if (!scriptString.empty())
         loadScript();
+
     return *this;
 }
 
