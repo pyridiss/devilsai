@@ -27,7 +27,7 @@
 
 #include "gamedata.h"
 
-void Combat(Individu *Attaquant, Individu *Blesse, string skill)
+void Individu::fight(Individu *enemy, string skillName)
 {
 	/*
 		0. Echec ou succès ? (Agilite + Vitalite)
@@ -36,27 +36,27 @@ void Combat(Individu *Attaquant, Individu *Blesse, string skill)
 		3. Résistance (Toutes les résistances + Vitalite)
 	*/
 
-	if (Attaquant == NULL || Blesse == NULL)
+    if (enemy == nullptr)
 	{
-        tools::debug::warning("The function Combat() has been called with a nullptr", "", __FILENAME__, __LINE__);
+        tools::debug::warning("The function fight() has been called with a nullptr", "", __FILENAME__, __LINE__);
 		return;
 	}
 
 	// On empêche (pour le moment) d'attaquer les alliés
-	if (Attaquant->Diplomatie == Blesse->Diplomatie) return;
+    if (Diplomatie == enemy->Diplomatie) return;
 
     //Force the updating of attributes
-    Attaquant->currentHealthStatus(Strength, true);
-    Blesse->currentHealthStatus(Strength, true);
+    currentHealthStatus(Strength, true);
+    enemy->currentHealthStatus(Strength, true);
 
-    double Att_Agilite = Attaquant->currentHealthStatus(Agility);
-    double Att_Intelli = Attaquant->currentHealthStatus(Intellect);
-    double Att_Puissance = Attaquant->currentHealthStatus(Power);
+    double Att_Agilite = currentHealthStatus(Agility);
+    double Att_Intelli = currentHealthStatus(Intellect);
+    double Att_Puissance = currentHealthStatus(Power);
 	if (Att_Agilite == 0) Att_Agilite = 1;
 	if (Att_Intelli == 0) Att_Intelli = 1;
 	if (Att_Puissance == 0) Att_Puissance = 1;
 
-    double TauxReussite = (1.0 + (Att_Agilite - Blesse->currentHealthStatus(Agility))/Att_Agilite) * 50.0;
+    double TauxReussite = (1.0 + (Att_Agilite - enemy->currentHealthStatus(Agility))/Att_Agilite) * 50.0;
 	if (TauxReussite > 95) TauxReussite = 95;
 	if (TauxReussite < 5) TauxReussite = 5;
 
@@ -64,86 +64,86 @@ void Combat(Individu *Attaquant, Individu *Blesse, string skill)
 
 	if (Succes)
 	{
-        double Degats = Attaquant->currentHealthStatus(Strength);
-        if (!skill.empty())
+        double Degats = currentHealthStatus(Strength);
+        if (!skillName.empty())
         {
-            double d = Attaquant->skill(skill)->damage();
-            double a = Attaquant->skill(skill)->amplitude();
+            double d = skill(skillName)->damage();
+            double a = skill(skillName)->amplitude();
             Degats += d - a + rand()%(2*int(a));
         }
 
-        double TauxEsquive = (1.0 + (Blesse->currentHealthStatus(Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
+        double TauxEsquive = (1.0 + (enemy->currentHealthStatus(Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
 		bool Esquive = (rand()%100 < TauxEsquive) ? true : false;
 
 		if (Esquive)
 		{
 			Degats = 0;
-			if (Blesse == gamedata::player())
+            if (enemy == gamedata::player())
 			{
-				gamedata::player()->CoupEsquive(Attaquant);
+				gamedata::player()->CoupEsquive(this);
                 addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
 			}
 		}
 		else
 		{
-            double TauxCritique = (1 + (Att_Intelli - Blesse->currentHealthStatus(Charisma))/Att_Intelli) * 10.0;
+            double TauxCritique = (1 + (Att_Intelli - enemy->currentHealthStatus(Charisma))/Att_Intelli) * 10.0;
 			bool Critique = (rand()%100 < TauxCritique) ? true : false;
 			if (Critique)
 			{
 				Degats *= 1.5;
-                Attaquant->modifyHealthStatus(Energy, -10);
-                Blesse->modifyHealthStatus(Healing, -30);
-				if (Attaquant->Id == gamedata::player()->Id)
+                modifyHealthStatus(Energy, -10);
+                enemy->modifyHealthStatus(Healing, -30);
+                if (Id == gamedata::player()->Id)
 				{
-					gamedata::player()->CoupCritique(Blesse);
+					gamedata::player()->CoupCritique(enemy);
                     addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
 				}
-				if (Blesse->Id == gamedata::player()->Id)
+                if (enemy->Id == gamedata::player()->Id)
 				{
-					gamedata::player()->BlessureGrave(Blesse);
+					gamedata::player()->BlessureGrave(enemy);
 				}
 			}
 
-            Degats *= (1 + (Att_Puissance - Blesse->currentHealthStatus(Constitution))/Att_Puissance)/2.0;
+            Degats *= (1 + (Att_Puissance - enemy->currentHealthStatus(Constitution))/Att_Puissance)/2.0;
 			if (Degats < 5) Degats = 5;
 		}
 
-        Blesse->modifyHealthStatus(Life, -Degats);
-        Blesse->modifyHealthStatus(Healing, -3-Degats/20);
+        enemy->modifyHealthStatus(Life, -Degats);
+        enemy->modifyHealthStatus(Healing, -3-Degats/20);
 
-        Attaquant->GainExperience(Blesse, Degats);
+        GainExperience(enemy, Degats);
 
         textManager::PlainText resultText = textManager::getText("devilsai", "console-damageDone");
 
         textManager::PlainText a;
-        if (Attaquant->Diplomatie == DIPLOM_ALLIE)
+        if (Diplomatie == DIPLOM_ALLIE)
             a += "@c[128,255,128]";
-        if (Attaquant->Diplomatie == DIPLOM_ENNEMI)
+        if (Diplomatie == DIPLOM_ENNEMI)
             a += "@c[255,128,128]";
-        a += Attaquant->displayedName();
+        a += displayedName();
 
         textManager::PlainText b;
-        if (Blesse->Diplomatie == DIPLOM_ALLIE)
+        if (enemy->Diplomatie == DIPLOM_ALLIE)
             b += "@c[128,255,128]";
-        if (Blesse->Diplomatie == DIPLOM_ENNEMI)
+        if (enemy->Diplomatie == DIPLOM_ENNEMI)
             b += "@c[255,128,128]";
-        b += Blesse->displayedName();
+        b += enemy->displayedName();
 
         resultText.addParameter(a);
         resultText.addParameter((int)Degats);
         resultText.addParameter(b);
 
         addConsoleEntry(resultText);
-		if (Attaquant == gamedata::player())
+        if (this == gamedata::player())
 		{
             gamedata::player()->ApplicationAmeliorations();
 		}
-		if (Blesse == gamedata::player())
+		if (enemy == gamedata::player())
 		{
-            if (gamedata::player()->_currentSkill->Id == Blesse->behavior(Behaviors::Hurt)) gamedata::player()->BlessuresMultiples(Attaquant);
+            if (gamedata::player()->_currentSkill->Id == enemy->behavior(Behaviors::Hurt)) gamedata::player()->BlessuresMultiples(this);
 		}
 
-        if (Degats) Blesse->Set_Activite(Blesse->behavior(Behaviors::Hurt));
+        if (Degats) enemy->Set_Activite(enemy->behavior(Behaviors::Hurt));
 	}
-    else if (Attaquant->Id == gamedata::player()->Id) addConsoleEntry(textManager::getText("devilsai", "ECHEC"));
+    else if (Id == gamedata::player()->Id) addConsoleEntry(textManager::getText("devilsai", "ECHEC"));
 }

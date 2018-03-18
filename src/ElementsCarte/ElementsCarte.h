@@ -271,6 +271,7 @@ class Individu : public Element_Carte
 		virtual void Gestion_Recuperation();
         bool Set_Activite(const string& nv);
         bool Set_Activite(Behaviors b);
+        void fight(Individu *enemy, string skillName = string());
 		int Collision(Individu *elem, bool apply);
         void otherItemDeleted(Element_Carte* other);
         void nextAnimationFrame(bool RaZ = false);
@@ -296,7 +297,6 @@ class Individu : public Element_Carte
         void displayLifeGauge(RenderTarget& target);
 
     friend class Classe_Commune;
-    friend void Combat(Individu *Attaquant, Individu *Blesse, string skill);
 };
 
 class Joueur : public Individu

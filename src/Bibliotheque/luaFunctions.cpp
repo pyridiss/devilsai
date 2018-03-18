@@ -83,7 +83,7 @@ int LUA_combat(lua_State* L)
     string name = lua_tostring(L, -1);
     lua_pop(L, 1);
 
-    Combat(indA, indB, std::move(name));
+    indA->fight(indB, std::move(name));
 
 	return 0;
 }

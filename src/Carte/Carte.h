@@ -112,7 +112,4 @@ class Carte
         vector<pair<Element_Carte*, int>> findAllCollidingItems(Individu* individual, tools::math::Shape& shape, bool apply);
 };
 
-
-void Combat(Individu*, Individu*, string skill = string());
-
 #endif

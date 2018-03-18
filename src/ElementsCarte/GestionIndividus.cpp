@@ -231,7 +231,7 @@ int Individu::Gestion()
 		if (ennemi != NULL)
 		{
             if (tools::math::intersection(_currentSkill->interactionField, ennemi->size))
-				Combat(this, ennemi);
+                fight(ennemi);
             NouveauComportement = Behaviors::Hunting;
 		}
         else NouveauComportement = Behaviors::Random;
