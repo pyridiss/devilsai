@@ -27,7 +27,6 @@ set(devilsai_SRCS
 	Bibliotheque/luaFunctions.cpp
 	Carte/Carte.cpp
 	Carte/Carte.h
-	Carte/Interactions.cpp
     devilsai-gui/console.cpp
     devilsai-gui/conversation.cpp
     devilsai-gui/inventory.cpp
