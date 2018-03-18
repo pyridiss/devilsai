@@ -44,6 +44,12 @@ Pack::Pack(const Pack& other)
     }
 }
 
+Pack::Pack(Pack&& other) noexcept
+  : objects(std::move(other.objects)),
+    designs(std::move(other.designs))
+{
+}
+
 Pack& Pack::operator=(const Pack& right)
 {
     designs = right.designs;
@@ -57,9 +63,12 @@ Pack& Pack::operator=(const Pack& right)
     return *this;
 }
 
-Pack::~Pack()
+Pack& Pack::operator=(Pack&& right) noexcept
 {
-    deleteObjects();
+    objects = std::move(right.objects);
+    designs = std::move(right.designs);
+
+    return *this;
 }
 
 WearableItem& Pack::addObject(string newObject, string key, int qualityRandomObject)
@@ -86,11 +95,6 @@ void Pack::deleteObject(const WearableItem& w)
     }
 }
 
-void Pack::deleteObjects()
-{
-    objects.clear();
-}
-
 WearableItem* Pack::at(const string& slot)
 {
     for (auto& i : objects)
@@ -102,7 +106,7 @@ WearableItem* Pack::at(const string& slot)
 
 void Pack::loadFromXML(XMLElement* elem)
 {
-    deleteObjects();
+    objects.clear();
 
     XMLHandle hdl(elem);
     XMLElement *object = hdl.FirstChildElement().ToElement();

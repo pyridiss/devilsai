@@ -59,14 +59,15 @@ class Pack
     public:
         Pack();
         Pack(const Pack& other);
+        Pack(Pack&& other) noexcept;
         Pack& operator=(const Pack& right);
-        ~Pack();
+        Pack& operator=(Pack&& right) noexcept;
+        ~Pack() = default;
 
     public:
         WearableItem& addObject(string newObject, string key, int qualityRandomObject = 0);
         void createObjectsFromDesigns();
         void deleteObject(const WearableItem& key);
-        void deleteObjects();
 
         /**
          * Returns a pointer to the WearableItem whose current slot is given in parameter.
