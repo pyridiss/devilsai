@@ -50,7 +50,6 @@ set(devilsai_SRCS
 	ElementsCarte/IndividusUniques.cpp
 	ElementsCarte/Joueurs.cpp
 	ElementsCarte/Paysages.cpp
-	ElementsCarte/Projectiles.cpp
 	Jeu/Jeu.cpp
 	Jeu/Jeu.h
 	Jeu/main.cpp
