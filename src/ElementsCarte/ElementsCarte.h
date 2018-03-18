@@ -346,6 +346,8 @@ class Joueur : public Individu
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
+        void Disp_JaugesVie(RenderTarget& target);
+
         textManager::PlainText characterDescription();
 };
 

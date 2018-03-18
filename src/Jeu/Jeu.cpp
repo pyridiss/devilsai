@@ -476,7 +476,7 @@ void mainLoop(RenderWindow& app)
 
         if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
         {
-            Disp_JaugesVie(app);
+            gamedata::player()->Disp_JaugesVie(app);
         }
 
         displayConversation(app);

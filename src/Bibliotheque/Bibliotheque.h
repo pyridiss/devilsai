@@ -30,7 +30,6 @@ using namespace sf;
 
 void Load_Decorations();
 void Supprimer_Decorations();
-void Disp_JaugesVie(RenderTarget& target);
 bool Disp_Repos(RenderTarget& target);
 
 #endif

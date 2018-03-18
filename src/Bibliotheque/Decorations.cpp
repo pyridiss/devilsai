@@ -32,8 +32,6 @@
 
 #include "devilsai-gui/console.h"
 
-#include "gamedata.h"
-
 #include "Jeu/options.h"
 
 
@@ -71,9 +69,9 @@ void Supprimer_Decorations()
 
 /** CONSOLES DU PERSONNAGE **/
 
-void Disp_JaugesVie(RenderTarget& target)
+void Joueur::Disp_JaugesVie(RenderTarget& target)
 {
-    static int PersoEnePrec = gamedata::player()->currentHealthStatus(Energy);
+    static int PersoEnePrec = currentHealthStatus(Energy);
 
     static imageManager::Animation* playerLifeGauge = imageManager::getAnimation("playerLifeGauge");
     static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
@@ -84,24 +82,24 @@ void Disp_JaugesVie(RenderTarget& target)
     textManager::PlainText playerStateText;
 
     playerStateText += "@c[128,255,128]";
-    playerStateText += gamedata::player()->displayedName();
+    playerStateText += displayedName();
     playerStateText += " @d@n[30]"; //Make place for the gauges.
 
 	//1. Jauges de vitalité, d'énergie, de récupération
 
-    playerLifeGauge->setSmoothRectangle(0, 0, gamedata::player()->currentHealthStatus(Life) / 10, 7);
-    playerEnergyGauge->setSmoothRectangle(0, 0, gamedata::player()->currentHealthStatus(Energy) / 10, 7);
+    playerLifeGauge->setSmoothRectangle(0, 0, currentHealthStatus(Life) / 10, 7);
+    playerEnergyGauge->setSmoothRectangle(0, 0, currentHealthStatus(Energy) / 10, 7);
 
-    if (gamedata::player()->currentHealthStatus(Life) < 50) playerLifeGaugeBackground->setFlickering(0.5);
-    else if (gamedata::player()->currentHealthStatus(Life) < 100) playerLifeGaugeBackground->setFlickering(0.25);
+    if (currentHealthStatus(Life) < 50) playerLifeGaugeBackground->setFlickering(0.5);
+    else if (currentHealthStatus(Life) < 100) playerLifeGaugeBackground->setFlickering(0.25);
     else
     {
         playerLifeGaugeBackground->setFlickering(0);
         playerLifeGaugeBackground->setColor(Color(0, 0, 0, 255));
     }
 
-    if (gamedata::player()->currentHealthStatus(Energy) < 50) playerEnergyGaugeBackground->setFlickering(0.5);
-    else if (gamedata::player()->currentHealthStatus(Energy) < 100) playerEnergyGaugeBackground->setFlickering(0.25);
+    if (currentHealthStatus(Energy) < 50) playerEnergyGaugeBackground->setFlickering(0.5);
+    else if (currentHealthStatus(Energy) < 100) playerEnergyGaugeBackground->setFlickering(0.25);
     else
     {
         playerEnergyGaugeBackground->setFlickering(0);
@@ -113,7 +111,7 @@ void Disp_JaugesVie(RenderTarget& target)
     playerEnergyGaugeBackground->display(target, 42, 79, false);
     playerEnergyGauge->display(target, 42, 79, false);
 
-	int Recup = gamedata::player()->currentHealthStatus(Healing);
+    int Recup = currentHealthStatus(Healing);
 
 	if (Recup > 0)
 	{
@@ -127,9 +125,9 @@ void Disp_JaugesVie(RenderTarget& target)
 	}
 
 	//2. État général, fatigue si nécessaire, effet d'une potion
-    int l = gamedata::player()->currentHealthStatus(Life) + Recup * 10;
+    int l = currentHealthStatus(Life) + Recup * 10;
 
-    if (gamedata::player()->currentHealthStatus(Life) == 0)
+    if (currentHealthStatus(Life) == 0)
         playerStateText += textManager::getText("devilsai", "player-health-dead");
     else if (l >= 900)
         playerStateText += textManager::getText("devilsai", "player-health-1");
@@ -142,16 +140,16 @@ void Disp_JaugesVie(RenderTarget& target)
     else
         playerStateText += textManager::getText("devilsai", "player-health-5");
 
-	if (gamedata::player()->currentHealthStatus(Energy) < 140)
+    if (currentHealthStatus(Energy) < 140)
 	{
         if (PersoEnePrec >= 140) addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
         playerStateText += " @n";
         playerStateText += textManager::getText("devilsai", "player-health-tired");
 	}
-	PersoEnePrec = gamedata::player()->currentHealthStatus(Energy);
+    PersoEnePrec = currentHealthStatus(Energy);
 
 	//Effets dûs aux objets temporaires
-    for (auto& i : gamedata::player()->inventory.objects)
+    for (auto& i : inventory.objects)
     {
         if (i.active() && i.temporary())
         {
