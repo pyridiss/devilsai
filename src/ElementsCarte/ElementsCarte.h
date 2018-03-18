@@ -240,7 +240,9 @@ class Individu : public Element_Carte
 	public:
 		Individu();
         Individu(const Individu& other);
-        Individu& operator=(const Individu& right);
+        Individu(Individu&& right) noexcept;
+        Individu& operator=(const Individu& right) = delete;
+        Individu& operator=(Individu&& right) = delete;
         virtual ~Individu();
 
 	//Getters :

@@ -134,84 +134,42 @@ Individu::Individu(const Individu& other)
     validityOfPath.setOrigin(tools::math::absoluteOrigin());
 }
 
-Individu& Individu::operator=(const Individu& right)
+Individu::Individu(Individu&& other) noexcept
+  : Element_Carte(std::move(other)),
+    angle(other.angle),
+    ActEffectue(other.ActEffectue),
+    Temps(other.Temps),
+    Comportement(other.Comportement),
+    NouveauComportement(other.NouveauComportement),
+    _animationFrame(other._animationFrame),
+    _targetedItem(other._targetedItem),
+    _currentSkill(other._currentSkill),
+    _currentHealthStatus(std::move(other._currentHealthStatus)),
+    _attributes(std::move(other._attributes)),
+    _behaviors(other._behaviors),
+    _attacks(other._attacks),
+    _skills(other._skills),
+    _species(other._species),
+    _displayedName(other._displayedName),
+    _corpseImageKey(other._corpseImageKey),
+    _experience(other._experience),
+    _extraDataFile(other._extraDataFile),
+    _clock(std::move(other._clock)),
+    RecuperationFixe(other.RecuperationFixe),
+    EnergieMax(other.EnergieMax),
+    interactionField(std::move(other.interactionField)),
+    viewField(std::move(other.viewField)),
+    seenItems(std::move(other.seenItems)),
+    pathToTarget(std::move(other.pathToTarget)),
+    validityOfPath(std::move(other.validityOfPath)),
+    inventory(std::move(other.inventory))
 {
-    Element_Carte::operator=(right);
-
-    angle = right.angle;
-    ActEffectue = right.ActEffectue;
-    Temps = right.Temps;
-    Comportement = right.Comportement;
-    NouveauComportement = right.NouveauComportement;
-    _animationFrame = right._animationFrame;
-    _targetedItem = right._targetedItem;
-    _currentSkill = right._currentSkill;
-    _currentHealthStatus = right._currentHealthStatus;
-    _attributes = right._attributes;
-
-    if (right._behaviors != nullptr)
-    {
-        _behaviors = new string[Behaviors::enumSize];
-        for (unsigned i = 0 ; i < Behaviors::enumSize ; ++i)
-            _behaviors[i] = right._behaviors[i];
-    }
-    else _behaviors = nullptr;
-
-    if (right._attacks != nullptr)
-    {
-        _attacks = new vector<string>;
-        *_attacks = *(right._attacks);
-    }
-    else _attacks = nullptr;
-
-    if (right._skills != nullptr)
-    {
-        _skills = new unordered_map<string, Skill>;
-        *_skills = *(right._skills);
-    }
-    else _skills = nullptr;
-
-    _species = right._species;
-
-    if (right._displayedName != nullptr)
-    {
-        _displayedName = new textManager::PlainText;
-        *_displayedName = *(right._displayedName);
-    }
-    else _displayedName = nullptr;
-
-    if (right._corpseImageKey != nullptr)
-    {
-        _corpseImageKey = new string;
-        *_corpseImageKey = *(right._corpseImageKey);
-    }
-    else _corpseImageKey = nullptr;
-
-    _experience = right._experience;
-
-    if (right._extraDataFile != nullptr)
-    {
-        _extraDataFile = new string;
-        *_extraDataFile = *(right._extraDataFile);
-    }
-    else _extraDataFile = nullptr;
-
-    _clock = right._clock;
-
-    RecuperationFixe = right.RecuperationFixe;
-    EnergieMax = right.EnergieMax;
-    interactionField = right.interactionField;
-    viewField = right.viewField;
-    seenItems = right.seenItems;
-    pathToTarget = right.pathToTarget;
-    validityOfPath = right.validityOfPath;
-    inventory = right.inventory;
-
-    interactionField.setOrigin(&position());
-    viewField.setOrigin(&position());
-    validityOfPath.setOrigin(tools::math::absoluteOrigin());
-
-    return *this;
+    other._behaviors = nullptr;
+    other._attacks = nullptr;
+    other._skills = nullptr;
+    other._displayedName = nullptr;
+    other._corpseImageKey = nullptr;
+    other._extraDataFile = nullptr;
 }
 
 Individu::~Individu()
