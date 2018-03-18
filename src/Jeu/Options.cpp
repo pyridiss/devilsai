@@ -30,7 +30,6 @@
 #include "tools/math.h"
 #include "textManager/textManager.h"
 
-#include "../Bibliotheque/Bibliotheque.h"
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
@@ -105,7 +104,7 @@ T option(unsigned int hash)
     if (i != _options.end())
         return i->second.get<T>();
 
-    tools::debug::error("This option does not exist: " + intToString(hash), "options", __FILENAME__, __LINE__);
+    tools::debug::error("This option does not exist: " + textManager::toString(hash), "options", __FILENAME__, __LINE__);
     return T();
 }
 
@@ -267,7 +266,7 @@ void createNewSavedGamePack()
 {
     SavedGame s;
 
-    s.directory = intToString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
+    s.directory = textManager::toString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
     s.playerName = gamedata::player()->displayedName();
     s.version = "master";
 
@@ -365,7 +364,7 @@ void initOptionsWindow(gui::Window& window)
     o.set<string>(d);
     window.setValue("options-chooser-language", o);
 
-    d = intToString(option<unsigned>(tools::math::sdbm_hash("screen-width"))) + "x" + intToString(option<unsigned>(tools::math::sdbm_hash("screen-height")));
+    d = textManager::toString(option<unsigned>(tools::math::sdbm_hash("screen-width"))) + "x" + textManager::toString(option<unsigned>(tools::math::sdbm_hash("screen-height")));
     o.set<string>(d);
     window.setValue("options-chooser-resolution", o);
 

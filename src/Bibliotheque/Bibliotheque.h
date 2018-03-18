@@ -20,30 +20,17 @@
 #ifndef header_bibliotheque
 #define header_bibliotheque
 
-#include <string>
-
 namespace sf
 {
     class RenderTarget;
 }
 
-using namespace std;
 using namespace sf;
 
-
-/** DÉCLARATION DES FONCTIONS **/
-
-/* Fonctions définies dans le fichier Decorations.cpp */
 
 void Load_Decorations();
 void Supprimer_Decorations();
 void Disp_JaugesVie(RenderTarget& target);
 bool Disp_Repos(RenderTarget& target);
-
-/* Fonctions définies dans le fichier Utilitaires.cpp */
-
-double ToSegment(double, int, int);
-void Verbose(const string&, const short&);
-string intToString(double, int size = -1);
 
 #endif

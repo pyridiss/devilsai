@@ -20,7 +20,6 @@
 #include <cmath>
 
 #include "../Bibliotheque/Constantes.h"
-#include "../Bibliotheque/Bibliotheque.h"
 #include "ElementsCarte.h"
 
 #include "tools/debug.h"
@@ -339,14 +338,14 @@ void Individu::createCorpse()
     {
         for (auto& i : _species->inventory.objects)
         {
-            corpse->objects.addObject(i.name(), "storagebox" + intToString(key, 2));
+            corpse->objects.addObject(i.name(), "storagebox" + textManager::toString(key, 2));
             ++key;
         }
     }
 
     for (auto& i : inventory.objects)
     {
-        i.setSlot("storagebox" + intToString(key, 2));
+        i.setSlot("storagebox" + textManager::toString(key, 2));
         corpse->objects.objects.push_back(std::move(i));
         ++key;
     }

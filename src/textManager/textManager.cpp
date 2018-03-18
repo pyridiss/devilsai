@@ -112,4 +112,17 @@ int toInt(const string& original)
     return i;
 }
 
+string toString(double n, int stringLength)
+{
+    stringstream out;
+    out.precision(8);
+    if (stringLength != -1)
+    {
+        out.width(stringLength);
+        out.fill('0');
+    }
+    out << n;
+    return out.str();
+}
+
 } //namespace textManager

@@ -23,7 +23,6 @@ set(devilsai_SRCS
 	Bibliotheque/Bibliotheque.h
 	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
-	Bibliotheque/Utilitaires.cpp
 	Bibliotheque/luaFunctions.cpp
     devilsai-gui/console.cpp
     devilsai-gui/conversation.cpp

@@ -22,10 +22,10 @@
 
 #include "tools/debug.h"
 #include "tools/math.h"
+#include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
 #include "../Bibliotheque/luaFunctions.h"
-#include "../Bibliotheque/Bibliotheque.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "devilsai-resources/skill.h"
@@ -170,7 +170,7 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
                 for (unsigned i = 0 ; i < numberOfImages ; ++i)
                 {
                     string path = pathPattern;
-                    string number = intToString(i, 2);
+                    string number = textManager::toString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
                     string key = ownerName + ":" + Id + "/" + path;
                     imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));

@@ -391,11 +391,11 @@ int LUA_transferObject(lua_State* L)
 
     //The item cannot be stacked, we try to find an empty slot
     int key = 1;
-    while (indB->inventory.at("inventory" + intToString(key, 2)) != nullptr)
+    while (indB->inventory.at("inventory" + textManager::toString(key, 2)) != nullptr)
         ++key;
     //TODO: this function may push an item outside the inventory range; fix this
 
-    tmp.setSlot("inventory" + intToString(key, 2));
+    tmp.setSlot("inventory" + textManager::toString(key, 2));
     indB->inventory.objects.push_back(std::move(tmp));
 
     return 0;

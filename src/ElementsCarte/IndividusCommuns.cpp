@@ -19,7 +19,6 @@
 
 #include <tinyxml2.h>
 
-#include "../Bibliotheque/Bibliotheque.h"
 #include "ElementsCarte.h"
 
 #include "textManager/textManager.h"
@@ -78,7 +77,7 @@ void Classe_Commune::Copie_Element(Individu *elem)
     {
         if (rand()%100 < d.probability)
         {
-            elem->inventory.addObject(d.file, "inventory" + intToString(key, 2), d.quality);
+            elem->inventory.addObject(d.file, "inventory" + textManager::toString(key, 2), d.quality);
             ++key;
         }
     }

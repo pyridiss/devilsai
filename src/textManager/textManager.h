@@ -48,6 +48,7 @@ void loadFile(string container, string path);
 PlainText& getText(string file, string id);
 PlainText fromStdString(const string& original);
 int toInt(const string& original);
+string toString(double n, int stringLength = -1);
 
 } //namespace textManager
 

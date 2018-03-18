@@ -20,9 +20,9 @@
 #include <tinyxml2.h>
 
 #include "tools/math.h"
+#include "textManager/textManager.h"
 
 #include "devilsai-resources/pack.h"
-#include "../Bibliotheque/Bibliotheque.h"
 
 using namespace tinyxml2;
 
@@ -174,7 +174,7 @@ void Pack::createObjectsFromDesigns()
     {
         if (rand()%100 < d.probability)
         {
-            addObject(d.file, "storagebox" + intToString(key, 2), d.quality);
+            addObject(d.file, "storagebox" + textManager::toString(key, 2), d.quality);
             ++key;
         }
     }
