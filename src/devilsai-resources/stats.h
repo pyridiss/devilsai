@@ -35,6 +35,7 @@ enum Attribute {
     Strength, Power, Agility, Intellect,
     Constitution, Charisma, Dodge, HealingPower,
     RunSpeed, AttackSpeed, InjurySpeed,
+    Precision,
     numberOfAttributes
 };
 
@@ -42,21 +43,24 @@ enum AttributeAmplifier {
     LifeAmplifier = 0, EnergyAmplifier, HealingAmplifier,
     StrengthAmplifier, PowerAmplifier, AgilityAmplifier, IntellectAmplifier,
     ConstitutionAmplifier, CharismaAmplifier, DodgeAmplifier, HealingPowerAmplifier,
-    RunSpeedAmplifier, AttackSpeedAmplifier, InjurySpeedAmplifier
+    RunSpeedAmplifier, AttackSpeedAmplifier, InjurySpeedAmplifier,
+    PrecisionAmplifier
 };
 
 constexpr const char* AttributesNames[] = {
     "life", "energy", "healing",
     "strength", "power", "agility", "intellect",
     "constitution", "charisma", "dodge", "healingPower",
-    "runSpeed", "attackSpeed", "injurySpeed"
+    "runSpeed", "attackSpeed", "injurySpeed",
+    "precision"
 };
 
 constexpr const char* AttributesAmplifiersNames[] = {
     "lifeAmplifier", "energyAmplifier", "healingAmplifier",
     "strengthAmplifier", "powerAmplifier", "agilityAmplifier", "intellectAmplifier",
     "constitutionAmplifier", "charismaAmplifier", "dodgeAmplifier", "healingPowerAmplifier",
-    "runSpeedAmplifier", "attackSpeedAmplifier", "injurySpeedAmplifier"
+    "runSpeedAmplifier", "attackSpeedAmplifier", "injurySpeedAmplifier",
+    "precisionAmplifier"
 };
 
 /**

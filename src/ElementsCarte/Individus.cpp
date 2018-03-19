@@ -648,6 +648,11 @@ void Individu::fight(Individu *enemy)
                     gamedata::player()->BlessureGrave(enemy);
                 }
             }
+            else if (currentHealthStatus(Precision) < 100)
+            {
+                double reduction = rand() % (int)(100 - currentHealthStatus(Precision) + 1);
+                Degats *= (100.0 - reduction)/100.0;
+            }
 
             Degats *= (1 + (Att_Puissance - enemy->currentHealthStatus(Constitution))/Att_Puissance)/2.0;
             if (Degats < 5) Degats = 5;
