@@ -204,6 +204,8 @@ bool Individu::Set_Activite(const string& nv)
     {
         _currentSkill = skill(nv);
         _currentSkill->atBegin(this);
+        //Force the update of health status, as skills can change the speed
+        currentHealthStatus(Strength, true);
         _animationFrame = 0;
     }
 
@@ -213,6 +215,8 @@ bool Individu::Set_Activite(const string& nv)
 
     _currentSkill = skill(nv);
     _currentSkill->atBegin(this);
+    //Force the update of health status, as skills can change the speed
+    currentHealthStatus(Strength, true);
 
     if (_currentSkill->Id == behavior(Behaviors::Dying))
     {
@@ -259,7 +263,8 @@ int Individu::GestionElementMouvant()
 {
     if (_currentSkill == nullptr) return 0;
 
-    double speed = _currentSkill->speed + currentHealthStatus(_currentSkill->speedImprover);
+    double speed = currentHealthStatus(_currentSkill->speedAttribute);
+
     if (Temps < 1.0/speed)
     {
         Temps += tools::timeManager::I(1/60.);
@@ -462,6 +467,12 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
                 double mul = o.currentObjectEffect(attributeAmplifierToString(attAmplifier));
                 _currentHealthStatus.add(att, add + _attributes[att] * mul / 100.0);
             }
+
+            if (_currentSkill != nullptr)
+            {
+                _currentHealthStatus.add(att, _currentSkill->extraStats[att]);
+                _currentHealthStatus.add(att, _currentSkill->extraStatsAmplifiers[att] * _attributes[att] / 100.0);
+            }
         }
         _clock.restart();
     }
@@ -575,7 +586,7 @@ void Individu::findPath(const tools::math::Vector2d& destination, int nodesNumbe
     pathToTarget.radius1 = size.radius1;
 }
 
-void Individu::fight(Individu *enemy, Skill* s)
+void Individu::fight(Individu *enemy)
 {
     if (enemy == nullptr)
     {
@@ -605,12 +616,6 @@ void Individu::fight(Individu *enemy, Skill* s)
     if (Succes)
     {
         double Degats = currentHealthStatus(Strength);
-        if (s != nullptr)
-        {
-            double d = s->damage();
-            double a = s->amplitude();
-            Degats += d - a + rand()%(2*int(a));
-        }
 
         double TauxEsquive = (1.0 + (enemy->currentHealthStatus(Dodge) - Att_Agilite)/Att_Agilite) * 50.0;
         bool Esquive = (rand()%100 < TauxEsquive) ? true : false;

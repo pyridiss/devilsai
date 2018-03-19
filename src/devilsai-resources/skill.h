@@ -47,9 +47,10 @@ class Skill
 
         unsigned numberOfImages;
         int priority;
-        int speed;
         int step;
-        Attribute speedImprover;
+        Stats extraStats;
+        Stats extraStatsAmplifiers;
+        Attribute speedAttribute;
         lua_State* script;
 
     public:
@@ -63,16 +64,6 @@ class Skill
 
         void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
         void loadScript();
-
-        /**
-         * Calls the getDegats() function of the script and returns its result.
-         */
-        double damage();
-
-        /**
-         * Calls the getAmplitude() function of the script and returns its result.
-         */
-        double amplitude();
 
         void atBegin(Individu* owner);
         void atEnd(Individu* owner);

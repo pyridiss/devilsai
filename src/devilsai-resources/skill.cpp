@@ -39,9 +39,10 @@ Skill::Skill(string id)
     scriptString(),
     numberOfImages(0),
     priority(0),
-    speed(0),
     step(0),
-    speedImprover(numberOfAttributes),
+    extraStats(),
+    extraStatsAmplifiers(),
+    speedAttribute(RunSpeed),
     script(nullptr)
 {
 }
@@ -53,9 +54,10 @@ Skill::Skill(const Skill& other)
     scriptString(other.scriptString),
     numberOfImages(other.numberOfImages),
     priority(other.priority),
-    speed(other.speed),
     step(other.step),
-    speedImprover(other.speedImprover),
+    extraStats(other.extraStats),
+    extraStatsAmplifiers(other.extraStatsAmplifiers),
+    speedAttribute(other.speedAttribute),
     script(nullptr)
 {
     if (!scriptString.empty())
@@ -70,9 +72,10 @@ Skill& Skill::operator=(const Skill& right)
     scriptString = right.scriptString;
     numberOfImages = right.numberOfImages;
     priority = right.priority;
-    speed = right.speed;
     step = right.step;
-    speedImprover = right.speedImprover;
+    extraStats = right.extraStats;
+    extraStatsAmplifiers = right.extraStatsAmplifiers;
+    speedAttribute = right.speedAttribute;
 
     if (!scriptString.empty())
         loadScript();
@@ -128,19 +131,33 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
         if (elemName == "properties")
         {
             elem->QueryAttribute("priority", &priority);
-            elem->QueryAttribute("speed", &speed);
             elem->QueryAttribute("step", &step);
             elem->QueryAttribute("numberOfImages", &numberOfImages);
             elem->QueryAttribute("hue", &h);
             elem->QueryAttribute("saturation", &s);
             elem->QueryAttribute("luminance", &l);
 
-            if (elem->Attribute("speedImprover", "runSpeed"))
-                speedImprover = RunSpeed;
-            else if (elem->Attribute("speedImprover", "attackSpeed"))
-                speedImprover = AttackSpeed;
-            else if (elem->Attribute("speedImprover", "injurySpeed"))
-                speedImprover = InjurySpeed;
+            if (elem->Attribute("speedAttribute"))
+                speedAttribute = stringToAttribute(elem->Attribute("speedAttribute"));
+
+            //Should be removed when no data file use this
+            if (elem->Attribute("speedImprover"))
+                speedAttribute = stringToAttribute(elem->Attribute("speedImprover"));
+
+            if (elem->Attribute("speed"))
+            {
+                double sp = 0;
+                elem->QueryAttribute("speed", &sp);
+                extraStats.set(speedAttribute, sp);
+            }
+        }
+        if (elemName == "extraStats")
+        {
+            extraStats.loadFromXML(elem);
+        }
+        if (elemName == "extraStatsAmplifiers")
+        {
+            extraStatsAmplifiers.loadFromXML(elem);
         }
         if (elemName == "interactionField")
         {
@@ -205,6 +222,20 @@ void Skill::loadScript()
     luaL_openlibs(script);
 
     luaL_loadbuffer(script, scriptString.c_str(), scriptString.length(), Id.c_str());
+
+    lua_register(script, "addSound", LUA_addSound);
+    lua_register(script, "cout", LUA_cout);
+    lua_register(script, "createIndividual", LUA_createIndividual);
+    lua_register(script, "fight", LUA_combat);
+    lua_register(script, "getElementInteraction", LUA_getTargetedItem);
+    lua_register(script, "individual_changeCurrentSkill", LUA_changeCurrentSkill);
+    lua_register(script, "individual_copy", LUA_individual_copy);
+    lua_register(script, "individual_get", LUA_get);
+    lua_register(script, "individual_set", LUA_set);
+    lua_register(script, "isIndividu", LUA_isIndividu);
+    lua_register(script, "playSound", LUA_playSound);
+    lua_register(script, "useObject", LUA_useObject);
+
     lua_pcall(script, 0, 0, 0);
 
     lua_atpanic(script, [](lua_State* S)
@@ -228,12 +259,9 @@ void Skill::loadScript()
         lua_pop(script, 1);
     };
 
-    check("name");
     check("atBegin");
     check("atEnd");
     check("getNeededEnergy");
-    check("getDegats");
-    check("getAmplitude");
 
     if (!fileComplete)
     {
@@ -241,45 +269,6 @@ void Skill::loadScript()
         script = nullptr;
         return;
     }
-
-    lua_register(script, "addSound", LUA_addSound);
-    lua_register(script, "cout", LUA_cout);
-    lua_register(script, "createIndividual", LUA_createIndividual);
-    lua_register(script, "fight", LUA_combat);
-    lua_register(script, "getElementInteraction", LUA_getTargetedItem);
-    lua_register(script, "individual_changeCurrentSkill", LUA_changeCurrentSkill);
-    lua_register(script, "individual_copy", LUA_individual_copy);
-    lua_register(script, "individual_get", LUA_get);
-    lua_register(script, "individual_set", LUA_set);
-    lua_register(script, "isIndividu", LUA_isIndividu);
-    lua_register(script, "playSound", LUA_playSound);
-    lua_register(script, "useObject", LUA_useObject);
-}
-
-double Skill::damage()
-{
-    if (script == nullptr)
-        return 0;
-
-    lua_getglobal(script, "getDegats");
-    lua_call(script, 0, 1);
-    double d = lua_tonumber(script, -1);
-    lua_pop(script, 1);
-
-    return d;
-}
-
-double Skill::amplitude()
-{
-    if (script == nullptr)
-        return 0;
-
-    lua_getglobal(script, "getAmplitude");
-    lua_call(script, 0, 1);
-    double d = lua_tonumber(script, -1);
-    lua_pop(script, 1);
-
-    return d;
 }
 
 void Skill::atBegin(Individu* owner)

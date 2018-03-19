@@ -73,11 +73,7 @@ int LUA_combat(lua_State* L)
     Individu* indA = dynamic_cast<Individu*>(a);
     Individu* indB = dynamic_cast<Individu*>(b);
 
-    lua_getglobal(L, "name");
-    string name = lua_tostring(L, -1);
-    lua_pop(L, 1);
-
-    indA->fight(indB, indA->skill(name));
+    indA->fight(indB);
 
 	return 0;
 }
