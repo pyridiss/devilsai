@@ -10,8 +10,6 @@
             <interactionField type="line" length="600"/>
             <images angle="0" pathToImages="7/%%.png"/>
             <script>
-                name = "attack"
-
                 function atBegin(owner)
                 end
 
@@ -22,18 +20,6 @@
                     bullet = createIndividual("ballista_bullet", x, y)
                     individual_copy(owner, bullet, "diplomacy")
                     individual_copy(owner, bullet, "angle")
-                end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
                 end
             </script>
         </skill>
@@ -53,8 +39,6 @@
             <interactionField type="rectangle" yCenter="-5" xSize="60" ySize="14"/>
             <images angle="0" imageFile="img/10000200.png"/>
             <script>
-                name = "attack"
-
                 function atBegin(owner)
                 end
 
@@ -62,17 +46,6 @@
                     individual_set(owner, "life", 0)
                 end
 
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
-                end
             </script>
         </skill>
         <skill name="normal" owner="ballista_bullet">

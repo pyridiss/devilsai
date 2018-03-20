@@ -40,31 +40,18 @@
             <images angle="270" pathToImages="5/0/%%.png"/>
             <images angle="315" pathToImages="5/4/%%.png"/>
             <script>
-                name = "hurt"
+                math.randomseed(os.time())
+                addSound("player_hurt1")
+                addSound("player_hurt2")
+                addSound("player_hurt3")
 
                 function atBegin(owner)
-                    math.randomseed(os.time())
-                    addSound("player_hurt1")
-                    addSound("player_hurt2")
-                    addSound("player_hurt3")
                     randomNumber = math.random(1, 3)
                     playSound("player_hurt" .. randomNumber)
                 end
 
                 function atEnd(owner)
 
-                end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
                 end
             </script>
         </skill>
@@ -73,7 +60,8 @@
             <images angle="0" pathToImages="6/1/%%.png"/>
         </skill>
         <skill name="skill-sword-handling" owner="player">
-            <properties priority="1" speed="14" speedImprover="attackSpeed" step="0" numberOfImages="12"/>
+            <properties priority="1" step="0" speedAttribute="attackSpeed" numberOfImages="12"/>
+            <extraStats strength="180" attackSpeed="14"/>
             <interactionField type="arc" radius="55" direction="0" opening="0.8"/>
             <loadImage key="skill-sword-handling" path="img/C101.png"/>
             <images angle="0" pathToImages="101/2/%%.png"/>
@@ -85,14 +73,14 @@
             <images angle="270" pathToImages="101/0/%%.png"/>
             <images angle="315" pathToImages="101/4/%%.png"/>
             <script>
-                name = "skill-sword-handling"
+                math.randomseed(os.time())
+                addSound("Sword_1")
+                addSound("Sword_2")
+                addSound("Sword_3")
+                addSound("Sword_4")
 
                 function atBegin(owner)
-                    math.randomseed(os.time())
-                    addSound("Sword_1")
-                    addSound("Sword_2")
-                    addSound("Sword_3")
-                    addSound("Sword_4")
+
                 end
 
                 function atEnd(owner)
@@ -103,20 +91,9 @@
                             playSound("Sword_" .. randomNumber)
                             fight(owner, enemy)
                         end
-                        individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
+                        energyConsumed = individual_get(owner, "power") / individual_get(owner, "constitution")
+                        individual_set(owner, "energy", individual_get(owner, "energy") - energyConsumed)
                     end
-                end
-
-                function getNeededEnergy(owner)
-                    return individual_get(owner, "power") / individual_get(owner, "constitution")
-                end
-
-                function getDegats()
-                    return 180
-                end
-
-                function getAmplitude()
-                    return 20
                 end
             </script>
         </skill>
@@ -132,8 +109,6 @@
             <images angle="270" pathToImages="charge-part1/0/%%.png"/>
             <images angle="315" pathToImages="charge-part1/4/%%.png"/>
             <script>
-                name = "skill-charge-part1"
-
                 n = 0
                 function atBegin(owner)
                     enemy = getElementInteraction(owner)
@@ -157,22 +132,11 @@
                         end
                     end
                 end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
-                end
             </script>
         </skill>
         <skill name="skill-charge-part2" owner="player">
-            <properties priority="2" speed="30" step="0" numberOfImages="5"/>
+            <properties priority="2" step="0" speedAttribute="attackSpeed" numberOfImages="5"/>
+            <extraStats strength="250" attackSpeed="30"/>
             <images angle="0" pathToImages="charge-part2/2/%%.png"/>
             <images angle="45" pathToImages="charge-part2/6/%%.png"/>
             <images angle="90" pathToImages="charge-part2/1/%%.png"/>
@@ -182,8 +146,6 @@
             <images angle="270" pathToImages="charge-part2/0/%%.png"/>
             <images angle="315" pathToImages="charge-part2/4/%%.png"/>
             <script>
-                name = "skill-charge-part2"
-
                 function atBegin(owner)
                 end
 
@@ -191,24 +153,13 @@
                     if individual_get(owner, "energy") > 20 then
                         enemy = getElementInteraction(owner)
                         if isIndividu(enemy) then
-                        randomNumber = math.random(1, 4)
-                        playSound("Sword_" .. randomNumber)
-                        fight(owner, enemy)
+                            randomNumber = math.random(1, 4)
+                            playSound("Sword_" .. randomNumber)
+                            fight(owner, enemy)
+                        end
+                        energyConsumed = individual_get(owner, "power") / individual_get(owner, "constitution")
+                        individual_set(owner, "energy", individual_get(owner, "energy") - energyConsumed)
                     end
-                    individual_set(owner, "energy", individual_get(owner, "energy") - getNeededEnergy(owner))
-                    end
-                end
-
-                function getNeededEnergy(owner)
-                    return individual_get(owner, "power") / individual_get(owner, "constitution")
-                end
-
-                function getDegats()
-                    return 250
-                end
-
-                function getAmplitude()
-                    return 5
                 end
             </script>
         </skill>
@@ -225,8 +176,6 @@
             <images angle="270" pathToImages="301/0/%%.png"/>
             <images angle="315" pathToImages="301/4/%%.png"/>
             <script>
-                name = "skill-fireball"
-
                 function atBegin(owner)
                     addSound("Fireball")
                 end
@@ -243,18 +192,6 @@
                         playSound("Fireball")
                     end
                 end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
-                end
             </script>
         </skill>
         <skill name="use-healpotion" owner="player">
@@ -269,24 +206,11 @@
             <images angle="270" pathToImages="2/0/%%.png"/>
             <images angle="315" pathToImages="2/4/%%.png"/>
             <script>
-                name = "use-healpotion"
                 function atBegin(owner)
                 end
 
                 function atEnd(owner)
                     useObject(owner, "healpotion")
-                end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
                 end
             </script>
         </skill>
@@ -310,25 +234,11 @@
             <interactionField type="circle" radius="30"/>
             <images angle="0" imageFile="img/10010000.png"/>
             <script>
-                name = "attack"
-
                 function atBegin(owner)
                 end
 
                 function atEnd(owner)
                     individual_set(owner, "life", 0)
-                end
-
-                function getNeededEnergy(owner)
-                    return 0
-                end
-
-                function getDegats()
-                    return 0
-                end
-
-                function getAmplitude()
-                    return 0
                 end
             </script>
         </skill>

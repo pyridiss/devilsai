@@ -261,7 +261,6 @@ void Skill::loadScript()
 
     check("atBegin");
     check("atEnd");
-    check("getNeededEnergy");
 
     if (!fileComplete)
     {
