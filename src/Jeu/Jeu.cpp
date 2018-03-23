@@ -109,7 +109,6 @@ void mainLoop(RenderWindow& app)
     bool inGame = false;
     bool loadingResources = false;
     bool cursorIsInWorld = false;
-    bool move = false;
     bool showTooltip = false;
     bool cinematicMode = false;
 
@@ -180,9 +179,6 @@ void mainLoop(RenderWindow& app)
                     state |= LeftButtonPressed;
                 if (event.mouseButton.button == Mouse::Button::Right)
                     state |= RightButtonPressed;
-
-                //Will force the player to stop the current activity (if possible) and adopt a new one immediately
-                move = true;
 
                 //Retrieve the current individual under the cursor
                 if (underCursor != nullptr) gamedata::player()->selectedIndividual = underCursor;
@@ -403,12 +399,6 @@ void mainLoop(RenderWindow& app)
 
         if (!cinematicMode && cursorIsInWorld)
         {
-            if (move)
-            {
-                move = false;
-                gamedata::player()->Temps = 1;
-            }
-
             if ((state & LeftButtonPressed) == LeftButtonPressed)
             {
                 if (gamedata::player()->selectedIndividual == nullptr)

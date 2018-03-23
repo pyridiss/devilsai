@@ -37,9 +37,11 @@ int Individu::Gestion()
 	int Retour = Element_Carte::Gestion();
 	if (Retour != ETAT_CONTINUER) return Retour;
 
+    if (_currentSkill == nullptr) return Retour;
+
 	// 0. Vérifie que l'individu n'est pas mort...
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame == _currentSkill->numberOfImages-1)
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame >= _currentSkill->numberOfImages-1)
 	{
         createCorpse();
         return ETAT_MORT;
@@ -53,8 +55,10 @@ int Individu::Gestion()
 	Gestion_Recuperation();
 
 	//Gestion du temps :
-	Retour = Individu::GestionElementMouvant();
-	if (Retour != ETAT_CONTINUER) return Retour;
+    double speed = currentHealthStatus(_currentSkill->speedAttribute);
+    Temps += tools::timeManager::I(1/20.0);
+    if (Temps * speed < ((_currentSkill->step > 0) ? _currentSkill->step : 10))
+        return ETAT_NORMAL;
 
     if (_currentSkill->Id == behavior(Behaviors::Dying))
 	{
@@ -223,7 +227,7 @@ int Individu::Gestion()
 
     nextAnimationFrame();
 
-    if (_animationFrame == 0 && NouveauComportement == Behaviors::Attacking)
+    if (ActEffectue && NouveauComportement == Behaviors::Attacking)
 	{
 		Individu *ennemi = dynamic_cast<Individu*>(_targetedItem);
 
@@ -236,10 +240,6 @@ int Individu::Gestion()
 		}
         else NouveauComportement = Behaviors::Random;
 	}
-    if (_animationFrame == 0)
-    {
-        _currentSkill->atEnd(this);
-    }
 
 	return ETAT_NORMAL;
 }
@@ -256,7 +256,8 @@ void Individu::MouvementAleatoire(bool newDirection)
     while (angle < 0) angle += 2.0 * M_PI;
     while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-    move(cos(angle)*_currentSkill->step, sin(angle)*_currentSkill->step);
+    double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * Temps;
+    move(cos(angle) * distanceTraveled, sin(angle) * distanceTraveled);
 }
 
 bool Individu::MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals)
@@ -289,7 +290,8 @@ bool Individu::MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduce
     {
         tools::math::Vector2d step = pathToTarget.points[pathToTarget.points.size() - 2];
         angle = tools::math::angle(step.x - position().x, step.y - position().y);
-        move(cos(angle)*_currentSkill->step, sin(angle)*_currentSkill->step);
+        double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * Temps;
+        move(cos(angle) * distanceTraveled, sin(angle) * distanceTraveled);
         if (tools::math::Vector2d::distanceSquare(step, position()) < 100)
             pathToTarget.points.pop_back();
     }

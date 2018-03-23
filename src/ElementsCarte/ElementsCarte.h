@@ -200,7 +200,7 @@ class Individu : public Element_Carte
 	public:
 		bool ActEffectue    = true;
 
-	public:
+    protected:
 		float Temps         = 0;
 
 	public:
@@ -208,7 +208,7 @@ class Individu : public Element_Carte
         Behaviors NouveauComportement = Behaviors::Random;
 
 	protected:
-        unsigned _animationFrame;
+        double _animationFrame;
         Element_Carte* _targetedItem;
         Skill* _currentSkill;
         Stats _currentHealthStatus;
@@ -264,7 +264,6 @@ class Individu : public Element_Carte
 	//Gestion :
 	public:
 		int Gestion();
-        int GestionElementMouvant();
         void MouvementAleatoire(bool newDirection);
         void findPath(const tools::math::Vector2d& destination, int nodesNumber, bool reduceCollisionWithIndividuals);
         bool MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals);
@@ -274,7 +273,7 @@ class Individu : public Element_Carte
         void fight(Individu *enemy);
 		int Collision(Individu *elem, bool apply);
         void otherItemDeleted(Element_Carte* other);
-        void nextAnimationFrame(bool RaZ = false);
+        void nextAnimationFrame();
         void updateAngle(const tools::math::Vector2d& p);
         void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
 

@@ -21,6 +21,7 @@
 
 #include "tools/signals.h"
 #include "tools/math.h"
+#include "tools/timeManager.h"
 
 #include "../Bibliotheque/Constantes.h"
 #include "devilsai-resources/Carte.h"
@@ -39,7 +40,7 @@ int Joueur::Gestion()
 	if (currentHealthStatus(Life) <= 0)
 	{
         Set_Activite(behavior(Behaviors::Dying));
-        if (_animationFrame == 8) tools::signals::addSignal("player-dead");
+        if ((int)_animationFrame == 8) tools::signals::addSignal("player-dead");
 	}
 
     Gestion_Recuperation();
@@ -47,8 +48,7 @@ int Joueur::Gestion()
 
 		// 3. Gestion du temps : Mouvement ou pas
 
-	if (Individu::GestionElementMouvant() != ETAT_CONTINUER)
-		MouvementAutorise = false;
+    Temps = tools::timeManager::I(1/20.0);
 
     string skillToUse = behavior(Behaviors::Random);
     if (MouvementAutorise && !Set_Activite(behavior(Behaviors::Random)))
@@ -167,11 +167,6 @@ int Joueur::Gestion()
 
         interactionField.updateDirection(angle);
         _currentSkill->interactionField.updateDirection(angle);
-
-        if (_animationFrame == 0)
-		{
-            _currentSkill->atEnd(this);
-		}
 	}
 
 	return 0;

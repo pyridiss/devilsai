@@ -207,14 +207,16 @@ bool Individu::Set_Activite(const string& nv)
         //Force the update of health status, as skills can change the speed
         currentHealthStatus(Strength, true);
         _animationFrame = 0;
+        ActEffectue = false;
     }
 
-    if (_currentSkill->priority > skill(nv)->priority && (!ActEffectue || _animationFrame != 0)) return false;
+    if (_currentSkill->priority > skill(nv)->priority && !ActEffectue) return false;
 
     if (_currentSkill->Id == nv) return true;
 
     _currentSkill = skill(nv);
     _currentSkill->atBegin(this);
+    ActEffectue = false;
     //Force the update of health status, as skills can change the speed
     currentHealthStatus(Strength, true);
 
@@ -228,7 +230,9 @@ bool Individu::Set_Activite(const string& nv)
 
     if (nv == behavior(Behaviors::Dying)) size.circle(tools::math::Vector2d(0, 0), 0);
 
-    if (_currentSkill->priority > 0) nextAnimationFrame(true);
+    if (_currentSkill->priority > 0)
+        _animationFrame = 0;
+
     return true;
 }
 
@@ -242,37 +246,26 @@ int Individu::Collision(Individu *elem, bool apply)
     return COLL_PRIM_MVT;
 }
 
-void Individu::nextAnimationFrame(bool RaZ)
+void Individu::nextAnimationFrame()
 {
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame == _currentSkill->numberOfImages-1) return;
+    if (_currentSkill->Id == behavior(Behaviors::Dying) && (unsigned)_animationFrame == _currentSkill->numberOfImages-1) return;
 
-    if (RaZ)
-    {
-        _animationFrame = 0;
-        ActEffectue = false;
-    }
+    if (_currentSkill->step > 0)
+        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * Temps / (double)_currentSkill->step;
     else
+        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * Temps / 10.0;
+
+    if (_animationFrame > _currentSkill->numberOfImages)
     {
-        ++_animationFrame;
-        if (_animationFrame == _currentSkill->numberOfImages) _animationFrame = 0;
         ActEffectue = true;
+        _currentSkill->atEnd(this);
     }
-}
+    else ActEffectue = false;
 
-int Individu::GestionElementMouvant()
-{
-    if (_currentSkill == nullptr) return 0;
+    while (_animationFrame > _currentSkill->numberOfImages)
+        _animationFrame -= _currentSkill->numberOfImages;
 
-    double speed = currentHealthStatus(_currentSkill->speedAttribute);
-
-    if (Temps < 1.0/speed)
-    {
-        Temps += tools::timeManager::I(1/60.);
-        return ETAT_NORMAL;
-    }
-    else Temps = tools::timeManager::I(1/60.);
-
-    return ETAT_CONTINUER;
+    Temps = 0;
 }
 
 void Individu::otherItemDeleted(Element_Carte* other)
