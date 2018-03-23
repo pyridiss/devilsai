@@ -44,7 +44,7 @@ enum Flags
     Shaded = 1 << 10
 };
 
-void loadFile(string container, string path);
+void loadFile(string container, string path, const string& language);
 PlainText& getText(string file, string id);
 PlainText fromStdString(const string& original);
 int toInt(const string& original);

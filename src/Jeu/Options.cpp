@@ -230,8 +230,7 @@ void changeOption(string name, string value)
 {
     if (name == "option-change-language")
     {
-        if (value == "EN") addOption<string>(tools::math::sdbm_hash("language"), "en=");
-        if (value == "FR") addOption<string>(tools::math::sdbm_hash("language"), "fr=");
+        addOption<string>(tools::math::sdbm_hash("language"), value);
     }
     else if (name == "option-change-resolution")
     {
@@ -359,8 +358,7 @@ void initOptionsWindow(gui::Window& window)
     string d;
     gui::optionType o;
 
-    if (option<string>(tools::math::sdbm_hash("language")) == "fr=") d = "FR";
-    else d = "EN";
+    d = option<string>(tools::math::sdbm_hash("language"));
     o.set<string>(d);
     window.setValue("options-chooser-language", o);
 

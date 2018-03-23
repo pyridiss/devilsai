@@ -65,6 +65,7 @@
             <addEntry text="options-enabled" data="enabled"/>
             <addEntry text="options-disabled" data="disabled"/>
         </widget>
+        <widget name="options-warn-restart" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="290" allText="options-warn-restart" Hidden="1"/>
         <widget name="options-button-back" type="button" x="20" y="317" width="156" height="46" allBackground="button-background-156x46" allText="new-game-back"/>
         <widget name="options-button-apply" type="button" x="432" y="317" width="156" height="46" allBackground="button-background-156x46" allText="options-apply"/>
     </subwindow>
@@ -97,6 +98,7 @@
     <trigger sender="load-game-button-delete" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
 
     <trigger sender="button-options" event="WidgetActivated" action="Focus" target="options"/>
+    <trigger sender="options-chooser-language" event="WidgetValueChanged" action="Show" target="options-warn-restart"/>
     <trigger sender="options-button-back" event="WidgetActivated" action="Hide" target="options"/>
     <trigger sender="options-button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-language" dataProvider="options-chooser-language" dataName="value"/>
     <trigger sender="options-button-apply" event="WidgetActivated" action="SendSignal" signal="option-change-resolution" dataProvider="options-chooser-resolution" dataName="value"/>

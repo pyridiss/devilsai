@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
-    <loadTextFile name="birnam" file="lng/birnam_FR.xml"/>
+    <loadTextFile name="birnam" file="lng/birnam.xml"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="Outside"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="GowersCamp-Items"/>
     <loadWorld name="birnam" file="carte/birnam.xml" tag="TheGladeOfTheSaints-Items"/>

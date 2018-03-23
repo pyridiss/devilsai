@@ -87,6 +87,7 @@ bool DropDownList::activated(RenderWindow& app, Event event)
             index = i / height();
             setText(entries[index].first);
             addEmbeddedData("value", entries[index].second);
+            _parent->addEvent(this, WidgetValueChanged, embeddedData<optionType>("value"));
             _flags &= ~Activated;
             _parent->askFocus(this, false);
         }

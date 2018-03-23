@@ -22,6 +22,7 @@
 #include "Constantes.h"
 
 #include "textManager/textManager.h"
+#include "tools/math.h"
 #include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/animation.h"
@@ -49,11 +50,11 @@ void Load_Decorations()
     imageManager::addAnimation("playerEnergyGaugeBackground", "img/BarreEnergie.png");
     imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
-    textManager::loadFile("gui", "lng/gui_FR.xml");
-    textManager::loadFile("devilsai", "lng/devilsai_FR.xml");
-    textManager::loadFile("species", "lng/species_FR.xml");
-    textManager::loadFile("places", "lng/places_FR.xml");
-    textManager::loadFile("objects", "lng/objects_FR.xml");
+    textManager::loadFile("gui", "lng/gui.xml", options::option<string>(tools::math::sdbm_hash("language")));
+    textManager::loadFile("devilsai", "lng/devilsai.xml", options::option<string>(tools::math::sdbm_hash("language")));
+    textManager::loadFile("species", "lng/species.xml", options::option<string>(tools::math::sdbm_hash("language")));
+    textManager::loadFile("places", "lng/places.xml", options::option<string>(tools::math::sdbm_hash("language")));
+    textManager::loadFile("objects", "lng/objects.xml", options::option<string>(tools::math::sdbm_hash("language")));
 
 
     musicManager::addSound("Click");

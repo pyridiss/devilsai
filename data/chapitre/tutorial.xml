@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamedata>
-    <loadTextFile name="tutorial" file="lng/tutorial_FR.xml"/>
+    <loadTextFile name="tutorial" file="lng/tutorial.xml"/>
     <loadWorld name="tutorial" file="carte/tutorial.xml" tag="didact_pay"/>
     <loadWorld name="tutorial" file="carte/tutorial.xml" tag="uniques"/>
     <individual name="tutorial-player" world="tutorial" loadFromDataFile="individu/tutorial-player.xml" x="0" y="0"/>

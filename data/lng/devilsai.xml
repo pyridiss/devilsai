@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texts>
+    <loadFile language="EN" file="lng/devilsai_EN.xml"/>
+    <loadFile language="FR" file="lng/devilsai_FR.xml"/>
+</texts>

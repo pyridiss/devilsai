@@ -60,6 +60,7 @@
     <text id="options-resolution-2">1024x768</text>
     <text id="options-resolution-3">1280x800</text>
     <text id="options-title">@f[dayroman]@s[24]Options @d</text>
+    <text id="options-warn-restart">Les changements seront pris en compte au prochain démarrage.</text>
     <text id="player-dead-text">@f[dayroman]@s[24]Vous êtes mort ! @d</text>
     <text id="player-dead-main-menu">Menu principal</text>
     <text id="player-dead-load-game">Charger une partie</text>

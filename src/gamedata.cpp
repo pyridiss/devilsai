@@ -41,6 +41,7 @@
 
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
+#include "Jeu/options.h"
 #include "gamedata.h"
 
 using namespace tinyxml2;
@@ -363,7 +364,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
 
         if (elemName == "loadTextFile")
         {
-            textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"));
+            textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"), options::option<string>(tools::math::sdbm_hash("language")));
             textFiles.emplace_back(elem->Attribute("name"), elem->Attribute("file"));
         }
 

@@ -39,7 +39,7 @@ Database texts;
 textManager::PlainText emptyString;
 
 
-void loadFile(string container, string path)
+void loadFile(string container, string path, const string& language)
 {
     Database::iterator c = texts.find(container);
 
@@ -51,10 +51,8 @@ void loadFile(string container, string path)
 
     c = texts.find(container);
 
-    path = tools::filesystem::dataDirectory() + path;
-
     XMLDocument file;
-    file.LoadFile(path.c_str());
+    file.LoadFile((tools::filesystem::dataDirectory() + path).c_str());
 
     XMLHandle hdl(file);
     XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
@@ -63,6 +61,13 @@ void loadFile(string container, string path)
     {
         string elemName = elem->Name();
 
+        if (elemName == "loadFile")
+        {
+            string lng = elem->Attribute("language");
+            string f = elem->Attribute("file");
+            if (lng == language)
+                loadFile(container, f, language);
+        }
         if (elemName == "text")
         {
             string id = "", text = "";
