@@ -65,6 +65,7 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
         {
             if (mousePosition().x <= left() + width() - 20)
             {
+                if (entries.empty()) return false;
                 index = (mousePosition().y - (top() + 5))/20 + firstEntryDisplayed;
                 if (index >= entries.size()) index = entries.size() - 1;
                 addEmbeddedData<string>("value", entries[index].second);
