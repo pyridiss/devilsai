@@ -254,6 +254,7 @@ class Individu : public Element_Carte
 
 	public:
         Element_Carte* targetedItem();
+        virtual bool interact(Element_Carte* item);
         Stats& attributes();
         Skill* skill(const string& s);
         const textManager::PlainText& displayedName();
@@ -327,6 +328,7 @@ class Joueur : public Individu
 		void Gestion_Statistiques();
 		void Repos();
         void otherItemDeleted(Element_Carte* other);
+        bool interact(Element_Carte* item);
 
 		void CoupCritique(Individu* ennemi);
 		void BlessureGrave(Individu* ennemi);

@@ -256,7 +256,7 @@ int LUA_interact(lua_State* L)
     bool result = false;
 
     if (individual != nullptr && element != nullptr)
-        result = intersection(individual->interactionField, element->size);
+        result = individual->interact(element);
     else
         tools::debug::error("LUA_interact() has been called with a non-existent element.", "lua", __FILENAME__, __LINE__);
 

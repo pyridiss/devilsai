@@ -279,6 +279,11 @@ Element_Carte* Individu::targetedItem()
     return _targetedItem;
 }
 
+bool Individu::interact(Element_Carte* item)
+{
+    return intersection(interactionField, item->size);
+}
+
 string& Individu::behavior(Behaviors b)
 {
     if (_behaviors != nullptr)

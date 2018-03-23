@@ -67,6 +67,11 @@ void Joueur::otherItemDeleted(Element_Carte* other)
         selectedIndividual = nullptr;
 }
 
+bool Joueur::interact(Element_Carte* item)
+{
+    return (selectedIndividual == item && intersection(interactionField, selectedIndividual->size));
+}
+
 void Joueur::Repos()
 {
     setHealthStatus(Life, 1000);
