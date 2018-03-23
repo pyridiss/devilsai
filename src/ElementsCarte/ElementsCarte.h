@@ -177,7 +177,6 @@ class Coffre : public Element_Carte
 
 	//Gestion :
 	public:
-		int Gestion();
 		int Collision(Individu* elem, bool apply);
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
@@ -364,7 +363,6 @@ class Paysage : public Element_Carte
         ~Paysage() = default;
 
 	public:
-		int Gestion();
 		int Collision(Individu *elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
@@ -384,7 +382,6 @@ class CheckPoint : public Element_Carte
         CheckPoint& operator=(CheckPoint&& right) = delete;
         ~CheckPoint() = default;
 
-		int Gestion();
 		int Collision(Individu* elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
@@ -409,7 +406,6 @@ class Trigger : public Element_Carte
         ~Trigger() = default;
 
 	public:
-		int Gestion();
 		int Collision(Individu *elem, bool apply);
 
         void loadFromXML(tinyxml2::XMLHandle &handle);

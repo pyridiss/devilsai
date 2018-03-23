@@ -33,11 +33,10 @@
 
 int Individu::Gestion()
 {
-	//Test de proximité au joueur
-	int Retour = Element_Carte::Gestion();
-	if (Retour != ETAT_CONTINUER) return Retour;
+    if (Element_Carte::Gestion() == ETAT_MORT)
+        return ETAT_MORT;
 
-    if (_currentSkill == nullptr) return Retour;
+    if (_currentSkill == nullptr) return ETAT_NORMAL;
 
 	// 0. Vérifie que l'individu n'est pas mort...
 

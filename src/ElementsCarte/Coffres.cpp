@@ -44,15 +44,6 @@ Coffre::Coffre()
     inert = false;
 }
 
-int Coffre::Gestion()
-{
-    Element_Carte::Gestion();
-
-    if (lifetime == 0) return ETAT_MORT;
-
-	return ETAT_NORMAL;
-}
-
 int Coffre::Collision(Individu* elem, bool apply)
 {
     if (elem->Type == "intern")

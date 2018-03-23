@@ -59,6 +59,5 @@ using namespace std;
 //Action de l'utilisateur & états des individus
 #define ETAT_NORMAL		6
 #define ETAT_MORT		8
-#define ETAT_CONTINUER	9
 
 #endif

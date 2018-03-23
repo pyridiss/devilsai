@@ -66,10 +66,15 @@ int Element_Carte::Gestion()
     if (lifetime > 0)
     {
         lifetime -= tools::timeManager::I(1);
-        if (lifetime < 0) lifetime = 0;
+
+        if (lifetime < 0)
+        {
+            lifetime = 0;
+            return ETAT_MORT;
+        }
     }
 
-	return ETAT_CONTINUER;
+    return ETAT_NORMAL;
 }
 
 void Element_Carte::otherItemDeleted(Element_Carte* other)

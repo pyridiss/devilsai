@@ -41,13 +41,6 @@ Paysage::Paysage()
     size.setOrigin(&position());
 }
 
-int Paysage::Gestion()
-{
-    Element_Carte::Gestion();
-
-	return ETAT_NORMAL;
-}
-
 int Paysage::Collision(Individu *elem, bool apply)
 {
 	return COLL_PRIM;

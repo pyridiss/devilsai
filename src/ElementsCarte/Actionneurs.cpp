@@ -41,11 +41,6 @@ CheckPoint::CheckPoint() : Element_Carte()
     ignoreCollision = true;
 }
 
-int CheckPoint::Gestion()
-{
-	return ETAT_NORMAL;
-}
-
 int CheckPoint::Collision(Individu* elem, bool apply)
 {
 	return COLL_OK;
@@ -84,11 +79,6 @@ Trigger::Trigger(const Trigger& other)
     data(other.data),
     script(other.script)
 {
-}
-
-int Trigger::Gestion()
-{
-    return ETAT_NORMAL;
 }
 
 int Trigger::Collision(Individu* elem, bool apply)
