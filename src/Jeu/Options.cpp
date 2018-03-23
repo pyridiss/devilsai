@@ -351,6 +351,8 @@ void initLoadGameWindow(gui::Window& window)
 
     if (!savedGames.empty())
         tools::signals::addSignal("main-menu:enable-load-game");
+    else
+        tools::signals::addSignal("main-menu:disable-load-game");
 }
 
 void initOptionsWindow(gui::Window& window)

@@ -110,7 +110,9 @@
     <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
 
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="load-game-button-start"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="button-load-game"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="load-game-button-start"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="Hide" target="loading"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
 </window>
