@@ -201,12 +201,14 @@ void mainLoop(RenderWindow& app)
             ingameToolbar.checkTriggers();
             ingameSkillbar.checkTriggers();
             characterWindow.checkTriggers();
-            manageConversation(app);
         }
         else
         {
             mainMenuWindow.checkTriggers();
         }
+
+        if (inGame && managementActivated)
+            manageConversation(app);
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));
