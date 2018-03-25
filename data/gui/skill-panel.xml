@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <loadImage key="gui-screen-background" path="img/gui-screen-background.png"/>
+    <loadImage key="gui-object-background-50x50" path="img/FondObjet_50_50.png"/>
+    <properties x="0" y="0" WidthRelativeToScreenSize="1" width="50" HeightRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1" allBackground="gui-screen-background"/>
+    <widget name="title" type="text" OriginXCenter="1" XPositionRelativeToCenter="1" y="60" allText="skillpanel-title"/>
+    <widget name="skill-sword-handling" type="button" x="10" y="175" width="50" height="50" allBackground="gui-object-background-50x50">
+        <addEmbeddedData name="skill" value="skill-sword-handling"/>
+    </widget>
+    <widget name="skill-charge-part1" type="button" x="70" y="175" width="50" height="50" allBackground="gui-object-background-50x50">
+        <addEmbeddedData name="skill" value="skill-charge-part1"/>
+    </widget>
+    <widget name="skill-fireball" type="button" x="10" y="275" width="50" height="50" allBackground="gui-object-background-50x50">
+        <addEmbeddedData name="skill" value="skill-fireball"/>
+    </widget>
+    <widget name="use-healpotion" type="button" x="10" y="375" width="50" height="50" allBackground="gui-object-background-50x50">
+        <addEmbeddedData name="skill" value="use-healpotion"/>
+        <addEmbeddedData name="related-object" value="healpotion"/>
+    </widget>
+</window>

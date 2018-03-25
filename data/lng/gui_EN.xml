@@ -64,5 +64,6 @@
     <text id="player-dead-text">@f[dayroman]@s[24]You are dead! @d</text>
     <text id="player-dead-main-menu">Main menu</text>
     <text id="player-dead-load-game">Load a game</text>
+    <text id="skillpanel-title">@f[dayroman]@s[28]Skills @d</text>
     <text id="storage-box-screen-inventory-name">@f[liberation-bold]@s[12]Inventory @d</text>
 </texts>

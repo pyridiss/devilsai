@@ -1,7 +1,7 @@
 
 /*
-    Devilsai - A game written using the SFML library
-    Copyright (C) 2009-2017  Quentin Henriet
+    devilsai - An Action-RPG game
+    Copyright (C) 2009-2018  Quentin Henriet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,10 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SKILLBARMANAGER_H
-#define SKILLBARMANAGER_H
-
-using namespace std;
+#ifndef DEVILSAI_GUI_SKILLSPANEL
+#define DEVILSAI_GUI_SKILLSPANEL
 
 namespace sf
 {
@@ -33,7 +31,13 @@ namespace gui
     class Window;
 }
 
-void manageSkillbar(gui::Window& window, sf::RenderWindow& target, sf::Event& event);
-void displaySkillbar(gui::Window& window, sf::RenderWindow& target);
+void initSkillPanel(sf::RenderWindow& target);
+void checkSkillPanelTriggers();
+void manageSkillbar(RenderWindow& target, Event& event);
+void manageSkillPanel(sf::RenderWindow& target, sf::Event& event);
+void displaySkillbar(RenderWindow& target);
+void displaySkillPanel(sf::RenderWindow& target);
+const string& leftClickSkill();
+const string& rightClickSkill();
 
-#endif // SKILLBARMANAGER_H
+#endif // DEVILSAI_GUI_SKILLSPANEL

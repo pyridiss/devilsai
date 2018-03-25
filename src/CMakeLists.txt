@@ -28,6 +28,7 @@ set(devilsai_SRCS
     devilsai-gui/conversation.cpp
     devilsai-gui/inventory.cpp
     devilsai-gui/journal.cpp
+    devilsai-gui/skillPanel.cpp
     devilsai-gui/storageBox.cpp
     devilsai-resources/Carte.cpp
     devilsai-resources/pack.cpp
@@ -36,7 +37,6 @@ set(devilsai_SRCS
     devilsai-resources/stats.cpp
     devilsai-resources/wearableItem.cpp
 	gamedata.cpp
-    skillbarManager.cpp
 	ElementsCarte/Actionneurs.cpp
 	ElementsCarte/Coffres.cpp
 	ElementsCarte/Elements.cpp

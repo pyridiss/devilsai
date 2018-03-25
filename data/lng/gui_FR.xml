@@ -64,5 +64,6 @@
     <text id="player-dead-text">@f[dayroman]@s[24]Vous êtes mort ! @d</text>
     <text id="player-dead-main-menu">Menu principal</text>
     <text id="player-dead-load-game">Charger une partie</text>
+    <text id="skillpanel-title">@f[dayroman]@s[28]Compétences @d</text>
     <text id="storage-box-screen-inventory-name">@f[liberation-bold]@s[12]Inventaire @d</text>
 </texts>

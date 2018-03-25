@@ -9,6 +9,7 @@
     <widget name="left-click-text" type="text" OriginCenter="1" x="27" y="13" allText="ingame-skillbar-leftclick"/>
     <widget name="tab" type="button" x="65" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">
         <addEmbeddedData name="value" value="use-healpotion"/>
+        <addEmbeddedData name="related-object" value="healpotion"/>
     </widget>
     <widget name="tab-text" type="text" OriginCenter="1" x="90" y="13" allText="ingame-skillbar-tab"/>
     <widget name="left-shift" type="button" x="115" y="6" width="50" height="50" allBackground="gui-skillbar-skills-background-50x50">

@@ -8,6 +8,7 @@ set(gui
     inventory.xml
     journal.xml
     main-menu.xml
+    skill-panel.xml
     storage-box.xml
 )
 

@@ -35,12 +35,12 @@
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Jeu.h"
 
-#include "skillbarManager.h"
 #include "devilsai-gui/conversation.h"
 #include "devilsai-gui/inventory.h"
 #include "devilsai-gui/journal.h"
 #include "devilsai-gui/console.h"
 #include "devilsai-gui/storageBox.h"
+#include "devilsai-gui/skillPanel.h"
 
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
@@ -72,7 +72,6 @@ void mainLoop(RenderWindow& app)
     gui::Window ingameToolbar("gui/ingame-toolbar.xml", app);
     gui::Window inventoryWindow("gui/inventory.xml", app);
     gui::Window storageBoxWindow("gui/storage-box.xml", app);
-    gui::Window ingameSkillbar("gui/ingame-skillbar.xml", app);
     gui::Window characterWindow("gui/character.xml", app);
 
     gui::Widget* fps = ingameToolbar.widget("fps");
@@ -82,6 +81,7 @@ void mainLoop(RenderWindow& app)
     initConsole(app);
     initConversation(app);
     initJournal(app);
+    initSkillPanel(app);
 
     tools::signals::addSignal("main-menu:disable-load-game");
 
@@ -154,13 +154,16 @@ void mainLoop(RenderWindow& app)
             if (inGame)
             {
                 ingameToolbar.manage(app, event);
-                ingameSkillbar.manage(app, event);
                 manageConversation(app, event);
 
                 if ((state & ShowInventory) == ShowInventory)
                     manageInventoryScreen(inventoryWindow, app, event, selectedObject);
                 if ((state & ShowJournal) == ShowJournal)
                     manageJournal(app, event);
+                if ((state & ShowSkills) == ShowSkills)
+                    manageSkillPanel(app, event);
+                else
+                    manageSkillbar(app, event);
                 if ((state & ShowStorageBox) == ShowStorageBox)
                     manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
                 if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
@@ -199,8 +202,8 @@ void mainLoop(RenderWindow& app)
         if (inGame)
         {
             ingameToolbar.checkTriggers();
-            ingameSkillbar.checkTriggers();
             characterWindow.checkTriggers();
+            checkSkillPanelTriggers();
         }
         else
         {
@@ -409,17 +412,17 @@ void mainLoop(RenderWindow& app)
                     gamedata::player()->stopHunting();
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("left-click")->embeddedData<string>("value"), false);
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, leftClickSkill(), false);
             }
             else if ((state & RightButtonPressed) == RightButtonPressed)
             {
                 if (gamedata::player()->selectedIndividual == nullptr)
                 {
                     gamedata::player()->updateAngle(cursor.position());
-                    gamedata::player()->Set_Activite(ingameSkillbar.widget("right-click")->embeddedData<string>("value"));
+                    gamedata::player()->Set_Activite(rightClickSkill());
                 }
                 else if (gamedata::player()->selectedIndividual != gamedata::player())
-                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, ingameSkillbar.widget("right-click")->embeddedData<string>("value"), true);
+                    gamedata::player()->hunt(gamedata::player()->selectedIndividual, rightClickSkill(), true);
             }
             else gamedata::player()->selectedIndividual = nullptr;
 
@@ -480,6 +483,12 @@ void mainLoop(RenderWindow& app)
             displayInventoryScreen(inventoryWindow, app, selectedObject);
         if ((state & ShowJournal) == ShowJournal)
             displayJournal(app);
+
+        if ((state & ShowSkills) == ShowSkills)
+            displaySkillPanel(app);
+        else
+            displaySkillbar(app);
+
         if ((state & ShowCharacter) == ShowCharacter)
         {
             gui::optionType o;
@@ -497,7 +506,6 @@ void mainLoop(RenderWindow& app)
         fps->setValue(o);
 
         ingameToolbar.display(app);
-        displaySkillbar(ingameSkillbar, app);
 
         if (playerResting)
         {
