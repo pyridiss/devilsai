@@ -116,6 +116,11 @@ string Skill::getImageKey(double angle, int num)
     return key;
 }
 
+int Skill::level()
+{
+    return 1;
+}
+
 void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
 {
     string ownerName = handle.ToElement()->Attribute("owner");

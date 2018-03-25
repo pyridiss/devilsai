@@ -62,6 +62,8 @@ class Skill
         void addImage(double angle, int num, string imageKey);
         string getImageKey(double angle, int num);
 
+        int level();
+
         void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
         void loadScript();
 
