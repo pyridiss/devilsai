@@ -77,6 +77,12 @@ class Pack
          */
         WearableItem* at(const string& slot);
 
+        /**
+         * Returns the quantity of a wearable item contained in the Pack.
+         * If the wearable item is active, it will not be counted.
+         */
+        int quantityOf(const string& wearableItem);
+
         void loadFromXML(tinyxml2::XMLElement* elem);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 };

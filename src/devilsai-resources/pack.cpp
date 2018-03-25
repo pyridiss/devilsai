@@ -104,6 +104,18 @@ WearableItem* Pack::at(const string& slot)
     return nullptr;
 }
 
+int Pack::quantityOf(const string& wearableItem)
+{
+    auto i = objects.begin();
+    while (i != objects.end() && (i->name() != wearableItem || i->active()))
+        ++i;
+
+    if (i != objects.end())
+        return i->quantity();
+
+    return 0;
+}
+
 void Pack::loadFromXML(XMLElement* elem)
 {
     objects.clear();

@@ -34,7 +34,6 @@
 
 #include "devilsai-resources/Carte.h"
 #include "../ElementsCarte/ElementsCarte.h"
-#include "Bibliotheque.h"
 
 #include "gamedata.h"
 #include "Jeu/options.h"
@@ -185,15 +184,7 @@ int LUA_getQuantityOf(lua_State* L)
 {
     Individu* ind = static_cast<Individu*>(lua_touserdata(L, 1));
 	string object = lua_tostring(L, 2);
-	int result = 0;
-
-    auto& objects = ind->inventory.objects;
-
-    auto i = objects.begin();
-    while (i != objects.end() && (i->name() != object || i->active())) ++i;
-
-    if (i != objects.end())
-        result = i->quantity();
+    int result = ind->inventory.quantityOf(object);
 
 	lua_pushnumber(L, result);
 	return 1;
