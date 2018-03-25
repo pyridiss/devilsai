@@ -79,6 +79,7 @@ class Widget
         void setSize(int w, int h);
         void addFlags(uint32_t newFlags);
         void removeFlags(uint32_t newFlags);
+        bool hasFlags(uint32_t flags);
         void addTextFlags(uint16_t newFlags);
 
         int left();

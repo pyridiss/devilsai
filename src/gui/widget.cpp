@@ -114,6 +114,11 @@ void Widget::removeFlags(uint32_t newFlags)
     _flags &= ~newFlags;
 }
 
+bool Widget::hasFlags(uint32_t flags)
+{
+    return ((_flags & flags) == flags);
+}
+
 void Widget::addTextFlags(uint16_t newFlags)
 {
     _textFlags |= newFlags;
@@ -462,12 +467,12 @@ void Widget::loadFromXMLElement(tinyxml2::XMLElement* elem)
 
 void Widget::show()
 {
-    _flags &= ~Hidden;
+    _flags &= ~(Hidden | Disabled);
 }
 
 void Widget::hide()
 {
-    _flags |= Hidden;
+    _flags |= (Hidden | Disabled);
 }
 
 } //namespace gui
