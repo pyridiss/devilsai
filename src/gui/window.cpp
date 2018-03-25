@@ -248,12 +248,6 @@ void Window::manage(RenderWindow& app, Event &event)
             o.set<Keyboard::Key>(i);
             addEvent(nullptr, KeyReleased, o);
         }
-        if (Keyboard::isKeyPressed(i))
-        {
-            optionType o;
-            o.set<Keyboard::Key>(i);
-            addEvent(nullptr, KeyHeld, o);
-        }
     }
 
     if (event.type == Event::MouseButtonPressed && mouseHovering(app))
@@ -272,6 +266,16 @@ void Window::checkTriggers()
         o.set<tools::signals::Signal>(_capturedSignals.front());
         addEvent(nullptr, SignalCaptured, o);
         _capturedSignals.pop();
+    }
+
+    for (auto i : _watchedKeys)
+    {
+        if (Keyboard::isKeyPressed(i))
+        {
+            optionType o;
+            o.set<Keyboard::Key>(i);
+            addEvent(nullptr, KeyHeld, o);
+        }
     }
 
     for (auto& e : _events) for (auto& t : _triggers) if (e.widget == t.sender && e.event == t.event)
