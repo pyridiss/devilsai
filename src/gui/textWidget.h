@@ -25,7 +25,6 @@
 #include "gui/widget.h"
 
 using namespace std;
-using namespace sf;
 
 namespace gui{
 
@@ -40,13 +39,13 @@ class TextWidget : public Widget
 
     public:
         void setVerticalScrolling(int percentage);
-        bool mouseHovering(RenderWindow& app);
-        bool mouseHoveringVerticalScrollBar(RenderWindow& app);
-        bool activated(RenderWindow& app, Event event);
+        bool mouseHovering();
+        bool mouseHoveringVerticalScrollBar();
+        bool activated(sf::Event event);
 
         void setValue(optionType v);
 
-        void display(RenderWindow& app);
+        void display(sf::RenderWindow& app);
 };
 
 } //namespace gui

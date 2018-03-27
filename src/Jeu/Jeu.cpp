@@ -153,7 +153,7 @@ void mainLoop(RenderWindow& app)
 
             if (inGame)
             {
-                ingameToolbar.manage(app, event);
+                ingameToolbar.manage(event);
                 manageConversation(app, event);
 
                 if ((state & ShowInventory) == ShowInventory)
@@ -171,7 +171,7 @@ void mainLoop(RenderWindow& app)
             }
             else
             {
-                mainMenuWindow.manage(app, event);
+                mainMenuWindow.manage(event);
             }
 
             // In-game events

@@ -42,7 +42,7 @@ void TextWidget::setVerticalScrolling(int percentage)
     _verticalScrolling = percentage * maxScroll / 100;
 }
 
-bool TextWidget::mouseHovering(RenderWindow& app)
+bool TextWidget::mouseHovering()
 {
     if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
         mousePosition().y >= top() && mousePosition().y <= top() + height())
@@ -53,7 +53,7 @@ bool TextWidget::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool TextWidget::mouseHoveringVerticalScrollBar(RenderWindow& app)
+bool TextWidget::mouseHoveringVerticalScrollBar()
 {
     if ((_flags & VerticalScrollBar) == 0)
         return false;
@@ -67,18 +67,18 @@ bool TextWidget::mouseHoveringVerticalScrollBar(RenderWindow& app)
     return false;
 }
 
-bool TextWidget::activated(RenderWindow& app, Event event)
+bool TextWidget::activated(Event event)
 {
     if ((_flags & VerticalScrollBar) == 0)
         return false;
 
-    if (event.type == Event::MouseButtonPressed && mouseHoveringVerticalScrollBar(app))
+    if (event.type == Event::MouseButtonPressed && mouseHoveringVerticalScrollBar())
     {
         setVerticalScrolling((float)(mousePosition().y - top()) / (float)height() * 100);
         _flags |= VerticalScrollBarInUse;
     }
     else if (event.type == Event::MouseMoved &&
-        (mouseHovering(app) || mouseHoveringVerticalScrollBar(app)) &&
+        (mouseHovering() || mouseHoveringVerticalScrollBar()) &&
         (_flags & VerticalScrollBarInUse) == VerticalScrollBarInUse)
     {
         setVerticalScrolling((float)(mousePosition().y - top()) / (float)height() * 100);
@@ -87,7 +87,7 @@ bool TextWidget::activated(RenderWindow& app, Event event)
     {
         _flags &= ~VerticalScrollBarInUse;
     }
-    else if (event.type == Event::MouseWheelScrolled && (mouseHovering(app) || mouseHoveringVerticalScrollBar(app)))
+    else if (event.type == Event::MouseWheelScrolled && (mouseHovering() || mouseHoveringVerticalScrollBar()))
     {
         _verticalScrolling -= 10 * event.mouseWheelScroll.delta;
     }

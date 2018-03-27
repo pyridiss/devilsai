@@ -40,7 +40,7 @@ void manageStorageBoxScreen(gui::Window& window, RenderWindow& target, Event& ev
 
     for (const auto& slot : slots)
     {
-        if (!slot.second->activated(target, event)) continue;
+        if (!slot.second->activated(event)) continue;
 
         //Click founded in the player inventory; we will try to transfer the object in the storage box
         if (slot.second->embeddedData<string>("owner") == "player")
@@ -147,7 +147,7 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
                 number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
             }
 
-            if (slot.second->mouseHovering(target))
+            if (slot.second->mouseHovering())
                 hovering = obj;
         }
     }

@@ -46,7 +46,7 @@ void ScrollingList::removeAllEntries()
     entries.clear();
 }
 
-bool ScrollingList::mouseHovering(RenderWindow& app)
+bool ScrollingList::mouseHovering()
 {
     if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
         mousePosition().y >= top() && mousePosition().y <= top() + height())
@@ -57,11 +57,11 @@ bool ScrollingList::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool ScrollingList::activated(RenderWindow& app, Event event)
+bool ScrollingList::activated(Event event)
 {
     if (event.type == Event::MouseButtonPressed)
     {
-        if (mouseHovering(app))
+        if (mouseHovering())
         {
             if (mousePosition().x <= left() + width() - 20)
             {
@@ -78,7 +78,7 @@ bool ScrollingList::activated(RenderWindow& app, Event event)
             }
         }
     }
-    else if (event.type == Event::MouseMoved && mouseHovering(app) && mouseScrolling)
+    else if (event.type == Event::MouseMoved && mouseHovering() && mouseScrolling)
     {
         scrolling = (double)(mousePosition().y - top()) / (double)height();
     }

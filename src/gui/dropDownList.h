@@ -26,7 +26,6 @@
 #include "gui/widget.h"
 
 using namespace std;
-using namespace sf;
 
 namespace gui{
 
@@ -43,13 +42,13 @@ class DropDownList : public Widget
     public:
         void addEntry(textManager::PlainText& entry, string data);
 
-        bool mouseHovering(RenderWindow& app);
-        bool mouseHoveringDeveloped(RenderWindow& app);
-        bool activated(RenderWindow& app, Event event);
+        bool mouseHovering();
+        bool mouseHoveringDeveloped();
+        bool activated(sf::Event event);
 
         void setValue(optionType v);
 
-        void display(RenderWindow& app);
+        void display(sf::RenderWindow& app);
 };
 
 } //namespace gui

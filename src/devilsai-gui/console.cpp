@@ -48,8 +48,8 @@ void addConsoleEntry(const textManager::PlainText& newEntry)
 
 void manageConsole(RenderWindow& target, Event& event)
 {
-    Console_TextWidget->activated(target, event);
-    Console_Gui.manage(target, event);
+    Console_TextWidget->activated(event);
+    Console_Gui.manage(event);
     Console_Gui.checkTriggers();
 }
 

@@ -38,7 +38,7 @@ void DropDownList::addEntry(textManager::PlainText& entry, string data)
     entries.emplace_back(entry, data);
 }
 
-bool DropDownList::mouseHovering(RenderWindow& app)
+bool DropDownList::mouseHovering()
 {
     if ((_flags & Disabled) == Disabled)
         return false;
@@ -54,7 +54,7 @@ bool DropDownList::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
+bool DropDownList::mouseHoveringDeveloped()
 {
     if ((_flags & Activated) == 0)
         return false;
@@ -68,20 +68,20 @@ bool DropDownList::mouseHoveringDeveloped(RenderWindow& app)
     return false;
 }
 
-bool DropDownList::activated(RenderWindow& app, Event event)
+bool DropDownList::activated(Event event)
 {
     if ((_flags & Disabled) == Disabled)
         return false;
 
     if (event.type == Event::MouseButtonPressed)
     {
-        if (mouseHovering(app))
+        if (mouseHovering())
         {
             _flags ^= Activated;
             _parent->askFocus(this, (_flags & Activated) == Activated);
             return false;
         }
-        else if (mouseHoveringDeveloped(app))
+        else if (mouseHoveringDeveloped())
         {
             int i = mousePosition().y - (top() + height());
             index = i / height();
@@ -113,7 +113,7 @@ void DropDownList::setValue(optionType v)
 
 void DropDownList::display(RenderWindow& app)
 {
-    mouseHovering(app);
+    mouseHovering();
 
     Widget::display(app);
 
@@ -126,7 +126,7 @@ void DropDownList::display(RenderWindow& app)
         drawing.setOutlineThickness(1);
         app.draw(drawing);
 
-        if (mouseHoveringDeveloped(app))
+        if (mouseHoveringDeveloped())
         {
             int i = (mousePosition().y - (top() + height())) / height();
             i = min(i, (int)entries.size()-1);

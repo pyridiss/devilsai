@@ -224,14 +224,14 @@ void Window::display(RenderWindow& app)
         _focusedWidget->display(app);
 }
 
-void Window::manage(RenderWindow& app, Event &event)
+void Window::manage(Event &event)
 {
     if (_focusedWidget != nullptr)
-        _focusedWidget->activated(app, event);
+        _focusedWidget->activated(event);
     else
     {
         for (auto& widget : widgets)
-            widget.second->activated(app, event);
+            widget.second->activated(event);
     }
 
     for (auto i : _watchedKeys)
@@ -250,7 +250,7 @@ void Window::manage(RenderWindow& app, Event &event)
         }
     }
 
-    if (event.type == Event::MouseButtonPressed && mouseHovering(app))
+    if (event.type == Event::MouseButtonPressed && mouseHovering())
     {
         //If a mouse button has been pressed inside this window,
         //the event must be disabled to avoid another window to use it.
@@ -419,7 +419,7 @@ void Window::askFocus(Widget* w, bool value)
     _focusedWidget = (value) ? w : nullptr;
 }
 
-bool Window::mouseHovering(RenderWindow& app)
+bool Window::mouseHovering()
 {
     if ((_flags & Disabled) == Disabled)
         return false;
@@ -433,9 +433,9 @@ bool Window::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool Window::activated(RenderWindow& app, Event event)
+bool Window::activated(Event event)
 {
-    manage(app, event);
+    manage(event);
     return false;
 }
 

@@ -33,7 +33,7 @@ InputField::InputField()
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
-bool InputField::mouseHovering(RenderWindow& app)
+bool InputField::mouseHovering()
 {
     if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
         mousePosition().y >= top() && mousePosition().y <= top() + height())
@@ -44,7 +44,7 @@ bool InputField::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool InputField::activated(RenderWindow& app, Event event)
+bool InputField::activated(Event event)
 {
     if (event.type == Event::TextEntered)
     {

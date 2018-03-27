@@ -37,12 +37,12 @@ ProgressBar::ProgressBar()
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
-bool ProgressBar::mouseHovering(RenderWindow& app)
+bool ProgressBar::mouseHovering()
 {
     return false;
 }
 
-bool ProgressBar::activated(RenderWindow& app, Event event)
+bool ProgressBar::activated(Event event)
 {
     return false;
 }

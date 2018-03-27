@@ -37,7 +37,7 @@ void manageInventoryScreen(gui::Window& window, RenderWindow& target, Event& eve
 
     for (const auto& slot : slots)
     {
-        if (slot.second->activated(target, event))
+        if (slot.second->activated(event))
         {
             if (!selectedObject.valid())
             {
@@ -107,7 +107,7 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, WearableI
                 number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
             }
 
-            if (slot.second->mouseHovering(target))
+            if (slot.second->mouseHovering())
                 hovering = obj;
         }
     }

@@ -127,22 +127,22 @@ void manageJournal(RenderWindow& target, Event& event)
 {
     unsigned oldPage = _currentPage;
 
-    if (_first->activated(target, event))
+    if (_first->activated(event))
         _currentPage = 0;
 
-    if (_previous->activated(target, event))
+    if (_previous->activated(event))
         _currentPage = max((unsigned)0, _currentPage - 1);
 
-    if (_next->activated(target, event))
+    if (_next->activated(event))
         _currentPage = min((unsigned)_journal.size() - 1, _currentPage + 1);
 
-    if (_last->activated(target, event))
+    if (_last->activated(event))
         _currentPage = _journal.size() - 1;
 
     if (_currentPage != oldPage)
         updateState();
 
-    _text->activated(target, event);
+    _text->activated(event);
     _window.checkTriggers();
 }
 

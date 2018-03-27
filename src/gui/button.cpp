@@ -36,7 +36,7 @@ void Button::setAutoRelease(bool a)
     autoRelease = a;
 }
 
-bool Button::mouseHovering(RenderWindow& app)
+bool Button::mouseHovering()
 {
     if ((_flags & Disabled) == Disabled)
         return false;
@@ -55,12 +55,12 @@ bool Button::mouseHovering(RenderWindow& app)
     return false;
 }
 
-bool Button::activated(RenderWindow& app, Event event)
+bool Button::activated(Event event)
 {
     if ((_flags & Disabled) == Disabled)
         return false;
 
-    if (mouseHovering(app))
+    if (mouseHovering())
     {
         if (event.type == Event::MouseButtonPressed)
         {

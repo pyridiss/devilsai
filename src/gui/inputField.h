@@ -25,7 +25,6 @@
 #include "gui/widget.h"
 
 using namespace std;
-using namespace sf;
 
 namespace gui{
 
@@ -39,8 +38,8 @@ class InputField : public Widget
         ~InputField() = default;
 
     public:
-        bool mouseHovering(RenderWindow& app);
-        bool activated(RenderWindow& app, Event event);
+        bool mouseHovering();
+        bool activated(sf::Event event);
 
         void setValue(optionType v);
 };

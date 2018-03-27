@@ -154,7 +154,7 @@ class Window : public Widget
         const RenderWindow* screen();
         void startWindow(RenderWindow& app);
         void display(RenderWindow& app);
-        void manage(RenderWindow& app, Event &event);
+        void manage(Event &event);
         void checkTriggers();
         Widget* widget(string name);
         const map<string,Widget*>& getWidgets();
@@ -163,8 +163,8 @@ class Window : public Widget
         void addEvent(Widget* s, EventTypes e, optionType d);
         void askFocus(Widget* w, bool value);
 
-        bool mouseHovering(RenderWindow& app);
-        bool activated(RenderWindow& app, Event event);
+        bool mouseHovering();
+        bool activated(Event event);
 
         void loadFromFile(string path);
         void loadFromXML(tinyxml2::XMLElement* elem);

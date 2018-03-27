@@ -98,8 +98,8 @@ class Widget
         T& embeddedData(const string& name);
         optionType& embeddedData(const string& name);
 
-        virtual bool mouseHovering(RenderWindow& app) = 0;
-        virtual bool activated(RenderWindow& app, Event event) = 0;
+        virtual bool mouseHovering() = 0;
+        virtual bool activated(Event event) = 0;
 
         virtual void setValue(optionType v) = 0;
 

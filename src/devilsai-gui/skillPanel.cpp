@@ -48,12 +48,12 @@ void manageSkillbar(RenderWindow& target, Event& event)
     {
         for (const auto& slot : SkillPanel_Bar.getWidgets())
         {
-            if (slot.second->activated(target, event))
+            if (slot.second->activated(event))
                 slot.second->addEmbeddedData<string>("value", string());
         }
     }
 
-    SkillPanel_Bar.manage(target, event);
+    SkillPanel_Bar.manage(event);
 }
 
 void manageSkillPanel(RenderWindow& target, Event& event)
@@ -80,7 +80,7 @@ void manageSkillPanel(RenderWindow& target, Event& event)
             else slot.second->hide();
         }
 
-        if (slot.second->activated(target, event))
+        if (slot.second->activated(event))
         {
             if (currentSkill->Id == SkillPanel_SelectedSkillName)
             {
@@ -99,7 +99,7 @@ void manageSkillPanel(RenderWindow& target, Event& event)
     {
         for (const auto& slot : SkillPanel_Bar.getWidgets())
         {
-            if (slot.second->activated(target, event))
+            if (slot.second->activated(event))
             {
                 slot.second->addEmbeddedData<string>("value", SkillPanel_SelectedSkillName);
                 slot.second->addEmbeddedData<string>("related-object", SkillPanel_SelectedSkillObject);

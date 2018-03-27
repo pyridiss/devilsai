@@ -71,17 +71,17 @@ void manageConversation(RenderWindow& target, Event& event)
 {
     if (_currentDialog != nullptr)
     {
-        if (_restart != nullptr && _restart->activated(target, event))
+        if (_restart != nullptr && _restart->activated(event))
         {
             _currentOffset = -100;
         }
-        if (_ok != nullptr && _ok->activated(target, event))
+        if (_ok != nullptr && _ok->activated(event))
         {
             _currentDialog = nullptr;
             gamedata::listDialogs().erase(gamedata::listDialogs().begin());
             tools::signals::addSignal("disable-cinematic-mode");
         }
-        if (_faster != nullptr && _faster->activated(target, event))
+        if (_faster != nullptr && _faster->activated(event))
         {
             if (_currentSpeed < 50)
             {
@@ -89,7 +89,7 @@ void manageConversation(RenderWindow& target, Event& event)
                 options::addOption<unsigned>(tools::math::sdbm_hash("dialog-speed"), _currentSpeed);
             }
         }
-        if (_slower != nullptr && _slower->activated(target, event))
+        if (_slower != nullptr && _slower->activated(event))
         {
             if (_currentSpeed > 2)
             {
