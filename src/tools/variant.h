@@ -68,9 +68,9 @@ struct variant_helper<F, Ts...> {
 };
 
 template<> struct variant_helper<>  {
-inline static void destroy(size_t id, void * data) { }
-inline static void move(size_t old_t, void * old_v, void * new_v) { }
-inline static void copy(size_t old_t, const void * old_v, void * new_v) { }
+inline static void destroy([[maybe_unused]] size_t id, [[maybe_unused]] void * data) { }
+inline static void move([[maybe_unused]] size_t old_t, [[maybe_unused]] void * old_v, [[maybe_unused]] void * new_v) { }
+inline static void copy([[maybe_unused]] size_t old_t, [[maybe_unused]] const void * old_v, [[maybe_unused]] void * new_v) { }
 };
 
 template<typename... Ts>
