@@ -520,11 +520,6 @@ void Individu::modifyHealthStatus(Attribute a, double value)
     }
 }
 
-void Individu::setSpecies(Classe_Commune* s)
-{
-    _species = s;
-}
-
 Classe_Commune* Individu::species()
 {
     return _species;

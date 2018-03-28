@@ -402,19 +402,6 @@ int LUA_playSound(lua_State* L)
 	return 0;
 }
 
-int LUA_createIndividual(lua_State* L)
-{
-    string type = lua_tostring(L, 1);
-    double x = lua_tonumber(L, 2);
-    double y = lua_tonumber(L, 3);
-
-    Individu* i = gamedata::currentWorld()->AjouterElement_Commun(type, "default", x, y);
-
-    lua_pushlightuserdata(L, (void*)i);
-
-    return 1;
-}
-
 int LUA_changeCurrentSkill(lua_State* L)
 {
     tools::debug::message("LUA_changeCurrentSkill() called", "lua", __FILENAME__, __LINE__);

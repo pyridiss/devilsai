@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-resources/skill.h"
+
 #include <lua.hpp>
 #include <tinyxml2.h>
 
@@ -28,7 +30,9 @@
 #include "../Bibliotheque/luaFunctions.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
-#include "devilsai-resources/skill.h"
+#include "devilsai-resources/Carte.h"
+
+#include "gamedata.h"
 
 using namespace tinyxml2;
 
@@ -230,7 +234,23 @@ void Skill::loadScript()
 
     lua_register(script, "addSound", LUA_addSound);
     lua_register(script, "cout", LUA_cout);
-    lua_register(script, "createIndividual", LUA_createIndividual);
+
+    lua_register(script, "createIndividual", [](lua_State* S)
+    {
+        Carte* w = gamedata::world(lua_tostring(S, 1));
+        Classe_Commune* s = gamedata::species(lua_tostring(S, 2));
+
+        if (w != nullptr && s != nullptr)
+        {
+            Individu* i = new Individu(s, lua_tonumber(S, 3), lua_tonumber(S, 4));
+            w->insertItem(i);
+            lua_pushlightuserdata(S, (void*)i);
+        }
+        else lua_pushlightuserdata(S, 0);
+
+        return 1;
+    });
+
     lua_register(script, "fight", LUA_combat);
     lua_register(script, "getElementInteraction", LUA_getTargetedItem);
     lua_register(script, "individual_changeCurrentSkill", LUA_changeCurrentSkill);

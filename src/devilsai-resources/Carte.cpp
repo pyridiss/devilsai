@@ -94,28 +94,6 @@ void Carte::removeItem(Element_Carte *elem)
     }
 }
 
-Individu* Carte::AjouterElement_Commun(string Type, string liste, int x, int y)
-{
-    Individu *ind = new Individu;
-
-	ind->Liste = liste;
-	ind->Type = Type;
-
-    ind->setSpecies(gamedata::species(Type));
-
-    if (ind->species() == nullptr)
-	{
-		delete ind;
-		return NULL;
-	}
-
-    ind->species()->Copie_Element(ind);
-    ind->move(x, y);
-
-    insertItem(ind);
-	return ind;
-}
-
 CheckPoint* Carte::addCheckPoint(string liste, int x, int y)
 {
     CheckPoint *ind = new CheckPoint;
