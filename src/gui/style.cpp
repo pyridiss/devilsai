@@ -24,12 +24,13 @@
  * http://creativecommons.org/licenses/by-nc-nd/2.5/
  */
 
+#include "gui/style.h"
+
 #include <cmath>
 
 #include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
-#include "gui/style.h"
 
 namespace gui{
 

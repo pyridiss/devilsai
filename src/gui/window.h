@@ -23,19 +23,12 @@
 #include <string>
 #include <list>
 #include <map>
+#include <vector>
+#include <queue>
 
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-
-#include "tools/signals.h"
-
-#include "textManager/plainText.h"
-
-#include "gui/style.h"
 #include "gui/widget.h"
 
 using namespace std;
-using namespace sf;
 
 namespace gui{
 

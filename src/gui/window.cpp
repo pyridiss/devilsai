@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "gui/window.h"
+
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
@@ -30,7 +32,6 @@
 
 #include "musicManager/musicManager.h"
 
-#include "gui/window.h"
 #include "gui/textWidget.h"
 #include "gui/button.h"
 #include "gui/inputField.h"

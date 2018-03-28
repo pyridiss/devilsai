@@ -20,8 +20,6 @@
 #ifndef GUI_TEXTWIDGET_H
 #define GUI_TEXTWIDGET_H
 
-#include <string>
-
 #include "gui/widget.h"
 
 using namespace std;

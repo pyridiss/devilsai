@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "gui/widget.h"
+
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
@@ -24,7 +26,6 @@
 #include "textManager/textManager.h"
 
 #include "gui/window.h"
-#include "gui/widget.h"
 #include "gui/style.h"
 
 #include "imageManager/image.h"

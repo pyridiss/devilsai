@@ -20,7 +20,7 @@
 #ifndef GUI_SCROLLINGLIST_H
 #define GUI_SCROLLINGLIST_H
 
-#include <list>
+#include <vector>
 
 #include "gui/widget.h"
 

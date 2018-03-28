@@ -20,11 +20,7 @@
 #ifndef GUI_BUTTON_H
 #define GUI_BUTTON_H
 
-#include <string>
-
 #include "gui/widget.h"
-
-using namespace std;
 
 namespace gui{
 
