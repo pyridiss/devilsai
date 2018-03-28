@@ -42,9 +42,9 @@ T option(string_view name);
 
 void Load_Options();
 void Save_Options();
-void changeOption(string option, string value);
+void changeOption(const string& name, const string& value);
 void updateCurrentSavedGamePack(string directory = string());
-void deleteSavedGamePack(string directory);
+void deleteSavedGamePack(const string& directory);
 string getCurrentSavedGameDirectory();
 void initLoadGameWindow(gui::Window& window);
 void initOptionsWindow(gui::Window& window);

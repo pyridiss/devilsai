@@ -226,7 +226,7 @@ void Save_Options()
     file.SaveFile((tools::filesystem::getSaveDirectoryPath() + "options.xml").c_str());
 }
 
-void changeOption(string name, string value)
+void changeOption(const string& name, const string& value)
 {
     if (name == "option-change-language")
     {
@@ -295,7 +295,7 @@ void updateCurrentSavedGamePack(string directory)
     currentSavedGame->version = "master";
 }
 
-void deleteSavedGamePack(string directory)
+void deleteSavedGamePack(const string& directory)
 {
     string path = tools::filesystem::getSaveDirectoryPath() + directory;
 
