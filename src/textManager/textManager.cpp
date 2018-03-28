@@ -70,12 +70,8 @@ void loadFile(string container, string path, const string& language)
         }
         if (elemName == "text")
         {
-            string id = "", text = "";
-            id = elem->Attribute("id");
-            if (elem->GetText())
-                text = elem->GetText();
-
-            c->second.emplace(id, text);
+            if (elem->Attribute("id") && elem->GetText())
+                c->second.emplace(elem->Attribute("id"), elem->GetText());
         }
 
         elem = elem->NextSiblingElement();
