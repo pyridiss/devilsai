@@ -43,8 +43,8 @@ bool DropDownList::mouseHovering()
     if ((_flags & Disabled) == Disabled)
         return false;
 
-    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
-        (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
+    if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
+        mousePosition().y >= top() && mousePosition().y <= top() + height())
     {
         _flags |= MouseOver;
         return true;
@@ -59,8 +59,8 @@ bool DropDownList::mouseHoveringDeveloped()
     if ((_flags & Activated) == 0)
         return false;
 
-    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
-        (int)mousePosition().y >= top() + height() && (int)mousePosition().y <= top() + height() * (1 + (int)entries.size()))
+    if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
+        mousePosition().y >= top() + height() && mousePosition().y <= top() + height() * (1 + (int)entries.size()))
     {
         return true;
     }

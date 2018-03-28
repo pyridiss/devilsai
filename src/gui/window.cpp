@@ -424,8 +424,8 @@ bool Window::mouseHovering()
     if ((_flags & Disabled) == Disabled)
         return false;
 
-    if ((int)mousePosition().x >= left() && (int)mousePosition().x <= left() + width() &&
-        (int)mousePosition().y >= top() && (int)mousePosition().y <= top() + height())
+    if (mousePosition().x >= left() && mousePosition().x <= left() + width() &&
+        mousePosition().y >= top() && mousePosition().y <= top() + height())
     {
         return true;
     }
