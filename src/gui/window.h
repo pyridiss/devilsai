@@ -65,30 +65,10 @@ class Window : public Widget
                 dataName()
             {
             }
-            Trigger(const Trigger& other)
-              : sender(other.sender),
-                dataProvider(other.dataProvider),
-                target(other.target),
-                event(other.event),
-                eventData(other.eventData),
-                action(other.action),
-                signal(other.signal),
-                dataName(other.dataName)
-            {
-            }
-            Trigger& operator=(const Trigger& right)
-            {
-                sender = right.sender;
-                dataProvider = right.dataProvider;
-                target = right.target;
-                event = right.event;
-                eventData = right.eventData;
-                action = right.action;
-                signal = right.signal;
-                dataName = right.dataName;
-
-                return *this;
-            }
+            Trigger(const Trigger& other) = delete;
+            Trigger(Trigger&& other) = default;
+            Trigger& operator=(const Trigger& right) = delete;
+            Trigger& operator=(Trigger&& right) = delete;
         };
         struct WindowEvent
         {
@@ -108,20 +88,10 @@ class Window : public Widget
                 data(d)
             {
             }
-            WindowEvent(const WindowEvent& other)
-              : widget(other.widget),
-                event(other.event),
-                data(other.data)
-            {
-            }
-            WindowEvent& operator=(const WindowEvent& right)
-            {
-                widget = right.widget;
-                event = right.event;
-                data = right.data;
-
-                return *this;
-            }
+            WindowEvent(const WindowEvent& other) = delete;
+            WindowEvent(WindowEvent&& other) = default;
+            WindowEvent& operator=(const WindowEvent& right) = delete;
+            WindowEvent& operator=(WindowEvent&& right) = delete;
         };
 
     private:
