@@ -175,6 +175,15 @@ Individu::Individu(Individu&& other) noexcept
     other._extraDataFile = nullptr;
 }
 
+Individu::Individu(Classe_Commune* s, double x, double y)
+  : Individu()
+{
+    _species = s;
+    _species->Copie_Element(this);
+    Type = _species->Type;
+    move(x, y);
+}
+
 Individu::~Individu()
 {
     if (_behaviors != nullptr)
