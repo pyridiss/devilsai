@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-gui/conversation.h"
+
 #include <SFML/Graphics.hpp>
 
 #include "tools/signals.h"
@@ -30,7 +32,6 @@
 #include "gamedata.h"
 #include "Jeu/options.h"
 
-#include "devilsai-gui/conversation.h"
 
 using namespace std;
 using namespace sf;
@@ -67,7 +68,7 @@ void initConversation(RenderWindow& target)
     _currentSpeed = options::option<unsigned>(tools::math::sdbm_hash("dialog-speed"));
 }
 
-void manageConversation(RenderWindow& target, Event& event)
+void manageConversation(Event& event)
 {
     if (_currentDialog != nullptr)
     {
@@ -102,7 +103,7 @@ void manageConversation(RenderWindow& target, Event& event)
     Gui.checkTriggers();
 }
 
-void manageConversation(RenderWindow& target)
+void manageConversation()
 {
     if (!gamedata::listDialogs().empty() && _currentDialog == nullptr)
     {

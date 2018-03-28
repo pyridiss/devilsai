@@ -24,6 +24,7 @@
 #include "tools/math.h"
 #include "textManager/textManager.h"
 
+#include "gui/style.h"
 #include "gui/window.h"
 #include "gui/textWidget.h"
 
@@ -154,20 +155,20 @@ void mainLoop(RenderWindow& app)
             if (inGame)
             {
                 ingameToolbar.manage(event);
-                manageConversation(app, event);
+                manageConversation(event);
 
                 if ((state & ShowInventory) == ShowInventory)
                     manageInventoryScreen(inventoryWindow, app, event, selectedObject);
                 if ((state & ShowJournal) == ShowJournal)
-                    manageJournal(app, event);
+                    manageJournal(event);
                 if ((state & ShowSkills) == ShowSkills)
-                    manageSkillPanel(app, event);
+                    manageSkillPanel(event);
                 else
-                    manageSkillbar(app, event);
+                    manageSkillbar(event);
                 if ((state & ShowStorageBox) == ShowStorageBox)
                     manageStorageBoxScreen(storageBoxWindow, app, event, openStorageBox);
                 if ((state & ShowConsole) == ShowConsole && (state & LeftPanelOpened) == 0 && (state & ShowStorageBox) == 0)
-                    manageConsole(app, event);
+                    manageConsole(event);
             }
             else
             {
@@ -211,7 +212,7 @@ void mainLoop(RenderWindow& app)
         }
 
         if (inGame && managementActivated)
-            manageConversation(app);
+            manageConversation();
 
         worldView.reset(FloatRect(0, 0, app.getSize().x, app.getSize().y - 106));
         worldView.setViewport(FloatRect(0, 50.f/(float)app.getSize().y, 1, (float)(app.getSize().y-106)/(float)app.getSize().y));

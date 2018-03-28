@@ -20,24 +20,20 @@
 #ifndef DEVILSAI_GUI_SKILLSPANEL
 #define DEVILSAI_GUI_SKILLSPANEL
 
-namespace sf
-{
+#include <string>
+
+namespace sf{
     class RenderWindow;
     class Event;
 }
 
-namespace gui
-{
-    class Window;
-}
-
 void initSkillPanel(sf::RenderWindow& target);
 void checkSkillPanelTriggers();
-void manageSkillbar(RenderWindow& target, Event& event);
-void manageSkillPanel(sf::RenderWindow& target, sf::Event& event);
-void displaySkillbar(RenderWindow& target);
+void manageSkillbar(sf::Event& event);
+void manageSkillPanel(sf::Event& event);
+void displaySkillbar(sf::RenderWindow& target);
 void displaySkillPanel(sf::RenderWindow& target);
-const string& leftClickSkill();
-const string& rightClickSkill();
+const std::string& leftClickSkill();
+const std::string& rightClickSkill();
 
 #endif // DEVILSAI_GUI_SKILLSPANEL

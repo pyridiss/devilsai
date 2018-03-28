@@ -20,20 +20,14 @@
 #ifndef DEVILSAI_GUI_CONVERSATION_H
 #define DEVILSAI_GUI_CONVERSATION_H
 
-namespace sf
-{
+namespace sf{
     class RenderWindow;
     class Event;
 }
 
-namespace gui
-{
-    class Window;
-}
-
 void initConversation(sf::RenderWindow& target);
-void manageConversation(sf::RenderWindow& target, sf::Event& event);
-void manageConversation(sf::RenderWindow& target);
-void displayConversation(RenderWindow& target);
+void manageConversation(sf::Event& event);
+void manageConversation();
+void displayConversation(sf::RenderWindow& target);
 
 #endif // DEVILSAI_GUI_CONVERSATION_H

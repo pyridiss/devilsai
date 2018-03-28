@@ -17,6 +17,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-gui/inventory.h"
+
+#include "gui/style.h"
 #include "gui/window.h"
 #include "imageManager/imageManager.h"
 

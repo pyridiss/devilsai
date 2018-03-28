@@ -33,15 +33,9 @@ namespace tinyxml2{
     class XMLDocument;
 }
 
-namespace sf
-{
+namespace sf{
     class RenderWindow;
     class Event;
-}
-
-namespace gui
-{
-    class Window;
 }
 
 class JournalPage
@@ -63,10 +57,10 @@ class JournalPage
         void addParagraph(string newParagraph);
 };
 
-void initJournal(RenderWindow& target);
+void initJournal(sf::RenderWindow& target);
 void addJournalEntry(string world, string questName, string newEntry);
-void manageJournal(RenderWindow& target, Event& event);
-void displayJournal(RenderWindow& target);
+void manageJournal(sf::Event& event);
+void displayJournal(sf::RenderWindow& target);
 void loadJournalFromXML(tinyxml2::XMLHandle &handle);
 void saveJournalToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 

@@ -20,14 +20,12 @@
 #ifndef DEVILSAI_GUI_INVENTORY_H
 #define DEVILSAI_GUI_INVENTORY_H
 
-namespace sf
-{
+namespace sf{
     class RenderWindow;
     class Event;
 }
 
-namespace gui
-{
+namespace gui{
     class Window;
 }
 

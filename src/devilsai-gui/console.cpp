@@ -17,10 +17,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-gui/console.h"
+
 #include "gui/textWidget.h"
 #include "gui/window.h"
 
-#include "devilsai-gui/console.h"
 
 gui::Window Console_Gui;
 gui::TextWidget* Console_TextWidget = nullptr;
@@ -46,7 +47,7 @@ void addConsoleEntry(const textManager::PlainText& newEntry)
     Console_TextWidget->setVerticalScrolling(100);
 }
 
-void manageConsole(RenderWindow& target, Event& event)
+void manageConsole(Event& event)
 {
     Console_TextWidget->activated(event);
     Console_Gui.manage(event);

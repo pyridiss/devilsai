@@ -17,14 +17,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-gui/journal.h"
+
 #include <tinyxml2.h>
 
 #include "textManager/textManager.h"
 
+#include "gui/style.h"
 #include "gui/widget.h"
 #include "gui/window.h"
 
-#include "devilsai-gui/journal.h"
 
 using namespace tinyxml2;
 
@@ -123,7 +125,7 @@ void updateState()
     _number->setValue(o);
 }
 
-void manageJournal(RenderWindow& target, Event& event)
+void manageJournal(Event& event)
 {
     unsigned oldPage = _currentPage;
 

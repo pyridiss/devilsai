@@ -20,24 +20,18 @@
 #ifndef DEVILSAI_GUI_CONSOLE_H
 #define DEVILSAI_GUI_CONSOLE_H
 
-#include "textManager/plainText.h"
-
-using namespace std;
-
-namespace sf
-{
+namespace sf{
     class RenderWindow;
     class Event;
 }
 
-namespace gui
-{
-    class Window;
+namespace textManager{
+    class PlainText;
 }
 
-void initConsole(RenderWindow& target);
+void initConsole(sf::RenderWindow& target);
 void addConsoleEntry(const textManager::PlainText& newEntry);
-void manageConsole(RenderWindow& target, Event& event);
-void displayConsole(RenderWindow& target);
+void manageConsole(sf::Event& event);
+void displayConsole(sf::RenderWindow& target);
 
 #endif // DEVILSAI_GUI_CONSOLE_H

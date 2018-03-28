@@ -17,7 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-gui/skillPanel.h"
+
 #include "imageManager/imageManager.h"
+#include "gui/style.h"
 #include "gui/window.h"
 
 #include "ElementsCarte/ElementsCarte.h"
@@ -42,7 +45,7 @@ void checkSkillPanelTriggers()
     SkillPanel_Bar.checkTriggers();
 }
 
-void manageSkillbar(RenderWindow& target, Event& event)
+void manageSkillbar(Event& event)
 {
     if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Button::Right)
     {
@@ -56,7 +59,7 @@ void manageSkillbar(RenderWindow& target, Event& event)
     SkillPanel_Bar.manage(event);
 }
 
-void manageSkillPanel(RenderWindow& target, Event& event)
+void manageSkillPanel(Event& event)
 {
     for (const auto& slot : SkillPanel_Gui.getWidgets())
     {
@@ -109,7 +112,7 @@ void manageSkillPanel(RenderWindow& target, Event& event)
         }
     }
 
-    manageSkillbar(target, event);
+    manageSkillbar(event);
 }
 
 void displaySkillbar(RenderWindow& target)
