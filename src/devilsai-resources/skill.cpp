@@ -253,7 +253,15 @@ void Skill::loadScript()
 
     lua_register(script, "fight", LUA_combat);
     lua_register(script, "getElementInteraction", LUA_getTargetedItem);
-    lua_register(script, "individual_changeCurrentSkill", LUA_changeCurrentSkill);
+
+    lua_register(script, "individual_changeCurrentSkill", [](lua_State* S)
+    {
+        Individu* ind = static_cast<Individu*>(lua_touserdata(S, 1));
+        if (ind != nullptr)
+            ind->Set_Activite(lua_tostring(S, 2));
+        return 0;
+    });
+
     lua_register(script, "individual_copy", LUA_individual_copy);
     lua_register(script, "individual_get", LUA_get);
     lua_register(script, "individual_set", LUA_set);

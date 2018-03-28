@@ -49,7 +49,6 @@ int LUA_possess(lua_State*);
 int LUA_transferObject(lua_State*);
 int LUA_addSound(lua_State*);
 int LUA_playSound(lua_State*);
-int LUA_changeCurrentSkill(lua_State* L);
 int LUA_moveItemTo(lua_State* L);
 
 #endif

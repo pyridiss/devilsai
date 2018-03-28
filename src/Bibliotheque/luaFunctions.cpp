@@ -402,19 +402,6 @@ int LUA_playSound(lua_State* L)
 	return 0;
 }
 
-int LUA_changeCurrentSkill(lua_State* L)
-{
-    tools::debug::message("LUA_changeCurrentSkill() called", "lua", __FILENAME__, __LINE__);
-
-    Individu* ind = (Individu*)lua_touserdata(L, 1);
-    string newSkill = lua_tostring(L, 2);
-
-    ind->Set_Activite(newSkill);
-    ind->ActEffectue = false;
-
-    return 0;
-}
-
 int LUA_moveItemTo(lua_State* L)
 {
     tools::debug::message("LUA_moveItemTo() called", "lua", __FILENAME__, __LINE__);
