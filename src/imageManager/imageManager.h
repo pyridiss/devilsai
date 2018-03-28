@@ -24,26 +24,25 @@
 
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-using namespace sf;
+using std::string;
 
 namespace imageManager{
 
 class Image;
 class Animation;
 
-void addContainer(string container);
-void addImage(string container, string key, string file, Vector2i of = Vector2i(0, 0));
+void addContainer(const string& container);
+void addImage(const string& container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0));
 void addArchiveFile(string path);
-void setColorizeParameters(Vector3f r, Vector3f g, Vector3f b);
+void setColorizeParameters(sf::Vector3f r, sf::Vector3f g, sf::Vector3f b);
 void removeColorizeShader();
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);
-imageManager::Image* getImage(string container, string key);
-void changeHSL(string container, string key, double h, double s, double l);
-void display(RenderTarget& target, string container, string key, float x, float y, bool atCenter = false, const Shader* shader = nullptr);
-void addAnimation(string name, string file);
-imageManager::Animation* getAnimation(string name);
+imageManager::Image* getImage(const string& container, const string& key);
+void changeHSL(const string& container, const string& key, double h, double s, double l);
+void display(sf::RenderTarget& target, const string& container, const string& key, float x, float y, bool atCenter = false, const sf::Shader* shader = nullptr);
+void addAnimation(const string& name, const string& file);
+imageManager::Animation* getAnimation(const string& name);
 void lockGLMutex(int id);
 void unlockGLMutex(int id);
 

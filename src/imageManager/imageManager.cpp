@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "imageManager/imageManager.h"
+
 #include <atomic>
 
 #include <physfs.h>
@@ -26,7 +28,6 @@
 
 #include "gui/style.h"
 
-#include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
 #include "imageManager/HSL.h"
@@ -46,7 +47,7 @@ Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
 atomic_bool Mutex;
 atomic_int LockerID;
 
-void addContainer(string container)
+void addContainer(const string& container)
 {
     Database::iterator c = images.find(container);
 
@@ -57,7 +58,7 @@ void addContainer(string container)
     }
 }
 
-void addImage(string container, string key, string file, Vector2i of)
+void addImage(const string& container, const string& key, const string& file, Vector2i of)
 {
     Database::iterator c = images.find(container);
 
@@ -125,7 +126,7 @@ void removeArchiveFile(string path)
     currentArchiveFile = "";
 }
 
-imageManager::Image* getImage(string container, string key)
+imageManager::Image* getImage(const string& container, const string& key)
 {
     Database::iterator c = images.find(container);
 
@@ -146,7 +147,7 @@ imageManager::Image* getImage(string container, string key)
     return &(i->second);
 }
 
-void changeHSL(string container, string key, double h, double s, double l)
+void changeHSL(const string& container, const string& key, double h, double s, double l)
 {
     Image* i = getImage(container, key);
 
@@ -157,7 +158,7 @@ void changeHSL(string container, string key, double h, double s, double l)
     }
 }
 
-void display(RenderTarget& target, string container, string key, float x, float y, bool atCenter, const Shader* shader)
+void display(RenderTarget& target, const string& container, const string& key, float x, float y, bool atCenter, const Shader* shader)
 {
     Database::iterator c = images.find(container);
 
@@ -180,7 +181,7 @@ void display(RenderTarget& target, string container, string key, float x, float 
     tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images", __FILENAME__, __LINE__);
 }
 
-void addAnimation(string name, string file)
+void addAnimation(const string& name, const string& file)
 {
     AnimationDatabase::iterator a = animations.find(name);
 
@@ -192,7 +193,7 @@ void addAnimation(string name, string file)
     }
 }
 
-imageManager::Animation* getAnimation(string name)
+imageManager::Animation* getAnimation(const string& name)
 {
     AnimationDatabase::iterator a = animations.find(name);
 
