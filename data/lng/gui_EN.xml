@@ -66,4 +66,6 @@
     <text id="player-dead-load-game">Load a game</text>
     <text id="skillpanel-title">@f[dayroman]@s[28]Skills @d</text>
     <text id="storage-box-screen-inventory-name">@f[liberation-bold]@s[12]Inventory @d</text>
+    <text id="unreachable-file-button">Main menu</text>
+    <text id="unreachable-file-text">@f[dayroman]@s[22]Unreachable file. @d</text>
 </texts>

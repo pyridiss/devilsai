@@ -78,6 +78,14 @@
         <widget name="progress" type="progress-bar" y="50" OriginCenter="1" PositionRelativeToCenter="1" width="350" height="20"/>
     </subwindow>
 
+    <!-- "Unreachable file" window -->
+
+    <subwindow name="unreachable-file">
+        <properties OriginCenter="1" PositionRelativeToCenter="1" width="488" height="308" allBackground="dialog-background-488x308" Hidden="1"/>
+        <widget name="unreachable-file-text" type="text" y="-50" OriginCenter="1" PositionRelativeToCenter="1" allText="unreachable-file-text"/>
+        <widget name="unreachable-file-button" type="button" y="50" OriginCenter="1" PositionRelativeToCenter="1" width="156" height="46" allBackground="button-background-156x46" allText="unreachable-file-button"/>
+    </subwindow>
+
     <!-- Triggers -->
 
     <trigger sender="button-new-game" event="WidgetActivated" action="Focus" target="new-game"/>
@@ -107,6 +115,8 @@
     <trigger sender="options-button-apply" event="WidgetActivated" action="Hide" target="options"/>
     <trigger sender="options-button-apply" event="WidgetActivated" action="SendSignal" signal="main-menu"/>
 
+    <trigger sender="unreachable-file-button" event = "WidgetActivated" action="Hide" target="unreachable-file"/>
+
     <trigger sender="button-exit" event="WidgetActivated" action="SendSignal" signal="exit"/>
 
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:disable-load-game" action="Disable" target="button-load-game"/>
@@ -115,4 +125,6 @@
     <trigger event="SignalCaptured" eventDataType="string" eventData="main-menu:enable-load-game" action="Enable" target="load-game-button-start"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="Hide" target="loading"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="game-started" action="SendSignal" signal="change-player-name" dataProvider="new-game-answer" dataName="value"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="unreachable-file" action="Hide" target="loading"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="unreachable-file" action="Focus" target="unreachable-file"/>
 </window>

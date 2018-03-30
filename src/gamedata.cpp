@@ -340,6 +340,13 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void loadGameDataFileAsync(const string& dataDirectory, const string& mainFile)
 {
+    if (!tools::filesystem::checkFile(dataDirectory + mainFile))
+    {
+        tools::signals::addSignal("unreachable-file");
+        tools::signals::addSignal("main-menu");
+        return;
+    }
+
     LoadGameThread = thread(loadFromXML, dataDirectory, mainFile);
 
     thread t([]()

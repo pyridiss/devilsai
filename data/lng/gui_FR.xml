@@ -66,4 +66,6 @@
     <text id="player-dead-load-game">Charger une partie</text>
     <text id="skillpanel-title">@f[dayroman]@s[28]Compétences @d</text>
     <text id="storage-box-screen-inventory-name">@f[liberation-bold]@s[12]Inventaire @d</text>
+    <text id="unreachable-file-button">Menu principal</text>
+    <text id="unreachable-file-text">@f[dayroman]@s[22]Fichier inexistant. @d</text>
 </texts>
