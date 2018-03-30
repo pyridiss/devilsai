@@ -20,6 +20,7 @@
 #include "imageManager/imageManager.h"
 
 #include <atomic>
+#include <thread>
 
 #include <physfs.h>
 
@@ -44,8 +45,8 @@ string currentArchiveFile;
 bool Colorize = false;
 Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
 
-atomic_bool Mutex;
-atomic_int LockerID;
+std::atomic_flag Mutex_lock = ATOMIC_FLAG_INIT;
+std::atomic<int> Mutex_id = 0;
 
 void addContainer(const string& container)
 {
@@ -208,30 +209,18 @@ imageManager::Animation* getAnimation(const string& name)
 
 void lockGLMutex(int id)
 {
-    if (!Mutex)
-    {
-        Mutex = true;
-        LockerID = id;
-    }
-    else if (LockerID != id)
-    {
-        while (Mutex)
-            sleep(milliseconds(2));
+    while (Mutex_lock.test_and_set(std::memory_order_acquire))
+        std::this_thread::sleep_for(1us);
 
-        Mutex = true;
-        LockerID = id;
-    }
+    Mutex_id.store(id, std::memory_order_release);
 }
 
 void unlockGLMutex(int id)
 {
-    if (LockerID == id)
-    {
-        Mutex = false;
-        //We sleep during a short time in order to give the other threads a chance
-        //to do their job. Without this, the current thread could block others too much.
-        sleep(milliseconds(2));
-    }
+    if (Mutex_id.load(std::memory_order_acquire) != id)
+        return;
+
+    Mutex_lock.clear(std::memory_order_release);
 }
 
 } //namespace imageManager

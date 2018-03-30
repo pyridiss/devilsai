@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <thread>
+
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 #include "tools/timeManager.h"
@@ -340,7 +342,12 @@ void mainLoop(RenderWindow& app)
             tools::timeManager::frameDone();
             app.display();
 
-            if (loadingResources) imageManager::unlockGLMutex(2);
+            if (loadingResources)
+            {
+                imageManager::unlockGLMutex(2);
+                // Give priority to the loading process
+                std::this_thread::sleep_for(20ms);
+            }
 
             musicManager::manageRunningMusics();
 
