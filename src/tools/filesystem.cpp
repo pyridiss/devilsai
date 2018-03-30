@@ -41,7 +41,8 @@ bool createDirectory(string str)
 #if defined(_WIN32) || defined(__WIN32__)
     bool result = CreateDirectory(str.c_str(), NULL);
 #else
-    bool result = !(mkdir(str.c_str(), S_IRWXU));
+    int err = mkdir(str.c_str(), S_IRWXU);
+    bool result = (err == 0) || (errno == EEXIST);
 #endif
 
     if (result)
