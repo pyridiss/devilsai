@@ -276,6 +276,7 @@ void mainLoop(RenderWindow& app)
             if (signal.first == "game-started") {
                 inGame = true;
                 managementActivated = true;
+                loadingResources = false;
             }
             if (signal.first == "change-player-name") {
                 gamedata::setPlayerName(signal.second);
