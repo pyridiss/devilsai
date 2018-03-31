@@ -239,7 +239,7 @@ class Individu : public Element_Carte
 	public:
 		Individu();
         Individu(const Individu& other);
-        Individu(Individu&& right) noexcept;
+        Individu(Individu&& other) noexcept;
         Individu(Classe_Commune* s, double x, double y);
         Individu& operator=(const Individu& right) = delete;
         Individu& operator=(Individu&& right) = delete;
@@ -268,7 +268,7 @@ class Individu : public Element_Carte
         void MouvementAleatoire(bool newDirection);
         void findPath(const tools::math::Vector2d& destination, int nodesNumber, bool reduceCollisionWithIndividuals);
         bool MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduceCollisionWithIndividuals);
-		virtual void Gestion_Recuperation();
+        void Gestion_Recuperation();
         bool Set_Activite(const string& nv);
         bool Set_Activite(Behaviors b);
         void fight(Individu *enemy);

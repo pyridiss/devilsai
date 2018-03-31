@@ -41,16 +41,16 @@ CheckPoint::CheckPoint() : Element_Carte()
     ignoreCollision = true;
 }
 
-int CheckPoint::Collision(Individu* elem, bool apply)
+int CheckPoint::Collision([[maybe_unused]] Individu* elem, [[maybe_unused]] bool apply)
 {
 	return COLL_OK;
 }
 
-void CheckPoint::loadFromXML(tinyxml2::XMLHandle &handle)
+void CheckPoint::loadFromXML([[maybe_unused]] tinyxml2::XMLHandle &handle)
 {
 }
 
-void CheckPoint::saveToXML(XMLDocument& doc, XMLHandle& handle)
+void CheckPoint::saveToXML([[maybe_unused]] XMLDocument& doc, [[maybe_unused]] XMLHandle& handle)
 {
 }
 
