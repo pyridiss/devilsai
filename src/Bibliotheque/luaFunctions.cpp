@@ -167,6 +167,7 @@ int LUA_useObject(lua_State* L)
                 i.setSlot(i.requiredSlot());
                 objects.push_back(std::move(i));
                 ind->inventory.deleteObject(objects.back());
+                break;
             }
         }
     }
