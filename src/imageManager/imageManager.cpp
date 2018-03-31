@@ -39,7 +39,7 @@
 
 namespace imageManager{
 
-typedef map < string, imageManager::Image > Container;
+typedef unordered_map < string, imageManager::Image > Container;
 typedef unordered_map < unsigned int, Container > Database;
 typedef map < string, imageManager::Animation > AnimationDatabase;
 
