@@ -20,8 +20,6 @@
 #ifndef TOOLS_TIMEMANAGER_H
 #define TOOLS_TIMEMANAGER_H
 
-using namespace std;
-
 namespace tools{
 
 namespace timeManager{

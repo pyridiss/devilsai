@@ -23,7 +23,6 @@
 
 #include "tools/math.h"
 
-#include "../Bibliotheque/Bibliotheque.h"
 #include "ElementsCarte.h"
 
 #include "tools/timeManager.h"

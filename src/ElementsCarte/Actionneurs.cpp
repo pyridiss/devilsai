@@ -25,8 +25,6 @@
 #include "tools/filesystem.h"
 #include "tools/math.h"
 
-#include "Bibliotheque/luaFunctions.h"
-
 #include "gamedata.h"
 #include "Jeu/options.h"
 

@@ -22,11 +22,6 @@
 
 using namespace std;
 
-/** CONSTANTES RELATIVES AU JEU **/
-
-//Value used to say "not found"
-#define MAX_VALUE 2147483647
-
 
 /** CONSTANTES RELATIVES AUX ÉLÉMENTS **/
 
