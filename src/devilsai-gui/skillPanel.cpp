@@ -19,6 +19,7 @@
 
 #include "devilsai-gui/skillPanel.h"
 
+#include "tools/math.h"
 #include "imageManager/imageManager.h"
 #include "gui/style.h"
 #include "gui/window.h"
@@ -124,7 +125,7 @@ void displaySkillbar(RenderWindow& target)
         const string& skillName = slot.second->embeddedData<string>("value");
         if (!skillName.empty())
         {
-            imageManager::display(target, "skills", skillName, slot.second->left(), slot.second->top());
+            imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top());
         }
         const string& relatedObject = slot.second->embeddedData<string>("related-object");
         if (!relatedObject.empty())
@@ -150,7 +151,7 @@ void displaySkillPanel(RenderWindow& target)
         const string& skillName = slot.second->embeddedData<string>("skill");
         if (!skillName.empty())
         {
-            imageManager::display(target, "skills", skillName, slot.second->left(), slot.second->top());
+            imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top());
         }
         const string& relatedObject = slot.second->embeddedData<string>("related-object");
         if (!relatedObject.empty())
@@ -167,7 +168,7 @@ void displaySkillPanel(RenderWindow& target)
 
     if (!SkillPanel_SelectedSkillName.empty())
     {
-        imageManager::display(target, "skills", SkillPanel_SelectedSkillName, gui::mousePosition().x, gui::mousePosition().y, true);
+        imageManager::display(target, tools::hash("skills"), SkillPanel_SelectedSkillName, gui::mousePosition().x, gui::mousePosition().y, true);
     }
 }
 

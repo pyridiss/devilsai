@@ -178,7 +178,7 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
         {
             string key = elem->Attribute("key");
             string path = elem->Attribute("path");
-            imageManager::addImage("skills", key, path);
+            imageManager::addImage(tools::hash("skills"), key, path);
         }
         if (elemName == "images")
         {
@@ -199,9 +199,9 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
                     string number = textManager::toString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
                     string key = ownerName + ":" + Id + "/" + path;
-                    imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
+                    imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
                     if (h + s + l != 0)
-                        imageManager::changeHSL("individuals", key, h, s, l);
+                        imageManager::changeHSL(tools::hash("individuals"), key, h, s, l);
 
                     addImage(angle * M_PI / 180.0, i, key);
                 }
@@ -211,7 +211,7 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
             {
                 string path = elem->Attribute("imageFile");
                 string key = ownerName + ":" + Id + "/" + path;
-                imageManager::addImage("individuals", key, path, Vector2i(xAlignment, yAlignment));
+                imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
                 addImage(angle * M_PI / 180.0, 0, key);
             }
         }

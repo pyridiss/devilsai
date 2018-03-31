@@ -40,9 +40,9 @@
 
 void Load_Decorations()
 {
-    imageManager::addContainer("misc");
-    imageManager::addContainer("gui");
-    imageManager::addImage("misc", "Repos", "img/Repos.png");
+    imageManager::addContainer(tools::hash("misc"));
+    imageManager::addContainer(tools::hash("gui"));
+    imageManager::addImage(tools::hash("misc"), "Repos", "img/Repos.png");
 
     imageManager::addAnimation("playerLifeGauge", "img/BarreVie.png");
     imageManager::addAnimation("playerLifeGaugeBackground", "img/BarreVie.png");
@@ -214,7 +214,7 @@ bool Disp_Repos(RenderTarget& target)
 		sf::Vertex(sf::Vector2f(target.getSize().x, 0), Color(0, 0, 0, T4))
 	};
 
-    imageManager::display(target, "misc", "Repos", target.getSize().x/2, target.getSize().y/2, true);
+    imageManager::display(target, tools::hash("misc"), "Repos", target.getSize().x/2, target.getSize().y/2, true);
     target.draw(Degrade, 4, sf::Quads);
 	return false;
 }

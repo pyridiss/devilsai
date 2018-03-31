@@ -263,7 +263,7 @@ void Carte::displayBackground(RenderTarget& target)
     {
         for (int b = -1 ; b < (int)(target.getSize().y/144 + 2) ; ++b)
         {
-            imageManager::display(target, "paysage", backgroundImage, origin.x + 135*a - (int)(origin.x)%135, origin.y + 144*b - (int)(origin.y)%144);
+            imageManager::display(target, tools::hash("paysage"), backgroundImage, origin.x + 135*a - (int)(origin.x)%135, origin.y + 144*b - (int)(origin.y)%144);
         }
     }
 }
@@ -311,7 +311,7 @@ void Carte::loadFromFile(string path, string tag)
             if (elem->Attribute("backgroundImage"))
             {
                 backgroundImage = elem->Attribute("backgroundImage");
-                imageManager::addImage("paysage", backgroundImage, backgroundImage);
+                imageManager::addImage(tools::hash("paysage"), backgroundImage, backgroundImage);
             }
         }
         if (elemName == "loadDataFile" && !commonDataLoaded)

@@ -79,28 +79,28 @@ void Paysage::Disp(RenderTarget& target)
         size.display(target, Color(255, 255, 255, 50));
 
     if (extent.x == 1 && extent.y == 1)
-        imageManager::display(target, "paysage", Type, position().x, position().y, true);
+        imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y, true);
 
     else
     {
-        Vector2u imageDimension = imageManager::getImage("paysage", Type)->getSize();
+        Vector2u imageDimension = imageManager::getImage(tools::hash("paysage"), Type)->getSize();
         if (extent.x > 1)
         {
             if (extent.x % 2 == 0)
                 for (float i = -extent.x/2 ; i < extent.x/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, position().x + (i+0.5)*imageDimension.x, position().y, true);
+                    imageManager::display(target, tools::hash("paysage"), Type, position().x + (i+0.5)*imageDimension.x, position().y, true);
             else
                 for (float i = -(extent.x-1)/2 ; i <= (extent.x-1)/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, position().x + i*imageDimension.x, position().y, true);
+                    imageManager::display(target, tools::hash("paysage"), Type, position().x + i*imageDimension.x, position().y, true);
         }
         else if (extent.y > 1)
         {
             if (extent.y % 2 == 0)
                 for (float i = -extent.y/2 ; i < extent.y/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, position().x, position().y + (i+0.5)*imageDimension.y, true);
+                    imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y + (i+0.5)*imageDimension.y, true);
             else
                 for (float i = -(extent.y-1)/2 ; i <= (extent.y-1)/2 ; ++i)
-                    imageManager::display(target, "paysage", Type, position().x, position().y + i*imageDimension.y, true);
+                    imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y + i*imageDimension.y, true);
         }
     }
 }
@@ -142,7 +142,7 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
             elem->QueryAttribute("yAlignment", &yAlignment);
 
             if (!archive.empty()) imageManager::addArchiveFile(archive);
-            imageManager::addImage("paysage", Type, path, Vector2i(xAlignment, yAlignment));
+            imageManager::addImage(tools::hash("paysage"), Type, path, Vector2i(xAlignment, yAlignment));
             if (!archive.empty()) imageManager::removeArchiveFile(archive);
         }
         if (elemName == "properties")

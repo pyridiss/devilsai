@@ -31,16 +31,16 @@ namespace imageManager{
 class Image;
 class Animation;
 
-void addContainer(const string& container);
-void addImage(const string& container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0));
+void addContainer(unsigned int container);
+void addImage(unsigned int container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0));
 void addArchiveFile(string path);
 void setColorizeParameters(sf::Vector3f r, sf::Vector3f g, sf::Vector3f b);
 void removeColorizeShader();
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);
-imageManager::Image* getImage(const string& container, const string& key);
-void changeHSL(const string& container, const string& key, double h, double s, double l);
-void display(sf::RenderTarget& target, const string& container, const string& key, float x, float y, bool atCenter = false, const sf::Shader* shader = nullptr);
+imageManager::Image* getImage(unsigned int container, const string& key);
+void changeHSL(unsigned int container, const string& key, double h, double s, double l);
+void display(sf::RenderTarget& target, unsigned int container, const string& key, float x, float y, bool atCenter = false, const sf::Shader* shader = nullptr);
 void addAnimation(const string& name, const string& file);
 imageManager::Animation* getAnimation(const string& name);
 void lockGLMutex(int id);

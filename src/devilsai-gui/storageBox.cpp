@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
 #include "textManager/textManager.h"
 #include "gui/widget.h"
 #include "gui/window.h"
@@ -136,7 +137,7 @@ void displayStorageBoxScreen(gui::Window& window, RenderWindow& target, Coffre* 
         if (slot.second->embeddedData<string>("owner") == "storage-box") obj = storageBox.at(slot.first);
         if (obj != nullptr)
         {
-            imageManager::display(target, "objectsIcons", obj->name(), slot.second->left(), slot.second->top());
+            imageManager::display(target, tools::hash("objectsIcons"), obj->name(), slot.second->left(), slot.second->top());
 
             if (obj->stackable())
             {

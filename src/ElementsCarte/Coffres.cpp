@@ -146,9 +146,9 @@ void Coffre::Disp(RenderTarget& target)
     if (!imageContainer.empty() && !Type.empty())
     {
         if (!_highlight)
-            imageManager::display(target, imageContainer, Type, position().x, position().y, true);
+            imageManager::display(target, tools::hash(imageContainer.c_str()), Type, position().x, position().y, true);
         else
-            imageManager::display(target, imageContainer, Type, position().x, position().y, true, gui::style::getContrastShader(1.8, 1.8, 1.8));
+            imageManager::display(target, tools::hash(imageContainer.c_str()), Type, position().x, position().y, true, gui::style::getContrastShader(1.8, 1.8, 1.8));
     }
 
     _highlight = false;

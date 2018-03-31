@@ -22,6 +22,7 @@
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
+#include "tools/math.h"
 
 #include "textManager/textManager.h"
 
@@ -308,18 +309,18 @@ void Widget::displayBackground(RenderWindow& app)
     auto backgroundImage = [this, &app](int x, int y)
     {
         if ((_flags & Disabled) == Disabled)
-            imageManager::display(app, "gui", _background, x, y, false, style::getContrastShader(0.25, 0.25, 0.25));
+            imageManager::display(app, tools::hash("gui"), _background, x, y, false, style::getContrastShader(0.25, 0.25, 0.25));
         else if ((_flags & MouseOver) == MouseOver)
-            imageManager::display(app, "gui", _background, x, y, false, style::getContrastShader(1, 1, 1));
+            imageManager::display(app, tools::hash("gui"), _background, x, y, false, style::getContrastShader(1, 1, 1));
         else
-            imageManager::display(app, "gui", _background, x, y);
+            imageManager::display(app, tools::hash("gui"), _background, x, y);
     };
 
     if (!_background.empty())
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", _background);
+            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
@@ -333,7 +334,7 @@ void Widget::displayBackground(RenderWindow& app)
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", _background);
+            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, width(), height()));

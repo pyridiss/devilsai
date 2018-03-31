@@ -143,12 +143,12 @@ int main(int n, char *params[])
 
 	Load_Decorations();
 
-    imageManager::addContainer("individuals");
-    imageManager::addContainer("movingObjects");
-    imageManager::addContainer("paysage");
-    imageManager::addContainer("skills");
-    imageManager::addContainer("objects");
-    imageManager::addContainer("objectsIcons");
+    imageManager::addContainer(tools::hash("individuals"));
+    imageManager::addContainer(tools::hash("movingObjects"));
+    imageManager::addContainer(tools::hash("paysage"));
+    imageManager::addContainer(tools::hash("skills"));
+    imageManager::addContainer(tools::hash("objects"));
+    imageManager::addContainer(tools::hash("objectsIcons"));
 
     mainLoop(App);
     Clean_Partie();

@@ -25,6 +25,7 @@
 #include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
+#include "tools/math.h"
 #include "textManager/textManager.h"
 
 #include "imageManager/image.h"
@@ -178,20 +179,20 @@ void Window::display(RenderWindow& app)
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", _background);
+            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
             newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
 
             app.setView(newView);
-            imageManager::display(app, "gui", _background, 0, 0);
+            imageManager::display(app, tools::hash("gui"), _background, 0, 0);
 
             app.setView(currentView);
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
-            imageManager::Image* image = imageManager::getImage("gui", _background);
+            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
             View currentView = app.getView();
 
             View newView(FloatRect(0, 0, width(), height()));
@@ -200,13 +201,13 @@ void Window::display(RenderWindow& app)
             app.setView(newView);
             for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
                     for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
-                        imageManager::display(app, "gui", _background, i * image->getSize().x, j * image->getSize().y);
+                        imageManager::display(app, tools::hash("gui"), _background, i * image->getSize().x, j * image->getSize().y);
 
             app.setView(currentView);
         }
         else
         {
-            imageManager::display(app, "gui", _background, left(), top());
+            imageManager::display(app, tools::hash("gui"), _background, left(), top());
         }
     }
 
@@ -461,8 +462,8 @@ void Window::loadFromXML(XMLElement *elem)
         {
             string key = elem->Attribute("key");
             string pathToImage = elem->Attribute("path");
-            imageManager::addContainer("gui");
-            imageManager::addImage("gui", key, pathToImage);
+            imageManager::addContainer(tools::hash("gui"));
+            imageManager::addImage(tools::hash("gui"), key, pathToImage);
         }
 
         if (elemName == "properties")

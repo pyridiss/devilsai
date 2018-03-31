@@ -22,12 +22,16 @@
 #include <atomic>
 #include <thread>
 
+#include <unordered_map>
+
 #include <physfs.h>
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 
 #include "gui/style.h"
+
+#include "textManager/textManager.h"
 
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
@@ -36,7 +40,7 @@
 namespace imageManager{
 
 typedef map < string, imageManager::Image > Container;
-typedef map < string, Container > Database;
+typedef unordered_map < unsigned int, Container > Database;
 typedef map < string, imageManager::Animation > AnimationDatabase;
 
 Database images;
@@ -48,7 +52,7 @@ Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
 std::atomic_flag Mutex_lock = ATOMIC_FLAG_INIT;
 std::atomic<int> Mutex_id = 0;
 
-void addContainer(const string& container)
+void addContainer(unsigned int container)
 {
     Database::iterator c = images.find(container);
 
@@ -59,13 +63,13 @@ void addContainer(const string& container)
     }
 }
 
-void addImage(const string& container, const string& key, const string& file, Vector2i of)
+void addImage(unsigned int container, const string& key, const string& file, Vector2i of)
 {
     Database::iterator c = images.find(container);
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been created yet: " + container, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image container has not been created yet: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
         return;
     }
 
@@ -82,8 +86,6 @@ void addImage(const string& container, const string& key, const string& file, Ve
             result.first->second.applyShader(gui::style::getColorizeShader(ColorizeRed, ColorizeGreen, ColorizeBlue));
 
         unlockGLMutex(100);
-
-        tools::debug::message("Image " + container + "::" + key + " has been added.", "images", __FILENAME__, __LINE__);
     }
 }
 
@@ -97,7 +99,6 @@ void addArchiveFile(string path)
     }
     else
     {
-        tools::debug::message("File \"" + path + "\" open", "files", __FILENAME__, __LINE__);
         currentArchiveFile = path;
     }
 }
@@ -127,13 +128,13 @@ void removeArchiveFile(string path)
     currentArchiveFile = "";
 }
 
-imageManager::Image* getImage(const string& container, const string& key)
+imageManager::Image* getImage(unsigned int container, const string& key)
 {
     Database::iterator c = images.find(container);
 
     if (c == images.end())
     {
-        tools::debug::error("Container not found: " + container, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Container not found: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
         return nullptr;
     }
 
@@ -141,14 +142,14 @@ imageManager::Image* getImage(const string& container, const string& key)
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image not found: " + container + "::" + key, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image not found: " + textManager::toString(container) + "::" + key, "images", __FILENAME__, __LINE__);
         return nullptr;
     }
 
     return &(i->second);
 }
 
-void changeHSL(const string& container, const string& key, double h, double s, double l)
+void changeHSL(unsigned int container, const string& key, double h, double s, double l)
 {
     Image* i = getImage(container, key);
 
@@ -159,13 +160,13 @@ void changeHSL(const string& container, const string& key, double h, double s, d
     }
 }
 
-void display(RenderTarget& target, const string& container, const string& key, float x, float y, bool atCenter, const Shader* shader)
+void display(RenderTarget& target, unsigned int container, const string& key, float x, float y, bool atCenter, const Shader* shader)
 {
     Database::iterator c = images.find(container);
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been added yet: " + container, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image container has not been added yet: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
         return;
     }
 
@@ -173,13 +174,11 @@ void display(RenderTarget& target, const string& container, const string& key, f
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image '" + container + "::" + key + "' has not been loaded yet, skipping...", "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image '" + textManager::toString(container) + "::" + key + "' has not been loaded yet, skipping...", "images", __FILENAME__, __LINE__);
         return;
     }
 
     (*i).second.display(target, x, y, atCenter, shader);
-
-    tools::debug::message("Image '" + container + "::" + key + "' displayed on screen.", "images", __FILENAME__, __LINE__);
 }
 
 void addAnimation(const string& name, const string& file)

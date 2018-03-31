@@ -371,7 +371,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
 
         if (elemName == "loadTextFile")
         {
-            textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"), options::option<string>(tools::math::sdbm_hash("language")));
+            textManager::loadFile(elem->Attribute("name"), elem->Attribute("file"), options::option<string>(tools::hash("language")));
             textFiles.emplace_back(elem->Attribute("name"), elem->Attribute("file"));
         }
 

@@ -710,7 +710,7 @@ void Individu::Disp(RenderTarget& target)
         size.display(target, Color(255, 255, 255, 50));
     }
 
-    imageManager::display(target, "individuals", _currentSkill->getImageKey(angle, _animationFrame), position().x, position().y, true);
+    imageManager::display(target, tools::hash("individuals"), _currentSkill->getImageKey(angle, _animationFrame), position().x, position().y, true);
 }
 
 void Individu::displayLifeGauge(RenderTarget& target)

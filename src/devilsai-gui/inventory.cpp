@@ -19,6 +19,7 @@
 
 #include "devilsai-gui/inventory.h"
 
+#include "tools/math.h"
 #include "gui/style.h"
 #include "gui/window.h"
 #include "imageManager/imageManager.h"
@@ -99,7 +100,7 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, WearableI
         {
             const string& objectName = obj->name();
             const string& imageContainer = slot.second->embeddedData<string>("image-container");
-            imageManager::display(target, imageContainer, objectName, slot.second->left(), slot.second->top());
+            imageManager::display(target, tools::hash(imageContainer.c_str()), objectName, slot.second->left(), slot.second->top());
 
             if (obj->stackable())
             {
@@ -121,6 +122,6 @@ void displayInventoryScreen(gui::Window& window, RenderWindow& target, WearableI
     if (selectedObject.valid())
     {
         string objectName = selectedObject.name();
-        imageManager::display(target, "objects", objectName, gui::mousePosition().x, gui::mousePosition().y, true);
+        imageManager::display(target, tools::hash("objects"), objectName, gui::mousePosition().x, gui::mousePosition().y, true);
     }
 }

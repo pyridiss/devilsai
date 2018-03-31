@@ -21,6 +21,7 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/math.h"
 #include "gui/style.h"
 #include "textManager/plainText.h"
 #include "textManager/richText.h"
@@ -116,11 +117,11 @@ void WearableItem::create(const string& file)
     //Load images
 
     lua_getglobal(_s, "imageFile");
-    imageManager::addImage("objects", file, lua_tostring(_s, -1));
+    imageManager::addImage(tools::hash("objects"), file, lua_tostring(_s, -1));
     lua_pop(_s, 1);
 
     lua_getglobal(_s, "iconFile");
-    imageManager::addImage("objectsIcons", file, lua_tostring(_s, -1));
+    imageManager::addImage(tools::hash("objectsIcons"), file, lua_tostring(_s, -1));
     lua_pop(_s, 1);
 }
 
