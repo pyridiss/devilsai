@@ -115,7 +115,7 @@ void mainLoop(RenderWindow& app)
     bool showTooltip = false;
     bool cinematicMode = false;
 
-    if (options::option<bool>(tools::math::sdbm_hash("show-console")))
+    if (options::option<bool>(tools::hash("show-console")))
         state |= ShowConsole;
 
     auto closeStorageBox = [&]()
@@ -480,7 +480,7 @@ void mainLoop(RenderWindow& app)
 
         app.setView(View(FloatRect(0, 0, app.getSize().x, app.getSize().y)));
 
-        if (!options::option<bool>(tools::math::sdbm_hash("cinematic-mode")))
+        if (!options::option<bool>(tools::hash("cinematic-mode")))
         {
             gamedata::player()->Disp_JaugesVie(app);
         }

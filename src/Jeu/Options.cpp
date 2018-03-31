@@ -89,7 +89,7 @@ void addOption(unsigned int hash, T value)
 template<typename T>
 void addOption(string_view name, T value)
 {
-    addOption<T>(tools::math::sdbm_hash(name.data()), value);
+    addOption<T>(tools::hash(name.data()), value);
 }
 
 //Explicit instantiations for the linker
@@ -111,7 +111,7 @@ T option(unsigned int hash)
 template<typename T>
 T option(string_view name)
 {
-    return option<T>(tools::math::sdbm_hash(name.data()));
+    return option<T>(tools::hash(name.data()));
 }
 
 //Explicit instantiations for the linker
@@ -230,7 +230,7 @@ void changeOption(const string& name, const string& value)
 {
     if (name == "option-change-language")
     {
-        addOption<string>(tools::math::sdbm_hash("language"), value);
+        addOption<string>(tools::hash("language"), value);
     }
     else if (name == "option-change-resolution")
     {
@@ -238,10 +238,10 @@ void changeOption(const string& name, const string& value)
         unsigned newWidth = textManager::toInt(value);
         unsigned newHeight = textManager::toInt(value.substr(x+1));
 
-        if (newWidth != option<unsigned>(tools::math::sdbm_hash("screen-width")) || newHeight != option<unsigned>(tools::math::sdbm_hash("screen-height")))
+        if (newWidth != option<unsigned>(tools::hash("screen-width")) || newHeight != option<unsigned>(tools::hash("screen-height")))
         {
-            addOption<unsigned>(tools::math::sdbm_hash("screen-width"), newWidth);
-            addOption<unsigned>(tools::math::sdbm_hash("screen-height"), newHeight);
+            addOption<unsigned>(tools::hash("screen-width"), newWidth);
+            addOption<unsigned>(tools::hash("screen-height"), newHeight);
             createWindow();
         }
     }
@@ -249,15 +249,15 @@ void changeOption(const string& name, const string& value)
     {
         bool newMode = (value == "enabled" ? true : false);
 
-        if (newMode != option<bool>(tools::math::sdbm_hash("screen-fullscreen")))
+        if (newMode != option<bool>(tools::hash("screen-fullscreen")))
         {
-            addOption<bool>(tools::math::sdbm_hash("screen-fullscreen"), newMode);
+            addOption<bool>(tools::hash("screen-fullscreen"), newMode);
             createWindow();
         }
     }
     else if (name == "option-change-console")
     {
-        addOption<bool>(tools::math::sdbm_hash("show-console"), (value == "enabled" ? true : false));
+        addOption<bool>(tools::hash("show-console"), (value == "enabled" ? true : false));
     }
 }
 
@@ -265,14 +265,14 @@ void createNewSavedGamePack()
 {
     SavedGame s;
 
-    s.directory = textManager::toString(option<unsigned>(tools::math::sdbm_hash("next-game-number")), 4) + "/";
+    s.directory = textManager::toString(option<unsigned>(tools::hash("next-game-number")), 4) + "/";
     s.playerName = gamedata::player()->displayedName();
     s.version = "master";
 
     tools::filesystem::createDirectory(tools::filesystem::getSaveDirectoryPath() + s.directory);
 
     savedGames.push_back(std::move(s));
-    addOption<unsigned>(tools::math::sdbm_hash("next-game-number"), option<unsigned>(tools::math::sdbm_hash("next-game-number")) + 1);
+    addOption<unsigned>(tools::hash("next-game-number"), option<unsigned>(tools::hash("next-game-number")) + 1);
 
     currentSavedGame = &savedGames.back();
     Save_Options();
@@ -360,19 +360,19 @@ void initOptionsWindow(gui::Window& window)
     string d;
     gui::optionType o;
 
-    d = option<string>(tools::math::sdbm_hash("language"));
+    d = option<string>(tools::hash("language"));
     o.set<string>(d);
     window.setValue("options-chooser-language", o);
 
-    d = textManager::toString(option<unsigned>(tools::math::sdbm_hash("screen-width"))) + "x" + textManager::toString(option<unsigned>(tools::math::sdbm_hash("screen-height")));
+    d = textManager::toString(option<unsigned>(tools::hash("screen-width"))) + "x" + textManager::toString(option<unsigned>(tools::hash("screen-height")));
     o.set<string>(d);
     window.setValue("options-chooser-resolution", o);
 
-    d = (option<bool>(tools::math::sdbm_hash("screen-fullscreen")) ? "enabled" : "disabled");
+    d = (option<bool>(tools::hash("screen-fullscreen")) ? "enabled" : "disabled");
     o.set<string>(d);
     window.setValue("options-chooser-fullscreen", o);
 
-    d = (option<bool>(tools::math::sdbm_hash("show-console")) ? "enabled" : "disabled");
+    d = (option<bool>(tools::hash("show-console")) ? "enabled" : "disabled");
     o.set<string>(d);
     window.setValue("options-chooser-console", o);
 }

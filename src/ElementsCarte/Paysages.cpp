@@ -75,7 +75,7 @@ void Paysage::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 
 void Paysage::Disp(RenderTarget& target)
 {
-    if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
+    if (options::option<bool>(tools::hash("displayShapes")))
         size.display(target, Color(255, 255, 255, 50));
 
     if (extent.x == 1 && extent.y == 1)

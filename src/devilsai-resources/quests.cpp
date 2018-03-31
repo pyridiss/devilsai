@@ -118,7 +118,7 @@ void addQuest(string newQuest, string args)
 
     lua_register(L, "enableCinematics", [](lua_State* S)
     {
-        options::addOption<bool>(tools::math::sdbm_hash("cinematic-mode"), lua_toboolean(S, 1));
+        options::addOption<bool>(tools::hash("cinematic-mode"), lua_toboolean(S, 1));
         return 0;
     });
 

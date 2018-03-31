@@ -224,7 +224,7 @@ int LUA_pushDialog(lua_State* L)
     string newDialog = lua_tostring(L, 2);
     textManager::PlainText plain = textManager::getText(container, newDialog);
     textManager::RichText rich;
-    rich.setSize(options::option<unsigned>(tools::math::sdbm_hash("dialog-width")), 0);
+    rich.setSize(options::option<unsigned>(tools::hash("dialog-width")), 0);
     rich.setDefaultProperties("liberation", 12, Color(255, 255, 255));
     rich.addFlags(textManager::HAlignJustify);
     rich.create(plain);

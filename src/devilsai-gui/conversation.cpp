@@ -61,11 +61,11 @@ void initConversation(RenderWindow& target)
     _w = text->width();
     _h = text->height();
 
-    options::addOption<unsigned>(tools::math::sdbm_hash("dialog-width"), _w);
+    options::addOption<unsigned>(tools::hash("dialog-width"), _w);
 
     _w += 2;
 
-    _currentSpeed = options::option<unsigned>(tools::math::sdbm_hash("dialog-speed"));
+    _currentSpeed = options::option<unsigned>(tools::hash("dialog-speed"));
 }
 
 void manageConversation(Event& event)
@@ -87,7 +87,7 @@ void manageConversation(Event& event)
             if (_currentSpeed < 50)
             {
                 _currentSpeed += 2;
-                options::addOption<unsigned>(tools::math::sdbm_hash("dialog-speed"), _currentSpeed);
+                options::addOption<unsigned>(tools::hash("dialog-speed"), _currentSpeed);
             }
         }
         if (_slower != nullptr && _slower->activated(event))
@@ -95,7 +95,7 @@ void manageConversation(Event& event)
             if (_currentSpeed > 2)
             {
                 _currentSpeed -= 2;
-                options::addOption<unsigned>(tools::math::sdbm_hash("dialog-speed"), _currentSpeed);
+                options::addOption<unsigned>(tools::hash("dialog-speed"), _currentSpeed);
             }
         }
     }

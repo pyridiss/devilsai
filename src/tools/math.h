@@ -25,8 +25,6 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-using namespace std;
-
 namespace tools{
 
 namespace math{
@@ -41,7 +39,9 @@ int randomNumber(int min, int max);
 double randomNumber_BinomialLaw(double min, double max);
 bool intersection(Shape& shape1, Shape& shape2);
 
-constexpr unsigned int sdbm_hash(const char* str)
+} //namespace math
+
+constexpr unsigned int hash(const char* str)
 {
     unsigned int h = 0;
     for (unsigned i = 0 ; str[i] != '\0' ; ++i)
@@ -49,8 +49,6 @@ constexpr unsigned int sdbm_hash(const char* str)
 
     return h;
 }
-
-} //namespace math
 
 } //namespace tools
 

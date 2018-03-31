@@ -703,7 +703,7 @@ void Individu::fight(Individu *enemy)
 
 void Individu::Disp(RenderTarget& target)
 {
-    if (options::option<bool>(tools::math::sdbm_hash("displayShapes")))
+    if (options::option<bool>(tools::hash("displayShapes")))
     {
         viewField.display(target, Color(255, 255, 0, 20));
         interactionField.display(target, Color(255, 0, 0, 30));
