@@ -68,7 +68,7 @@ void Joueur::otherItemDeleted(Element_Carte* other)
 
 bool Joueur::interact(Element_Carte* item)
 {
-    return (selectedIndividual == item && intersection(interactionField, selectedIndividual->size));
+    return (_hunted == item && intersection(interactionField, _hunted->size));
 }
 
 void Joueur::Repos()

@@ -50,7 +50,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if interact(player_ptr, checkPoint1) then
+        if collision(player_ptr, checkPoint1) then
             loadWorld("birnam", "quest/birnam/GowersWorries.xml", "GowersWorries-Warriors")
             loadWorld("birnam", "quest/birnam/GowersWorries.xml", "GowersWorries-Enemies")
 			questStep = "2"

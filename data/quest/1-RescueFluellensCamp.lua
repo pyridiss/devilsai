@@ -72,7 +72,7 @@ end
 function questManage()
 
 	if questStep == "1" then
-		if interact(player_ptr, checkPoint1) or interact(player_ptr, checkPoint2) then
+        if collision(player_ptr, checkPoint1) or collision(player_ptr, checkPoint2) then
             deleteList("TheGladeOfTheSaints-Warriors")
 			questStep = "2"
             pushDialog("birnam", "dialog-friend-entrance")
@@ -112,7 +112,7 @@ function questManage()
 
 	end
 
-    if interact(player_ptr, checkPoint3) or interact(player_ptr, checkPoint4) then
+    if collision(player_ptr, checkPoint3) or collision(player_ptr, checkPoint4) then
         addJournalEntry("birnam", "friend", "journal-friend-noirefontaine")
     end
 

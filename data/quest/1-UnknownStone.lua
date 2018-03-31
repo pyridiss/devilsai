@@ -74,7 +74,7 @@ function questManage()
 		end
 
 	elseif questStep == "10" then
-		if interact(player_ptr, checkPoint1) == true then
+        if collision(player_ptr, checkPoint1) == true then
 			deleteList("UnknownStone-Scroll")
             addJournalEntry("birnam", "energy", "journal-energy-scroll")
 			questStep = "11"

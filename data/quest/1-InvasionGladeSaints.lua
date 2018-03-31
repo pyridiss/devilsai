@@ -60,7 +60,7 @@ function questManage()
 		end
 	end
 
-    if hasReachedTheCheckPoint == false and interact(player_ptr, checkPoint) then
+    if hasReachedTheCheckPoint == false and collision(player_ptr, checkPoint) then
         pushDialog("birnam", "checkpoint-desecration-pileofstones")
         hasReachedTheCheckPoint = true
     end

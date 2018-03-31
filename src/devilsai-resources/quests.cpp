@@ -128,6 +128,14 @@ void addQuest(string newQuest, string args)
         return 0;
     });
 
+    lua_register(L, "collision", [](lua_State* S)
+    {
+        Element_Carte* i1 = static_cast<Element_Carte*>(lua_touserdata(S, 1));
+        Element_Carte* i2 = static_cast<Element_Carte*>(lua_touserdata(S, 2));
+        lua_pushboolean(S, tools::math::intersection(i1->size, i2->size));
+        return 1;
+    });
+
     lua_register(L, "getTimeElapsed", [](lua_State* S)
     {
         long old = lua_tonumber(S, 1);
