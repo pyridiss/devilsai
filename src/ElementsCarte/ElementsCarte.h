@@ -359,7 +359,7 @@ class Paysage : public Element_Carte
 	public:
 		Paysage();
         Paysage(const Paysage& other) = default;
-        Paysage(Paysage&& other) = default;
+        Paysage(Paysage&& other) noexcept = default;
         Paysage& operator=(const Paysage& right) = delete;
         Paysage& operator=(Paysage&& right) = delete;
         ~Paysage() = default;

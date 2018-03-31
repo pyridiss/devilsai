@@ -99,7 +99,7 @@ struct Shape
             next = new Shape(*(s.next));
     }
 
-    Shape(Shape&& s)
+    Shape(Shape&& s) noexcept
       : Shape()
     {
         swap(*this, s);

@@ -36,13 +36,13 @@ WearableItem::WearableItem()
 {
 }
 
-WearableItem::WearableItem(WearableItem&& other)
+WearableItem::WearableItem(WearableItem&& other) noexcept
   : _s(std::move(other._s))
 {
     other._s = nullptr;
 }
 
-const WearableItem& WearableItem::operator=(WearableItem&& right)
+const WearableItem& WearableItem::operator=(WearableItem&& right) noexcept
 {
     _s = std::move(right._s);
     right._s = nullptr;

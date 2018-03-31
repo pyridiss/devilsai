@@ -58,14 +58,14 @@ class WearableItem
          *
          * The other item is invalidated.
          */
-        WearableItem(WearableItem&& other);
+        WearableItem(WearableItem&& other) noexcept;
 
         /**
          * Move assignment operator.
          *
          * The other item is invalidated.
          */
-        const WearableItem& operator=(WearableItem&& right);
+        const WearableItem& operator=(WearableItem&& right) noexcept;
 
         /**
          * Default destructor.
