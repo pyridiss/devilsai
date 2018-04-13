@@ -47,12 +47,6 @@ Classe_Commune::~Classe_Commune()
     _skills.clear();
 }
 
-Skill* Classe_Commune::Ajouter_Activite(string Id)
-{
-    auto s = _skills.try_emplace(Id, Id);
-    return &(s.first->second);
-}
-
 void Classe_Commune::Copie_Element(Individu *elem)
 {
     elem->Set_Activite(_behaviors[Behaviors::Random]);
@@ -156,10 +150,10 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Skill *s = Ajouter_Activite(skillName);
+            auto s = _skills.try_emplace(skillName, skillName);
 
             XMLHandle hdl2(elem);
-            s->loadFromXML(hdl2);
+            s.first->second.loadFromXML(hdl2);
         }
         if (elemName == "skillsManagement")
         {

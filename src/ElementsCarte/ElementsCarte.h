@@ -93,9 +93,6 @@ class Classe_Commune
 		~Classe_Commune();
 
 	public:
-        Skill* Ajouter_Activite(string Id);
-
-	public:
         void Copie_Element(Individu *elem);
         void setAngleFixed(double angle);
 
