@@ -355,6 +355,7 @@ class Paysage : public Element_Carte
 
 	public:
 		Paysage();
+        Paysage(string id);
         Paysage(const Paysage& other) = default;
         Paysage(Paysage&& other) noexcept = default;
         Paysage& operator=(const Paysage& right) = delete;

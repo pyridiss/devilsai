@@ -49,7 +49,6 @@ using namespace tinyxml2;
 namespace gamedata{
 
 unordered_map<string, Carte*> _worlds;
-unordered_map<string, Paysage*> _inertItemDesigns;
 unordered_map<string, lua_State*> _triggersScripts;
 
 Joueur* _player = nullptr;
@@ -84,27 +83,9 @@ const unordered_map<string, Carte*>& worlds()
     return _worlds;
 }
 
-void addInertItemDesign(const string& design)
-{
-    auto d = _inertItemDesigns.emplace(design, new Paysage);
-
-    d.first->second->Type = design;
-
-    tools::debug::message("An inertItemDesign has been added: " + design, "gamedata", __FILENAME__, __LINE__);
-}
-
-Paysage* inertItemDesign(const string& type)
-{
-    auto i = _inertItemDesigns.find(type);
-
-    if (i != _inertItemDesigns.end()) return i->second;
-
-    return nullptr;
-}
-
 void copyInertItemFromDesign(string t, Paysage *elem)
 {
-    Paysage* design = inertItemDesign(t);
+    Paysage* design = devilsai::getResource<Paysage>(t);
     if (design == nullptr)
     {
         tools::debug::error("Cannot initiate inertItem '" + t + "': design does not exist.", "gamedata", __FILENAME__, __LINE__);
@@ -187,10 +168,6 @@ void clear()
     for (auto& w : _worlds)
         delete w.second;
     _worlds.clear();
-
-    for (auto& s : _inertItemDesigns)
-        delete s.second;
-    _inertItemDesigns.clear();
 
     for (auto& t : _triggersScripts)
         lua_close(t.second);
@@ -370,10 +347,9 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
         {
             string designName = elem->Attribute("name");
 
-            if (inertItemDesign(designName) == nullptr)
+            if (devilsai::getResource<Paysage>(designName) == nullptr)
             {
-                addInertItemDesign(designName);
-                Paysage* design = inertItemDesign(designName);
+                Paysage* design = devilsai::addResource<Paysage>(designName);
                 XMLHandle hdl2(elem);
                 design->loadFromXML(hdl2);
             }

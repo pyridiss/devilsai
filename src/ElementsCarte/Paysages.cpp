@@ -41,6 +41,12 @@ Paysage::Paysage()
     size.setOrigin(&position());
 }
 
+Paysage::Paysage(string id)
+  : Paysage()
+{
+    Type = std::move(id);
+}
+
 int Paysage::Collision(Individu *elem, bool apply)
 {
 	return COLL_PRIM;
