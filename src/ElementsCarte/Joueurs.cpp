@@ -84,9 +84,9 @@ void Joueur::Gestion_Statistiques()
     if (DureeEveil > currentHealthStatus(Constitution)) modifyHealthStatus(Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Constitution))/10000);
 
 	//4. Gain & Perte d'énergie par activité
-	if (_currentSkill->Id == behavior(Behaviors::Random))
+	if (_currentSkill == skill(behavior(Behaviors::Random)))
         modifyHealthStatus(Energy, tools::timeManager::I(currentHealthStatus(Life)/25000) /*+ (LieuVillage == "village")*tools::timeManager::I(currentHealthStatus(Statistiques::Life)/10000)*/);
-	if (_currentSkill->Id == behavior(Behaviors::Hunting))
+	if (_currentSkill == skill(behavior(Behaviors::Hunting)))
         modifyHealthStatus(Energy, -tools::timeManager::I(0.05/currentHealthStatus(Constitution)));
 
 	//6. Durée d'éveil
@@ -109,9 +109,10 @@ void Joueur::Gestion_Statistiques()
 	}
 
     //Update interactionField of skills
-    if (_skills != nullptr) for (auto& s : *_skills)
+    for (auto& s : _skills)
     {
-        s.second.interactionField.updateDirection(angle);
+        s.second->interactionField.setOrigin(&position());
+        s.second->interactionField.updateDirection(angle);
     }
 }
 

@@ -25,6 +25,8 @@
 
 #include "imageManager/imageManager.h"
 
+#include "devilsai-resources/manager.h"
+
 using namespace tinyxml2;
 
 
@@ -50,6 +52,7 @@ Classe_Commune::~Classe_Commune()
 
 void Classe_Commune::Copie_Element(Individu *elem)
 {
+    elem->_skills = _skills;
     elem->Set_Activite(_behaviors[Behaviors::Random]);
     elem->size = size;
     elem->interactionField = interactionField;
@@ -151,10 +154,12 @@ void Classe_Commune::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            auto s = _skills.try_emplace(skillName, skillName);
+            Skill* s = devilsai::addResource<Skill>(Type + ":" + skillName);
 
             XMLHandle hdl2(elem);
-            s.first->second.loadFromXML(hdl2);
+            s->loadFromXML(hdl2);
+
+            _skills.emplace(skillName, s);
         }
         if (elemName == "skillsManagement")
         {

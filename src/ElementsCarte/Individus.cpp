@@ -47,7 +47,7 @@ Individu::Individu()
     _attributes(),
     _behaviors(nullptr),
     _attacks(nullptr),
-    _skills(nullptr),
+    _skills(),
     _species(nullptr),
     _displayedName(nullptr),
     _corpseImageKey(nullptr),
@@ -84,7 +84,7 @@ Individu::Individu(const Individu& other)
     _attributes(other._attributes),
     _behaviors(nullptr),
     _attacks(nullptr),
-    _skills(nullptr),
+    _skills(other._skills),
     _species(other._species),
     _displayedName(nullptr),
     _corpseImageKey(nullptr),
@@ -110,11 +110,6 @@ Individu::Individu(const Individu& other)
     {
         _attacks = new vector<string>;
         *_attacks = *(other._attacks);
-    }
-    if (other._skills != nullptr)
-    {
-        _skills = new unordered_map<string, Skill>;
-        *_skills = *(other._skills);
     }
     if (other._displayedName != nullptr)
     {
@@ -169,7 +164,6 @@ Individu::Individu(Individu&& other) noexcept
 {
     other._behaviors = nullptr;
     other._attacks = nullptr;
-    other._skills = nullptr;
     other._displayedName = nullptr;
     other._corpseImageKey = nullptr;
     other._extraDataFile = nullptr;
@@ -191,9 +185,6 @@ Individu::~Individu()
 
     if (_attacks != nullptr)
         delete _attacks;
-
-    if (_skills != nullptr)
-        delete _skills;
 
     if (_displayedName != nullptr)
         delete _displayedName;
@@ -221,7 +212,7 @@ bool Individu::Set_Activite(const string& nv)
 
     if (_currentSkill->priority > skill(nv)->priority && !ActEffectue) return false;
 
-    if (_currentSkill->Id == nv) return true;
+    if (_currentSkill == skill(nv)) return true;
 
     _currentSkill = skill(nv);
     _currentSkill->atBegin(this);
@@ -229,7 +220,7 @@ bool Individu::Set_Activite(const string& nv)
     //Force the update of health status, as skills can change the speed
     currentHealthStatus(Strength, true);
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying))
+    if (_currentSkill == skill(behavior(Behaviors::Dying)))
     {
         setHealthStatus(Life, 0);
         setHealthStatus(Energy, 0);
@@ -257,7 +248,7 @@ int Individu::Collision(Individu *elem, bool apply)
 
 void Individu::nextAnimationFrame()
 {
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && (unsigned)_animationFrame == _currentSkill->numberOfImages-1) return;
+    if (_currentSkill == skill(behavior(Behaviors::Dying)) && (unsigned)_animationFrame == _currentSkill->numberOfImages-1) return;
 
     if (_currentSkill->step > 0)
         _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * Temps / (double)_currentSkill->step;
@@ -373,17 +364,8 @@ Stats& Individu::attributes()
 
 Skill* Individu::skill(const string& s)
 {
-    if (_skills != nullptr)
-    {
-        auto i = _skills->find(s);
-        if (i != _skills->end()) return &i->second;
-    }
-
-    if (_species != nullptr)
-    {
-        auto i = _species->_skills.find(s);
-        if (i != _species->_skills.end()) return &i->second;
-    }
+    auto i = _skills.find(s);
+    if (i != _skills.end()) return i->second;
 
     return nullptr;
 }
@@ -523,15 +505,6 @@ void Individu::modifyHealthStatus(Attribute a, double value)
 Classe_Commune* Individu::species()
 {
     return _species;
-}
-
-Skill* Individu::createSkill(string skillName)
-{
-    if (_skills == nullptr)
-        _skills = new unordered_map<string, Skill>;
-
-    auto result = _skills->try_emplace(skillName, skillName);
-    return &(result.first->second);
 }
 
 void Individu::setCustomDisplayedName(const textManager::PlainText& newName)
@@ -692,7 +665,7 @@ void Individu::fight(Individu *enemy)
         }
         if (enemy == gamedata::player())
         {
-            if (gamedata::player()->_currentSkill->Id == enemy->behavior(Behaviors::Hurt))
+            if (gamedata::player()->_currentSkill == gamedata::player()->skill(gamedata::player()->behavior(Behaviors::Hurt)))
                 gamedata::player()->BlessuresMultiples(this);
         }
 

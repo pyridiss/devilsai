@@ -130,10 +130,12 @@ void Individu::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Skill* s = createSkill(skillName);
+            Skill* s = devilsai::addResource<Skill>(Type + ":" + skillName);
 
             XMLHandle hdl2(elem);
-            s->loadFromXML(hdl2, this);
+            s->loadFromXML(hdl2);
+
+            _skills.emplace(skillName, s);
         }
         if (elemName == "skillsManagement")
         {

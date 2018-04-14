@@ -66,7 +66,7 @@ class Classe_Commune
 {
 	public:
         textManager::PlainText _displayedName;
-		string Type             = "";
+        string Type;
 		int Diplomatie          = 0;
         tools::math::Shape size;
         tools::math::Shape viewField;
@@ -86,7 +86,7 @@ class Classe_Commune
     public:
         string corpseImageKey = "";
 
-        unordered_map<string, Skill> _skills;
+        unordered_map<string, Skill*> _skills;
 
 	public:
         Classe_Commune(string id);
@@ -211,7 +211,7 @@ class Individu : public Element_Carte
         Stats _attributes;
         string* _behaviors;
         vector<string>* _attacks;
-        unordered_map<string, Skill>* _skills;
+        unordered_map<string, Skill*> _skills;
         Classe_Commune* _species;
         textManager::PlainText* _displayedName;
         string* _corpseImageKey;
@@ -280,7 +280,6 @@ class Individu : public Element_Carte
         void setHealthStatus(Attribute a, double value);
         virtual void modifyHealthStatus(Attribute a, double value);
         Classe_Commune* species();
-        Skill* createSkill(string skillName);
         void setCustomDisplayedName(const textManager::PlainText& newName);
 
     public:

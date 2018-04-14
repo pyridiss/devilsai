@@ -40,12 +40,12 @@ int Individu::Gestion()
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying) && _animationFrame >= _currentSkill->numberOfImages-1)
+    if (_currentSkill == skill(behavior(Behaviors::Dying)) && _animationFrame >= _currentSkill->numberOfImages-1)
 	{
         createCorpse();
         return ETAT_MORT;
 	}
-    if (_currentSkill->Id != behavior(Behaviors::Dying) && (currentHealthStatus(Life) == 0 || lifetime == 0))
+    if (_currentSkill != skill(behavior(Behaviors::Dying)) && (currentHealthStatus(Life) == 0 || lifetime == 0))
 	{
         if (!Set_Activite(behavior(Behaviors::Dying))) return ETAT_MORT;
 		else return ETAT_NORMAL;
@@ -59,7 +59,7 @@ int Individu::Gestion()
     if (Temps * speed < ((_currentSkill->step > 0) ? _currentSkill->step : 10))
         return ETAT_NORMAL;
 
-    if (_currentSkill->Id == behavior(Behaviors::Dying))
+    if (_currentSkill == skill(behavior(Behaviors::Dying)))
 	{
         Set_Activite(behavior(Behaviors::Dying)); //Permet de gérer les situations spéciales (dépose des inventaires, etc…)
         nextAnimationFrame();

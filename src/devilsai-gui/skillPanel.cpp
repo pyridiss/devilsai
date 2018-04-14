@@ -84,16 +84,16 @@ void manageSkillPanel(Event& event)
             else slot.second->hide();
         }
 
-        if (slot.second->activated(event))
+        if (slot.second->activated(event) && currentSkill != nullptr)
         {
-            if (currentSkill->Id == SkillPanel_SelectedSkillName)
+            if (skillName == SkillPanel_SelectedSkillName)
             {
                 SkillPanel_SelectedSkillName.clear();
                 SkillPanel_SelectedSkillObject.clear();
             }
             else
             {
-                SkillPanel_SelectedSkillName = currentSkill->Id;
+                SkillPanel_SelectedSkillName = skillName;
                 SkillPanel_SelectedSkillObject = slot.second->embeddedData<string>("related-object");
             }
         }

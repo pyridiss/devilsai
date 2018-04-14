@@ -547,6 +547,7 @@ void Clean_Partie()
     gamedata::clear();
 
     devilsai::deleteResources<Classe_Commune>();
+    devilsai::deleteResources<Skill>();
     devilsai::deleteResources<Paysage>();
     devilsai::deleteResources<Carte>();
 }

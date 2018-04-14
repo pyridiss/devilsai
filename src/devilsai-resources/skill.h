@@ -39,19 +39,20 @@ class Individu;
 
 class Skill
 {
-    public:
+    private:
         string Id;
-        tools::math::Shape interactionField;
         map< pair<double , int> , string > Animation;
         string scriptString;
+        lua_State* script;
 
+    public:
+        tools::math::Shape interactionField;
         unsigned numberOfImages;
         int priority;
         int step;
         Stats extraStats;
         Stats extraStatsAmplifiers;
         Attribute speedAttribute;
-        lua_State* script;
 
     public:
         Skill(string id);
@@ -64,7 +65,7 @@ class Skill
 
         int level();
 
-        void loadFromXML(tinyxml2::XMLHandle &handle, Individu* owner = nullptr);
+        void loadFromXML(tinyxml2::XMLHandle &handle);
         void loadScript();
 
         void atBegin(Individu* owner);

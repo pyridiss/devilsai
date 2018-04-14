@@ -38,31 +38,31 @@ using namespace tinyxml2;
 
 Skill::Skill(string id)
   : Id(std::move(id)),
-    interactionField(),
     Animation(),
     scriptString(),
+    script(nullptr),
+    interactionField(),
     numberOfImages(0),
     priority(0),
     step(0),
     extraStats(),
     extraStatsAmplifiers(),
-    speedAttribute(RunSpeed),
-    script(nullptr)
+    speedAttribute(RunSpeed)
 {
 }
 
 Skill::Skill(const Skill& other)
   : Id(other.Id),
-    interactionField(other.interactionField),
     Animation(other.Animation),
     scriptString(other.scriptString),
+    script(nullptr),
+    interactionField(other.interactionField),
     numberOfImages(other.numberOfImages),
     priority(other.priority),
     step(other.step),
     extraStats(other.extraStats),
     extraStatsAmplifiers(other.extraStatsAmplifiers),
-    speedAttribute(other.speedAttribute),
-    script(nullptr)
+    speedAttribute(other.speedAttribute)
 {
     if (!scriptString.empty())
         loadScript();
@@ -125,10 +125,8 @@ int Skill::level()
     return 1;
 }
 
-void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
+void Skill::loadFromXML(XMLHandle &handle)
 {
-    string ownerName = handle.ToElement()->Attribute("owner");
-
     XMLElement *elem = handle.FirstChildElement().ToElement();
 
     int h = 0, s = 0, l = 0;
@@ -171,8 +169,6 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
         if (elemName == "interactionField")
         {
             interactionField.loadFromXML(elem);
-            if (owner != nullptr)
-                interactionField.setOrigin(&owner->position());
         }
         if (elemName == "loadImage")
         {
@@ -198,7 +194,7 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
                     string path = pathPattern;
                     string number = textManager::toString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
-                    string key = ownerName + ":" + Id + "/" + path;
+                    string key = Id + "/" + path;
                     imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
                     if (h + s + l != 0)
                         imageManager::changeHSL(tools::hash("individuals"), key, h, s, l);
@@ -210,7 +206,7 @@ void Skill::loadFromXML(XMLHandle &handle, Individu* owner)
             if (elem->Attribute("imageFile"))
             {
                 string path = elem->Attribute("imageFile");
-                string key = ownerName + ":" + Id + "/" + path;
+                string key = Id + "/" + path;
                 imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
                 addImage(angle * M_PI / 180.0, 0, key);
             }
