@@ -38,12 +38,13 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Carte **/
 
-Carte::Carte()
+Carte::Carte(string id)
   : elements(),
     collidingItems(),
     onScreenItems(),
     places(),
     paths(),
+    Id(std::move(id)),
     dataFiles(),
     commonDataLoaded(false),
     _stopManagement(false),

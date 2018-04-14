@@ -33,6 +33,7 @@
 #include "musicManager/musicManager.h"
 
 #include "devilsai-resources/Carte.h"
+#include "devilsai-resources/manager.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "gamedata.h"
@@ -264,13 +265,7 @@ int LUA_loadWorld(lua_State* L)
     string file = lua_tostring(L, 2);
     string tag = lua_tostring(L, 3);
 
-    Carte* w = gamedata::world(world);
-    if (w == nullptr)
-    {
-        gamedata::addWorld(world);
-        w = gamedata::world(world);
-    }
-
+    Carte* w = devilsai::addResource<Carte>(world);  // just get it, if it already exists
     w->loadFromFile(tools::filesystem::dataDirectory() + file, tag);
 
     return 0;
@@ -296,7 +291,7 @@ int LUA_addCheckPoint(lua_State* L)
     int w = lua_tonumber(L, 4);
     int h = lua_tonumber(L, 5);
 
-    Carte* wo = gamedata::world(world);
+    Carte* wo = devilsai::getResource<Carte>(world);
     if (wo == nullptr)
     {
         tools::debug::error("LUA_addCheckPoint() has been called from a Lua state that require an unknown world: " + world, "lua", __FILENAME__, __LINE__);
@@ -411,7 +406,7 @@ int LUA_moveItemTo(lua_State* L)
     string w = lua_tostring(L, 2);
     string p = lua_tostring(L, 3);
 
-    Carte* newWorld = gamedata::world(w);
+    Carte* newWorld = devilsai::getResource<Carte>(w);
     if (newWorld == nullptr)
     {
         tools::debug::error("World not found: " + w, "lua", __FILENAME__, __LINE__);
@@ -460,10 +455,10 @@ int LUA_moveItemTo(lua_State* L)
     }
     else
     {
-        for (auto& world : gamedata::worlds())
+        for (auto& world : devilsai::getAllResources<Carte>())
         {
-            world.second->removeItem(ind);
-            world.second->stopManagement();
+            world->removeItem(ind);
+            world->stopManagement();
         }
 
         newWorld->insertItem(ind);

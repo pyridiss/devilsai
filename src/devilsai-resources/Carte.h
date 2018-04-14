@@ -62,7 +62,7 @@ class Carte
     public:
         list <pair<Element_Carte*, string>> places;
         list <pair<tools::math::Vector2d, tools::math::Shape>> paths;
-		string Id = "";
+        string Id;
 		string backgroundImage = "";
         set <string> dataFiles;
         bool commonDataLoaded;
@@ -76,7 +76,7 @@ class Carte
 
 	//Constructeurs / Destructeurs :
 	public:
-		Carte();
+        Carte(string id);
 		~Carte();
 
 	public:

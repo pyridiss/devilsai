@@ -41,6 +41,7 @@
 
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
+#include "devilsai-resources/manager.h"
 #include "Jeu/options.h"
 #include "gamedata.h"
 
@@ -48,7 +49,6 @@ using namespace tinyxml2;
 
 namespace gamedata{
 
-unordered_map<string, Carte*> _worlds;
 unordered_map<string, lua_State*> _triggersScripts;
 
 Joueur* _player = nullptr;
@@ -59,29 +59,6 @@ list<textManager::RichText> _listDialogs;
 list< pair <string, string> > textFiles;
 
 thread LoadGameThread;
-
-void addWorld(const string& id)
-{
-    auto w = _worlds.emplace(id, new Carte);
-
-    w.first->second->Id = id;
-
-    tools::debug::message("A world has been added: " + id, "gamedata", __FILENAME__, __LINE__);
-}
-
-Carte* world(const string& id)
-{
-    auto i = _worlds.find(id);
-
-    if (i != _worlds.end()) return i->second;
-
-    return nullptr;
-}
-
-const unordered_map<string, Carte*>& worlds()
-{
-    return _worlds;
-}
 
 void copyInertItemFromDesign(string t, Paysage *elem)
 {
@@ -165,10 +142,6 @@ Carte* currentWorld()
 
 void clear()
 {
-    for (auto& w : _worlds)
-        delete w.second;
-    _worlds.clear();
-
     for (auto& t : _triggersScripts)
         lua_close(t.second);
     _triggersScripts.clear();
@@ -184,8 +157,8 @@ void clear()
 
 Element_Carte* findElement(int id)
 {
-    for (auto& w : _worlds)
-        for (auto& element : w.second->elements)
+    for (auto& w : devilsai::getAllResources<Carte>())
+        for (auto& element : w->elements)
             if (element->Id == id) return element;
 
     return nullptr;
@@ -193,8 +166,8 @@ Element_Carte* findElement(int id)
 
 Individu* findIndividuUnique(string type)
 {
-    for (auto& w : _worlds)
-        for (auto& element : w.second->elements)
+    for (auto& w : devilsai::getAllResources<Carte>())
+        for (auto& element : w->elements)
             if (element->Type == type) return dynamic_cast<Individu*>(element);
 
     return nullptr;
@@ -204,7 +177,7 @@ list<Element_Carte*> getItemsByTag(const string& w, const string& tag)
 {
     list<Element_Carte*> l;
 
-    Carte* w_ptr = world(w);
+    Carte* w_ptr = devilsai::getResource<Carte>(w);
 
     if (w_ptr != nullptr)
     {
@@ -245,13 +218,15 @@ void updateCurrentPlace()
 
 void updateCurrentWorld(const string& newWorld)
 {
-    if (_worlds.find(newWorld) == _worlds.end())
+    Carte* w = devilsai::getResource<Carte>(newWorld);
+
+    if (w == nullptr)
     {
         tools::debug::error("Cannot find asked world: " + newWorld, "gamedata", __FILENAME__, __LINE__);
         return;
     }
 
-    _currentWorld = _worlds.find(newWorld)->second;
+    _currentWorld = w;
 
     _currentPlace = nullptr;
     updateCurrentPlace();
@@ -269,11 +244,11 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
         root->InsertEndChild(textElem);
     }
 
-    for (auto& w : _worlds)
+    for (auto& w : devilsai::getAllResources<Carte>())
     {
         XMLElement* worldElem = doc.NewElement("loadWorld");
-        worldElem->SetAttribute("file", (w.second->Id + ".xml").c_str());
-        worldElem->SetAttribute("name", (w.second->Id).c_str());
+        worldElem->SetAttribute("file", (w->Id + ".xml").c_str());
+        worldElem->SetAttribute("name", (w->Id).c_str());
         worldElem->SetAttribute("localFile", true);
         root->InsertEndChild(worldElem);
     }
@@ -362,13 +337,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             string tag = "ALL";
             if (elem->Attribute("tag")) tag = elem->Attribute("tag");
 
-            Carte* w = world(worldName);
-            if (w == nullptr)
-            {
-                addWorld(worldName);
-                w = world(worldName);
-            }
-
+            Carte* w = devilsai::addResource<Carte>(worldName);  // just get it, if it already exists
             w->loadFromFile(dataDirectory + worldFile, tag);
         }
 
@@ -381,7 +350,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             }
 
             _player = new Joueur;
-            _currentWorld = world(elem->Attribute("world"));
+            _currentWorld = devilsai::getResource<Carte>(elem->Attribute("world"));
 
             if (_currentWorld == nullptr)
             {

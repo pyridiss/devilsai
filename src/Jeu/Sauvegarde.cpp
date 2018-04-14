@@ -22,6 +22,7 @@
 #include "tools/filesystem.h"
 
 #include "devilsai-resources/Carte.h"
+#include "devilsai-resources/manager.h"
 
 #include "gamedata.h"
 #include "options.h"
@@ -52,9 +53,7 @@ void Save_Partie()
 
 
     //worlds xml files
-    const auto& worlds = gamedata::worlds();
-
-    for (const auto& w : worlds)
+    for (const auto& w : devilsai::getAllResources<Carte>())
     {
         XMLDocument world_xml;
 
@@ -62,10 +61,10 @@ void Save_Partie()
         world_xml.InsertFirstChild(world_xml_root);
 
         XMLHandle world_xml_handle(world_xml_root);
-        w.second->saveToXML(world_xml, world_xml_handle);
+        w->saveToXML(world_xml, world_xml_handle);
 
-        world_xml.SaveFile((path + w.second->Id + ".xml").c_str());
-        files.push_back(w.second->Id + ".xml");
+        world_xml.SaveFile((path + w->Id + ".xml").c_str());
+        files.push_back(w->Id + ".xml");
     }
 
 

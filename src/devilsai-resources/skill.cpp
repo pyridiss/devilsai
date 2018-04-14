@@ -33,7 +33,6 @@
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/manager.h"
 
-#include "gamedata.h"
 
 using namespace tinyxml2;
 
@@ -238,7 +237,7 @@ void Skill::loadScript()
 
     lua_register(script, "createIndividual", [](lua_State* S)
     {
-        Carte* w = gamedata::world(lua_tostring(S, 1));
+        Carte* w = devilsai::getResource<Carte>(lua_tostring(S, 1));
         Classe_Commune* s = devilsai::getResource<Classe_Commune>(lua_tostring(S, 2));
 
         if (w != nullptr && s != nullptr)

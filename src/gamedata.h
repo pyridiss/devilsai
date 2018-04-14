@@ -47,9 +47,6 @@ using namespace std;
 
 namespace gamedata{
 
-void addWorld(const string& id);
-Carte* world(const string& id);
-const unordered_map<string, Carte*>& worlds();
 void copyInertItemFromDesign(string t, Paysage *elem);
 lua_State* sharedTrigger(string name);
 Joueur* player();

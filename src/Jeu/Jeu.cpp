@@ -548,4 +548,5 @@ void Clean_Partie()
 
     devilsai::deleteResources<Classe_Commune>();
     devilsai::deleteResources<Paysage>();
+    devilsai::deleteResources<Carte>();
 }
