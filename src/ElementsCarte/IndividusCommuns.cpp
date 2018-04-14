@@ -30,8 +30,9 @@ using namespace tinyxml2;
 
 /** FONCTIONS DE LA CLASSE Classe_Commune **/
 
-Classe_Commune::Classe_Commune()
+Classe_Commune::Classe_Commune(string id)
   :  _displayedName(),
+    Type(std::move(id)),
     size(),
     viewField(),
     interactionField(),

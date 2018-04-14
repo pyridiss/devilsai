@@ -89,7 +89,7 @@ class Classe_Commune
         unordered_map<string, Skill> _skills;
 
 	public:
-		Classe_Commune();
+        Classe_Commune(string id);
 		~Classe_Commune();
 
 	public:

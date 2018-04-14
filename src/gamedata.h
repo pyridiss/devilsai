@@ -25,7 +25,6 @@
 #include <list>
 
 class Carte;
-class Classe_Commune;
 class Element_Carte;
 class Paysage;
 class Individu;
@@ -51,8 +50,6 @@ namespace gamedata{
 void addWorld(const string& id);
 Carte* world(const string& id);
 const unordered_map<string, Carte*>& worlds();
-void addSpecies(const string& s);
-Classe_Commune* species(const string& s);
 void addInertItemDesign(const string& design);
 Paysage* inertItemDesign(const string& type);
 void copyInertItemFromDesign(string t, Paysage *elem);

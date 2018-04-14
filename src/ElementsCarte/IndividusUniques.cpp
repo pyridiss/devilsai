@@ -29,6 +29,8 @@
 
 #include "ElementsCarte.h"
 
+#include "devilsai-resources/manager.h"
+
 #include "gamedata.h"
 
 using namespace tinyxml2;
@@ -49,7 +51,7 @@ void Individu::loadFromXML(XMLHandle &handle)
     if (elem->Attribute("species"))
     {
         Type = elem->Attribute("species");
-        _species = gamedata::species(Type);
+        _species = devilsai::getResource<Classe_Commune>(Type);
         if (_species == nullptr)
         {
             tools::debug::error("This class has not been loaded: " + Type, "files", __FILENAME__, __LINE__);

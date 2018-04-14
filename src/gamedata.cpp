@@ -49,7 +49,6 @@ using namespace tinyxml2;
 namespace gamedata{
 
 unordered_map<string, Carte*> _worlds;
-unordered_map<string, Classe_Commune*> _species;
 unordered_map<string, Paysage*> _inertItemDesigns;
 unordered_map<string, lua_State*> _triggersScripts;
 
@@ -83,22 +82,6 @@ Carte* world(const string& id)
 const unordered_map<string, Carte*>& worlds()
 {
     return _worlds;
-}
-
-void addSpecies(const string& s)
-{
-    _species.emplace(s, new Classe_Commune);
-
-    tools::debug::message("A species has been added: " + s, "gamedata", __FILENAME__, __LINE__);
-}
-
-Classe_Commune* species(const string& s)
-{
-    auto i = _species.find(s);
-
-    if (i != _species.end()) return i->second;
-
-    return nullptr;
 }
 
 void addInertItemDesign(const string& design)
@@ -204,10 +187,6 @@ void clear()
     for (auto& w : _worlds)
         delete w.second;
     _worlds.clear();
-
-    for (auto& s : _species)
-        delete s.second;
-    _species.clear();
 
     for (auto& s : _inertItemDesigns)
         delete s.second;
@@ -379,10 +358,9 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
         {
             string speciesName = elem->Attribute("name");
 
-            if (species(speciesName) == nullptr)
+            if (devilsai::getResource<Classe_Commune>(speciesName) == nullptr)
             {
-                addSpecies(speciesName);
-                Classe_Commune *s = species(speciesName);
+                Classe_Commune *s = devilsai::addResource<Classe_Commune>(speciesName);
                 XMLHandle hdl2(elem);
                 s->loadFromXML(hdl2);
             }

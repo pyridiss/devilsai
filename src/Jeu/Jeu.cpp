@@ -47,6 +47,8 @@
 
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/quests.h"
+#include "devilsai-resources/manager.h"
+
 #include "gamedata.h"
 #include "options.h"
 
@@ -543,4 +545,6 @@ void mainLoop(RenderWindow& app)
 void Clean_Partie()
 {
     gamedata::clear();
+
+    devilsai::deleteResources<Classe_Commune>();
 }
