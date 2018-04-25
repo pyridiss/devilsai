@@ -55,8 +55,8 @@ int Individu::Gestion()
 
 	//Gestion du temps :
     double speed = currentHealthStatus(_currentSkill->speedAttribute);
-    Temps += tools::timeManager::I(1/20.0);
-    if (Temps * speed < ((_currentSkill->step > 0) ? _currentSkill->step : 10))
+    _timer += tools::timeManager::I(1/20.0);
+    if (_timer * speed < ((_currentSkill->step > 0) ? _currentSkill->step : 10))
         return ETAT_NORMAL;
 
     if (_currentSkill == skill(behavior(Behaviors::Dying)))
@@ -255,7 +255,7 @@ void Individu::MouvementAleatoire(bool newDirection)
     while (angle < 0) angle += 2.0 * M_PI;
     while (angle > 2.0 * M_PI) angle -= 2.0 * M_PI;
 
-    double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * Temps;
+    double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * _timer;
     move(cos(angle) * distanceTraveled, sin(angle) * distanceTraveled);
 }
 
@@ -289,7 +289,7 @@ bool Individu::MouvementChasse(Element_Carte *elem, int nodesNumber, bool reduce
     {
         tools::math::Vector2d step = pathToTarget.points[pathToTarget.points.size() - 2];
         angle = tools::math::angle(step.x - position().x, step.y - position().y);
-        double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * Temps;
+        double distanceTraveled = currentHealthStatus(_currentSkill->speedAttribute) * _timer;
         move(cos(angle) * distanceTraveled, sin(angle) * distanceTraveled);
         if (tools::math::Vector2d::distanceSquare(step, position()) < 100)
             pathToTarget.points.pop_back();

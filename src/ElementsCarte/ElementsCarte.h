@@ -196,15 +196,13 @@ class Individu : public Element_Carte
 	public:
 		bool ActEffectue    = true;
 
-    protected:
-		float Temps         = 0;
-
 	public:
         Behaviors Comportement = Behaviors::Random;
         Behaviors NouveauComportement = Behaviors::Random;
 
 	protected:
         double _animationFrame;
+        double _timer;
         Element_Carte* _targetedItem;
         Skill* _currentSkill;
         Stats _currentHealthStatus;

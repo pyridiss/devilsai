@@ -41,6 +41,7 @@
 Individu::Individu()
     : Element_Carte(),
     _animationFrame(0),
+    _timer(0),
     _targetedItem(nullptr),
     _currentSkill(nullptr),
     _currentHealthStatus(),
@@ -74,10 +75,10 @@ Individu::Individu(const Individu& other)
   : Element_Carte(other),
     angle(other.angle),
     ActEffectue(other.ActEffectue),
-    Temps(other.Temps),
     Comportement(other.Comportement),
     NouveauComportement(other.NouveauComportement),
     _animationFrame(other._animationFrame),
+    _timer(other._timer),
     _targetedItem(other._targetedItem),
     _currentSkill(other._currentSkill),
     _currentHealthStatus(other._currentHealthStatus),
@@ -136,10 +137,10 @@ Individu::Individu(Individu&& other) noexcept
   : Element_Carte(std::move(other)),
     angle(other.angle),
     ActEffectue(other.ActEffectue),
-    Temps(other.Temps),
     Comportement(other.Comportement),
     NouveauComportement(other.NouveauComportement),
     _animationFrame(other._animationFrame),
+    _timer(other._timer),
     _targetedItem(other._targetedItem),
     _currentSkill(other._currentSkill),
     _currentHealthStatus(std::move(other._currentHealthStatus)),
@@ -251,9 +252,9 @@ void Individu::nextAnimationFrame()
     if (_currentSkill == skill(behavior(Behaviors::Dying)) && (unsigned)_animationFrame == _currentSkill->numberOfImages-1) return;
 
     if (_currentSkill->step > 0)
-        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * Temps / (double)_currentSkill->step;
+        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * _timer / (double)_currentSkill->step;
     else
-        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * Temps / 10.0;
+        _animationFrame += currentHealthStatus(_currentSkill->speedAttribute) * _timer / 10.0;
 
     if (_animationFrame > _currentSkill->numberOfImages)
     {
@@ -265,7 +266,7 @@ void Individu::nextAnimationFrame()
     while (_animationFrame > _currentSkill->numberOfImages)
         _animationFrame -= _currentSkill->numberOfImages;
 
-    Temps = 0;
+    _timer = 0;
 }
 
 void Individu::otherItemDeleted(Element_Carte* other)

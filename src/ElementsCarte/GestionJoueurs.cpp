@@ -48,7 +48,7 @@ int Joueur::Gestion()
 
 		// 3. Gestion du temps : Mouvement ou pas
 
-    Temps = tools::timeManager::I(1/20.0);
+    _timer = tools::timeManager::I(1/20.0);
 
     string skillToUse = behavior(Behaviors::Random);
     if (MouvementAutorise && !Set_Activite(behavior(Behaviors::Random)))
