@@ -199,9 +199,9 @@ Individu::~Individu()
 
 bool Individu::Set_Activite(const string& nv)
 {
-    if (skill(nv) == nullptr) return false;
+    if (skill(nv).none()) return false;
 
-    if (_currentSkill == nullptr)
+    if (_currentSkill.none())
     {
         _currentSkill = skill(nv);
         _currentSkill->atBegin(this);
@@ -363,12 +363,12 @@ Stats& Individu::attributes()
     return _attributes;
 }
 
-Skill* Individu::skill(const string& s)
+Individu::SkillAccess Individu::skill(const string& s)
 {
     auto i = _skills.find(s);
-    if (i != _skills.end()) return i->second;
+    if (i != _skills.end()) return SkillAccess(&i->second);
 
-    return nullptr;
+    return SkillAccess(nullptr);
 }
 
 const textManager::PlainText& Individu::displayedName()
@@ -458,10 +458,10 @@ int Individu::currentHealthStatus(Attribute a, bool forceUpdate)
                 _currentHealthStatus.add(att, add + _attributes[att] * mul / 100.0);
             }
 
-            if (_currentSkill != nullptr)
+            if (!_currentSkill.none())
             {
-                _currentHealthStatus.add(att, _currentSkill->extraStats[att]);
-                _currentHealthStatus.add(att, _currentSkill->extraStatsAmplifiers[att] * _attributes[att] / 100.0);
+                _currentHealthStatus.add(att, _currentSkill.extraStats(att));
+                _currentHealthStatus.add(att, _currentSkill.extraStatsAmplifiers(att) * _attributes[att] / 100.0);
             }
         }
         _clock.restart();

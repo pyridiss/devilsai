@@ -36,7 +36,7 @@ int Individu::Gestion()
     if (Element_Carte::Gestion() == ETAT_MORT)
         return ETAT_MORT;
 
-    if (_currentSkill == nullptr) return ETAT_NORMAL;
+    if (_currentSkill.none()) return ETAT_NORMAL;
 
 	// 0. Vérifie que l'individu n'est pas mort...
 
@@ -170,7 +170,7 @@ int Individu::Gestion()
                     bool canUseAttack = false;
                     for (auto& attack : attacks())
                     {
-                        if (skill(attack) == nullptr)
+                        if (skill(attack).none())
                         {
                             tools::debug::error("This skill does not exists : " + Type + ":" + attack, "items", __FILENAME__, __LINE__);
                             continue;

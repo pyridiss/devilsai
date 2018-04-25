@@ -130,12 +130,23 @@ void Individu::loadFromXML(XMLHandle &handle)
         if (elemName == "skill")
         {
             string skillName = elem->Attribute("name");
-            Skill* s = devilsai::addResource<Skill>(Type + ":" + skillName);
 
-            XMLHandle hdl2(elem);
-            s->loadFromXML(hdl2);
+            Skill *s = devilsai::getResource<Skill>(Type + ":" + skillName);
 
-            _skills.emplace(skillName, s);
+            if (s == nullptr)
+            {
+                s = devilsai::addResource<Skill>(Type + ":" + skillName);
+
+                XMLHandle hdl2(elem);
+                s->loadFromXML(hdl2);
+            }
+
+            SkillProperties p(s);
+
+            elem->QueryAttribute("level", &p.level);
+            elem->QueryAttribute("unavailability", &p.unavailability);
+
+            _skills.emplace(skillName, std::move(p));
         }
         if (elemName == "skillsManagement")
         {
@@ -237,6 +248,15 @@ void Individu::saveToXML(XMLDocument& doc, XMLHandle& handle)
         properties->SetAttribute("corpseImageKey", _corpseImageKey->c_str());
 
     unique->InsertEndChild(properties);
+
+    for (auto i : _skills)
+    {
+        XMLElement* skill = doc.NewElement("skill");
+        skill->SetAttribute("name", i.first.c_str());
+        skill->SetAttribute("level", i.second.level);
+        skill->SetAttribute("unavailability", i.second.unavailability);
+        unique->InsertEndChild(skill);
+    }
 
     XMLHandle hdl(unique);
     inventory.saveToXML(doc, hdl);

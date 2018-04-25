@@ -189,6 +189,82 @@ class Coffre : public Element_Carte
 
 class Individu : public Element_Carte
 {
+    public:
+        struct SkillProperties
+        {
+            Skill* skill;
+            double unavailability;
+            unsigned level;
+
+            SkillProperties(Skill* s)
+              : skill(s),
+                unavailability(0),
+                level(1)
+            {
+            }
+
+            Skill* operator->()
+            {
+                return skill;
+            }
+        };
+        struct SkillAccess
+        {
+            private:
+                SkillProperties* p;
+
+            public:
+                SkillAccess()
+                  : p(nullptr)
+                {
+                }
+
+                SkillAccess(SkillProperties* s)
+                  : p(s)
+                {
+                }
+
+                Skill* operator->() const
+                {
+                    return p->skill;
+                }
+
+                bool operator==(const SkillAccess& right)
+                {
+                    return (p == right.p);
+                }
+
+                bool operator!=(const SkillAccess& right)
+                {
+                    return (p != right.p);
+                }
+
+                double& unavailability() const
+                {
+                    return p->unavailability;
+                }
+
+                unsigned& level() const
+                {
+                    return p->level;
+                }
+
+                double extraStats(Attribute a) const
+                {
+                    return p->skill->levels[level()-1].extraStats[a];
+                }
+
+                double extraStatsAmplifiers(Attribute a) const
+                {
+                    return p->skill->levels[level()-1].extraStatsAmplifiers[a];
+                }
+
+                bool none() const
+                {
+                    return (p == nullptr);
+                }
+        };
+
     //Objet
 	public:
         double angle = 0;
@@ -204,12 +280,12 @@ class Individu : public Element_Carte
         double _animationFrame;
         double _timer;
         Element_Carte* _targetedItem;
-        Skill* _currentSkill;
+        SkillAccess _currentSkill;
         Stats _currentHealthStatus;
         Stats _attributes;
         string* _behaviors;
         vector<string>* _attacks;
-        unordered_map<string, Skill*> _skills;
+        unordered_map<string, SkillProperties> _skills;
         Classe_Commune* _species;
         textManager::PlainText* _displayedName;
         string* _corpseImageKey;
@@ -252,7 +328,7 @@ class Individu : public Element_Carte
         Element_Carte* targetedItem();
         virtual bool interact(Element_Carte* item);
         Stats& attributes();
-        Skill* skill(const string& s);
+        SkillAccess skill(const string& s);
         const textManager::PlainText& displayedName();
         unsigned int experience();
         bool angleFixed();

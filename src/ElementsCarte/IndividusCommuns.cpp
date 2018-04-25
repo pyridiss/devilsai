@@ -52,7 +52,11 @@ Classe_Commune::~Classe_Commune()
 
 void Classe_Commune::Copie_Element(Individu *elem)
 {
-    elem->_skills = _skills;
+    for (auto i : _skills)
+    {
+        elem->_skills.emplace(i.first, i.second);
+    }
+
     elem->Set_Activite(_behaviors[Behaviors::Random]);
     elem->size = size;
     elem->interactionField = interactionField;
