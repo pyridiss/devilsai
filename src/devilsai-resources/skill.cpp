@@ -45,8 +45,7 @@ Skill::Skill(string id)
     numberOfImages(0),
     priority(0),
     step(0),
-    extraStats(),
-    extraStatsAmplifiers(),
+    levels(1),
     speedAttribute(RunSpeed)
 {
 }
@@ -60,8 +59,7 @@ Skill::Skill(const Skill& other)
     numberOfImages(other.numberOfImages),
     priority(other.priority),
     step(other.step),
-    extraStats(other.extraStats),
-    extraStatsAmplifiers(other.extraStatsAmplifiers),
+    levels(other.levels),
     speedAttribute(other.speedAttribute)
 {
     if (!scriptString.empty())
@@ -77,8 +75,7 @@ Skill& Skill::operator=(const Skill& right)
     numberOfImages = right.numberOfImages;
     priority = right.priority;
     step = right.step;
-    extraStats = right.extraStats;
-    extraStatsAmplifiers = right.extraStatsAmplifiers;
+    levels = right.levels;
     speedAttribute = right.speedAttribute;
 
     if (!scriptString.empty())
@@ -120,11 +117,6 @@ string Skill::getImageKey(double angle, int num)
     return key;
 }
 
-int Skill::level()
-{
-    return 1;
-}
-
 void Skill::loadFromXML(XMLHandle &handle)
 {
     XMLElement *elem = handle.FirstChildElement().ToElement();
@@ -155,16 +147,24 @@ void Skill::loadFromXML(XMLHandle &handle)
             {
                 double sp = 0;
                 elem->QueryAttribute("speed", &sp);
-                extraStats.set(speedAttribute, sp);
+                levels[0].extraStats.set(speedAttribute, sp);
             }
         }
         if (elemName == "extraStats")
         {
-            extraStats.loadFromXML(elem);
+            unsigned level = 1;
+            elem->QueryAttribute("level", &level);
+            while (levels.size() < level)
+                levels.push_back(Skill::Level());
+            levels[level-1].extraStats.loadFromXML(elem);
         }
         if (elemName == "extraStatsAmplifiers")
         {
-            extraStatsAmplifiers.loadFromXML(elem);
+            unsigned level = 1;
+            elem->QueryAttribute("level", &level);
+            while (levels.size() < level)
+                levels.push_back(Skill::Level());
+            levels[level-1].extraStatsAmplifiers.loadFromXML(elem);
         }
         if (elemName == "interactionField")
         {

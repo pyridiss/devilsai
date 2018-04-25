@@ -21,6 +21,7 @@
 #define DEVILSAI_RESOURCES_SKILL
 
 #include <string>
+#include <vector>
 #include <map>
 
 #include "tools/shape.h"
@@ -39,6 +40,21 @@ class Individu;
 
 class Skill
 {
+    public:
+        struct Level
+        {
+            Stats extraStats;
+            Stats extraStatsAmplifiers;
+            double unavailability;
+
+            Level()
+              : extraStats(),
+                extraStatsAmplifiers(),
+                unavailability(0)
+            {
+            }
+        };
+
     private:
         string Id;
         map< pair<double , int> , string > Animation;
@@ -50,8 +66,7 @@ class Skill
         unsigned numberOfImages;
         int priority;
         int step;
-        Stats extraStats;
-        Stats extraStatsAmplifiers;
+        vector<Level> levels;
         Attribute speedAttribute;
 
     public:
@@ -62,8 +77,6 @@ class Skill
 
         void addImage(double angle, int num, string imageKey);
         string getImageKey(double angle, int num);
-
-        int level();
 
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void loadScript();
