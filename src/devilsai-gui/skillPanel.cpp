@@ -68,23 +68,23 @@ void manageSkillPanel(Event& event)
         if (skillName.empty())
             continue;
 
-        Skill* currentSkill = gamedata::player()->skill(skillName);
-        if (currentSkill != nullptr)
-        {
-            if (currentSkill->level())
-            {
-                slot.second->show();
-                const string& relatedObject = slot.second->embeddedData<string>("related-object");
-                if (!relatedObject.empty())
-                {
-                    if (gamedata::player()->inventory.quantityOf(relatedObject) == 0)
-                        slot.second->hide();
-                }
-            }
-            else slot.second->hide();
-        }
+        Individu::SkillAccess currentSkill = gamedata::player()->skill(skillName);
 
-        if (slot.second->activated(event) && currentSkill != nullptr)
+        if (currentSkill.none()) continue;
+
+        if (currentSkill.level() != 0)
+        {
+            slot.second->show();
+            const string& relatedObject = slot.second->embeddedData<string>("related-object");
+            if (!relatedObject.empty())
+            {
+                if (gamedata::player()->inventory.quantityOf(relatedObject) == 0)
+                    slot.second->hide();
+            }
+        }
+        else slot.second->hide();
+
+        if (slot.second->activated(event))
         {
             if (skillName == SkillPanel_SelectedSkillName)
             {
@@ -125,7 +125,14 @@ void displaySkillbar(RenderWindow& target)
         const string& skillName = slot.second->embeddedData<string>("value");
         if (!skillName.empty())
         {
-            imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top());
+            const Shader* shader = nullptr;
+
+            Individu::SkillAccess currentSkill = gamedata::player()->skill(skillName);
+
+            if (!currentSkill.none() && currentSkill.unavailability() > 0)
+                shader = gui::style::getContrastShader(0.1, 0.1, 0.1);
+
+            imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top(), false, shader);
         }
         const string& relatedObject = slot.second->embeddedData<string>("related-object");
         if (!relatedObject.empty())
