@@ -251,22 +251,25 @@ class Individu : public Element_Carte
 
                 double extraStats(Attribute a) const
                 {
+                    if (level() == 0) return 0;
                     return p->skill->levels[level()-1].extraStats[a];
                 }
 
                 double extraStatsAmplifiers(Attribute a) const
                 {
+                    if (level() == 0) return 0;
                     return p->skill->levels[level()-1].extraStatsAmplifiers[a];
                 }
 
                 double maxUnavailability() const
                 {
+                    if (level() == 0) return 0;
                     return p->skill->levels[level()-1].unavailability;
                 }
 
                 bool none() const
                 {
-                    return (p == nullptr);
+                    return (p == nullptr || level() == 0);
                 }
         };
 
