@@ -175,6 +175,8 @@ int Individu::Gestion()
                             tools::debug::error("This skill does not exists : " + Type + ":" + attack, "items", __FILENAME__, __LINE__);
                             continue;
                         }
+                        if (skill(attack).unavailability() > 0)
+                            continue;
 
                         skill(attack)->interactionField.setOrigin(&position());
                         skill(attack)->interactionField.updateDirection(angle);

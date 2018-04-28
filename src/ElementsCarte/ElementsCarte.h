@@ -259,6 +259,11 @@ class Individu : public Element_Carte
                     return p->skill->levels[level()-1].extraStatsAmplifiers[a];
                 }
 
+                double maxUnavailability() const
+                {
+                    return p->skill->levels[level()-1].unavailability;
+                }
+
                 bool none() const
                 {
                     return (p == nullptr);

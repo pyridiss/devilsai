@@ -200,6 +200,7 @@ Individu::~Individu()
 bool Individu::Set_Activite(const string& nv)
 {
     if (skill(nv).none()) return false;
+    if (skill(nv).unavailability() > 0) return false;
 
     if (_currentSkill.none())
     {
@@ -260,6 +261,7 @@ void Individu::nextAnimationFrame()
     {
         ActEffectue = true;
         _currentSkill->atEnd(this);
+        _currentSkill.unavailability() = _currentSkill.maxUnavailability();
     }
     else ActEffectue = false;
 
@@ -402,17 +404,19 @@ bool Individu::angleFixed()
 
 void Individu::Gestion_Recuperation()
 {
-    modifyHealthStatus(Life, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));
-    modifyHealthStatus(Energy, currentHealthStatus(Healing)/1000.0 * tools::timeManager::I(1.0));
+    double t = tools::timeManager::I(1.0);
+
+    modifyHealthStatus(Life, currentHealthStatus(Healing)/1000.0 * t);
+    modifyHealthStatus(Energy, currentHealthStatus(Healing)/1000.0 * t);
 
     if (currentHealthStatus(Healing) > 95)
     {
-        modifyHealthStatus(Life, tools::timeManager::I(1.0));
-        modifyHealthStatus(Energy, tools::timeManager::I(1.0));
+        modifyHealthStatus(Life, t);
+        modifyHealthStatus(Energy, t);
     }
 
     double diff = currentHealthStatus(HealingPower) + (currentHealthStatus(Life)-800.0)/100.0 - currentHealthStatus(Healing);
-    modifyHealthStatus(Healing, diff / 1000.0 * tools::timeManager::I(1.0));
+    modifyHealthStatus(Healing, diff / 1000.0 * t);
 
     //Test de récupération forcée (potion, …)
     if (RecuperationFixe || abs(currentHealthStatus(HealingPower)) >= 95)
@@ -425,7 +429,7 @@ void Individu::Gestion_Recuperation()
     {
         if (i.active() && i.remainingDuration() > 0)
         {
-            i.setRemainingDuration(i.remainingDuration() - tools::timeManager::I(1));
+            i.setRemainingDuration(i.remainingDuration() - t);
 
             if (i.remainingDuration() <= 0)
             {
@@ -434,6 +438,10 @@ void Individu::Gestion_Recuperation()
             }
         }
     }
+
+    //Update the unavailability of the skills
+    for (auto& i : _skills)
+        i.second.unavailability = max(0.0, i.second.unavailability - t/60.0);
 }
 
 int Individu::currentHealthStatus(Attribute a, bool forceUpdate)

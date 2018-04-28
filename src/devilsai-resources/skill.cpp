@@ -150,21 +150,34 @@ void Skill::loadFromXML(XMLHandle &handle)
                 levels[0].extraStats.set(speedAttribute, sp);
             }
         }
-        if (elemName == "extraStats")
+        if (elemName == "level")
         {
             unsigned level = 1;
             elem->QueryAttribute("level", &level);
-            while (levels.size() < level)
-                levels.push_back(Skill::Level());
-            levels[level-1].extraStats.loadFromXML(elem);
+            levels.resize(max(level, (unsigned)levels.size()));
+            for (XMLElement *elem2 = elem->FirstChildElement() ; elem2 != nullptr ; elem2 = elem2->NextSiblingElement())
+            {
+                string_view elem2Name = elem2->Name();
+
+                if (elem2Name == "extraStats")
+                    levels[level-1].extraStats.loadFromXML(elem2);
+                if (elem2Name == "extraStatsAmplifiers")
+                    levels[level-1].extraStatsAmplifiers.loadFromXML(elem2);
+                if (elem2Name == "unavailability")
+                    elem2->QueryAttribute("value", &(levels[level-1].unavailability));
+            }
         }
-        if (elemName == "extraStatsAmplifiers")
+        if (elemName == "extraStats")  // When outside a 'level' element, assume (level == 1)
         {
-            unsigned level = 1;
-            elem->QueryAttribute("level", &level);
-            while (levels.size() < level)
-                levels.push_back(Skill::Level());
-            levels[level-1].extraStatsAmplifiers.loadFromXML(elem);
+            levels[0].extraStats.loadFromXML(elem);
+        }
+        if (elemName == "extraStatsAmplifiers")  // When outside a 'level' element, assume (level == 1)
+        {
+            levels[0].extraStatsAmplifiers.loadFromXML(elem);
+        }
+        if (elemName == "unavailability")  // When outside a 'level' element, assume (level == 1)
+        {
+            elem->QueryAttribute("value", &(levels[0].unavailability));
         }
         if (elemName == "interactionField")
         {
