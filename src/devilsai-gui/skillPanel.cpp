@@ -21,6 +21,7 @@
 
 #include "tools/math.h"
 #include "imageManager/imageManager.h"
+#include "textManager/textManager.h"
 #include "gui/style.h"
 #include "gui/window.h"
 
@@ -156,18 +157,28 @@ void displaySkillPanel(RenderWindow& target)
             continue;
 
         const string& skillName = slot.second->embeddedData<string>("skill");
-        if (!skillName.empty())
-        {
-            imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top());
-        }
+        Individu::SkillAccess currentSkill = gamedata::player()->skill(skillName);
+        if (currentSkill.none()) continue;
+
+        imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top());
+
         const string& relatedObject = slot.second->embeddedData<string>("related-object");
-        if (!relatedObject.empty())
+        if (!relatedObject.empty())  // Skill used to utilize an object
         {
             textManager::RichText number;
             number.setSize(50, 0);
             number.setDefaultProperties("liberation", 12, Color(255, 255, 255));
             number.create(gamedata::player()->inventory.quantityOf(relatedObject));
             number.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
+        }
+        else  // 'Real' skill, we display its level
+        {
+            textManager::RichText level;
+            level.setSize(50, 0);
+            level.setDefaultProperties("liberation-bold", 13, Color(192, 192, 192));
+            level.addFlags(textManager::Shaded);
+            level.create(currentSkill.level());
+            level.displayFullText(target, slot.second->left() + 30, slot.second->top() + 30);
         }
     }
 
