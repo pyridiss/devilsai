@@ -713,6 +713,8 @@ void Individu::Disp(RenderTarget& target)
         size.display(target, Color(255, 255, 255, 50));
     }
 
+    if (_currentSkill.none()) return;
+
     imageManager::display(target, tools::hash("individuals"), _currentSkill->getImageKey(angle, _animationFrame), position().x, position().y, true);
 }
 
