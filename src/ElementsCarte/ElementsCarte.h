@@ -25,6 +25,7 @@
 
 #include <SFML/System.hpp>
 
+#include "tools/variant.h"
 #include "tools/vector2d.h"
 #include "tools/shape.h"
 #include "textManager/plainText.h"
@@ -301,6 +302,7 @@ class Individu : public Element_Carte
         unsigned int _experience = 0;
         string* _extraDataFile;
         Clock _clock;
+        tools::math::Variant<int, Individu*> _owner;
 
 	public:
         bool RecuperationFixe   = false;
@@ -357,6 +359,8 @@ class Individu : public Element_Carte
         void nextAnimationFrame();
         void updateAngle(const tools::math::Vector2d& p);
         void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
+        void setOwner(Individu* o);
+        Individu* owner();
 
 	public:
         int currentHealthStatus(Attribute a, bool forceUpdate = false);

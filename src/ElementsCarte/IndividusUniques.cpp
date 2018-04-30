@@ -126,6 +126,8 @@ void Individu::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("experience", &_experience);
             if (elem->Attribute("corpseImageKey"))
                 corpseImageKey() = elem->Attribute("corpseImageKey");
+            if (int o = 0 ; elem->QueryAttribute("owner", &o) == XML_SUCCESS)
+                _owner.set<int>(o);
         }
         if (elemName == "skill")
         {
@@ -246,6 +248,9 @@ void Individu::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
     if (_corpseImageKey != nullptr)
         properties->SetAttribute("corpseImageKey", _corpseImageKey->c_str());
+
+    if (owner() != nullptr)
+        properties->SetAttribute("owner", owner()->Id);
 
     unique->InsertEndChild(properties);
 

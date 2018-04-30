@@ -54,6 +54,7 @@ Individu::Individu()
     _corpseImageKey(nullptr),
     _extraDataFile(nullptr),
     _clock(),
+    _owner(),
     interactionField(),
     viewField(),
     seenItems(),
@@ -92,6 +93,7 @@ Individu::Individu(const Individu& other)
     _experience(other._experience),
     _extraDataFile(nullptr),
     _clock(other._clock),
+    _owner(other._owner),
     RecuperationFixe(other.RecuperationFixe),
     EnergieMax(other.EnergieMax),
     interactionField(other.interactionField),
@@ -154,6 +156,7 @@ Individu::Individu(Individu&& other) noexcept
     _experience(other._experience),
     _extraDataFile(other._extraDataFile),
     _clock(std::move(other._clock)),
+    _owner(std::move(other._owner)),
     RecuperationFixe(other.RecuperationFixe),
     EnergieMax(other.EnergieMax),
     interactionField(std::move(other.interactionField)),
@@ -275,6 +278,11 @@ void Individu::otherItemDeleted(Element_Carte* other)
 {
     if (_targetedItem == other)
         _targetedItem = nullptr;
+    if (owner() == other)
+    {
+        _owner.set<Individu*>(nullptr);
+        lifetime = 0;
+    }
 }
 
 Element_Carte* Individu::targetedItem()
@@ -681,6 +689,19 @@ void Individu::fight(Individu *enemy)
         if (Degats) enemy->Set_Activite(enemy->behavior(Behaviors::Hurt));
     }
     else if (this == gamedata::player()) addConsoleEntry(textManager::getText("devilsai", "ECHEC"));
+}
+
+void Individu::setOwner(Individu* o)
+{
+    _owner.set<Individu*>(o);
+}
+
+Individu* Individu::owner()
+{
+    if (_owner.is<int>())
+        _owner.set<Individu*>(static_cast<Individu*>(gamedata::findElement(_owner.get<int>())));
+
+    return _owner.get<Individu*>();
 }
 
 void Individu::Disp(RenderTarget& target)

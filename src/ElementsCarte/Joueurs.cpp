@@ -183,6 +183,7 @@ void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
 	}
 
     _experience += Exp;
+    if (owner() != nullptr) owner()->GainExperience(nullptr, 0, Exp);
 }
 
 void Joueur::BlessuresMultiples(Individu* ennemi)
