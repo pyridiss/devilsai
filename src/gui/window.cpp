@@ -489,6 +489,13 @@ void Window::loadFromXML(XMLElement *elem)
             if (type == "scrolling-list") widget = new ScrollingList();
             if (type == "progress-bar") widget = new ProgressBar();
 
+            if (widget == nullptr)
+            {
+                tools::debug::error("Unknown widget: " + type, "gui", __FILENAME__, __LINE__);
+                elem = elem->NextSiblingElement();
+                continue;
+            }
+
             widgets.insert(map<string, Widget*>::value_type(widgetName, widget));
 
             widget->setParent(this);
