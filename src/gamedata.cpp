@@ -314,7 +314,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             {
                 Classe_Commune *s = devilsai::addResource<Classe_Commune>(speciesName);
                 XMLHandle hdl2(elem);
-                s->loadFromXML(hdl2);
+                s->loadFromXML(hdl2, mainFile);
             }
         }
 

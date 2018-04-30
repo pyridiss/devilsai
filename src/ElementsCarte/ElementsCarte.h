@@ -67,6 +67,7 @@ class Classe_Commune
 	public:
         textManager::PlainText _displayedName;
         string Type;
+        string definitionFile;
 		int Diplomatie          = 0;
         tools::math::Shape size;
         tools::math::Shape viewField;
@@ -96,7 +97,7 @@ class Classe_Commune
         void Copie_Element(Individu *elem);
         void setAngleFixed(double angle);
 
-        void loadFromXML(tinyxml2::XMLHandle &handle);
+        void loadFromXML(tinyxml2::XMLHandle &handle, const string& file);
 
     friend class Individu;
 };

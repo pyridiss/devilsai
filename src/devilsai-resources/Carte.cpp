@@ -631,6 +631,17 @@ void Carte::saveToXML(XMLDocument& doc, XMLHandle& handle)
         properties->SetAttribute("backgroundImage", backgroundImage.c_str());
     root->InsertEndChild(properties);
 
+    // dataFiles should contain the files needed for the species of all individuals
+    // in the world. However, some individuals may change world or create other
+    // individuals which definition is not in these files.
+    //  dataFiles will be updated to be sure all species will be loaded.
+    for (auto& tmp : elements)
+    {
+        Individu* ind = dynamic_cast<Individu*>(tmp);
+        if (ind != nullptr && ind->species() != nullptr)
+            dataFiles.insert(ind->species()->definitionFile);
+    }
+
     for (auto& tmp : dataFiles)
     {
         XMLElement* dataFile = doc.NewElement("loadDataFile");

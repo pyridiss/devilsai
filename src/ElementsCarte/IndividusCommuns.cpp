@@ -35,6 +35,7 @@ using namespace tinyxml2;
 Classe_Commune::Classe_Commune(string id)
   :  _displayedName(),
     Type(std::move(id)),
+    definitionFile(),
     size(),
     viewField(),
     interactionField(),
@@ -94,9 +95,10 @@ void Classe_Commune::setAngleFixed(double angle)
     fixedAngle = angle;
 }
 
-void Classe_Commune::loadFromXML(XMLHandle &handle)
+void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
 {
     Type = handle.ToElement()->Attribute("name");
+    definitionFile = file;
     _displayedName = textManager::getText("species", Type);
 
     string archiveFile;
