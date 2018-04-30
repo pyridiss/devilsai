@@ -259,7 +259,8 @@ void saveToXML(XMLDocument& doc, XMLHandle& handle)
 
     _player->saveToXML(doc, handle);
     root->LastChildElement()->SetAttribute("world", _currentWorld->Id.c_str());
-    root->LastChildElement()->SetAttribute("playerName", _player->displayedName().toStdString().c_str());
+    string playerName = _player->displayedName().toStdString();
+    root->LastChildElement()->SetAttribute("playerName", playerName.c_str());
 
     resources::quests::save(doc, root);
 
@@ -364,7 +365,7 @@ void loadFromXML(const string& dataDirectory, const string& mainFile)
             _player->loadFromXML(playerHandle);
 
             if (elem->Attribute("playerName"))
-                _player->setCustomDisplayedName(textManager::fromStdString(elem->Attribute("playerName")));
+                tools::signals::addSignal("change-player-name", string(elem->Attribute("playerName")));
         }
 
         if (elemName == "quest")

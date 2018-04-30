@@ -69,7 +69,17 @@ bool InputField::activated(Event event)
 void InputField::setValue(optionType v)
 {
     if (v.is<textManager::PlainText>())
+    {
         input = v.get<textManager::PlainText>().aggregatedText();
+        addEmbeddedData<string>("value", v.get<textManager::PlainText>().toStdString());
+    }
+    else if (v.is<string>())
+    {
+        input = textManager::PlainText(v.get<string>()).aggregatedText();
+        addEmbeddedData<string>("value", v.get<string>());
+    }
+
+    setText(input);
 }
 
 } //namespace gui
