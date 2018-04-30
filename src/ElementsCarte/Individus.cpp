@@ -698,6 +698,8 @@ void Individu::setOwner(Individu* o)
 
 Individu* Individu::owner()
 {
+    if (!_owner.valid()) return nullptr;
+
     if (_owner.is<int>())
         _owner.set<Individu*>(static_cast<Individu*>(gamedata::findElement(_owner.get<int>())));
 
