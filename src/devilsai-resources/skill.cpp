@@ -273,7 +273,24 @@ void Skill::loadScript()
 
     lua_register(script, "individual_copy", LUA_individual_copy);
     lua_register(script, "individual_get", LUA_get);
-    lua_register(script, "individual_set", LUA_set);
+
+    lua_register(script, "individual_set", [](lua_State* S)
+    {
+        Individu* ind = static_cast<Individu*>(lua_touserdata(S, 1));
+        string_view field = lua_tostring(S, 2);
+
+        if (ind == nullptr) return 0;
+
+        if (field == "life")
+            ind->setHealthStatus(Life, lua_tonumber(S, 3));
+        else if (field == "energy")
+            ind->setHealthStatus(Energy, lua_tonumber(S, 3));
+        else if (field == "owner")
+            ind->setOwner(static_cast<Individu*>(lua_touserdata(S, 3)));
+
+        return 0;
+    });
+
     lua_register(script, "isIndividu", LUA_isIndividu);
     lua_register(script, "playSound", LUA_playSound);
     lua_register(script, "useObject", LUA_useObject);
