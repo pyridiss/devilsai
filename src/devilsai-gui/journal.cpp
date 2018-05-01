@@ -96,8 +96,8 @@ void updateState()
     }
     else
     {
-        _first->addFlags(gui::Disabled);
-        _previous->addFlags(gui::Disabled);
+        _first->removeFlags(gui::Disabled);
+        _previous->removeFlags(gui::Disabled);
     }
     if (_currentPage == _journal.size() - 1)
     {
@@ -106,8 +106,8 @@ void updateState()
     }
     else
     {
-        _next->addFlags(gui::Disabled);
-        _last->addFlags(gui::Disabled);
+        _next->removeFlags(gui::Disabled);
+        _last->removeFlags(gui::Disabled);
     }
 
     if (_journal.size() > _currentPage)
