@@ -37,6 +37,7 @@ class PlainText
 
     public:
         PlainText();
+        PlainText(const PlainText& other);
         PlainText(const string& str);
         PlainText(const basic_string<unsigned int>& str);
         PlainText(int i);

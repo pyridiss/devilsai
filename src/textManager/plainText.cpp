@@ -37,6 +37,14 @@ PlainText::PlainText()
 {
 }
 
+PlainText::PlainText(const PlainText& other)
+  : _originalText(other._originalText),
+    _parameters(other._parameters),
+    _parametersNeeded(other._parametersNeeded),
+    _aggregatedText(other._aggregatedText)
+{
+}
+
 PlainText::PlainText(const string& str)
   : PlainText()
 {
