@@ -39,6 +39,13 @@ enum Attribute {
     numberOfAttributes
 };
 
+inline Attribute& operator++(Attribute& orig)
+{
+    if (orig == numberOfAttributes) return orig;
+    orig = static_cast<Attribute>(static_cast<int>(orig) + 1);
+    return orig;
+}
+
 enum AttributeAmplifier {
     LifeAmplifier = 0, EnergyAmplifier, HealingAmplifier,
     StrengthAmplifier, PowerAmplifier, AgilityAmplifier, IntellectAmplifier,

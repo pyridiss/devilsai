@@ -17,9 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "devilsai-resources/stats.h"
+
 #include <tinyxml2.h>
 
-#include <devilsai-resources/stats.h>
 
 Stats::Stats()
   : _stats {1000, 1000} //Only Life and Energy are 1000 by default
