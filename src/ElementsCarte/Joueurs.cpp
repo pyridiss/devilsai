@@ -95,17 +95,8 @@ void Joueur::Gestion_Statistiques()
 	//7. Fatigue extrême
 	if (currentHealthStatus(Energy) < 70 && currentHealthStatus(Energy) > 10)
 	{
-		//Agilite-
-        if (_attributes[Agility] > 1)
-            _attributes.add(Agility, -(70.0-currentHealthStatus(Energy))/100000.0*tools::timeManager::I(1));
-
-		//Intelligence-
-        if (_attributes[Intellect] > 1)
-            _attributes.add(Intellect, -(70.0-currentHealthStatus(Energy))/100000.0*tools::timeManager::I(1));
-
-		//Application
-		if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_FATIGUE), Color(255, 128, 128, 255));
-            addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
+        improveAttribute(Agility, -1, nullptr);
+        improveAttribute(Intellect, -1, nullptr);
 	}
 
     //Update interactionField of skills
@@ -114,47 +105,6 @@ void Joueur::Gestion_Statistiques()
         s.second->interactionField.setOrigin(&position());
         s.second->interactionField.updateDirection(angle);
     }
-}
-
-void Joueur::CoupCritique(Individu* ennemi)
-{
-	//Agilité+, selon Agilité de l'ennemi
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Agility) - ennemi->currentHealthStatus(Agility), 0, 10) + 1)))
-        _attributes.add(Agility, ToSegment(1.1*ennemi->currentHealthStatus(Agility)/currentHealthStatus(Agility), 0, 10));
-
-	//Charisme+, selon Charisme de l'ennemi
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Charisma) - ennemi->currentHealthStatus(Charisma), 0, 10) + 1)))
-        _attributes.add(Charisma, ToSegment(1.1*ennemi->currentHealthStatus(Charisma)/currentHealthStatus(Charisma), 0, 10));
-
-	//Application
-	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_CRITIQUE), Color(128, 255, 128, 255));
-        addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
-}
-
-void Joueur::BlessureGrave(Individu* ennemi)
-{
-	//Constitution-, selon Puissance de l'ennemi
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
-        _attributes.add(Constitution, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
-
-	//Charisme-, selon Charisme de l'ennemi
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Charisma) - ennemi->currentHealthStatus(Charisma), 0, 10) + 1)))
-        _attributes.add(Charisma, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Charisma)/currentHealthStatus(Charisma), 0, 10)));
-
-	//Application
-	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-        addConsoleEntry(textManager::getText("devilsai", "BLESSURE"));
-}
-
-void Joueur::CoupEsquive(Individu* ennemi)
-{
-	//Esquive+, selon Agilité de l'ennemi
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Dodge) - ennemi->currentHealthStatus(Agility), 0, 10) + 1)))
-        _attributes.add(Dodge, ToSegment(1.1*ennemi->currentHealthStatus(Agility)/currentHealthStatus(Dodge), 0, 3));
-
-	//Application
-	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_ESQUIVE), Color(128, 255, 128, 255));
-        addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
 }
 
 void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
@@ -184,25 +134,6 @@ void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
 
     _experience += Exp;
     if (owner() != nullptr) owner()->GainExperience(nullptr, 0, Exp);
-}
-
-void Joueur::BlessuresMultiples(Individu* ennemi)
-{
-	//Force-, selon sa propre Constitution et Puissance de l'un des ennemis
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
-        _attributes.add(Strength, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
-
-	//Puissance-, selon sa propre Constitution et Puissance de l'un des ennemis
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
-        _attributes.add(Power, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
-
-	//Esquive-, selon sa propre Constitution et Puissance de l'un des ennemis
-    if (!(rand()%(int)(5 + 10 + ToSegment(currentHealthStatus(Constitution) - ennemi->currentHealthStatus(Power), 0, 10) + 1)))
-        _attributes.add(Dodge, -min(2.0, ToSegment(1.1*ennemi->currentHealthStatus(Power)/currentHealthStatus(Constitution), 0, 10)));
-
-	//Application
-	if (ApplicationAmeliorations()) //Ajouter_LigneAmelioration(Get_Phrase(_BLESSURE), Color(255, 128, 128, 255));
-        addConsoleEntry(textManager::getText("devilsai", "BLESSURE"));
 }
 
 bool Joueur::ApplicationAmeliorations()

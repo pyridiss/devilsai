@@ -615,11 +615,7 @@ void Individu::fight(Individu *enemy)
         if (Esquive)
         {
             Degats = 0;
-            if (enemy == gamedata::player())
-            {
-                gamedata::player()->CoupEsquive(this);
-                addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
-            }
+            improveAttribute(Dodge, 10, enemy);
         }
         else
         {
@@ -630,15 +626,10 @@ void Individu::fight(Individu *enemy)
                 Degats *= 1.5;
                 modifyHealthStatus(Energy, -10);
                 enemy->modifyHealthStatus(Healing, -30);
-                if (this == gamedata::player())
-                {
-                    gamedata::player()->CoupCritique(enemy);
-                    addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
-                }
-                if (enemy == gamedata::player())
-                {
-                    gamedata::player()->BlessureGrave(enemy);
-                }
+                improveAttribute(Agility, 10, enemy);
+                improveAttribute(Charisma, 10, enemy);
+                enemy->improveAttribute(Constitution, -10, this);
+                enemy->improveAttribute(Charisma, -10, this);
             }
             else if (currentHealthStatus(Precision) < 100)
             {
@@ -648,6 +639,13 @@ void Individu::fight(Individu *enemy)
 
             Degats *= (1 + (Att_Puissance - enemy->currentHealthStatus(Constitution))/Att_Puissance)/2.0;
             if (Degats < 5) Degats = 5;
+
+            if (enemy->_currentSkill == enemy->skill(enemy->behavior(Behaviors::Hurt)))
+            {
+                enemy->improveAttribute(Strength, -10, this);
+                enemy->improveAttribute(Power, -10, this);
+                enemy->improveAttribute(Dodge, -10, this);
+            }
         }
 
         enemy->modifyHealthStatus(Life, -Degats);
@@ -676,19 +674,9 @@ void Individu::fight(Individu *enemy)
         resultText.addParameter(b);
 
         addConsoleEntry(resultText);
-        if (this == gamedata::player())
-        {
-            gamedata::player()->ApplicationAmeliorations();
-        }
-        if (enemy == gamedata::player())
-        {
-            if (gamedata::player()->_currentSkill == gamedata::player()->skill(gamedata::player()->behavior(Behaviors::Hurt)))
-                gamedata::player()->BlessuresMultiples(this);
-        }
 
         if (Degats) enemy->Set_Activite(enemy->behavior(Behaviors::Hurt));
     }
-    else if (this == gamedata::player()) addConsoleEntry(textManager::getText("devilsai", "ECHEC"));
 }
 
 void Individu::setOwner(Individu* o)
@@ -704,6 +692,75 @@ Individu* Individu::owner()
         _owner.set<Individu*>(static_cast<Individu*>(gamedata::findElement(_owner.get<int>())));
 
     return _owner.get<Individu*>();
+}
+
+void Individu::improveAttribute(Attribute a, int chance, Individu* enemy)
+{
+    if (chance == 0 || rand()%100 >= abs(chance))
+        return;
+
+    auto c1 = [&](Attribute s)
+    {
+        double x = currentHealthStatus(s);
+        double y = atan(log(1+x) * M_PI) / M_PI;
+        return min(1.0, y);
+    };
+    auto c2 = [&](Attribute s, Attribute o)
+    {
+        if (enemy == nullptr) return 0.0;
+        double x = enemy->currentHealthStatus(o) / max(1, currentHealthStatus(s));
+        double y = atan(log(1+x) * M_PI) / M_PI;
+        return min(1.0, y);
+    };
+
+    double result = 0;
+
+    if (chance > 0) switch (a)
+    {
+        case Strength:
+            [[fallthrough]]
+        case Power:
+            [[fallthrough]]
+        case Intellect:
+            [[fallthrough]]
+        case Constitution:
+            result = c1(Intellect);
+            break;
+        case Agility:
+            [[fallthrough]]
+        case Charisma:
+            result = c2(a, a);
+            break;
+        case Dodge:
+            result = c2(Dodge, Agility);
+            break;
+        default:
+            break;
+    }
+    else switch (a)
+    {
+        case Strength:
+            [[fallthrough]]
+        case Power:
+            [[fallthrough]]
+        case Constitution:
+            [[fallthrough]]
+        case Dodge:
+            result = - c2(Constitution, Power);
+            break;
+        case Agility:
+            [[fallthrough]]
+        case Intellect:
+            result = - (70.0-currentHealthStatus(Energy))/100000.0*tools::timeManager::I(1);
+            break;
+        case Charisma:
+            result = - c2(Charisma, Charisma);
+            break;
+        default:
+            break;
+    }
+
+    _attributes.add(a, result);
 }
 
 void Individu::Disp(RenderTarget& target)

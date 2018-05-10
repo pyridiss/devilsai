@@ -361,6 +361,7 @@ class Individu : public Element_Carte
         void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
         void setOwner(Individu* o);
         Individu* owner();
+        virtual void improveAttribute(Attribute a, int chance, Individu* enemy);
 
 	public:
         int currentHealthStatus(Attribute a, bool forceUpdate = false);
@@ -412,11 +413,6 @@ class Joueur : public Individu
 		void Repos();
         void otherItemDeleted(Element_Carte* other);
         bool interact(Element_Carte* item);
-
-		void CoupCritique(Individu* ennemi);
-		void BlessureGrave(Individu* ennemi);
-		void CoupEsquive(Individu* ennemi);
-		void BlessuresMultiples(Individu* ennemi);
 
 		bool ApplicationAmeliorations();
         void resetDisplayedAttributes();
