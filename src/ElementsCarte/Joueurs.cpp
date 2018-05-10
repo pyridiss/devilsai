@@ -22,6 +22,7 @@
 #include <cmath>
 
 #include "tools/math.h"
+#include "tools/signals.h"
 
 #include "ElementsCarte.h"
 
@@ -138,6 +139,7 @@ void Joueur::improveAttribute(Attribute a, int chance, Individu* enemy)
             t.addParameter(v);
         }
 
+        tools::signals::addSignal("player-information", t.toStdString());
         addConsoleEntry(t);
     }
 

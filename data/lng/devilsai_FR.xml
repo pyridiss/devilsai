@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="BLESSURE">Blessure grave !</text>
+    <text id="BLESSURE">@f[liberation-bold]@c[255,128,128]Blessure grave ! @d</text>
     <text id="CADAVRE">Cadavre de *</text>
-    <text id="CRITIQUE">Coup Critique !</text>
-    <text id="ECHEC">Échec !</text>
+    <text id="CRITIQUE">@f[liberation-bold]@c[128,255,128]Coup Critique ! @d</text>
     <text id="ENERGIE_INSUFFISANTE">Énergie insuffisante !</text>
     <text id="EQUIP_DUREE">Durée : *s</text>
-    <text id="ESQUIVE">Coup esquivé !</text>
+    <text id="ESQUIVE">@f[liberation-bold]@c[128,255,128]Coup esquivé ! @d</text>
     <text id="FATIGUE">Fatigue extrême !</text>
     <text id="MONTRES_RESTANTS">Monstres restants : *</text>
     <text id="RESOLUTION_INCOMPATIBLE">La résolution demandée est incompatible avec votre ordinateur</text>

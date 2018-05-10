@@ -40,6 +40,12 @@
     <widget name="tooltip" type="text" backgroundShader="textBackground">
         <addEmbeddedData name="format" type="plaintext" value="@f[liberation-bold]@s[15]@c[255,255,255]* @d"/>
     </widget>
+    <widget name="information" type="text" OriginCenter="1" XPositionRelativeToCenter="1" y="300" textShaded="1" CustomTextShader="1">
+        <addEmbeddedData name="format" type="plaintext" value="@f[liberation-bold]@s[15]@c[255,255,255]* @d"/>
+        <addEmbeddedData name="custom-shader" type="string" value="fade"/>
+        <addEmbeddedData name="fade-value" type="float" value="255"/>
+        <addEmbeddedData name="fade-maxvalue" type="float" value="255"/>
+    </widget>
 
     <!-- Menu -->
 
@@ -112,6 +118,10 @@
     <trigger event="SignalCaptured" eventDataType="string" eventData="place-changed" action="Show" target="place-name"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="place-changed" action="Hide" target="game-saved"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="fade-shader:end" action="Hide" target="place-name"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="player-information" action="ModifyEmbeddedData" dataProvider="information" dataName="fade-maxvalue" target="information" signal="fade-value"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="player-information" action="ModifyValue" target="information"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="player-information" action="Show" target="information"/>
+    <trigger event="SignalCaptured" eventDataType="string" eventData="fade-shader:end" action="Hide" target="information"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="savegame" action="ModifyEmbeddedData" dataProvider="game-saved" dataName="fade-maxvalue" target="game-saved" signal="fade-value"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="savegame" action="Show" target="game-saved"/>
     <trigger event="SignalCaptured" eventDataType="string" eventData="savegame" action="Hide" target="place-name"/>

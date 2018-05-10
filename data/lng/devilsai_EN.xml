@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <texts>
-    <text id="BLESSURE">Serious injury!</text>
+    <text id="BLESSURE">@f[liberation-bold]@c[255,128,128]Serious injury! @d</text>
     <text id="CADAVRE">*'s corpse</text>
-    <text id="CRITIQUE">Critical hit!</text>
-    <text id="ECHEC">Failed!</text>
+    <text id="CRITIQUE">@f[liberation-bold]@c[128,255,128]Critical hit! @d</text>
     <text id="ENERGIE_INSUFFISANTE">Insufficient energy!</text>
     <text id="EQUIP_DUREE">Duration: *s</text>
-    <text id="ESQUIVE">Dodged strike!</text>
+    <text id="ESQUIVE">@f[liberation-bold]@c[128,255,128]Dodged strike! @d</text>
     <text id="FATIGUE">Extremely tired!</text>
     <text id="MONTRES_RESTANTS">Remaining monsters: *</text>
     <text id="RESOLUTION_INCOMPATIBLE">The resolution requested is incompatible with your computer</text>
