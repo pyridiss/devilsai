@@ -210,20 +210,20 @@ textManager::PlainText Joueur::characterDescription()
     d.addParameter(experience());
 
     d.addParameter(currentHealthStatus(Strength));
-    d.addParameter(attributes()[Strength]);
+    d.addParameter(round(attributes()[Strength]));
     d.addParameter(currentHealthStatus(Power));
-    d.addParameter(attributes()[Power]);
+    d.addParameter(round(attributes()[Power]));
     d.addParameter(currentHealthStatus(Agility));
-    d.addParameter(attributes()[Agility]);
+    d.addParameter(round(attributes()[Agility]));
     d.addParameter(currentHealthStatus(Intellect));
-    d.addParameter(attributes()[Intellect]);
+    d.addParameter(round(attributes()[Intellect]));
 
     d.addParameter(currentHealthStatus(Constitution));
-    d.addParameter(attributes()[Constitution]);
+    d.addParameter(round(attributes()[Constitution]));
     d.addParameter(currentHealthStatus(Charisma));
-    d.addParameter(attributes()[Charisma]);
+    d.addParameter(round(attributes()[Charisma]));
     d.addParameter(currentHealthStatus(Dodge));
-    d.addParameter(attributes()[Dodge]);
+    d.addParameter(round(attributes()[Dodge]));
     d.addParameter(currentHealthStatus(HealingPower));
 
     return d;
