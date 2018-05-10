@@ -358,7 +358,7 @@ class Individu : public Element_Carte
         void otherItemDeleted(Element_Carte* other);
         void nextAnimationFrame();
         void updateAngle(const tools::math::Vector2d& p);
-        void GainExperience(Individu* ennemi, float Degats, int Exp = 0);
+        void gainExperience(int exp);
         void setOwner(Individu* o);
         Individu* owner();
         virtual void improveAttribute(Attribute a, int chance, Individu* enemy);

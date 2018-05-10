@@ -99,7 +99,7 @@ void addQuest(string newQuest, string args)
 
     lua_register(L, "addExperience", [](lua_State* S)
     {
-        gamedata::player()->GainExperience(NULL, 0, lua_tonumber(S, 1));
+        gamedata::player()->gainExperience(lua_tonumber(S, 1));
         return 0;
     });
 

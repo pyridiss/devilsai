@@ -651,7 +651,9 @@ void Individu::fight(Individu *enemy)
         enemy->modifyHealthStatus(Life, -Degats);
         enemy->modifyHealthStatus(Healing, -3-Degats/20);
 
-        GainExperience(enemy, Degats);
+        if (enemy->currentHealthStatus(Life) > 0)
+            gainExperience(Degats / 5000. * enemy->experience());
+        else gainExperience(enemy->experience());
 
         textManager::PlainText resultText = textManager::getText("devilsai", "console-damageDone");
 
@@ -692,6 +694,20 @@ Individu* Individu::owner()
         _owner.set<Individu*>(static_cast<Individu*>(gamedata::findElement(_owner.get<int>())));
 
     return _owner.get<Individu*>();
+}
+
+void Individu::gainExperience(int exp)
+{
+    for (int i = 0 ; i < 1 + exp / 100 ; ++i)
+    {
+        improveAttribute(Intellect, 1, nullptr);
+        improveAttribute(Strength, 1, nullptr);
+        improveAttribute(Power, 1, nullptr);
+        improveAttribute(Constitution, 1, nullptr);
+    }
+
+    _experience += exp;
+    if (owner() != nullptr) owner()->gainExperience(exp);
 }
 
 void Individu::improveAttribute(Attribute a, int chance, Individu* enemy)

@@ -107,35 +107,6 @@ void Joueur::Gestion_Statistiques()
     }
 }
 
-void Individu::GainExperience(Individu* ennemi, float Degats, int Exp)
-{
-	//Gain d'expérience
-	if (ennemi != NULL)
-	{
-        if (ennemi->currentHealthStatus(Life) > 0) Exp += Degats/5000.*ennemi->experience();
-        else Exp += ennemi->experience();
-
-		//Intelligence+, Force+, Puissance+, et Constitution+, si peu fatigué
-		for (int i = 0 ; i < 1 + Exp/100 ; ++i)
-		{
-            if (!(rand()%(int)(50 + ToSegment(-currentHealthStatus(Energy)/100, 0, 30) + 1)))
-			{
-				short carac = rand()%4;
-				switch(carac)
-				{
-                    case 0 : _attributes.add(Intellect, ToSegment(2*currentHealthStatus(Intellect), 0, 100)/100); break;
-                    case 1 : _attributes.add(Strength, ToSegment(10*currentHealthStatus(Intellect), 0, 100)/100); break;
-                    case 2 : _attributes.add(Power, ToSegment(10*currentHealthStatus(Intellect), 0, 100)/100); break;
-                    case 3 : _attributes.add(Constitution, ToSegment(5*currentHealthStatus(Intellect), 0, 100)/100); break;
-				}
-			}
-		}
-	}
-
-    _experience += Exp;
-    if (owner() != nullptr) owner()->GainExperience(nullptr, 0, Exp);
-}
-
 bool Joueur::ApplicationAmeliorations()
 {
 	//Affichage & enregistrement des améliorations proposées :
