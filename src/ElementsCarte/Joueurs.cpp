@@ -32,16 +32,9 @@
 #include "devilsai-gui/console.h"
 #include "gamedata.h"
 
-#define PI 3.1415926
-
 
 using namespace tinyxml2;
 
-
-double ToSegment(double x, int min, int max)
-{
-	return min + 2*(max-min)/PI * atan(x*PI/(2*(max-min)));
-}
 
 /** FONCTIONS DE LA CLASSE Joueur **/
 
@@ -107,31 +100,48 @@ void Joueur::Gestion_Statistiques()
     }
 }
 
-bool Joueur::ApplicationAmeliorations()
+void Joueur::improveAttribute(Attribute a, int chance, Individu* enemy)
 {
-	//Affichage & enregistrement des améliorations proposées :
+    Individu::improveAttribute(a, chance, enemy);
 
-	textManager::PlainText Final;
-	bool Retour = false;
-
-    for (int a = Strength ; a != numberOfAttributes ; ++a)
+    switch (a)
     {
-        Attribute att = static_cast<Attribute>(a);
-        int diff = floor(_attributes[att]) - _displayedAttributes[att];
-
-        if (diff != 0)
-        {
-            char text[50] = "console-attributeImprovement-";
-            strcat(text, attributeToString(att));
-            Final = textManager::getText("devilsai", text);
-            Final.addParameter(diff);
-            addConsoleEntry(Final);
-        }
-
-        _displayedAttributes.set(att, floor(_attributes[att]));
+        case Strength:
+            [[fallthrough]]
+        case Constitution:
+            if (chance < 0) addConsoleEntry(textManager::getText("devilsai", "BLESSURE"));
+            break;
+        case Agility:
+            if (chance > 0) addConsoleEntry(textManager::getText("devilsai", "CRITIQUE"));
+            break;
+        case Dodge:
+            if (chance > 0) addConsoleEntry(textManager::getText("devilsai", "ESQUIVE"));
+            break;
+        default:
+            break;
     }
 
-	return Retour;
+    if (int diff = round(_attributes[a]) - _displayedAttributes[a] ; diff != 0)
+    {
+        char text[50] = "console-attributeImprovement-";
+        strcat(text, attributeToString(a));
+        textManager::PlainText t(textManager::getText("devilsai", text));
+
+        if (diff < 0)
+        {
+            string v = "@c[225,128,128]" + textManager::toString(diff) + " @d";
+            t.addParameter(v);
+        }
+        else
+        {
+            string v = "@c[128,255,128]+" + textManager::toString(diff) + " @d";
+            t.addParameter(v);
+        }
+
+        addConsoleEntry(t);
+    }
+
+    _displayedAttributes.set(a, round(_attributes[a]));
 }
 
 void Joueur::resetDisplayedAttributes()

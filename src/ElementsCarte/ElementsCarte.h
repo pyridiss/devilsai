@@ -414,7 +414,7 @@ class Joueur : public Individu
         void otherItemDeleted(Element_Carte* other);
         bool interact(Element_Carte* item);
 
-		bool ApplicationAmeliorations();
+        void improveAttribute(Attribute a, int chance, Individu* enemy);
         void resetDisplayedAttributes();
 
         void automove(const tools::math::Vector2d& p);
