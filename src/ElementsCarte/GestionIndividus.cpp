@@ -23,7 +23,6 @@
 #include "tools/timeManager.h"
 #include "tools/math.h"
 
-#include "../Bibliotheque/Constantes.h"
 #include "devilsai-resources/Carte.h"
 #include "ElementsCarte.h"
 

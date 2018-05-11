@@ -30,7 +30,6 @@
 #include "tools/filesystem.h"
 
 #include "Bibliotheque/Bibliotheque.h"
-#include "../Bibliotheque/Constantes.h"
 
 #include "Jeu.h"
 

@@ -33,7 +33,30 @@
 #include "devilsai-resources/skill.h"
 #include "devilsai-resources/stats.h"
 #include "devilsai-resources/pack.h"
-#include "../Bibliotheque/Constantes.h"
+
+#define DIPLOM_NEUTRE       0
+#define DIPLOM_ALLIE        1
+#define DIPLOM_ENNEMI       2
+#define DIPLOM_BREAKABLE    3
+
+#define CLASSEMENT_SOL      0
+#define CLASSEMENT_CADAVRE  1
+#define CLASSEMENT_NORMAL   2
+#define CLASSEMENT_HAUT     3
+#define CLASSEMENT_NUAGE    4
+
+#define COLL_OK             0
+#define COLL_END            1
+#define COLL_PRIM           2
+#define COLL_PRIM_MVT       3
+#define COLL_INTER          4
+#define COLL_ATT            6
+#define COLL_LIFE           7
+#define COLL_VIS            8
+
+#define ETAT_NORMAL         6
+#define ETAT_MORT           8
+
 
 using namespace std;
 using namespace sf;

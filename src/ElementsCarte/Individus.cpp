@@ -19,7 +19,6 @@
 
 #include <cmath>
 
-#include "../Bibliotheque/Constantes.h"
 #include "ElementsCarte.h"
 
 #include "tools/debug.h"

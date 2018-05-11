@@ -19,7 +19,6 @@
 
 #include "../ElementsCarte/ElementsCarte.h"
 #include "Bibliotheque.h"
-#include "Constantes.h"
 
 #include "textManager/textManager.h"
 #include "tools/math.h"

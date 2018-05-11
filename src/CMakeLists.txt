@@ -21,7 +21,6 @@ include_directories(
 
 set(devilsai_SRCS
 	Bibliotheque/Bibliotheque.h
-	Bibliotheque/Constantes.h
 	Bibliotheque/Decorations.cpp
 	Bibliotheque/luaFunctions.cpp
     devilsai-gui/console.cpp
