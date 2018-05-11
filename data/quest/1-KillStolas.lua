@@ -87,5 +87,5 @@ end
 function questEnd()
 -- END OF GAME
 --	addQuest("1-GowersWorries")
-	addExperience(5000)
+    addExperience(player_ptr, 5000)
 end

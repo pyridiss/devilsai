@@ -65,5 +65,5 @@ function questRecoverState(data)
 end
 
 function questEnd()
-	addExperience(1500)
+    addExperience(player_ptr, 1500)
 end

@@ -128,5 +128,5 @@ end
 function questEnd()
 	addQuest("quest/1-RescueFluellensCamp.lua")
 	addQuest("quest/1-UnknownStone.lua")
-	addExperience(1000)
+    addExperience(player_ptr, 1000)
 end

@@ -135,5 +135,5 @@ function questEnd()
 	addQuest("1-KillStolas")
 	addQuest("1-FreeIceRoad")
 	addQuest("1-Wizard")
-	addExperience(2000)
+    addExperience(player_ptr, 2000)
 end

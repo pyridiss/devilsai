@@ -34,7 +34,6 @@
 #include "devilsai-gui/journal.h"
 #include "devilsai-gui/console.h"
 
-#include "gamedata.h"
 
 using namespace tinyxml2;
 
@@ -99,7 +98,9 @@ void addQuest(string newQuest, string args)
 
     lua_register(L, "addExperience", [](lua_State* S)
     {
-        gamedata::player()->gainExperience(lua_tonumber(S, 1));
+        Individu* i = static_cast<Individu*>(lua_touserdata(S, 1));
+        if (i != nullptr)
+            i->gainExperience(lua_tonumber(S, 2));
         return 0;
     });
 
