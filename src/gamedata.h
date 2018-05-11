@@ -26,7 +26,6 @@
 
 class Carte;
 class Element_Carte;
-class Paysage;
 class Individu;
 class Joueur;
 class Journal;
@@ -47,7 +46,6 @@ using namespace std;
 
 namespace gamedata{
 
-void copyInertItemFromDesign(string t, Paysage *elem);
 lua_State* sharedTrigger(string name);
 Joueur* player();
 list<textManager::RichText>& listDialogs();

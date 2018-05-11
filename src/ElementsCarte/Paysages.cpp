@@ -19,11 +19,12 @@
 
 #include <tinyxml2.h>
 
+#include "tools/debug.h"
 #include "tools/math.h"
 #include "imageManager/imageManager.h"
 #include "imageManager/image.h"
 
-#include "gamedata.h"
+#include "devilsai-resources/manager.h"
 #include "Jeu/options.h"
 
 #include "ElementsCarte.h"
@@ -118,7 +119,21 @@ void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
     if (elem->Attribute("design"))
     {
         Type = elem->Attribute("design");
-        gamedata::copyInertItemFromDesign(Type, this);
+
+        Paysage* design = devilsai::getResource<Paysage>(Type);
+        if (design == nullptr)
+        {
+            tools::debug::error("Cannot initiate Environment '" + Type + "': design does not exist.", "resources", __FILENAME__, __LINE__);
+            return;
+        }
+
+        size = design->size;
+        //Restore size origin, as the copy breaks the link.
+        size.setOrigin(&position());
+
+        TypeClassement = design->TypeClassement;
+        ignoreCollision = design->ignoreCollision;
+        Diplomatie = 0;
     }
 
     double x = 0, y = 0;

@@ -60,23 +60,6 @@ list< pair <string, string> > textFiles;
 
 thread LoadGameThread;
 
-void copyInertItemFromDesign(string t, Paysage *elem)
-{
-    Paysage* design = devilsai::getResource<Paysage>(t);
-    if (design == nullptr)
-    {
-        tools::debug::error("Cannot initiate inertItem '" + t + "': design does not exist.", "gamedata", __FILENAME__, __LINE__);
-        return;
-    }
-
-    elem->size = design->size;
-    //Restore size origin, as the copy breaks the link.
-    elem->size.setOrigin(&elem->position());
-
-	elem->TypeClassement = design->TypeClassement;
-    elem->ignoreCollision = design->ignoreCollision;
-	elem->Diplomatie = 0;
-}
 
 lua_State* sharedTrigger(string name)
 {
