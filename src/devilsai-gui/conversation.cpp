@@ -19,6 +19,8 @@
 
 #include "devilsai-gui/conversation.h"
 
+#include <queue>
+
 #include <SFML/Graphics.hpp>
 
 #include "tools/signals.h"
@@ -43,6 +45,25 @@ float _x = 0, _y = 0, _w = 0, _h = 0;
 float _currentOffset = 0;
 int _currentSpeed = 0;
 gui::Button *_restart = nullptr, *_ok = nullptr, *_faster = nullptr, *_slower = nullptr;
+
+static queue<textManager::RichText> Conversation_Dialogs;
+
+
+void addDialog(textManager::RichText& t)
+{
+    Conversation_Dialogs.emplace(t);
+}
+
+bool isConversationDone()
+{
+    return Conversation_Dialogs.empty();
+}
+
+void clearConversation()
+{
+    while (!Conversation_Dialogs.empty())
+        Conversation_Dialogs.pop();
+}
 
 void initConversation(RenderWindow& target)
 {
@@ -79,7 +100,7 @@ void manageConversation(Event& event)
         if (_ok != nullptr && _ok->activated(event))
         {
             _currentDialog = nullptr;
-            gamedata::listDialogs().erase(gamedata::listDialogs().begin());
+            Conversation_Dialogs.pop();
             tools::signals::addSignal("disable-cinematic-mode");
         }
         if (_faster != nullptr && _faster->activated(event))
@@ -105,9 +126,9 @@ void manageConversation(Event& event)
 
 void manageConversation()
 {
-    if (!gamedata::listDialogs().empty() && _currentDialog == nullptr)
+    if (!Conversation_Dialogs.empty() && _currentDialog == nullptr)
     {
-        _currentDialog = &gamedata::listDialogs().front();
+        _currentDialog = &Conversation_Dialogs.front();
         _currentOffset = -100;
         tools::signals::addSignal("enable-cinematic-mode");
     }
@@ -119,7 +140,7 @@ void manageConversation()
         if (_currentOffset > _currentDialog->height() + 5)
         {
             _currentDialog = nullptr;
-            gamedata::listDialogs().erase(gamedata::listDialogs().begin());
+            Conversation_Dialogs.pop();
             tools::signals::addSignal("disable-cinematic-mode");
         }
     }

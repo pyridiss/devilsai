@@ -29,7 +29,6 @@ class Element_Carte;
 class Individu;
 class Joueur;
 class Journal;
-class Dialog;
 
 class lua_State;
 
@@ -38,17 +37,12 @@ namespace tinyxml2{
     class XMLDocument;
 }
 
-namespace textManager{
-    class RichText;
-}
-
 using namespace std;
 
 namespace gamedata{
 
 lua_State* sharedTrigger(string name);
 Joueur* player();
-list<textManager::RichText>& listDialogs();
 void setPlayerName(string s);
 Carte* currentWorld();
 void clear();

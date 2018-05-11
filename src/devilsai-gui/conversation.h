@@ -25,6 +25,14 @@ namespace sf{
     class Event;
 }
 
+namespace textManager{
+    class RichText;
+}
+
+void addDialog(textManager::RichText& t);
+bool isConversationDone();
+void clearConversation();
+
 void initConversation(sf::RenderWindow& target);
 void manageConversation(sf::Event& event);
 void manageConversation();

@@ -34,6 +34,7 @@
 
 #include "devilsai-resources/Carte.h"
 #include "devilsai-resources/manager.h"
+#include "devilsai-gui/conversation.h"
 #include "../ElementsCarte/ElementsCarte.h"
 
 #include "gamedata.h"
@@ -231,13 +232,13 @@ int LUA_pushDialog(lua_State* L)
     rich.addFlags(textManager::HAlignJustify);
     rich.create(plain);
 
-    gamedata::listDialogs().push_back(std::move(rich));
+    addDialog(rich);
 	return 0;
 }
 
 int LUA_dialogDisplayed(lua_State* L)
 {
-    lua_pushboolean(L, gamedata::listDialogs().empty());
+    lua_pushboolean(L, isConversationDone());
 	return 1;
 }
 

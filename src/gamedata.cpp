@@ -34,6 +34,7 @@
 #include "musicManager/musicManager.h"
 
 #include "devilsai-gui/journal.h"
+#include "devilsai-gui/conversation.h"
 
 #include "ElementsCarte/ElementsCarte.h"
 
@@ -55,7 +56,6 @@ Joueur* _player = nullptr;
 Carte* _currentWorld = nullptr;
 pair<Element_Carte*, string>* _currentPlace = nullptr;
 
-list<textManager::RichText> _listDialogs;
 list< pair <string, string> > textFiles;
 
 thread LoadGameThread;
@@ -108,11 +108,6 @@ Joueur* player()
     return _player;
 }
 
-list<textManager::RichText>& listDialogs()
-{
-    return _listDialogs;
-}
-
 void setPlayerName(string s)
 {
     _player->setCustomDisplayedName(textManager::fromStdString(s));
@@ -135,7 +130,7 @@ void clear()
     _currentWorld = nullptr;
     _currentPlace = nullptr;
 
-    _listDialogs.clear();
+    clearConversation();
 }
 
 Element_Carte* findElement(int id)
