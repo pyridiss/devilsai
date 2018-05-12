@@ -29,6 +29,12 @@ using namespace sf;
 
 namespace gui{
 
+template<typename T>
+void parameterize(unsigned int hash, T value);
+template<typename T>
+T parameter(unsigned int hash);
+
+bool initLibrary();
 enum Flags
 {
     OriginXCenter = 1 << 0,

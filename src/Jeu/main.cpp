@@ -140,6 +140,9 @@ int main(int n, char *params[])
 
     gui::style::initStyle(&App);
 
+    if (!gui::initLibrary())
+        return EXIT_FAILURE;
+
 	Load_Decorations();
 
     imageManager::addContainer(tools::hash("individuals"));

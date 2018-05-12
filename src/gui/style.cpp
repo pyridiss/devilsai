@@ -27,14 +27,77 @@
 #include "gui/style.h"
 
 #include <cmath>
+#include <unordered_map>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/math.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
+#include "tools/variant.h"
+
+using namespace std;
+using namespace sf;
 
 namespace gui{
 
 Vector2i MousePosition;
+
+
+typedef tools::math::Variant<int, string, Color> Option;
+static unordered_map<unsigned int, Option> Gui_Parameters;
+
+
+template<typename T>
+void parameterize(unsigned int hash, T value)
+{
+    const auto& i = Gui_Parameters.find(hash);
+
+    if (i == Gui_Parameters.end())
+    {
+        Option o;
+        o.set<T>(value);
+        Gui_Parameters.emplace(hash, o);
+    }
+    else
+        i->second.set<T>(value);
+}
+
+//Explicit instantiations for the linker
+template void parameterize<int>(unsigned int hash, int value);
+template void parameterize<string>(unsigned int hash, string value);
+template void parameterize<Color>(unsigned int hash, Color value);
+
+template<typename T>
+T parameter(unsigned int hash)
+{
+    const auto& i = Gui_Parameters.find(hash);
+    if (i != Gui_Parameters.end())
+        return i->second.get<T>();
+
+    return T();
+}
+
+//Explicit instantiations for the linker
+template int parameter<int>(unsigned int hash);
+template string parameter<string>(unsigned int hash);
+template Color parameter<Color>(unsigned int hash);
+
+bool initLibrary()
+{
+    bool init = true;
+
+    auto test = [&](const char* p)
+    {
+        if (Gui_Parameters.find(tools::hash(p)) == Gui_Parameters.end())
+        {
+            tools::debug::error("Cannot initialize gui library: parameter '" + string(p) + "' is missing.", "gui", __FILENAME__, __LINE__);
+            init = false;
+        }
+    };
+
+    return init;
+}
 
 namespace style{
 
