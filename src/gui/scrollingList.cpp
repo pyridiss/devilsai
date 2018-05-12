@@ -140,6 +140,18 @@ void ScrollingList::display(RenderWindow& app)
     int firstEntryDisplayedAtMaxScrolling = max(0, (int)(entries.size() - maxEntriesDisplayed));
     firstEntryDisplayed = max(0., firstEntryDisplayedAtMaxScrolling * scrolling);
 
+    if (mouseHovering())
+    {
+        int h_index = (mousePosition().y - (top() + 5)) / 20;
+        h_index = min(h_index, maxEntriesDisplayed-1);
+        h_index = min(h_index, (int)entries.size()-1);
+        h_index = max(h_index, 0);
+        RectangleShape highlight(Vector2f(width() - 20, 20));
+        highlight.setPosition(left(), top() + 5 + 20 * h_index);
+        highlight.setFillColor(parameter<Color>(tools::hash("list-highlight-color")));
+        app.draw(highlight);
+    }
+
     for (auto& e : entries)
     {
         if (i < firstEntryDisplayed)
@@ -163,7 +175,7 @@ void ScrollingList::display(RenderWindow& app)
             app.draw(selected);
         }
 
-        t.displayFullText(app, (int)(left() + 5), (int)(top() + 5 + currentY));
+        t.displayFullText(app, left() + 5, top() + 5 + currentY);
 
         ++i;
         currentY += 20;
