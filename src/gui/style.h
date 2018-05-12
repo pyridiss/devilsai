@@ -69,10 +69,6 @@ void initStyle(RenderWindow* w);
 
 Font* defaultTextFont();
 Font* fontFromString(string f);
-int defaultTextSize();
-string buttonTextFont();
-int buttonTextSize();
-Color normalButtonTextColor();
 const Shader* getContrastShader(float r, float g, float b);
 const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b);
 const Shader* getFadeShader(float& value);

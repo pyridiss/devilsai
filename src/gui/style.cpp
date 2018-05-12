@@ -165,27 +165,6 @@ Font* fontFromString(string s)
     return defaultTextFont();
 }
 
-int defaultTextSize()
-{
-    return 10;
-}
-
-string buttonTextFont()
-{
-    return "liberation-bold";
-}
-
-int buttonTextSize()
-{
-    return 12;
-}
-
-Color normalButtonTextColor()
-{
-    //Color 'brick red4' from Oxygen color palette
-    return Color(226, 8, 0, 255);
-}
-
 const Shader* getContrastShader(float r, float g, float b)
 {
     contrastShader.setUniform("luminosity", Glsl::Vec3(r, g, b));
