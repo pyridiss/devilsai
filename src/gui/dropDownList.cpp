@@ -135,10 +135,10 @@ void DropDownList::display(RenderWindow& app)
             int i = (mousePosition().y - (top() + height())) / height();
             i = min(i, (int)entries.size()-1);
             i = max(i, 0);
-            RectangleShape drawing2(Vector2f(width(), height()));
-            drawing2.setPosition(left(), top() + height() * (i+1));
-            drawing2.setFillColor(parameter<Color>(tools::hash("list-highlight-color")));
-            app.draw(drawing2);
+            RectangleShape highlight(Vector2f(width(), height()));
+            highlight.setPosition(left(), top() + height() * (i+1));
+            highlight.setFillColor(parameter<Color>(tools::hash("list-highlight-color")));
+            app.draw(highlight);
         }
 
         unsigned i = 1;
@@ -154,9 +154,14 @@ void DropDownList::display(RenderWindow& app)
             t.create(e.first);
 
             if (i == index + 1)
-                t.displayFullText(app, getXCenter(), getYCenter() + i * height(), style::getContrastShader(1, 0, 0));
-            else
-                t.displayFullText(app, getXCenter(), getYCenter() + i * height());
+            {
+                RectangleShape selected(Vector2f(width(), height()));
+                selected.setPosition(left(), top() + i * height());
+                selected.setFillColor(parameter<Color>(tools::hash("list-selected-color")));
+                app.draw(selected);
+            }
+
+            t.displayFullText(app, getXCenter(), getYCenter() + i * height());
 
             ++i;
         }
