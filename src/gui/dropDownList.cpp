@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
+
 #include "textManager/textManager.h"
 #include "gui/dropDownList.h"
 #include "gui/window.h"
@@ -28,7 +30,9 @@ DropDownList::DropDownList()
   : entries(),
     index(0)
 {
-    _text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+    _text.setDefaultProperties(parameter<string>(tools::hash("button-text-font")),
+                               parameter<int>(tools::hash("button-text-size")),
+                               parameter<Color>(tools::hash("button-text-color")));
 
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
@@ -121,7 +125,7 @@ void DropDownList::display(RenderWindow& app)
     {
         RectangleShape drawing(Vector2f(width(), height() * entries.size()));
         drawing.setPosition(left(), top() + height());
-        drawing.setFillColor(Color::Black);
+        drawing.setFillColor(parameter<Color>(tools::hash("list-background-color")));
         drawing.setOutlineColor(Color(48, 48, 48, 255));
         drawing.setOutlineThickness(1);
         app.draw(drawing);
@@ -133,7 +137,7 @@ void DropDownList::display(RenderWindow& app)
             i = max(i, 0);
             RectangleShape drawing2(Vector2f(width(), height()));
             drawing2.setPosition(left(), top() + height() * (i+1));
-            drawing2.setFillColor(Color(100, 100, 100));
+            drawing2.setFillColor(parameter<Color>(tools::hash("list-highlight-color")));
             app.draw(drawing2);
         }
 
@@ -143,7 +147,9 @@ void DropDownList::display(RenderWindow& app)
             textManager::RichText t;
             t.addFlags(textManager::HAlignCenter | textManager::OriginXCenter | textManager::OriginYCenter | textManager::FixedHeight | textManager::VAlignCenter);
             t.setSize(width(), height());
-            t.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+            t.setDefaultProperties(parameter<string>(tools::hash("list-text-font")),
+                                   parameter<int>(tools::hash("list-text-size")),
+                                   parameter<Color>(tools::hash("list-text-color")));
 
             t.create(e.first);
 

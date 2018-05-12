@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
+
 #include "textManager/plainText.h"
 #include "textManager/textManager.h"
 
@@ -28,7 +30,9 @@ namespace gui{
 InputField::InputField()
   : input()
 {
-    _text.setDefaultProperties("liberation", 15, Color::Black);
+    _text.setDefaultProperties(parameter<string>(tools::hash("input-text-font")),
+                               parameter<int>(tools::hash("input-text-size")),
+                               parameter<Color>(tools::hash("input-text-color")));
 
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }

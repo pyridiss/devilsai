@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
+
 #include "textManager/plainText.h"
 #include "textManager/textManager.h"
 
@@ -31,7 +33,9 @@ namespace gui{
 TextWidget::TextWidget()
   : _verticalScrolling(0)
 {
-    _text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
+    _text.setDefaultProperties(parameter<string>(tools::hash("text-font")),
+                               parameter<int>(tools::hash("text-size")),
+                               parameter<Color>(tools::hash("text-color")));
 
     _flags |= AdjustSizeToText;
 }

@@ -19,6 +19,8 @@
 
 #include "gui/button.h"
 
+#include "tools/math.h"
+
 #include "textManager/textManager.h"
 #include "musicManager/musicManager.h"
 #include "gui/window.h"
@@ -28,7 +30,9 @@ namespace gui{
 
 Button::Button()
 {
-    _text.setDefaultProperties(gui::style::buttonTextFont(), gui::style::buttonTextSize(), gui::style::normalButtonTextColor());
+    _text.setDefaultProperties(parameter<string>(tools::hash("button-text-font")),
+                               parameter<int>(tools::hash("button-text-size")),
+                               parameter<Color>(tools::hash("button-text-color")));
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 

@@ -96,6 +96,22 @@ bool initLibrary()
         }
     };
 
+    test("text-font");
+    test("text-color");
+    test("text-size");
+    test("button-text-font");
+    test("button-text-color");
+    test("button-text-size");
+    test("list-text-font");
+    test("list-text-color");
+    test("list-text-size");
+    test("list-background-color");
+    test("list-highlight-color");
+    test("list-selected-color");
+    test("input-text-font");
+    test("input-text-color");
+    test("input-text-size");
+
     return init;
 }
 

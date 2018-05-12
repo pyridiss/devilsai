@@ -140,6 +140,22 @@ int main(int n, char *params[])
 
     gui::style::initStyle(&App);
 
+    gui::parameterize(tools::hash("text-font"), "liberation"s);
+    gui::parameterize(tools::hash("text-color"), Color::Black);
+    gui::parameterize(tools::hash("text-size"), 10);
+    gui::parameterize(tools::hash("button-text-font"), "liberation-bold"s);
+    gui::parameterize(tools::hash("button-text-color"), Color(226, 8, 0, 255));
+    gui::parameterize(tools::hash("button-text-size"), 12);
+    gui::parameterize(tools::hash("list-text-font"), "liberation-bold"s);
+    gui::parameterize(tools::hash("list-text-size"), 16);
+    gui::parameterize(tools::hash("list-text-color"), Color::White);
+    gui::parameterize(tools::hash("list-background-color"), Color::Black);
+    gui::parameterize(tools::hash("list-highlight-color"), Color(100, 100, 100));
+    gui::parameterize(tools::hash("list-selected-color"), Color::Red);
+    gui::parameterize(tools::hash("input-text-font"), "liberation"s);
+    gui::parameterize(tools::hash("input-text-color"), Color::Black);
+    gui::parameterize(tools::hash("input-text-size"), 15);
+
     if (!gui::initLibrary())
         return EXIT_FAILURE;
 

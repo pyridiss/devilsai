@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
+
 #include "textManager/plainText.h"
 
 #include "gui/scrollingList.h"
@@ -29,7 +31,9 @@ ScrollingList::ScrollingList()
     index(0),
     firstEntryDisplayed(0)
 {
-    _text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
+    _text.setDefaultProperties(parameter<string>(tools::hash("text-font")),
+                               parameter<int>(tools::hash("text-size")),
+                               parameter<Color>(tools::hash("text-color")));
 }
 
 void ScrollingList::addEntry(textManager::PlainText& entry, string data)
@@ -112,7 +116,7 @@ void ScrollingList::display(RenderWindow& app)
 
     RectangleShape drawing(Vector2f(width(), height()));
     drawing.setPosition(left(), top());
-    drawing.setFillColor(Color::Black);
+    drawing.setFillColor(parameter<Color>(tools::hash("list-background-color")));
     drawing.setOutlineColor(Color(48, 48, 48, 255));
     drawing.setOutlineThickness(1);
     app.draw(drawing);
@@ -146,15 +150,17 @@ void ScrollingList::display(RenderWindow& app)
 
         textManager::RichText t;
         t.setSize(width() - 20, 20);
-        t.setDefaultProperties(gui::style::buttonTextFont(), 16, Color::White);
+        t.setDefaultProperties(parameter<string>(tools::hash("list-text-font")),
+                               parameter<int>(tools::hash("list-text-size")),
+                               parameter<Color>(tools::hash("list-text-color")));
         t.create(e.first);
 
         if (i == index)
         {
-            RectangleShape highlight(Vector2f(width() - 20, 20));
-            highlight.setPosition(left(), top() + 5 + currentY);
-            highlight.setFillColor(Color::Red);
-            app.draw(highlight);
+            RectangleShape selected(Vector2f(width() - 20, 20));
+            selected.setPosition(left(), top() + 5 + currentY);
+            selected.setFillColor(parameter<Color>(tools::hash("list-selected-color")));
+            app.draw(selected);
         }
 
         t.displayFullText(app, (int)(left() + 5), (int)(top() + 5 + currentY));

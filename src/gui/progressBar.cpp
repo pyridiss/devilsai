@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "tools/math.h"
 #include "tools/timeManager.h"
 
 #include "textManager/plainText.h"
@@ -26,6 +27,7 @@
 #include "imageManager/imageManager.h"
 
 #include "gui/progressBar.h"
+
 #include "gui/style.h"
 
 namespace gui{
@@ -33,7 +35,9 @@ namespace gui{
 ProgressBar::ProgressBar()
   : _value(-0.01)
 {
-    _text.setDefaultProperties("liberation", gui::style::defaultTextSize(), Color::Black);
+    _text.setDefaultProperties(parameter<string>(tools::hash("text-font")),
+                               parameter<int>(tools::hash("text-size")),
+                               parameter<Color>(tools::hash("text-color")));
     _textFlags = textManager::HAlignCenter | textManager::FixedHeight | textManager::VAlignCenter;
 }
 
