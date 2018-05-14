@@ -23,6 +23,8 @@
 #include "textManager/plainText.h"
 #include "textManager/richText.h"
 
+#include "imageManager/imageManager.h"
+
 namespace textManager{
 
 RichText::RichText()
@@ -205,7 +207,7 @@ void RichText::create(const PlainText& src)
                 case 102 : // 'f', change font
                 {
                     string newFont = i.getString().substring(parameterBegin + 1, parameterEnd - parameterBegin - 1);
-                    customFont = gui::style::fontFromString(newFont);
+                    customFont = multimedia::font(newFont);
                     break;
                 }
                 case 115 : // 's', change size
@@ -277,7 +279,7 @@ void RichText::setSize(int w, int h)
 
 void RichText::setDefaultProperties(const string& f, int s, Color c)
 {
-    _defaultFont = gui::style::fontFromString(f);
+    _defaultFont = multimedia::font(f);
     _defaultSize = s;
     _defaultColor = c;
 }

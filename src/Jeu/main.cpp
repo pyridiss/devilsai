@@ -127,6 +127,10 @@ int main(int n, char *params[])
     tools::filesystem::setDataDirectory(INSTALL_DIR);
     tools::math::initLibrary();
 
+    multimedia::addFont("liberation", "LiberationSans-Regular.ttf");
+    multimedia::addFont("liberation-bold", "LiberationSans-Bold.ttf");
+    multimedia::addFont("dayroman", "DayRoman.ttf");
+
 	PHYSFS_init(params[0]);
 
     options::Load_Options();
