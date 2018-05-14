@@ -117,10 +117,6 @@ bool initLibrary()
 
 namespace style{
 
-Font liberation;
-Font liberationBold;
-Font dayroman;
-
 Shader blurShader;
 Shader contrastShader;
 Shader colorizeShader;
@@ -131,9 +127,6 @@ RenderWindow* MainWindow = nullptr;
 
 void initStyle(RenderWindow* w)
 {
-    liberation.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Regular.ttf");
-    liberationBold.loadFromFile(tools::filesystem::dataDirectory() + "LiberationSans-Bold.ttf");
-    dayroman.loadFromFile(tools::filesystem::dataDirectory() + "DayRoman.ttf");
     blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
     colorizeShader.loadFromFile(tools::filesystem::dataDirectory() + "colorizeShader.frag", Shader::Type::Fragment);
@@ -149,20 +142,6 @@ void initStyle(RenderWindow* w)
         TemporaryTexture.create(w->getSize().x, w->getSize().y);
     TemporaryTexture.setSmooth(true);
 
-}
-
-Font* defaultTextFont()
-{
-    return &liberation;
-}
-
-Font* fontFromString(string s)
-{
-    if (s == "liberation") return &liberation;
-    if (s == "liberation-bold") return &liberationBold;
-    if (s == "dayroman") return &dayroman;
-
-    return defaultTextFont();
 }
 
 const Shader* getContrastShader(float r, float g, float b)
