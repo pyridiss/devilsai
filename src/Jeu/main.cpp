@@ -25,6 +25,7 @@
 
 #include "gui/style.h"
 #include "tools/debug.h"
+#include "tools/graphicBuffer.h"
 #include "tools/timeManager.h"
 #include "tools/math.h"
 #include "tools/filesystem.h"
@@ -142,7 +143,8 @@ int main(int n, char *params[])
 
 	srand(time(NULL));
 
-    gui::style::initStyle(&App);
+    gui::style::initStyle();
+    tools::graphicBuffer::initLibrary(&App);
 
     gui::parameterize(tools::hash("text-font"), "liberation"s);
     gui::parameterize(tools::hash("text-color"), Color::Black);

@@ -122,10 +122,7 @@ Shader contrastShader;
 Shader colorizeShader;
 Shader fadeShader;
 
-RenderTexture TemporaryTexture;
-RenderWindow* MainWindow = nullptr;
-
-void initStyle(RenderWindow* w)
+void initStyle()
 {
     blurShader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
     contrastShader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
@@ -136,11 +133,6 @@ void initStyle(RenderWindow* w)
     contrastShader.setUniform("texture", Shader::CurrentTexture);
     colorizeShader.setUniform("texture", Shader::CurrentTexture);
     fadeShader.setUniform("texture", Shader::CurrentTexture);
-
-    MainWindow = w;
-    if (w != nullptr)
-        TemporaryTexture.create(w->getSize().x, w->getSize().y);
-    TemporaryTexture.setSmooth(true);
 
 }
 
@@ -230,14 +222,6 @@ void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h)
         disableShader(app, x, y, w, h);
     else if (shader == "warn")
         warnShader(app, x, y, w, h);
-}
-
-RenderTexture& temporaryTexture()
-{
-    if (MainWindow->getSize() != TemporaryTexture.getSize())
-        TemporaryTexture.create(MainWindow->getSize().x, MainWindow->getSize().y);
-
-    return TemporaryTexture;
 }
 
 } //namespace style

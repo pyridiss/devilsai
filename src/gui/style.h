@@ -65,7 +65,7 @@ enum Flags
 
 namespace style{
 
-void initStyle(RenderWindow* w);
+void initStyle();
 
 const Shader* getContrastShader(float r, float g, float b);
 const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b);
@@ -75,7 +75,6 @@ void highlightShader(RenderWindow& app, int x, int y, int w, int h);
 void disableShader(RenderWindow& app, int x, int y, int w, int h);
 void warnShader(RenderWindow& app, int x, int y, int w, int h);
 void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h);
-RenderTexture& temporaryTexture();
 
 } //namespace style
 
