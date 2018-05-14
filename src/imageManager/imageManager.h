@@ -26,6 +26,17 @@
 
 using std::string;
 
+namespace multimedia{
+
+// Assets
+
+void addFont(const string& name, const string& file);
+sf::Font* font(const string& name);
+void addFragmentShader(const string& name, const string& file);
+sf::Shader* shader(const string& name);
+
+}  // namespace multimedia
+
 namespace imageManager{
 
 class Image;
