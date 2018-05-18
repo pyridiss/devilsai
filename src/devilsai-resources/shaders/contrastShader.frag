@@ -16,5 +16,9 @@ void main()
 
     vec3 final = vec3(conColor.x * luminosity.x, conColor.y * luminosity.y, conColor.z * luminosity.z);
 
+    final.x = clamp(final.x, 0.0, 1.0);
+    final.y = clamp(final.y, 0.0, 1.0);
+    final.z = clamp(final.z, 0.0, 1.0);
+
     gl_FragColor = vec4(final, texture2D(texture, pixel).a);
 }

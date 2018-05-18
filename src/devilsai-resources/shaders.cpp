@@ -19,11 +19,12 @@
 
 #include "devilsai-resources/shaders.h"
 
+#include "shader_definition.h"
+
 #include <cmath>
 
 #include <SFML/Graphics.hpp>
 
-#include "tools/filesystem.h"
 #include "tools/signals.h"
 #include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
@@ -42,7 +43,7 @@ class BlurShader : public multimedia::ShaderInstance
         BlurShader()
           : _shader()
         {
-            _shader.loadFromFile(tools::filesystem::dataDirectory() + "blurShader.frag", Shader::Type::Fragment);
+            _shader.loadFromMemory(BLUR_SHADER, Shader::Type::Fragment);
         }
         ~BlurShader() = default;
         unsigned int createNewInstance()
@@ -86,7 +87,7 @@ class ContrastShader : public multimedia::ShaderInstance
           : _shader(),
             _instances()
         {
-            _shader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
+            _shader.loadFromMemory(CONTRAST_SHADER, Shader::Type::Fragment);
         }
         ~ContrastShader() = default;
         unsigned int createNewInstance()
@@ -141,7 +142,7 @@ class FadeShader : public multimedia::ShaderInstance
           : _shader(),
             _instances()
         {
-            _shader.loadFromFile(tools::filesystem::dataDirectory() + "fadeShader.frag", Shader::Type::Fragment);
+            _shader.loadFromMemory(FADE_SHADER, Shader::Type::Fragment);
         }
         ~FadeShader() = default;
         unsigned int createNewInstance()
@@ -198,7 +199,7 @@ class WarnShader : public multimedia::ShaderInstance
           : _shader(),
             _instances()
         {
-            _shader.loadFromFile(tools::filesystem::dataDirectory() + "contrastShader.frag", Shader::Type::Fragment);
+            _shader.loadFromMemory(CONTRAST_SHADER, Shader::Type::Fragment);
         }
         ~WarnShader() = default;
         unsigned int createNewInstance()

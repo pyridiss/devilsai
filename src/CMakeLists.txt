@@ -5,6 +5,13 @@ string(TIMESTAMP TIME %Y-%m-%d)
 
 configure_file("${devilsai_SOURCE_DIR}/config.h.cmake" "${devilsai_BINARY_DIR}/config.h" @ONLY)
 
+file(READ "${devilsai_SOURCE_DIR}/devilsai-resources/shaders/blurShader.frag" blurShader)
+file(READ "${devilsai_SOURCE_DIR}/devilsai-resources/shaders/colorizeShader.frag" colorizeShader)
+file(READ "${devilsai_SOURCE_DIR}/devilsai-resources/shaders/contrastShader.frag" contrastShader)
+file(READ "${devilsai_SOURCE_DIR}/devilsai-resources/shaders/fadeShader.frag" fadeShader)
+
+configure_file("${devilsai_SOURCE_DIR}/devilsai-resources/shaders/shader_definition.h.cmake" "${devilsai_BINARY_DIR}/shader_definition.h" @ONLY)
+
 find_package(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 find_package(PhysFS)
 find_package(Lua52)

@@ -23,10 +23,6 @@ set(data
     DayRoman.ttf
     defaut.opt
     devilsai.png
-    blurShader.frag
-    colorizeShader.frag
-    contrastShader.frag
-    fadeShader.frag
 )
 
 install(FILES ${data} DESTINATION ${dataDestination})
