@@ -235,6 +235,7 @@ class WarnShader : public multimedia::ShaderInstance
 void initShaders()
 {
     BlurShader* blur = new BlurShader();
+    wearableItemShaderInstance = blur->createNewInstance();
     multimedia::addShader("blur", blur);
 
     ContrastShader* contrast = new ContrastShader();

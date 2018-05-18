@@ -28,6 +28,7 @@ inline unsigned int guiTextDisabledShaderInstance;
 inline unsigned int guiTextMouseoverShaderInstance;
 inline unsigned int storageBoxShaderInstance;
 inline unsigned int skillPanelShaderInstance;
+inline unsigned int wearableItemShaderInstance;
 
 void initShaders();
 

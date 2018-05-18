@@ -28,6 +28,7 @@
 #include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
+#include "devilsai-resources/shaders.h"
 #include "devilsai-resources/stats.h"
 #include "devilsai-resources/wearableItem.h"
 
@@ -354,7 +355,7 @@ void WearableItem::displayDescription(RenderWindow& target)
     if (y + h > target.getSize().y)
         y -= h;
 
-    gui::style::textBackgroundShader(target, x - 10, y - 10, w + 2*10, h + 2*10);
+    multimedia::applyShaderOnScreen(target, "blur", devilsai::wearableItemShaderInstance, x - 10, y - 10, w + 2*10, h + 2*10);
 
     rich.displayFullText(target, x, y);
 }
