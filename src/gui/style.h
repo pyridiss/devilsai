@@ -20,12 +20,10 @@
 #ifndef GUI_STYLE_H
 #define GUI_STYLE_H
 
-#include <string>
-
-#include <SFML/Graphics.hpp>
-
-using namespace std;
-using namespace sf;
+namespace sf{
+    template<typename T> class Vector2;
+    class RenderWindow;
+}
 
 namespace gui{
 
@@ -63,23 +61,8 @@ enum Flags
     CustomTextShader = 1 << 23
 };
 
-namespace style{
-
-void initStyle();
-
-const Shader* getContrastShader(float r, float g, float b);
-const Shader* getColorizeShader(Vector3f r, Vector3f g, Vector3f b);
-const Shader* getFadeShader(float& value);
-void textBackgroundShader(RenderWindow& app, int x, int y, int w, int h);
-void highlightShader(RenderWindow& app, int x, int y, int w, int h);
-void disableShader(RenderWindow& app, int x, int y, int w, int h);
-void warnShader(RenderWindow& app, int x, int y, int w, int h);
-void displayShader(RenderWindow& app, string shader, int x, int y, int w, int h);
-
-} //namespace style
-
-void updateMousePosition(RenderWindow & app);
-const Vector2i& mousePosition();
+void updateMousePosition(sf::RenderWindow& app);
+const sf::Vector2<int>& mousePosition();
 
 } //namespace gui
 
