@@ -238,7 +238,9 @@ void initShaders()
     multimedia::addShader("blur", blur);
 
     ContrastShader* contrast = new ContrastShader();
+    storageBoxShaderInstance = contrast->createNewInstance();
     skillPanelShaderInstance = contrast->createNewInstance();
+    contrast->setData(storageBoxShaderInstance, Glsl::Vec3(1.8, 1.8, 1.8));
     contrast->setData(skillPanelShaderInstance, Glsl::Vec3(0.1, 0.1, 0.1));
     multimedia::addShader("contrast", contrast);
 

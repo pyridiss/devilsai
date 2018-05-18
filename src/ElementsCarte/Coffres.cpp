@@ -19,12 +19,14 @@
 
 #include <tinyxml2.h>
 
+#include <SFML/Graphics/Color.hpp>
+
 #include "tools/timeManager.h"
 #include "tools/math.h"
 #include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
-#include "gui/style.h"
 
+#include "devilsai-resources/shaders.h"
 #include "Jeu/options.h"
 
 #include "ElementsCarte.h"
@@ -145,10 +147,8 @@ void Coffre::Disp(RenderTarget& target)
 
     if (!imageContainer.empty() && !Type.empty())
     {
-        if (!_highlight)
-            imageManager::display(target, tools::hash(imageContainer.c_str()), Type, position().x, position().y, true);
-        else
-            imageManager::display(target, tools::hash(imageContainer.c_str()), Type, position().x, position().y, true, gui::style::getContrastShader(1.8, 1.8, 1.8));
+        Shader* shader = (_highlight) ? multimedia::shader("contrast", devilsai::storageBoxShaderInstance) : nullptr;
+        imageManager::display(target, tools::hash(imageContainer.c_str()), Type, position().x, position().y, true, shader);
     }
 
     _highlight = false;
