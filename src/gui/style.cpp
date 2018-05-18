@@ -44,7 +44,7 @@ namespace gui{
 Vector2i MousePosition;
 
 
-typedef tools::math::Variant<int, string, Color> Option;
+typedef tools::math::Variant<int, unsigned int, string, Color> Option;
 static unordered_map<unsigned int, Option> Gui_Parameters;
 
 
@@ -65,6 +65,7 @@ void parameterize(unsigned int hash, T value)
 
 //Explicit instantiations for the linker
 template void parameterize<int>(unsigned int hash, int value);
+template void parameterize<unsigned int>(unsigned int hash, unsigned int value);
 template void parameterize<string>(unsigned int hash, string value);
 template void parameterize<Color>(unsigned int hash, Color value);
 
@@ -80,6 +81,7 @@ T parameter(unsigned int hash)
 
 //Explicit instantiations for the linker
 template int parameter<int>(unsigned int hash);
+template unsigned int parameter<unsigned int>(unsigned int hash);
 template string parameter<string>(unsigned int hash);
 template Color parameter<Color>(unsigned int hash);
 

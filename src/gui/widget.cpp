@@ -47,6 +47,7 @@ Widget::Widget()
     _text(),
     _background(),
     _backgroundShader(),
+    _backgroundShaderInstance(0),
     _embeddedData()
 {
 }
@@ -62,6 +63,7 @@ Widget::Widget(const Widget& other)
     _text(other._text),
     _background(other._background),
     _backgroundShader(other._backgroundShader),
+    _backgroundShaderInstance(other._backgroundShaderInstance),
     _embeddedData(other._embeddedData)
 {
 }
@@ -78,6 +80,7 @@ Widget& Widget::operator=(const Widget& right)
     _text =  right._text;
     _background = right._background;
     _backgroundShader = right._backgroundShader;
+    _backgroundShaderInstance = right._backgroundShaderInstance;
     _embeddedData = right._embeddedData;
 
     return *this;
@@ -309,9 +312,9 @@ void Widget::displayBackground(RenderWindow& app)
     auto backgroundImage = [this, &app](int x, int y)
     {
         if ((_flags & Disabled) == Disabled)
-            imageManager::display(app, tools::hash("gui"), _background, x, y, false, style::getContrastShader(0.25, 0.25, 0.25));
+            imageManager::display(app, tools::hash("gui"), _background, x, y, false, multimedia::shader(parameter<string>(tools::hash("background-disabled-shader")), parameter<unsigned int>(tools::hash("background-disabled-shader-instance"))));
         else if ((_flags & MouseOver) == MouseOver)
-            imageManager::display(app, tools::hash("gui"), _background, x, y, false, style::getContrastShader(1, 1, 1));
+            imageManager::display(app, tools::hash("gui"), _background, x, y, false, multimedia::shader(parameter<string>(tools::hash("background-mouseover-shader")), parameter<unsigned int>(tools::hash("background-mouseover-shader-instance"))));
         else
             imageManager::display(app, tools::hash("gui"), _background, x, y);
     };
@@ -354,20 +357,25 @@ void Widget::displayBackground(RenderWindow& app)
     }
 
     if (!_backgroundShader.empty())
-        gui::style::displayShader(app, _backgroundShader, left(), top(), width(), height());
+        multimedia::applyShaderOnScreen(app, _backgroundShader, _backgroundShaderInstance, left(), top(), width(), height());
 }
 
 void Widget::displayText(RenderWindow& app)
 {
     if ((_flags & MouseOver) == MouseOver)
-        _text.displayFullText(app, left(), top(), style::getContrastShader(1, 0, 0));
+        _text.displayFullText(app, left(), top(), multimedia::shader(parameter<string>(tools::hash("text-mouseover-shader")), parameter<unsigned int>(tools::hash("text-mouseover-shader-instance"))));
     else if ((_flags & Disabled) == Disabled)
-        _text.displayFullText(app, left(), top(), style::getContrastShader(0.25, 0.25, 0.25));
+        _text.displayFullText(app, left(), top(), multimedia::shader(parameter<string>(tools::hash("text-disabled-shader")), parameter<unsigned int>(tools::hash("text-disabled-shader-instance"))));
     else if ((_flags & CustomTextShader) == CustomTextShader)
     {
-        string_view shader = embeddedData<string>("custom-shader");
-        if (shader == "fade")
-            _text.displayFullText(app, left(), top(), style::getFadeShader(embeddedData<float>("fade-value")));
+        if (_embeddedData.find("custom-shader-instance") == _embeddedData.end())
+        {
+            unsigned int i = multimedia::createShaderInstance(embeddedData<string>("custom-shader"));
+            addEmbeddedData("custom-shader-instance", i);
+        }
+
+        Shader* s = multimedia::shader(embeddedData<string>("custom-shader"), embeddedData<unsigned int>("custom-shader-instance"));
+        _text.displayFullText(app, left(), top(), s);
     }
     else
     {
@@ -464,7 +472,10 @@ void Widget::loadFromXMLElement(tinyxml2::XMLElement* elem)
         setText(textManager::getText("gui", elem->Attribute("allText")));
 
     if (elem->Attribute("backgroundShader"))
+    {
         _backgroundShader = elem->Attribute("backgroundShader");
+        _backgroundShaderInstance = multimedia::createShaderInstance(_backgroundShader);
+    }
 }
 
 void Widget::show()

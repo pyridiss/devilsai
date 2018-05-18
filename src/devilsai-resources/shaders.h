@@ -22,6 +22,10 @@
 
 namespace devilsai{
 
+inline unsigned int guiBackgroundDisabledShaderInstance;
+inline unsigned int guiBackgroundMouseoverShaderInstance;
+inline unsigned int guiTextDisabledShaderInstance;
+inline unsigned int guiTextMouseoverShaderInstance;
 inline unsigned int storageBoxShaderInstance;
 inline unsigned int skillPanelShaderInstance;
 

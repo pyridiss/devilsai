@@ -152,6 +152,14 @@ int main(int n, char *params[])
     gui::parameterize(tools::hash("text-font"), "liberation"s);
     gui::parameterize(tools::hash("text-color"), Color::Black);
     gui::parameterize(tools::hash("text-size"), 10);
+    gui::parameterize(tools::hash("text-disabled-shader"), "contrast"s);
+    gui::parameterize(tools::hash("text-disabled-shader-instance"), devilsai::guiTextDisabledShaderInstance);
+    gui::parameterize(tools::hash("text-mouseover-shader"), "contrast"s);
+    gui::parameterize(tools::hash("text-mouseover-shader-instance"), devilsai::guiTextMouseoverShaderInstance);
+    gui::parameterize(tools::hash("background-disabled-shader"), "contrast"s);
+    gui::parameterize(tools::hash("background-disabled-shader-instance"), devilsai::guiBackgroundDisabledShaderInstance);
+    gui::parameterize(tools::hash("background-mouseover-shader"), "contrast"s);
+    gui::parameterize(tools::hash("background-mouseover-shader-instance"), devilsai::guiBackgroundMouseoverShaderInstance);
     gui::parameterize(tools::hash("button-text-font"), "liberation-bold"s);
     gui::parameterize(tools::hash("button-text-color"), Color(226, 8, 0, 255));
     gui::parameterize(tools::hash("button-text-size"), 12);
@@ -185,6 +193,8 @@ int main(int n, char *params[])
 	PHYSFS_deinit();
 
     options::Save_Options();
+
+    multimedia::clearShaders();
 
     tools::debug::message("Closing devilsai debug file.", "devilsai", __FILENAME__, __LINE__);
 

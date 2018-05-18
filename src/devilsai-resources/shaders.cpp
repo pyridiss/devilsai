@@ -238,8 +238,16 @@ void initShaders()
     multimedia::addShader("blur", blur);
 
     ContrastShader* contrast = new ContrastShader();
+    guiBackgroundDisabledShaderInstance = contrast->createNewInstance();
+    guiBackgroundMouseoverShaderInstance = contrast->createNewInstance();
+    guiTextDisabledShaderInstance = contrast->createNewInstance();
+    guiTextMouseoverShaderInstance = contrast->createNewInstance();
     storageBoxShaderInstance = contrast->createNewInstance();
     skillPanelShaderInstance = contrast->createNewInstance();
+    contrast->setData(guiBackgroundDisabledShaderInstance, Glsl::Vec3(0.25, 0.25, 0.25));
+    contrast->setData(guiBackgroundMouseoverShaderInstance, Glsl::Vec3(1.0, 1.0, 1.0));
+    contrast->setData(guiTextDisabledShaderInstance, Glsl::Vec3(0.25, 0.25, 0.25));
+    contrast->setData(guiTextMouseoverShaderInstance, Glsl::Vec3(1.0, 0.0, 0.0));
     contrast->setData(storageBoxShaderInstance, Glsl::Vec3(1.8, 1.8, 1.8));
     contrast->setData(skillPanelShaderInstance, Glsl::Vec3(0.1, 0.1, 0.1));
     multimedia::addShader("contrast", contrast);

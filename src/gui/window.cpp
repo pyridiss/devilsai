@@ -173,7 +173,7 @@ void Window::display(RenderWindow& app)
         return;
 
     if (!_backgroundShader.empty())
-        gui::style::displayShader(app, _backgroundShader, left(), top(), width(), height());
+        multimedia::applyShaderOnScreen(app, _backgroundShader, _backgroundShaderInstance, left(), top(), width(), height());
 
     if (!_background.empty())
     {

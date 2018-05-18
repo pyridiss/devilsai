@@ -56,6 +56,7 @@ class Widget
         textManager::RichText _text;
         string _background;
         string _backgroundShader;
+        unsigned int _backgroundShaderInstance;
 
         map<string, optionType> _embeddedData;
 
