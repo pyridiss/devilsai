@@ -29,11 +29,10 @@
 #include "tools/debug.h"
 #include "tools/filesystem.h"
 
-#include "gui/style.h"
-
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
 #include "imageManager/HSL.h"
+
 
 namespace imageManager{
 
@@ -44,8 +43,6 @@ typedef map < string, imageManager::Animation > AnimationDatabase;
 Database images;
 AnimationDatabase animations;
 string currentArchiveFile;
-bool Colorize = false;
-Vector3f ColorizeRed, ColorizeGreen, ColorizeBlue;
 
 std::atomic_flag Mutex_lock = ATOMIC_FLAG_INIT;
 std::atomic<int> Mutex_id = 0;
@@ -61,7 +58,7 @@ void addContainer(unsigned int container)
     }
 }
 
-void addImage(unsigned int container, const string& key, const string& file, Vector2i of)
+void addImage(unsigned int container, const string& key, const string& file, Vector2i of, Shader* sh)
 {
     Database::iterator c = images.find(container);
 
@@ -80,8 +77,8 @@ void addImage(unsigned int container, const string& key, const string& file, Vec
         const auto& result = c->second.emplace(key, Image());
         result.first->second.set(file, of);
 
-        if (Colorize)
-            result.first->second.applyShader(gui::style::getColorizeShader(ColorizeRed, ColorizeGreen, ColorizeBlue));
+        if (sh != nullptr)
+            result.first->second.applyShader(sh);
 
         unlockGLMutex(100);
     }
@@ -99,19 +96,6 @@ void addArchiveFile(string path)
     {
         currentArchiveFile = path;
     }
-}
-
-void setColorizeParameters(Vector3f r, Vector3f g, Vector3f b)
-{
-    ColorizeRed = std::move(r);
-    ColorizeGreen = std::move(g);
-    ColorizeBlue = std::move(b);
-    Colorize = true;
-}
-
-void removeColorizeShader()
-{
-    Colorize = false;
 }
 
 string getCurrentArchiveFile()

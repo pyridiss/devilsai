@@ -113,7 +113,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
             archiveFile = elem->Attribute("file");
             imageManager::addArchiveFile(archiveFile);
         }
-        if (elemName == "colorize")
+       /* if (elemName == "colorize")
         {
             Vector3f r, g, b;
             elem->QueryAttribute("rr", &r.x);
@@ -126,7 +126,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
             elem->QueryAttribute("bg", &b.y);
             elem->QueryAttribute("bb", &b.z);
             imageManager::setColorizeParameters(r, g, b);
-        }
+        }*/
         if (elemName == "shape")
         {
             size.loadFromXML(elem);
@@ -211,6 +211,4 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
     }
 
     imageManager::removeArchiveFile(archiveFile);
-    imageManager::removeColorizeShader();
-
 }

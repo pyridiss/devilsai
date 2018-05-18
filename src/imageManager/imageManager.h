@@ -43,10 +43,8 @@ class Image;
 class Animation;
 
 void addContainer(unsigned int container);
-void addImage(unsigned int container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0));
+void addImage(unsigned int container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0), sf::Shader* sh = nullptr);
 void addArchiveFile(string path);
-void setColorizeParameters(sf::Vector3f r, sf::Vector3f g, sf::Vector3f b);
-void removeColorizeShader();
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);
 imageManager::Image* getImage(unsigned int container, const string& key);
