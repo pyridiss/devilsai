@@ -207,13 +207,13 @@ void Carte::GestionElements(const View& worldView)
 {
 	Element_Carte* ASupprimer = NULL;
 
-    int max = worldView.getSize().x + 1500;
+    double max = worldView.getSize().x + 1500;
     _stopManagement = false;
 
 	for (auto& tmp : elements)
 	{
-        if (abs((int)(tmp->position().x - worldView.getCenter().x)) <= max &&
-            abs((int)(tmp->position().y - worldView.getCenter().y)) <= max)
+        if (abs(tmp->position().x - (double)worldView.getCenter().x) <= max &&
+            abs(tmp->position().y - (double)worldView.getCenter().y) <= max)
         {
             if (tmp->Gestion() == ETAT_MORT)
             {
@@ -225,12 +225,12 @@ void Carte::GestionElements(const View& worldView)
 
     if (_clock.getElapsedTime().asMilliseconds() > 200)
     {
-        int onScreenWidth = worldView.getSize().x + 300;
+        double onScreenWidth = worldView.getSize().x + 300;
         onScreenItems.clear();
         for (auto& tmp : elements)
         {
-            if (abs((int)(tmp->position().x - worldView.getCenter().x)) <= onScreenWidth &&
-                abs((int)(tmp->position().y - worldView.getCenter().y)) <= onScreenWidth)
+            if (abs(tmp->position().x - (double)worldView.getCenter().x) <= onScreenWidth &&
+                abs(tmp->position().y - (double)worldView.getCenter().y) <= onScreenWidth)
             {
                 onScreenItems.push_back(tmp);
             }
