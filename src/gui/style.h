@@ -33,33 +33,6 @@ template<typename T>
 T parameter(unsigned int hash);
 
 bool initLibrary();
-enum Flags
-{
-    OriginXCenter = 1 << 0,
-    OriginRight = 1 << 1,
-    OriginYCenter = 1 << 2,
-    OriginBottom = 1 << 3,
-    XPositionRelativeToCenter = 1 << 4,
-    XPositionRelativeToRight = 1 << 5,
-    YPositionRelativeToCenter = 1 << 6,
-    YPositionRelativeToBottom = 1 << 7,
-    XPositionRelativeToScreenSize = 1 << 8,
-    YPositionRelativeToScreenSize = 1 << 9,
-    WidthRelativeToScreenSize = 1 << 10,
-    WidthMeansFixedMargin = 1 << 11,
-    HeightRelativeToScreenSize = 1 << 12,
-    HeightMeansFixedMargin = 1 << 13,
-    AdjustSizeToText = 1 << 14,
-    AdjustBackgroundToSize = 1 << 15,
-    RepeatBackgroundToFitSize = 1 << 16,
-    VerticalScrollBar = 1 << 17,
-    VerticalScrollBarInUse = 1 << 18,
-    Hidden = 1 << 19,
-    Disabled = 1 << 20,
-    Activated = 1 << 21,
-    MouseOver = 1 << 22,
-    CustomTextShader = 1 << 23
-};
 
 void updateMousePosition(sf::RenderWindow& app);
 const sf::Vector2<int>& mousePosition();
