@@ -26,10 +26,10 @@
 
 namespace tools::graphicBuffer{
 
-inline RenderTexture TemporaryTexture;
-inline RenderWindow* MainWindow = nullptr;
+inline sf::RenderTexture TemporaryTexture;
+inline sf::RenderWindow* MainWindow = nullptr;
 
-inline void initLibrary(RenderWindow* w)
+inline void initLibrary(sf::RenderWindow* w)
 {
     MainWindow = w;
     if (w != nullptr)
@@ -37,7 +37,7 @@ inline void initLibrary(RenderWindow* w)
     TemporaryTexture.setSmooth(true);
 }
 
-inline RenderTexture& buffer()
+inline sf::RenderTexture& buffer()
 {
     if (MainWindow == nullptr)
     {
