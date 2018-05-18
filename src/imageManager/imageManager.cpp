@@ -31,8 +31,6 @@
 
 #include "gui/style.h"
 
-#include "textManager/textManager.h"
-
 #include "imageManager/image.h"
 #include "imageManager/animation.h"
 #include "imageManager/HSL.h"
@@ -69,7 +67,7 @@ void addImage(unsigned int container, const string& key, const string& file, Vec
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been created yet: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image container has not been created yet for the file \"" + file + "\"", "multimedia", __FILENAME__, __LINE__);
         return;
     }
 
@@ -95,7 +93,7 @@ void addArchiveFile(string path)
 
     if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
     {
-        tools::debug::error("Unable to load file: " + path, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Unable to load file: " + path, "multimedia", __FILENAME__, __LINE__);
     }
     else
     {
@@ -134,7 +132,7 @@ imageManager::Image* getImage(unsigned int container, const string& key)
 
     if (c == images.end())
     {
-        tools::debug::error("Container not found: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
+        tools::debug::error("Container not found for the image key \"" + key + "\"", "multimedia", __FILENAME__, __LINE__);
         return nullptr;
     }
 
@@ -142,7 +140,7 @@ imageManager::Image* getImage(unsigned int container, const string& key)
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image not found: " + textManager::toString(container) + "::" + key, "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image not found: \"" + key + "\"", "multimedia", __FILENAME__, __LINE__);
         return nullptr;
     }
 
@@ -166,7 +164,7 @@ void display(RenderTarget& target, unsigned int container, const string& key, fl
 
     if (c == images.end())
     {
-        tools::debug::error("Image container has not been added yet: " + textManager::toString(container), "images", __FILENAME__, __LINE__);
+        tools::debug::error("Container not found for the image key \"" + key + "\"", "multimedia", __FILENAME__, __LINE__);
         return;
     }
 
@@ -174,7 +172,7 @@ void display(RenderTarget& target, unsigned int container, const string& key, fl
 
     if (i == (*c).second.end())
     {
-        tools::debug::error("Image '" + textManager::toString(container) + "::" + key + "' has not been loaded yet, skipping...", "images", __FILENAME__, __LINE__);
+        tools::debug::error("Image not found: \"" + key + "\"", "multimedia", __FILENAME__, __LINE__);
         return;
     }
 
