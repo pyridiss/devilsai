@@ -38,6 +38,7 @@
 
 #include "options.h"
 
+#include "devilsai-resources/shaders.h"
 
 RenderWindow App;
 
@@ -131,6 +132,8 @@ int main(int n, char *params[])
     multimedia::addFont("liberation", "LiberationSans-Regular.ttf");
     multimedia::addFont("liberation-bold", "LiberationSans-Bold.ttf");
     multimedia::addFont("dayroman", "DayRoman.ttf");
+
+    devilsai::initShaders();
 
 	PHYSFS_init(params[0]);
 

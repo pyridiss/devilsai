@@ -32,6 +32,7 @@ set(devilsai_SRCS
     devilsai-resources/Carte.cpp
     devilsai-resources/pack.cpp
     devilsai-resources/quests.cpp
+    devilsai-resources/shaders.cpp
     devilsai-resources/skill.cpp
     devilsai-resources/stats.cpp
     devilsai-resources/wearableItem.cpp
