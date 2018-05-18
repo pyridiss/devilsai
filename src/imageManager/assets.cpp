@@ -23,6 +23,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "tools/debug.h"
 #include "tools/filesystem.h"
 
 using namespace std;
@@ -32,6 +33,7 @@ using namespace sf;
 namespace multimedia{
 
 static unordered_map<string, Font> fonts;
+static unordered_map<string, ShaderInstance*> shaders;
 
 
 void addFont(const string& name, const string& file)
@@ -46,6 +48,42 @@ Font* font(const string& name)
     if (i == fonts.end()) return nullptr;
 
     return &(i->second);
+}
+
+void addShader(const string& name, ShaderInstance* i)
+{
+    shaders.emplace(name, i);
+}
+
+unsigned int createShaderInstance(const string& name)
+{
+    auto i = shaders.find(name);
+    if (i == shaders.end()) return 0;
+
+    return i->second->createNewInstance();
+}
+
+Shader* shader(const string& name, unsigned int instance)
+{
+    auto i = shaders.find(name);
+    if (i == shaders.end()) return nullptr;
+
+    return i->second->shader(instance);
+}
+
+void applyShaderOnScreen(RenderWindow& app, const string& shaderName, unsigned int instance, int x, int y, int w, int h)
+{
+    auto i = shaders.find(shaderName);
+    if (i == shaders.end()) return;
+
+    i->second->applyOnScreen(instance, app, x, y, w, h);
+}
+
+void clearShaders()
+{
+    for (auto& i : shaders)
+        delete i.second;
+    shaders.clear();
 }
 
 }  // namespace multimedia

@@ -22,18 +22,111 @@
 
 #include <string>
 
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 
 using std::string;
+
+namespace sf{
+    class Font;
+    class RenderTarget;
+    class RenderWindow;
+    class Shader;
+}
 
 namespace multimedia{
 
 // Assets
 
+/**
+ * \brief Base class for shaders.
+ *
+ * The ShaderInstance class and the associated helpers are used to store shaders and use them through
+ * a common interface.
+ * The multimedia library does not define any shader: a shader must be defined by derivating the
+ * ShaderInstance class.
+ */
+class ShaderInstance
+{
+    public:
+
+        /**
+         * Destructor.
+         */
+        virtual ~ShaderInstance()
+        {
+        }
+
+        /**
+         * Create a new set of data to which the user can refer with the identifier returned.
+         *
+         * \return identifier to pass to other functions.
+         */
+        virtual unsigned int createNewInstance() = 0;
+
+        /**
+         * Return the sf::Shader, already parameterized with the data of the instance.
+         *
+         * \param instance the instance to use.
+         * \return pointer to the sf::Shader.
+         */
+        virtual sf::Shader* shader(unsigned int instance) = 0;
+
+        /**
+         * Apply the shader on a part of the screen.
+         *
+         * \param instance the instance to use.
+         * \param app reference to the window in which the shader should be applied.
+         * \param x x-value of the top-left corner of the rectangle.
+         * \param y y-value of the top-left corner of the rectangle.
+         * \param w width of the rectangle.
+         * \param h height of the rectangle.
+         */
+        virtual void applyOnScreen(unsigned int instance, sf::RenderWindow& app, int x, int y, int w, int h) = 0;
+};
+
 void addFont(const string& name, const string& file);
 sf::Font* font(const string& name);
-void addFragmentShader(const string& name, const string& file);
-sf::Shader* shader(const string& name);
+
+/**
+ * Add a new shader to the list of known shaders.
+ *
+ * \param name the name of the shader.
+ * \param i owning pointer to the new shader, which can be of any class derived from ShaderInstance.
+ */
+void addShader(const string& name, ShaderInstance* i);
+
+/**
+ * Calls the createNewInstance() function of the shader \a name.
+ *
+ * An instance stores the data needed to define the varying and uniform variables of a shader.
+ *
+ * \param name the name of the shader.
+ * \return an identifier that will be necessary to apply the shader with the good data.
+ */
+unsigned int createShaderInstance(const string& name);
+
+/**
+ * Returns a pointer to the sf::Shader that can directly be used in graphic functions.
+ *
+ * The shader is already parameterized which the data of the instance.
+ *
+ * \param name the name of the shader.
+ * \param instance the instance of the shader.
+ * \return pointer to the sf::Shader.
+ */
+sf::Shader* shader(const string& name, unsigned int instance);
+
+/**
+ * Calls the applyOnScreen() function of the shader \a name.
+ */
+void applyShaderOnScreen(sf::RenderWindow& app, const string& shaderName, unsigned int instance, int x, int y, int w, int h);
+
+/**
+ * Delete all shaders already added.
+ */
+
+void clearShaders();
 
 }  // namespace multimedia
 
