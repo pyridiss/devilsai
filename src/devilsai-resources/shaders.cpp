@@ -238,6 +238,8 @@ void initShaders()
     multimedia::addShader("blur", blur);
 
     ContrastShader* contrast = new ContrastShader();
+    skillPanelShaderInstance = contrast->createNewInstance();
+    contrast->setData(skillPanelShaderInstance, Glsl::Vec3(0.1, 0.1, 0.1));
     multimedia::addShader("contrast", contrast);
 
     FadeShader* fade = new FadeShader();

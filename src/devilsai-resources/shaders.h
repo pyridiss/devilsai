@@ -22,6 +22,8 @@
 
 namespace devilsai{
 
+inline unsigned int skillPanelShaderInstance;
+
 void initShaders();
 
 }  // namespace devilsai

@@ -25,6 +25,7 @@
 #include "gui/style.h"
 #include "gui/window.h"
 
+#include "devilsai-resources/shaders.h"
 #include "ElementsCarte/ElementsCarte.h"
 #include "gamedata.h"
 
@@ -126,12 +127,12 @@ void displaySkillbar(RenderWindow& target)
         const string& skillName = slot.second->embeddedData<string>("value");
         if (!skillName.empty())
         {
-            const Shader* shader = nullptr;
+            Shader* shader = nullptr;
 
             Individu::SkillAccess currentSkill = gamedata::player()->skill(skillName);
 
             if (!currentSkill.none() && currentSkill.unavailability() > 0)
-                shader = gui::style::getContrastShader(0.1, 0.1, 0.1);
+                shader = multimedia::shader("contrast", devilsai::skillPanelShaderInstance);
 
             imageManager::display(target, tools::hash("skills"), skillName, slot.second->left(), slot.second->top(), false, shader);
         }
