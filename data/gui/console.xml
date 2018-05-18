@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <properties x="0" y="56" OriginBottom="1" YPositionRelativeToBottom="1" width="100" WidthRelativeToScreenSize="1" height="100" RepeatBackgroundToFitSize="1"/>
-    <widget name="text" type="text" OriginCenter="1" PositionRelativeToCenter="1" width="20" WidthMeansFixedMargin="1" height="20" HeightMeansFixedMargin="1" VerticalScrollBar="1" backgroundShader="textBackground"/>
+    <widget name="text" type="text" OriginCenter="1" PositionRelativeToCenter="1" width="20" WidthMeansFixedMargin="1" height="20" HeightMeansFixedMargin="1" VerticalScrollBar="1" backgroundShader="blur"/>
 </window>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <properties x="100" XPositionRelativeToRight="1" y="100" OriginRight="1" width="420" height="130" backgroundShader="textBackground"/>
+    <properties x="100" XPositionRelativeToRight="1" y="100" OriginRight="1" width="420" height="130" backgroundShader="blur"/>
     <widget name="text" type="text" x="10" y="10" width="400" height="100"/>
     <widget name="ok" type="button" OriginXCenter="1" x="110" y="112" AdjustSizeToText="1" allText="dialog-ok"/>
     <widget name="restart" type="button" OriginXCenter="1" x="260" y="112" AdjustSizeToText="1" allText="dialog-restart"/>
