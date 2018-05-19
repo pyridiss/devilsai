@@ -37,11 +37,10 @@ namespace devilsai{
 class BlurShader : public multimedia::ShaderInstance
 {
     private:
-        Shader _shader;
+        Shader _shader {};
 
     public:
-        BlurShader()
-          : _shader()
+        void load()
         {
             _shader.loadFromMemory(BLUR_SHADER, Shader::Type::Fragment);
         }
@@ -79,13 +78,11 @@ class ContrastShader : public multimedia::ShaderInstance
             Glsl::Vec3 luminosity = Glsl::Vec3(0, 0, 0);
         };
 
-        Shader _shader;
-        vector<Data> _instances;
+        Shader _shader {};
+        vector<Data> _instances {};
 
     public:
-        ContrastShader()
-          : _shader(),
-            _instances()
+        void load()
         {
             _shader.loadFromMemory(CONTRAST_SHADER, Shader::Type::Fragment);
         }
@@ -134,13 +131,11 @@ class FadeShader : public multimedia::ShaderInstance
             double timer = 255;
         };
 
-        Shader _shader;
-        vector<Data> _instances;
+        Shader _shader {};
+        vector<Data> _instances {};
 
     public:
-        FadeShader()
-          : _shader(),
-            _instances()
+        void load()
         {
             _shader.loadFromMemory(FADE_SHADER, Shader::Type::Fragment);
         }
@@ -191,13 +186,11 @@ class WarnShader : public multimedia::ShaderInstance
             double timer = 0;
         };
 
-        Shader _shader;
-        vector<Data> _instances;
+        Shader _shader {};
+        vector<Data> _instances {};
 
     public:
-        WarnShader()
-          : _shader(),
-            _instances()
+        void load()
         {
             _shader.loadFromMemory(CONTRAST_SHADER, Shader::Type::Fragment);
         }
@@ -233,32 +226,38 @@ class WarnShader : public multimedia::ShaderInstance
         }
 };
 
+static BlurShader Blur;
+static ColorizeShader Colorize;
+static ContrastShader Contrast;
+static FadeShader Fade;
+static WarnShader Warn;
+
+unsigned int newContrastShaderInstance(Glsl::Vec3 v)
+{
+    unsigned int id = Contrast.createNewInstance();
+    Contrast.setData(id, v);
+    return id;
+}
+
 void initShaders()
 {
-    BlurShader* blur = new BlurShader();
-    wearableItemShaderInstance = blur->createNewInstance();
-    multimedia::addShader("blur", blur);
+    Blur.load();
+    wearableItemShaderInstance = Blur.createNewInstance();
+    multimedia::addShader("blur", &Blur);
 
-    ContrastShader* contrast = new ContrastShader();
-    guiBackgroundDisabledShaderInstance = contrast->createNewInstance();
-    guiBackgroundMouseoverShaderInstance = contrast->createNewInstance();
-    guiTextDisabledShaderInstance = contrast->createNewInstance();
-    guiTextMouseoverShaderInstance = contrast->createNewInstance();
-    storageBoxShaderInstance = contrast->createNewInstance();
-    skillPanelShaderInstance = contrast->createNewInstance();
-    contrast->setData(guiBackgroundDisabledShaderInstance, Glsl::Vec3(0.25, 0.25, 0.25));
-    contrast->setData(guiBackgroundMouseoverShaderInstance, Glsl::Vec3(1.0, 1.0, 1.0));
-    contrast->setData(guiTextDisabledShaderInstance, Glsl::Vec3(0.25, 0.25, 0.25));
-    contrast->setData(guiTextMouseoverShaderInstance, Glsl::Vec3(1.0, 0.0, 0.0));
-    contrast->setData(storageBoxShaderInstance, Glsl::Vec3(1.8, 1.8, 1.8));
-    contrast->setData(skillPanelShaderInstance, Glsl::Vec3(0.1, 0.1, 0.1));
-    multimedia::addShader("contrast", contrast);
+    Colorize.load();
+    multimedia::addShader("colorize", &Colorize);
 
-    FadeShader* fade = new FadeShader();
-    multimedia::addShader("fade", fade);
+    Contrast.load();
+    storageBoxShaderInstance = newContrastShaderInstance(Glsl::Vec3(1.8, 1.8, 1.8));
+    skillPanelShaderInstance = newContrastShaderInstance(Glsl::Vec3(0.1, 0.1, 0.1));
+    multimedia::addShader("contrast", &Contrast);
 
-    WarnShader* warn = new WarnShader();
-    multimedia::addShader("warn", warn);
+    Fade.load();
+    multimedia::addShader("fade", &Fade);
+
+    Warn.load();
+    multimedia::addShader("warn", &Warn);
 }
 
 }  // namespace devilsai

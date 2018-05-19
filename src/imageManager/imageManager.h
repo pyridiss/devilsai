@@ -92,7 +92,7 @@ sf::Font* font(const string& name);
  * Add a new shader to the list of known shaders.
  *
  * \param name the name of the shader.
- * \param i owning pointer to the new shader, which can be of any class derived from ShaderInstance.
+ * \param i non-owning pointer to the new shader, which can be of any class derived from ShaderInstance.
  */
 void addShader(const string& name, ShaderInstance* i);
 
@@ -121,12 +121,6 @@ sf::Shader* shader(const string& name, unsigned int instance);
  * Calls the applyOnScreen() function of the shader \a name.
  */
 void applyShaderOnScreen(sf::RenderWindow& app, const string& shaderName, unsigned int instance, int x, int y, int w, int h);
-
-/**
- * Delete all shaders already added.
- */
-
-void clearShaders();
 
 }  // namespace multimedia
 

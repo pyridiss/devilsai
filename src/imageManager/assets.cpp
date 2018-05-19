@@ -79,11 +79,4 @@ void applyShaderOnScreen(RenderWindow& app, const string& shaderName, unsigned i
     i->second->applyOnScreen(instance, app, x, y, w, h);
 }
 
-void clearShaders()
-{
-    for (auto& i : shaders)
-        delete i.second;
-    shaders.clear();
-}
-
 }  // namespace multimedia

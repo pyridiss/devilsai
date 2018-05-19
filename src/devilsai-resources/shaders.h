@@ -20,17 +20,17 @@
 #ifndef DEVILSAI_RESOURCES_SHADERS
 #define DEVILSAI_RESOURCES_SHADERS
 
+#include <SFML/Graphics/Shader.hpp>
+
 namespace devilsai{
 
-inline unsigned int guiBackgroundDisabledShaderInstance;
-inline unsigned int guiBackgroundMouseoverShaderInstance;
-inline unsigned int guiTextDisabledShaderInstance;
-inline unsigned int guiTextMouseoverShaderInstance;
 inline unsigned int storageBoxShaderInstance;
 inline unsigned int skillPanelShaderInstance;
 inline unsigned int wearableItemShaderInstance;
 
 void initShaders();
+
+unsigned int newContrastShaderInstance(sf::Glsl::Vec3 v);
 
 }  // namespace devilsai
 
