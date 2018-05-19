@@ -25,6 +25,8 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+#include <cstddef>
+
 namespace tools{
 
 namespace math{
@@ -51,6 +53,18 @@ constexpr unsigned int hash(const char* str)
 }
 
 } //namespace tools
+
+/**
+ * Synonym of tools::hash()
+ */
+constexpr unsigned int operator ""_hash(const char* str, std::size_t l)
+{
+    unsigned int h = 0;
+    for (std::size_t i = 0 ; i != l ; ++i)
+        h = str[i] + (h << 6) + (h << 16) - h;
+
+    return h;
+}
 
 #endif // TOOLS_MATH_H
 
