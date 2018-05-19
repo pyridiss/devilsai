@@ -308,32 +308,18 @@ template float& Widget::embeddedData(const string& name);
 
 void Widget::displayBackground(RenderWindow& app)
 {
-    //Lambda function to display the background image which shaders according to flags.
-    auto backgroundImage = [this, &app](int x, int y)
-    {
-        if ((_flags & Disabled) == Disabled)
-            imageManager::display(app, tools::hash("gui"), _background, x, y, false, multimedia::shader(parameter<string>(tools::hash("background-disabled-shader")), parameter<unsigned int>(tools::hash("background-disabled-shader-instance"))));
-        else if ((_flags & MouseOver) == MouseOver)
-            imageManager::display(app, tools::hash("gui"), _background, x, y, false, multimedia::shader(parameter<string>(tools::hash("background-mouseover-shader")), parameter<unsigned int>(tools::hash("background-mouseover-shader-instance"))));
-        else
-            imageManager::display(app, tools::hash("gui"), _background, x, y);
-    };
+    Shader* shader = nullptr;
+
+    if (_flags & Disabled)
+        shader = multimedia::shader(parameter<string>("background-disabled-shader"_hash), parameter<unsigned int>("background-disabled-shader-instance"_hash));
+    else if ((_flags & MouseOver))
+        shader = multimedia::shader(parameter<string>("background-mouseover-shader"_hash), parameter<unsigned int>("background-mouseover-shader-instance"_hash));
 
     if (!_background.empty())
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
-            View currentView = app.getView();
-
-            View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
-            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
-
-            app.setView(newView);
-
-            backgroundImage(0, 0);
-
-            app.setView(currentView);
+            imageManager::displayStretched(app, "gui"_hash, _background, left(), top(), width(), height(), false, shader);
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
@@ -346,13 +332,13 @@ void Widget::displayBackground(RenderWindow& app)
             app.setView(newView);
             for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
                     for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
-                        backgroundImage(i * image->getSize().x, j * image->getSize().y);
+                        imageManager::display(app, "gui"_hash, _background, i * image->getSize().x, j * image->getSize().y, false, shader);
 
             app.setView(currentView);
         }
         else
         {
-            backgroundImage(left(), top());
+            imageManager::display(app, "gui"_hash, _background, left(), top(), false, shader);
         }
     }
 

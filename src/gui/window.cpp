@@ -179,16 +179,7 @@ void Window::display(RenderWindow& app)
     {
         if ((_flags & AdjustBackgroundToSize) == AdjustBackgroundToSize)
         {
-            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
-            View currentView = app.getView();
-
-            View newView(FloatRect(0, 0, image->getSize().x, image->getSize().y));
-            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
-
-            app.setView(newView);
-            imageManager::display(app, tools::hash("gui"), _background, 0, 0);
-
-            app.setView(currentView);
+            imageManager::displayStretched(app, "gui"_hash, _background, left(), top(), width(), height());
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {

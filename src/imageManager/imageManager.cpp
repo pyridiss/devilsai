@@ -163,6 +163,17 @@ void display(RenderTarget& target, unsigned int container, const string& key, fl
     (*i).second.display(target, x, y, atCenter, shader);
 }
 
+void displayStretched(RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, bool atCenter, const Shader* shader)
+{
+    Image* i = getImage(container, key);
+
+    if (i == nullptr) return;
+
+    i->sprite.setScale(w / (double)i->texture.getSize().x, h / (double)i->texture.getSize().y);
+    i->display(target, x, y, atCenter, shader);
+    i->sprite.setScale(1, 1);
+}
+
 void addAnimation(const string& name, const string& file)
 {
     AnimationDatabase::iterator a = animations.find(name);
