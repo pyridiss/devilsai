@@ -25,6 +25,9 @@
 #include "tools/filesystem.h"
 #include "tools/math.h"
 #include "tools/timeManager.h"
+
+#include "imageManager/imageManager.h"
+
 #include "textManager/textManager.h"
 
 #include "../Bibliotheque/luaFunctions.h"
@@ -180,9 +183,13 @@ void addQuest(string newQuest, string args)
 	lua_register(L, "get", LUA_get);
 	lua_register(L, "set", LUA_set);
 
+    // The questBegin function may load some stuff requiring OpenGL.
+    // We should lock OpenGL to avoid a potential data race.
+    imageManager::lockGLMutex(3);
 	lua_getglobal(L, "questBegin");
 	lua_pushstring(L, args.c_str());
 	lua_call(L, 1, 0);
+    imageManager::unlockGLMutex(3);
 
     Quests.emplace(newQuest, L);
 }
