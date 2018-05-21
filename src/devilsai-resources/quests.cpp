@@ -44,7 +44,7 @@ namespace resources::quests {
 
 unordered_map<string, lua_State*> Quests;
 
-void addQuest(string newQuest, string args)
+void addQuest(string newQuest, const char* args)
 {
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
@@ -187,7 +187,7 @@ void addQuest(string newQuest, string args)
     // We should lock OpenGL to avoid a potential data race.
     imageManager::lockGLMutex(3);
 	lua_getglobal(L, "questBegin");
-	lua_pushstring(L, args.c_str());
+	lua_pushstring(L, args);
 	lua_call(L, 1, 0);
     imageManager::unlockGLMutex(3);
 
@@ -247,25 +247,15 @@ void save(XMLDocument& doc, tinyxml2::XMLElement* root)
 void load(XMLElement* elem)
 {
     string questFile = elem->Attribute("file");
-    string initialData, currentState;
-    if (elem->Attribute("initialData"))
-    {
-        initialData = elem->Attribute("initialData");
-    }
+    addQuest(questFile, elem->Attribute("initialData"));
+
     if (elem->Attribute("currentState"))
-    {
-        currentState = elem->Attribute("currentState");
-    }
-
-    addQuest(questFile, initialData);
-
-    if (!currentState.empty())
     {
         auto i = Quests.find(questFile);
         if (i != Quests.end())
         {
             lua_getglobal(i->second, "questRecoverState");
-            lua_pushstring(i->second, currentState.c_str());
+            lua_pushstring(i->second, elem->Attribute("currentState"));
             lua_call(i->second, 1, 0);
         }
         else tools::debug::error("Error while loading quest " + questFile, "files", __FILENAME__, __LINE__);
