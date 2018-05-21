@@ -46,7 +46,7 @@ Coffre::Coffre()
     inert = false;
 }
 
-int Coffre::Collision(Individu* elem, bool apply)
+int Coffre::Collision(Individu* elem, [[maybe_unused]] bool apply)
 {
     if (elem->Type == "intern")
     {

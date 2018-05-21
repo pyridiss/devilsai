@@ -245,7 +245,7 @@ bool Individu::Set_Activite(Behaviors b)
     return Set_Activite(behavior(b));
 }
 
-int Individu::Collision(Individu *elem, bool apply)
+int Individu::Collision([[maybe_unused]] Individu *elem, [[maybe_unused]] bool apply)
 {
     return COLL_PRIM_MVT;
 }

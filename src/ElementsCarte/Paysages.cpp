@@ -48,7 +48,7 @@ Paysage::Paysage(string id)
     Type = std::move(id);
 }
 
-int Paysage::Collision(Individu *elem, bool apply)
+int Paysage::Collision([[maybe_unused]] Individu *elem, [[maybe_unused]] bool apply)
 {
 	return COLL_PRIM;
 }
