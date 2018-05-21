@@ -444,7 +444,6 @@ void mainLoop(RenderWindow& app)
         app.clear();
         app.setView(worldView);
 
-        gamedata::currentWorld()->displayBackground(app);
         gamedata::currentWorld()->display(app);
 
         if (underCursor != nullptr) underCursor->displayLifeGauge(app);

@@ -246,6 +246,15 @@ void Carte::GestionElements(const View& worldView)
 
 void Carte::display(RenderTarget& target)
 {
+    if (!backgroundImage.empty())
+    {
+        Vector2f origin = target.getView().getCenter();
+        origin.x -= target.getSize().x / 2;
+        origin.y -= target.getSize().y / 2;
+
+        imageManager::fillArea(target, "paysage"_hash, backgroundImage, origin.x, origin.y, target.getSize().x, target.getSize().y, 0, 0);
+    }
+
     for (auto& tmp : onScreenItems)
     {
         tmp->Disp(target);
