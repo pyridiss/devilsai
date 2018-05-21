@@ -17,12 +17,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <SFML/Graphics/Color.hpp>
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
 #include "tools/math.h"
 #include "imageManager/imageManager.h"
-#include "imageManager/image.h"
 
 #include "devilsai-resources/manager.h"
 #include "Jeu/options.h"
@@ -87,29 +87,8 @@ void Paysage::Disp(RenderTarget& target)
 
     if (extent.x == 1 && extent.y == 1)
         imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y, true);
-
     else
-    {
-        Vector2u imageDimension = imageManager::getImage(tools::hash("paysage"), Type)->getSize();
-        if (extent.x > 1)
-        {
-            if (extent.x % 2 == 0)
-                for (float i = -extent.x/2 ; i < extent.x/2 ; ++i)
-                    imageManager::display(target, tools::hash("paysage"), Type, position().x + (i+0.5)*imageDimension.x, position().y, true);
-            else
-                for (float i = -(extent.x-1)/2 ; i <= (extent.x-1)/2 ; ++i)
-                    imageManager::display(target, tools::hash("paysage"), Type, position().x + i*imageDimension.x, position().y, true);
-        }
-        else if (extent.y > 1)
-        {
-            if (extent.y % 2 == 0)
-                for (float i = -extent.y/2 ; i < extent.y/2 ; ++i)
-                    imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y + (i+0.5)*imageDimension.y, true);
-            else
-                for (float i = -(extent.y-1)/2 ; i <= (extent.y-1)/2 ; ++i)
-                    imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y + i*imageDimension.y, true);
-        }
-    }
+        imageManager::displayRepeatedly(target, "paysage"_hash, Type, position().x, position().y, extent.x, extent.y, true);
 }
 
 void Paysage::loadFromXML(tinyxml2::XMLHandle &handle)
