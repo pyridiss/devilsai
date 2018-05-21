@@ -35,7 +35,6 @@ class Image
     public:
         Texture texture;
         Sprite sprite;
-        string sourceFile;
         Vector2i offset;
 
     public:

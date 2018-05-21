@@ -29,7 +29,6 @@ namespace imageManager{
 Image::Image()
   : texture(),
     sprite(),
-    sourceFile(),
     offset()
 {
 }
@@ -46,7 +45,6 @@ void Image::set(string file, Vector2i of)
     {
         texture.loadFromFile(tools::filesystem::dataDirectory() + file);
         sprite.setTexture(texture);
-        sourceFile = file;
     }
     else if (fromArch)
     {
@@ -60,7 +58,6 @@ void Image::set(string file, Vector2i of)
         delete[] buffer;
 
         sprite.setTexture(texture);
-        sourceFile = getCurrentArchiveFile() + "/" + file;
 
         PHYSFS_close(physfsFile);
     }
