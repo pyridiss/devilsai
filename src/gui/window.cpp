@@ -28,7 +28,6 @@
 #include "tools/math.h"
 #include "textManager/textManager.h"
 
-#include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
 #include "musicManager/musicManager.h"
@@ -183,18 +182,7 @@ void Window::display(RenderWindow& app)
         }
         else if ((_flags & RepeatBackgroundToFitSize) == RepeatBackgroundToFitSize)
         {
-            imageManager::Image* image = imageManager::getImage(tools::hash("gui"), _background);
-            View currentView = app.getView();
-
-            View newView(FloatRect(0, 0, width(), height()));
-            newView.setViewport(FloatRect((float)left()/(float)app.getSize().x, (float)top()/(float)app.getSize().y, width()/(float)app.getSize().x, height()/(float)app.getSize().y));
-
-            app.setView(newView);
-            for (unsigned i = 0 ; i <= width() / image->getSize().x + 1 ; ++i)
-                    for (unsigned j = 0 ; j <= height() / image->getSize().y + 1 ; ++j)
-                        imageManager::display(app, tools::hash("gui"), _background, i * image->getSize().x, j * image->getSize().y);
-
-            app.setView(currentView);
+            imageManager::fillArea(app, "gui"_hash, _background, left(), top(), width(), height(), left(), top());
         }
         else
         {
