@@ -209,7 +209,7 @@ class Coffre : public Element_Carte
 	//Affichage :
 	public:
 		void Disp(RenderTarget& target);
-        void highlight(RenderTarget& target);
+        void highlight();
 };
 
 class Individu : public Element_Carte

@@ -154,7 +154,7 @@ void Coffre::Disp(RenderTarget& target)
     _highlight = false;
 }
 
-void Coffre::highlight(RenderTarget& target)
+void Coffre::highlight()
 {
     _highlight = true;
 }
