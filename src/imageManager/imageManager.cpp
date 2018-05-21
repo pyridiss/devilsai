@@ -21,7 +21,7 @@
 
 #include <atomic>
 #include <thread>
-
+#include <cmath>
 #include <unordered_map>
 
 #include <physfs.h>
@@ -172,6 +172,89 @@ void displayStretched(RenderTarget& target, unsigned int container, const string
     i->sprite.setScale(w / (double)i->texture.getSize().x, h / (double)i->texture.getSize().y);
     i->display(target, x, y, atCenter, shader);
     i->sprite.setScale(1, 1);
+}
+
+void displayRepeatedly(RenderTarget& target, unsigned int container, const string& key, double x, double y, int xQuantity, int yQuantity, bool atCenter, const Shader* shader)
+{
+    Image* i = getImage(container, key);
+
+    if (i == nullptr) return;
+
+    Vector2u is = i->texture.getSize();
+    Vector2i of = i->offset;
+
+    VertexArray area(Quads, 4 * xQuantity * yQuantity);
+
+    if (atCenter)
+    {
+        x -= is.x * xQuantity / 2.0;
+        y -= is.y * yQuantity / 2.0;
+    }
+
+    for (int xTmp = 0 ; xTmp < xQuantity ; ++xTmp)
+    {
+        for (int yTmp = 0 ; yTmp < yQuantity ; ++yTmp)
+        {
+            int o = 4*(xTmp * yQuantity + yTmp);
+
+            area[o + 0].position = Vector2f(x + xTmp * is.x + of.x, y + yTmp * is.y + of.y);
+            area[o + 1].position = Vector2f(x + (xTmp+1) * is.x + of.x, y + yTmp * is.y + of.y);
+            area[o + 2].position = Vector2f(x + (xTmp+1) * is.x + of.x, y + (yTmp+1) * is.y + of.y);
+            area[o + 3].position = Vector2f(x + xTmp * is.x + of.x, y + (yTmp+1) * is.y + of.y);
+
+            area[o + 0].texCoords = Vector2f(0, 0);
+            area[o + 1].texCoords = Vector2f(is.x, 0);
+            area[o + 2].texCoords = Vector2f(is.x, is.y);
+            area[o + 3].texCoords = Vector2f(0, is.y);
+        }
+    }
+
+    RenderStates states;
+    states.texture = &(i->texture);
+    states.shader = shader;
+
+    target.draw(area, states);
+}
+
+void fillArea(RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, int xOrigin, int yOrigin, const Shader* shader)
+{
+    Image* i = getImage(container, key);
+
+    if (i == nullptr) return;
+
+    Vector2u is = i->texture.getSize();
+    while (xOrigin > x) xOrigin -= is.x;
+    while (yOrigin > y) yOrigin -= is.y;
+    double xOffset = (int)(x - xOrigin) % is.x;
+    double yOffset = (int)(y - yOrigin) % is.y;
+    int xNumber = ceil(w / (double)is.x) + (((int)w%is.x == 0) ? 1 : 0) + (((is.x - xOffset) <= (int)w % is.x) ? 1 : 0);
+    int yNumber = ceil(h / (double)is.y) + (((int)h%is.y == 0) ? 1 : 0) + (((is.y - yOffset) <= (int)h % is.y) ? 1 : 0);
+
+    VertexArray area(Quads, 4 * xNumber * yNumber);
+
+    for (int xTmp = 0 ; xTmp < xNumber ; ++xTmp)
+    {
+        for (int yTmp = 0 ; yTmp < yNumber ; ++yTmp)
+        {
+            int o = 4*(xTmp * yNumber + yTmp);
+
+            area[o + 0].position = Vector2f(max(x, x - xOffset + is.x * xTmp), max(y, y - yOffset + is.y * yTmp));
+            area[o + 1].position = Vector2f(min((double)is.x * (int)((x-xOrigin) / is.x + xTmp+1) + xOrigin, x + w), area[o].position.y);
+            area[o + 2].position = Vector2f(area[o+1].position.x, min((double)is.y * (int)((y-yOrigin) / is.y + yTmp+1) + yOrigin, y + h));
+            area[o + 3].position = Vector2f(area[o].position.x, area[o+2].position.y);
+
+            area[o + 0].texCoords = Vector2f((xTmp == 0) ? xOffset : 0 , (yTmp == 0) ? yOffset : 0);
+            area[o + 1].texCoords = Vector2f((xTmp == xNumber-1) ? (int)(w + xOffset) % is.x : is.x, area[o].texCoords.y);
+            area[o + 2].texCoords = Vector2f(area[o+1].texCoords.x, (yTmp == yNumber-1) ? (int)(h + yOffset) % is.y : is.y);
+            area[o + 3].texCoords = Vector2f(area[o].texCoords.x, area[o+2].texCoords.y);
+        }
+    }
+
+    RenderStates states;
+    states.texture = &(i->texture);
+    states.shader = shader;
+
+    target.draw(area, states);
 }
 
 void addAnimation(const string& name, const string& file)

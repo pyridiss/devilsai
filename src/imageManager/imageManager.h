@@ -138,6 +138,8 @@ imageManager::Image* getImage(unsigned int container, const string& key);
 void changeHSL(unsigned int container, const string& key, double h, double s, double l);
 void display(sf::RenderTarget& target, unsigned int container, const string& key, float x, float y, bool atCenter = false, const sf::Shader* shader = nullptr);
 void displayStretched(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, bool atCenter = false, const sf::Shader* shader = nullptr);
+void displayRepeatedly(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, int xQuantity, int yQuantity, bool atCenter = false, const sf::Shader* shader = nullptr);
+void fillArea(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, int xOrigin, int yOrigin, const sf::Shader* shader = nullptr);
 void addAnimation(const string& name, const string& file);
 imageManager::Animation* getAnimation(const string& name);
 void lockGLMutex(int id);
