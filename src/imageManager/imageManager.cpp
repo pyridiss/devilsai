@@ -88,7 +88,7 @@ void addArchiveFile(string path)
 {
     path = tools::filesystem::dataDirectory() + path;
 
-    if (PHYSFS_addToSearchPath(path.c_str(), 1) == 0)
+    if (PHYSFS_mount(path.c_str(), NULL, 1) == 0)
     {
         tools::debug::error("Unable to load file: " + path, "multimedia", __FILENAME__, __LINE__);
     }
@@ -106,7 +106,7 @@ string getCurrentArchiveFile()
 void removeArchiveFile(string path)
 {
     path = tools::filesystem::dataDirectory() + path;
-    PHYSFS_removeFromSearchPath(path.c_str());
+    PHYSFS_unmount(path.c_str());
     currentArchiveFile = "";
 }
 

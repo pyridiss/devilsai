@@ -52,7 +52,7 @@ void Image::set(string file, Vector2i of)
     {
         PHYSFS_file* physfsFile = PHYSFS_openRead(file.c_str());
         char *buffer = new char[PHYSFS_fileLength(physfsFile)];
-        PHYSFS_read(physfsFile, buffer, 1, PHYSFS_fileLength(physfsFile));
+        PHYSFS_readBytes(physfsFile, buffer, PHYSFS_fileLength(physfsFile));
 
         if (!texture.loadFromMemory(buffer, PHYSFS_fileLength(physfsFile)))
             fromArch = false;
