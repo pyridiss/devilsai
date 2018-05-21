@@ -23,7 +23,6 @@
 #include "textManager/plainText.h"
 #include "textManager/textManager.h"
 
-#include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
 #include "gui/progressBar.h"

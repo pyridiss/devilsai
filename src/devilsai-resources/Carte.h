@@ -99,10 +99,6 @@ class Carte
         void GestionElements(const View& worldView);
         void display(RenderTarget& target);
 
-	//Fond de la carte :
-	public:
-		void displayBackground(RenderTarget& target);
-
 	//Collisions manager
 	public:
         pair<Element_Carte*, int> findFirstCollidingItem(Individu* individual, tools::math::Shape& shape, bool apply);

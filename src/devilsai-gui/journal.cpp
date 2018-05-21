@@ -23,7 +23,6 @@
 
 #include "textManager/textManager.h"
 
-#include "gui/style.h"
 #include "gui/widget.h"
 #include "gui/window.h"
 

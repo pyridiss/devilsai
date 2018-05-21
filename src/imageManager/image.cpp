@@ -85,11 +85,6 @@ void Image::applyShader(const Shader* shader)
     texture = tex.getTexture();
 }
 
-const Vector2u Image::getSize()
-{
-    return texture.getSize();
-}
-
 void Image::display(RenderTarget& target, float x, float y, bool atCenter, const Shader* shader)
 {
     if (!atCenter) sprite.setPosition(x + offset.x, y + offset.y);

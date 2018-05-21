@@ -134,7 +134,6 @@ void addImage(unsigned int container, const string& key, const string& file, sf:
 void addArchiveFile(string path);
 string getCurrentArchiveFile();
 void removeArchiveFile(string path);
-imageManager::Image* getImage(unsigned int container, const string& key);
 void changeHSL(unsigned int container, const string& key, double h, double s, double l);
 void display(sf::RenderTarget& target, unsigned int container, const string& key, float x, float y, bool atCenter = false, const sf::Shader* shader = nullptr);
 void displayStretched(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, bool atCenter = false, const sf::Shader* shader = nullptr);

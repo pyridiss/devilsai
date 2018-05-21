@@ -261,23 +261,6 @@ void Carte::display(RenderTarget& target)
     }
 }
 
-void Carte::displayBackground(RenderTarget& target)
-{
-	if (backgroundImage.empty()) return;
-
-    Vector2f origin = target.getView().getCenter();
-    origin.x -= target.getSize().x / 2;
-    origin.y -= target.getSize().y / 2;
-
-    for (int a = -1 ; a < (int)(target.getSize().x/135 + 2) ; ++a)
-    {
-        for (int b = -1 ; b < (int)(target.getSize().y/144 + 2) ; ++b)
-        {
-            imageManager::display(target, tools::hash("paysage"), backgroundImage, origin.x + 135*a - (int)(origin.x)%135, origin.y + 144*b - (int)(origin.y)%144);
-        }
-    }
-}
-
 Element_Carte* Carte::createNewItem(tinyxml2::XMLElement* item)
 {
     Element_Carte* newItem = nullptr;
