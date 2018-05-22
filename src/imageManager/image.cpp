@@ -21,6 +21,7 @@
 
 #include "tools/debug.h"
 #include "tools/filesystem.h"
+#include "tools/graphicBuffer.h"
 #include "imageManager/image.h"
 #include "imageManager/imageManager.h"
 
@@ -72,8 +73,7 @@ void Image::set(string file, Vector2i of)
 
 void Image::applyShader(const Shader* shader)
 {
-    RenderTexture tex;
-    tex.create(texture.getSize().x, texture.getSize().y);
+    RenderTexture& tex = tools::graphicBuffer::buffer(texture.getSize().x, texture.getSize().y);
     tex.clear(Color(0, 0, 0, 0));
 
     tex.draw(sprite, shader);
