@@ -70,6 +70,66 @@ class BlurShader : public multimedia::ShaderInstance
         }
 };
 
+class ColorizeShader final : public multimedia::ShaderInstance
+{
+    private:
+        struct Data
+        {
+            Vector3f red {};
+            Vector3f green {};
+            Vector3f blue {};
+        };
+
+        Shader _shader {};
+        vector<Data> _instances {};
+
+    public:
+        void load()
+        {
+            _shader.loadFromMemory(COLORIZE_SHADER, Shader::Type::Fragment);
+        }
+        ~ColorizeShader() = default;
+        unsigned int createNewInstance()
+        {
+            _instances.push_back(Data());
+            return _instances.size() - 1;
+        }
+        void setData(unsigned int instance, Vector3f r, Vector3f g, Vector3f b)
+        {
+            if (instance >= _instances.size())
+                return;
+
+            _instances[instance].red = r;
+            _instances[instance].green = g;
+            _instances[instance].blue = b;
+        }
+        sf::Shader* shader(unsigned int instance)
+        {
+            if (instance >= _instances.size())
+                return nullptr;
+
+            _shader.setUniform("red", _instances[instance].red);
+            _shader.setUniform("green", _instances[instance].green);
+            _shader.setUniform("blue", _instances[instance].blue);
+
+            return &_shader;
+        }
+        void applyOnScreen(unsigned int instance, sf::RenderWindow& app, int x, int y, int w, int h)
+        {
+            Texture tex;
+            tex.create(app.getSize().x, app.getSize().y);
+            tex.update(app);
+
+            RectangleShape rect;
+            rect.setSize(Vector2f(w, h));
+            rect.setTexture(&tex, true);
+            rect.setTextureRect(IntRect(x, y, w, h));
+            rect.setPosition(x, y);
+
+            app.draw(rect, shader(instance));
+        }
+};
+
 class ContrastShader : public multimedia::ShaderInstance
 {
     private:
@@ -231,6 +291,13 @@ static ColorizeShader Colorize;
 static ContrastShader Contrast;
 static FadeShader Fade;
 static WarnShader Warn;
+
+unsigned int newColorizeShaderInstance(Glsl::Vec3 v1, Glsl::Vec3 v2, Glsl::Vec3 v3)
+{
+    unsigned int id = Colorize.createNewInstance();
+    Colorize.setData(id, v1, v2, v3);
+    return id;
+}
 
 unsigned int newContrastShaderInstance(Glsl::Vec3 v)
 {

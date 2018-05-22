@@ -30,6 +30,7 @@ inline unsigned int wearableItemShaderInstance;
 
 void initShaders();
 
+unsigned int newColorizeShaderInstance(sf::Glsl::Vec3 v1, sf::Glsl::Vec3 v2, sf::Glsl::Vec3 v3);
 unsigned int newContrastShaderInstance(sf::Glsl::Vec3 v);
 
 }  // namespace devilsai
