@@ -32,7 +32,6 @@ void playSound(string);
 void playMusic(string);
 void stopMusic(string);
 void manageRunningMusics();
-void deleteMusics();
 
 } //namespace musicManager
 

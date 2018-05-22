@@ -241,13 +241,4 @@ Basic_Music::musicStates Basic_Music::getMusicState()
 	return musicState;
 }
 
-
-void deleteMusics()
-{
-	musics.clear();
-	sounds.clear();
-
-    tools::debug::message("All sounds and musics are deleted.", "musics", __FILENAME__, __LINE__);
-}
-
 } //namespace musicManager

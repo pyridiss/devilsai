@@ -61,11 +61,6 @@ void Load_Decorations()
     musicManager::addMusic("Gates_Of_Heaven");
 }
 
-void Supprimer_Decorations()
-{
-    musicManager::deleteMusics();
-}
-
 
 /** CONSOLES DU PERSONNAGE **/
 

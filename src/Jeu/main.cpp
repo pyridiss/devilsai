@@ -187,8 +187,6 @@ int main(int n, char *params[])
     mainLoop(App);
     Clean_Partie();
 
-	Supprimer_Decorations();
-
 	PHYSFS_deinit();
 
     options::Save_Options();

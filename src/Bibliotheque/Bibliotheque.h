@@ -29,7 +29,6 @@ using namespace sf;
 
 
 void Load_Decorations();
-void Supprimer_Decorations();
 bool Disp_Repos(RenderTarget& target);
 
 #endif
