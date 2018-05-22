@@ -37,16 +37,34 @@ inline void initLibrary(sf::RenderWindow* w)
     TemporaryTexture.setSmooth(true);
 }
 
-inline sf::RenderTexture& buffer()
+/**
+ * Return a RenderTexture to render stuff off-screen.
+ *
+ * If the size is not given, the buffer will have the size of the screen.
+ * Using this function instead of creating a new RenderTexture when needed
+ * will avoid a huge overhead: the buffer is recreated only if the size
+ * needed is not the same as the current size.
+ *
+ * \param x x-size of the buffer, default value (0) creates a buffer with the size of the screen
+ * \param y y-size of the buffer, default value (0) creates a buffer with the size of the screen
+ * \return non-owning pointer to the buffer
+ */
+inline sf::RenderTexture& buffer(unsigned x = 0, unsigned y = 0)
 {
-    if (MainWindow == nullptr)
+    if (x == 0 || y == 0)
     {
-        tools::debug::error("The graphic buffer has not been initialized.", "tools", __FILENAME__, __LINE__);
-        return TemporaryTexture;
+        if (MainWindow == nullptr)
+        {
+            tools::debug::error("The graphic buffer has not been initialized.", "tools", __FILENAME__, __LINE__);
+            return TemporaryTexture;
+        }
+
+        x = MainWindow->getSize().x;
+        y = MainWindow->getSize().y;
     }
 
-    if (MainWindow->getSize() != TemporaryTexture.getSize())
-        TemporaryTexture.create(MainWindow->getSize().x, MainWindow->getSize().y);
+    if (TemporaryTexture.getSize() != sf::Vector2u(x, y))
+        TemporaryTexture.create(x, y);
 
     return TemporaryTexture;
 }
