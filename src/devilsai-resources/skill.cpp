@@ -117,11 +117,9 @@ string Skill::getImageKey(double angle, int num)
     return key;
 }
 
-void Skill::loadFromXML(XMLHandle &handle)
+void Skill::loadFromXML(XMLHandle &handle, Shader* shader, int hue, int saturation, int luminance)
 {
     XMLElement *elem = handle.FirstChildElement().ToElement();
-
-    int h = 0, s = 0, l = 0;
 
     while (elem)
     {
@@ -132,9 +130,6 @@ void Skill::loadFromXML(XMLHandle &handle)
             elem->QueryAttribute("priority", &priority);
             elem->QueryAttribute("step", &step);
             elem->QueryAttribute("numberOfImages", &numberOfImages);
-            elem->QueryAttribute("hue", &h);
-            elem->QueryAttribute("saturation", &s);
-            elem->QueryAttribute("luminance", &l);
 
             if (elem->Attribute("speedAttribute"))
                 speedAttribute = stringToAttribute(elem->Attribute("speedAttribute"));
@@ -208,9 +203,9 @@ void Skill::loadFromXML(XMLHandle &handle)
                     string number = textManager::toString(i, 2);
                     path.replace(path.find_first_of('%'), 2, number);
                     string key = Id + "/" + path;
-                    imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
-                    if (h + s + l != 0)
-                        imageManager::changeHSL(tools::hash("individuals"), key, h, s, l);
+                    imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment), shader);
+                    if (hue + saturation + luminance != 0)
+                        imageManager::changeHSL(tools::hash("individuals"), key, hue, saturation, luminance);
 
                     addImage(angle * M_PI / 180.0, i, key);
                 }
@@ -220,7 +215,7 @@ void Skill::loadFromXML(XMLHandle &handle)
             {
                 string path = elem->Attribute("imageFile");
                 string key = Id + "/" + path;
-                imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment));
+                imageManager::addImage(tools::hash("individuals"), key, path, Vector2i(xAlignment, yAlignment), shader);
                 addImage(angle * M_PI / 180.0, 0, key);
             }
         }

@@ -32,6 +32,10 @@ using namespace std;
 
 class lua_State;
 
+namespace sf {
+    class Shader;
+}
+
 namespace tinyxml2 {
     class XMLHandle;
 }
@@ -78,7 +82,7 @@ class Skill
         void addImage(double angle, int num, string imageKey);
         string getImageKey(double angle, int num);
 
-        void loadFromXML(tinyxml2::XMLHandle &handle);
+        void loadFromXML(tinyxml2::XMLHandle &handle, sf::Shader* shader, int hue, int saturation, int luminance);
         void loadScript();
 
         void atBegin(Individu* owner);
