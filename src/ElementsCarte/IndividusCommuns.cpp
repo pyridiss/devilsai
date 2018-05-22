@@ -26,6 +26,7 @@
 #include "imageManager/imageManager.h"
 
 #include "devilsai-resources/manager.h"
+#include "devilsai-resources/shaders.h"
 
 using namespace tinyxml2;
 
@@ -102,6 +103,8 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
     _displayedName = textManager::getText("species", Type);
 
     string archiveFile;
+    int hue = 0, saturation = 0, luminance = 0;
+    Shader* shader = nullptr;
 
     XMLElement *elem = handle.FirstChildElement().ToElement();
     while (elem)
@@ -113,9 +116,9 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
             archiveFile = elem->Attribute("file");
             imageManager::addArchiveFile(archiveFile);
         }
-       /* if (elemName == "colorize")
+        if (elemName == "colorize")
         {
-            Vector3f r, g, b;
+            Glsl::Vec3 r, g, b;
             elem->QueryAttribute("rr", &r.x);
             elem->QueryAttribute("rg", &r.y);
             elem->QueryAttribute("rb", &r.z);
@@ -125,8 +128,15 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
             elem->QueryAttribute("br", &b.x);
             elem->QueryAttribute("bg", &b.y);
             elem->QueryAttribute("bb", &b.z);
-            imageManager::setColorizeParameters(r, g, b);
-        }*/
+            int i = devilsai::newColorizeShaderInstance(r, g, b);
+            shader = multimedia::shader("colorize", i);
+        }
+        if (elemName == "changeImagesHSL")
+        {
+            elem->QueryAttribute("hue", &hue);
+            elem->QueryAttribute("saturation", &saturation);
+            elem->QueryAttribute("luminance", &luminance);
+        }
         if (elemName == "shape")
         {
             size.loadFromXML(elem);
@@ -163,7 +173,7 @@ void Classe_Commune::loadFromXML(XMLHandle &handle, const string& file)
             Skill* s = devilsai::addResource<Skill>(Type + ":" + skillName);
 
             XMLHandle hdl2(elem);
-            s->loadFromXML(hdl2);
+            s->loadFromXML(hdl2, shader, hue, saturation, luminance);
 
             _skills.emplace(skillName, s);
         }

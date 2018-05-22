@@ -30,6 +30,7 @@
 #include "ElementsCarte.h"
 
 #include "devilsai-resources/manager.h"
+#include "devilsai-resources/shaders.h"
 
 #include "gamedata.h"
 
@@ -41,6 +42,9 @@ void Individu::loadFromXML(XMLHandle &handle)
     XMLElement *elem = handle.ToElement();
 
     string archiveFile;
+    int hue = 0, saturation = 0, luminance = 0;
+    Shader* shader = nullptr;
+
 
     if (elem->Attribute("name"))
     {
@@ -98,6 +102,27 @@ void Individu::loadFromXML(XMLHandle &handle)
             archiveFile = elem->Attribute("file");
             imageManager::addArchiveFile(archiveFile);
         }
+        if (elemName == "colorize")
+        {
+            Glsl::Vec3 r, g, b;
+            elem->QueryAttribute("rr", &r.x);
+            elem->QueryAttribute("rg", &r.y);
+            elem->QueryAttribute("rb", &r.z);
+            elem->QueryAttribute("gr", &g.x);
+            elem->QueryAttribute("gg", &g.y);
+            elem->QueryAttribute("gb", &g.z);
+            elem->QueryAttribute("br", &b.x);
+            elem->QueryAttribute("bg", &b.y);
+            elem->QueryAttribute("bb", &b.z);
+            int i = devilsai::newColorizeShaderInstance(r, g, b);
+            shader = multimedia::shader("colorize", i);
+        }
+        if (elemName == "changeImagesHSL")
+        {
+            elem->QueryAttribute("hue", &hue);
+            elem->QueryAttribute("saturation", &saturation);
+            elem->QueryAttribute("luminance", &luminance);
+        }
 
         if (elemName == "shape")            size.loadFromXML(elem);
         if (elemName == "viewField")        viewField.loadFromXML(elem);
@@ -140,7 +165,7 @@ void Individu::loadFromXML(XMLHandle &handle)
                 s = devilsai::addResource<Skill>(Type + ":" + skillName);
 
                 XMLHandle hdl2(elem);
-                s->loadFromXML(hdl2);
+                s->loadFromXML(hdl2, shader, hue, saturation, luminance);
             }
 
             SkillProperties p(s);
