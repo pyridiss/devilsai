@@ -42,61 +42,6 @@
 
 RenderWindow App;
 
-
-void GestionArguments(int n, char *params[])
-{
-    //Default options
-    options::addOption<bool>(tools::hash("displayShapes"), false);
-    options::addOption<bool>(tools::hash("verbose"), false);
-    options::addOption<bool>(tools::hash("verbose-files"), false);
-    options::addOption<bool>(tools::hash("verbose-images"), false);
-    options::addOption<bool>(tools::hash("verbose-lists"), false);
-    options::addOption<bool>(tools::hash("verbose-lua"), false);
-    options::addOption<bool>(tools::hash("verbose-musics"), false);
-
-	for (int i = 0 ; i < n ; ++i)
-	{
-		if (strcmp(params[i], "-v") == 0 || strcmp(params[i], "--verbose") == 0)
-		{
-            options::addOption<bool>(tools::hash("verbose"), true);
-		}
-        if (strcmp(params[i], "fichiers") == 0 && options::option<bool>(tools::hash("verbose")))
-		{
-			cout << "Mode VERBOSE : FICHIERS activé" << endl;
-            options::addOption<bool>(tools::hash("verbose-files"), true);
-            tools::debug::addDebugCategory("files");
-		}
-        if (strcmp(params[i], "images") == 0 && options::option<bool>(tools::hash("verbose")))
-		{
-			cout << "Mode VERBOSE : IMAGES activé" << endl;
-            options::addOption<bool>(tools::hash("verbose-images"), true);
-            tools::debug::addDebugCategory("images");
-		}
-        if (strcmp(params[i], "listes") == 0 && options::option<bool>(tools::hash("verbose")))
-		{
-			cout << "Mode VERBOSE : LISTES CHAINEES activé" << endl;
-            options::addOption<bool>(tools::hash("verbose-lists"), true);
-            tools::debug::addDebugCategory("lists");
-		}
-        if (strcmp(params[i], "lua") == 0 && options::option<bool>(tools::hash("verbose")))
-		{
-			cout << "Mode VERBOSE : LUA activé" << endl;
-            options::addOption<bool>(tools::hash("verbose-lua"), false);
-            tools::debug::addDebugCategory("lua");
-		}
-        if (strcmp(params[i], "music") == 0 && options::option<bool>(tools::hash("verbose")))
-		{
-			cout << "Mode VERBOSE : MUSIC activé" << endl;
-            options::addOption<bool>(tools::hash("verbose-musics"), false);
-            tools::debug::addDebugCategory("musics");
-		}
-		if (strcmp(params[i], "-m") == 0)
-		{
-            options::addOption<bool>(tools::hash("displayShapes"), true);
-		}
-	}
-}
-
 void createWindow()
 {
     unsigned w = options::option<unsigned>(tools::hash("screen-width"));
@@ -139,8 +84,8 @@ int main(int n, char *params[])
 
     options::Load_Options();
     tools::timeManager::setSpeed(60.0/1000.0);
+    options::loadFromCommandLine(n, params);
 
-    GestionArguments(n, params);
 
     createWindow();
 

@@ -185,6 +185,64 @@ void Load_Options()
     }
 }
 
+void loadFromCommandLine(int n, char *params[])
+{
+    for (int i = 1 ; i < n ; ++i)
+    {
+        if (strcmp(params[i], "-v") == 0 && i+1 < n)
+        {
+            tools::debug::addDebugCategory("all");
+        }
+        else if (strncmp(params[i], "--verbose=", 10) == 0)
+        {
+            string s(params[i]);
+            string t(s.substr(10));
+            for (auto c = t.find_last_of(',') ; c != string::npos ; c = t.find_last_of(','))
+            {
+                tools::debug::addDebugCategory(t.substr(c+1));
+                t = t.substr(0, c);
+            }
+            tools::debug::addDebugCategory(t);
+        }
+        else
+        {
+            string s(params[i]);
+            if (auto x = s.find('=') ; x != string::npos)
+            {
+                string option = s.substr(0, x);
+                string value = s.substr(x+1);
+
+                const auto& op = _options.find(tools::hash(option.c_str()));
+                if (op != _options.end())
+                {
+                    if (op->second.is<bool>())
+                    {
+                        bool b = (value == "0") ? false : true;
+                        addOption<bool>(option, b);
+                    }
+                    else if (op->second.is<unsigned>())
+                    {
+                        unsigned u = textManager::toInt(value);
+                        addOption<unsigned>(option, u);
+                    }
+                    else if (op->second.is<string>())
+                    {
+                        addOption<string>(option, value);
+                    }
+                }
+                else
+                {
+                    tools::debug::warning("Unknown command line option: " + option, "devilsai", __FILENAME__, __LINE__);
+                }
+            }
+            else
+            {
+                tools::debug::warning("Ill-formed command line option: " + s, "devilsai", __FILENAME__, __LINE__);
+            }
+        }
+    }
+}
+
 void Save_Options()
 {
     XMLDocument file;
