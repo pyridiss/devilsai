@@ -127,7 +127,6 @@ void applyShaderOnScreen(sf::RenderWindow& app, const string& shaderName, unsign
 namespace imageManager{
 
 class Image;
-class Animation;
 
 void addContainer(unsigned int container);
 void addImage(unsigned int container, const string& key, const string& file, sf::Vector2i of = sf::Vector2i(0, 0), sf::Shader* sh = nullptr);
@@ -139,8 +138,6 @@ void display(sf::RenderTarget& target, unsigned int container, const string& key
 void displayStretched(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, bool atCenter = false, const sf::Shader* shader = nullptr);
 void displayRepeatedly(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, int xQuantity, int yQuantity, bool atCenter = false, const sf::Shader* shader = nullptr);
 void fillArea(sf::RenderTarget& target, unsigned int container, const string& key, double x, double y, double w, double h, int xOrigin, int yOrigin, const sf::Shader* shader = nullptr);
-void addAnimation(const string& name, const string& file);
-imageManager::Animation* getAnimation(const string& name);
 void lockGLMutex(int id);
 void unlockGLMutex(int id);
 

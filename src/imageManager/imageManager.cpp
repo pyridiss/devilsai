@@ -30,7 +30,6 @@
 #include "tools/filesystem.h"
 
 #include "imageManager/image.h"
-#include "imageManager/animation.h"
 #include "imageManager/HSL.h"
 
 
@@ -38,10 +37,8 @@ namespace imageManager{
 
 typedef unordered_map < string, imageManager::Image > Container;
 typedef unordered_map < unsigned int, Container > Database;
-typedef map < string, imageManager::Animation > AnimationDatabase;
 
 Database images;
-AnimationDatabase animations;
 string currentArchiveFile;
 
 std::atomic_flag Mutex_lock = ATOMIC_FLAG_INIT;
@@ -255,31 +252,6 @@ void fillArea(RenderTarget& target, unsigned int container, const string& key, d
     states.shader = shader;
 
     target.draw(area, states);
-}
-
-void addAnimation(const string& name, const string& file)
-{
-    AnimationDatabase::iterator a = animations.find(name);
-
-    if (a == animations.end())
-    {
-        imageManager::Animation ani;
-        const auto& result = animations.insert(AnimationDatabase::value_type(name, ani));
-        result.first->second.image.set(file, Vector2i(0, 0));
-    }
-}
-
-imageManager::Animation* getAnimation(const string& name)
-{
-    AnimationDatabase::iterator a = animations.find(name);
-
-    if (a == animations.end())
-    {
-        tools::debug::error("Animation not found: " + name, "images", __FILENAME__, __LINE__);
-        return nullptr;
-    }
-
-    return &(a->second);
 }
 
 void lockGLMutex(int id)
