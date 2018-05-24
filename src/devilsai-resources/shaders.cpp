@@ -238,12 +238,13 @@ class FadeShader : public multimedia::ShaderInstance
         }
 };
 
-class WarnShader : public multimedia::ShaderInstance
+class BlinkShader : public multimedia::ShaderInstance
 {
-    private:
+    protected:
         struct Data
         {
             double timer = 0;
+            Color color {};
         };
 
         Shader _shader {};
@@ -254,11 +255,18 @@ class WarnShader : public multimedia::ShaderInstance
         {
             _shader.loadFromMemory(CONTRAST_SHADER, Shader::Type::Fragment);
         }
-        ~WarnShader() = default;
-        unsigned int createNewInstance()
+        ~BlinkShader() = default;
+        virtual unsigned int createNewInstance()
         {
             _instances.push_back(Data());
             return _instances.size() - 1;
+        }
+        void setData(unsigned int instance, Color c)
+        {
+            if (instance >= _instances.size())
+                return;
+
+            _instances[instance].color = c;
         }
         sf::Shader* shader(unsigned int instance)
         {
@@ -267,7 +275,11 @@ class WarnShader : public multimedia::ShaderInstance
 
             _instances[instance].timer += tools::timeManager::I(0.2);
 
-            _shader.setUniform("luminosity", Glsl::Vec3(1.0 + 0.25 * sin(_instances[instance].timer), 0.75, 0.75));;
+            float r = 0.75f + 0.5f * _instances[instance].color.r / 255.f * (float)(sin(_instances[instance].timer) + 1);
+            float g = 0.75f + 0.5f * _instances[instance].color.g / 255.f * (float)(sin(_instances[instance].timer) + 1);
+            float b = 0.75f + 0.5f * _instances[instance].color.b / 255.f * (float)(sin(_instances[instance].timer) + 1);
+            _shader.setUniform("luminosity", Glsl::Vec3(r, g, b));
+
             return &_shader;
         }
         void applyOnScreen(unsigned int instance, sf::RenderWindow& app, int x, int y, int w, int h)
@@ -286,11 +298,31 @@ class WarnShader : public multimedia::ShaderInstance
         }
 };
 
+class WarnShader final : public BlinkShader
+{
+    public:
+        ~WarnShader() = default;
+        unsigned int createNewInstance()
+        {
+            _instances.push_back(Data());
+            setData(_instances.size() - 1, Color(255, 0, 0));
+            return _instances.size() - 1;
+        }
+};
+
+static BlinkShader Blink;
 static BlurShader Blur;
 static ColorizeShader Colorize;
 static ContrastShader Contrast;
 static FadeShader Fade;
 static WarnShader Warn;
+
+unsigned int newBlinkShaderInstance(Color c)
+{
+    unsigned int id = Blink.createNewInstance();
+    Blink.setData(id, c);
+    return id;
+}
 
 unsigned int newColorizeShaderInstance(Glsl::Vec3 v1, Glsl::Vec3 v2, Glsl::Vec3 v3)
 {
@@ -308,6 +340,9 @@ unsigned int newContrastShaderInstance(Glsl::Vec3 v)
 
 void initShaders()
 {
+    Blink.load();
+    multimedia::addShader("blink", &Blink);
+
     Blur.load();
     wearableItemShaderInstance = Blur.createNewInstance();
     multimedia::addShader("blur", &Blur);

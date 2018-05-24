@@ -22,6 +22,10 @@
 
 #include <SFML/Graphics/Shader.hpp>
 
+namespace sf{
+    class Color;
+}
+
 namespace devilsai{
 
 inline unsigned int storageBoxShaderInstance;
@@ -30,6 +34,7 @@ inline unsigned int wearableItemShaderInstance;
 
 void initShaders();
 
+unsigned int newBlinkShaderInstance(sf::Color c);
 unsigned int newColorizeShaderInstance(sf::Glsl::Vec3 v1, sf::Glsl::Vec3 v2, sf::Glsl::Vec3 v3);
 unsigned int newContrastShaderInstance(sf::Glsl::Vec3 v);
 
