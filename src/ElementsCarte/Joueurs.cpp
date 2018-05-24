@@ -28,10 +28,12 @@
 
 #include "tools/timeManager.h"
 #include "textManager/textManager.h"
+#include "textManager/richText.h"
 #include "imageManager/imageManager.h"
 
+#include "devilsai-resources/shaders.h"
+
 #include "devilsai-gui/console.h"
-#include "gamedata.h"
 
 
 using namespace tinyxml2;
@@ -41,12 +43,14 @@ using namespace tinyxml2;
 
 Joueur::Joueur()
   : Individu(),
+    _displayedAttributes(),
     _automoveEndpoint(),
     _hunted(nullptr),
     _fakeIndividual(),
     _skillForHunted(),
-     selectedIndividual(nullptr),
-    _displayedAttributes()
+    _wakingTime(0),
+    _tired(false),
+    selectedIndividual(nullptr)
 {
     _fakeIndividual.size.circle(tools::math::Vector2d(0, 0), 10);
 }
@@ -69,13 +73,13 @@ void Joueur::Repos()
 {
     setHealthStatus(Life, 1000);
     setHealthStatus(Energy, 1000);
-	DureeEveil = 0;
+    _wakingTime = 0;
 }
 
 void Joueur::Gestion_Statistiques()
 {
 	//3. Perte d'énergie selon durée depuis repos
-    if (DureeEveil > currentHealthStatus(Constitution)) modifyHealthStatus(Energy, -tools::timeManager::I(DureeEveil-currentHealthStatus(Constitution))/10000);
+    if (_wakingTime > currentHealthStatus(Constitution)) modifyHealthStatus(Energy, -tools::timeManager::I(_wakingTime-currentHealthStatus(Constitution))/10000);
 
 	//4. Gain & Perte d'énergie par activité
 	if (_currentSkill == skill(behavior(Behaviors::Random)))
@@ -84,9 +88,18 @@ void Joueur::Gestion_Statistiques()
         modifyHealthStatus(Energy, -tools::timeManager::I(0.05/currentHealthStatus(Constitution)));
 
 	//6. Durée d'éveil
-	DureeEveil += tools::timeManager::I(0.0005);
+    _wakingTime += tools::timeManager::I(0.0005);
 
 	//7. Fatigue extrême
+    if (currentHealthStatus(Energy) > 150)
+    {
+        _tired = false;
+    }
+    else if (!_tired)
+    {
+        addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
+        _tired = true;
+    }
 	if (currentHealthStatus(Energy) < 70 && currentHealthStatus(Energy) > 10)
 	{
         improveAttribute(Agility, -1, nullptr);
@@ -227,4 +240,72 @@ textManager::PlainText Joueur::characterDescription()
     d.addParameter(currentHealthStatus(HealingPower));
 
     return d;
+}
+
+void Joueur::displayHealthStatus(RenderTarget& target, int x, int y)
+{
+    // Health gauges - Life, Energy and Healing
+
+    Shader* lifeShader = (currentHealthStatus(Life) < 100)
+        ? multimedia::shader("blink", devilsai::warnLifeShaderInstance)
+        : multimedia::shader("contrast", devilsai::lifeGaugeShaderInstance);
+
+    imageManager::display(target, "gui"_hash, "healthgauge-life", x, y + 20, false, lifeShader);
+    imageManager::fillArea(target, "gui"_hash, "healthgauge-life", x, y + 20, ceil(currentHealthStatus(Life) / 6.67), 10, x, y + 20);
+
+    Shader* energyShader = (currentHealthStatus(Energy) < 100)
+        ? multimedia::shader("blink", devilsai::warnEnergyShaderInstance)
+        : multimedia::shader("contrast", devilsai::energyGaugeShaderInstance);
+
+    imageManager::display(target, "gui"_hash, "healthgauge-energy", x, y + 32, false, energyShader);
+    imageManager::fillArea(target, "gui"_hash, "healthgauge-energy", x, y + 32, ceil(currentHealthStatus(Energy) / 6.67), 10, x, y + 32);
+
+    imageManager::fillArea(target, "gui"_hash, "healthgauge-healing",
+        (int)(x + 75 - max(0.0, -currentHealthStatus(Healing)/1.33)), y + 46, (int)(abs(currentHealthStatus(Healing))/1.33), 10, x, y + 46);
+
+    // Text (name and state)
+
+    textManager::PlainText playerStateText;
+
+    playerStateText += "@s[14]@c[128,255,128]";
+    playerStateText += displayedName();
+    playerStateText += " @d@n[44]"; // Make place for the gauges.
+
+    int l = currentHealthStatus(Life) + currentHealthStatus(Healing) * 10;
+
+    if (currentHealthStatus(Life) == 0)
+        playerStateText += textManager::getText("devilsai", "player-health-dead");
+    else if (l >= 900)
+        playerStateText += textManager::getText("devilsai", "player-health-1");
+    else if (l >= 650)
+        playerStateText += textManager::getText("devilsai", "player-health-2");
+    else if (l >= 300)
+        playerStateText += textManager::getText("devilsai", "player-health-3");
+    else if (l >= 100)
+        playerStateText += textManager::getText("devilsai", "player-health-4");
+    else
+        playerStateText += textManager::getText("devilsai", "player-health-5");
+
+    if (_tired)
+    {
+        playerStateText += " @n";
+        playerStateText += textManager::getText("devilsai", "player-health-tired");
+    }
+
+    for (auto& i : inventory.objects)
+    {
+        if (i.active() && i.temporary())
+        {
+            playerStateText += " @n";
+            playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
+            playerStateText.addParameter(textManager::getText("objects", i.name()));
+        }
+    }
+
+    textManager::RichText playerState;
+    playerState.setSize(200, 0);
+    playerState.setDefaultProperties("liberation", 11, Color(255, 255, 255));
+    playerState.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
+    playerState.create(playerStateText);
+    playerState.displayFullText(target, x + 75, y);
 }

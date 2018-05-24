@@ -30,6 +30,10 @@ namespace devilsai{
 
 inline unsigned int storageBoxShaderInstance;
 inline unsigned int skillPanelShaderInstance;
+inline unsigned int lifeGaugeShaderInstance;
+inline unsigned int warnLifeShaderInstance;
+inline unsigned int energyGaugeShaderInstance;
+inline unsigned int warnEnergyShaderInstance;
 inline unsigned int wearableItemShaderInstance;
 
 void initShaders();

@@ -408,19 +408,18 @@ class Individu : public Element_Carte
 class Joueur : public Individu
 {
     private:
+        Stats _displayedAttributes;
         bool _automove = false;
         tools::math::Vector2d _automoveEndpoint;
         bool _hunting = false;
         Individu* _hunted;
         Individu _fakeIndividual;
         string _skillForHunted;
+        double _wakingTime;
+        bool _tired;
 
 	public:
-		float DureeEveil               = 0;
         Element_Carte* selectedIndividual;
-
-    private:
-        Stats _displayedAttributes;
 
 	public:
 		Joueur();
@@ -448,7 +447,7 @@ class Joueur : public Individu
         void loadFromXML(tinyxml2::XMLHandle &handle);
         void saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle);
 
-        void Disp_JaugesVie(RenderTarget& target);
+        void displayHealthStatus(RenderTarget& target, int x, int y);
 
         textManager::PlainText characterDescription();
 };

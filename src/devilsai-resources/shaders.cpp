@@ -341,6 +341,8 @@ unsigned int newContrastShaderInstance(Glsl::Vec3 v)
 void initShaders()
 {
     Blink.load();
+    warnLifeShaderInstance = newBlinkShaderInstance(Color(255, 0, 0));
+    warnEnergyShaderInstance = newBlinkShaderInstance(Color(0, 0, 255));
     multimedia::addShader("blink", &Blink);
 
     Blur.load();
@@ -353,6 +355,8 @@ void initShaders()
     Contrast.load();
     storageBoxShaderInstance = newContrastShaderInstance(Glsl::Vec3(1.8, 1.8, 1.8));
     skillPanelShaderInstance = newContrastShaderInstance(Glsl::Vec3(0.1, 0.1, 0.1));
+    lifeGaugeShaderInstance = newContrastShaderInstance(Glsl::Vec3(0.3, 0.3, 0.3));
+    energyGaugeShaderInstance = newContrastShaderInstance(Glsl::Vec3(0.3, 0.3, 0.3));
     multimedia::addShader("contrast", &Contrast);
 
     Fade.load();

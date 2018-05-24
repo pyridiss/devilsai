@@ -8,9 +8,6 @@ set(img
     10010000.png
     Art.png
     Baliste.img
-    BarreEnergie.png
-    BarreRecup.png
-    BarreVie.png
     BoutonCompetences.png
     BoutonEquipement.png
     BoutonJournal.png
@@ -39,6 +36,9 @@ set(img
     gui-dialog-background-488x308.png
     gui-dialog-background-608x383.png
     gui-dropdownlist-background-156x34.png
+    gui-healthgauge-energy.png
+    gui-healthgauge-healing.png
+    gui-healthgauge-life.png
     gui-input-field-background-356x46.png
     gui-left-screen-background-512x668.png
     gui-menu-button.png

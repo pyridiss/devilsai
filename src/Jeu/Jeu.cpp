@@ -484,7 +484,7 @@ void mainLoop(RenderWindow& app)
 
         if (!options::option<bool>(tools::hash("cinematic-mode")))
         {
-            gamedata::player()->Disp_JaugesVie(app);
+            gamedata::player()->displayHealthStatus(app, 30, 65);
         }
 
         displayConversation(app);

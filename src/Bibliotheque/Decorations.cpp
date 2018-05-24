@@ -24,7 +24,6 @@
 #include "tools/math.h"
 #include "tools/timeManager.h"
 #include "imageManager/imageManager.h"
-#include "imageManager/animation.h"
 #include "musicManager/musicManager.h"
 #include "textManager/richText.h"
 
@@ -40,14 +39,7 @@
 void Load_Decorations()
 {
     imageManager::addContainer(tools::hash("misc"));
-    imageManager::addContainer(tools::hash("gui"));
     imageManager::addImage(tools::hash("misc"), "Repos", "img/Repos.png");
-
-    imageManager::addAnimation("playerLifeGauge", "img/BarreVie.png");
-    imageManager::addAnimation("playerLifeGaugeBackground", "img/BarreVie.png");
-    imageManager::addAnimation("playerEnergyGauge", "img/BarreEnergie.png");
-    imageManager::addAnimation("playerEnergyGaugeBackground", "img/BarreEnergie.png");
-    imageManager::addAnimation("playerRecoveryGauge", "img/BarreRecup.png");
 
     textManager::loadFile("gui", "lng/gui.xml", options::option<string>(tools::hash("language")));
     textManager::loadFile("devilsai", "lng/devilsai.xml", options::option<string>(tools::hash("language")));
@@ -61,106 +53,6 @@ void Load_Decorations()
     musicManager::addMusic("Gates_Of_Heaven");
 }
 
-
-/** CONSOLES DU PERSONNAGE **/
-
-void Joueur::Disp_JaugesVie(RenderTarget& target)
-{
-    static int PersoEnePrec = currentHealthStatus(Energy);
-
-    static imageManager::Animation* playerLifeGauge = imageManager::getAnimation("playerLifeGauge");
-    static imageManager::Animation* playerLifeGaugeBackground = imageManager::getAnimation("playerLifeGaugeBackground");
-    static imageManager::Animation* playerEnergyGauge = imageManager::getAnimation("playerEnergyGauge");
-    static imageManager::Animation* playerEnergyGaugeBackground = imageManager::getAnimation("playerEnergyGaugeBackground");
-    static imageManager::Animation* playerRecoveryGauge = imageManager::getAnimation("playerRecoveryGauge");
-
-    textManager::PlainText playerStateText;
-
-    playerStateText += "@c[128,255,128]";
-    playerStateText += displayedName();
-    playerStateText += " @d@n[30]"; //Make place for the gauges.
-
-	//1. Jauges de vitalité, d'énergie, de récupération
-
-    playerLifeGauge->setSmoothRectangle(0, 0, currentHealthStatus(Life) / 10, 7);
-    playerEnergyGauge->setSmoothRectangle(0, 0, currentHealthStatus(Energy) / 10, 7);
-
-    if (currentHealthStatus(Life) < 50) playerLifeGaugeBackground->setFlickering(0.5);
-    else if (currentHealthStatus(Life) < 100) playerLifeGaugeBackground->setFlickering(0.25);
-    else
-    {
-        playerLifeGaugeBackground->setFlickering(0);
-        playerLifeGaugeBackground->setColor(Color(0, 0, 0, 255));
-    }
-
-    if (currentHealthStatus(Energy) < 50) playerEnergyGaugeBackground->setFlickering(0.5);
-    else if (currentHealthStatus(Energy) < 100) playerEnergyGaugeBackground->setFlickering(0.25);
-    else
-    {
-        playerEnergyGaugeBackground->setFlickering(0);
-        playerEnergyGaugeBackground->setColor(Color(0, 0, 0, 255));
-    }
-
-    playerLifeGaugeBackground->display(target, 42, 70, false);
-    playerLifeGauge->display(target, 42, 70, false);
-    playerEnergyGaugeBackground->display(target, 42, 79, false);
-    playerEnergyGauge->display(target, 42, 79, false);
-
-    int Recup = currentHealthStatus(Healing);
-
-	if (Recup > 0)
-	{
-        playerRecoveryGauge->setRectangle(51, 0, (Recup-(Recup/98)*Recup%98)/2, 7);
-        playerRecoveryGauge->display(target, 93, 88, false);
-	}
-	if (Recup < 0)
-	{
-        playerRecoveryGauge->setRectangle(51+Recup/2, 0, - Recup/2, 7);
-        playerRecoveryGauge->display(target, 92+Recup/2, 88, false);
-	}
-
-	//2. État général, fatigue si nécessaire, effet d'une potion
-    int l = currentHealthStatus(Life) + Recup * 10;
-
-    if (currentHealthStatus(Life) == 0)
-        playerStateText += textManager::getText("devilsai", "player-health-dead");
-    else if (l >= 900)
-        playerStateText += textManager::getText("devilsai", "player-health-1");
-    else if (l >= 650)
-        playerStateText += textManager::getText("devilsai", "player-health-2");
-    else if (l >= 300)
-        playerStateText += textManager::getText("devilsai", "player-health-3");
-    else if (l >= 100)
-        playerStateText += textManager::getText("devilsai", "player-health-4");
-    else
-        playerStateText += textManager::getText("devilsai", "player-health-5");
-
-    if (currentHealthStatus(Energy) < 140)
-	{
-        if (PersoEnePrec >= 140) addConsoleEntry(textManager::getText("devilsai", "FATIGUE"));
-        playerStateText += " @n";
-        playerStateText += textManager::getText("devilsai", "player-health-tired");
-	}
-    PersoEnePrec = currentHealthStatus(Energy);
-
-	//Effets dûs aux objets temporaires
-    for (auto& i : inventory.objects)
-    {
-        if (i.active() && i.temporary())
-        {
-            playerStateText += " @n";
-            playerStateText += textManager::getText("devilsai", "SOUS_EFFET");
-            playerStateText.addParameter(textManager::getText("objects", i.name()));
-        }
-    }
-
-    textManager::RichText playerState;
-    playerState.setSize(160, 0);
-    playerState.setDefaultProperties("liberation", 11, Color(255, 255, 255));
-    playerState.addFlags(textManager::HAlignCenter | textManager::OriginXCenter);
-    playerState.create(playerStateText);
-    playerState.displayFullText(target, 92, 55);
-}
 
 /** SITUATIONS PARTICULIÈRES **/
 

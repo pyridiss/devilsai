@@ -183,6 +183,10 @@ int main(int n, char *params[])
     imageManager::addContainer(tools::hash("skills"));
     imageManager::addContainer(tools::hash("objects"));
     imageManager::addContainer(tools::hash("objectsIcons"));
+    imageManager::addContainer("gui"_hash);
+    imageManager::addImage("gui"_hash, "healthgauge-life", "img/gui-healthgauge-life.png");
+    imageManager::addImage("gui"_hash, "healthgauge-energy", "img/gui-healthgauge-energy.png");
+    imageManager::addImage("gui"_hash, "healthgauge-healing", "img/gui-healthgauge-healing.png");
 
     mainLoop(App);
     Clean_Partie();
