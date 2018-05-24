@@ -17,7 +17,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SFML/Graphics/Color.hpp>
 #include <tinyxml2.h>
 
 #include "tools/debug.h"
@@ -25,7 +24,6 @@
 #include "imageManager/imageManager.h"
 
 #include "devilsai-resources/manager.h"
-#include "Jeu/options.h"
 
 #include "ElementsCarte.h"
 
@@ -82,9 +80,6 @@ void Paysage::saveToXML(tinyxml2::XMLDocument& doc, tinyxml2::XMLHandle& handle)
 
 void Paysage::Disp(RenderTarget& target)
 {
-    if (options::option<bool>(tools::hash("displayShapes")))
-        size.display(target, Color(255, 255, 255, 50));
-
     if (extent.x == 1 && extent.y == 1)
         imageManager::display(target, tools::hash("paysage"), Type, position().x, position().y, true);
     else

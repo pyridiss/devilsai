@@ -19,15 +19,12 @@
 
 #include <tinyxml2.h>
 
-#include <SFML/Graphics/Color.hpp>
-
 #include "tools/timeManager.h"
 #include "tools/math.h"
 #include "textManager/textManager.h"
 #include "imageManager/imageManager.h"
 
 #include "devilsai-resources/shaders.h"
-#include "Jeu/options.h"
 
 #include "ElementsCarte.h"
 
@@ -142,9 +139,6 @@ void Coffre::saveToXML(XMLDocument& doc, XMLHandle& handle)
 
 void Coffre::Disp(RenderTarget& target)
 {
-    if (options::option<bool>(tools::hash("displayShapes")))
-        size.display(target, Color(0, 0, 255, 50));
-
     if (!imageContainer.empty() && !Type.empty())
     {
         Shader* shader = (_highlight) ? multimedia::shader("contrast", devilsai::storageBoxShaderInstance) : nullptr;

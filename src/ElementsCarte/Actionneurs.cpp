@@ -20,13 +20,10 @@
 #include <tinyxml2.h>
 #include <lua.hpp>
 
-#include <SFML/Graphics.hpp>
-
 #include "tools/filesystem.h"
 #include "tools/math.h"
 
 #include "gamedata.h"
-#include "Jeu/options.h"
 
 #include "ElementsCarte.h"
 
@@ -52,10 +49,8 @@ void CheckPoint::saveToXML([[maybe_unused]] XMLDocument& doc, [[maybe_unused]] X
 {
 }
 
-void CheckPoint::Disp(RenderTarget& target)
+void CheckPoint::Disp([[maybe_unused]] RenderTarget& target)
 {
-    if (options::option<bool>(tools::hash("displayShapes")))
-        size.display(target, Color(255, 0, 0, 50));
 }
 
 
@@ -151,9 +146,6 @@ void Trigger::saveToXML(XMLDocument& doc, XMLHandle& handle)
     root->InsertEndChild(trigger);
 }
 
-void Trigger::Disp(RenderTarget& target)
+void Trigger::Disp([[maybe_unused]] RenderTarget& target)
 {
-    if (options::option<bool>(tools::hash("displayShapes")))
-        size.display(target, Color(0, 255, 0, 50));
-    return;
 }

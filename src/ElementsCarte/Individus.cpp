@@ -33,7 +33,6 @@
 
 #include "devilsai-gui/console.h"
 
-#include "Jeu/options.h"
 #include "gamedata.h"
 
 
@@ -780,13 +779,6 @@ void Individu::improveAttribute(Attribute a, int chance, Individu* enemy)
 
 void Individu::Disp(RenderTarget& target)
 {
-    if (options::option<bool>(tools::hash("displayShapes")))
-    {
-        viewField.display(target, Color(255, 255, 0, 20));
-        interactionField.display(target, Color(255, 0, 0, 30));
-        size.display(target, Color(255, 255, 255, 50));
-    }
-
     if (_currentSkill.none()) return;
 
     imageManager::display(target, tools::hash("individuals"), _currentSkill->getImageKey(angle, _animationFrame), position().x, position().y, true);
