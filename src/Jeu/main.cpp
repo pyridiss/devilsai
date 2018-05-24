@@ -82,10 +82,11 @@ int main(int n, char *params[])
 
 	PHYSFS_init(params[0]);
 
-    options::Load_Options();
-    tools::timeManager::setSpeed(60.0/1000.0);
+    options::loadFromFile(tools::filesystem::dataDirectory() + "options.xml");
+    options::loadFromFile(tools::filesystem::getSaveDirectoryPath() + "options.xml");
     options::loadFromCommandLine(n, params);
 
+    tools::timeManager::setSpeed(60.0/1000.0);
 
     createWindow();
 

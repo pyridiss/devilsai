@@ -120,18 +120,15 @@ template bool option<bool>(unsigned int hash);
 template string option<string>(unsigned int hash);
 
 
-void Load_Options()
+void loadFromFile(const string& file)
 {
-    string path = tools::filesystem::getSaveDirectoryPath() + "options.xml";
+    if (!tools::filesystem::checkFile(file))
+        return;
 
-    ifstream Fichier(path);
-    if (!Fichier.good())
-        path = tools::filesystem::dataDirectory() + "defaut.opt";
+    XMLDocument doc;
+    doc.LoadFile(file.c_str());
 
-    XMLDocument file;
-    file.LoadFile(path.c_str());
-
-    XMLHandle hdl(file);
+    XMLHandle hdl(doc);
     XMLElement *elem = hdl.FirstChildElement().FirstChildElement().ToElement();
 
     while (elem)

@@ -21,8 +21,8 @@ set(data
     LiberationSans-Regular.ttf
     LiberationSans-Bold.ttf
     DayRoman.ttf
-    defaut.opt
     devilsai.png
+    options.xml
 )
 
 install(FILES ${data} DESTINATION ${dataDestination})

@@ -40,7 +40,7 @@ T option(unsigned int hash);
 template<typename T>
 T option(string_view name);
 
-void Load_Options();
+void loadFromFile(const string& file);
 void loadFromCommandLine(int n, char *params[]);
 void Save_Options();
 void changeOption(const string& name, const string& value);
